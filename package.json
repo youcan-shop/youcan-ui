@@ -1,0 +1,20 @@
+{
+  "name": "youcan-ui",
+  "version": "1.0.0",
+  "description": "YouCan UI Library",
+  "main": "src/index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "nextmediama",
+  "license": "ISC",
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^3.0.3",
+    "vite": "^3.0.9",
+    "vue": "^3.2.38"
+  },
+  "dependencies": {
+    "vue-demi": "^0.13.11"
+  }
+}
