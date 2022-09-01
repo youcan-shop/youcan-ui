@@ -1,6 +1,6 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
-import Test from '~/test.vue';
+import Test from '~/Primitives/Test/test.vue';
 export default defineComponent({
   name: 'App',
   components: {
