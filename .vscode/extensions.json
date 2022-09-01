@@ -1,0 +1,14 @@
+{
+  "recommendations": [
+    "antfu.goto-alias",
+    "csstools.postcss",
+    "dbaeumer.vscode-eslint",
+    "vue.volar",
+    "usernamehw.errorlens",
+    "streetsidesoftware.code-spell-checker",
+    "antfu.browse-lite",
+    "antfu.vite",
+    "antfu.where-am-i",
+    "lokalise.i18n-ally"
+  ]
+}
