@@ -28,6 +28,7 @@
     ],
     "paths": {
       "~/*": ["src/*"],
+      "dev/*": ["src/dev/*"],
       "StitchesConfig": ["stitches.config.ts"]
     }
   },
@@ -35,7 +36,8 @@
     "src/**/*.ts",
     "src/**/*.d.ts",
     "src/**/*.tsx",
-    "src/**/*.vue"
+    "src/**/*.vue",
+    "env.d.ts"
   ],
   "exclude": [
     "node_modules",

@@ -1,4 +1,4 @@
-import path from 'path';
+import { resolve } from 'node:path';
 import { defineConfig } from 'vite';
 import Vue from '@vitejs/plugin-vue';
 
@@ -10,7 +10,7 @@ export default defineConfig(({ mode }) => {
   if (isProd) {
     build = {
       lib: {
-        entry: path.resolve(__dirname, 'src/index.ts'),
+        entry: resolve(__dirname, 'src/index.ts'),
         name: 'youcan-ui',
         fileName: 'index',
         formats: ['es', 'cjs', 'umd'],
@@ -49,9 +49,9 @@ export default defineConfig(({ mode }) => {
 
     resolve: {
       alias: {
-        '~/': `${path.resolve(__dirname, 'src')}/`,
-        '$/': `${path.resolve(__dirname, 'dev')}/`,
-        'StitchesConfig': `${path.resolve(__dirname, 'stitches.config.ts')}`,
+        '~/': `${resolve(__dirname, 'src')}/`,
+        'dev/': `${resolve(__dirname, 'src/dev')}/`,
+        'StitchesConfig': `${resolve(__dirname, 'stitches.config.ts')}`,
       },
     },
   };
