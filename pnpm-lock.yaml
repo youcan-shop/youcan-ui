@@ -17,7 +17,7 @@ specifiers:
 
 dependencies:
   vue-demi: 0.13.11_vue@3.2.38
-  youcan-ui: github.com/NextmediaMa/youcan-ui/5366d9aa95db2322f0decd0d798ddb425eb40764_vue@3.2.38
+  youcan-ui: github.com/NextmediaMa/youcan-ui/452656b531fea817e6a95e1d36cec687bb0882a2_vue@3.2.38
 
 devDependencies:
   '@sidi3li/eslint-config': 1.0.10_yqf6kl63nyoq5megxukfnom5rm
@@ -2798,9 +2798,9 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  github.com/NextmediaMa/youcan-ui/5366d9aa95db2322f0decd0d798ddb425eb40764_vue@3.2.38:
-    resolution: {commit: 5366d9aa95db2322f0decd0d798ddb425eb40764, repo: git+ssh://git@github.com/NextmediaMa/youcan-ui.git, type: git}
-    id: github.com/NextmediaMa/youcan-ui/5366d9aa95db2322f0decd0d798ddb425eb40764
+  github.com/NextmediaMa/youcan-ui/452656b531fea817e6a95e1d36cec687bb0882a2_vue@3.2.38:
+    resolution: {commit: 452656b531fea817e6a95e1d36cec687bb0882a2, repo: git+ssh://git@github.com/NextmediaMa/youcan-ui.git, type: git}
+    id: github.com/NextmediaMa/youcan-ui/452656b531fea817e6a95e1d36cec687bb0882a2
     name: youcan-ui
     version: 1.0.0
     peerDependencies:
