@@ -5,6 +5,7 @@ specifiers:
   '@stitches/core': ^1.2.8
   '@types/node': ^18.7.14
   '@vitejs/plugin-vue': ^3.0.3
+  '@vue/composition-api': ^1.7.0
   eslint: ^8.17.0
   rimraf: ^3.0.2
   typescript: ^4.7.3
@@ -13,15 +14,17 @@ specifiers:
   vue: ^3.2.38
   vue-demi: ^0.13.11
   vue-tsc: ^0.37.7
+  youcan-ui: git+ssh://git@github.com:NextmediaMa/youcan-ui.git
 
 dependencies:
-  vue-demi: 0.13.11_vue@3.2.38
+  vue-demi: 0.13.11_lxpo3fjl2fwd6rfsoimb72y3r4
 
 devDependencies:
   '@sidi3li/eslint-config': 1.0.10_yqf6kl63nyoq5megxukfnom5rm
   '@stitches/core': 1.2.8
   '@types/node': 18.7.14
   '@vitejs/plugin-vue': 3.0.3_vite@3.0.9+vue@3.2.38
+  '@vue/composition-api': 1.7.0_vue@3.2.38
   eslint: 8.23.0
   rimraf: 3.0.2
   typescript: 4.8.2
@@ -29,6 +32,7 @@ devDependencies:
   vite-plugin-inspect: 0.5.1_vite@3.0.9
   vue: 3.2.38
   vue-tsc: 0.37.9_typescript@4.8.2
+  youcan-ui: github.com/NextmediaMa/youcan-ui/9160a81898d058f5fa7a6c8f6206ef876edefade_lxpo3fjl2fwd6rfsoimb72y3r4
 
 packages:
 
@@ -487,6 +491,13 @@ packages:
       '@vue/compiler-dom': 3.2.38
       '@vue/shared': 3.2.38
 
+  /@vue/composition-api/1.7.0_vue@3.2.38:
+    resolution: {integrity: sha512-hxOgLYR+wjuPX9bkP2pAPlqUs98XxBoa9DSLyp1z6+YR92wC42PZcZKs4d+VRtcv4udOv041Kss+F6ap5nj8YA==}
+    peerDependencies:
+      vue: '>= 2.5 < 2.7'
+    dependencies:
+      vue: 3.2.38
+
   /@vue/reactivity-transform/3.2.38:
     resolution: {integrity: sha512-3SD3Jmi1yXrDwiNJqQ6fs1x61WsDLqVk4NyKVz78mkaIRh6d3IqtRnptgRfXn+Fzf+m6B1KxBYWq1APj6h4qeA==}
     dependencies:
@@ -578,7 +589,7 @@ packages:
     dependencies:
       call-bind: 1.0.2
       define-properties: 1.1.4
-      es-abstract: 1.20.1
+      es-abstract: 1.20.2
       get-intrinsic: 1.1.2
       is-string: 1.0.7
     dev: true
@@ -594,7 +605,7 @@ packages:
     dependencies:
       call-bind: 1.0.2
       define-properties: 1.1.4
-      es-abstract: 1.20.1
+      es-abstract: 1.20.2
       es-shim-unscopables: 1.0.0
     dev: true
 
@@ -604,7 +615,7 @@ packages:
     dependencies:
       call-bind: 1.0.2
       define-properties: 1.1.4
-      es-abstract: 1.20.1
+      es-abstract: 1.20.2
       es-shim-unscopables: 1.0.0
     dev: true
 
@@ -845,8 +856,8 @@ packages:
       is-arrayish: 0.2.1
     dev: true
 
-  /es-abstract/1.20.1:
-    resolution: {integrity: sha512-WEm2oBhfoI2sImeM4OF2zE2V3BYdSF+KnSi9Sidz51fQHd7+JuF8Xgcj9/0o+OWeIeIS/MiuNnlruQrJf16GQA==}
+  /es-abstract/1.20.2:
+    resolution: {integrity: sha512-XxXQuVNrySBNlEkTYJoDNFe5+s2yIOpzq80sUHEdPdQr0S5nTLz4ZPPPswNIpKseDDUS5yghX1gfLIHQZ1iNuQ==}
     engines: {node: '>= 0.4'}
     dependencies:
       call-bind: 1.0.2
@@ -1574,7 +1585,7 @@ packages:
     dependencies:
       call-bind: 1.0.2
       define-properties: 1.1.4
-      es-abstract: 1.20.1
+      es-abstract: 1.20.2
       functions-have-names: 1.2.3
     dev: true
 
@@ -2103,7 +2114,7 @@ packages:
     dependencies:
       call-bind: 1.0.2
       define-properties: 1.1.4
-      es-abstract: 1.20.1
+      es-abstract: 1.20.2
     dev: true
 
   /object.fromentries/2.0.5:
@@ -2112,14 +2123,14 @@ packages:
     dependencies:
       call-bind: 1.0.2
       define-properties: 1.1.4
-      es-abstract: 1.20.1
+      es-abstract: 1.20.2
     dev: true
 
   /object.hasown/1.1.1:
     resolution: {integrity: sha512-LYLe4tivNQzq4JdaWW6WO3HMZZJWzkkH8fnI6EebWl0VZth2wL2Lovm74ep2/gZzlaTdV62JZHEqHQ2yVn8Q/A==}
     dependencies:
       define-properties: 1.1.4
-      es-abstract: 1.20.1
+      es-abstract: 1.20.2
     dev: true
 
   /object.values/1.1.5:
@@ -2128,7 +2139,7 @@ packages:
     dependencies:
       call-bind: 1.0.2
       define-properties: 1.1.4
-      es-abstract: 1.20.1
+      es-abstract: 1.20.2
     dev: true
 
   /once/1.4.0:
@@ -2472,7 +2483,7 @@ packages:
     dependencies:
       call-bind: 1.0.2
       define-properties: 1.1.4
-      es-abstract: 1.20.1
+      es-abstract: 1.20.2
       get-intrinsic: 1.1.2
       has-symbols: 1.0.3
       internal-slot: 1.0.3
@@ -2485,7 +2496,7 @@ packages:
     dependencies:
       call-bind: 1.0.2
       define-properties: 1.1.4
-      es-abstract: 1.20.1
+      es-abstract: 1.20.2
     dev: true
 
   /string.prototype.trimstart/1.0.5:
@@ -2493,7 +2504,7 @@ packages:
     dependencies:
       call-bind: 1.0.2
       define-properties: 1.1.4
-      es-abstract: 1.20.1
+      es-abstract: 1.20.2
     dev: true
 
   /strip-ansi/6.0.1:
@@ -2689,7 +2700,7 @@ packages:
       fsevents: 2.3.2
     dev: true
 
-  /vue-demi/0.13.11_vue@3.2.38:
+  /vue-demi/0.13.11_lxpo3fjl2fwd6rfsoimb72y3r4:
     resolution: {integrity: sha512-IR8HoEEGM65YY3ZJYAjMlKygDQn25D5ajNFNoKh9RSDMQtlzCxtfQjdQgv9jjK+m3377SsJXY8ysq8kLCZL25A==}
     engines: {node: '>=12'}
     hasBin: true
@@ -2701,8 +2712,8 @@ packages:
       '@vue/composition-api':
         optional: true
     dependencies:
+      '@vue/composition-api': 1.7.0_vue@3.2.38
       vue: 3.2.38
-    dev: false
 
   /vue-eslint-parser/9.0.3_eslint@8.23.0:
     resolution: {integrity: sha512-yL+ZDb+9T0ELG4VIFo/2anAOz8SvBdlqEnQnvJ3M7Scq56DvtjY0VY88bByRZB0D4J0u8olBcfrXTVONXsh4og==}
@@ -2794,4 +2805,21 @@ packages:
   /yocto-queue/0.1.0:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
+    dev: true
+
+  github.com/NextmediaMa/youcan-ui/9160a81898d058f5fa7a6c8f6206ef876edefade_lxpo3fjl2fwd6rfsoimb72y3r4:
+    resolution: {commit: 9160a81898d058f5fa7a6c8f6206ef876edefade, repo: git+ssh://git@github.com/NextmediaMa/youcan-ui.git, type: git}
+    id: github.com/NextmediaMa/youcan-ui/9160a81898d058f5fa7a6c8f6206ef876edefade
+    name: youcan-ui
+    version: 1.0.0
+    peerDependencies:
+      '@vue/composition-api': ^1.4.9
+      vue: ^2.0.0 || >=3.0.0
+    peerDependenciesMeta:
+      '@vue/composition-api':
+        optional: true
+    dependencies:
+      '@vue/composition-api': 1.7.0_vue@3.2.38
+      vue: 3.2.38
+      vue-demi: 0.13.11_lxpo3fjl2fwd6rfsoimb72y3r4
     dev: true

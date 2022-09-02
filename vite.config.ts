@@ -46,7 +46,6 @@ export default defineConfig(({ mode }) => {
     ],
     optimizeDeps,
     build,
-
     resolve: {
       alias: {
         '~/': `${resolve(__dirname, 'src')}/`,

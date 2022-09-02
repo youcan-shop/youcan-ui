@@ -1,4 +1,8 @@
 import { createApp } from 'vue';
 import App from 'dev/App.vue';
 
-createApp(App).mount('#app');
+const application = createApp(App);
+
+application.use(YC_UI, {});
+
+application.mount('#app');
