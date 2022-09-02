@@ -12,7 +12,7 @@ export default defineConfig(({ mode }) => {
       lib: {
         entry: resolve(__dirname, 'src/index.ts'),
         name: 'youcan-ui',
-        fileName: format => `index.${format}.js`,
+        fileName: (format: string) => `index.${format}.js`,
       },
       rollupOptions: {
         external: [
@@ -40,7 +40,6 @@ export default defineConfig(({ mode }) => {
     plugins: [
       Vue({
         include: [/\.vue$/],
-        reactivityTransform: true,
       }),
     ],
     optimizeDeps,

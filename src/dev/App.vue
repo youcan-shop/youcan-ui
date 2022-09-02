@@ -1,6 +1,7 @@
 <script lang="ts">
-import { defineComponent } from 'vue';
-import { TestThing } from 'youcan-ui'
+import { defineComponent } from 'vue-demi';
+import { TestThing } from 'youcan-ui';
+
 export default defineComponent({
   name: 'App',
   components: {

@@ -1,1 +1,2 @@
-export { default as TestThing } from "~/Primitives/Test/test.vue";
+export { default as Test } from '~/Primitives/Test/test.vue';
+
