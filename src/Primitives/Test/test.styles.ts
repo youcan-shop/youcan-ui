@@ -1,6 +1,6 @@
-import { css } from 'StitchesConfig';
+import StitchesConfig from 'StitchesConfig';
 
-const { className } = css({
+const { className } = StitchesConfig.css({
   'backgroundColor': '$gray400',
   'borderRadius': '9999px',
   'fontSize': '13px',

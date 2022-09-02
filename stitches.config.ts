@@ -1,14 +1,6 @@
 import { createStitches } from '@stitches/core';
 
-export const {
-  css,
-  globalCss,
-  keyframes,
-  getCssText,
-  theme,
-  createTheme,
-  config,
-} = createStitches({
+const Stitches = createStitches({
   theme: {
     colors: {
       gray400: 'red',
@@ -22,3 +14,5 @@ export const {
     marginX: (value: Number) => ({ marginLeft: value, marginRight: value }),
   },
 });
+
+export default Stitches;

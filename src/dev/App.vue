@@ -1,5 +1,10 @@
 <script setup lang="ts">
-import { Test } from 'youcan-ui';
+import YouCanUI from '~/index';
+
+const UI = new YouCanUI();
+
+const Test = UI.Test;
+console.log(Test);
 </script>
 
 <template>
