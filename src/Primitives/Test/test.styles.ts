@@ -1,6 +1,6 @@
-import { css } from '__/stitches.config';
+import { css } from 'StitchesConfig';
 
-export default css({
+const { className } = css({
   'backgroundColor': '$gray400',
   'borderRadius': '9999px',
   'fontSize': '13px',
@@ -17,4 +17,6 @@ export default css({
     transform: 'translateY(-2px)',
     boxShadow: '0 10px 25px rgba(0, 0, 0, .3)',
   },
-});
+})();
+
+export default className;
