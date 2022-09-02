@@ -1,3 +1,3 @@
-import Test from '~/test.vue';
+import Test from '~/Primitives/Test/test.vue';
 export default Test;
-export * from '~/test.vue';
+export * from '~/Primitives/Test/test.vue';

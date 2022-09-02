@@ -2,6 +2,7 @@ lockfileVersion: 5.4
 
 specifiers:
   '@sidi3li/eslint-config': ^1.0.10
+  '@stitches/core': ^1.2.8
   '@types/node': ^18.7.14
   '@vitejs/plugin-vue': ^3.0.3
   eslint: ^8.17.0
@@ -18,6 +19,7 @@ dependencies:
 
 devDependencies:
   '@sidi3li/eslint-config': 1.0.10_yqf6kl63nyoq5megxukfnom5rm
+  '@stitches/core': 1.2.8
   '@types/node': 18.7.14
   '@vitejs/plugin-vue': 3.0.3_vite@3.0.9+vue@3.2.38
   eslint: 8.23.0
@@ -251,6 +253,10 @@ packages:
       - eslint-import-resolver-webpack
       - supports-color
       - typescript
+    dev: true
+
+  /@stitches/core/1.2.8:
+    resolution: {integrity: sha512-Gfkvwk9o9kE9r9XNBmJRfV8zONvXThnm1tcuojL04Uy5uRyqg93DC83lDebl0rocZCfKSjUv+fWYtMQmEDJldg==}
     dev: true
 
   /@types/json-schema/7.0.11:

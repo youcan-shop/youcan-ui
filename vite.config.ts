@@ -51,6 +51,7 @@ export default defineConfig(({ mode }) => {
       alias: {
         '~/': `${path.resolve(__dirname, 'src')}/`,
         '$/': `${path.resolve(__dirname, 'dev')}/`,
+        'StitchesConfig': `${path.resolve(__dirname, 'stitches.config.ts')}`,
       },
     },
   };

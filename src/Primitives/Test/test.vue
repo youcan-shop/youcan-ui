@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import testStyles from './test.styles';
+
 defineProps<{
   name: String
 }>();
@@ -6,6 +8,6 @@ defineProps<{
 
 <template>
   <div>
-    <span>Hello: {{ name }}</span>
+    <span :class="testStyles">Hello: {{ name }}</span>
   </div>
 </template>
