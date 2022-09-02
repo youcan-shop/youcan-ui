@@ -12,8 +12,7 @@ export default defineConfig(({ mode }) => {
       lib: {
         entry: resolve(__dirname, 'src/index.ts'),
         name: 'youcan-ui',
-        fileName: 'index',
-        formats: ['es', 'cjs', 'umd'],
+        fileName: (format: string) => `index.${format}.js`,
       },
       rollupOptions: {
         external: [
@@ -46,7 +45,6 @@ export default defineConfig(({ mode }) => {
     ],
     optimizeDeps,
     build,
-
     resolve: {
       alias: {
         '~/': `${resolve(__dirname, 'src')}/`,

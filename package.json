@@ -11,11 +11,8 @@
       "import": "./dist/index.es.js"
     }
   },
-  "main": "./dist/index.cjs.js",
-  "module": "./dist/index.esm.js",
-  "unpkg": "./dist/index.umd.js",
-  "jsdelivr": "./dist/index.umd.js",
-  "types": "./dist/types/index.d.ts",
+  "main": "./dist/index.umd.js",
+  "module": "./dist/index.es.js",
   "files": [
     "dist"
   ],
@@ -37,7 +34,8 @@
     }
   },
   "dependencies": {
-    "vue-demi": "^0.13.11"
+    "vue-demi": "^0.13.11",
+    "youcan-ui": "github:NextmediaMa/youcan-ui"
   },
   "devDependencies": {
     "@sidi3li/eslint-config": "^1.0.10",
@@ -50,6 +48,7 @@
     "vite": "^3.0.9",
     "vite-plugin-inspect": "^0.5.0",
     "vue": "^3.2.38",
-    "vue-tsc": "^0.37.7"
+    "vue-tsc": "^0.37.7",
+    "youcan-ui": "git+ssh://git@github.com:NextmediaMa/youcan-ui.git#main"
   }
 }

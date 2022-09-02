@@ -1,12 +1,5 @@
-<script lang="ts">
-import { defineComponent } from 'vue';
-import Test from '~/Primitives/Test/test.vue';
-export default defineComponent({
-  name: 'App',
-  components: {
-    Test,
-  },
-});
+<script setup lang="ts">
+import { Test } from 'youcan-ui';
 </script>
 
 <template>

@@ -13,9 +13,11 @@ specifiers:
   vue: ^3.2.38
   vue-demi: ^0.13.11
   vue-tsc: ^0.37.7
+  youcan-ui: github:NextmediaMa/youcan-ui
 
 dependencies:
   vue-demi: 0.13.11_vue@3.2.38
+  youcan-ui: github.com/NextmediaMa/youcan-ui/5366d9aa95db2322f0decd0d798ddb425eb40764_vue@3.2.38
 
 devDependencies:
   '@sidi3li/eslint-config': 1.0.10_yqf6kl63nyoq5megxukfnom5rm
@@ -578,7 +580,7 @@ packages:
     dependencies:
       call-bind: 1.0.2
       define-properties: 1.1.4
-      es-abstract: 1.20.1
+      es-abstract: 1.20.2
       get-intrinsic: 1.1.2
       is-string: 1.0.7
     dev: true
@@ -594,7 +596,7 @@ packages:
     dependencies:
       call-bind: 1.0.2
       define-properties: 1.1.4
-      es-abstract: 1.20.1
+      es-abstract: 1.20.2
       es-shim-unscopables: 1.0.0
     dev: true
 
@@ -604,7 +606,7 @@ packages:
     dependencies:
       call-bind: 1.0.2
       define-properties: 1.1.4
-      es-abstract: 1.20.1
+      es-abstract: 1.20.2
       es-shim-unscopables: 1.0.0
     dev: true
 
@@ -845,8 +847,8 @@ packages:
       is-arrayish: 0.2.1
     dev: true
 
-  /es-abstract/1.20.1:
-    resolution: {integrity: sha512-WEm2oBhfoI2sImeM4OF2zE2V3BYdSF+KnSi9Sidz51fQHd7+JuF8Xgcj9/0o+OWeIeIS/MiuNnlruQrJf16GQA==}
+  /es-abstract/1.20.2:
+    resolution: {integrity: sha512-XxXQuVNrySBNlEkTYJoDNFe5+s2yIOpzq80sUHEdPdQr0S5nTLz4ZPPPswNIpKseDDUS5yghX1gfLIHQZ1iNuQ==}
     engines: {node: '>= 0.4'}
     dependencies:
       call-bind: 1.0.2
@@ -1574,7 +1576,7 @@ packages:
     dependencies:
       call-bind: 1.0.2
       define-properties: 1.1.4
-      es-abstract: 1.20.1
+      es-abstract: 1.20.2
       functions-have-names: 1.2.3
     dev: true
 
@@ -2103,7 +2105,7 @@ packages:
     dependencies:
       call-bind: 1.0.2
       define-properties: 1.1.4
-      es-abstract: 1.20.1
+      es-abstract: 1.20.2
     dev: true
 
   /object.fromentries/2.0.5:
@@ -2112,14 +2114,14 @@ packages:
     dependencies:
       call-bind: 1.0.2
       define-properties: 1.1.4
-      es-abstract: 1.20.1
+      es-abstract: 1.20.2
     dev: true
 
   /object.hasown/1.1.1:
     resolution: {integrity: sha512-LYLe4tivNQzq4JdaWW6WO3HMZZJWzkkH8fnI6EebWl0VZth2wL2Lovm74ep2/gZzlaTdV62JZHEqHQ2yVn8Q/A==}
     dependencies:
       define-properties: 1.1.4
-      es-abstract: 1.20.1
+      es-abstract: 1.20.2
     dev: true
 
   /object.values/1.1.5:
@@ -2128,7 +2130,7 @@ packages:
     dependencies:
       call-bind: 1.0.2
       define-properties: 1.1.4
-      es-abstract: 1.20.1
+      es-abstract: 1.20.2
     dev: true
 
   /once/1.4.0:
@@ -2472,7 +2474,7 @@ packages:
     dependencies:
       call-bind: 1.0.2
       define-properties: 1.1.4
-      es-abstract: 1.20.1
+      es-abstract: 1.20.2
       get-intrinsic: 1.1.2
       has-symbols: 1.0.3
       internal-slot: 1.0.3
@@ -2485,7 +2487,7 @@ packages:
     dependencies:
       call-bind: 1.0.2
       define-properties: 1.1.4
-      es-abstract: 1.20.1
+      es-abstract: 1.20.2
     dev: true
 
   /string.prototype.trimstart/1.0.5:
@@ -2493,7 +2495,7 @@ packages:
     dependencies:
       call-bind: 1.0.2
       define-properties: 1.1.4
-      es-abstract: 1.20.1
+      es-abstract: 1.20.2
     dev: true
 
   /strip-ansi/6.0.1:
@@ -2795,3 +2797,19 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
     dev: true
+
+  github.com/NextmediaMa/youcan-ui/5366d9aa95db2322f0decd0d798ddb425eb40764_vue@3.2.38:
+    resolution: {commit: 5366d9aa95db2322f0decd0d798ddb425eb40764, repo: git+ssh://git@github.com/NextmediaMa/youcan-ui.git, type: git}
+    id: github.com/NextmediaMa/youcan-ui/5366d9aa95db2322f0decd0d798ddb425eb40764
+    name: youcan-ui
+    version: 1.0.0
+    peerDependencies:
+      '@vue/composition-api': ^1.4.9
+      vue: ^2.0.0 || >=3.0.0
+    peerDependenciesMeta:
+      '@vue/composition-api':
+        optional: true
+    dependencies:
+      vue: 3.2.38
+      vue-demi: 0.13.11_vue@3.2.38
+    dev: false
