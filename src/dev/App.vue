@@ -1,14 +1,14 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
-import Test from 'youcan-ui';
+import { TestThing } from 'youcan-ui'
 export default defineComponent({
   name: 'App',
   components: {
-    Test,
+    TestThing,
   },
 });
 </script>
 
 <template>
-  <Test name="YouCan" />
+  <TestThing name="YouCan" />
 </template>

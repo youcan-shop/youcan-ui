@@ -1,6 +1,6 @@
 import { resolve } from 'node:path';
 import { defineConfig } from 'vite';
-import Vue from '@vitejs/plugin-vue';
+import Vue from '@vitejs/plugin-vue2';
 
 export default defineConfig(({ mode }) => {
   const isProd = mode === 'prod';
@@ -12,8 +12,7 @@ export default defineConfig(({ mode }) => {
       lib: {
         entry: resolve(__dirname, 'src/index.ts'),
         name: 'youcan-ui',
-        fileName: 'index',
-        formats: ['es', 'cjs', 'umd'],
+        fileName: format => `index.${format}.js`,
       },
       rollupOptions: {
         external: [

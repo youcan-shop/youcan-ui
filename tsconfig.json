@@ -19,8 +19,7 @@
     "noUnusedLocals": true,
     "strictNullChecks": true,
     "types": [
-      "vite/client",
-      "vue/ref-macros"
+      "vite/client"
     ],
     "lib": [
       "esnext",
