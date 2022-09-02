@@ -1,6 +1,6 @@
 import { resolve } from 'node:path';
 import { defineConfig } from 'vite';
-import Vue from '@vitejs/plugin-vue2';
+import Vue from '@vitejs/plugin-vue';
 
 export default defineConfig(({ mode }) => {
   const isProd = mode === 'prod';
@@ -40,6 +40,7 @@ export default defineConfig(({ mode }) => {
     plugins: [
       Vue({
         include: [/\.vue$/],
+        reactivityTransform: true,
       }),
     ],
     optimizeDeps,
