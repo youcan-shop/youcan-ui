@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
     "target": "esnext",
     "useDefineForClassFields": true,
     "module": "esnext",
@@ -17,7 +18,11 @@
     "skipLibCheck": true,
     "types": [
       "vite/client"
-    ]
+    ],
+    "paths": {
+      "~/*": ["src/*"],
+      "dev/*": ["src/dev/*"]
+    }
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue", "src/index.js"]
 }

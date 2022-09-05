@@ -16,14 +16,10 @@
   "scripts": {
     "dev": "vite dev",
     "build": "rimraf dist && vue-tsc && vite build",
-    "docs:dev": "vitepress dev docs",
-    "docs:build": "vitepress build docs",
-    "docs:serve": "vitepress serve docs"
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "peerDependencies": {
-    "primeflex": "^3.1.2",
-    "primeicons": "^5.0.0",
-    "primevue": "^3.11.1",
     "vue": "^3.2.38"
   },
   "devDependencies": {
@@ -32,15 +28,11 @@
     "@types/node": "18.7.15",
     "@vitejs/plugin-vue": "3.1.0",
     "eslint": "^8.17.0",
-    "primeflex": "^3.1.2",
-    "primeicons": "^5.0.0",
-    "primevue": "^3.11.1",
     "rimraf": "^3.0.2",
-    "sass": "^1.49.7",
+    "sass": "1.54.8",
     "typescript": "4.8.2",
     "unocss": "0.45.15",
     "vite": "3.1.0",
-    "vitepress": "1.0.0-alpha.13",
     "vue": "3.2.38",
     "vue-tsc": "0.40.7"
   }

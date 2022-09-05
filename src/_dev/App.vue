@@ -1,6 +1,9 @@
 <script setup lang="ts">
+import ComponentA from '~/components/ComponentA.vue';
+import ComponentB from '~/components/ComponentB.vue';
 </script>
 
 <template>
-  <span i-carbon:3d-curve-auto-colon>test</span>
+  <ComponentA msg="there" />
+  <ComponentB />
 </template>
