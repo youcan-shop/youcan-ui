@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { Test } from 'youcan-ui';
 </script>
 
 <template>
-  <Test name="YouCan" />
+  <span i-carbon:3d-curve-auto-colon>test</span>
 </template>
