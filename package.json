@@ -1,54 +1,41 @@
 {
   "name": "youcan-ui",
-  "version": "1.0.0",
-  "description": "YouCan UI Library",
-  "author": "nextmediama",
-  "license": "ISC",
-  "keywords": [],
+  "version": "0.0.1",
   "exports": {
     ".": {
       "require": "./dist/index.umd.js",
       "import": "./dist/index.es.js"
-    }
+    },
+    "./dist/style.css": "./dist/style.css"
   },
   "main": "./dist/index.umd.js",
   "module": "./dist/index.es.js",
+  "types": "./dist/types/index.d.ts",
   "files": [
+    "src",
     "dist"
   ],
   "scripts": {
-    "dev": "vite --port 3129 --host",
-    "clean:dist": "rimraf dist",
-    "build": "pnpm clean:dist && vite build --mode prod && vue-tsc --emitDeclarationOnly",
-    "preview": "vite preview",
+    "dev": "vite dev",
+    "build": "rimraf dist && vue-tsc && vite build",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
   },
   "peerDependencies": {
-    "@vue/composition-api": "^1.4.9",
-    "vue": "^2.0.0 || >=3.0.0"
-  },
-  "peerDependenciesMeta": {
-    "@vue/composition-api": {
-      "optional": true
-    }
-  },
-  "dependencies": {
-    "vue-demi": "^0.13.11",
-    "youcan-ui": "github:NextmediaMa/youcan-ui"
+    "vue": "^3.2.38"
   },
   "devDependencies": {
+    "@iconify-json/carbon": "^1.1.5",
     "@sidi3li/eslint-config": "^1.0.10",
-    "@stitches/core": "^1.2.8",
-    "@types/node": "^18.7.14",
-    "@vitejs/plugin-vue": "^3.0.3",
+    "@types/node": "18.7.15",
+    "@vitejs/plugin-vue": "2.0.0",
     "eslint": "^8.17.0",
     "rimraf": "^3.0.2",
-    "typescript": "^4.7.3",
-    "vite": "^3.0.9",
-    "vite-plugin-inspect": "^0.5.0",
-    "vue": "^3.2.38",
-    "vue-tsc": "^0.37.7",
-    "youcan-ui": "git+ssh://git@github.com:NextmediaMa/youcan-ui.git#main"
+    "sass": "1.54.8",
+    "typescript": "4.8.2",
+    "unocss": "0.33.4",
+    "vite": "2.9.0",
+    "vue": "3.2.38",
+    "vue-tsc": "0.40.7"
   }
 }
