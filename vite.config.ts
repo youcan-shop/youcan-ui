@@ -6,11 +6,11 @@ import Unocss from 'unocss/vite';
 module.exports = defineConfig({
   plugins: [vue(), Unocss()], // to process SFC
   build: {
+    cssCodeSplit: true,
     lib: {
       entry: resolve(__dirname, 'src/index.ts'),
       name: 'youcan-ui',
-      formats: ['es'], // adding 'umd' requires globals set to every external module
-      fileName: format => `youcan-ui.${format}.js`,
+      fileName: format => `index.${format}.js`,
     },
     rollupOptions: {
       // external modules won't be bundled into your library
