@@ -24,8 +24,11 @@
   "peerDependencies": {
     "vue": "^3.2.38"
   },
+  "dependencies": {
+    "@vueuse/core": "^9.2.0"
+  },
   "devDependencies": {
-    "@iconify-json/carbon": "^1.1.5",
+    "@iconify-json/tabler": "^1.1.30",
     "@sidi3li/eslint-config": "^1.0.10",
     "@types/node": "18.7.15",
     "@vitejs/plugin-vue": "2.0.0",
