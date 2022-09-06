@@ -1,17 +1,124 @@
-@font-face {
-  font-family: 'myfont';
-  src: url('fonts/myfont.woff');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Mono:wght@400;500;700&family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+* {
+  font-family: 'Inter', sans-serif;
 }
 
-[class^='icon-'],
-[class*=' icon-'] {
-  font-family: 'myfont' !important;
-}
+:root {
+  /** ***** Text size ***** */
+  /** Text MD */
+  --font-size-md: 16px;
+  --line-height-md: 24px;
 
-.icon-heart:before {
-  content: '\e9da';
-}
+  /** Text SM */
+  --font-size-sm: 14px;
+  --line-height-sm: 20px;
 
-.global-example {
-  color: red;
+  /** Shadows */
+  --shadow-xs: 0px 1px 2px rgba(16, 24, 40, 0.05);
+
+  --focus_ring-shadow-4px-Primary-100: 0px 1px 2px rgba(16, 24, 40, 0.05), 0px 0px 0px 4px var(--Primary-100);
+  --focus_ring-shadow-4px-HotRed-100: 0px 1px 2px rgba(16, 24, 40, 0.05), 0px 0px 0px 4px var(--HotRed-100);
+
+  /** ***** Colors ***** */
+  /** Colors.Base */
+  --Base-White: #FFFFFF;
+  --Base-Black: #000000;
+
+  /** Colors.StormGray */
+  --StormGray-25: #FCFCFD;
+  --StormGray-50: #FAFAFC;
+  --StormGray-100: #F3F3F6;
+  --StormGray-200: #E8E9ED;
+  --StormGray-300: #D0D3DC;
+  --StormGray-400: #BABEC9;
+  --StormGray-500: #A3A8B7;
+  --StormGray-600: #6E7487;
+  --StormGray-700: #40475A;
+  --StormGray-800: #293042;
+  --StormGray-900: #0E1626;
+
+  /** Colors.PoolBue */
+  --PoolBlue-50: #F5F8FE;
+  --PoolBlue-100: #ECF1FE;
+  --PoolBlue-200: #D8E3FD;
+  --PoolBlue-300: #98B5F8;
+  --PoolBlue-400: #789DF6;
+  --PoolBlue-500: #5685F4;
+  --PoolBlue-600: #215FF1;
+  --PoolBlue-700: #0D46CC;
+  --PoolBlue-800: #0A3498;
+  --PoolBlue-900: #062263;
+
+  /** Colors.HotRed */
+  --HotRed-50: #FFF5F5;
+  --HotRed-100: #FFEBEB;
+  --HotRed-200: #FFD6D8;
+  --HotRed-300: #FFA8AB;
+  --HotRed-400: #FF7A7F;
+  --HotRed-500: #FF5157;
+  --HotRed-600: #E3262D;
+  --HotRed-700: #C6060D;
+  --HotRed-800: #970207;
+  --HotRed-900: #7A0004;
+
+  /** Colors.JungleGreen */
+  --JungleGreen-50: #F6FEF9;
+  --JungleGreen-100: #ECFDF3;
+  --JungleGreen-200: #DAFBE5;
+  --JungleGreen-300: #A6F4C5;
+  --JungleGreen-400: #32D583;
+  --JungleGreen-500: #12B76A;
+  --JungleGreen-600: #039855;
+  --JungleGreen-700: #027948;
+  --JungleGreen-800: #05603A;
+  --JungleGreen-900: #054F31;
+
+  /** Colors.NachoYellow */
+  --NachoYellow-50: #FFFDF5;
+  --NachoYellow-100: #FFFAEB;
+  --NachoYellow-200: #FFF5D6;
+  --NachoYellow-300: #FFEBB3;
+  --NachoYellow-400: #FFDC7A;
+  --NachoYellow-500: #FFC60A;
+  --NachoYellow-600: #F5970A;
+  --NachoYellow-700: #C66606;
+  --NachoYellow-800: #7E4207;
+  --NachoYellow-900: #442204;
+
+  /** Colors.GrapeViolet */
+  --GrapeViolet-50: #FAF8FE;
+  --GrapeViolet-100: #F4EEFC;
+  --GrapeViolet-200: #E8DCF9;
+  --GrapeViolet-300: #CCB1F1;
+  --GrapeViolet-400: #965CE2;
+  --GrapeViolet-500: #7D35DB;
+  --GrapeViolet-600: #6029A8;
+  --GrapeViolet-700: #50218C;
+  --GrapeViolet-800: #3A1868;
+  --GrapeViolet-900: #2C124F;
+
+  /** Colors.MagmaOrange */
+  --MagmaOrange-50: #FFF8F5;
+  --MagmaOrange-100: #FFF0EB;
+  --MagmaOrange-200: #FFE1D6;
+  --MagmaOrange-300: #FFA585;
+  --MagmaOrange-400: #FF733D;
+  --MagmaOrange-500: #FE4C0B;
+  --MagmaOrange-600: #DC3B00;
+  --MagmaOrange-700: #B83100;
+  --MagmaOrange-800: #7A2100;
+  --MagmaOrange-900: #471300;
+
+  /** Colors.primary */
+  --Primary-50: var(--PoolBlue-50);
+  --Primary-100: var(--PoolBlue-100);
+  --Primary-200: var(--PoolBlue-200);
+  --Primary-300: var(--PoolBlue-300);
+  --Primary-400: var(--PoolBlue-400);
+  --Primary-500: var(--PoolBlue-500);
+  --Primary-600: var(--PoolBlue-600);
+  --Primary-700: var(--PoolBlue-700);
+  --Primary-800: var(--PoolBlue-800);
+  --Primary-900: var(--PoolBlue-900);
 }

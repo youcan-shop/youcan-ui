@@ -1,9 +1,12 @@
 <script setup lang="ts">
-import ComponentA from '~/components/ComponentA.vue';
-import ComponentB from '~/components/ComponentB.vue';
+import { ref } from 'vue';
+import Input from '~/components/Yinput/Yinput.vue';
+import '~/assets/main.scss';
+
+const inputString = ref('');
 </script>
 
 <template>
-  <ComponentA msg="there" />
-  <ComponentB />
+  <Input v-model="inputString" input-type="text" :has-help="true" hint="Subtle input hint" placeholder="Placeholder text" :is-error="false" label="Label" input-icon="i-tabler-home" />
+  <p>Input: {{ inputString }}</p>
 </template>
