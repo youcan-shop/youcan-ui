@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import YInput from '~/components/YInput/Yinput.vue';
 import YButton from '~/components/YButton/YButton.vue';
 import YGroupSelectMenu from '~/components/YGroupSelect/YGroupSelectMenu.vue';
 import YSelectOption from '~/components/YSelect/YSelectOption.vue';
