@@ -1,7 +1,5 @@
-import ComponentA from './ComponentA.vue';
-import ComponentB from './ComponentB.vue';
+import Yinput from '~/components/Yinput/Yinput.vue';
 
 export {
-  ComponentA,
-  ComponentB,
+  Yinput,
 };
