@@ -1,0 +1,95 @@
+<script setup lang="ts">
+import { defineEmits, useSlots } from 'vue';
+
+const props = defineProps({
+  disabled: {
+    type: Boolean,
+    default: false,
+  },
+});
+
+const emit = defineEmits(['click']);
+
+const slots = useSlots();
+const hasIcon = typeof slots.icon !== 'undefined';
+
+const clicked = () => {
+  if (props.disabled === true) {
+    return;
+  }
+
+  emit('click');
+};
+</script>
+
+<template>
+  <div class="select-option" :disabled="disabled" tabindex="0" @click="clicked">
+    <span v-if="hasIcon" class="icon">
+      <slot name="icon" />
+    </span>
+    <span class="text">
+      <slot />
+    </span>
+  </div>
+</template>
+
+<style scoped>
+.select-option {
+  display: flex;
+  align-items: center;
+  max-width: 320px;
+  background-color: var(--Base-White);
+  border-radius: 4px;
+  padding: 10px 14px;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+  outline: none;
+  cursor: pointer;
+}
+
+.select-option:hover {
+  background-color: var(--StormGray-50);
+}
+
+.select-option:hover .text {
+  color: var(--StormGray-700);
+}
+
+.select-option:hover .icon {
+  color: var(--StormGray-700);
+}
+
+.select-option:focus {
+  box-shadow: var(--focus_ring-shadow-4px-Primary-100);
+}
+
+.select-option[disabled="true"] {
+  cursor: default;
+}
+
+.select-option[disabled="true"] .text {
+  color: var(--StormGray-300);
+}
+
+.select-option[disabled="true"] .icon {
+  color: var(--StormGray-300);
+}
+
+.icon {
+  color: var(--StormGray-600);
+  margin-right: 8px;
+}
+
+.icon * {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
+.text {
+  color: var(--StormGray-900);
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-md);
+}
+</style>
