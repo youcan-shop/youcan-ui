@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, watchEffect } from 'vue';
 import { useFocus } from '@vueuse/core';
-import type { HTMLInputTypeAttribute } from '~/components/Input/input.types';
+import type { HTMLInputTypeAttribute } from '~/components/Yinput/input.types';
 import { uniqueId } from '~/utils/string.util';
 
 const props = defineProps({
@@ -97,7 +97,7 @@ watchEffect(() => {
   border-radius: 8px;
   padding: 8px 14px;
   border: 1px solid var(--StormGray-300);
-  background: var(--Base-white);
+  background: var(--Base-White);
   box-shadow: var(--shadow-xs);
 }
 
