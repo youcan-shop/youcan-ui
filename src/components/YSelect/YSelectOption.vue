@@ -2,6 +2,7 @@
 import { defineEmits, useSlots } from 'vue';
 
 const props = defineProps({
+  modelValue: String,
   disabled: {
     type: Boolean,
     default: false,
@@ -18,7 +19,7 @@ const clicked = () => {
     return;
   }
 
-  emit('click');
+  emit('click', props.modelValue);
 };
 </script>
 
