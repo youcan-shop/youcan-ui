@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { ref, watchEffect } from 'vue';
+import { ref, watch, watchEffect } from 'vue';
 import { useFocus } from '@vueuse/core';
 import type { HTMLInputTypeAttribute } from '~/components/Yinput/input.types';
 import { uniqueId } from '~/utils/string.util';
+import YButton from '~/components/YButton/YButton.vue';
 
 const props = defineProps({
   modelValue: String,
@@ -30,18 +31,30 @@ const props = defineProps({
     type: String || null,
     default: null,
   },
+  canReset: {
+    type: Boolean,
+    default: false,
+  },
 });
 
-const emit = defineEmits(['update:modelValue']);
+const emit = defineEmits(['update:modelValue', 'reset']);
 
 const _base_input = ref();
 const { focused } = useFocus(_base_input);
 const inputId = uniqueId();
 
+const initialInputValue = props.modelValue;
 const inputValue = ref(props.modelValue);
+
 watchEffect(() => {
   emit('update:modelValue', inputValue.value);
 });
+
+const resetInput = () => {
+  inputValue.value = initialInputValue;
+
+  emit('reset');
+};
 </script>
 
 <template>
@@ -67,6 +80,11 @@ watchEffect(() => {
         :aria-label="placeholder"
         class="input"
       >
+      <YButton v-if="canReset" class="reset-button" @click="resetInput()">
+        <template #icon>
+          <i i-tabler-backspace />
+        </template>
+      </YButton>
     </div>
 
     <span v-if="hint !== null" class="hint" :class="{ error: isError }">
@@ -80,6 +98,7 @@ watchEffect(() => {
   display: flex;
   flex-direction: column;
   gap: 6px;
+  width: 100%;
   max-width: 420px;
   text-align: start;
 }
@@ -99,6 +118,7 @@ watchEffect(() => {
   border: 1px solid var(--StormGray-300);
   background: var(--Base-White);
   box-shadow: var(--shadow-xs);
+  position: relative;
 }
 
 .sub-input-container.focused {
@@ -116,7 +136,7 @@ watchEffect(() => {
 
 .input-icon {
   color: var(--StormGray-600);
-  margin-right: 8px;
+  margin-inline-end: 8px;
   width: 20px;
   height: 24px;
 }
@@ -132,6 +152,10 @@ watchEffect(() => {
 
 .input::placeholder {
   color: var(--StormGray-600);
+}
+
+.reset-button {
+  margin-inline-start: 8px;
 }
 
 .hint {
