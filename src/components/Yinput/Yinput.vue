@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch, watchEffect } from 'vue';
+import { computed, ref, watch, watchEffect } from 'vue';
 import { useFocus } from '@vueuse/core';
 import type { HTMLInputTypeAttribute } from '~/components/Yinput/input.types';
 import { uniqueId } from '~/utils/string.util';
@@ -80,7 +80,7 @@ const resetInput = () => {
         :aria-label="placeholder"
         class="input"
       >
-      <YButton v-if="canReset" class="reset-button" @click="resetInput()">
+      <YButton v-if="canReset" class="reset-button" :disabled="inputValue?.length === 0" @click="resetInput()">
         <template #icon>
           <i i-tabler-backspace />
         </template>
