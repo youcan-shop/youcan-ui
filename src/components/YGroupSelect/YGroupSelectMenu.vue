@@ -1,10 +1,12 @@
 <script setup lang="ts">
-import { computed, ref, watch, watchEffect } from 'vue';
+import { computed, ref, useSlots, watch, watchEffect } from 'vue';
 import YInput from '~/components/YInput/Yinput.vue';
 import YButton from '~/components/YButton/YButton.vue';
 
 const searchValue = ref('');
 const isSearching = computed(() => searchValue.value.length > 0);
+const slots = useSlots();
+console.log(slots.default);
 </script>
 
 <template>

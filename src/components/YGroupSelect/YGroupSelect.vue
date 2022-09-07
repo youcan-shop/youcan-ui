@@ -1,13 +1,25 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, useSlots } from 'vue';
 import YButton from '~/components/YButton/YButton.vue';
 import YGroupSelectMenu from '~/components/YGroupSelect/YGroupSelectMenu.vue';
 import YSelectOption from '~/components/YSelect/YSelectOption.vue';
+import { type GroupSelectItem } from '~/components/YGroupSelect/groupSelect.types';
 
-// defineProps<{}>();
+const { selectedIndex = null, items = [] } = defineProps<{
+  selectedIndex?: number | null
+  items: GroupSelectItem[]
+}>();
 
-const selectedOption = ref(null);
+const selectedOption = ref(selectedIndex !== null ? items[selectedIndex] : null);
 const isMenuDisplayed = ref(false);
+
+const hasSubItems = (option: GroupSelectItem): Boolean => {
+  return typeof option.subItems !== 'undefined' && option.subItems.length > 0;
+};
+
+const hello = (value: string) => {
+  console.log(value);
+};
 </script>
 
 <template>
@@ -19,14 +31,14 @@ const isMenuDisplayed = ref(false);
       </template>
     </YButton>
     <YGroupSelectMenu>
-      <YSelectOption>Select option</YSelectOption>
-      <YSelectOption>Select option</YSelectOption>
-      <YSelectOption>
-        Select option
-        <template #icon>
-          <i i-tabler:scooter-electric />
-        </template>
-      </YSelectOption>
+      <template v-for="(option, index) in items">
+        <YSelectOption v-if="!hasSubItems(option)" :key="index" v-model="option.value" @click="hello">
+          <template v-if="option.icon" #icon>
+            <i :class="`${option.icon}`" />
+          </template>
+          {{ option.label }}
+        </YSelectOption>
+      </template>
     </YGroupSelectMenu>
   </div>
 </template>

@@ -4,7 +4,9 @@ import { defineConfig } from 'vite';
 import Unocss from 'unocss/vite';
 
 module.exports = defineConfig({
-  plugins: [vue(), Unocss()], // to process SFC
+  plugins: [vue({
+    reactivityTransform: true,
+  }), Unocss()], // to process SFC
   build: {
     cssCodeSplit: true,
     lib: {

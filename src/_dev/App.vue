@@ -3,6 +3,7 @@ import { ref } from 'vue';
 import YInput from '~/components/Yinput/Yinput.vue';
 import YButton from '~/components/YButton/YButton.vue';
 import YGroupSelect from '~/components/YGroupSelect/YGroupSelect.vue';
+import YSelectOption from '~/components/YSelect/YSelectOption.vue';
 import '~/assets/main.scss';
 
 const inputString = ref('');
@@ -19,5 +20,17 @@ const inputString = ref('');
     </template>
   </YButton>
   <br>
-  <YGroupSelect />
+  <YGroupSelect
+    :items="[
+      {
+        label: 'Select option',
+        value: '1',
+      },
+      {
+        icon: 'i-tabler-home',
+        label: 'Select option',
+        value: '2',
+      },
+    ]"
+  />
 </template>
