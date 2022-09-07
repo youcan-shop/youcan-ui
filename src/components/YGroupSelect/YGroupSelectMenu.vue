@@ -1,14 +1,22 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { computed, ref, watch, watchEffect } from 'vue';
 import YInput from '~/components/YInput/Yinput.vue';
+import YButton from '~/components/YButton/YButton.vue';
 
 const searchValue = ref('');
+const isSearching = computed(() => searchValue.value.length > 0);
 </script>
 
 <template>
   <div class="menu">
     <div class="search">
-      <YInput input-type="text" input-icon="i-tabler-search" placeholder="Searching for something?" />
+      <YInput
+        v-model="searchValue"
+        input-type="text"
+        input-icon="i-tabler-search"
+        placeholder="Search..."
+        :can-reset="true"
+      />
     </div>
     <div class="menu-options">
       <slot />
@@ -26,15 +34,19 @@ const searchValue = ref('');
   }
 
   .search {
-    padding: 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px;
     border-bottom: 1px solid var(--StormGray-100);
   }
 
   .menu-options {
     display: flex;
     flex-direction: column;
-    background-color: var(--Base-White);
     gap: 4px;
     padding: 4px;
+    max-height: 196px;
+    overflow-y: auto;
   }
 </style>

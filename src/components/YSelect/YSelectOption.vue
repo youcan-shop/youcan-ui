@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineEmits, useSlots } from 'vue';
+import { useSlots } from 'vue';
 
 const props = defineProps({
   modelValue: String,
@@ -37,8 +37,8 @@ const clicked = () => {
 <style scoped>
 .select-option {
   display: flex;
+  width: 100%;
   align-items: center;
-  max-width: 320px;
   background-color: var(--Base-White);
   border-radius: 4px;
   padding: 10px 14px;
@@ -50,7 +50,7 @@ const clicked = () => {
 }
 
 .select-option:hover {
-  background-color: var(--StormGray-50);
+  background-color: var(--StormGray-100);
 }
 
 .select-option:hover .text {
@@ -79,7 +79,7 @@ const clicked = () => {
 
 .icon {
   color: var(--StormGray-600);
-  margin-right: 8px;
+  margin-inline-end: 8px;
 }
 
 .icon * {

@@ -2,6 +2,7 @@
 import { ref } from 'vue';
 import YInput from '~/components/Yinput/Yinput.vue';
 import YButton from '~/components/YButton/YButton.vue';
+import YGroupSelect from '~/components/YGroupSelect/YGroupSelect.vue';
 import '~/assets/main.scss';
 
 const inputString = ref('');
@@ -17,4 +18,6 @@ const inputString = ref('');
       <i i-tabler-apple />
     </template>
   </YButton>
+  <br>
+  <YGroupSelect />
 </template>

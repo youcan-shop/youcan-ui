@@ -20,6 +20,7 @@ const isMenuDisplayed = ref(false);
     </YButton>
     <YGroupSelectMenu>
       <YSelectOption>Select option</YSelectOption>
+      <YSelectOption>Select option</YSelectOption>
       <YSelectOption>
         Select option
         <template #icon>
@@ -36,7 +37,7 @@ const isMenuDisplayed = ref(false);
     flex-direction: column;
     gap: 8px;
     width: 100%;
-    max-width: 320px;
+    max-width: 360px;
   }
 
   .select-trigger {

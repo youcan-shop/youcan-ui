@@ -56,9 +56,9 @@ const hasIcon = typeof slots.icon !== 'undefined';
   font-weight: 500;
 }
 
-.icon {
-  margin-right: 8px;
-  margin-left: 0px;
+.icon.has-text {
+  margin-inline-end: 8px;
+  margin-inline-start: 0px;
 }
 
 .icon * {
@@ -69,7 +69,7 @@ const hasIcon = typeof slots.icon !== 'undefined';
 }
 
 .icon.has-text.right {
-  margin-right: 0px;
-  margin-left: 8px;
+  margin-inline-end: 0px;
+  margin-inline-start: 8px;
 }
 </style>
