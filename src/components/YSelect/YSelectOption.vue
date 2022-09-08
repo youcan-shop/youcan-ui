@@ -51,19 +51,22 @@ const clicked = () => {
 }
 
 .select-option.selected {
-  background-color: var(--StormGray-100);
-  box-shadow: var(--focus_ring-shadow-4px-Primary-100);
+  background-color: var(--Primary-50);
 }
 
-.select-option:hover {
+.select-option.selected .icon {
+  color: var(--Primary-600);
+}
+
+.select-option:not(.selected):hover {
   background-color: var(--StormGray-50);
 }
 
-.select-option:hover .text {
+.select-option:not(.selected):hover .text {
   color: var(--StormGray-700);
 }
 
-.select-option:hover .icon {
+.select-option:not(.selected):hover .icon {
   color: var(--StormGray-700);
 }
 

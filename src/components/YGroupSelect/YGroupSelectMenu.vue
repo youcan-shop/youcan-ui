@@ -59,7 +59,10 @@ const selectOption = (value: unknown) => {
     </div>
     <div v-show="!isSearching" class="menu-options">
       <template v-for="(option, index) in options">
-        <YSelectOption v-if="!hasSubItems(option)" :key="index" v-model="options[index]" :selected="selectedItem?.value === option.value" @click="selectOption">
+        <YSelectOption
+          v-if="!hasSubItems(option)" :key="index" v-model="options[index]"
+          :selected="selectedItem?.value === option.value" @click="selectOption"
+        >
           <template v-if="option.icon" #icon>
             <i :class="`${option.icon}`" />
           </template>
@@ -69,10 +72,13 @@ const selectOption = (value: unknown) => {
     </div>
     <div v-show="isSearching" class="menu-options">
       <div v-show="searchItems.options.length === 0" class="search-placeholder">
-        <span>placeholder</span>
+        <p>No results found for: <strong>{{ searchValue }}</strong></p>
       </div>
       <template v-for="(option, index) in searchItems.options">
-        <YSelectOption v-if="!hasSubItems(option)" :key="index" v-model="searchItems.options[index]" :selected="selectedItem?.value === option.value" @click="selectOption">
+        <YSelectOption
+          v-if="!hasSubItems(option)" :key="index" v-model="searchItems.options[index]"
+          :selected="selectedItem?.value === option.value" @click="selectOption"
+        >
           <template v-if="option.icon" #icon>
             <i :class="`${option.icon}`" />
           </template>
@@ -108,5 +114,20 @@ const selectOption = (value: unknown) => {
   padding: 4px;
   max-height: 196px;
   overflow-y: auto;
+}
+
+.search-placeholder {
+  padding: 4px;
+  text-align: center;
+  color: var(--StormGray-900);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-sm);
+}
+
+.search-placeholder strong {
+  font-weight: 600;
+  padding: 2px;
+  background-color: var(--StormGray-100);
+  border-radius: 4px;
 }
 </style>
