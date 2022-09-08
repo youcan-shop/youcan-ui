@@ -5,7 +5,7 @@ import type { HTMLInputTypeAttribute } from '~/components/Yinput/input.types';
 import { uniqueId } from '~/utils/string.util';
 import YButton from '~/components/YButton/YButton.vue';
 
-const props = defineProps({
+defineProps({
   modelValue: String,
   inputType: {
     type: String as () => HTMLInputTypeAttribute,
@@ -43,16 +43,12 @@ const _base_input = ref();
 const { focused } = useFocus(_base_input);
 const inputId = uniqueId();
 
-const initialInputValue = props.modelValue;
-const inputValue = ref(props.modelValue);
-
-watchEffect(() => {
-  emit('update:modelValue', inputValue.value);
-});
+const emitInputChange = () => {
+  emit('update:modelValue', _base_input.value.value);
+};
 
 const resetInput = () => {
-  inputValue.value = initialInputValue;
-
+  emit('update:modelValue', '');
   emit('reset');
 };
 </script>
@@ -73,14 +69,16 @@ const resetInput = () => {
       <i v-if="inputIcon !== null" class="input-icon" :class="inputIcon" />
       <input
         :id="inputId"
+        v-bind="$attrs"
         ref="_base_input"
-        v-model="inputValue"
+        :value="modelValue"
         :type="inputType"
         :placeholder="placeholder"
         :aria-label="placeholder"
         class="input"
+        @input="emitInputChange"
       >
-      <YButton v-if="canReset" class="reset-button" :disabled="inputValue?.length === 0" @click="resetInput()">
+      <YButton v-if="canReset" class="reset-button" :disabled="typeof modelValue !== 'undefined' && modelValue!.length === 0" @click="resetInput()">
         <template #icon>
           <i i-tabler-backspace />
         </template>

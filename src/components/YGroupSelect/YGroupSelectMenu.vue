@@ -45,6 +45,8 @@ const findOptions = (options: GroupSelectItem[] | SelectItem[], searchTerm: stri
 watch(searchValue, () => findOptions(options, searchValue.value));
 
 const selectOption = (value: unknown) => {
+  searchValue.value = '';
+
   emit('selectOption', value);
 };
 </script>
@@ -86,6 +88,11 @@ const selectOption = (value: unknown) => {
         </YSelectOption>
       </template>
     </div>
+    <div v-show="isSearching" class="search-items-count">
+      <p class="count-label">
+        Items count: {{ searchItems.options.length }}
+      </p>
+    </div>
   </div>
 </template>
 
@@ -124,10 +131,26 @@ const selectOption = (value: unknown) => {
   line-height: var(--line-height-sm);
 }
 
+.search-placeholder p {
+  margin: 12px 0;
+}
+
 .search-placeholder strong {
   font-weight: 600;
   padding: 2px;
   background-color: var(--StormGray-100);
   border-radius: 4px;
+}
+
+.search-items-count {
+  padding: 6px 12px;
+  border-top: 1px solid var(--StormGray-100);
+}
+
+.count-label {
+  font-size: var(--font-size-xs);
+  line-height: var(--line-height-xs);
+  color: var(--StormGray-600);
+  margin: 0;
 }
 </style>
