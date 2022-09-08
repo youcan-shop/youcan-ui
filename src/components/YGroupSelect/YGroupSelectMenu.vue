@@ -61,8 +61,21 @@ const hello = (value: string) => {
         :can-reset="true"
       />
     </div>
-    <div class="menu-options">
+    <div v-show="!isSearching" class="menu-options">
       <template v-for="(option, index) in items">
+        <YSelectOption v-if="!hasSubItems(option)" :key="index" v-model="option.value" @click="hello">
+          <template v-if="option.icon" #icon>
+            <i :class="`${option.icon}`" />
+          </template>
+          {{ option.label }}
+        </YSelectOption>
+      </template>
+    </div>
+    <div v-show="isSearching" class="menu-options">
+      <div v-show="searchItems.options.length === 0" class="search-placeholder">
+        <span>placeholder</span>
+      </div>
+      <template v-for="(option, index) in searchItems.options">
         <YSelectOption v-if="!hasSubItems(option)" :key="index" v-model="option.value" @click="hello">
           <template v-if="option.icon" #icon>
             <i :class="`${option.icon}`" />

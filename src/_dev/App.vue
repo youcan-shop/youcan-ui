@@ -23,7 +23,27 @@ const inputString = ref('');
   <YGroupSelect
     :items="[
       {
-        label: 'Select option',
+        label: 'painer bread',
+        value: '1',
+      },
+      {
+        label: 'painer bread',
+        value: '1',
+      },
+      {
+        label: 'painer bread',
+        value: '1',
+      },
+      {
+        label: 'painer bread',
+        value: '1',
+      },
+      {
+        label: 'painer bread',
+        value: '1',
+      },
+      {
+        label: 'painer bread',
         value: '1',
       },
       {

@@ -8,7 +8,7 @@ import YSelectOption from '~/components/YSelect/YSelectOption.vue';
     <YGroupSelect
       :items="[
         {
-          label: 'Select option',
+          label: 'painer bread',
           value: '1',
         },
         {
