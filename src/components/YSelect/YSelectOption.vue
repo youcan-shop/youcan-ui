@@ -47,6 +47,7 @@ const clicked = () => {
   transition-duration: 150ms;
   outline: none;
   cursor: pointer;
+  user-select: none;
 }
 
 .select-option:hover {
