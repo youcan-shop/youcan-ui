@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { reactive } from 'vue';
-import YInput from './Yinput.vue';
+import YInput from './YInput.vue';
 
-const state = reactive({
+reactive({
   disabled: false,
   content: 'Hello world',
 });

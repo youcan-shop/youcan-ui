@@ -12,6 +12,11 @@ export default defineConfig({
     presetIcons({
       scale: 1.2,
       warn: true,
+      extraProperties: {
+        width: '20px',
+        height: '20px',
+        display: 'block',
+      },
     }),
   ],
 });

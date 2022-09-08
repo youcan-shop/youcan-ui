@@ -1,4 +1,4 @@
-import Yinput from '~/components/Yinput/Yinput.vue';
+import Yinput from '~/components/YInput/YInput.vue';
 
 export {
   Yinput,
