@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, watch, watchEffect } from 'vue';
+import { ref } from 'vue';
 import { useFocus } from '@vueuse/core';
 import type { HTMLInputTypeAttribute } from '~/components/Yinput/input.types';
 import { uniqueId } from '~/utils/string.util';

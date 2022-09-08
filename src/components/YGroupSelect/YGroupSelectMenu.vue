@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, defineEmits, reactive, ref, useSlots, watch, watchEffect } from 'vue';
+import { computed, defineEmits, reactive, ref, watch } from 'vue';
 import YInput from '~/components/YInput/Yinput.vue';
 import YSelectOption from '~/components/YSelect/YSelectOption.vue';
 import { type GroupSelectItem, type SelectItem } from '~/components/YGroupSelect/groupSelect.types';

@@ -2,7 +2,7 @@
 import { reactive } from 'vue';
 import YInput from './YInput.vue';
 
-const state = reactive({
+reactive({
   disabled: false,
   content: 'Hello world',
 });

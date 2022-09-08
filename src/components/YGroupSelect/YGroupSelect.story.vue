@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import YGroupSelect from './YGroupSelect.vue';
-import YSelectOption from '~/components/YSelect/YSelectOption.vue';
 </script>
 
 <template>
