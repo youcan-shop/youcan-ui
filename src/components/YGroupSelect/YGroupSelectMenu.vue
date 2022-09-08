@@ -90,6 +90,7 @@ const selectOption = (value: unknown) => {
   background-color: var(--Base-White);
   border-radius: 8px;
   border: 1px solid var(--StormGray-100);
+  box-shadow: var(--shadow-lg);
 }
 
 .search {

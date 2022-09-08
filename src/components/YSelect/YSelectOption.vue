@@ -51,12 +51,12 @@ const clicked = () => {
 }
 
 .select-option.selected {
-  background-color: var(--StormGray-50);
+  background-color: var(--StormGray-100);
   box-shadow: var(--focus_ring-shadow-4px-Primary-100);
 }
 
 .select-option:hover {
-  background-color: var(--StormGray-100);
+  background-color: var(--StormGray-50);
 }
 
 .select-option:hover .text {
