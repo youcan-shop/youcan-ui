@@ -21,30 +21,18 @@ const inputString = ref('');
   </YButton>
   <br>
   <YGroupSelect
+    :selected-item="{
+      label: 'painer bread',
+      value: '3',
+    }"
     :items="[
       {
-        label: 'painer bread',
+        label: 'pune',
         value: '1',
       },
       {
         label: 'painer bread',
-        value: '1',
-      },
-      {
-        label: 'painer bread',
-        value: '1',
-      },
-      {
-        label: 'painer bread',
-        value: '1',
-      },
-      {
-        label: 'painer bread',
-        value: '1',
-      },
-      {
-        label: 'painer bread',
-        value: '1',
+        value: '3',
       },
       {
         icon: 'i-tabler-home',

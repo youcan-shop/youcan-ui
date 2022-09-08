@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { useSlots } from 'vue';
 
-const { disabled = false, modelValue } = defineProps<{
+const { disabled = false, modelValue, selected = false } = defineProps<{
   modelValue: unknown
   disabled?: boolean
+  selected?: boolean
 }>();
 
 const emit = defineEmits(['click']);
@@ -21,13 +22,14 @@ const clicked = () => {
 </script>
 
 <template>
-  <div class="select-option" :disabled="disabled" tabindex="0" @click="clicked">
+  <div class="select-option" :class="{ selected }" :disabled="disabled" tabindex="0" @click="clicked">
     <span v-if="hasIcon" class="icon">
       <slot name="icon" />
     </span>
     <span class="text">
       <slot />
     </span>
+    <i v-if="selected" i-tabler-check class="selected-icon" />
   </div>
 </template>
 
@@ -35,6 +37,7 @@ const clicked = () => {
 .select-option {
   display: flex;
   width: 100%;
+  position: relative;
   align-items: center;
   background-color: var(--Base-White);
   border-radius: 4px;
@@ -45,6 +48,11 @@ const clicked = () => {
   outline: none;
   cursor: pointer;
   user-select: none;
+}
+
+.select-option.selected {
+  background-color: var(--StormGray-50);
+  box-shadow: var(--focus_ring-shadow-4px-Primary-100);
 }
 
 .select-option:hover {
@@ -90,5 +98,13 @@ const clicked = () => {
   color: var(--StormGray-900);
   font-size: var(--font-size-md);
   line-height: var(--line-height-md);
+}
+
+.selected-icon {
+  width: 20px;
+  height: 100%;
+  position: absolute;
+  right: 14px;
+  color: var(--Primary-600);
 }
 </style>

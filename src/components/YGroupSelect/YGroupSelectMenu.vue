@@ -1,17 +1,17 @@
 <script setup lang="ts">
-import { computed, reactive, ref, useSlots, watch, watchEffect } from 'vue';
+import { computed, defineEmits, reactive, ref, useSlots, watch, watchEffect } from 'vue';
 import YInput from '~/components/YInput/Yinput.vue';
 import YSelectOption from '~/components/YSelect/YSelectOption.vue';
 import { type GroupSelectItem, type SelectItem } from '~/components/YGroupSelect/groupSelect.types';
 import { launder } from '~/utils/type.util';
 
-const { selectedIndex = null, items = [] } = defineProps<{
-  selectedIndex?: number | null
+const props = defineProps<{
+  selectedItem: GroupSelectItem | null
   items: GroupSelectItem[]
 }>();
 
-const options = reactive(items);
-const selectedOption = ref(selectedIndex !== null ? options[selectedIndex] : null);
+const emit = defineEmits(['selectOption']);
+const options = reactive(props.items);
 const searchValue = ref('');
 const isSearching = computed(() => searchValue.value.length > 0);
 
@@ -44,8 +44,8 @@ const findOptions = (options: GroupSelectItem[] | SelectItem[], searchTerm: stri
 
 watch(searchValue, () => findOptions(options, searchValue.value));
 
-const hello = (value: string) => {
-  console.log(value);
+const selectOption = (value: unknown) => {
+  emit('selectOption', value);
 };
 </script>
 
@@ -59,7 +59,7 @@ const hello = (value: string) => {
     </div>
     <div v-show="!isSearching" class="menu-options">
       <template v-for="(option, index) in options">
-        <YSelectOption v-if="!hasSubItems(option)" :key="index" v-model="options[index]" @click="hello">
+        <YSelectOption v-if="!hasSubItems(option)" :key="index" v-model="options[index]" :selected="selectedItem?.value === option.value" @click="selectOption">
           <template v-if="option.icon" #icon>
             <i :class="`${option.icon}`" />
           </template>
@@ -72,7 +72,7 @@ const hello = (value: string) => {
         <span>placeholder</span>
       </div>
       <template v-for="(option, index) in searchItems.options">
-        <YSelectOption v-if="!hasSubItems(option)" :key="index" v-model="searchItems.options[index]" @click="hello">
+        <YSelectOption v-if="!hasSubItems(option)" :key="index" v-model="searchItems.options[index]" :selected="selectedItem?.value === option.value" @click="selectOption">
           <template v-if="option.icon" #icon>
             <i :class="`${option.icon}`" />
           </template>
