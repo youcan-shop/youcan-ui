@@ -12,6 +12,26 @@ import YSelectOption from '~/components/YSelect/YSelectOption.vue';
           value: '1',
         },
         {
+          label: 'painer bread',
+          value: '1',
+        },
+        {
+          label: 'painer bread',
+          value: '1',
+        },
+        {
+          label: 'painer bread',
+          value: '1',
+        },
+        {
+          label: 'painer bread',
+          value: '1',
+        },
+        {
+          label: 'painer bread',
+          value: '1',
+        },
+        {
           icon: 'i-tabler-home',
           label: 'Select option',
           value: '2',

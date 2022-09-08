@@ -1,13 +1,10 @@
 <script setup lang="ts">
 import { useSlots } from 'vue';
 
-const props = defineProps({
-  modelValue: String,
-  disabled: {
-    type: Boolean,
-    default: false,
-  },
-});
+const { disabled = false, modelValue } = defineProps<{
+  modelValue: unknown
+  disabled?: boolean
+}>();
 
 const emit = defineEmits(['click']);
 
@@ -15,11 +12,11 @@ const slots = useSlots();
 const hasIcon = typeof slots.icon !== 'undefined';
 
 const clicked = () => {
-  if (props.disabled === true) {
+  if (disabled === true) {
     return;
   }
 
-  emit('click', props.modelValue);
+  emit('click', modelValue);
 };
 </script>
 

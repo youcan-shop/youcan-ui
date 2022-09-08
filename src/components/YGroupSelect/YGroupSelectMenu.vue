@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import { computed, reactive, ref, useSlots, watch, watchEffect } from 'vue';
-import { useArrayFilter } from '@vueuse/core';
 import YInput from '~/components/YInput/Yinput.vue';
-import YButton from '~/components/YButton/YButton.vue';
 import YSelectOption from '~/components/YSelect/YSelectOption.vue';
 import { type GroupSelectItem, type SelectItem } from '~/components/YGroupSelect/groupSelect.types';
 import { launder } from '~/utils/type.util';
@@ -12,7 +10,8 @@ const { selectedIndex = null, items = [] } = defineProps<{
   items: GroupSelectItem[]
 }>();
 
-const selectedOption = ref(selectedIndex !== null ? items[selectedIndex] : null);
+const options = reactive(items);
+const selectedOption = ref(selectedIndex !== null ? options[selectedIndex] : null);
 const searchValue = ref('');
 const isSearching = computed(() => searchValue.value.length > 0);
 
@@ -43,7 +42,7 @@ const findOptions = (options: GroupSelectItem[] | SelectItem[], searchTerm: stri
   });
 };
 
-watch(searchValue, () => findOptions(items, searchValue.value));
+watch(searchValue, () => findOptions(options, searchValue.value));
 
 const hello = (value: string) => {
   console.log(value);
@@ -54,16 +53,13 @@ const hello = (value: string) => {
   <div class="menu">
     <div class="search">
       <YInput
-        v-model="searchValue"
-        input-type="text"
-        input-icon="i-tabler-search"
-        placeholder="Search..."
+        v-model="searchValue" input-type="text" input-icon="i-tabler-search" placeholder="Search..."
         :can-reset="true"
       />
     </div>
     <div v-show="!isSearching" class="menu-options">
-      <template v-for="(option, index) in items">
-        <YSelectOption v-if="!hasSubItems(option)" :key="index" v-model="option.value" @click="hello">
+      <template v-for="(option, index) in options">
+        <YSelectOption v-if="!hasSubItems(option)" :key="index" v-model="options[index]" @click="hello">
           <template v-if="option.icon" #icon>
             <i :class="`${option.icon}`" />
           </template>
@@ -76,7 +72,7 @@ const hello = (value: string) => {
         <span>placeholder</span>
       </div>
       <template v-for="(option, index) in searchItems.options">
-        <YSelectOption v-if="!hasSubItems(option)" :key="index" v-model="option.value" @click="hello">
+        <YSelectOption v-if="!hasSubItems(option)" :key="index" v-model="searchItems.options[index]" @click="hello">
           <template v-if="option.icon" #icon>
             <i :class="`${option.icon}`" />
           </template>
@@ -88,28 +84,28 @@ const hello = (value: string) => {
 </template>
 
 <style scoped>
-  .menu {
-    display: flex;
-    flex-direction: column;
-    background-color: var(--Base-White);
-    border-radius: 8px;
-    border: 1px solid var(--StormGray-100);
-  }
+.menu {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--Base-White);
+  border-radius: 8px;
+  border: 1px solid var(--StormGray-100);
+}
 
-  .search {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 12px;
-    border-bottom: 1px solid var(--StormGray-100);
-  }
+.search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px;
+  border-bottom: 1px solid var(--StormGray-100);
+}
 
-  .menu-options {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    padding: 4px;
-    max-height: 196px;
-    overflow-y: auto;
-  }
+.menu-options {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 4px;
+  max-height: 196px;
+  overflow-y: auto;
+}
 </style>

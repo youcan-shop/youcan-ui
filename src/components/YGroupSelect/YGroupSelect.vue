@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import { ref, useSlots, watch } from 'vue';
-import { useFocus } from '@vueuse/core';
+import { ref } from 'vue';
+import { onClickOutside } from '@vueuse/core';
 import YButton from '~/components/YButton/YButton.vue';
 import YGroupSelectMenu from '~/components/YGroupSelect/YGroupSelectMenu.vue';
-import YSelectOption from '~/components/YSelect/YSelectOption.vue';
 import { type GroupSelectItem } from '~/components/YGroupSelect/groupSelect.types';
 
 const props = defineProps<{
@@ -13,16 +12,20 @@ const props = defineProps<{
 
 const isMenuDisplayed = ref(false);
 
-const _base_input = ref();
-const { value: { focused } } = ref(useFocus(_base_input));
+const toggleMenu = (state = !isMenuDisplayed.value): void => {
+  if (isMenuDisplayed.value === state) {
+    return;
+  }
 
-const toggleMenu = (): void => {
-  isMenuDisplayed.value = !isMenuDisplayed.value;
+  isMenuDisplayed.value = state;
 };
+
+const _group_select = ref();
+onClickOutside(_group_select, () => toggleMenu(false));
 </script>
 
 <template>
-  <div class="group-select">
+  <div ref="_group_select" class="group-select">
     <YButton ref="select_trigger" icon-position="right" class="select-trigger" @click="toggleMenu()">
       Please select an option
       <template #icon>
@@ -34,15 +37,15 @@ const toggleMenu = (): void => {
 </template>
 
 <style scoped>
-  .group-select {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    width: 100%;
-    max-width: 360px;
-  }
+.group-select {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  max-width: 360px;
+}
 
-  .select-trigger {
-    justify-content: space-between;
-  }
+.select-trigger {
+  justify-content: space-between;
+}
 </style>

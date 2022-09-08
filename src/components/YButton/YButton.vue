@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { useSlots } from 'vue';
+import { ref, useSlots, watch } from 'vue';
+import { useFocus } from '@vueuse/core';
 import { type iconPosition } from '~/components/YButton/button.types';
 
 const props = defineProps({
@@ -13,14 +14,31 @@ const props = defineProps({
   },
 });
 
+const emit = defineEmits(['focused', 'unFocused']);
 const slots = useSlots();
 
 const hasText = typeof slots.default !== 'undefined';
 const hasIcon = typeof slots.icon !== 'undefined';
+
+const target = ref();
+const { focused } = useFocus(target);
+
+watch(focused, (focused) => {
+  if (focused) {
+    emit('focused');
+
+    return;
+  }
+
+  emit('unFocused');
+});
 </script>
 
 <template>
-  <button class="button" :disabled="disabled" :class="{ 'flip-order': hasIcon && props.iconPosition === 'right', 'disabled': disabled }">
+  <button
+    ref="target" class="button" :disabled="disabled"
+    :class="{ 'flip-order': hasIcon && props.iconPosition === 'right', 'disabled': disabled }"
+  >
     <span v-if="hasIcon" class="icon" :class="{ 'has-text': hasText, 'right': iconPosition === 'right' }">
       <slot name="icon" />
     </span>
