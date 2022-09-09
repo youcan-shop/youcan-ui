@@ -285,10 +285,6 @@ const _sfc_main$6 = /* @__PURE__ */ defineComponent({
   }
 });
 var YButton = /* @__PURE__ */ _export_sfc(_sfc_main$6, [["__scopeId", "data-v-21d7c035"]]);
-var YButton$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
-  __proto__: null,
-  "default": YButton
-}, Symbol.toStringTag, { value: "Module" }));
 var YInput_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _withScopeId$2 = (n) => (pushScopeId("data-v-12ad744e"), n = n(), popScopeId(), n);
 const _hoisted_1$5 = { class: "input-container" };
@@ -389,17 +385,22 @@ const _sfc_main$5 = /* @__PURE__ */ defineComponent({
   }
 });
 var YInput$1 = /* @__PURE__ */ _export_sfc(_sfc_main$5, [["__scopeId", "data-v-12ad744e"]]);
-var YInput$2 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
-  __proto__: null,
-  "default": YInput$1
-}, Symbol.toStringTag, { value: "Module" }));
+const _sfc_main$4 = {};
+const _hoisted_1$4 = /* @__PURE__ */ createElementVNode("span", null, "TODO: Implement me", -1);
+function _sfc_render(_ctx, _cache) {
+  return openBlock(), createElementBlock("div", null, [
+    _hoisted_1$4,
+    renderSlot(_ctx.$slots, "default")
+  ]);
+}
+var YSelect = /* @__PURE__ */ _export_sfc(_sfc_main$4, [["render", _sfc_render]]);
 var Yinput_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _withScopeId$1 = (n) => (pushScopeId("data-v-6689e82e"), n = n(), popScopeId(), n);
-const _hoisted_1$4 = { class: "input-container" };
+const _hoisted_1$3 = { class: "input-container" };
 const _hoisted_2$2 = ["for"];
 const _hoisted_3$2 = ["id", "value", "type", "placeholder", "aria-label"];
 const _hoisted_4$2 = /* @__PURE__ */ _withScopeId$1(() => /* @__PURE__ */ createElementVNode("i", { "i-tabler-backspace": "" }, null, -1));
-const _sfc_main$4 = /* @__PURE__ */ defineComponent({
+const _sfc_main$3 = /* @__PURE__ */ defineComponent({
   __name: "Yinput",
   props: {
     modelValue: String,
@@ -445,7 +446,7 @@ const _sfc_main$4 = /* @__PURE__ */ defineComponent({
       emit("reset");
     };
     return (_ctx, _cache) => {
-      return openBlock(), createElementBlock("div", _hoisted_1$4, [
+      return openBlock(), createElementBlock("div", _hoisted_1$3, [
         __props.label !== null ? (openBlock(), createElementBlock("label", {
           key: 0,
           for: unref(inputId),
@@ -492,9 +493,9 @@ const _sfc_main$4 = /* @__PURE__ */ defineComponent({
     };
   }
 });
-var YInput = /* @__PURE__ */ _export_sfc(_sfc_main$4, [["__scopeId", "data-v-6689e82e"]]);
+var YInput = /* @__PURE__ */ _export_sfc(_sfc_main$3, [["__scopeId", "data-v-6689e82e"]]);
 var YSelectOption_vue_vue_type_style_index_0_scoped_true_lang = "";
-const _hoisted_1$3 = ["disabled"];
+const _hoisted_1$2 = ["disabled"];
 const _hoisted_2$1 = {
   key: 0,
   class: "icon"
@@ -505,7 +506,7 @@ const _hoisted_4$1 = {
   "i-tabler-check": "",
   class: "selected-icon"
 };
-const _sfc_main$3 = /* @__PURE__ */ defineComponent({
+const _sfc_main$2 = /* @__PURE__ */ defineComponent({
   __name: "YSelectOption",
   props: {
     modelValue: null,
@@ -536,16 +537,16 @@ const _sfc_main$3 = /* @__PURE__ */ defineComponent({
           renderSlot(_ctx.$slots, "default", {}, void 0, true)
         ]),
         __props.selected ? (openBlock(), createElementBlock("i", _hoisted_4$1)) : createCommentVNode("", true)
-      ], 10, _hoisted_1$3);
+      ], 10, _hoisted_1$2);
     };
   }
 });
-var YSelectOption = /* @__PURE__ */ _export_sfc(_sfc_main$3, [["__scopeId", "data-v-183647fd"]]);
+var YSelectOption = /* @__PURE__ */ _export_sfc(_sfc_main$2, [["__scopeId", "data-v-183647fd"]]);
 function launder(arg) {
   return arg;
 }
 var YGroupSelectMenu_vue_vue_type_style_index_0_scoped_true_lang = "";
-const _hoisted_1$2 = { class: "menu" };
+const _hoisted_1$1 = { class: "menu" };
 const _hoisted_2 = { class: "search" };
 const _hoisted_3 = { class: "menu-options" };
 const _hoisted_4 = { class: "menu-options" };
@@ -553,7 +554,7 @@ const _hoisted_5 = { class: "search-placeholder" };
 const _hoisted_6 = /* @__PURE__ */ createTextVNode("No results found for: ");
 const _hoisted_7 = { class: "search-items-count" };
 const _hoisted_8 = { class: "count-label" };
-const _sfc_main$2 = /* @__PURE__ */ defineComponent({
+const _sfc_main$1 = /* @__PURE__ */ defineComponent({
   __name: "YGroupSelectMenu",
   props: {
     selectedItem: null,
@@ -592,7 +593,7 @@ const _sfc_main$2 = /* @__PURE__ */ defineComponent({
       emit("selectOption", value);
     };
     return (_ctx, _cache) => {
-      return openBlock(), createElementBlock("div", _hoisted_1$2, [
+      return openBlock(), createElementBlock("div", _hoisted_1$1, [
         createElementVNode("div", _hoisted_2, [
           createVNode(YInput, {
             modelValue: searchValue.value,
@@ -682,15 +683,11 @@ const _sfc_main$2 = /* @__PURE__ */ defineComponent({
     };
   }
 });
-var YGroupSelectMenu = /* @__PURE__ */ _export_sfc(_sfc_main$2, [["__scopeId", "data-v-f7c70ae2"]]);
-var YGroupSelectMenu$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
-  __proto__: null,
-  "default": YGroupSelectMenu
-}, Symbol.toStringTag, { value: "Module" }));
+var YGroupSelectMenu = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["__scopeId", "data-v-f7c70ae2"]]);
 var YGroupSelect_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _withScopeId = (n) => (pushScopeId("data-v-7cebce8b"), n = n(), popScopeId(), n);
-const _hoisted_1$1 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ createElementVNode("i", { "i-tabler-selector": "" }, null, -1));
-const _sfc_main$1 = /* @__PURE__ */ defineComponent({
+const _hoisted_1 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ createElementVNode("i", { "i-tabler-selector": "" }, null, -1));
+const _sfc_main = /* @__PURE__ */ defineComponent({
   __name: "YGroupSelect",
   props: {
     selectedItem: { default: null },
@@ -730,7 +727,7 @@ const _sfc_main$1 = /* @__PURE__ */ defineComponent({
           onClick: _cache[0] || (_cache[0] = ($event) => toggleMenu())
         }, {
           icon: withCtx(() => [
-            _hoisted_1$1
+            _hoisted_1
           ]),
           default: withCtx(() => [
             createTextVNode(toDisplayString(unref(launder)(unref(optionToDisplay)).label || unref(optionToDisplay)) + " ", 1)
@@ -744,31 +741,14 @@ const _sfc_main$1 = /* @__PURE__ */ defineComponent({
     };
   }
 });
-var YGroupSelect = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["__scopeId", "data-v-7cebce8b"]]);
-var YGroupSelect$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
-  __proto__: null,
-  "default": YGroupSelect
-}, Symbol.toStringTag, { value: "Module" }));
-const _sfc_main = {};
-const _hoisted_1 = /* @__PURE__ */ createElementVNode("span", null, "TODO: Implement me", -1);
-function _sfc_render(_ctx, _cache) {
-  return openBlock(), createElementBlock("div", null, [
-    _hoisted_1,
-    renderSlot(_ctx.$slots, "default")
-  ]);
-}
-var YSelect = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", _sfc_render]]);
-var YSelect$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
-  __proto__: null,
-  "default": YSelect
-}, Symbol.toStringTag, { value: "Module" }));
+var YGroupSelect = /* @__PURE__ */ _export_sfc(_sfc_main, [["__scopeId", "data-v-7cebce8b"]]);
 var components = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
-  YInput: YInput$2,
-  YButton: YButton$1,
-  YGroupSelect: YGroupSelect$1,
-  YGroupSelectMenu: YGroupSelectMenu$1,
-  YSelect: YSelect$1
+  YInput: YInput$1,
+  YButton,
+  YSelect,
+  YGroupSelect,
+  YGroupSelectMenu
 }, Symbol.toStringTag, { value: "Module" }));
 var __uno = "";
 var main = "";
@@ -789,4 +769,4 @@ function install(app) {
   }
 }
 var index = { install };
-export { MyConstants, MyUtil, YButton$1 as YButton, YGroupSelect$1 as YGroupSelect, YGroupSelectMenu$1 as YGroupSelectMenu, YInput$2 as YInput, YSelect$1 as YSelect, index as default };
+export { MyConstants, MyUtil, YButton, YGroupSelect, YGroupSelectMenu, YInput$1 as YInput, YSelect, index as default };
