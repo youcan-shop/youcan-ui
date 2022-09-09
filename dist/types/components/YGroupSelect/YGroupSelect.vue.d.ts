@@ -1,7 +1,10 @@
+import { type GroupSelectItem } from '~/components/YGroupSelect/groupSelect.types';
 declare const _default: import("vue").DefineComponent<__VLS_TypePropsToRuntimeProps<{
-    msg: string;
+    selectedItem?: GroupSelectItem | null | undefined;
+    items: GroupSelectItem[];
 }>, {}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<__VLS_TypePropsToRuntimeProps<{
-    msg: string;
+    selectedItem?: GroupSelectItem | null | undefined;
+    items: GroupSelectItem[];
 }>>>, {}>;
 export default _default;
 declare type __VLS_NonUndefinedable<T> = T extends undefined ? never : T;
