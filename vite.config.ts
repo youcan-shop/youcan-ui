@@ -1,12 +1,10 @@
 import { resolve } from 'node:path';
-import vue from '@vitejs/plugin-vue';
+import vue from '@vitejs/plugin-vue2';
 import { defineConfig } from 'vite';
 import Unocss from 'unocss/vite';
 
 module.exports = defineConfig({
-  plugins: [vue({
-    reactivityTransform: true,
-  }), Unocss()], // to process SFC
+  plugins: [vue(), Unocss()], // to process SFC
   build: {
     cssCodeSplit: true,
     lib: {

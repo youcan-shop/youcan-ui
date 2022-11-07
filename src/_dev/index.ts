@@ -1,5 +1,8 @@
-import { createApp } from 'vue';
+import Vue from 'vue';
 import App from './App.vue';
 import 'uno.css';
 
-createApp(App).mount('#app');
+const app = new Vue({
+  el: '#app',
+  render: r => r(App),
+});

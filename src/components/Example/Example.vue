@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import Example from '~/components/Example/Example.vue';
 </script>
 
 <template>
   <div>
-    <Example />
+    <i class="i-tabler:3d-cube-sphere" />
+    <span>Hello world</span>
   </div>
 </template>
