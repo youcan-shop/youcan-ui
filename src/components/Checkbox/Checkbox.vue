@@ -19,26 +19,25 @@ watchEffect(() => {
 
 <template>
   <label class="checkbox-container">
-    <input
-      v-model="inputValue"
-      class="checkbox-input"
-      type="checkbox"
-    >
+    <input v-model="inputValue" class="checkbox-input" type="checkbox">
     <span class="checkmark" />
   </label>
 </template>
 
 <style scoped lang="scss">
 .checkbox-container {
-  display: block;
+  display: inline-block;
   position: relative;
   cursor: pointer;
+  width: 20px;
+  height: 20px;
 
   &:hover {
-    .checkbox-input ~ .checkmark {
+    .checkbox-input~.checkmark {
       background-color: var(--stormGray-100);
     }
   }
+
   .checkbox-input {
     position: absolute;
     opacity: 0;
@@ -51,9 +50,9 @@ watchEffect(() => {
     position: absolute;
     top: 0;
     left: 0;
-    height: 20px;
-    width: 20px;
-    background-color:  var(--base-White);
+    height: 100%;
+    width: 100%;
+    background-color: var(--base-White);
     border: 1px solid var(--border-color);
     border-radius: 4px;
 
@@ -69,7 +68,7 @@ watchEffect(() => {
     display: none;
   }
 
-  .checkbox-input:checked ~ .checkmark:after {
+  .checkbox-input:checked~.checkmark:after {
     display: block;
   }
 
@@ -84,7 +83,8 @@ watchEffect(() => {
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
   }
-  .checkbox-input:checked ~ .checkmark {
+
+  .checkbox-input:checked~.checkmark {
     background-color: var(--base-White);
   }
 }
