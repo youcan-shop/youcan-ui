@@ -1,9 +1,14 @@
 <script setup lang="ts">
-import InputStoryVue from '~/components/Input/Input.story.vue';
+import { ref } from 'vue';
+import Input from '~/components/Input/Input.vue';
+import '~/assets/main.scss';
+
+const inputValue = ref('hello');
 </script>
 
 <template>
   <div>
-    <InputStoryVue />
+    <Input v-model="inputValue" type="text" placeholder="Placeholder" />
+    <span>{{ inputValue }}</span>
   </div>
 </template>

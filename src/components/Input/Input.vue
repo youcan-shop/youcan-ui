@@ -1,33 +1,26 @@
 <script setup lang="ts">
-import { defineProps, ref } from 'vue';
+import { ref } from 'vue';
 
-const props = defineProps<{
-  modelValue: string
+const { value } = defineProps<{
+  value: string
   type: string
   placeholder?: string
 }>();
 
-const emit = defineEmits(['update:modelValue']);
+const emit = defineEmits(['input']);
 
-const inputValue = ref();
-const modelInput = ref(props.modelValue);
+const inputValue = ref(value);
 
 const onInput = (e: Event) => {
   const target = e.target as HTMLInputElement;
-  modelInput.value = target.value;
+  inputValue.value = target.value;
 
-  emit('update:modelValue', inputValue.value.value);
+  emit('input', inputValue.value);
 };
 </script>
 
 <template>
-  <input
-    ref="inputValue"
-    :value="modelInput"
-    class="input"
-    v-bind="$attrs"
-    @input="onInput"
-  >
+  <input :value="inputValue" class="input" v-bind="$attrs" @input="onInput">
 </template>
 
 <style scoped>
