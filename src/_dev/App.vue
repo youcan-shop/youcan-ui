@@ -5,8 +5,10 @@ import Input from '~/components/Input/Input.vue';
 import PasswordInput from '~/components/PasswordInput/PasswordInput.vue';
 import '~/assets/main.scss';
 import Button from '~/components/Button/Button.vue';
+import Checkbox from '~/components/Checkbox/Checkbox.vue';
 
 const inputValue = ref('hello');
+const isChecked = ref(false);
 </script>
 
 <template>
@@ -22,6 +24,9 @@ const inputValue = ref('hello');
       <Button>
         <span>Continue</span>
       </Button>
+    </div>
+    <div>
+      <Checkbox v-model="isChecked" />
     </div>
   </div>
 </template>
