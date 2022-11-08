@@ -42,7 +42,7 @@ const togglePasswordVisibility = () => {
       ref="baseInput"
       type="password"
       :placeholder="placeholder"
-      v-model
+      :value="inputValue"
       class="input"
       v-bind="$attrs"
       @input="onInput"
