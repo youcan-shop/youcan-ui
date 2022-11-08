@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { defineProps, ref } from 'vue';
-import type { HTMLInputTypes } from '~/components/YInput/Input.types';
+import type { HTMLInputTypes } from '~/components/Input/Input.types';
 
 defineProps({
   placeholder: {

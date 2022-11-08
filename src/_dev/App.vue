@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import YinputStoryVue from '~/components/YInput/YInput.story.vue';
+import InputStoryVue from '~/components/Input/Input.story.vue';
 </script>
 
 <template>
   <div>
-    <YinputStoryVue />
+    <InputStoryVue />
   </div>
 </template>
