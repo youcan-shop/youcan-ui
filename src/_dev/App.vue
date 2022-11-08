@@ -24,7 +24,7 @@ const isChecked = ref(false);
         <span>Continue</span>
       </Button>
     </div>
-    <div>
+    <div :style="{ display: 'flex', alignItems: 'center', gap: '4px' }">
       <Checkbox v-model="isChecked" />
       <span>Hello</span>
     </div>
