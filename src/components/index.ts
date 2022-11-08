@@ -1,3 +1,1 @@
-export default function hello() {
-  console.log('hello');
-}
+export { default as YInput } from './YInput/YInput.vue';

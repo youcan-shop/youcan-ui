@@ -1,49 +1,56 @@
 <script setup lang="ts">
 import { defineProps, ref } from 'vue';
+import type { HTMLInputTypes } from '~/components/YInput/Input.types';
 
 defineProps({
   placeholder: {
-    type: String,
-    default: '',
+    type: String || null,
   },
-  type: {
-    type: String,
+  inputType: {
+    type: String as () => HTMLInputTypes,
     default: 'text',
   },
-  value: {
+  modelValue: {
     type: String,
-    default: '',
-  },
-  label: {
-    type: String,
-    default: '',
   },
 });
 
-const inputValue = ref('');
-const focus = ref(false);
+const inputValue = ref<HTMLInputElement | null>(null);
 
-const handleInput = (e: any) => {
-  inputValue.value = e.target.value;
-};
+const modelValue = ref('');
 
-const handleFocus = () => {
-  focus.value = true;
+const oninput = (e: Event) => {
+  const target = e.target as HTMLInputElement;
+  modelValue.value = target.value;
 };
 </script>
 
 <template>
-  <div class="y-input">
-    <div class="y-input__container" :class="{ focus }">
-      <input
-        class="y-input__inner"
-        :placeholder="placeholder"
-        :type="type"
-        :value="inputValue"
-        @input="handleInput"
-        @focus="handleFocus"
-      >
-      <h1>{{ inputValue }}</h1>
-    </div>
+  <div>
+    <input
+      ref="inputValue"
+      :type="inputType"
+      :placeholder="placeholder"
+      :value="modelValue"
+      class="input"
+      @input="oninput"
+    >
+    <p>{{ modelValue }}</p>
   </div>
 </template>
+
+<style scoped>
+.input {
+  width: 100%;
+  border: 1px solid var(--border-color);
+  height: 54px;
+  border-radius: 8px;
+  padding: 6px 12px;
+  outline: none;
+  font-weight: 400;
+}
+
+.input::placeholder {
+  color: var(--placeholder-color);
+}
+</style>

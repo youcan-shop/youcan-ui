@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import YinputStoryVue from '~/components/YInput/YInput.vue';
+import YinputStoryVue from '~/components/YInput/YInput.story.vue';
 </script>
 
 <template>
