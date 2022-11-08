@@ -1,24 +1,20 @@
 <script setup lang="ts">
 import { defineProps, ref } from 'vue';
-import type { HTMLInputTypes } from '~/components/Input/Input.types';
 
 defineProps({
-  placeholder: {
-    type: String || null,
-  },
-  inputType: {
-    type: String as () => HTMLInputTypes,
-    default: 'text',
-  },
   modelValue: {
     type: String,
   },
 });
 
-const inputValue = ref<HTMLInputElement | null>(null);
+const emit = defineEmits(['update:modelValue']);
+const inputValue = ref();
 
-const modelValue = ref('');
+const emitChange = () => {
+  emit('update:modelValue', inputValue.value.value);
+};
 
+const modelValue = ref();
 const oninput = (e: Event) => {
   const target = e.target as HTMLInputElement;
   modelValue.value = target.value;
@@ -29,13 +25,12 @@ const oninput = (e: Event) => {
   <div>
     <input
       ref="inputValue"
-      :type="inputType"
-      :placeholder="placeholder"
       :value="modelValue"
       class="input"
+      v-bind="$attrs"
       @input="oninput"
+      @change="emitChange"
     >
-    <p>{{ modelValue }}</p>
   </div>
 </template>
 
@@ -48,6 +43,8 @@ const oninput = (e: Event) => {
   padding: 6px 12px;
   outline: none;
   font-weight: 400;
+  letter-spacing: 2%;
+  line-height: 19.2px;
 }
 
 .input::placeholder {

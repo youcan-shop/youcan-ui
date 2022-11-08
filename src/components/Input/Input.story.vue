@@ -8,13 +8,7 @@ import Input from '~/components/Input/Input.vue';
       <Input />
     </Variant>
     <Variant title="TEXT INPUT">
-      <Input input-type="text" placeholder="Full name" />
-    </Variant>
-    <Variant title="EMAIL INPUT">
-      <Input input-type="email" placeholder="email" />
-    </Variant>
-    <Variant title="Adress, Zip code, City">
-      <Input input-type="text" placeholder="Adress, Zip code, City" />
+      <Input type="text" placeholder="Full name" />
     </Variant>
   </Story>
 </template>
