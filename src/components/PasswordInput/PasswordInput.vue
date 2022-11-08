@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
+import Input from '~/components/Input/Input.vue';
 
 const { value } = defineProps<{
   value: string
@@ -17,44 +18,43 @@ const onInput = (e: Event) => {
   emit('input', inputValue.value);
 };
 
-const toggle = ref(false);
-const _base_input = ref();
+const isPasswordHidden = ref(false);
+const baseInput = ref();
 
-const toggle_onclick = () => {
-  toggle.value = !toggle.value;
-  if (toggle.value) {
-    _base_input.value?.setAttribute('type', 'text');
+const togglePasswordVisibility = () => {
+  isPasswordHidden.value = !isPasswordHidden.value;
+  if (isPasswordHidden.value) {
+    baseInput.value?.setAttribute('type', 'text');
   }
   else {
-    _base_input.value?.setAttribute('type', 'password');
+    baseInput.value?.setAttribute('type', 'password');
   }
 };
 </script>
 
 <template>
-  <div class="password-style">
-    <button @click="toggle_onclick">
-      <span v-if="toggle"><i i-tabler-eye style="font-size:60px;" /></span>
-      <span v-else><i i-tabler-eye-off /></span>
+  <div class="password-input">
+    <button @click="togglePasswordVisibility">
+      <i :class="isPasswordHidden ? 'i-tabler-eye' : 'i-tabler-eye-off'" />
     </button>
 
-    <input
-      ref="_base_input"
+    <Input
+      ref="baseInput"
       type="password"
       :placeholder="placeholder"
-      :value="inputValue"
+      v-model
       class="input"
       v-bind="$attrs"
       @input="onInput"
-    >
+    />
   </div>
 </template>
 
 <style scoped>
-.password-style {
+.password-input {
     position: relative;
 }
-.password-style input {
+.password-input input {
   width: 100%;
   border: 1px solid var(--border-color);
   height: 54px;
@@ -65,11 +65,11 @@ const toggle_onclick = () => {
   font-weight: 400;
 }
 
-.password-style input::placeholder {
+.password-input input::placeholder {
   color: var(--placeholder-color);
 }
 
-.password-style button {
+.password-input button {
   position: absolute;
   height: 100%;
   background: none;
