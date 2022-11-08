@@ -8,14 +8,12 @@ defineProps({
 });
 
 const emit = defineEmits(['update:modelValue']);
+
 const inputValue = ref();
 
-const emitChange = () => {
-  emit('update:modelValue', inputValue.value.value);
-};
-
 const modelValue = ref();
-const oninput = (e: Event) => {
+const onInput = (e: Event) => {
+  emit('update:modelValue', inputValue.value.value);
   const target = e.target as HTMLInputElement;
   modelValue.value = target.value;
 };
@@ -28,9 +26,9 @@ const oninput = (e: Event) => {
       :value="modelValue"
       class="input"
       v-bind="$attrs"
-      @input="oninput"
-      @change="emitChange"
+      @input="onInput"
     >
+    {{ modelValue }}
   </div>
 </template>
 
