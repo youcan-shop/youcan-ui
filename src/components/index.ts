@@ -1,3 +1,1 @@
-export default function hello() {
-  console.log('hello');
-}
+export { default as Input } from './Input/Input.vue';
