@@ -1,2 +1,2 @@
 import 'uno.css';
-import './assets/main.scss';
+import './assets/main.css';

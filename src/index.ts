@@ -1,7 +1,7 @@
 import type { App } from 'vue';
 import * as components from './components';
 import 'uno.css';
-import './assets/main.scss';
+import './assets/main.css';
 
 function install(app: App) {
   for (const key in components) {

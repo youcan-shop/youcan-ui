@@ -2,17 +2,17 @@
 import { ref } from 'vue';
 
 import Input from '~/components/Input/Input.vue';
-const props = defineProps<{
+const { value, passwordHidden = true } = defineProps<{
   value: string
   placeholder?: string
-  passwordHidden: boolean
+  passwordHidden?: boolean
 }>();
 
 const emit = defineEmits(['input']);
 
 const baseInput = ref();
-const isPasswordHidden = ref(props.passwordHidden);
-const inputValue = ref(props.value);
+const isPasswordHidden = ref(passwordHidden);
+const inputValue = ref(value);
 
 const onInput = (emittedValue: string) => {
   emit('input', emittedValue);
@@ -22,17 +22,11 @@ const onInput = (emittedValue: string) => {
 <template>
   <div class="password-input">
     <button @click="isPasswordHidden = !isPasswordHidden">
-      <i :class="isPasswordHidden ? 'i-tabler-eye-off' : 'i-tabler-eye'" />
+      <i :class="!isPasswordHidden ? 'i-tabler-eye-off' : 'i-tabler-eye'" />
     </button>
 
-    <Input
-      ref="baseInput"
-      :type="isPasswordHidden ? 'password' : 'text'"
-      :placeholder="placeholder"
-      :value="inputValue"
-      class="input"
-      @input="onInput"
-    />
+    <Input ref="baseInput" :type="isPasswordHidden ? 'password' : 'text'" :placeholder="placeholder" :value="inputValue"
+      class="input" @input="onInput" />
   </div>
 </template>
 
@@ -40,6 +34,7 @@ const onInput = (emittedValue: string) => {
 .password-input {
   position: relative;
 }
+
 .password-input input {
   width: 100%;
   border: 1px solid var(--border-color);
