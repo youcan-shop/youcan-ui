@@ -11,40 +11,26 @@ const emit = defineEmits(['input']);
 
 const inputValue = ref(value);
 
-const onInput = (e: Event) => {
-  const target = e.target as HTMLInputElement;
-  inputValue.value = target.value;
-
-  emit('input', inputValue.value);
+const onInput = (emitedValue: string) => {
+  emit('input', emitedValue);
 };
 
 const isPasswordHidden = ref(false);
 const baseInput = ref();
-
-const togglePasswordVisibility = () => {
-  isPasswordHidden.value = !isPasswordHidden.value;
-  if (isPasswordHidden.value) {
-    baseInput.value?.setAttribute('type', 'text');
-  }
-  else {
-    baseInput.value?.setAttribute('type', 'password');
-  }
-};
 </script>
 
 <template>
   <div class="password-input">
-    <button @click="togglePasswordVisibility">
+    <button @click="isPasswordHidden = !isPasswordHidden">
       <i :class="isPasswordHidden ? 'i-tabler-eye' : 'i-tabler-eye-off'" />
     </button>
 
     <Input
       ref="baseInput"
-      type="password"
+      :type="isPasswordHidden ? 'password' : 'text'"
       :placeholder="placeholder"
       :value="inputValue"
       class="input"
-      v-bind="$attrs"
       @input="onInput"
     />
   </div>

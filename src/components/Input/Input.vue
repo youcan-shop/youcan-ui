@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 
-const { value } = defineProps<{
+const props = defineProps<{
   value: string
   type: string
   placeholder?: string
@@ -9,7 +9,8 @@ const { value } = defineProps<{
 
 const emit = defineEmits(['input']);
 
-const inputValue = ref(value);
+const inputValue = ref(props.value);
+const inputType = computed(() => props.type);
 
 const onInput = (e: Event) => {
   const target = e.target as HTMLInputElement;
@@ -20,7 +21,7 @@ const onInput = (e: Event) => {
 </script>
 
 <template>
-  <input :value="inputValue" class="input" v-bind="$attrs" @input="onInput">
+  <input :value="inputValue" :type="inputType" class="input" v-bind="$attrs" @input="onInput">
 </template>
 
 <style scoped>
