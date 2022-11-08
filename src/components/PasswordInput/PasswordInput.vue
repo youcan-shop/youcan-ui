@@ -69,7 +69,6 @@ const toggle_onclick = () => {
   color: var(--placeholder-color);
 }
 
-/*  enter the button icon inside the input */
 .password-style button {
   position: absolute;
   height: 100%;
