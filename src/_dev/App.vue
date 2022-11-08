@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import Input from '~/components/Input/Input.vue';
+import PasswordInput from '~/components/PasswordInput/PasswordInput.vue';
 import '~/assets/main.scss';
 
 const inputValue = ref('hello');
@@ -9,6 +10,7 @@ const inputValue = ref('hello');
 <template>
   <div>
     <Input v-model="inputValue" type="text" placeholder="Placeholder" />
+    <PasswordInput v-model="inputValue" placeholder="Placeholder" />
     <span>{{ inputValue }}</span>
   </div>
 </template>
