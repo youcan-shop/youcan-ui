@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { defineProps, ref } from 'vue';
 
-defineProps<{
+const props = defineProps<{
   modelValue: string
   type: string
   placeholder?: string
@@ -10,8 +10,12 @@ defineProps<{
 const emit = defineEmits(['update:modelValue']);
 
 const inputValue = ref();
+const modelInput = ref(props.modelValue);
 
-const onInput = () => {
+const onInput = (e: Event) => {
+  const target = e.target as HTMLInputElement;
+  modelInput.value = target.value;
+
   emit('update:modelValue', inputValue.value.value);
 };
 </script>
@@ -19,7 +23,7 @@ const onInput = () => {
 <template>
   <input
     ref="inputValue"
-    :value="modelValue"
+    :value="modelInput"
     class="input"
     v-bind="$attrs"
     @input="onInput"
