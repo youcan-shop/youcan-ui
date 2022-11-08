@@ -21,7 +21,7 @@ const onInput = (e: Event) => {
 </script>
 
 <template>
-  <input :value="inputValue" :type="inputType" class="input" v-bind="$attrs" @input="onInput">
+  <input :value="inputValue" :type="inputType" :placeholder="placeholder" class="input" v-bind="$attrs" @input="onInput">
 </template>
 
 <style scoped>
