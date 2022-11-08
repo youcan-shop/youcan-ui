@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import '~/assets/main.scss';
+import '~/assets/main.css';
 import { ref } from 'vue';
 import Input from '~/components/Input/Input.vue';
 import PasswordInput from '~/components/PasswordInput/PasswordInput.vue';
-import '~/assets/main.scss';
 import Button from '~/components/Button/Button.vue';
 import Checkbox from '~/components/Checkbox/Checkbox.vue';
 
@@ -14,7 +13,7 @@ const isChecked = ref(false);
 <template>
   <div>
     <Input v-model="inputValue" type="text" placeholder="Placeholder" />
-    <PasswordInput v-model="inputValue" placeholder="Placeholder" />
+    <PasswordInput v-model="inputValue" placeholder="Placeholder" :password-hidden="true" />
     <span>{{ inputValue }}</span>
     <div>
       <Input v-model="inputValue" type="text" placeholder="Placeholder" />

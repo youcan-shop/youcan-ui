@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Mono:wght@400;500;700&family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+* {
+  font-family: 'Inter', sans-serif;
+  box-sizing: border-box;
+}
+
+:root {
+  /** UI Component styling */
+  --border-color: #D8D8EB;
+  --placeholder-color: #A9A9B8;
+  --base-white: #fff;
+  --stormGray-100: #f4f4f4;
+  --primary-color: #B83375;
+}

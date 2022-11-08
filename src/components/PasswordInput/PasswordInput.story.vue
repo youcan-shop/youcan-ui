@@ -12,5 +12,9 @@ const secondValue = ref('hello v2');
       <PasswordInput v-model="firstValue" placeholder="password" />
       <span>Value: {{ firstValue }}</span>
     </Variant>
+    <Variant title="Password shown">
+      <PasswordInput v-model="secondValue" placeholder="password" :password-hidden="false" />
+      <span>Value: {{ secondValue }}</span>
+    </Variant>
   </Story>
 </template>
