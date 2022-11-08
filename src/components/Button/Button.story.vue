@@ -5,7 +5,7 @@ import Button from './Button.vue';
 <template>
   <Story>
     <Button>
-      <span>Continue</span>
+      Continue
     </Button>
   </Story>
 </template>

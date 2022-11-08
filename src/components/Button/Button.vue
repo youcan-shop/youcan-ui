@@ -1,11 +1,5 @@
 <script setup lang="ts">
-import type { Color } from '~/components/Button/Button.types';
-
 const props = defineProps({
-  color: {
-    type: String as () => Color,
-    default: 'primary',
-  },
   disabled: {
     type: Boolean,
     default: false,
@@ -16,7 +10,7 @@ const props = defineProps({
 <template>
   <button
     ref="target" class="button" :disabled="disabled"
-    :class="[color, disabled]"
+    :class="disabled"
   >
     <span class="text">
       <slot />
@@ -36,11 +30,7 @@ const props = defineProps({
   outline: none;
   user-select: none;
   width: max-content;
-
-  &.primary {
-    background: #B83375;
-    color: #FFFFFF;
-  }
+  cursor: pointer;
 
   &.disabled {
     pointer-events: none;
