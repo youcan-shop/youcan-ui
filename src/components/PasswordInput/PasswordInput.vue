@@ -22,7 +22,7 @@ const baseInput = ref();
 <template>
   <div class="password-input">
     <button @click="isPasswordHidden = !isPasswordHidden">
-      <i :class="isPasswordHidden ? 'i-tabler-eye' : 'i-tabler-eye-off'" />
+      <i :class="isPasswordHidden ? 'i-tabler-eye-off' : 'i-tabler-eye'" />
     </button>
 
     <Input
