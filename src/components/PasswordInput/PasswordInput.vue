@@ -2,20 +2,21 @@
 import { ref } from 'vue';
 import Input from '~/components/Input/Input.vue';
 
-const { value } = defineProps<{
+const props = defineProps<{
   value: string
   placeholder?: string
+  passwordHidden: boolean
 }>();
 
 const emit = defineEmits(['input']);
 
-const inputValue = ref(value);
+const inputValue = ref(props.value);
 
 const onInput = (emitedValue: string) => {
   emit('input', emitedValue);
 };
 
-const isPasswordHidden = ref(false);
+const isPasswordHidden = ref(props.passwordHidden);
 const baseInput = ref();
 </script>
 
@@ -38,7 +39,7 @@ const baseInput = ref();
 
 <style scoped>
 .password-input {
-    position: relative;
+  position: relative;
 }
 .password-input input {
   width: 100%;
