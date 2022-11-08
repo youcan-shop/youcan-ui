@@ -10,7 +10,7 @@ const props = defineProps({
 <template>
   <button
     ref="target" class="button" :disabled="disabled"
-    :class="disabled"
+    :class="{ disabled }"
   >
     <span class="text">
       <slot />
