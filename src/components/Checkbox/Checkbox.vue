@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, watchEffect } from 'vue';
+import { ref, watchEffect } from 'vue';
 
 const props = defineProps({
   value: {
@@ -36,7 +36,7 @@ watchEffect(() => {
 
   &:hover {
     .checkbox-input ~ .checkmark {
-      background-color: #f4f4f4;
+      background-color: var(--stormGray-100);
     }
   }
   .checkbox-input {
@@ -53,8 +53,8 @@ watchEffect(() => {
     left: 0;
     height: 20px;
     width: 20px;
-    background-color: #fff;
-    border: 1px solid #D8D8EB;
+    background-color:  var(--base-White);
+    border: 1px solid var(--border-color);
     border-radius: 4px;
 
     [dir='rtl'] & {
@@ -78,14 +78,14 @@ watchEffect(() => {
     top: 1px;
     width: 5px;
     height: 10px;
-    border: solid #B83375;
+    border: solid var(--primary-color);
     border-width: 0 3px 3px 0;
     -webkit-transform: rotate(45deg);
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
   }
   .checkbox-input:checked ~ .checkmark {
-    background-color: #fff;
+    background-color: var(--base-White);
   }
 }
 </style>
