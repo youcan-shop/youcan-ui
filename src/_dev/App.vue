@@ -26,6 +26,7 @@ const isChecked = ref(false);
     </div>
     <div>
       <Checkbox v-model="isChecked" />
+      <span>Hello</span>
     </div>
   </div>
 </template>
