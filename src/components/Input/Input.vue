@@ -11,7 +11,7 @@ const emit = defineEmits(['update:modelValue']);
 
 const inputValue = ref();
 
-const onInput = (e: Event) => {
+const onInput = () => {
   emit('update:modelValue', inputValue.value.value);
 };
 </script>
