@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import Input from '~/components/Input/Input.vue';
 
+import Input from '~/components/Input/Input.vue';
 const props = defineProps<{
   value: string
   placeholder?: string
@@ -10,6 +10,8 @@ const props = defineProps<{
 
 const emit = defineEmits(['input']);
 
+const baseInput = ref();
+
 const inputValue = ref(props.value);
 
 const onInput = (emitedValue: string) => {
@@ -17,7 +19,6 @@ const onInput = (emitedValue: string) => {
 };
 
 const isPasswordHidden = ref(props.passwordHidden);
-const baseInput = ref();
 </script>
 
 <template>
