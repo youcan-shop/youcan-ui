@@ -11,14 +11,12 @@ const props = defineProps<{
 const emit = defineEmits(['input']);
 
 const baseInput = ref();
-
+const isPasswordHidden = ref(props.passwordHidden);
 const inputValue = ref(props.value);
 
-const onInput = (emitedValue: string) => {
-  emit('input', emitedValue);
+const onInput = (emittedValue: string) => {
+  emit('input', emittedValue);
 };
-
-const isPasswordHidden = ref(props.passwordHidden);
 </script>
 
 <template>
