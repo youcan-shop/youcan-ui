@@ -1,35 +1,29 @@
 <script setup lang="ts">
 import { defineProps, ref } from 'vue';
 
-defineProps({
-  modelValue: {
-    type: String,
-  },
-});
+defineProps<{
+  modelValue: string
+  type: string
+  placeholder?: string
+}>();
 
 const emit = defineEmits(['update:modelValue']);
 
 const inputValue = ref();
 
-const modelValue = ref();
 const onInput = (e: Event) => {
   emit('update:modelValue', inputValue.value.value);
-  const target = e.target as HTMLInputElement;
-  modelValue.value = target.value;
 };
 </script>
 
 <template>
-  <div>
-    <input
-      ref="inputValue"
-      :value="modelValue"
-      class="input"
-      v-bind="$attrs"
-      @input="onInput"
-    >
-    {{ modelValue }}
-  </div>
+  <input
+    ref="inputValue"
+    :value="modelValue"
+    class="input"
+    v-bind="$attrs"
+    @input="onInput"
+  >
 </template>
 
 <style scoped>

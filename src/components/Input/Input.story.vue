@@ -5,10 +5,18 @@ import Input from '~/components/Input/Input.vue';
 <template>
   <Story>
     <Variant title="Default">
-      <Input />
+      <Input
+        type="text"
+        placeholder="Placeholder"
+        model-value="test value"
+      />
     </Variant>
     <Variant title="TEXT INPUT">
-      <Input type="text" placeholder="Full name" />
-    </Variant>
+      <Input
+        type="text"
+        placeholder="Full name"
+        model-value="Value"
+      />
+    </variant>
   </Story>
 </template>
