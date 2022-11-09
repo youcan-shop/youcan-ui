@@ -1,11 +1,13 @@
 <script setup lang="ts">
-const props = defineProps({
+const props = defineProps<{
+  disabled?: boolean
+}>();
 
-});
+const emit = defineEmits(['focus', 'blur']);
 </script>
 
 <template>
-  <Input class="dropdown-input" @click="emit('click')">
+  <Input class="dropdown-input" :disabled="disabled" @focus="emit('focus')" @blur="emit('blur')">
     <span>Please select an option</span>
     <i class="i-tabler:chevron-down" />
   </Input>

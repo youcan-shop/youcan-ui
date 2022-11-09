@@ -1,15 +1,18 @@
 <script setup lang="ts">
 const props = defineProps<{
-  index: number
-  value: SelectItem
+  items: {
+    label: string
+    icon?: string
+    image?: string
+  }[]
 }>();
 </script>
 
 <template>
-  <div v-for="item in value" :key="index" class="dropdown-content">
-    <div class="dropdown-item" :class="{ active: item === selectedItem }" @click="emit('select', item)">
+  <div class="dropdown-content">
+    <div v-for="(item, index) in items" :key="index" class="dropdown-item">
       <span>{{ item.label }}</span>
-      <i v-if="item.icon" :class="[item.icon]" />
+      <i v-if="item.icon" :class="item.icon" />
       <img v-if="item.image" :src="item.image">
     </div>
   </div>

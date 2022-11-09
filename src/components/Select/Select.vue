@@ -1,18 +1,24 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 import SelectInput from './SelectInput.vue';
 import SelectMenu from './SelectMenu.vue';
 const props = defineProps<{
-  label: string
-  icon?: string
-  image?: string
+  items: {
+    label: string
+    icon?: string
+    image?: string
+  }[]
 }>();
-const showOptions = false;
+const selected = ref('');
+const shown = ref(false);
+const showOptions = () => shown.value = true;
+const hideOptions = () => shown.value = false;
 </script>
 
 <template>
-  <div v-if="options" class="dropdown">
-    <SelectInput @click="showMenu" />
-    <SelectMenu v-model="value" @select="emit('select')" />
+  <div class="dropdown">
+    <SelectInput @focus="showOptions" @blur="hideOptions" />
+    <SelectMenu v-show="shown" v-model="selected" :items="items" />
   </div>
 </template>
 
