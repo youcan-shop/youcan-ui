@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { ref } from 'vue';
 import Input from '~/components/Input/Input.vue';
+
 const props = defineProps({
   value: {
     type: String,
-    required: true,
   },
   slugSuffix: {
     type: String,
@@ -17,29 +17,26 @@ const props = defineProps({
 
 const emit = defineEmits(['input']);
 
-const slugSuffix = ref(props.slugSuffix);
 const inputValue = ref(props.value);
+const isPopoverDiplayed = ref(false);
 
-const onInput = (emittedValue: string) => {
-  emit('input', emittedValue);
-};
-const focusMenu = ref(false);
-const onfocus = () => focusMenu.value = true;
-const onblur = () => focusMenu.value = false;
+const onInput = (emittedValue: string) => emit('input', emittedValue);
+const onfocus = () => isPopoverDiplayed.value = true;
+const onblur = () => isPopoverDiplayed.value = false;
 </script>
 
 <template>
-  <div class="container">
-    <div class="store-slug-input">
+  <div class="store-slug-input">
+    <div class="input-container">
       <Input
         :value="inputValue"
         type="text" class="input" :placeholder="placeholder"
-        slug-suffix="slugSuffix" @input="onInput" @focus="onfocus" @blur="onblur"
+        @input="onInput" @focus="onfocus" @blur="onblur"
       />
       <span class="slug-suffix">{{ slugSuffix }}</span>
     </div>
     <Transition name="fade">
-      <div v-if="focusMenu" class="store-slug-box">
+      <div v-if="isPopoverDiplayed" class="popover">
         <div class="store-slug-box-content">
           <p class="store-slug-title">
             Store slug
@@ -48,12 +45,12 @@ const onblur = () => focusMenu.value = false;
             The slug you choose will be your store's domain name that your customers will see.
           </p>
           <div class="border-example">
-            <i class="i-tabler-search" />
-            <span>example.youcan.shop</span>
+            <i class="border-icon-example i-tabler-search" />
+            <span class="input-border-example">example.youcan.shop</span>
           </div>
           <div class="note">
-            <div class="note-icon">
-              <i class="i-tabler-alert-circle" />
+            <div>
+              <i class="icon-note i-tabler-alert-circle" />
             </div>
             <span class="note-description">
               You can always replace it with a custom domain name you purchased.
@@ -66,43 +63,38 @@ const onblur = () => focusMenu.value = false;
 </template>
 
 <style scoped>
-* {
-  --store-slug-input: #333333;
-  --store-slug-border-box: #F0F0FA;
-  --store-slug-box-shadow: rgba(0, 0, 0, 0.04);
+.store-slug-input {
   --store-slug-title: #262629;
   --store-slug-description: #4B4C52;
   --store-slug-box-input: #EBEBEB;
   --store-slug-box-icon: #B83375;
   --store-slug-note: #757580;
- }
-.container {
   display: flex;
   align-items: flex-start;
   gap: 10px;
   position: relative;
 }
-.store-slug-input {
+.input-container {
   position: relative;
   display: flex;
   align-items: center;
   width: 65%;
 }
 
-.store-slug-input span {
+.slug-suffix {
   position: absolute;
   right: 20px;
-  color: var(--store-slug-input);
+  color: var(--input-suffix-color);
   font-weight: 400;
   font-size: 15px;
   line-height: 19px;
   letter-spacing: 0.04em;
 }
 
-.store-slug-box {
-  width: 332px  ;
-  border: 1px solid var(--store-slug-border-box);
-  box-shadow: 0px 4px 12px var(--store-slug-box-shadow);
+.popover {
+  width: 332px;
+  border: 1px solid var(--popver-border-color);
+  box-shadow: 0px 4px 12px var(--popover-box-shadow);
   border-radius: 12px;
   position: absolute;
   right: 0;
@@ -143,11 +135,11 @@ const onblur = () => focusMenu.value = false;
   margin-bottom: 14px;
 }
 
-.border-example i {
+.border-icon-example {
   color: var(--store-slug-box-icon);
 }
 
-.border-example span {
+.input-border-example {
   font-weight: 400;
   font-size: 14px;
   line-height: 19px;
@@ -162,7 +154,7 @@ const onblur = () => focusMenu.value = false;
   margin-bottom: 12px;
 }
 
-.note-icon i {
+.icon-note {
   color: var(--store-slug-note);
 }
 
