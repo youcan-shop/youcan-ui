@@ -6,7 +6,7 @@ import PasswordInput from '~/components/PasswordInput/PasswordInput.vue';
 import Button from '~/components/Button/Button.vue';
 import Checkbox from '~/components/Checkbox/Checkbox.vue';
 import StoreSlugInputStoryVue from '~/components/StoreSlugInput/StoreSlugInput.story.vue';
-
+import Note from '~/components/Note/Note.vue';
 const inputValue = ref('hello');
 const isChecked = ref(false);
 </script>
@@ -29,6 +29,14 @@ const isChecked = ref(false);
       <Checkbox v-model="isChecked" />
       <span>Hello</span>
     </div>
+    <Note>
+      <template #icon>
+        <i class="iconMail i-tabler-mail-opened" />
+      </template>
+      <template #content>
+        <p>Don't forget to check your inbox, we have sent  a link to verify your account.</p>
+      </template>
+    </Note>
   </div>
 </template>
 

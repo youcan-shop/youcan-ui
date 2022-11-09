@@ -20,6 +20,8 @@
   --gray-500: #4B4C52;
   --gray-100: #EBEBEB;
   --gray-50: #F0F0FA;
+  --gray-25: #E0E0E0;
   --gray-20: #FAFAFA;
   --black-800: rgba(0, 0, 0, 0.04);
+  --white: #FFFFFF;
 }
