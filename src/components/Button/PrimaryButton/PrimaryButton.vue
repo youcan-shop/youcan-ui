@@ -13,8 +13,8 @@ import Button from '~/components/Button/Button.vue';
 </template>
 
 <style scoped>
-.button.primary {
---stormGray-100: var(--primary-color);
---base-black: var(--base-white);
-}
+  .button.primary {
+    --button-bg-color: var(--primary-color);
+    --button-color: var(--base-white);
+  }
 </style>
