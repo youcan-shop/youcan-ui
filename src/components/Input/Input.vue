@@ -7,7 +7,7 @@ const props = defineProps<{
   placeholder?: string
 }>();
 
-const emit = defineEmits(['input']);
+const emit = defineEmits(['input', 'focus', 'blur']);
 
 const inputValue = ref(props.value);
 const inputType = computed(() => props.type);
@@ -15,13 +15,15 @@ const inputType = computed(() => props.type);
 const onInput = (e: Event) => {
   const target = e.target as HTMLInputElement;
   inputValue.value = target.value;
-
   emit('input', inputValue.value);
 };
+
+const onfocus = () => emit('focus');
+const onblur = () => emit('blur');
 </script>
 
 <template>
-  <input :value="inputValue" :type="inputType" class="input" v-bind="$attrs" @input="onInput">
+  <input :value="inputValue" :type="inputType" :placeholder="placeholder" class="input" v-bind="$attrs" @input="onInput" @focus="onfocus" @blur="onblur">
 </template>
 
 <style scoped>

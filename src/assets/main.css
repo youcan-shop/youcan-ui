@@ -13,4 +13,13 @@
   --base-black: #000;
   --stormGray-100: #f4f4f4;
   --primary-color: #B83375;
+  --primary-400: #B83375;
+  --gray-900: #262629;
+  --gray-800: #333333;
+  --gray-600: #757580;
+  --gray-500: #4B4C52;
+  --gray-100: #EBEBEB;
+  --gray-50: #F0F0FA;
+  --gray-20: #FAFAFA;
+  --black-800: rgba(0, 0, 0, 0.04);
 }
