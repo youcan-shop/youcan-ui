@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref, watch, watchEffect } from 'vue';
+import { onMounted, ref } from 'vue';
 import Input from '~/components/Input/Input.vue';
 const props = defineProps({
   value: {
