@@ -5,6 +5,7 @@ import Input from '~/components/Input/Input.vue';
 const props = defineProps({
   value: {
     type: String,
+    required: true,
   },
   slugSuffix: {
     type: String,
@@ -28,11 +29,8 @@ const onblur = () => isPopoverDiplayed.value = false;
 <template>
   <div class="store-slug-input">
     <div class="input-container">
-      <Input
-        :value="inputValue"
-        type="text" class="input" :placeholder="placeholder"
-        @input="onInput" @focus="onfocus" @blur="onblur"
-      />
+      <Input :value="inputValue" type="text" class="input" :placeholder="placeholder" @input="onInput" @focus="onfocus"
+        @blur="onblur" />
       <span class="slug-suffix">{{ slugSuffix }}</span>
     </div>
     <Transition name="fade">
@@ -64,16 +62,19 @@ const onblur = () => isPopoverDiplayed.value = false;
 
 <style scoped>
 .store-slug-input {
-  --store-slug-title: #262629;
-  --store-slug-description: #4B4C52;
-  --store-slug-box-input: #EBEBEB;
-  --store-slug-box-icon: #B83375;
-  --store-slug-note: #757580;
+  --input-slug: var(--gray-800);
+  --store-slug-title: var(--gray-900);
+  --store-slug-description: var(--gray-500);
+  --store-slug-box-input: var(--gray-100);
+  --store-slug-box-icon: var(--primary-400);
+  --store-slug-note: var(--gray-600);
+
   display: flex;
   align-items: flex-start;
   gap: 10px;
   position: relative;
 }
+
 .input-container {
   position: relative;
   display: flex;
