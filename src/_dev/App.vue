@@ -16,7 +16,7 @@ const isChecked = ref(false);
     <Input v-model="inputValue" type="text" placeholder="Placeholder" />
     <PasswordInput v-model="inputValue" placeholder="Placeholder" :password-hidden="true" />
     <span>{{ inputValue }}</span>
-    <div>
+    <div class="input-container">
       <StoreSlugInputStoryVue v-model="inputValue" type="text" placeholder="Placeholder" />
       <span>{{ inputValue }}</span>
       <div>
@@ -31,3 +31,9 @@ const isChecked = ref(false);
     </div>
   </div>
 </template>
+
+<style scoped>
+.input-container {
+  width: 65%;
+}
+</style>

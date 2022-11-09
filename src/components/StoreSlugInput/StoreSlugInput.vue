@@ -82,7 +82,7 @@ const onblur = () => isPopoverDiplayed.value = false;
   position: relative;
   display: flex;
   align-items: center;
-  width: 65%;
+  width: 100%;
 }
 
 .slug-suffix {
@@ -97,6 +97,7 @@ const onblur = () => isPopoverDiplayed.value = false;
 
 .popover {
   width: 332px;
+  background-color: white;
   transform: translateX(calc(100% + 1rem));
   border: 1px solid var(--gray-50);
   top:0;
@@ -155,11 +156,10 @@ const onblur = () => isPopoverDiplayed.value = false;
   display: flex;
   align-items: center;
   gap: 9px;
-  padding-bottom: 12px;
-  padding-top: 8px;
   background-color: var(--store-slug-note-content);
-  padding-left: 20px;
-  padding-right: 10px;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+  padding: 8px 10px 12px 20px;
 }
 
 .icon-note {
