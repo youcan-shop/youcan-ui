@@ -29,46 +29,49 @@ const onblur = () => isPopoverDiplayed.value = false;
 <template>
   <div class="store-slug-input">
     <div class="input-container">
-      <Input :value="inputValue" type="text" class="input" :placeholder="placeholder" @input="onInput" @focus="onfocus"
-        @blur="onblur" />
-      <span class="slug-suffix">{{ slugSuffix }}</span>
-    </div>
-    <Transition name="fade">
-      <div v-if="isPopoverDiplayed" class="popover">
-        <div class="store-slug-box-content">
-          <p class="store-slug-title">
-            Store slug
-          </p>
-          <p class="store-slug-description">
-            The slug you choose will be your store's domain name that your customers will see.
-          </p>
-          <div class="border-example">
-            <i class="border-icon-example i-tabler-search" />
-            <span class="input-border-example">example.youcan.shop</span>
-          </div>
-          <div class="note">
-            <div>
-              <i class="icon-note i-tabler-alert-circle" />
+      <Transition name="fade">
+        <div v-if="isPopoverDiplayed" class="popover">
+          <div class="store-slug-box-content">
+            <div class="box-description">
+              <p class="store-slug-title">
+                Store slug
+              </p>
+              <p class="store-slug-description">
+                The slug you choose will be your store's domain name that your customers will see.
+              </p>
+              <div class="border-example">
+                <i class="border-icon-example i-tabler-search" />
+                <span class="input-border-example">example.youcan.shop</span>
+              </div>
             </div>
-            <span class="note-description">
-              You can always replace it with a custom domain name you purchased.
-            </span>
+            <div class="note">
+              <div>
+                <i class="icon-note i-tabler-alert-circle" />
+              </div>
+              <span class="note-description">
+                You can always replace it with a custom domain name you purchased.
+              </span>
+            </div>
           </div>
         </div>
-      </div>
-    </Transition>
+      </Transition>
+      <Input
+        :value="inputValue" type="text" class="input" :placeholder="placeholder" @input="onInput" @focus="onfocus"
+        @blur="onblur"
+      />
+      <span class="slug-suffix">{{ slugSuffix }}</span>
+    </div>
   </div>
 </template>
 
 <style scoped>
 .store-slug-input {
-  --gray-900: #262629;
-  --gray-500: #4B4C52;
-  --gray-100: #EBEBEB;
-  --primary-400: #B83375;
-  --gray-600: #757580;
-  --gray-50: #F0F0FA;
-  --black-800: rgba(0, 0, 0, 0.04);
+  --store-slug-title: var(--gray-900);
+  --store-slug-description: var(--gray-500);
+  --store-slug-box-input: var(--gray-100);
+  --store-slug-box-icon: var(--primary-400);
+  --store-slug-note: var(--gray-600);
+  --store-slug-note-content: var(--gray-20);
   display: flex;
   align-items: flex-start;
   gap: 10px;
@@ -94,22 +97,22 @@ const onblur = () => isPopoverDiplayed.value = false;
 
 .popover {
   width: 332px;
+  transform: translateX(calc(100% + 1rem));
   border: 1px solid var(--gray-50);
+  top:0;
   box-shadow: 0px 4px 12px var(--black-800);
   border-radius: 12px;
   position: absolute;
   right: 0;
 }
 
-.store-slug-box-content {
+.box-description {
   padding-left: 20px;
   padding-right: 28px;
-  margin: auto;
 }
-
 .store-slug-title {
   font-weight: 500;
-  color: var(--gray-900);
+  color: var(--store-slug-title);
   font-size: 16px;
   line-height: 19px;
   letter-spacing: 0.02em;
@@ -117,7 +120,7 @@ const onblur = () => isPopoverDiplayed.value = false;
 
 .store-slug-description {
   font-weight: 400;
-  color: var(--gray-500);
+  color: var(--store-slug-description);
   font-weight: 400;
   font-size: 13px;
   margin-top: -5px;
@@ -129,7 +132,7 @@ const onblur = () => isPopoverDiplayed.value = false;
   display: flex;
   align-items: center;
   gap: 8px;
-  border: 1px solid var(--gray-100);
+  border: 1px solid var(--store-slug-box-input);
   padding: 12px 16px;
   box-shadow: 0px 1px 8px var(--black-800);
   border-radius: 8px;
@@ -137,7 +140,7 @@ const onblur = () => isPopoverDiplayed.value = false;
 }
 
 .border-icon-example {
-  color: var(--primary-400);
+  color: var(--store-slug-box-icon);
 }
 
 .input-border-example {
@@ -145,18 +148,22 @@ const onblur = () => isPopoverDiplayed.value = false;
   font-size: 14px;
   line-height: 19px;
   letter-spacing: 0.02em;
-  color: var(--gray-500);
+  color: var(--store-slug-description);
 }
 
 .note {
   display: flex;
   align-items: center;
   gap: 9px;
-  margin-bottom: 12px;
+  padding-bottom: 12px;
+  padding-top: 8px;
+  background-color: var(--store-slug-note-content);
+  padding-left: 20px;
+  padding-right: 10px;
 }
 
 .icon-note {
-  color: var(--gray-600);
+  color: var(--store-slug-note);
 }
 
 .note-description {
@@ -164,7 +171,7 @@ const onblur = () => isPopoverDiplayed.value = false;
   font-size: 13px;
   line-height: 21px;
   letter-spacing: 0.02em;
-  color: var(--gray-600);
+  color: var(--store-slug-note);
 }
 
 .fade-enter-active,
