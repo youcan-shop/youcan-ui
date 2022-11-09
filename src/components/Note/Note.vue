@@ -16,9 +16,11 @@
 .note {
   --note-background: var(--white);
   --note-border-color: var(--gray-25);
+  --note-icon-color: var(--primary-400);
+  --note-text-color: var(--gray-700);
   display: flex;
   align-items: center;
-  width: 540px;
+  max-width: 540px;
   background: var(--note-background);
   border: 1px solid var(--note-border-color);
   border-radius: 8px;
@@ -27,11 +29,11 @@
 }
 
 .iconMail {
-    color: #B83375;
+  color: var(--note-icon-color);
 }
 
 .content {
-    color: #444444;
+    color: var(--note-text-color);
     line-height: 22px;
     font-weight: 400;
     font-size: 15px;
