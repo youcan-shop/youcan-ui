@@ -32,9 +32,9 @@ const onblur = () => focusMenu.value = false;
   <div class="container">
     <div class="store-slug-input">
       <Input
-        ref="onFocus" :value="inputValue"
-        type="text" class="input" :placeholder="placeholder" @input="onInput"
-        @focus="onfocus" @blur="onblur"
+        :value="inputValue"
+        type="text" class="input" :placeholder="placeholder"
+        slug-suffix="slugSuffix" @input="onInput" @focus="onfocus" @blur="onblur"
       />
       <span class="slug-suffix">{{ slugSuffix }}</span>
     </div>
@@ -66,6 +66,16 @@ const onblur = () => focusMenu.value = false;
 </template>
 
 <style scoped>
+* {
+  --store-slug-input: #333333;
+  --store-slug-border-box: #F0F0FA;
+  --store-slug-box-shadow: rgba(0, 0, 0, 0.04);
+  --store-slug-title: #262629;
+  --store-slug-description: #4B4C52;
+  --store-slug-box-input: #EBEBEB;
+  --store-slug-box-icon: #B83375;
+  --store-slug-note: #757580;
+ }
 .container {
   display: flex;
   align-items: flex-start;
