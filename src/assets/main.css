@@ -7,7 +7,7 @@
 
 :root {
   /** UI Component styling */
-  --border-color: #D8D8EB;
+  --border-color: #E0E0E0;
   --placeholder-color: #A9A9B8;
   --base-white: #fff;
   --base-black: #000;
@@ -22,4 +22,5 @@
   --gray-50: #F0F0FA;
   --gray-20: #FAFAFA;
   --black-800: rgba(0, 0, 0, 0.04);
+  --typo-color: #444444;
 }

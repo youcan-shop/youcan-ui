@@ -1,19 +1,26 @@
 <script setup lang="ts">
+import { ref, watchEffect } from 'vue';
 const props = defineProps<{
   items: {
     label: string
     icon?: string
     image?: string
   }[]
+  value?: string
 }>();
+const emit = defineEmits(['input']);
+const selected = ref(props.value);
+watchEffect(() => {
+  emit('input', selected.value);
+});
 </script>
 
 <template>
   <div class="dropdown-content">
-    <div v-for="(item, index) in items" :key="index" class="dropdown-item">
-      <span>{{ item.label }}</span>
+    <div v-for="(item, index) in items" :key="index" class="dropdown-item" @click="selected = item.label">
       <i v-if="item.icon" :class="item.icon" />
       <img v-if="item.image" :src="item.image">
+      <span>{{ item.label }}</span>
     </div>
   </div>
 </template>
@@ -21,24 +28,40 @@ const props = defineProps<{
 <style scoped lang="scss">
   .dropdown-content {
     position: absolute;
-    background-color: #fff;
-    min-width: 248px;
-    max-width: 248px;
-    max-height: 248px;
-    border: 1px solid #e7ecf5;
-    box-shadow: 0px -8px 34px 0px rgba(0,0,0,0.05);
+    top: 63px;
+    background-color: var(--base-white);
+    width: 100%;
+    max-width: 460px;
+    height: max-content;
+    max-height: 191px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
     overflow: auto;
     z-index: 1;
+
     .dropdown-item {
-      color: black;
-      font-size: .7em;
-      line-height: 1em;
-      padding: 8px;
-      text-decoration: none;
-      display: block;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--typo-color);
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 19px;
+      letter-spacing: 0.02em;
+      padding: 8px 16px;
       cursor: pointer;
+
       &:hover {
-        background-color: #e7ecf5;
+        --hover-color: #f7faff;
+        background-color: var(--hover-color);
+      }
+
+      &:first-child {
+        padding-top: 16px;
+      }
+
+      &:last-child {
+        padding-bottom: 16px;
       }
     }
   }
