@@ -12,9 +12,12 @@
   --base-white: #fff;
   --stormGray-100: #f4f4f4;
   --primary-color: #B83375;
-  --input-slug: #333333;
-  --border-box-slug: #F0F0FA;
-  --input-suffix-color: #333333;
-  --popver-border-color: #F0F0FA;
-  --popover-box-shadow: rgba(0, 0, 0, 0.04);
+  --primary-400: #B83375;
+  --gray-900: #262629;
+  --gray-800: #333333;
+  --gray-600: #757580;
+  --gray-500: #4B4C52;
+  --gray-100: #EBEBEB;
+  --gray-50: #F0F0FA;
+  --black-800: rgba(0, 0, 0, 0.04);
 }

@@ -64,11 +64,13 @@ const onblur = () => isPopoverDiplayed.value = false;
 
 <style scoped>
 .store-slug-input {
-  --store-slug-title: #262629;
-  --store-slug-description: #4B4C52;
-  --store-slug-box-input: #EBEBEB;
-  --store-slug-box-icon: #B83375;
-  --store-slug-note: #757580;
+  --gray-900: #262629;
+  --gray-500: #4B4C52;
+  --gray-100: #EBEBEB;
+  --primary-400: #B83375;
+  --gray-600: #757580;
+  --gray-50: #F0F0FA;
+  --black-800: rgba(0, 0, 0, 0.04);
   display: flex;
   align-items: flex-start;
   gap: 10px;
@@ -84,7 +86,7 @@ const onblur = () => isPopoverDiplayed.value = false;
 .slug-suffix {
   position: absolute;
   right: 20px;
-  color: var(--input-suffix-color);
+  color: var(--gray-800);
   font-weight: 400;
   font-size: 15px;
   line-height: 19px;
@@ -93,8 +95,8 @@ const onblur = () => isPopoverDiplayed.value = false;
 
 .popover {
   width: 332px;
-  border: 1px solid var(--popver-border-color);
-  box-shadow: 0px 4px 12px var(--popover-box-shadow);
+  border: 1px solid var(--gray-50);
+  box-shadow: 0px 4px 12px var(--black-800);
   border-radius: 12px;
   position: absolute;
   right: 0;
@@ -108,7 +110,7 @@ const onblur = () => isPopoverDiplayed.value = false;
 
 .store-slug-title {
   font-weight: 500;
-  color: var(--store-slug-title);
+  color: var(--gray-900);
   font-size: 16px;
   line-height: 19px;
   letter-spacing: 0.02em;
@@ -116,7 +118,7 @@ const onblur = () => isPopoverDiplayed.value = false;
 
 .store-slug-description {
   font-weight: 400;
-  color: var(--store-slug-description);
+  color: var(--gray-500);
   font-weight: 400;
   font-size: 13px;
   margin-top: -5px;
@@ -128,15 +130,15 @@ const onblur = () => isPopoverDiplayed.value = false;
   display: flex;
   align-items: center;
   gap: 8px;
-  border: 1px solid var(--store-slug-box-input);
+  border: 1px solid var(--gray-100);
   padding: 12px 16px;
-  box-shadow: 0px 1px 8px var(--store-slug-box-shadow);
+  box-shadow: 0px 1px 8px var(--black-800);
   border-radius: 8px;
   margin-bottom: 14px;
 }
 
 .border-icon-example {
-  color: var(--store-slug-box-icon);
+  color: var(--primary-400);
 }
 
 .input-border-example {
@@ -144,7 +146,7 @@ const onblur = () => isPopoverDiplayed.value = false;
   font-size: 14px;
   line-height: 19px;
   letter-spacing: 0.02em;
-  color: var(--store-slug-description);
+  color: var(--gray-500);
 }
 
 .note {
@@ -155,7 +157,7 @@ const onblur = () => isPopoverDiplayed.value = false;
 }
 
 .icon-note {
-  color: var(--store-slug-note);
+  color: var(--gray-600);
 }
 
 .note-description {
@@ -163,7 +165,7 @@ const onblur = () => isPopoverDiplayed.value = false;
   font-size: 13px;
   line-height: 21px;
   letter-spacing: 0.02em;
-  color: var(--store-slug-note);
+  color: var(--gray-600);
 }
 
 .fade-enter-active,
