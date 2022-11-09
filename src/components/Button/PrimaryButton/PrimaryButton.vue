@@ -14,7 +14,7 @@ import Button from '~/components/Button/Button.vue';
 
 <style scoped>
 .button.primary {
-background: var(--primary-color);
-color: var(--base-white);
+--stormGray-100: var(--primary-color);
+--base-black: var(--base-white);
 }
 </style>

@@ -26,6 +26,8 @@ const props = defineProps({
   border-radius: 8px;
   padding: 16px 32px;
   font-size: 16px;
+  background: var(--stormGray-100);
+  color: var(--base-black);
   border: none;
   outline: none;
   user-select: none;
