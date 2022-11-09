@@ -30,7 +30,7 @@ const onblur = () => isPopoverDiplayed.value = false;
   <div class="store-slug-input">
     <div class="input-container">
       <Transition name="fade">
-        <div v-if="isPopoverDiplayed" class="popover">
+        <div v-show="isPopoverDiplayed" class="popover">
           <div class="store-slug-box-content">
             <div class="box-description">
               <p class="store-slug-title">
