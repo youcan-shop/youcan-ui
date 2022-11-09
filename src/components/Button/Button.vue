@@ -1,11 +1,5 @@
 <script setup lang="ts">
-import type { Color } from '~/components/Button/Button.types';
-
 const props = defineProps({
-  color: {
-    type: String as () => Color,
-    default: 'primary',
-  },
   disabled: {
     type: Boolean,
     default: false,
@@ -16,7 +10,7 @@ const props = defineProps({
 <template>
   <button
     ref="target" class="button" :disabled="disabled"
-    :class="[color, disabled]"
+    :class="{ disabled }"
   >
     <span class="text">
       <slot />
@@ -25,32 +19,32 @@ const props = defineProps({
 </template>
 
 <style scoped lang="scss">
-.button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 8px;
-  padding: 16px 32px;
-  font-size: 16px;
-  border: none;
-  outline: none;
-  user-select: none;
-  width: max-content;
+  .button {
+    --button-bg-color: var(--stormGray-100);
+    --button-color: var(--base-black);
+    background: var(--button-bg-color);
+    color: var(--button-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    padding: 16px 32px;
+    font-size: 16px;
+    border: none;
+    outline: none;
+    user-select: none;
+    width: max-content;
+    cursor: pointer;
 
-  &.primary {
-    background: #B83375;
-    color: #FFFFFF;
+    &.disabled {
+      pointer-events: none;
+    }
   }
 
-  &.disabled {
-    pointer-events: none;
+  .text {
+    color: currentColor;
+    font-weight: 500;
+    line-height: 19px;
+    letter-spacing: 0.02em;
   }
-}
-
-.text {
-  color: currentColor;
-  font-weight: 500;
-  line-height: 19px;
-  letter-spacing: 0.02em;
-}
 </style>
