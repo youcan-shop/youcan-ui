@@ -65,6 +65,7 @@ watchEffect(() => {
 
 <style scoped>
 .loading {
+  --loading-stroke-color: var(--gray-10);
   position: relative;
   width: 120px;
   height: 120px;
@@ -78,7 +79,7 @@ watchEffect(() => {
 
 .loading-circle {
   fill: none;
-  stroke: var(--border-color);
+  stroke: var(--loading-stroke-color);
   stroke-width: 4;
 }
 
