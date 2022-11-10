@@ -6,6 +6,7 @@ import PasswordInput from '~/components/PasswordInput/PasswordInput.vue';
 import Button from '~/components/Button/Button.vue';
 import Checkbox from '~/components/Checkbox/Checkbox.vue';
 import StoreSlugInputStoryVue from '~/components/StoreSlugInput/StoreSlugInput.story.vue';
+import LoadingStoryVue from '~/components/Loading/Loading.story.vue';
 
 const inputValue = ref('hello');
 const isChecked = ref(false);
@@ -29,6 +30,7 @@ const isChecked = ref(false);
       <Checkbox v-model="isChecked" />
       <span>Hello</span>
     </div>
+    <LoadingStoryVue />
   </div>
 </template>
 
