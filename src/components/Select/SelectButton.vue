@@ -1,33 +1,35 @@
 <script setup lang="ts">
-import { ref, watchEffect } from 'vue';
+import { computed } from 'vue';
+import type { SelectItem } from './types';
 
 const props = defineProps<{
-  value?: String
+  value?: SelectItem
   placeholder?: String
 }>();
 
 const emit = defineEmits(['click']);
-const selected = ref(props.value);
-const placeholder = 'Please select an option';
 
-watchEffect(() => selected.value = props.value);
+const selected = computed(() => props.value);
 </script>
 
 <template>
-  <button v-modal="placeholder" class="dropdown-input" @click="emit('click')">
-    <span>{{ selected === '' ? placeholder : selected }}</span>
-    <i i-tabler:chevron-down />
+  <button class="dropdown-input" @click="emit('click')">
+    <div class="label-item">
+      <i :class="[selected?.icon]" />
+      <span>{{ !selected ? placeholder : selected.label }}</span>
+    </div>
+
+    <i class="i-tabler:chevron-down icon" />
   </button>
 </template>
 
 <style scoped lang="scss">
 .dropdown-input {
-  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
   background: var(--base-white);
-  color: var(--typo-color);
+  color: var(--gray-400);
   width: 100%;
   max-width: 460px;
   height: 56px;
@@ -39,5 +41,14 @@ watchEffect(() => selected.value = props.value);
   font-size: 16px;
   line-height: 19px;
   letter-spacing: 0.02em;
+
+  .icon {
+    color: var(--gray-400);
+  }
+
+  .label-item {
+    display: flex;
+    gap: 7px;
+  }
 }
 </style>
