@@ -2,13 +2,10 @@
 import { ref } from 'vue';
 import SelectButton from './SelectButton.vue';
 import SelectMenu from './SelectMenu.vue';
+import type { SelectItem } from './types';
 
 const props = defineProps<{
-  items: {
-    label: string
-    icon?: string
-    image?: string
-  }[]
+  items: SelectItem[]
 }>();
 
 const selected = ref();
