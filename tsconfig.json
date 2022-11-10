@@ -10,7 +10,10 @@
     "sourceMap": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,
-    "lib": ["esnext", "dom"],
+    "lib": [
+      "esnext",
+      "dom"
+    ],
     "declaration": true,
     "emitDeclarationOnly": true,
     "declarationDir": "./dist/types",
@@ -20,9 +23,19 @@
       "vite/client"
     ],
     "paths": {
-      "~/*": ["src/*"],
-      "dev/*": ["src/dev/*"]
+      "~/*": [
+        "src/*"
+      ],
+      "dev/*": [
+        "src/dev/*"
+      ]
     }
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue", "src/index.js"]
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.d.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
+    "src/index.js"
+  ]
 }

@@ -4,7 +4,7 @@ import { defineConfig } from 'vite';
 import Unocss from 'unocss/vite';
 
 module.exports = defineConfig({
-  plugins: [vue(), Unocss()], // to process SFC
+  plugins: [vue(), Unocss()],
   build: {
     cssCodeSplit: true,
     lib: {
@@ -15,6 +15,7 @@ module.exports = defineConfig({
     rollupOptions: {
       // external modules won't be bundled into your library
       external: ['vue'], // not every external has a global
+      treeshake: 'smallest',
       output: {
         // disable warning on src/index.ts using both default and named export
         exports: 'named',
