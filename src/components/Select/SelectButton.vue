@@ -15,16 +15,18 @@ watchEffect(() => selected.value = props.value);
 
 <template>
   <button v-modal="placeholder" class="dropdown-input" @click="emit('click')">
-    {{ selected === '' ? placeholder : selected }}
+    <span>{{ selected === '' ? placeholder : selected }}</span>
+    <i i-tabler:chevron-down />
   </button>
 </template>
 
 <style scoped lang="scss">
 .dropdown-input {
   position: relative;
-  display: block;
-  background: white url('~/assets/chevron-down.svg') no-repeat;
-  background-position: right 0.75rem center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--base-white);
   color: var(--typo-color);
   width: 100%;
   max-width: 460px;
@@ -37,10 +39,5 @@ watchEffect(() => selected.value = props.value);
   font-size: 16px;
   line-height: 19px;
   letter-spacing: 0.02em;
-
-  [dir="rtl"] & {
-    background-position: left 0.75rem center;
-  }
-
 }
 </style>
