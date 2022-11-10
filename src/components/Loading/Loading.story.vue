@@ -1,16 +1,19 @@
 <script setup lang="ts">
 import Loading from './Loading.vue';
-// add the Loading component to the story
+
+function finish() {
+  console.log('finished');
+}
 </script>
 
 <template>
   <Story>
     <Variant title="Default">
-      <Loading />
+      <Loading @complete="finish" />
     </Variant>
 
     <Variant title="With duration">
-      <Loading :duration="5000" />
+      <Loading :duration="5000" @complete="finish" />
     </Variant>
   </Story>
 </template>

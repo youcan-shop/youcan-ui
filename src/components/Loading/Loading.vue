@@ -2,15 +2,13 @@
 import { computed, ref, watch, watchEffect } from 'vue';
 
 const props = defineProps({
-  value: {
-    type: Number,
-    default: 100,
-  },
   duration: {
     type: Number,
     default: 12000,
   },
 });
+
+const emit = defineEmits(['complete']);
 
 const progress = ref(0);
 const isAnimationRunning = ref(false);
@@ -38,13 +36,19 @@ watchEffect(() => {
     currentProgress += increment;
     progress.value = currentProgress;
 
-    if (currentProgress >= props.value) {
+    if (currentProgress >= 100) {
       clearInterval(intervalId);
       isAnimationRunning.value = false;
     }
   }, interval);
 
   return () => clearInterval(intervalId);
+});
+
+watchEffect(() => {
+  if (progress.value >= 100) {
+    emit('complete');
+  }
 });
 </script>
 
@@ -69,13 +73,14 @@ watchEffect(() => {
 <style scoped>
 .loading {
   position: relative;
-  width: 160px;
-  height: 160px;
+  width: 120px;
+  height: 120px;
 }
 
 .loading-svg {
   width: 100%;
   height: 100%;
+  transform: rotate(-90deg);
 }
 
 .loading-circle {
@@ -100,7 +105,7 @@ watchEffect(() => {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 1.5rem;
+  font-size: 24px;
   color: var(--primary-color);
 }
 </style>
