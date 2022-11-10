@@ -12,8 +12,6 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits(['input']);
-
 const progress = ref(0);
 const isAnimationRunning = ref(false);
 
