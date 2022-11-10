@@ -16,6 +16,7 @@ const isAnimationRunning = ref(false);
 const progressStyle = computed(() => {
   return {
     strokeDashoffset: `${(100 - progress.value) * 2.64}px`,
+    transition: isAnimationRunning.value ? 'all 0.1s ease' : 'none',
   };
 });
 
@@ -88,6 +89,7 @@ watchEffect(() => {
   stroke: var(--primary-color);
   stroke-width: 4;
   stroke-dasharray: 284;
+  stroke-linecap: round;
 }
 
 .loading-value {
