@@ -23,7 +23,7 @@
     "story:preview": "histoire preview",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "release": "pnpm lint:fix && bumpp --commit --push --tag && pnpm publish"
+    "release": "pnpm lint:fix && bumpp --commit --push --tag && pnpm publish --access public"
   },
   "peerDependencies": {
     "vue": "^2.7.13"
