@@ -1,10 +1,7 @@
-<script setup lang="ts">
-</script>
-
 <template>
   <div class="note">
     <div class="icon">
-      <slot name="icon" />
+      <slot name="icon" class="icon" />
     </div>
     <div class="content">
       <slot name="content" />
@@ -28,14 +25,14 @@
   gap: 32px;
 }
 
-.iconMail {
+.icon {
   color: var(--note-icon-color);
 }
 
 .content {
-    color: var(--note-text-color);
-    line-height: 22px;
-    font-weight: 400;
-    font-size: 15px;
+  color: var(--note-text-color);
+  line-height: 22px;
+  font-weight: 400;
+  font-size: 15px;
 }
 </style>

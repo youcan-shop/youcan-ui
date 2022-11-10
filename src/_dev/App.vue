@@ -32,7 +32,7 @@ const isChecked = ref(false);
     </div>
     <Note>
       <template #icon>
-        <i class="iconMail i-tabler-mail-opened" />
+        <i class="icon i-tabler-mail-opened" />
       </template>
       <template #content>
         <p>Don't forget to check your inbox, we have sent  a link to verify your account.</p>
