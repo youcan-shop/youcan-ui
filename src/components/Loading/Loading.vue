@@ -90,7 +90,6 @@ watchEffect(() => {
 .loading-circle-progress {
   fill: none;
   stroke: var(--primary-color);
-  
   stroke-width: 4;
   stroke-dasharray: 284;
 }
