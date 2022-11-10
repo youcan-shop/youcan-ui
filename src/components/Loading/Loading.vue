@@ -31,24 +31,17 @@ watchEffect(() => {
   let currentProgress = 0;
 
   isAnimationRunning.value = true;
-
   const intervalId = setInterval(() => {
     currentProgress += increment;
     progress.value = currentProgress;
-
     if (currentProgress >= 100) {
       clearInterval(intervalId);
       isAnimationRunning.value = false;
+      emit('complete');
     }
   }, interval);
 
   return () => clearInterval(intervalId);
-});
-
-watchEffect(() => {
-  if (progress.value >= 100) {
-    emit('complete');
-  }
 });
 </script>
 
@@ -87,7 +80,6 @@ watchEffect(() => {
   fill: none;
   stroke: var(--border-color);
   stroke-width: 4;
-
 }
 
 .loading-circle-progress {
@@ -100,7 +92,6 @@ watchEffect(() => {
 .loading-value {
   position: absolute;
   font-weight: 500;
-  font-size: 24px;
   line-height: 36px;
   top: 50%;
   left: 50%;
