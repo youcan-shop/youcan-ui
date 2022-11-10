@@ -8,7 +8,7 @@ const props = defineProps({
   },
   duration: {
     type: Number,
-    default: 15000,
+    default: 12000,
   },
 });
 
@@ -19,7 +19,7 @@ const isAnimationRunning = ref(false);
 
 const progressStyle = computed(() => {
   return {
-    strokeDashoffset: `${(100 - progress.value) * 5}px `,
+    strokeDashoffset: `${(100 - progress.value) * 2.64}px`,
   };
 });
 
@@ -31,7 +31,7 @@ watch(props, () => {
 watchEffect(() => {
   const duration = props.duration;
   const interval = duration / 100;
-  const increment = 100 / (duration / interval) + 9;
+  const increment = 100 / (duration / interval);
   let currentProgress = 0;
 
   isAnimationRunning.value = true;
@@ -90,8 +90,9 @@ watchEffect(() => {
 .loading-circle-progress {
   fill: none;
   stroke: var(--primary-color);
+  
   stroke-width: 4;
-  stroke-dasharray: 120;
+  stroke-dasharray: 284;
 }
 
 .loading-value {
