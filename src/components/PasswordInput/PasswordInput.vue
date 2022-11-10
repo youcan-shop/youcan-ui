@@ -25,8 +25,10 @@ const onInput = (emittedValue: string) => {
       <i :class="!isPasswordHidden ? 'i-tabler-eye-off' : 'i-tabler-eye'" />
     </button>
 
-    <Input ref="baseInput" :type="isPasswordHidden ? 'password' : 'text'" :placeholder="placeholder" :value="inputValue"
-      class="input" @input="onInput" />
+    <Input
+      ref="baseInput" :type="isPasswordHidden ? 'password' : 'text'" :placeholder="placeholder" :value="inputValue"
+      class="input" @input="onInput"
+    />
   </div>
 </template>
 
@@ -41,7 +43,6 @@ const onInput = (emittedValue: string) => {
   height: 54px;
   border-radius: 8px;
   padding: 4px 16px;
-  outline: none;
   color: var(--placeholder-color);
   font-weight: 400;
 }

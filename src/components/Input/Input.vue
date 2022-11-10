@@ -33,7 +33,6 @@ const onblur = () => emit('blur');
   height: 54px;
   border-radius: 8px;
   padding: 6px 12px;
-  outline: none;
   font-weight: 400;
   letter-spacing: 2%;
   line-height: 19.2px;
