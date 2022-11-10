@@ -11,7 +11,6 @@ const props = defineProps<{
 }>();
 const selected = ref('');
 const shown = ref(false);
-const hideMenu = () => shown.value = false;
 </script>
 
 <template>

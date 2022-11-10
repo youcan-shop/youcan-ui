@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, watchEffect } from 'vue';
+
 const props = defineProps<{
   items: {
     label: string
@@ -8,8 +9,10 @@ const props = defineProps<{
   }[]
   value?: string
 }>();
+
 const emit = defineEmits(['input']);
 const selected = ref(props.value);
+
 watchEffect(() => {
   emit('input', selected.value);
 });
@@ -26,43 +29,43 @@ watchEffect(() => {
 </template>
 
 <style scoped lang="scss">
-  .dropdown-content {
-    position: absolute;
-    top: 63px;
-    background-color: var(--base-white);
-    width: 100%;
-    max-width: 460px;
-    height: max-content;
-    max-height: 191px;
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    overflow: auto;
-    z-index: 1;
+.dropdown-content {
+  position: absolute;
+  top: 63px;
+  background-color: var(--base-white);
+  width: 100%;
+  max-width: 460px;
+  height: max-content;
+  max-height: 191px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  overflow: auto;
+  z-index: 1;
 
-    .dropdown-item {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      color: var(--typo-color);
-      font-weight: 400;
-      font-size: 16px;
-      line-height: 19px;
-      letter-spacing: 0.02em;
-      padding: 8px 16px;
-      cursor: pointer;
+  .dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--typo-color);
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    letter-spacing: 0.02em;
+    padding: 8px 16px;
+    cursor: pointer;
 
-      &:hover {
-        --hover-color: #f7faff;
-        background-color: var(--hover-color);
-      }
+    &:hover {
+      --hover-color: #f7faff;
+      background-color: var(--hover-color);
+    }
 
-      &:first-child {
-        padding-top: 16px;
-      }
+    &:first-child {
+      padding-top: 16px;
+    }
 
-      &:last-child {
-        padding-bottom: 16px;
-      }
+    &:last-child {
+      padding-bottom: 16px;
     }
   }
+}
 </style>
