@@ -2,7 +2,7 @@
 import Loading from './Loading.vue';
 
 function finish() {
-  console.log('finished');
+  alert('done');
 }
 </script>
 
