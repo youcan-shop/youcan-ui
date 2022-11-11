@@ -6,7 +6,7 @@ import './assets/main.css';
 function install(Vue: VueConstructor) {
   Object.keys(components).forEach((key) => {
     // @ts-expect-error It's okay to have this error
-    Vue.use(components[key]);
+    Vue.component(key, components[key]);
   });
 }
 
