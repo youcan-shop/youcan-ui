@@ -1,10 +1,7 @@
-import Vue from 'vue';
+import { createApp } from 'vue';
 import App from './App.vue';
 import 'uno.css';
 
-const app = new Vue({
-  el: '#app',
-  render: r => r(App),
-});
+const app = createApp(App, {});
 
-export { app };
+app.mount('#app');

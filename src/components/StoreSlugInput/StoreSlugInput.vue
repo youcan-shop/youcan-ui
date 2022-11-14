@@ -3,7 +3,7 @@ import { ref } from 'vue';
 import Input from '~/components/Input/Input.vue';
 
 const props = defineProps({
-  value: {
+  modelValue: {
     type: String,
     required: true,
   },
@@ -16,12 +16,12 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits(['input']);
+const emit = defineEmits(['update:modelValue']);
 
-const inputValue = ref(props.value);
+const inputValue = ref(props.modelValue);
 const isPopoverDiplayed = ref(false);
 
-const onInput = (emittedValue: string) => emit('input', emittedValue);
+const onInput = (emittedValue: string) => emit('update:modelValue', emittedValue);
 const onfocus = () => isPopoverDiplayed.value = true;
 const onblur = () => isPopoverDiplayed.value = false;
 </script>
@@ -55,10 +55,8 @@ const onblur = () => isPopoverDiplayed.value = false;
           </div>
         </div>
       </Transition>
-      <Input
-        :value="inputValue" type="text" class="input" :placeholder="placeholder" @input="onInput" @focus="onfocus"
-        @blur="onblur"
-      />
+      <Input :model-value="inputValue" type="text" class="input" :placeholder="placeholder"
+        @update:model-value="onInput" @focus="onfocus" @blur="onblur" />
       <span class="slug-suffix">{{ slugSuffix }}</span>
     </div>
   </div>
@@ -100,7 +98,7 @@ const onblur = () => isPopoverDiplayed.value = false;
   background-color: white;
   transform: translateX(calc(100% + 1rem));
   border: 1px solid var(--gray-50);
-  top:0;
+  top: 0;
   box-shadow: 0px 4px 12px var(--black-800);
   border-radius: 12px;
   position: absolute;
@@ -111,6 +109,7 @@ const onblur = () => isPopoverDiplayed.value = false;
   padding-left: 20px;
   padding-right: 28px;
 }
+
 .store-slug-title {
   font-weight: 500;
   color: var(--store-slug-title);

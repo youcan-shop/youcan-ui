@@ -9,7 +9,7 @@ const props = defineProps<{
 
 const emit = defineEmits(['click']);
 
-const selected = computed(() => props.value);
+const selected = computed(() => props.modelValue);
 </script>
 
 <template>

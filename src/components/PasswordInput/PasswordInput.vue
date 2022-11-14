@@ -2,20 +2,20 @@
 import { ref } from 'vue';
 
 import Input from '~/components/Input/Input.vue';
-const { value, passwordHidden = true } = defineProps<{
-  value: string
+const { modelValue, passwordHidden = true } = defineProps<{
+  modelValue: string
   placeholder?: string
   passwordHidden?: boolean
 }>();
 
-const emit = defineEmits(['input']);
+const emit = defineEmits(['update:modelValue']);
 
 const baseInput = ref();
 const isPasswordHidden = ref(passwordHidden);
-const inputValue = ref(value);
+const inputValue = ref(modelValue);
 
 const onInput = (emittedValue: string) => {
-  emit('input', emittedValue);
+  emit('update:modelValue', emittedValue);
 };
 </script>
 
@@ -25,10 +25,8 @@ const onInput = (emittedValue: string) => {
       <i :class="!isPasswordHidden ? 'i-tabler-eye-off' : 'i-tabler-eye'" />
     </button>
 
-    <Input
-      ref="baseInput" :type="isPasswordHidden ? 'password' : 'text'" :placeholder="placeholder" :value="inputValue"
-      class="input" @input="onInput"
-    />
+    <Input ref="baseInput" :type="isPasswordHidden ? 'password' : 'text'" :placeholder="placeholder"
+      :model-value="inputValue" class="input" @update:model-value="onInput" />
   </div>
 </template>
 

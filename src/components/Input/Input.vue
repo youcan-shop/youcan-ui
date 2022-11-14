@@ -1,21 +1,22 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
+import { launder } from '~/utils/type.util';
 
 const props = defineProps<{
-  value: string
+  modelValue: string
   type: string
   placeholder?: string
 }>();
 
-const emit = defineEmits(['input', 'focus', 'blur']);
+const emit = defineEmits(['update:modelValue', 'focus', 'blur']);
 
-const inputValue = ref(props.value);
+const inputValue = ref(props.modelValue);
 const inputType = computed(() => props.type);
 
-const onInput = (e: Event) => {
-  const target = e.target as HTMLInputElement;
-  inputValue.value = target.value;
-  emit('input', inputValue.value);
+const onInput = ({ target }: Event) => {
+  inputValue.value = launder<HTMLInputElement>(target).value;
+
+  emit('update:modelValue', inputValue.value);
 };
 
 const onfocus = () => emit('focus');
@@ -23,7 +24,8 @@ const onblur = () => emit('blur');
 </script>
 
 <template>
-  <input :value="inputValue" :type="inputType" :placeholder="placeholder" class="input" v-bind="$attrs" @input="onInput" @focus="onfocus" @blur="onblur">
+  <input :value="inputValue" :type="inputType" :placeholder="placeholder" class="input" v-bind="$attrs" @input="onInput"
+    @focus="onfocus" @blur="onblur">
 </template>
 
 <style scoped>

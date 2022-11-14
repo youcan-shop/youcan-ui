@@ -7,11 +7,11 @@ const props = defineProps<{
   value?: SelectItem
 }>();
 
-const emit = defineEmits(['input']);
-const selected = ref(props.value);
+const emit = defineEmits(['update:modelValue']);
+const selected = ref(props.modelValue);
 
 watchEffect(() => {
-  emit('input', selected.value);
+  emit('update:modelValue', selected.value);
 });
 </script>
 
