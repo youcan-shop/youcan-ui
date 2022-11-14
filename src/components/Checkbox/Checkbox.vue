@@ -2,7 +2,7 @@
 import { ref, watchEffect } from 'vue';
 
 const props = defineProps({
-  value: {
+  modelValue: {
     type: Boolean,
     default: false,
   },

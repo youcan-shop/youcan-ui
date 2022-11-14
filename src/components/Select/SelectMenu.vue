@@ -4,7 +4,7 @@ import type { SelectItem } from './types';
 
 const props = defineProps<{
   items: SelectItem[]
-  value?: SelectItem
+  modelValue?: SelectItem
 }>();
 
 const emit = defineEmits(['update:modelValue']);

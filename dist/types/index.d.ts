@@ -1,7 +1,7 @@
-import type { VueConstructor } from 'vue';
+import type { App } from 'vue';
 import 'uno.css';
 import './assets/main.css';
-declare function install(Vue: VueConstructor): void;
+declare function install(app: App): void;
 export * from './components';
 declare const _default: {
     install: typeof install;
