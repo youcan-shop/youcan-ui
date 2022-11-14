@@ -24,8 +24,10 @@ const onblur = () => emit('blur');
 </script>
 
 <template>
-  <input :value="inputValue" :type="inputType" :placeholder="placeholder" class="input" v-bind="$attrs" @input="onInput"
-    @focus="onfocus" @blur="onblur">
+  <input
+    :value="inputValue" :type="inputType" :placeholder="placeholder" class="input" v-bind="$attrs" @input="onInput"
+    @focus="onfocus" @blur="onblur"
+  >
 </template>
 
 <style scoped>
