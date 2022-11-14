@@ -21,12 +21,10 @@ const shown = ref(false);
 
 <style lang="scss" scoped>
 .dropdown {
-  position: relative;
   display: block;
 
   .dropdown-content {
-    position: absolute;
-    top: 63px;
+    margin-top: 7px;
   }
 }
 </style>
