@@ -4,14 +4,14 @@ import type { SelectItem } from './types';
 
 const props = defineProps<{
   items: SelectItem[]
-  value?: SelectItem
+  modelValue?: SelectItem
 }>();
 
-const emit = defineEmits(['input']);
-const selected = ref(props.value);
+const emit = defineEmits(['update:modelValue']);
+const selected = ref(props.modelValue);
 
 watchEffect(() => {
-  emit('input', selected.value);
+  emit('update:modelValue', selected.value);
 });
 </script>
 

@@ -2,18 +2,18 @@
 import { ref, watchEffect } from 'vue';
 
 const props = defineProps({
-  value: {
+  modelValue: {
     type: Boolean,
     default: false,
   },
 });
 
-const emit = defineEmits(['input']);
+const emit = defineEmits(['update:modelValue']);
 
-const inputValue = ref(props.value);
+const inputValue = ref(props.modelValue);
 
 watchEffect(() => {
-  emit('input', inputValue.value);
+  emit('update:modelValue', inputValue.value);
 });
 </script>
 

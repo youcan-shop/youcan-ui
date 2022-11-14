@@ -1,92 +1,73 @@
-import { defineComponent as i, ref as u, computed as v, watchEffect as m, watch as C } from "vue";
-const w = /* @__PURE__ */ i({
+import { defineComponent as i, ref as r, computed as I, openBlock as u, createElementBlock as d, mergeProps as P, unref as f, createBlock as D, createElementVNode as l, createVNode as h, Transition as U, withCtx as T, withDirectives as S, vShow as N, toDisplayString as b, pushScopeId as g, popScopeId as x, normalizeClass as $, watchEffect as w, Fragment as M, renderList as L, createCommentVNode as B, renderSlot as y, watch as z, normalizeStyle as E, vModelCheckbox as F } from "vue";
+const H = ["value", "type", "placeholder"], O = /* @__PURE__ */ i({
   __name: "Input",
   props: {
-    value: null,
+    modelValue: null,
     type: null,
     placeholder: null
   },
-  emits: ["input", "focus", "blur"],
-  setup(n, { emit: e }) {
-    const t = n, s = u(t.value), a = v(() => t.type);
-    return { __sfc: !0, props: t, emit: e, inputValue: s, inputType: a, onInput: (l) => {
-      const r = l.target;
-      s.value = r.value, e("input", s.value);
-    }, onfocus: () => e("focus"), onblur: () => e("blur") };
+  emits: ["update:modelValue", "focus", "blur"],
+  setup(e, { emit: t }) {
+    const a = e, o = r(a.modelValue), s = I(() => a.type), n = ({ target: p }) => {
+      o.value = p.value, t("update:modelValue", o.value);
+    }, c = () => t("focus"), _ = () => t("blur");
+    return (p, m) => (u(), d("input", P({
+      value: o.value,
+      type: f(s),
+      placeholder: e.placeholder,
+      class: "input"
+    }, p.$attrs, {
+      onInput: n,
+      onFocus: c,
+      onBlur: _
+    }), null, 16, H));
   }
 });
-function _(n, e, t, s, a, o, c, p) {
-  var l = typeof n == "function" ? n.options : n;
-  e && (l.render = e, l.staticRenderFns = t, l._compiled = !0), s && (l.functional = !0), o && (l._scopeId = "data-v-" + o);
-  var r;
-  if (c ? (r = function(d) {
-    d = d || this.$vnode && this.$vnode.ssrContext || this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext, !d && typeof __VUE_SSR_CONTEXT__ < "u" && (d = __VUE_SSR_CONTEXT__), a && a.call(this, d), d && d._registeredComponents && d._registeredComponents.add(c);
-  }, l._ssrRegister = r) : a && (r = p ? function() {
-    a.call(
-      this,
-      (l.functional ? this.parent : this).$root.$options.shadowRoot
-    );
-  } : a), r)
-    if (l.functional) {
-      l._injectStyles = r;
-      var f = l.render;
-      l.render = function($, b) {
-        return r.call(b), f($, b);
-      };
-    } else {
-      var h = l.beforeCreate;
-      l.beforeCreate = h ? [].concat(h, r) : [r];
-    }
-  return {
-    exports: n,
-    options: l
-  };
-}
-var I = function() {
-  var e = this, t = e._self._c, s = e._self._setupProxy;
-  return t("input", e._b({ staticClass: "input", attrs: { type: s.inputType, placeholder: e.placeholder }, domProps: { value: s.inputValue }, on: { input: s.onInput, focus: s.onfocus, blur: s.onblur } }, "input", e.$attrs, !1));
-}, P = [], S = /* @__PURE__ */ _(
-  w,
-  I,
-  P,
-  !1,
-  null,
-  "51ef1d17",
-  null,
-  null
-);
-const y = S.exports, k = /* @__PURE__ */ i({
+const v = (e, t) => {
+  const a = e.__vccOpts || e;
+  for (const [o, s] of t)
+    a[o] = s;
+  return a;
+}, k = /* @__PURE__ */ v(O, [["__scopeId", "data-v-76e6a459"]]), j = /* @__PURE__ */ i({
   __name: "TextInput",
   props: {
-    value: null,
+    modelValue: null,
     placeholder: null
   },
-  emits: ["input"],
-  setup(n, { emit: e }) {
-    const t = n, s = u(t.value);
-    return { __sfc: !0, props: t, emit: e, inputValue: s, onInput: (o) => {
-      const c = o.target;
-      s.value = c.value, e("input", s.value);
-    }, Input: y };
+  emits: ["update:modelValue"],
+  setup(e, { emit: t }) {
+    const o = r(e.modelValue), s = (n) => {
+      o.value = n, t("update:modelValue", o.value);
+    };
+    return (n, c) => (u(), D(k, {
+      "model-value": o.value,
+      type: "text",
+      class: "input",
+      placeholder: e.placeholder,
+      "onUpdate:modelValue": s
+    }, null, 8, ["model-value", "placeholder"]));
   }
-});
-var V = function() {
-  var e = this, t = e._self._c, s = e._self._setupProxy;
-  return t(s.Input, { staticClass: "input", attrs: { value: s.inputValue, type: "text", placeholder: e.placeholder }, on: { input: s.onInput } });
-}, R = [], B = /* @__PURE__ */ _(
-  k,
-  V,
-  R,
-  !1,
-  null,
-  null,
-  null,
-  null
-);
-const F = B.exports, T = /* @__PURE__ */ i({
+}), q = (e) => (g("data-v-7f51ea46"), e = e(), x(), e), A = { class: "store-slug-input" }, R = { class: "input-container" }, Y = { class: "popover" }, G = /* @__PURE__ */ q(() => /* @__PURE__ */ l("div", { class: "store-slug-box-content" }, [
+  /* @__PURE__ */ l("div", { class: "box-description" }, [
+    /* @__PURE__ */ l("p", { class: "store-slug-title" }, " Store slug "),
+    /* @__PURE__ */ l("p", { class: "store-slug-description" }, " The slug you choose will be your store's domain name that your customers will see. "),
+    /* @__PURE__ */ l("div", { class: "border-example" }, [
+      /* @__PURE__ */ l("i", { class: "border-icon-example i-tabler-search" }),
+      /* @__PURE__ */ l("span", { class: "input-border-example" }, "example.youcan.shop")
+    ])
+  ]),
+  /* @__PURE__ */ l("div", { class: "note" }, [
+    /* @__PURE__ */ l("div", null, [
+      /* @__PURE__ */ l("i", { class: "icon-note i-tabler-alert-circle" })
+    ]),
+    /* @__PURE__ */ l("span", { class: "note-description" }, " You can always replace it with a custom domain name you purchased. ")
+  ])
+], -1)), J = [
+  G
+], K = { class: "slug-suffix" }, Q = /* @__PURE__ */ i({
   __name: "StoreSlugInput",
   props: {
-    value: {
+    modelValue: {
       type: String,
       required: !0
     },
@@ -98,159 +79,166 @@ const F = B.exports, T = /* @__PURE__ */ i({
       type: String
     }
   },
-  emits: ["input"],
-  setup(n, { emit: e }) {
-    const t = n, s = u(t.value), a = u(!1);
-    return { __sfc: !0, props: t, emit: e, inputValue: s, isPopoverDiplayed: a, onInput: (l) => e("input", l), onfocus: () => a.value = !0, onblur: () => a.value = !1, Input: y };
+  emits: ["update:modelValue"],
+  setup(e, { emit: t }) {
+    const o = r(e.modelValue), s = r(!1), n = (p) => t("update:modelValue", p), c = () => s.value = !0, _ = () => s.value = !1;
+    return (p, m) => (u(), d("div", A, [
+      l("div", R, [
+        h(U, { name: "fade" }, {
+          default: T(() => [
+            S(l("div", Y, J, 512), [
+              [N, s.value]
+            ])
+          ]),
+          _: 1
+        }),
+        h(k, {
+          "model-value": o.value,
+          type: "text",
+          class: "input",
+          placeholder: e.placeholder,
+          "onUpdate:modelValue": n,
+          onFocus: c,
+          onBlur: _
+        }, null, 8, ["model-value", "placeholder"]),
+        l("span", K, b(e.slugSuffix), 1)
+      ])
+    ]));
   }
 });
-var N = function() {
-  var e = this, t = e._self._c, s = e._self._setupProxy;
-  return t("div", { staticClass: "store-slug-input" }, [t("div", { staticClass: "input-container" }, [t("Transition", { attrs: { name: "fade" } }, [t("div", { directives: [{ name: "show", rawName: "v-show", value: s.isPopoverDiplayed, expression: "isPopoverDiplayed" }], staticClass: "popover" }, [t("div", { staticClass: "store-slug-box-content" }, [t("div", { staticClass: "box-description" }, [t("p", { staticClass: "store-slug-title" }, [e._v(" Store slug ")]), t("p", { staticClass: "store-slug-description" }, [e._v(" The slug you choose will be your store's domain name that your customers will see. ")]), t("div", { staticClass: "border-example" }, [t("i", { staticClass: "border-icon-example i-tabler-search" }), t("span", { staticClass: "input-border-example" }, [e._v("example.youcan.shop")])])]), t("div", { staticClass: "note" }, [t("div", [t("i", { staticClass: "icon-note i-tabler-alert-circle" })]), t("span", { staticClass: "note-description" }, [e._v(" You can always replace it with a custom domain name you purchased. ")])])])])]), t(s.Input, { staticClass: "input", attrs: { value: s.inputValue, type: "text", placeholder: e.placeholder }, on: { input: s.onInput, focus: s.onfocus, blur: s.onblur } }), t("span", { staticClass: "slug-suffix" }, [e._v(e._s(e.slugSuffix))])], 1)]);
-}, H = [], A = /* @__PURE__ */ _(
-  T,
-  N,
-  H,
-  !1,
-  null,
-  "ded3a1df",
-  null,
-  null
-);
-const M = A.exports, O = /* @__PURE__ */ i({
+const W = /* @__PURE__ */ v(Q, [["__scopeId", "data-v-7f51ea46"]]), X = (e) => (g("data-v-80e63c12"), e = e(), x(), e), Z = { class: "label-item" }, ee = /* @__PURE__ */ X(() => /* @__PURE__ */ l("i", { class: "i-tabler:chevron-down icon" }, null, -1)), te = /* @__PURE__ */ i({
   __name: "SelectButton",
   props: {
-    value: null,
+    modelValue: null,
     placeholder: null
   },
   emits: ["click"],
-  setup(n, { emit: e }) {
-    const t = n, s = v(() => t.value);
-    return { __sfc: !0, props: t, emit: e, selected: s };
+  setup(e, { emit: t }) {
+    const a = e, o = I(() => a.modelValue);
+    return (s, n) => {
+      var c;
+      return u(), d("button", {
+        class: "dropdown-input",
+        onClick: n[0] || (n[0] = (_) => t("click"))
+      }, [
+        l("div", Z, [
+          l("i", {
+            class: $([(c = f(o)) == null ? void 0 : c.icon])
+          }, null, 2),
+          l("span", null, b(f(o) ? f(o).label : e.placeholder), 1)
+        ]),
+        ee
+      ]);
+    };
   }
 });
-var D = function() {
-  var a;
-  var e = this, t = e._self._c, s = e._self._setupProxy;
-  return t("button", { staticClass: "dropdown-input", on: { click: function(o) {
-    return s.emit("click");
-  } } }, [t("div", { staticClass: "label-item" }, [t("i", { class: [(a = s.selected) == null ? void 0 : a.icon] }), t("span", [e._v(e._s(s.selected ? s.selected.label : e.placeholder))])]), t("i", { staticClass: "i-tabler:chevron-down icon" })]);
-}, E = [], L = /* @__PURE__ */ _(
-  O,
-  D,
-  E,
-  !1,
-  null,
-  "c495dafa",
-  null,
-  null
-);
-const z = L.exports, U = /* @__PURE__ */ i({
+const oe = /* @__PURE__ */ v(te, [["__scopeId", "data-v-80e63c12"]]), le = { class: "dropdown-content" }, se = ["onClick"], ne = ["src"], ae = /* @__PURE__ */ i({
   __name: "SelectMenu",
   props: {
     items: null,
-    value: null
+    modelValue: null
   },
-  emits: ["input"],
-  setup(n, { emit: e }) {
-    const t = n, s = u(t.value);
-    return m(() => {
-      e("input", s.value);
-    }), { __sfc: !0, props: t, emit: e, selected: s };
+  emits: ["update:modelValue"],
+  setup(e, { emit: t }) {
+    const o = r(e.modelValue);
+    return w(() => {
+      t("update:modelValue", o.value);
+    }), (s, n) => (u(), d("div", le, [
+      (u(!0), d(M, null, L(e.items, (c, _) => (u(), d("div", {
+        key: _,
+        class: "dropdown-item",
+        onClick: (p) => o.value = c
+      }, [
+        c.icon ? (u(), d("i", {
+          key: 0,
+          class: $(c.icon)
+        }, null, 2)) : B("", !0),
+        c.image ? (u(), d("img", {
+          key: 1,
+          src: c.image
+        }, null, 8, ne)) : B("", !0),
+        l("span", null, b(c.label), 1)
+      ], 8, se))), 128))
+    ]));
   }
 });
-var X = function() {
-  var e = this, t = e._self._c, s = e._self._setupProxy;
-  return t("div", { staticClass: "dropdown-content" }, e._l(e.items, function(a, o) {
-    return t("div", { key: o, staticClass: "dropdown-item", on: { click: function(c) {
-      s.selected = a;
-    } } }, [a.icon ? t("i", { class: a.icon }) : e._e(), a.image ? t("img", { attrs: { src: a.image } }) : e._e(), t("span", [e._v(e._s(a.label))])]);
-  }), 0);
-}, j = [], q = /* @__PURE__ */ _(
-  U,
-  X,
-  j,
-  !1,
-  null,
-  "5b448638",
-  null,
-  null
-);
-const W = q.exports, Y = /* @__PURE__ */ i({
+const ce = /* @__PURE__ */ v(ae, [["__scopeId", "data-v-3746b3dd"]]), ue = { class: "dropdown" }, de = /* @__PURE__ */ i({
   __name: "Select",
   props: {
     items: null
   },
-  setup(n) {
-    const e = n, t = u(), s = u(!1);
-    return { __sfc: !0, props: e, selected: t, shown: s, SelectButton: z, SelectMenu: W };
+  setup(e) {
+    const t = r(), a = r(!1);
+    return (o, s) => (u(), d("div", ue, [
+      h(oe, {
+        modelValue: t.value,
+        "onUpdate:modelValue": s[0] || (s[0] = (n) => t.value = n),
+        placeholder: "Please select an option",
+        onClick: s[1] || (s[1] = (n) => a.value = !a.value)
+      }, null, 8, ["modelValue"]),
+      S(h(ce, {
+        modelValue: t.value,
+        "onUpdate:modelValue": s[2] || (s[2] = (n) => t.value = n),
+        items: e.items
+      }, null, 8, ["modelValue", "items"]), [
+        [N, a.value]
+      ])
+    ]));
   }
 });
-var G = function() {
-  var e = this, t = e._self._c, s = e._self._setupProxy;
-  return t("div", { staticClass: "dropdown" }, [t(s.SelectButton, { attrs: { placeholder: "Please select an option" }, on: { click: function(a) {
-    s.shown = !s.shown;
-  } }, model: { value: s.selected, callback: function(a) {
-    s.selected = a;
-  }, expression: "selected" } }), t(s.SelectMenu, { directives: [{ name: "show", rawName: "v-show", value: s.shown, expression: "shown" }], attrs: { items: e.items }, model: { value: s.selected, callback: function(a) {
-    s.selected = a;
-  }, expression: "selected" } })], 1);
-}, J = [], K = /* @__PURE__ */ _(
-  Y,
-  G,
-  J,
-  !1,
-  null,
-  "ddb37fa3",
-  null,
-  null
-);
-const Q = K.exports, Z = /* @__PURE__ */ i({
+const re = /* @__PURE__ */ v(de, [["__scopeId", "data-v-40830d85"]]), _e = { class: "password-input" }, pe = /* @__PURE__ */ i({
   __name: "PasswordInput",
   props: {
-    value: null,
+    modelValue: null,
     placeholder: null,
     passwordHidden: { type: Boolean }
   },
-  emits: ["input"],
-  setup(n, { emit: e }) {
-    const { value: t, passwordHidden: s = !0 } = n, a = u(), o = u(s), c = u(t);
-    return { __sfc: !0, emit: e, baseInput: a, isPasswordHidden: o, inputValue: c, onInput: (l) => {
-      e("input", l);
-    }, Input: y };
+  emits: ["update:modelValue"],
+  setup(e, { emit: t }) {
+    const { modelValue: a, passwordHidden: o = !0 } = e, s = r(), n = r(o), c = r(a), _ = (p) => {
+      t("update:modelValue", p);
+    };
+    return (p, m) => (u(), d("div", _e, [
+      l("button", {
+        onClick: m[0] || (m[0] = (V) => n.value = !n.value)
+      }, [
+        l("i", {
+          class: $(n.value ? "i-tabler-eye" : "i-tabler-eye-off")
+        }, null, 2)
+      ]),
+      h(k, {
+        ref_key: "baseInput",
+        ref: s,
+        type: n.value ? "password" : "text",
+        placeholder: e.placeholder,
+        "model-value": c.value,
+        class: "input",
+        "onUpdate:modelValue": _
+      }, null, 8, ["type", "placeholder", "model-value"])
+    ]));
   }
 });
-var ee = function() {
-  var e = this, t = e._self._c, s = e._self._setupProxy;
-  return t("div", { staticClass: "password-input" }, [t("button", { on: { click: function(a) {
-    s.isPasswordHidden = !s.isPasswordHidden;
-  } } }, [t("i", { class: s.isPasswordHidden ? "i-tabler-eye" : "i-tabler-eye-off" })]), t(s.Input, { ref: "baseInput", staticClass: "input", attrs: { type: s.isPasswordHidden ? "password" : "text", placeholder: e.placeholder, value: s.inputValue }, on: { input: s.onInput } })], 1);
-}, te = [], se = /* @__PURE__ */ _(
-  Z,
-  ee,
-  te,
-  !1,
-  null,
-  "73d0b220",
-  null,
-  null
-);
-const ne = se.exports;
-const ae = {};
-var le = function() {
-  var e = this, t = e._self._c;
-  return t("div", { staticClass: "note" }, [t("div", { staticClass: "icon" }, [e._t("icon")], 2), t("div", { staticClass: "content" }, [e._t("content")], 2)]);
-}, oe = [], re = /* @__PURE__ */ _(
-  ae,
-  le,
-  oe,
-  !1,
-  null,
-  "cb9f4361",
-  null,
-  null
-);
-const ce = re.exports, ue = /* @__PURE__ */ i({
+const ie = /* @__PURE__ */ v(pe, [["__scopeId", "data-v-526cc1b1"]]);
+const ve = {}, me = { class: "note" }, fe = { class: "icon" }, he = { class: "content" };
+function ye(e, t) {
+  return u(), d("div", me, [
+    l("div", fe, [
+      y(e.$slots, "icon", { class: "icon" }, void 0, !0)
+    ]),
+    l("div", he, [
+      y(e.$slots, "content", {}, void 0, !0)
+    ])
+  ]);
+}
+const be = /* @__PURE__ */ v(ve, [["render", ye], ["__scopeId", "data-v-cb9f4361"]]), ge = (e) => (g("data-v-dbbecf04"), e = e(), x(), e), xe = { class: "loading" }, $e = {
+  class: "loading-svg",
+  viewBox: "0 0 100 100"
+}, Ve = /* @__PURE__ */ ge(() => /* @__PURE__ */ l("circle", {
+  class: "loading-circle",
+  cx: "50",
+  cy: "50",
+  r: "45"
+}, null, -1)), Ie = { class: "loading-value" }, Se = /* @__PURE__ */ i({
   __name: "Loading",
   props: {
     duration: {
@@ -259,74 +247,62 @@ const ce = re.exports, ue = /* @__PURE__ */ i({
     }
   },
   emits: ["complete"],
-  setup(n, { emit: e }) {
-    const t = n, s = u(0), a = u(!1), o = v(() => ({
-      strokeDashoffset: `${(100 - s.value) * 2.64}px`,
-      transition: a.value ? "all 0.1s ease" : "none"
+  setup(e, { emit: t }) {
+    const a = e, o = r(0), s = r(!1), n = I(() => ({
+      strokeDashoffset: `${(100 - o.value) * 2.64}px`,
+      transition: s.value ? "all 0.1s ease" : "none"
     }));
-    return C(t, () => {
-      s.value = 0, a.value = !0;
-    }), m(() => {
-      const c = t.duration, p = c / 100, l = 100 / (c / p);
-      let r = 0;
-      a.value = !0;
-      const f = setInterval(() => {
-        r += l, s.value = r, r >= 100 && (clearInterval(f), a.value = !1, e("complete"));
-      }, p);
-      return () => clearInterval(f);
-    }), { __sfc: !0, props: t, emit: e, progress: s, isAnimationRunning: a, progressStyle: o };
+    return z(a, () => {
+      o.value = 0, s.value = !0;
+    }), w(() => {
+      const c = a.duration, _ = c / 100, p = 100 / (c / _);
+      let m = 0;
+      s.value = !0;
+      const V = setInterval(() => {
+        m += p, o.value = m, m >= 100 && (clearInterval(V), s.value = !1, t("complete"));
+      }, _);
+      return () => clearInterval(V);
+    }), (c, _) => (u(), d("div", xe, [
+      (u(), d("svg", $e, [
+        Ve,
+        l("circle", {
+          class: "loading-circle-progress",
+          style: E(f(n)),
+          cx: "50",
+          cy: "50",
+          r: "45"
+        }, null, 4)
+      ])),
+      l("div", Ie, b(`${o.value}%`), 1)
+    ]));
   }
 });
-var _e = function() {
-  var e = this, t = e._self._c, s = e._self._setupProxy;
-  return t("div", { staticClass: "loading" }, [t("svg", { staticClass: "loading-svg", attrs: { viewBox: "0 0 100 100" } }, [t("circle", { staticClass: "loading-circle", attrs: { cx: "50", cy: "50", r: "45" } }), t("circle", { staticClass: "loading-circle-progress", style: s.progressStyle, attrs: { cx: "50", cy: "50", r: "45" } })]), t("div", { staticClass: "loading-value" }, [e._v(" " + e._s(`${s.progress}%`) + " ")])]);
-}, ie = [], pe = /* @__PURE__ */ _(
-  ue,
-  _e,
-  ie,
-  !1,
-  null,
-  "dbbecf04",
-  null,
-  null
-);
-const de = pe.exports, fe = /* @__PURE__ */ i({
+const we = /* @__PURE__ */ v(Se, [["__scopeId", "data-v-dbbecf04"]]), ke = (e) => (g("data-v-fabf80c5"), e = e(), x(), e), Be = { class: "checkbox-container" }, Ce = /* @__PURE__ */ ke(() => /* @__PURE__ */ l("span", { class: "checkmark" }, null, -1)), Pe = /* @__PURE__ */ i({
   __name: "Checkbox",
   props: {
-    value: {
+    modelValue: {
       type: Boolean,
       default: !1
     }
   },
-  emits: ["input"],
-  setup(n, { emit: e }) {
-    const t = n, s = u(t.value);
-    return m(() => {
-      e("input", s.value);
-    }), { __sfc: !0, props: t, emit: e, inputValue: s };
+  emits: ["update:modelValue"],
+  setup(e, { emit: t }) {
+    const o = r(e.modelValue);
+    return w(() => {
+      t("update:modelValue", o.value);
+    }), (s, n) => (u(), d("label", Be, [
+      S(l("input", {
+        "onUpdate:modelValue": n[0] || (n[0] = (c) => o.value = c),
+        class: "checkbox-input",
+        type: "checkbox"
+      }, null, 512), [
+        [F, o.value]
+      ]),
+      Ce
+    ]));
   }
 });
-var ve = function() {
-  var e = this, t = e._self._c, s = e._self._setupProxy;
-  return t("label", { staticClass: "checkbox-container" }, [t("input", { directives: [{ name: "model", rawName: "v-model", value: s.inputValue, expression: "inputValue" }], staticClass: "checkbox-input", attrs: { type: "checkbox" }, domProps: { checked: Array.isArray(s.inputValue) ? e._i(s.inputValue, null) > -1 : s.inputValue }, on: { change: function(a) {
-    var o = s.inputValue, c = a.target, p = !!c.checked;
-    if (Array.isArray(o)) {
-      var l = null, r = e._i(o, l);
-      c.checked ? r < 0 && (s.inputValue = o.concat([l])) : r > -1 && (s.inputValue = o.slice(0, r).concat(o.slice(r + 1)));
-    } else
-      s.inputValue = p;
-  } } }), t("span", { staticClass: "checkmark" })]);
-}, me = [], ye = /* @__PURE__ */ _(
-  fe,
-  ve,
-  me,
-  !1,
-  null,
-  "02d07ed5",
-  null,
-  null
-);
-const he = ye.exports, be = /* @__PURE__ */ i({
+const De = /* @__PURE__ */ v(Pe, [["__scopeId", "data-v-fabf80c5"]]), Te = ["disabled"], Ne = { class: "text" }, Ue = /* @__PURE__ */ i({
   __name: "Button",
   props: {
     disabled: {
@@ -334,68 +310,56 @@ const he = ye.exports, be = /* @__PURE__ */ i({
       default: !1
     }
   },
-  setup(n) {
-    return { __sfc: !0, props: n };
+  setup(e) {
+    return (t, a) => (u(), d("button", {
+      ref: "target",
+      class: $(["button", { disabled: e.disabled }]),
+      disabled: e.disabled
+    }, [
+      l("span", Ne, [
+        y(t.$slots, "default", {}, void 0, !0)
+      ])
+    ], 10, Te));
   }
 });
-var ge = function() {
-  var e = this, t = e._self._c;
-  return t("button", { ref: "target", staticClass: "button", class: { disabled: e.disabled }, attrs: { disabled: e.disabled } }, [t("span", { staticClass: "text" }, [e._t("default")], 2)]);
-}, xe = [], $e = /* @__PURE__ */ _(
-  be,
-  ge,
-  xe,
-  !1,
-  null,
-  "4695437a",
-  null,
-  null
-);
-const Ce = $e.exports, we = /* @__PURE__ */ i({
+const Me = /* @__PURE__ */ v(Ue, [["__scopeId", "data-v-4695437a"]]), Le = /* @__PURE__ */ i({
   __name: "PrimaryButton",
-  setup(n) {
-    return { __sfc: !0, Button: Ce };
+  setup(e) {
+    return (t, a) => (u(), D(Me, P(t.$attrs, {
+      ref: "target",
+      class: "primary"
+    }), {
+      default: T(() => [
+        y(t.$slots, "default", {}, void 0, !0)
+      ]),
+      _: 3
+    }, 16));
   }
 });
-var Ie = function() {
-  var e = this, t = e._self._c, s = e._self._setupProxy;
-  return t(s.Button, e._b({ ref: "target", staticClass: "primary" }, "Button", e.$attrs, !1), [e._t("default")], 2);
-}, Pe = [], Se = /* @__PURE__ */ _(
-  we,
-  Ie,
-  Pe,
-  !1,
-  null,
-  "99aecff6",
-  null,
-  null
-);
-const ke = Se.exports, g = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const ze = /* @__PURE__ */ v(Le, [["__scopeId", "data-v-99aecff6"]]), C = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
-  TextInput: F,
-  StoreSlugInput: M,
-  Select: Q,
-  PasswordInput: ne,
-  Note: ce,
-  Loading: de,
-  Checkbox: he,
-  PrimaryButton: ke
+  TextInput: j,
+  StoreSlugInput: W,
+  DropDown: re,
+  PasswordInput: ie,
+  Note: be,
+  Loading: we,
+  Checkbox: De,
+  PrimaryButton: ze
 }, Symbol.toStringTag, { value: "Module" }));
-function x(n) {
-  Object.keys(g).forEach((e) => {
-    n.component(e, g[e]);
-  });
+function Ee(e) {
+  for (const t in C)
+    e.component(t, C[t]);
 }
-typeof window < "u" && window.Vue && x(window.Vue);
-const Re = { install: x };
+const He = { install: Ee };
 export {
-  he as Checkbox,
-  de as Loading,
-  ce as Note,
-  ne as PasswordInput,
-  ke as PrimaryButton,
-  Q as Select,
-  M as StoreSlugInput,
-  F as TextInput,
-  Re as default
+  De as Checkbox,
+  re as DropDown,
+  we as Loading,
+  be as Note,
+  ie as PasswordInput,
+  ze as PrimaryButton,
+  W as StoreSlugInput,
+  j as TextInput,
+  He as default
 };

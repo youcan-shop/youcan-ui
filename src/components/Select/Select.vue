@@ -4,7 +4,7 @@ import SelectButton from './SelectButton.vue';
 import SelectMenu from './SelectMenu.vue';
 import type { SelectItem } from './types';
 
-const props = defineProps<{
+defineProps<{
   items: SelectItem[]
 }>();
 
@@ -20,13 +20,11 @@ const shown = ref(false);
 </template>
 
 <style lang="scss" scoped>
-  .dropdown {
-    position: relative;
-    display: block;
+.dropdown {
+  display: block;
 
-    .dropdown-content {
-      position: absolute;
-      top: 63px;
-    }
+  .dropdown-content {
+    margin-top: 7px;
   }
+}
 </style>

@@ -3,13 +3,13 @@ import { computed } from 'vue';
 import type { SelectItem } from './types';
 
 const props = defineProps<{
-  value?: SelectItem
+  modelValue?: SelectItem
   placeholder?: String
 }>();
 
 const emit = defineEmits(['click']);
 
-const selected = computed(() => props.value);
+const selected = computed(() => props.modelValue);
 </script>
 
 <template>

@@ -3,21 +3,20 @@ import { ref } from 'vue';
 import Input from '~/components/Input/Input.vue';
 
 const props = defineProps<{
-  value: string
+  modelValue: string
   placeholder?: string
 }>();
 
-const emit = defineEmits(['input']);
-const inputValue = ref(props.value);
+const emit = defineEmits(['update:modelValue']);
+const inputValue = ref(props.modelValue);
 
-const onInput = (e: Event) => {
-  const target = e.target as HTMLInputElement;
-  inputValue.value = target.value;
+const onInput = (value: string) => {
+  inputValue.value = value;
 
-  emit('input', inputValue.value);
+  emit('update:modelValue', inputValue.value);
 };
 </script>
 
 <template>
-  <Input :value="inputValue" type="text" class="input" :placeholder="placeholder" @input="onInput" />
+  <Input :model-value="inputValue" type="text" class="input" :placeholder="placeholder" @update:model-value="onInput" />
 </template>
