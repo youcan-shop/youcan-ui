@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { onClickOutside } from '@vueuse/core';
 import { computed, ref, watchEffect } from 'vue';
 import SelectButton from './SelectButton.vue';
 import SelectMenu from './SelectMenu.vue';
@@ -27,11 +28,15 @@ const itemSelected = (item: SelectItem | undefined): void => {
 };
 
 watchEffect(() => selectedItem.value = items.find(item => item.value === selected.value));
+
+const _dropdown_trigger = ref();
+onClickOutside(_dropdown_trigger, () => shown.value = false);
 </script>
 
 <template>
   <div class="dropdown">
-    <SelectButton :item="selectedItem" placeholder="Please select an option" @click="shown = !shown" />
+    <SelectButton ref="_dropdown_trigger" :item="selectedItem" placeholder="Please select an option"
+      @click="shown = !shown" />
     <SelectMenu v-show="shown" :model-value="selectedItem" :items="items" @update:modelValue="itemSelected" />
   </div>
 </template>

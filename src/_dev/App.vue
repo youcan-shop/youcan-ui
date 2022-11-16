@@ -49,7 +49,7 @@ const selectedDropdownValue = ref('');
     </Note>
 
     <Dropdown v-model="selectedDropdownValue" :items="items" />
-    {{ selectedDropdownValue }}
+    <span>Selected item: {{ selectedDropdownValue }}</span>
   </div>
 </template>
 
