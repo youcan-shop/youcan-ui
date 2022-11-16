@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { onClickOutside } from '@vueuse/core';
 import { computed, ref, watchEffect } from 'vue';
-import SelectButton from './SelectButton.vue';
-import SelectMenu from './SelectMenu.vue';
-import type { SelectItem } from './types';
+import SelectButton from '~/components/_Select/SelectButton.vue';
+import SelectMenu from '~/components/_Select/SelectMenu.vue';
+import type { SelectItem } from '~/components/_Select/types';
 
-const { modelValue, items } = defineProps<{
+const { modelValue, items, placeholder } = defineProps<{
   items: SelectItem[]
   modelValue: string | undefined
+  placeholder?: string
 }>();
 
 const emit = defineEmits(['update:modelValue']);
@@ -32,18 +32,14 @@ watchEffect(() => selectedItem.value = items.find(item => item.value === selecte
 
 <template>
   <div class="dropdown">
-    <SelectButton :item="selectedItem" placeholder="Please select an option" @click="shown = !shown"
+    <SelectButton :item="selectedItem" :placeholder="placeholder" @click="shown = !shown"
       @clickOutside="shown = false" />
     <SelectMenu v-show="shown" :model-value="selectedItem" :items="items" @update:modelValue="itemSelected" />
   </div>
 </template>
 
 <style lang="scss" scoped>
-.dropdown {
-  display: block;
-
-  .dropdown-content {
-    margin-top: 7px;
-  }
+.dropdown-content {
+  margin-top: 7px;
 }
 </style>

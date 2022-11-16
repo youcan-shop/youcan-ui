@@ -20,7 +20,7 @@ onClickOutside(_dropdown_trigger, () => emit('clickOutside'));
   <button ref="_dropdown_trigger" class="dropdown-input" @click="emit('click')">
     <div class="label-item">
       <i :class="[selected?.icon]" />
-      <span>{{ !selected ? placeholder : selected.label }}</span>
+      <span>{{ !selected ? placeholder || 'Please select an option' : selected.label }}</span>
     </div>
 
     <i class="i-tabler:chevron-down icon" />

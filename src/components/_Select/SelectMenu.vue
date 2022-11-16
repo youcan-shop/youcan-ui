@@ -21,10 +21,15 @@ const selectItem = (item: SelectItem) => {
 
 <template>
   <div class="dropdown-content">
-    <div v-for="(item, index) in items" :key="index" class="dropdown-item" @click="selectItem(item)">
-      <i v-if="item.icon" :class="item.icon" />
-      <img v-if="item.image" :src="item.image">
-      <span>{{ item.label }}</span>
+    <template v-if="items.length > 0">
+      <div v-for="(item, index) in items" :key="index" class="dropdown-item" @click="selectItem(item)">
+        <i v-if="item.icon" :class="item.icon" />
+        <img v-if="item.image" :src="item.image">
+        <span>{{ item.label }}</span>
+      </div>
+    </template>
+    <div v-else class="no-results">
+      <span>Your search came up with no results.</span>
     </div>
   </div>
 </template>
@@ -59,5 +64,13 @@ const selectItem = (item: SelectItem) => {
       background-color: var(--hover-color);
     }
   }
+}
+
+.no-results {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 16px;
+  color: var(--gray-800);
 }
 </style>

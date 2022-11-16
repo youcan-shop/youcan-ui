@@ -18,5 +18,6 @@ const onInput = (value: string) => {
 </script>
 
 <template>
-  <Input :model-value="inputValue" type="text" class="input" :placeholder="placeholder" @update:model-value="onInput" />
+  <Input :model-value="inputValue" type="text" class="input" :placeholder="placeholder" v-bind="$attrs"
+    @update:model-value="onInput" />
 </template>

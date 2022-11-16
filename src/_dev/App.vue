@@ -3,6 +3,7 @@ import '~/assets/main.css';
 import { ref } from 'vue';
 import {
   Checkbox,
+  ComboBox,
   Dropdown,
   Loading,
   Note,
@@ -49,6 +50,9 @@ const selectedDropdownValue = ref('');
     </Note>
 
     <Dropdown v-model="selectedDropdownValue" :items="items" />
+    <span>Selected item: {{ selectedDropdownValue }}</span>
+
+    <ComboBox v-model="selectedDropdownValue" :items="items" />
     <span>Selected item: {{ selectedDropdownValue }}</span>
   </div>
 </template>
