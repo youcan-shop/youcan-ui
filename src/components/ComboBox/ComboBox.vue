@@ -46,18 +46,43 @@ const filter = (term: string) => {
 
 <template>
   <div class="dropdown">
-    <TextInput :model-value="selected" class="input" :placeholder="placeholder || 'Search items'"
-      @update:model-value="filter" @focus="toggleMenu(true)" @blur="toggleMenu(false)" />
-    <SelectMenu v-show="shown" :model-value="selectedItem" :items="filteredItems" @update:modelValue="itemSelected" />
+    <div class="input-container">
+      <TextInput :model-value="selected" class="input" :placeholder="placeholder || 'Search items'"
+        @update:model-value="filter" @focus="toggleMenu(true)" @blur="toggleMenu(false)" />
+      <div class="icon-container">
+        <i class="icon" :class="[shown ? 'i-tabler:chevron-up' : 'i-tabler:chevron-down']" />
+      </div>
+    </div>
+    <SelectMenu v-show="shown" class="items-menu" :model-value="selectedItem" :items="filteredItems"
+      @update:modelValue="itemSelected" />
   </div>
 </template>
 
 <style scoped>
-.dropdown-content {
-  margin-top: 7px;
+.dropdown {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  max-width: 460px;
 }
 
-.input {
-  max-width: 460px;
+.input-container {
+  position: relative;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.02);
+}
+
+.icon-container {
+  position: absolute;
+  right: 16px;
+  top: 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gray-400);
+}
+
+.items-menu {
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.02), 0px 4px 4px rgba(0, 0, 0, 0.02);
 }
 </style>

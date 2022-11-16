@@ -39,7 +39,9 @@ watchEffect(() => selectedItem.value = items.find(item => item.value === selecte
 </template>
 
 <style lang="scss" scoped>
-.dropdown-content {
-  margin-top: 7px;
+.dropdown {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
 }
 </style>
