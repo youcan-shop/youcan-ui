@@ -3,7 +3,7 @@ import '~/assets/main.css';
 import { ref } from 'vue';
 import {
   Checkbox,
-  DropDown,
+  Dropdown,
   Loading,
   Note,
   PasswordInput,
@@ -15,7 +15,8 @@ import {
 const inputValue = ref('hello');
 const isChecked = ref(false);
 
-const items = [{ label: 'Test 1' }, { label: 'Test 2', icon: 'i-tabler:home' }];
+const items = [{ label: 'Test 1', value: 't1' }, { label: 'Test 2', icon: 'i-tabler:home', value: 't2' }];
+const selectedDropdownValue = ref('');
 </script>
 
 <template>
@@ -47,7 +48,8 @@ const items = [{ label: 'Test 1' }, { label: 'Test 2', icon: 'i-tabler:home' }];
       </template>
     </Note>
 
-    <DropDown :items="items" />
+    <Dropdown v-model="selectedDropdownValue" :items="items" />
+    {{ selectedDropdownValue }}
   </div>
 </template>
 

@@ -13,11 +13,15 @@ const selected = ref(props.modelValue);
 watchEffect(() => {
   emit('update:modelValue', selected.value);
 });
+
+const selectItem = (item: SelectItem) => {
+  selected.value = item;
+};
 </script>
 
 <template>
   <div class="dropdown-content">
-    <div v-for="(item, index) in items" :key="index" class="dropdown-item" @click="selected = item">
+    <div v-for="(item, index) in items" :key="index" class="dropdown-item" @click="selectItem(item)">
       <i v-if="item.icon" :class="item.icon" />
       <img v-if="item.image" :src="item.image">
       <span>{{ item.label }}</span>
