@@ -21,7 +21,7 @@ const onInput = (emittedValue: string) => {
 
 <template>
   <div class="password-input">
-    <button @click="isPasswordHidden = !isPasswordHidden">
+    <button class="password-icon" @click="isPasswordHidden = !isPasswordHidden">
       <i :class="!isPasswordHidden ? 'i-tabler-eye-off' : 'i-tabler-eye'" />
     </button>
 
@@ -32,7 +32,7 @@ const onInput = (emittedValue: string) => {
   </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .password-input {
   position: relative;
 }
@@ -43,15 +43,10 @@ const onInput = (emittedValue: string) => {
   height: 54px;
   border-radius: 8px;
   padding: 4px 16px;
-  color: var(--placeholder-color);
   font-weight: 400;
 }
 
-.password-input input::placeholder {
-  color: var(--placeholder-color);
-}
-
-.password-input button {
+.password-icon {
   position: absolute;
   height: 100%;
   background: none;
@@ -60,5 +55,10 @@ const onInput = (emittedValue: string) => {
   outline: none;
   cursor: pointer;
   color: var(--placeholder-color);
+
+ [dir='rtl'] & {
+    right: auto;
+    left: 20px;
+  }
 }
 </style>

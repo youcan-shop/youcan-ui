@@ -64,7 +64,7 @@ const onblur = () => isPopoverDiplayed.value = false;
   </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .store-slug-input {
   --store-slug-title: var(--gray-900);
   --store-slug-description: var(--gray-500);
@@ -83,6 +83,10 @@ const onblur = () => isPopoverDiplayed.value = false;
   display: flex;
   align-items: center;
   width: 100%;
+
+  [dir='rtl'] & {
+    direction: ltr;
+  }
 }
 
 .slug-suffix {
@@ -105,6 +109,12 @@ const onblur = () => isPopoverDiplayed.value = false;
   border-radius: 12px;
   position: absolute;
   right: 0;
+
+  [dir='rtl'] & {
+    right: auto;
+    left: 0px;
+    transform: translateX(calc(-100% - 1rem));
+  }
 }
 
 .box-description {
