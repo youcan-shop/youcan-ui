@@ -8,6 +8,7 @@ import {
   Loading,
   Note,
   PasswordInput,
+  PhoneNumberInput,
   PrimaryButton,
   StoreSlugInput,
   TextInput,
@@ -18,6 +19,7 @@ const isChecked = ref(false);
 
 const items = [{ label: 'Test 1', value: 't1' }, { label: 'Test 2', icon: 'i-tabler:home', value: 't2' }];
 const selectedDropdownValue = ref('');
+const selectedPhoneNumberValue = ref('');
 </script>
 
 <template>
@@ -54,6 +56,9 @@ const selectedDropdownValue = ref('');
 
     <ComboBox v-model="selectedDropdownValue" :items="items" />
     <span>Selected item: {{ selectedDropdownValue }}</span>
+
+    <PhoneNumberInput v-model="selectedPhoneNumberValue" :items="items" dial-code="t1" />
+    <span>Selected item: {{ selectedPhoneNumberValue }}</span>
   </div>
 </template>
 

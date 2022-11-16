@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { computed, ref, watchEffect } from 'vue';
-import SelectButton from '~/components/_Select/SelectButton.vue';
+import { ref, watchEffect } from 'vue';
+import { onClickOutside } from '@vueuse/core';
 import SelectMenu from '~/components/_Select/SelectMenu.vue';
 import type { SelectItem } from '~/components/_Select/types';
 import TextInput from '~/components/TextInput/TextInput.vue';
 
 const { modelValue = '', items } = defineProps<{
   items: SelectItem[]
-  modelValue: string | undefined
+  modelValue: string
   placeholder?: string
 }>();
 
@@ -17,10 +17,9 @@ const selected = ref(modelValue);
 const selectedItem = ref<SelectItem>();
 const shown = ref(false);
 const filteredItems = ref(items);
+const refreshInputKey = ref(0);
 
-const toggleMenu = (state: boolean) => {
-  shown.value = state;
-};
+const toggleMenu = (state: boolean) => shown.value = state;
 
 const itemSelected = (item: SelectItem | undefined): void => {
   if (!item) {
@@ -28,6 +27,7 @@ const itemSelected = (item: SelectItem | undefined): void => {
   }
 
   selectedItem.value = item;
+  selected.value = item.label;
   emit('update:modelValue', selectedItem.value.value);
 
   toggleMenu(false);
@@ -36,19 +36,25 @@ const itemSelected = (item: SelectItem | undefined): void => {
 watchEffect(() => selectedItem.value = items.find(item => item.value === selected.value));
 
 const filter = (term: string) => {
-  selected.value = term;
-
   filteredItems.value = items.filter((item) => {
     return item.label.includes(term) || item.value.includes(term);
   });
 };
+
+const _dropdown_trigger = ref();
+onClickOutside(_dropdown_trigger, () => {
+  refreshInputKey.value++;
+  filteredItems.value = items;
+
+  toggleMenu(false);
+});
 </script>
 
 <template>
   <div class="dropdown">
-    <div class="input-container">
-      <TextInput :model-value="selected" class="input" :placeholder="placeholder || 'Search items'"
-        @update:model-value="filter" @focus="toggleMenu(true)" @blur="toggleMenu(false)" />
+    <div ref="_dropdown_trigger" class="input-container">
+      <TextInput :key="refreshInputKey" :model-value="selected" class="input"
+        :placeholder="placeholder || 'Search items'" @update:model-value="filter" @focus="toggleMenu(true)" />
       <div class="icon-container">
         <i class="icon" :class="[shown ? 'i-tabler:chevron-up' : 'i-tabler:chevron-down']" />
       </div>
