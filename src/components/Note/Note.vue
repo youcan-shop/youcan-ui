@@ -9,7 +9,7 @@
   </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .note {
   --note-background: var(--white);
   --note-border-color: var(--gray-25);
@@ -23,6 +23,10 @@
   border-radius: 8px;
   padding: 2px 25px;
   gap: 32px;
+
+  [dir='rtl'] & {
+    flex-direction: row-reverse;
+  }
 }
 
 .icon {
