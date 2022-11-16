@@ -28,15 +28,12 @@ const itemSelected = (item: SelectItem | undefined): void => {
 };
 
 watchEffect(() => selectedItem.value = items.find(item => item.value === selected.value));
-
-const _dropdown_trigger = ref();
-onClickOutside(_dropdown_trigger, () => shown.value = false);
 </script>
 
 <template>
   <div class="dropdown">
-    <SelectButton ref="_dropdown_trigger" :item="selectedItem" placeholder="Please select an option"
-      @click="shown = !shown" />
+    <SelectButton :item="selectedItem" placeholder="Please select an option" @click="shown = !shown"
+      @clickOutside="shown = false" />
     <SelectMenu v-show="shown" :model-value="selectedItem" :items="items" @update:modelValue="itemSelected" />
   </div>
 </template>

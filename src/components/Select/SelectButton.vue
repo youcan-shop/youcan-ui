@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { onClickOutside } from '@vueuse/core';
+import { computed, ref } from 'vue';
 import type { SelectItem } from './types';
 
 const props = defineProps<{
@@ -7,13 +8,16 @@ const props = defineProps<{
   placeholder?: String
 }>();
 
-const emit = defineEmits(['click']);
+const emit = defineEmits(['click', 'clickOutside']);
 
 const selected = computed(() => props.item);
+
+const _dropdown_trigger = ref();
+onClickOutside(_dropdown_trigger, () => emit('clickOutside'));
 </script>
 
 <template>
-  <button class="dropdown-input" @click="emit('click')">
+  <button ref="_dropdown_trigger" class="dropdown-input" @click="emit('click')">
     <div class="label-item">
       <i :class="[selected?.icon]" />
       <span>{{ !selected ? placeholder : selected.label }}</span>
