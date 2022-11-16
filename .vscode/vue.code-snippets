@@ -1,0 +1,17 @@
+{
+	"Vue SFC starter": {
+		"scope": "vue",
+		"prefix": "vinit",
+		"body": [
+			"<script setup lang=\"ts\"></script>",
+			"",
+			"<template>",
+			"$2<div>Hello world</div>",
+			"</template>",
+			"",
+			"<style scoped></style>",
+			""
+		],
+		"description": "Log output to console"
+	}
+}
