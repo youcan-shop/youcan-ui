@@ -31,15 +31,13 @@
   "peerDependencies": {
     "vue": "^3.2.45"
   },
-  "dependencies": {
-    "@vueuse/core": "^9.2.0"
-  },
   "devDependencies": {
     "@histoire/plugin-vue": "^0.11.7",
     "@iconify-json/tabler": "^1.1.30",
     "@sidi3li/eslint-config": "^1.0.10",
     "@types/node": "18.7.15",
     "@vitejs/plugin-vue": "^3.2.0",
+    "@vueuse/core": "^9.2.0",
     "bumpp": "^8.2.1",
     "eslint": "^8.17.0",
     "histoire": "^0.11.7",

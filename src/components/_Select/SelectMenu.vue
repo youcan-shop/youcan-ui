@@ -10,17 +10,23 @@ const props = defineProps<{
 const emit = defineEmits(['update:modelValue']);
 const selected = ref(props.modelValue);
 
-watchEffect(() => {
+const selectItem = (item: SelectItem) => {
+  selected.value = item;
   emit('update:modelValue', selected.value);
-});
+};
 </script>
 
 <template>
   <div class="dropdown-content">
-    <div v-for="(item, index) in items" :key="index" class="dropdown-item" @click="selected = item">
-      <i v-if="item.icon" :class="item.icon" />
-      <img v-if="item.image" :src="item.image">
-      <span>{{ item.label }}</span>
+    <template v-if="items.length > 0">
+      <div v-for="item in items" :key="item.label" class="dropdown-item" @click="selectItem(item)">
+        <i v-if="item.icon" :class="item.icon" />
+        <img v-if="item.image" :src="item.image">
+        <span>{{ item.label }}</span>
+      </div>
+    </template>
+    <div v-else class="no-results">
+      <span>Your search came up with no results.</span>
     </div>
   </div>
 </template>
@@ -55,5 +61,13 @@ watchEffect(() => {
       background-color: var(--hover-color);
     }
   }
+}
+
+.no-results {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 16px;
+  color: var(--gray-800);
 }
 </style>

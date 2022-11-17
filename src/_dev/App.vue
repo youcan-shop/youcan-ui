@@ -3,10 +3,12 @@ import '~/assets/main.css';
 import { ref } from 'vue';
 import {
   Checkbox,
-  DropDown,
+  ComboBox,
+  Dropdown,
   Loading,
   Note,
   PasswordInput,
+  PhoneNumberInput,
   PrimaryButton,
   StoreSlugInput,
   TextInput,
@@ -15,7 +17,9 @@ import {
 const inputValue = ref('hello');
 const isChecked = ref(false);
 
-const items = [{ label: 'Test 1' }, { label: 'Test 2', icon: 'i-tabler:home' }];
+const items = [{ label: 'Test 1', value: 't1' }, { label: 'Test 2', icon: 'i-tabler:home', value: 't2' }];
+const selectedDropdownValue = ref('');
+const selectedPhoneNumberValue = ref('');
 </script>
 
 <template>
@@ -47,7 +51,14 @@ const items = [{ label: 'Test 1' }, { label: 'Test 2', icon: 'i-tabler:home' }];
       </template>
     </Note>
 
-    <DropDown :items="items" />
+    <Dropdown v-model="selectedDropdownValue" :items="items" />
+    <span>Selected item: {{ selectedDropdownValue }}</span>
+
+    <ComboBox v-model="selectedDropdownValue" :items="items" />
+    <span>Selected item: {{ selectedDropdownValue }}</span>
+
+    <PhoneNumberInput v-model="selectedPhoneNumberValue" :items="items" dial-code="t1" />
+    <span>Selected item: {{ selectedPhoneNumberValue }}</span>
   </div>
 </template>
 

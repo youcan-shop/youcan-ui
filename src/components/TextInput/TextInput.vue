@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { computed } from 'vue';
 import Input from '~/components/Input/Input.vue';
 
 const props = defineProps<{
@@ -8,15 +8,14 @@ const props = defineProps<{
 }>();
 
 const emit = defineEmits(['update:modelValue']);
-const inputValue = ref(props.modelValue);
+const inputValue = computed(() => props.modelValue);
 
 const onInput = (value: string) => {
-  inputValue.value = value;
-
-  emit('update:modelValue', inputValue.value);
+  emit('update:modelValue', value);
 };
 </script>
 
 <template>
-  <Input :model-value="inputValue" type="text" class="input" :placeholder="placeholder" @update:model-value="onInput" />
+  <Input :model-value="inputValue" type="text" class="input" :placeholder="placeholder" v-bind="$attrs"
+    @update:model-value="onInput" />
 </template>

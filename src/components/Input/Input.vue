@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, watch, watchEffect } from 'vue';
 import { launder } from '~/utils/type.util';
 
 const props = defineProps<{
@@ -10,13 +10,11 @@ const props = defineProps<{
 
 const emit = defineEmits(['update:modelValue', 'focus', 'blur']);
 
-const inputValue = ref(props.modelValue);
+const inputValue = computed(() => props.modelValue);
 const inputType = computed(() => props.type);
 
 const onInput = ({ target }: Event) => {
-  inputValue.value = launder<HTMLInputElement>(target).value;
-
-  emit('update:modelValue', inputValue.value);
+  emit('update:modelValue', launder<HTMLInputElement>(target).value);
 };
 
 const onfocus = () => emit('focus');
@@ -24,10 +22,8 @@ const onblur = () => emit('blur');
 </script>
 
 <template>
-  <input
-    :value="inputValue" :type="inputType" :placeholder="placeholder" class="input" v-bind="$attrs" @input="onInput"
-    @focus="onfocus" @blur="onblur"
-  >
+  <input :value="inputValue" :type="inputType" :placeholder="placeholder" class="input" v-bind="$attrs" @input="onInput"
+    @focus="onfocus" @blur="onblur">
 </template>
 
 <style scoped>
