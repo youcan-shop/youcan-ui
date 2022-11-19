@@ -61,7 +61,8 @@ onClickOutside(_dropdown_trigger, () => {
       <TextInput :key="refreshInputKey" :model-value="selected" class="input"
         :placeholder="placeholder || 'Search items'" @update:model-value="filter" @focus="toggleMenu(true)" />
       <div class="icon-container">
-        <i class="icon" :class="[shown ? 'i-tabler:chevron-up' : 'i-tabler:chevron-down']" />
+        <i class="icon" :class="[shown ? 'i-tabler:chevron-up' : 'i-tabler:chevron-down']"
+          @click="toggleMenu(!shown)" />
       </div>
     </div>
     <SelectMenu v-show="shown" class="items-menu" :model-value="selectedItem" :items="filteredItems"
@@ -90,9 +91,15 @@ onClickOutside(_dropdown_trigger, () => {
   align-items: center;
   justify-content: center;
   color: var(--gray-400);
+  pointer-events: none;
+}
+
+.icon-container .icon {
+  pointer-events: all;
 }
 
 .items-menu {
   box-shadow: 0px 4px 4px var(--black-700), 0px 4px 4px var(--black-700);
+  max-width: unset;
 }
 </style>
