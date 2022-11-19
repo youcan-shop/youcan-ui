@@ -18,7 +18,7 @@ const inputValue = ref('hello');
 const isChecked = ref(false);
 
 const items = [{ label: 'Test 1', value: 't1' }, { label: 'Test 2', icon: 'i-tabler:home', value: 't2' }];
-const selectedDropdownValue = ref('');
+const selectedDropdownValue = ref('t1');
 const selectedPhoneNumberValue = ref('');
 </script>
 
