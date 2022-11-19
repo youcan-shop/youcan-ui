@@ -21,14 +21,12 @@ const onInput = (emittedValue: string) => {
 
 <template>
   <div class="password-input">
-    <button class="password-icon" @click="isPasswordHidden = !isPasswordHidden">
+    <button class="password-icon" type="button" @click="isPasswordHidden = !isPasswordHidden">
       <i :class="!isPasswordHidden ? 'i-tabler-eye-off' : 'i-tabler-eye'" />
     </button>
 
-    <Input
-      ref="baseInput" :type="isPasswordHidden ? 'password' : 'text'" :placeholder="placeholder"
-      :model-value="inputValue" class="input" @update:model-value="onInput"
-    />
+    <Input ref="baseInput" :type="isPasswordHidden ? 'password' : 'text'" :placeholder="placeholder"
+      :model-value="inputValue" class="input" @update:model-value="onInput" />
   </div>
 </template>
 
@@ -56,7 +54,7 @@ const onInput = (emittedValue: string) => {
   cursor: pointer;
   color: var(--placeholder-color);
 
- [dir='rtl'] & {
+  [dir='rtl'] & {
     right: auto;
     left: 20px;
   }
