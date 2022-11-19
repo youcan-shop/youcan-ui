@@ -33,7 +33,12 @@ const itemSelected = (item: SelectItem | undefined): void => {
   toggleMenu(false);
 };
 
-watchEffect(() => selectedItem.value = items.find(item => item.value === selected.value));
+watchEffect(() => {
+  selectedItem.value = items.find(item => item.value === selected.value);
+  if (selectedItem.value) {
+    selected.value = selectedItem.value?.label;
+  }
+});
 
 const filter = (term: string) => {
   filteredItems.value = items.filter((item) => {
@@ -53,18 +58,14 @@ onClickOutside(_dropdown_trigger, () => {
 <template>
   <div class="dropdown">
     <div ref="_dropdown_trigger" class="input-container">
-      <TextInput
-        :key="refreshInputKey" :model-value="selected" class="input"
-        :placeholder="placeholder || 'Search items'" @update:model-value="filter" @focus="toggleMenu(true)"
-      />
+      <TextInput :key="refreshInputKey" :model-value="selected" class="input"
+        :placeholder="placeholder || 'Search items'" @update:model-value="filter" @focus="toggleMenu(true)" />
       <div class="icon-container">
         <i class="icon" :class="[shown ? 'i-tabler:chevron-up' : 'i-tabler:chevron-down']" />
       </div>
     </div>
-    <SelectMenu
-      v-show="shown" class="items-menu" :model-value="selectedItem" :items="filteredItems"
-      @update:modelValue="itemSelected"
-    />
+    <SelectMenu v-show="shown" class="items-menu" :model-value="selectedItem" :items="filteredItems"
+      @update:modelValue="itemSelected" />
   </div>
 </template>
 
