@@ -38,11 +38,15 @@ watchEffect(() => {
   if (selectedItem.value) {
     selected.value = selectedItem.value?.label;
   }
+  else {
+    selected.value = '';
+  }
 });
 
 const filter = (term: string) => {
+  term = term.toLowerCase();
   filteredItems.value = items.filter((item) => {
-    return item.label.includes(term) || item.value.includes(term);
+    return item.label.toLowerCase().includes(term) || item.value.toLowerCase().includes(term);
   });
 };
 

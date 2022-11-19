@@ -36,8 +36,9 @@ const itemSelected = (item: SelectItem | undefined): void => {
 watchEffect(() => selectedItem.value = items.find(item => item.value === selected.value));
 
 const filterOrEmitUpdate = (term: string) => {
+  term = term.toLowerCase();
   filteredItems.value = items.filter((item) => {
-    return item.label.includes(term) || item.value.includes(term);
+    return item.label.toLowerCase().includes(term) || item.value.toLowerCase().includes(term);
   });
 
   if (selectedItem.value) {
