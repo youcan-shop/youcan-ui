@@ -21,7 +21,7 @@ const selectItem = (item: SelectItem) => {
     <template v-if="items.length > 0">
       <div v-for="item in items" :key="item.label" class="dropdown-item" @click="selectItem(item)">
         <i v-if="item.icon" :class="item.icon" />
-        <img v-if="item.image" :src="item.image">
+        <img v-if="item.image" :src="item.image" class="image">
         <span>{{ item.label }}</span>
         <i v-if="item && selected && item.value === selected.value" class="icon i-tabler:check" />
       </div>
@@ -59,6 +59,10 @@ const selectItem = (item: SelectItem) => {
     &:hover {
       --hover-color: #f7faff;
       background-color: var(--hover-color);
+    }
+
+    .image {
+      height: 20px;
     }
   }
 }
