@@ -36,15 +36,26 @@ onClickOutside(_dropdown_trigger, () => emit('clickOutside'));
   color: var(--gray-400);
   width: 100%;
   max-width: 460px;
-  height: 56px;
+  height: 48px;
   border: 1px solid var(--border-color);
   border-radius: 8px;
-  padding: 16px;
+  padding: 10px;
   text-align: start;
   font-weight: 400;
-  font-size: 16px;
-  line-height: 19px;
+  font-size: 15px;
+  line-height: 18px;
   letter-spacing: 0.02em;
+
+  &:hover {
+    border: 1px solid var(--gray-200);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.02);
+  }
+
+  &:focus {
+    border: 1px solid var(--primary-color);
+    color: var(--placeholder-color);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.02);
+  }
 
   .icon {
     color: var(--gray-400);
@@ -52,7 +63,7 @@ onClickOutside(_dropdown_trigger, () => emit('clickOutside'));
 
   .label-item {
     display: flex;
-    gap: 7px;
+    gap: 10px;
   }
 }
 </style>

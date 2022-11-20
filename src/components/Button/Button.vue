@@ -29,7 +29,10 @@ const props = defineProps({
     justify-content: center;
     border-radius: 8px;
     padding: 16px 32px;
-    font-size: 16px;
+    height: 48px;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 18px;
     border: none;
     outline: none;
     user-select: none;

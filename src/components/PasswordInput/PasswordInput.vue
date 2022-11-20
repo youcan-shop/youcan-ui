@@ -40,10 +40,24 @@ const onInput = (emittedValue: string) => {
 .password-input input {
   width: 100%;
   border: 1px solid var(--border-color);
-  height: 54px;
+  height: 48px;
   border-radius: 8px;
-  padding: 4px 16px;
+  color: var(--placeholder-color);
+  font-size: 14px;
+  color: var(--gray-400);
+  padding: 0px 16px;
   font-weight: 400;
+}
+
+.password-input input:hover {
+  border: 1px solid var(--gray-200);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.02);
+}
+
+.password-input input:focus {
+  border: 1px solid var(--primary-color);
+  color: var(--gray-400);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.02);
 }
 
 .password-icon {
