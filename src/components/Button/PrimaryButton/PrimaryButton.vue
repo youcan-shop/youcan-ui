@@ -19,8 +19,9 @@ import Button from '~/components/Button/Button.vue';
 
     &:hover {
       background: var(--primary-500);
+      transition: all 0.2s ease;
     }
-    // on click add a background color
+
     &:active {
       background: var(--primary-600);
     }
