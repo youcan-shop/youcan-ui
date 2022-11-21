@@ -70,6 +70,11 @@ const onInput = (emittedValue: string) => {
   cursor: pointer;
   color: var(--placeholder-color);
 
+  &:hover {
+    color: var( --primary-color);
+    transition: all 0.2s ease;
+  }
+
  [dir='rtl'] & {
     right: auto;
     left: 20px;

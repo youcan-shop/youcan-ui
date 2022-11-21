@@ -55,6 +55,7 @@ watchEffect(() => {
     height: 100%;
     width: 100%;
     color: var(--white);
+    background-color: var(--white);
     border: 1px solid var(--gray-200);
     border-radius: 4px;
 
@@ -92,6 +93,7 @@ watchEffect(() => {
 
     &:hover {
       background-color: var(--primary-500);
+      box-shadow: 0px 4px 4px var(--black-700);
     }
   }
 }

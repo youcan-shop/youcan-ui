@@ -23,6 +23,7 @@ const selectItem = (item: SelectItem) => {
         <i v-if="item.icon" :class="item.icon" />
         <img v-if="item.image" :src="item.image">
         <span>{{ item.label }}</span>
+        <i v-if="item && selected && item.value === selected.value" class="icon i-tabler:check" />
       </div>
     </template>
     <div v-else class="no-results">
@@ -69,5 +70,9 @@ const selectItem = (item: SelectItem) => {
   align-items: center;
   font-size: 16px;
   color: var(--gray-800);
+}
+
+.icon {
+  margin-left: auto;
 }
 </style>

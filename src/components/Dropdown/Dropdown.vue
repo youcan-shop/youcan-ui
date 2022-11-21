@@ -32,8 +32,10 @@ watchEffect(() => selectedItem.value = items.find(item => item.value === selecte
 
 <template>
   <div class="dropdown">
-    <SelectButton :item="selectedItem" :placeholder="placeholder" @click="shown = !shown"
-      @clickOutside="shown = false" />
+    <SelectButton
+      :item="selectedItem" :placeholder="placeholder" @click="shown = !shown"
+      @clickOutside="shown = false"
+    />
     <SelectMenu v-show="shown" :model-value="selectedItem" :items="items" @update:modelValue="itemSelected" />
   </div>
 </template>

@@ -100,9 +100,12 @@ onClickOutside(_dropdown_trigger, () => {
     padding: 0 12px;
     border: 1px solid var(--border-color);
     border-top-left-radius: 8px;
-    border: 0;
     border-bottom-left-radius: 8px;
-    border-right: none;
+    border-width: 0 .5px 0 0;
+
+    &:hover {
+        border-color: var(--gray-200);
+      }
 
     .text {
       font-size: 14px;
@@ -116,9 +119,13 @@ onClickOutside(_dropdown_trigger, () => {
 
   .input-container {
     .input {
-      border-width: 0 0 0 1px;
+      border-width: 0 0 0 .5px;
       border-top-left-radius: 0;
       border-bottom-left-radius: 0;
+
+      &:hover {
+        border-color: var(--gray-200);
+      }
 
       &:focus {
         border-color: var(--border-color);
