@@ -100,6 +100,7 @@ onClickOutside(_dropdown_trigger, () => {
     padding: 0 12px;
     border: 1px solid var(--border-color);
     border-top-left-radius: 8px;
+
     border-bottom-left-radius: 8px;
     border-width: 0 .5px 0 0;
 
@@ -123,10 +124,6 @@ onClickOutside(_dropdown_trigger, () => {
       border-top-left-radius: 0;
       border-bottom-left-radius: 0;
 
-      &:hover {
-        border-color: var(--gray-200);
-      }
-
       &:focus {
         border-color: var(--border-color);
       }
@@ -138,7 +135,6 @@ onClickOutside(_dropdown_trigger, () => {
   display: flex;
   flex-direction: column;
   gap: 7px;
-  max-width: 460px;
 }
 
 .items-menu {

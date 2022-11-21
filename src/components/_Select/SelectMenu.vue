@@ -36,7 +36,6 @@ const selectItem = (item: SelectItem) => {
 .dropdown-content {
   background-color: var(--base-white);
   width: 100%;
-  max-width: 460px;
   height: max-content;
   max-height: 191px;
   border: 1px solid var(--border-color);
@@ -74,5 +73,6 @@ const selectItem = (item: SelectItem) => {
 
 .icon {
   margin-left: auto;
+  color: var(--primary-color);
 }
 </style>

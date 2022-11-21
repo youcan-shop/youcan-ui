@@ -73,7 +73,6 @@ onClickOutside(_dropdown_trigger, () => {
   display: flex;
   flex-direction: column;
   gap: 7px;
-  max-width: 460px;
 }
 
 .input-container {

@@ -35,7 +35,6 @@ onClickOutside(_dropdown_trigger, () => emit('clickOutside'));
   background: var(--base-white);
   color: var(--gray-400);
   width: 100%;
-  max-width: 460px;
   height: 48px;
   border: 1px solid var(--border-color);
   border-radius: 8px;
