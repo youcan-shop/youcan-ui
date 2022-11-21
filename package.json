@@ -21,7 +21,7 @@
   "scripts": {
     "dev": "vite dev",
     "build": "rimraf dist && vue-tsc --declaration --emitDeclarationOnly --project tsconfig.build.json && vite build",
-    "story:dev": "histoire dev --port 8000",
+    "story:dev": "histoire dev --port 3452",
     "story:build": "histoire build",
     "story:preview": "histoire preview",
     "lint": "eslint .",

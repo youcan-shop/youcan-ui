@@ -48,13 +48,13 @@ onClickOutside(_dropdown_trigger, () => emit('clickOutside'));
 
   &:hover {
     border: 1px solid var(--gray-200);
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.02);
+    box-shadow: 0px 4px 4px var(--black-700);
   }
 
   &:focus {
     border: 1px solid var(--primary-color);
     color: var(--placeholder-color);
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.02);
+    box-shadow: 0px 4px 4px var(--black-700);
   }
 
   .icon {

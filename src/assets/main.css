@@ -28,6 +28,7 @@
   --gray-25: #E0E0E0;
   --gray-20: #FAFAFA;
   --gray-10: #F0F0F0;
+  --black-700: rgba(0, 0, 0, 0.02);
   --black-800: rgba(0, 0, 0, 0.04);
   --white: #FFFFFF;
 }

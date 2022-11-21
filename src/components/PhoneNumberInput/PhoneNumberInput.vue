@@ -82,7 +82,7 @@ onClickOutside(_dropdown_trigger, () => {
 .handler {
   display: grid;
   grid-template-columns: auto 1fr;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.02);
+  box-shadow: 0px 4px 4px var(--black-700);
   border: 1px solid var(--border-color);
   border-radius: 8px;
   &:hover {
@@ -135,6 +135,6 @@ onClickOutside(_dropdown_trigger, () => {
 }
 
 .items-menu {
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.02), 0px 4px 4px rgba(0, 0, 0, 0.02);
+  box-shadow: 0px 4px 4px var(--black-700), 0px 4px 4px var(--black-700);
 }
 </style>
