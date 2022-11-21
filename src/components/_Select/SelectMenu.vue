@@ -23,6 +23,7 @@ const selectItem = (item: SelectItem) => {
         <i v-if="item.icon" :class="item.icon" />
         <img v-if="item.image" :src="item.image">
         <span>{{ item.label }}</span>
+        <i v-if="item && selected && item.value === selected.value" class="icon i-tabler:check" />
       </div>
     </template>
     <div v-else class="no-results">
@@ -35,7 +36,6 @@ const selectItem = (item: SelectItem) => {
 .dropdown-content {
   background-color: var(--base-white);
   width: 100%;
-  max-width: 460px;
   height: max-content;
   max-height: 191px;
   border: 1px solid var(--border-color);
@@ -69,5 +69,10 @@ const selectItem = (item: SelectItem) => {
   align-items: center;
   font-size: 16px;
   color: var(--gray-800);
+}
+
+.icon {
+  margin-left: auto;
+  color: var(--primary-color);
 }
 </style>

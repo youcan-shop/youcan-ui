@@ -73,12 +73,11 @@ onClickOutside(_dropdown_trigger, () => {
   display: flex;
   flex-direction: column;
   gap: 7px;
-  max-width: 460px;
 }
 
 .input-container {
   position: relative;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.02);
+  box-shadow: 0px 4px 4px var(--black-700);
 }
 
 .icon-container {
@@ -93,6 +92,6 @@ onClickOutside(_dropdown_trigger, () => {
 }
 
 .items-menu {
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.02), 0px 4px 4px rgba(0, 0, 0, 0.02);
+  box-shadow: 0px 4px 4px var(--black-700), 0px 4px 4px var(--black-700);
 }
 </style>

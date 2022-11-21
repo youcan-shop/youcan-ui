@@ -12,9 +12,18 @@ import Button from '~/components/Button/Button.vue';
   </Button>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
   .button.primary {
     --button-bg-color: var(--primary-color);
     --button-color: var(--base-white);
+
+    &:hover {
+      background: var(--primary-500);
+      transition: all 0.2s ease;
+    }
+
+    &:active {
+      background: var(--primary-600);
+    }
   }
 </style>

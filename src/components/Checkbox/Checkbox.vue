@@ -42,6 +42,8 @@ watchEffect(() => {
     position: absolute;
     opacity: 0;
     cursor: pointer;
+    background-color: var(--primary-color);
+    border: 1px solid var(--gray-200);
     height: 0;
     width: 0;
   }
@@ -52,8 +54,9 @@ watchEffect(() => {
     left: 0;
     height: 100%;
     width: 100%;
-    background-color: var(--base-White);
-    border: 1px solid var(--border-color);
+    color: var(--white);
+    background-color: var(--white);
+    border: 1px solid var(--gray-200);
     border-radius: 4px;
 
     [dir='rtl'] & {
@@ -73,12 +76,12 @@ watchEffect(() => {
   }
 
   .checkmark:after {
-    left: 5px;
-    top: 1px;
+    left: 6px;
+    top: 1.5px;
     width: 5px;
     height: 10px;
-    border: solid var(--primary-color);
-    border-width: 0 3px 3px 0;
+    border: solid var(--white);
+    border-width: 0 1.6px 1.6px 0;
     -webkit-transform: rotate(45deg);
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
@@ -86,6 +89,12 @@ watchEffect(() => {
 
   .checkbox-input:checked~.checkmark {
     background-color: var(--base-White);
+    background-color: var(--primary-color);
+
+    &:hover {
+      background-color: var(--primary-500);
+      box-shadow: 0px 4px 4px var(--black-700);
+    }
   }
 }
 </style>
