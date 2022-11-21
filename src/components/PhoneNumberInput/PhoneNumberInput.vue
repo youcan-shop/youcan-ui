@@ -87,6 +87,10 @@ onClickOutside(_dropdown_trigger, () => {
   border-radius: 8px;
   &:hover {
     border: 1px solid var(--gray-200);
+
+    .trigger {
+      background-color: var(--gray-20);
+    }
   }
   &:focus-within {
     border: 1px solid var(--primary-color);
