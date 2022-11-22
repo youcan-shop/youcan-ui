@@ -325,7 +325,7 @@ const Ge = /* @__PURE__ */ g(Ke, [["__scopeId", "data-v-a4109ef5"]]), Ye = { cla
   emits: ["update:modelValue"],
   setup(e, { emit: t }) {
     const { modelValue: l, passwordHidden: o = !0 } = e, n = p(), a = p(o), c = p(l), s = (d) => {
-      t("update:modelValue", d);
+      c.value = d, t("update:modelValue", d);
     };
     return (d, i) => (v(), m("div", Ye, [
       u("button", {
@@ -349,7 +349,7 @@ const Ge = /* @__PURE__ */ g(Ke, [["__scopeId", "data-v-a4109ef5"]]), Ye = { cla
     ]));
   }
 });
-const Je = /* @__PURE__ */ g(qe, [["__scopeId", "data-v-3d714768"]]);
+const Je = /* @__PURE__ */ g(qe, [["__scopeId", "data-v-1216e394"]]);
 const Xe = {}, Ze = { class: "note" }, et = { class: "icon" }, tt = { class: "content" };
 function ot(e, t) {
   return v(), m("div", Ze, [
@@ -481,7 +481,7 @@ const wt = /* @__PURE__ */ g(gt, [["__scopeId", "data-v-313a8242"]]), It = { cla
     };
     N(() => {
       var r;
-      a.value = o.find((f) => f.value === n.value), a.value ? n.value = (r = a.value) == null ? void 0 : r.label : n.value = "";
+      a.value = o.find((f) => f.value === n.value || f.label === n.value), a.value ? n.value = (r = a.value) == null ? void 0 : r.label : n.value = "";
     });
     const I = (r) => {
       r = r.toLowerCase(), s.value = o.filter((f) => f.label.toLowerCase().includes(r) || f.value.toLowerCase().includes(r));
@@ -520,7 +520,7 @@ const wt = /* @__PURE__ */ g(gt, [["__scopeId", "data-v-313a8242"]]), It = { cla
     ]));
   }
 });
-const Vt = /* @__PURE__ */ g(xt, [["__scopeId", "data-v-625d670b"]]), kt = { class: "dropdown" }, St = { class: "text" }, Ot = { class: "input-container" }, Ct = /* @__PURE__ */ b({
+const Vt = /* @__PURE__ */ g(xt, [["__scopeId", "data-v-d2e99be1"]]), kt = { class: "dropdown" }, St = { class: "text" }, Ot = { class: "input-container" }, Ct = /* @__PURE__ */ b({
   __name: "PhoneNumberInput",
   props: {
     items: null,
