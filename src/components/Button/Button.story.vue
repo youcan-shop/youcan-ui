@@ -4,8 +4,15 @@ import Button from './Button.vue';
 
 <template>
   <Story>
-    <Button>
-      Continue
-    </Button>
+    <Variant title="text">
+      <Button>
+        Continue
+      </Button>
+    </Variant>
+    <Variant title="icon">
+      <Button>
+        <i class="i-line-md:loading-twotone-loop" />
+      </Button>
+    </Variant>
   </Story>
 </template>

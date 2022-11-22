@@ -22,10 +22,8 @@ const onblur = () => emit('blur');
 </script>
 
 <template>
-  <input
-    :value="inputValue" :type="inputType" :placeholder="placeholder" class="input" v-bind="$attrs" @input="onInput"
-    @focus="onfocus" @blur="onblur"
-  >
+  <input :value="inputValue" :type="inputType" :placeholder="placeholder" class="input" v-bind="$attrs" @input="onInput"
+    @focus="onfocus" @blur="onblur">
 </template>
 
 <style scoped>
@@ -41,6 +39,9 @@ const onblur = () => emit('blur');
   font-size: 14px;
   line-height: 19.2px;
   outline: none;
+  transition-property: color, background-color, border-color;
+  transition-duration: 150ms;
+  transition-timing-function: ease-in-out;
 }
 
 .input:hover {
