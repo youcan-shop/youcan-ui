@@ -55,8 +55,10 @@ const onblur = () => isPopoverDiplayed.value = false;
           </div>
         </div>
       </Transition>
-      <Input :model-value="inputValue" type="text" class="input" :placeholder="placeholder"
-        @update:model-value="onInput" @focus="onfocus" @blur="onblur" />
+      <Input
+        :model-value="inputValue" type="text" class="input" :placeholder="placeholder"
+        @update:model-value="onInput" @focus="onfocus" @blur="onblur"
+      />
       <span class="slug-suffix">{{ slugSuffix }}</span>
     </div>
   </div>
