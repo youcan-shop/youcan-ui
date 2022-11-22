@@ -18,16 +18,17 @@ const inputValue = ref('hello');
 const isChecked = ref(false);
 
 const items = [{ label: 'Test 1', value: 't1' }, { label: 'Test 2', icon: 'i-tabler:home', value: 't2' }];
-const selectedDropdownValue = ref('t1');
+const selectedDropdownValue = ref('');
 const selectedPhoneNumberValue = ref('');
+const passwordInput = ref('');
 </script>
 
 <template>
   <div>
     <TextInput v-model="inputValue" type="text" placeholder="Placeholder" />
     {{ inputValue }}
-    <PasswordInput v-model="inputValue" placeholder="Placeholder" :password-hidden="true" />
-    <span>{{ inputValue }}</span>
+    <PasswordInput v-model="passwordInput" placeholder="Placeholder" :password-hidden="true" />
+    <span>Password: {{ passwordInput }}</span>
     <div class="input-container">
       <StoreSlugInput v-model="inputValue" type="text" placeholder="Placeholder" />
       <span>{{ inputValue }}</span>

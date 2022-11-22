@@ -2,7 +2,7 @@
 import { ref } from 'vue';
 import PasswordInput from '~/components/PasswordInput/PasswordInput.vue';
 
-const firstValue = ref('hello v1');
+const firstValue = ref('');
 const secondValue = ref('hello v2');
 </script>
 
