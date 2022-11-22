@@ -12,7 +12,7 @@ const { modelValue, dialCode, items, placeholder } = defineProps<{
   placeholder?: string
 }>();
 
-const emit = defineEmits(['update:modelValue']);
+const emit = defineEmits(['update:modelValue', 'update:dialCode']);
 
 const searchTerm = ref(modelValue);
 const selected = computed(() => dialCode);
@@ -30,6 +30,9 @@ const itemSelected = (item: SelectItem | undefined): void => {
 
   selectedItem.value = item;
   searchTerm.value = '';
+
+  emit('update:dialCode', item.value);
+
   toggleMenu(false);
 };
 
@@ -86,6 +89,7 @@ onClickOutside(_dropdown_trigger, () => {
   box-shadow: 0px 4px 4px var(--black-700);
   border: 1px solid var(--border-color);
   border-radius: 8px;
+
   &:hover {
     border: 1px solid var(--gray-200);
 
@@ -93,6 +97,7 @@ onClickOutside(_dropdown_trigger, () => {
       background-color: var(--gray-20);
     }
   }
+
   &:focus-within {
     border: 1px solid var(--primary-color);
   }
@@ -110,8 +115,8 @@ onClickOutside(_dropdown_trigger, () => {
     border-width: 0 .5px 0 0;
 
     &:hover {
-        border-color: var(--gray-200);
-      }
+      border-color: var(--gray-200);
+    }
 
     .text {
       font-size: 14px;

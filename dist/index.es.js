@@ -1,5 +1,5 @@
-import { defineComponent as b, computed as x, openBlock as v, createElementBlock as m, mergeProps as H, unref as w, createBlock as Q, ref as p, createElementVNode as u, createVNode as V, Transition as se, withCtx as te, withDirectives as C, vShow as D, toDisplayString as P, pushScopeId as B, popScopeId as E, getCurrentScope as ae, onScopeDispose as ue, watch as oe, normalizeClass as S, Fragment as ce, renderList as de, createCommentVNode as F, watchEffect as N, renderSlot as U, normalizeStyle as re, vModelCheckbox as ie } from "vue";
-const pe = ["value", "type", "placeholder"], _e = /* @__PURE__ */ b({
+import { defineComponent as g, computed as x, openBlock as v, createElementBlock as m, mergeProps as H, unref as w, createBlock as Q, ref as p, createElementVNode as u, createVNode as V, Transition as se, withCtx as te, withDirectives as O, vShow as D, toDisplayString as P, pushScopeId as B, popScopeId as E, getCurrentScope as ae, onScopeDispose as ue, watch as oe, normalizeClass as S, Fragment as ce, renderList as de, createCommentVNode as F, watchEffect as N, renderSlot as U, normalizeStyle as re, vModelCheckbox as ie } from "vue";
+const pe = ["value", "type", "placeholder"], _e = /* @__PURE__ */ g({
   __name: "Input",
   props: {
     modelValue: null,
@@ -23,12 +23,12 @@ const pe = ["value", "type", "placeholder"], _e = /* @__PURE__ */ b({
     }), null, 16, pe));
   }
 });
-const g = (e, t) => {
+const b = (e, t) => {
   const l = e.__vccOpts || e;
   for (const [o, n] of t)
     l[o] = n;
   return l;
-}, j = /* @__PURE__ */ g(_e, [["__scopeId", "data-v-ef8f9c89"]]), A = /* @__PURE__ */ b({
+}, j = /* @__PURE__ */ b(_e, [["__scopeId", "data-v-ef8f9c89"]]), A = /* @__PURE__ */ g({
   __name: "TextInput",
   props: {
     modelValue: null,
@@ -61,9 +61,9 @@ const g = (e, t) => {
     ]),
     /* @__PURE__ */ u("span", { class: "note-description" }, " You can always replace it with a custom domain name you purchased. ")
   ])
-], -1)), be = [
+], -1)), ge = [
   ye
-], ge = { class: "slug-suffix" }, we = /* @__PURE__ */ b({
+], be = { class: "slug-suffix" }, we = /* @__PURE__ */ g({
   __name: "StoreSlugInput",
   props: {
     modelValue: {
@@ -85,7 +85,7 @@ const g = (e, t) => {
       u("div", fe, [
         V(se, { name: "fade" }, {
           default: te(() => [
-            C(u("div", he, be, 512), [
+            O(u("div", he, ge, 512), [
               [D, n.value]
             ])
           ]),
@@ -100,12 +100,12 @@ const g = (e, t) => {
           onFocus: c,
           onBlur: s
         }, null, 8, ["model-value", "placeholder"]),
-        u("span", ge, P(e.slugSuffix), 1)
+        u("span", be, P(e.slugSuffix), 1)
       ])
     ]));
   }
 });
-const Ie = /* @__PURE__ */ g(we, [["__scopeId", "data-v-87bfb4e9"]]);
+const Ie = /* @__PURE__ */ b(we, [["__scopeId", "data-v-87bfb4e9"]]);
 var G;
 const T = typeof window < "u", $e = (e) => typeof e == "string", M = () => {
 };
@@ -119,7 +119,7 @@ function Ve(e) {
 function ke(e) {
   return ae() ? (ue(e), !0) : !1;
 }
-function O(e) {
+function C(e) {
   var t;
   const l = xe(e);
   return (t = l == null ? void 0 : l.$el) != null ? t : l;
@@ -133,7 +133,7 @@ function L(...e) {
   if ($e(e[0]) ? ([l, o, n] = e, t = le) : [t, l, o, n] = e, !t)
     return M;
   let a = M;
-  const c = oe(() => O(t), (d) => {
+  const c = oe(() => C(t), (d) => {
     a(), d && (d.addEventListener(l, o, n), a = () => {
       d.removeEventListener(l, o, n), a = M;
     });
@@ -150,15 +150,15 @@ function R(e, t, l = {}) {
   let d;
   const i = (_) => {
     o.clearTimeout(d);
-    const r = O(e), f = _.composedPath();
+    const r = C(e), f = _.composedPath();
     !r || r === _.target || f.includes(r) || !s.value || n && n.length > 0 && n.some((k) => {
-      const h = O(k);
+      const h = C(k);
       return h && (_.target === h || f.includes(h));
     }) || t(_);
   }, y = [
     L(o, "click", i, { passive: !0, capture: a }),
     L(o, "pointerdown", (_) => {
-      const r = O(e);
+      const r = C(e);
       s.value = !!r && !_.composedPath().includes(r);
     }, { passive: !0 }),
     L(o, "pointerup", (_) => {
@@ -169,7 +169,7 @@ function R(e, t, l = {}) {
     }, { passive: !0 }),
     c && L(o, "blur", (_) => {
       var r;
-      const f = O(e);
+      const f = C(e);
       ((r = document.activeElement) == null ? void 0 : r.tagName) === "IFRAME" && !(f != null && f.contains(document.activeElement)) && t(_);
     })
   ].filter(Boolean);
@@ -181,12 +181,12 @@ var J;
 (function(e) {
   e.UP = "UP", e.RIGHT = "RIGHT", e.DOWN = "DOWN", e.LEFT = "LEFT", e.NONE = "NONE";
 })(J || (J = {}));
-var Se = Object.defineProperty, X = Object.getOwnPropertySymbols, Oe = Object.prototype.hasOwnProperty, Ce = Object.prototype.propertyIsEnumerable, Z = (e, t, l) => t in e ? Se(e, t, { enumerable: !0, configurable: !0, writable: !0, value: l }) : e[t] = l, Pe = (e, t) => {
+var Se = Object.defineProperty, X = Object.getOwnPropertySymbols, Ce = Object.prototype.hasOwnProperty, Oe = Object.prototype.propertyIsEnumerable, Z = (e, t, l) => t in e ? Se(e, t, { enumerable: !0, configurable: !0, writable: !0, value: l }) : e[t] = l, Pe = (e, t) => {
   for (var l in t || (t = {}))
-    Oe.call(t, l) && Z(e, l, t[l]);
+    Ce.call(t, l) && Z(e, l, t[l]);
   if (X)
     for (var l of X(t))
-      Ce.call(t, l) && Z(e, l, t[l]);
+      Oe.call(t, l) && Z(e, l, t[l]);
   return e;
 };
 const Be = {
@@ -218,7 +218,7 @@ const Be = {
 Pe({
   linear: Ve
 }, Be);
-const Ee = (e) => (B("data-v-adc57234"), e = e(), E(), e), Ne = { class: "label-item" }, Te = /* @__PURE__ */ Ee(() => /* @__PURE__ */ u("i", { class: "i-tabler:chevron-down icon" }, null, -1)), Le = /* @__PURE__ */ b({
+const Ee = (e) => (B("data-v-adc57234"), e = e(), E(), e), Ne = { class: "label-item" }, Te = /* @__PURE__ */ Ee(() => /* @__PURE__ */ u("i", { class: "i-tabler:chevron-down icon" }, null, -1)), Le = /* @__PURE__ */ g({
   __name: "SelectButton",
   props: {
     item: null,
@@ -246,7 +246,7 @@ const Ee = (e) => (B("data-v-adc57234"), e = e(), E(), e), Ne = { class: "label-
     };
   }
 });
-const Ue = /* @__PURE__ */ g(Le, [["__scopeId", "data-v-adc57234"]]), Qe = (e) => (B("data-v-c0ef81fc"), e = e(), E(), e), De = { class: "dropdown-content" }, Fe = ["onClick"], Me = ["src"], He = {
+const Ue = /* @__PURE__ */ b(Le, [["__scopeId", "data-v-adc57234"]]), Qe = (e) => (B("data-v-c0ef81fc"), e = e(), E(), e), De = { class: "dropdown-content" }, Fe = ["onClick"], Me = ["src"], He = {
   key: 2,
   class: "icon i-tabler:check"
 }, je = {
@@ -254,7 +254,7 @@ const Ue = /* @__PURE__ */ g(Le, [["__scopeId", "data-v-adc57234"]]), Qe = (e) =
   class: "no-results"
 }, Ae = /* @__PURE__ */ Qe(() => /* @__PURE__ */ u("span", null, "Your search came up with no results.", -1)), Re = [
   Ae
-], We = /* @__PURE__ */ b({
+], We = /* @__PURE__ */ g({
   __name: "SelectMenu",
   props: {
     items: null,
@@ -286,7 +286,7 @@ const Ue = /* @__PURE__ */ g(Le, [["__scopeId", "data-v-adc57234"]]), Qe = (e) =
     ]));
   }
 });
-const W = /* @__PURE__ */ g(We, [["__scopeId", "data-v-c0ef81fc"]]), ze = { class: "dropdown" }, Ke = /* @__PURE__ */ b({
+const W = /* @__PURE__ */ b(We, [["__scopeId", "data-v-c0ef81fc"]]), ze = { class: "dropdown" }, Ke = /* @__PURE__ */ g({
   __name: "Dropdown",
   props: {
     items: null,
@@ -305,7 +305,7 @@ const W = /* @__PURE__ */ g(We, [["__scopeId", "data-v-c0ef81fc"]]), ze = { clas
         onClick: y[0] || (y[0] = (I) => s.value = !s.value),
         onClickOutside: y[1] || (y[1] = (I) => s.value = !1)
       }, null, 8, ["item", "placeholder"]),
-      C(V(W, {
+      O(V(W, {
         "model-value": c.value,
         items: e.items,
         "onUpdate:modelValue": d
@@ -315,7 +315,7 @@ const W = /* @__PURE__ */ g(We, [["__scopeId", "data-v-c0ef81fc"]]), ze = { clas
     ]));
   }
 });
-const Ge = /* @__PURE__ */ g(Ke, [["__scopeId", "data-v-a4109ef5"]]), Ye = { class: "password-input" }, qe = /* @__PURE__ */ b({
+const Ge = /* @__PURE__ */ b(Ke, [["__scopeId", "data-v-a4109ef5"]]), Ye = { class: "password-input" }, qe = /* @__PURE__ */ g({
   __name: "PasswordInput",
   props: {
     modelValue: null,
@@ -349,7 +349,7 @@ const Ge = /* @__PURE__ */ g(Ke, [["__scopeId", "data-v-a4109ef5"]]), Ye = { cla
     ]));
   }
 });
-const Je = /* @__PURE__ */ g(qe, [["__scopeId", "data-v-1216e394"]]);
+const Je = /* @__PURE__ */ b(qe, [["__scopeId", "data-v-1f342af8"]]);
 const Xe = {}, Ze = { class: "note" }, et = { class: "icon" }, tt = { class: "content" };
 function ot(e, t) {
   return v(), m("div", Ze, [
@@ -361,7 +361,7 @@ function ot(e, t) {
     ])
   ]);
 }
-const lt = /* @__PURE__ */ g(Xe, [["render", ot], ["__scopeId", "data-v-b82d0345"]]), nt = (e) => (B("data-v-dbbecf04"), e = e(), E(), e), st = { class: "loading" }, at = {
+const lt = /* @__PURE__ */ b(Xe, [["render", ot], ["__scopeId", "data-v-b82d0345"]]), nt = (e) => (B("data-v-dbbecf04"), e = e(), E(), e), st = { class: "loading" }, at = {
   class: "loading-svg",
   viewBox: "0 0 100 100"
 }, ut = /* @__PURE__ */ nt(() => /* @__PURE__ */ u("circle", {
@@ -369,7 +369,7 @@ const lt = /* @__PURE__ */ g(Xe, [["render", ot], ["__scopeId", "data-v-b82d0345
   cx: "50",
   cy: "50",
   r: "45"
-}, null, -1)), ct = { class: "loading-value" }, dt = /* @__PURE__ */ b({
+}, null, -1)), ct = { class: "loading-value" }, dt = /* @__PURE__ */ g({
   __name: "Loading",
   props: {
     duration: {
@@ -408,7 +408,7 @@ const lt = /* @__PURE__ */ g(Xe, [["render", ot], ["__scopeId", "data-v-b82d0345
     ]));
   }
 });
-const rt = /* @__PURE__ */ g(dt, [["__scopeId", "data-v-dbbecf04"]]), it = (e) => (B("data-v-d2726505"), e = e(), E(), e), pt = { class: "checkbox-container" }, _t = /* @__PURE__ */ it(() => /* @__PURE__ */ u("span", { class: "checkmark" }, null, -1)), vt = /* @__PURE__ */ b({
+const rt = /* @__PURE__ */ b(dt, [["__scopeId", "data-v-dbbecf04"]]), it = (e) => (B("data-v-d2726505"), e = e(), E(), e), pt = { class: "checkbox-container" }, _t = /* @__PURE__ */ it(() => /* @__PURE__ */ u("span", { class: "checkmark" }, null, -1)), vt = /* @__PURE__ */ g({
   __name: "Checkbox",
   props: {
     modelValue: {
@@ -422,7 +422,7 @@ const rt = /* @__PURE__ */ g(dt, [["__scopeId", "data-v-dbbecf04"]]), it = (e) =
     return N(() => {
       t("update:modelValue", o.value);
     }), (n, a) => (v(), m("label", pt, [
-      C(u("input", {
+      O(u("input", {
         "onUpdate:modelValue": a[0] || (a[0] = (c) => o.value = c),
         class: "checkbox-input",
         type: "checkbox"
@@ -433,7 +433,7 @@ const rt = /* @__PURE__ */ g(dt, [["__scopeId", "data-v-dbbecf04"]]), it = (e) =
     ]));
   }
 });
-const mt = /* @__PURE__ */ g(vt, [["__scopeId", "data-v-d2726505"]]), ft = ["disabled"], ht = { class: "text" }, yt = /* @__PURE__ */ b({
+const mt = /* @__PURE__ */ b(vt, [["__scopeId", "data-v-d2726505"]]), ft = ["disabled"], ht = { class: "text" }, yt = /* @__PURE__ */ g({
   __name: "Button",
   props: {
     disabled: {
@@ -453,10 +453,10 @@ const mt = /* @__PURE__ */ g(vt, [["__scopeId", "data-v-d2726505"]]), ft = ["dis
     ], 10, ft));
   }
 });
-const bt = /* @__PURE__ */ g(yt, [["__scopeId", "data-v-18d5b861"]]), gt = /* @__PURE__ */ b({
+const gt = /* @__PURE__ */ b(yt, [["__scopeId", "data-v-18d5b861"]]), bt = /* @__PURE__ */ g({
   __name: "PrimaryButton",
   setup(e) {
-    return (t, l) => (v(), Q(bt, H(t.$attrs, {
+    return (t, l) => (v(), Q(gt, H(t.$attrs, {
       ref: "target",
       class: "primary"
     }), {
@@ -467,7 +467,7 @@ const bt = /* @__PURE__ */ g(yt, [["__scopeId", "data-v-18d5b861"]]), gt = /* @_
     }, 16));
   }
 });
-const wt = /* @__PURE__ */ g(gt, [["__scopeId", "data-v-313a8242"]]), It = { class: "dropdown" }, $t = { class: "icon-container" }, xt = /* @__PURE__ */ b({
+const wt = /* @__PURE__ */ b(bt, [["__scopeId", "data-v-313a8242"]]), It = { class: "dropdown" }, $t = { class: "icon-container" }, xt = /* @__PURE__ */ g({
   __name: "ComboBox",
   props: {
     items: null,
@@ -509,7 +509,7 @@ const wt = /* @__PURE__ */ g(gt, [["__scopeId", "data-v-313a8242"]]), It = { cla
           }, null, 2)
         ])
       ], 512),
-      C(V(W, {
+      O(V(W, {
         class: "items-menu",
         "model-value": a.value,
         items: s.value,
@@ -520,7 +520,7 @@ const wt = /* @__PURE__ */ g(gt, [["__scopeId", "data-v-313a8242"]]), It = { cla
     ]));
   }
 });
-const Vt = /* @__PURE__ */ g(xt, [["__scopeId", "data-v-d2e99be1"]]), kt = { class: "dropdown" }, St = { class: "text" }, Ot = { class: "input-container" }, Ct = /* @__PURE__ */ b({
+const Vt = /* @__PURE__ */ b(xt, [["__scopeId", "data-v-a4c7e0c6"]]), kt = { class: "dropdown" }, St = { class: "text" }, Ct = { class: "input-container" }, Ot = /* @__PURE__ */ g({
   __name: "PhoneNumberInput",
   props: {
     items: null,
@@ -528,10 +528,10 @@ const Vt = /* @__PURE__ */ g(xt, [["__scopeId", "data-v-d2e99be1"]]), kt = { cla
     modelValue: null,
     placeholder: null
   },
-  emits: ["update:modelValue"],
+  emits: ["update:modelValue", "update:dialCode"],
   setup(e, { emit: t }) {
     const { modelValue: l, dialCode: o, items: n, placeholder: a } = e, c = p(l), s = x(() => o), d = p(), i = p(!1), y = p(n), I = p(0), _ = (h) => i.value = h, r = (h) => {
-      !h || (d.value = h, c.value = "", _(!1));
+      !h || (d.value = h, c.value = "", t("update:dialCode", h.value), _(!1));
     };
     N(() => d.value = n.find((h) => h.value === s.value));
     const f = (h) => {
@@ -556,7 +556,7 @@ const Vt = /* @__PURE__ */ g(xt, [["__scopeId", "data-v-d2e99be1"]]), kt = { cla
               class: S(["icon", [i.value ? "i-tabler:chevron-up" : "i-tabler:chevron-down"]])
             }, null, 2)
           ]),
-          u("div", Ot, [
+          u("div", Ct, [
             (v(), Q(A, {
               key: I.value,
               "model-value": c.value,
@@ -570,7 +570,7 @@ const Vt = /* @__PURE__ */ g(xt, [["__scopeId", "data-v-d2e99be1"]]), kt = { cla
             }, null, 8, ["model-value", "placeholder"]))
           ])
         ], 512),
-        C(V(W, {
+        O(V(W, {
           class: "items-menu",
           "model-value": d.value,
           items: e.items,
@@ -582,7 +582,7 @@ const Vt = /* @__PURE__ */ g(xt, [["__scopeId", "data-v-d2e99be1"]]), kt = { cla
     };
   }
 });
-const Pt = /* @__PURE__ */ g(Ct, [["__scopeId", "data-v-548157ba"]]), ee = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const Pt = /* @__PURE__ */ b(Ot, [["__scopeId", "data-v-c0324042"]]), ee = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   TextInput: A,
   StoreSlugInput: Ie,
