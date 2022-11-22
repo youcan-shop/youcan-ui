@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { computed, ref, watch, watchEffect } from 'vue';
 
 import Input from '~/components/Input/Input.vue';
 const { modelValue, passwordHidden = true } = defineProps<{
@@ -15,6 +15,8 @@ const isPasswordHidden = ref(passwordHidden);
 const inputValue = ref(modelValue);
 
 const onInput = (emittedValue: string) => {
+  inputValue.value = emittedValue;
+
   emit('update:modelValue', emittedValue);
 };
 </script>
@@ -25,10 +27,8 @@ const onInput = (emittedValue: string) => {
       <i :class="!isPasswordHidden ? 'i-tabler-eye-off' : 'i-tabler-eye'" />
     </button>
 
-    <Input
-      ref="baseInput" :type="isPasswordHidden ? 'password' : 'text'" :placeholder="placeholder"
-      :model-value="inputValue" class="input" @update:model-value="onInput"
-    />
+    <Input ref="baseInput" :type="isPasswordHidden ? 'password' : 'text'" :placeholder="placeholder"
+      :model-value="inputValue" class="input" @update:model-value="onInput" />
   </div>
 </template>
 
@@ -71,11 +71,11 @@ const onInput = (emittedValue: string) => {
   color: var(--placeholder-color);
 
   &:hover {
-    color: var( --primary-color);
+    color: var(--primary-color);
     transition: all 0.2s ease;
   }
 
- [dir='rtl'] & {
+  [dir='rtl'] & {
     right: auto;
     left: 20px;
   }
