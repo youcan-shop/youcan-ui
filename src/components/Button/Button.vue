@@ -37,7 +37,7 @@ const props = defineProps({
   cursor: pointer;
   transition-property: color, background-color;
   transition-duration: 150ms;
-  transition-timing-function: ease-out;
+  transition-timing-function: ease-in-out;
 
   &.disabled {
     pointer-events: none;
@@ -49,5 +49,9 @@ const props = defineProps({
   font-weight: 500;
   line-height: 19px;
   letter-spacing: 0.02em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
 }
 </style>

@@ -13,7 +13,7 @@ import Button from '~/components/Button/Button.vue';
   --button-bg-color: var(--primary-color);
   --button-color: var(--base-white);
 
-  &:hover {
+  &:hover:not(:disabled) {
     background: var(--primary-500);
     transition: all 0.2s ease;
   }
@@ -24,6 +24,7 @@ import Button from '~/components/Button/Button.vue';
 
   &:disabled {
     background-color: hsl(330deg 65% 62%);
+    pointer-events: none;
   }
 }
 </style>
