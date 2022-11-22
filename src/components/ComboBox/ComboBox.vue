@@ -33,11 +33,20 @@ const itemSelected = (item: SelectItem | undefined): void => {
   toggleMenu(false);
 };
 
-watchEffect(() => selectedItem.value = items.find(item => item.value === selected.value));
+watchEffect(() => {
+  selectedItem.value = items.find(item => item.value === selected.value);
+  if (selectedItem.value) {
+    selected.value = selectedItem.value?.label;
+  }
+  else {
+    selected.value = '';
+  }
+});
 
 const filter = (term: string) => {
+  term = term.toLowerCase();
   filteredItems.value = items.filter((item) => {
-    return item.label.includes(term) || item.value.includes(term);
+    return item.label.toLowerCase().includes(term) || item.value.toLowerCase().includes(term);
   });
 };
 
@@ -53,18 +62,15 @@ onClickOutside(_dropdown_trigger, () => {
 <template>
   <div class="dropdown">
     <div ref="_dropdown_trigger" class="input-container">
-      <TextInput
-        :key="refreshInputKey" :model-value="selected" class="input"
-        :placeholder="placeholder || 'Search items'" @update:model-value="filter" @focus="toggleMenu(true)"
-      />
+      <TextInput :key="refreshInputKey" :model-value="selected" class="input"
+        :placeholder="placeholder || 'Search items'" @update:model-value="filter" @focus="toggleMenu(true)" />
       <div class="icon-container">
-        <i class="icon" :class="[shown ? 'i-tabler:chevron-up' : 'i-tabler:chevron-down']" />
+        <i class="icon" :class="[shown ? 'i-tabler:chevron-up' : 'i-tabler:chevron-down']"
+          @click="toggleMenu(!shown)" />
       </div>
     </div>
-    <SelectMenu
-      v-show="shown" class="items-menu" :model-value="selectedItem" :items="filteredItems"
-      @update:modelValue="itemSelected"
-    />
+    <SelectMenu v-show="shown" class="items-menu" :model-value="selectedItem" :items="filteredItems"
+      @update:modelValue="itemSelected" />
   </div>
 </template>
 
@@ -89,9 +95,15 @@ onClickOutside(_dropdown_trigger, () => {
   align-items: center;
   justify-content: center;
   color: var(--gray-400);
+  pointer-events: none;
+}
+
+.icon-container .icon {
+  pointer-events: all;
 }
 
 .items-menu {
   box-shadow: 0px 4px 4px var(--black-700), 0px 4px 4px var(--black-700);
+  max-width: unset;
 }
 </style>
