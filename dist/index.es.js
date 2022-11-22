@@ -1,5 +1,5 @@
-import { defineComponent as g, computed as x, openBlock as v, createElementBlock as m, mergeProps as H, unref as w, createBlock as Q, ref as p, createElementVNode as u, createVNode as V, Transition as se, withCtx as te, withDirectives as O, vShow as D, toDisplayString as P, pushScopeId as B, popScopeId as E, getCurrentScope as ae, onScopeDispose as ue, watch as oe, normalizeClass as S, Fragment as ce, renderList as de, createCommentVNode as F, watchEffect as N, renderSlot as U, normalizeStyle as re, vModelCheckbox as ie } from "vue";
-const pe = ["value", "type", "placeholder"], _e = /* @__PURE__ */ g({
+import { defineComponent as y, computed as x, openBlock as v, createElementBlock as m, mergeProps as H, unref as w, createBlock as Q, ref as p, createElementVNode as u, createVNode as V, Transition as se, withCtx as te, withDirectives as O, vShow as D, toDisplayString as P, pushScopeId as B, popScopeId as E, getCurrentScope as ae, onScopeDispose as ue, watch as oe, normalizeClass as S, Fragment as ce, renderList as de, createCommentVNode as F, watchEffect as N, renderSlot as U, normalizeStyle as re, vModelCheckbox as ie } from "vue";
+const pe = ["value", "type", "placeholder"], _e = /* @__PURE__ */ y({
   __name: "Input",
   props: {
     modelValue: null,
@@ -23,12 +23,12 @@ const pe = ["value", "type", "placeholder"], _e = /* @__PURE__ */ g({
     }), null, 16, pe));
   }
 });
-const b = (e, t) => {
+const g = (e, t) => {
   const l = e.__vccOpts || e;
   for (const [o, n] of t)
     l[o] = n;
   return l;
-}, j = /* @__PURE__ */ b(_e, [["__scopeId", "data-v-ef8f9c89"]]), A = /* @__PURE__ */ g({
+}, j = /* @__PURE__ */ g(_e, [["__scopeId", "data-v-db277ffc"]]), A = /* @__PURE__ */ y({
   __name: "TextInput",
   props: {
     modelValue: null,
@@ -46,7 +46,7 @@ const b = (e, t) => {
       placeholder: e.placeholder
     }, a.$attrs, { "onUpdate:modelValue": n }), null, 16, ["model-value", "placeholder"]));
   }
-}), ve = (e) => (B("data-v-87bfb4e9"), e = e(), E(), e), me = { class: "store-slug-input" }, fe = { class: "input-container" }, he = { class: "popover" }, ye = /* @__PURE__ */ ve(() => /* @__PURE__ */ u("div", { class: "store-slug-box-content" }, [
+}), ve = (e) => (B("data-v-87bfb4e9"), e = e(), E(), e), me = { class: "store-slug-input" }, fe = { class: "input-container" }, he = { class: "popover" }, be = /* @__PURE__ */ ve(() => /* @__PURE__ */ u("div", { class: "store-slug-box-content" }, [
   /* @__PURE__ */ u("div", { class: "box-description" }, [
     /* @__PURE__ */ u("p", { class: "store-slug-title" }, " Store slug "),
     /* @__PURE__ */ u("p", { class: "store-slug-description" }, " The slug you choose will be your store's domain name that your customers will see. "),
@@ -61,9 +61,9 @@ const b = (e, t) => {
     ]),
     /* @__PURE__ */ u("span", { class: "note-description" }, " You can always replace it with a custom domain name you purchased. ")
   ])
-], -1)), ge = [
-  ye
-], be = { class: "slug-suffix" }, we = /* @__PURE__ */ g({
+], -1)), ye = [
+  be
+], ge = { class: "slug-suffix" }, we = /* @__PURE__ */ y({
   __name: "StoreSlugInput",
   props: {
     modelValue: {
@@ -85,7 +85,7 @@ const b = (e, t) => {
       u("div", fe, [
         V(se, { name: "fade" }, {
           default: te(() => [
-            O(u("div", he, ge, 512), [
+            O(u("div", he, ye, 512), [
               [D, n.value]
             ])
           ]),
@@ -100,12 +100,12 @@ const b = (e, t) => {
           onFocus: c,
           onBlur: s
         }, null, 8, ["model-value", "placeholder"]),
-        u("span", be, P(e.slugSuffix), 1)
+        u("span", ge, P(e.slugSuffix), 1)
       ])
     ]));
   }
 });
-const Ie = /* @__PURE__ */ b(we, [["__scopeId", "data-v-87bfb4e9"]]);
+const Ie = /* @__PURE__ */ g(we, [["__scopeId", "data-v-87bfb4e9"]]);
 var G;
 const T = typeof window < "u", $e = (e) => typeof e == "string", M = () => {
 };
@@ -155,7 +155,7 @@ function R(e, t, l = {}) {
       const h = C(k);
       return h && (_.target === h || f.includes(h));
     }) || t(_);
-  }, y = [
+  }, b = [
     L(o, "click", i, { passive: !0, capture: a }),
     L(o, "pointerdown", (_) => {
       const r = C(e);
@@ -173,7 +173,7 @@ function R(e, t, l = {}) {
       ((r = document.activeElement) == null ? void 0 : r.tagName) === "IFRAME" && !(f != null && f.contains(document.activeElement)) && t(_);
     })
   ].filter(Boolean);
-  return () => y.forEach((_) => _());
+  return () => b.forEach((_) => _());
 }
 const Y = typeof globalThis < "u" ? globalThis : typeof window < "u" ? window : typeof global < "u" ? global : typeof self < "u" ? self : {}, q = "__vueuse_ssr_handlers__";
 Y[q] = Y[q] || {};
@@ -218,7 +218,7 @@ const Be = {
 Pe({
   linear: Ve
 }, Be);
-const Ee = (e) => (B("data-v-adc57234"), e = e(), E(), e), Ne = { class: "label-item" }, Te = /* @__PURE__ */ Ee(() => /* @__PURE__ */ u("i", { class: "i-tabler:chevron-down icon" }, null, -1)), Le = /* @__PURE__ */ g({
+const Ee = (e) => (B("data-v-adc57234"), e = e(), E(), e), Ne = { class: "label-item" }, Te = /* @__PURE__ */ Ee(() => /* @__PURE__ */ u("i", { class: "i-tabler:chevron-down icon" }, null, -1)), Le = /* @__PURE__ */ y({
   __name: "SelectButton",
   props: {
     item: null,
@@ -246,7 +246,7 @@ const Ee = (e) => (B("data-v-adc57234"), e = e(), E(), e), Ne = { class: "label-
     };
   }
 });
-const Ue = /* @__PURE__ */ b(Le, [["__scopeId", "data-v-adc57234"]]), Qe = (e) => (B("data-v-c0ef81fc"), e = e(), E(), e), De = { class: "dropdown-content" }, Fe = ["onClick"], Me = ["src"], He = {
+const Ue = /* @__PURE__ */ g(Le, [["__scopeId", "data-v-adc57234"]]), Qe = (e) => (B("data-v-c0ef81fc"), e = e(), E(), e), De = { class: "dropdown-content" }, Fe = ["onClick"], Me = ["src"], He = {
   key: 2,
   class: "icon i-tabler:check"
 }, je = {
@@ -254,7 +254,7 @@ const Ue = /* @__PURE__ */ b(Le, [["__scopeId", "data-v-adc57234"]]), Qe = (e) =
   class: "no-results"
 }, Ae = /* @__PURE__ */ Qe(() => /* @__PURE__ */ u("span", null, "Your search came up with no results.", -1)), Re = [
   Ae
-], We = /* @__PURE__ */ g({
+], We = /* @__PURE__ */ y({
   __name: "SelectMenu",
   props: {
     items: null,
@@ -286,7 +286,7 @@ const Ue = /* @__PURE__ */ b(Le, [["__scopeId", "data-v-adc57234"]]), Qe = (e) =
     ]));
   }
 });
-const W = /* @__PURE__ */ b(We, [["__scopeId", "data-v-c0ef81fc"]]), ze = { class: "dropdown" }, Ke = /* @__PURE__ */ g({
+const W = /* @__PURE__ */ g(We, [["__scopeId", "data-v-c0ef81fc"]]), ze = { class: "dropdown" }, Ke = /* @__PURE__ */ y({
   __name: "Dropdown",
   props: {
     items: null,
@@ -298,12 +298,12 @@ const W = /* @__PURE__ */ b(We, [["__scopeId", "data-v-c0ef81fc"]]), ze = { clas
     const { modelValue: l, items: o, placeholder: n } = e, a = x(() => l), c = p(), s = p(!1), d = (i) => {
       !i || (c.value = i, t("update:modelValue", c.value.value), s.value = !1);
     };
-    return N(() => c.value = o.find((i) => i.value === a.value)), (i, y) => (v(), m("div", ze, [
+    return N(() => c.value = o.find((i) => i.value === a.value)), (i, b) => (v(), m("div", ze, [
       V(Ue, {
         item: c.value,
         placeholder: e.placeholder,
-        onClick: y[0] || (y[0] = (I) => s.value = !s.value),
-        onClickOutside: y[1] || (y[1] = (I) => s.value = !1)
+        onClick: b[0] || (b[0] = (I) => s.value = !s.value),
+        onClickOutside: b[1] || (b[1] = (I) => s.value = !1)
       }, null, 8, ["item", "placeholder"]),
       O(V(W, {
         "model-value": c.value,
@@ -315,7 +315,7 @@ const W = /* @__PURE__ */ b(We, [["__scopeId", "data-v-c0ef81fc"]]), ze = { clas
     ]));
   }
 });
-const Ge = /* @__PURE__ */ b(Ke, [["__scopeId", "data-v-a4109ef5"]]), Ye = { class: "password-input" }, qe = /* @__PURE__ */ g({
+const Ge = /* @__PURE__ */ g(Ke, [["__scopeId", "data-v-a4109ef5"]]), Ye = { class: "password-input" }, qe = /* @__PURE__ */ y({
   __name: "PasswordInput",
   props: {
     modelValue: null,
@@ -331,7 +331,7 @@ const Ge = /* @__PURE__ */ b(Ke, [["__scopeId", "data-v-a4109ef5"]]), Ye = { cla
       u("button", {
         class: "password-icon",
         type: "button",
-        onClick: i[0] || (i[0] = (y) => a.value = !a.value)
+        onClick: i[0] || (i[0] = (b) => a.value = !a.value)
       }, [
         u("i", {
           class: S(a.value ? "i-tabler-eye" : "i-tabler-eye-off")
@@ -349,7 +349,7 @@ const Ge = /* @__PURE__ */ b(Ke, [["__scopeId", "data-v-a4109ef5"]]), Ye = { cla
     ]));
   }
 });
-const Je = /* @__PURE__ */ b(qe, [["__scopeId", "data-v-1f342af8"]]);
+const Je = /* @__PURE__ */ g(qe, [["__scopeId", "data-v-1f342af8"]]);
 const Xe = {}, Ze = { class: "note" }, et = { class: "icon" }, tt = { class: "content" };
 function ot(e, t) {
   return v(), m("div", Ze, [
@@ -361,7 +361,7 @@ function ot(e, t) {
     ])
   ]);
 }
-const lt = /* @__PURE__ */ b(Xe, [["render", ot], ["__scopeId", "data-v-b82d0345"]]), nt = (e) => (B("data-v-dbbecf04"), e = e(), E(), e), st = { class: "loading" }, at = {
+const lt = /* @__PURE__ */ g(Xe, [["render", ot], ["__scopeId", "data-v-b82d0345"]]), nt = (e) => (B("data-v-dbbecf04"), e = e(), E(), e), st = { class: "loading" }, at = {
   class: "loading-svg",
   viewBox: "0 0 100 100"
 }, ut = /* @__PURE__ */ nt(() => /* @__PURE__ */ u("circle", {
@@ -369,7 +369,7 @@ const lt = /* @__PURE__ */ b(Xe, [["render", ot], ["__scopeId", "data-v-b82d0345
   cx: "50",
   cy: "50",
   r: "45"
-}, null, -1)), ct = { class: "loading-value" }, dt = /* @__PURE__ */ g({
+}, null, -1)), ct = { class: "loading-value" }, dt = /* @__PURE__ */ y({
   __name: "Loading",
   props: {
     duration: {
@@ -389,10 +389,10 @@ const lt = /* @__PURE__ */ b(Xe, [["render", ot], ["__scopeId", "data-v-b82d0345
       const c = l.duration, s = c / 100, d = 100 / (c / s);
       let i = 0;
       n.value = !0;
-      const y = setInterval(() => {
-        i += d, o.value = i, i >= 100 && (clearInterval(y), n.value = !1, t("complete"));
+      const b = setInterval(() => {
+        i += d, o.value = i, i >= 100 && (clearInterval(b), n.value = !1, t("complete"));
       }, s);
-      return () => clearInterval(y);
+      return () => clearInterval(b);
     }), (c, s) => (v(), m("div", st, [
       (v(), m("svg", at, [
         ut,
@@ -408,7 +408,7 @@ const lt = /* @__PURE__ */ b(Xe, [["render", ot], ["__scopeId", "data-v-b82d0345
     ]));
   }
 });
-const rt = /* @__PURE__ */ b(dt, [["__scopeId", "data-v-dbbecf04"]]), it = (e) => (B("data-v-d2726505"), e = e(), E(), e), pt = { class: "checkbox-container" }, _t = /* @__PURE__ */ it(() => /* @__PURE__ */ u("span", { class: "checkmark" }, null, -1)), vt = /* @__PURE__ */ g({
+const rt = /* @__PURE__ */ g(dt, [["__scopeId", "data-v-dbbecf04"]]), it = (e) => (B("data-v-d2726505"), e = e(), E(), e), pt = { class: "checkbox-container" }, _t = /* @__PURE__ */ it(() => /* @__PURE__ */ u("span", { class: "checkmark" }, null, -1)), vt = /* @__PURE__ */ y({
   __name: "Checkbox",
   props: {
     modelValue: {
@@ -433,7 +433,7 @@ const rt = /* @__PURE__ */ b(dt, [["__scopeId", "data-v-dbbecf04"]]), it = (e) =
     ]));
   }
 });
-const mt = /* @__PURE__ */ b(vt, [["__scopeId", "data-v-d2726505"]]), ft = ["disabled"], ht = { class: "text" }, yt = /* @__PURE__ */ g({
+const mt = /* @__PURE__ */ g(vt, [["__scopeId", "data-v-d2726505"]]), ft = ["disabled"], ht = { class: "text" }, bt = /* @__PURE__ */ y({
   __name: "Button",
   props: {
     disabled: {
@@ -453,10 +453,10 @@ const mt = /* @__PURE__ */ b(vt, [["__scopeId", "data-v-d2726505"]]), ft = ["dis
     ], 10, ft));
   }
 });
-const gt = /* @__PURE__ */ b(yt, [["__scopeId", "data-v-18d5b861"]]), bt = /* @__PURE__ */ g({
+const yt = /* @__PURE__ */ g(bt, [["__scopeId", "data-v-193bb3f6"]]), gt = /* @__PURE__ */ y({
   __name: "PrimaryButton",
   setup(e) {
-    return (t, l) => (v(), Q(gt, H(t.$attrs, {
+    return (t, l) => (v(), Q(yt, H(t.$attrs, {
       ref: "target",
       class: "primary"
     }), {
@@ -467,7 +467,7 @@ const gt = /* @__PURE__ */ b(yt, [["__scopeId", "data-v-18d5b861"]]), bt = /* @_
     }, 16));
   }
 });
-const wt = /* @__PURE__ */ b(bt, [["__scopeId", "data-v-313a8242"]]), It = { class: "dropdown" }, $t = { class: "icon-container" }, xt = /* @__PURE__ */ g({
+const wt = /* @__PURE__ */ g(gt, [["__scopeId", "data-v-18934737"]]), It = { class: "dropdown" }, $t = { class: "icon-container" }, xt = /* @__PURE__ */ y({
   __name: "ComboBox",
   props: {
     items: null,
@@ -476,7 +476,7 @@ const wt = /* @__PURE__ */ b(bt, [["__scopeId", "data-v-313a8242"]]), It = { cla
   },
   emits: ["update:modelValue"],
   setup(e, { emit: t }) {
-    const { modelValue: l = "", items: o } = e, n = p(l), a = p(), c = p(!1), s = p(o), d = p(0), i = (r) => c.value = r, y = (r) => {
+    const { modelValue: l = "", items: o } = e, n = p(l), a = p(), c = p(!1), s = p(o), d = p(0), i = (r) => c.value = r, b = (r) => {
       !r || (a.value = r, n.value = r.label, t("update:modelValue", a.value.value), i(!1));
     };
     N(() => {
@@ -513,14 +513,14 @@ const wt = /* @__PURE__ */ b(bt, [["__scopeId", "data-v-313a8242"]]), It = { cla
         class: "items-menu",
         "model-value": a.value,
         items: s.value,
-        "onUpdate:modelValue": y
+        "onUpdate:modelValue": b
       }, null, 8, ["model-value", "items"]), [
         [D, c.value]
       ])
     ]));
   }
 });
-const Vt = /* @__PURE__ */ b(xt, [["__scopeId", "data-v-a4c7e0c6"]]), kt = { class: "dropdown" }, St = { class: "text" }, Ct = { class: "input-container" }, Ot = /* @__PURE__ */ g({
+const Vt = /* @__PURE__ */ g(xt, [["__scopeId", "data-v-a4c7e0c6"]]), kt = { class: "dropdown" }, St = { class: "text" }, Ct = { class: "input-container" }, Ot = /* @__PURE__ */ y({
   __name: "PhoneNumberInput",
   props: {
     items: null,
@@ -530,15 +530,15 @@ const Vt = /* @__PURE__ */ b(xt, [["__scopeId", "data-v-a4c7e0c6"]]), kt = { cla
   },
   emits: ["update:modelValue", "update:dialCode"],
   setup(e, { emit: t }) {
-    const { modelValue: l, dialCode: o, items: n, placeholder: a } = e, c = p(l), s = x(() => o), d = p(), i = p(!1), y = p(n), I = p(0), _ = (h) => i.value = h, r = (h) => {
+    const { modelValue: l, dialCode: o, items: n, placeholder: a } = e, c = p(l), s = x(() => o), d = p(), i = p(!1), b = p(n), I = p(0), _ = (h) => i.value = h, r = (h) => {
       !h || (d.value = h, c.value = "", t("update:dialCode", h.value), _(!1));
     };
     N(() => d.value = n.find((h) => h.value === s.value));
     const f = (h) => {
-      h = h.toLowerCase(), y.value = n.filter(($) => $.label.toLowerCase().includes(h) || $.value.toLowerCase().includes(h)), d.value && t("update:modelValue", h);
+      h = h.toLowerCase(), b.value = n.filter(($) => $.label.toLowerCase().includes(h) || $.value.toLowerCase().includes(h)), d.value && t("update:modelValue", h);
     }, k = p();
     return R(k, () => {
-      y.value = n, c.value !== "" && I.value++, _(!1);
+      b.value = n, c.value !== "" && I.value++, _(!1);
     }), (h, $) => {
       var z;
       return v(), m("div", kt, [
@@ -582,7 +582,7 @@ const Vt = /* @__PURE__ */ b(xt, [["__scopeId", "data-v-a4c7e0c6"]]), kt = { cla
     };
   }
 });
-const Pt = /* @__PURE__ */ b(Ot, [["__scopeId", "data-v-c0324042"]]), ee = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const Pt = /* @__PURE__ */ g(Ot, [["__scopeId", "data-v-9b9439bb"]]), ee = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   TextInput: A,
   StoreSlugInput: Ie,
