@@ -2,6 +2,7 @@ lockfileVersion: 5.4
 
 specifiers:
   '@histoire/plugin-vue': ^0.11.7
+  '@iconify-json/line-md': ^1.1.18
   '@iconify-json/tabler': ^1.1.30
   '@sidi3li/eslint-config': ^1.0.10
   '@types/node': 18.7.15
@@ -17,6 +18,9 @@ specifiers:
   vite: ^3.2.3
   vue: ^3.2.45
   vue-tsc: 1.0.9
+
+dependencies:
+  '@iconify-json/line-md': 1.1.18
 
 devDependencies:
   '@histoire/plugin-vue': 0.11.7_latzpfnf5ibfkrb2g6igklvhc4
@@ -273,6 +277,12 @@ packages:
     resolution: {integrity: sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==}
     dev: true
 
+  /@iconify-json/line-md/1.1.18:
+    resolution: {integrity: sha512-AU12ZpnpDdks66cHG1bBhRMVH0c4mJ8sx0C6c8sQ3D29LQz/TvHklWBngaGMZ56PSmASyGVQ4xC5Tnnl33MZfw==}
+    dependencies:
+      '@iconify/types': 2.0.0
+    dev: false
+
   /@iconify-json/tabler/1.1.30:
     resolution: {integrity: sha512-IV7F3e/qvaQeWMq1ZwOcRF/3eX0/bXr84rjwsN3HwAUTCT86anCIcAWLrysw8gStQZ9Zv8HPz1TLuQMKpil79w==}
     dependencies:
@@ -285,7 +295,6 @@ packages:
 
   /@iconify/types/2.0.0:
     resolution: {integrity: sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg==}
-    dev: true
 
   /@iconify/utils/2.0.1:
     resolution: {integrity: sha512-t8IyICk25wgZL4YKn/2kYfjG5MGA6EWZlaUJZ1OEIku4V+kX9V900T5E4HIqS3hLyD6/RJET0zY4vxO9pHLHHw==}

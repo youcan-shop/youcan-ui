@@ -4,8 +4,20 @@ import PrimaryButton from '~/components/Button/PrimaryButton/PrimaryButton.vue';
 
 <template>
   <Story>
-    <PrimaryButton>
-      hello
-    </PrimaryButton>
+    <Variant title="text">
+      <PrimaryButton>
+        Continue
+      </PrimaryButton>
+    </Variant>
+    <Variant title="icon">
+      <PrimaryButton>
+        <i class="i-line-md:loading-twotone-loop" />
+      </PrimaryButton>
+    </variant>
+    <Variant title="disabled">
+      <PrimaryButton disabled="true">
+        <i class="i-line-md:loading-twotone-loop" />
+      </PrimaryButton>
+    </variant>
   </Story>
 </template>
