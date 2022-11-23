@@ -23,10 +23,6 @@
   border-radius: 8px;
   padding: 2px 25px;
   gap: 32px;
-
-  [dir='rtl'] & {
-    flex-direction: row-reverse;
-  }
 }
 
 .icon {

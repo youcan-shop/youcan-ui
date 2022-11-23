@@ -108,11 +108,14 @@ onClickOutside(_dropdown_trigger, () => {
     gap: 4px;
     background-color: white;
     padding: 0 12px;
-    border: 1px solid var(--border-color);
-    border-top-left-radius: 8px;
+    border-radius: 8px 0px 0px 8px;
+    border-right: 1px solid var(--border-color);
 
-    border-bottom-left-radius: 8px;
-    border-width: 0 .5px 0 0;
+    [dir='rtl'] & {
+      border-radius: 0 8px 8px 0;
+      border-right: unset;
+      border-left: 1px solid var(--border-color);
+    }
 
     &:hover {
       border-color: var(--gray-200);
@@ -130,9 +133,7 @@ onClickOutside(_dropdown_trigger, () => {
 
   .input-container {
     .input {
-      border-width: 0 0 0 .5px;
-      border-top-left-radius: 0;
-      border-bottom-left-radius: 0;
+      border-width: 0;
 
       &:focus {
         border-color: var(--border-color);

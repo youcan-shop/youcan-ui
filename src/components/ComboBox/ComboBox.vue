@@ -80,7 +80,7 @@ onClickOutside(_dropdown_trigger, () => {
   </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .dropdown {
   display: flex;
   flex-direction: column;
@@ -102,6 +102,11 @@ onClickOutside(_dropdown_trigger, () => {
   justify-content: center;
   color: var(--gray-400);
   pointer-events: none;
+
+  [dir='rtl'] & {
+    right: unset;
+    left: 16px;
+  }
 }
 
 .icon-container .icon {
