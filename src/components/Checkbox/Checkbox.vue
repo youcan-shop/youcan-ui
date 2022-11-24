@@ -6,9 +6,16 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  id: {
+    type: String,
+    default: '',
+  },
+
 });
 
 const emit = defineEmits(['update:modelValue']);
+
+const inputId = ref(props.id);
 
 const inputValue = ref(props.modelValue);
 
@@ -19,7 +26,7 @@ watchEffect(() => {
 
 <template>
   <label class="checkbox-container">
-    <input v-model="inputValue" class="checkbox-input" type="checkbox">
+    <input :id="inputId" v-model="inputValue" class="checkbox-input" type="checkbox">
     <span class="checkmark" />
   </label>
 </template>

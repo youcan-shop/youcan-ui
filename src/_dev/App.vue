@@ -39,8 +39,8 @@ const passwordInput = ref('');
       </div>
     </div>
     <div :style="{ display: 'flex', alignItems: 'center', gap: '4px' }">
-      <Checkbox v-model="isChecked" />
-      <span>Hello</span>
+      <Checkbox id="gg" v-model="isChecked" />
+      <label for="gg">Hello</label>
     </div>
     <Loading />
     <Note>
