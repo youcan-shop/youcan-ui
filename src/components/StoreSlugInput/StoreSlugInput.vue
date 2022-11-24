@@ -33,23 +33,27 @@ const onblur = () => isPopoverDiplayed.value = false;
         <div v-show="isPopoverDiplayed" class="popover">
           <div class="store-slug-box-content">
             <div class="box-description">
-              <p class="store-slug-title">
-                Store slug
-              </p>
-              <p class="store-slug-description">
-                The slug you choose will be your store's domain name that your customers will see.
-              </p>
+              <div class="store-slug-title">
+                <slot name="title" />
+              </div>
+              <div class="store-slug-description">
+                <slot name="description"  />
+              </div>
               <div class="border-example">
-                <i class="border-icon-example i-tabler-search" />
-                <span class="input-border-example">example.youcan.shop</span>
+                <div class="border-icon-example">
+                  <slot name="example"  />
+                </div>
+                <div class="input-border-example">
+                  <slot name="example-text" />
+                </div>
               </div>
             </div>
             <div class="note">
-              <div>
-                <i class="icon-note i-tabler-alert-circle" />
+              <div class="icon-note">
+                <slot name="icon" />
               </div>
               <span class="note-description">
-                You can always replace it with a custom domain name you purchased.
+                <slot name="note-desc" />
               </span>
             </div>
           </div>
@@ -151,16 +155,17 @@ const onblur = () => isPopoverDiplayed.value = false;
   margin-bottom: 14px;
 }
 
-.border-icon-example {
-  color: var(--store-slug-box-icon);
-}
-
 .input-border-example {
   font-weight: 400;
   font-size: 14px;
+  color: var(--store-slug-box-icon);
   line-height: 19px;
   letter-spacing: 0.02em;
   color: var(--store-slug-description);
+}
+
+.border-icon-example {
+  color: var(--store-slug-box-icon);
 }
 
 .note {
