@@ -109,12 +109,10 @@ onClickOutside(_dropdown_trigger, () => {
     background-color: white;
     padding: 0 12px;
     border-radius: 8px 0px 0px 8px;
-    border-right: 1px solid var(--border-color);
 
     [dir='rtl'] & {
       border-radius: 0 8px 8px 0;
       border-right: unset;
-      border-left: 1px solid var(--border-color);
     }
 
     &:hover {
