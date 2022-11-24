@@ -4,14 +4,19 @@ declare const _default: {
         $data: {};
         $props: Partial<{
             modelValue: boolean;
+            id: string;
         }> & Omit<Readonly<import("vue").ExtractPropTypes<{
             modelValue: {
                 type: BooleanConstructor;
                 default: boolean;
             };
+            id: {
+                type: StringConstructor;
+                default: string;
+            };
         }>> & {
             "onUpdate:modelValue"?: ((...args: any[]) => any) | undefined;
-        } & import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, "modelValue">;
+        } & import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, "modelValue" | "id">;
         $attrs: {
             [x: string]: unknown;
         };
@@ -30,10 +35,15 @@ declare const _default: {
                 type: BooleanConstructor;
                 default: boolean;
             };
+            id: {
+                type: StringConstructor;
+                default: string;
+            };
         }>> & {
             "onUpdate:modelValue"?: ((...args: any[]) => any) | undefined;
         }, {}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, "update:modelValue"[], string, {
             modelValue: boolean;
+            id: string;
         }, {}, string> & {
             beforeCreate?: ((() => void) | (() => void)[]) | undefined;
             created?: ((() => void) | (() => void)[]) | undefined;
@@ -59,6 +69,10 @@ declare const _default: {
             type: BooleanConstructor;
             default: boolean;
         };
+        id: {
+            type: StringConstructor;
+            default: string;
+        };
     }>> & {
         "onUpdate:modelValue"?: ((...args: any[]) => any) | undefined;
     } & import("vue").ShallowUnwrapRef<{}> & {} & import("vue").ComponentCustomProperties & {};
@@ -70,9 +84,14 @@ declare const _default: {
         type: BooleanConstructor;
         default: boolean;
     };
+    id: {
+        type: StringConstructor;
+        default: string;
+    };
 }>> & {
     "onUpdate:modelValue"?: ((...args: any[]) => any) | undefined;
 }, {}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, "update:modelValue"[], "update:modelValue", {
     modelValue: boolean;
+    id: string;
 }, {}, string> & import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps;
 export default _default;

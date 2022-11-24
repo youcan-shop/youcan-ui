@@ -37,11 +37,11 @@ const onblur = () => isPopoverDiplayed.value = false;
                 <slot name="title" />
               </div>
               <div class="store-slug-description">
-                <slot name="description"  />
+                <slot name="description" />
               </div>
               <div class="border-example">
                 <div class="border-icon-example">
-                  <slot name="example"  />
+                  <slot name="example" />
                 </div>
                 <div class="input-border-example">
                   <slot name="example-text" />

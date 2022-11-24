@@ -102,5 +102,14 @@ declare const _default: {
     "onUpdate:modelValue"?: ((...args: any[]) => any) | undefined;
 }, {}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, "update:modelValue"[], "update:modelValue", {
     slugSuffix: string;
-}, {}, string> & import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps;
+}, {}, string> & import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps & (new () => {
+    $slots: {
+        title: (_: {}) => any;
+        description: (_: {}) => any;
+        example: (_: {}) => any;
+        'example-text': (_: {}) => any;
+        icon: (_: {}) => any;
+        'note-desc': (_: {}) => any;
+    };
+});
 export default _default;
