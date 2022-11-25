@@ -3,7 +3,7 @@ import { computed, ref, watchEffect } from 'vue';
 import { onClickOutside } from '@vueuse/core';
 import SelectMenu from '~/components/_Select/SelectMenu.vue';
 import type { SelectItem } from '~/components/_Select/types';
-import TextInput from '~/components/TextInput/TextInput.vue';
+import Input from '~/components/Input/Input.vue';
 
 const { modelValue, dialCode, items, placeholder } = defineProps<{
   items: SelectItem[]
@@ -68,8 +68,8 @@ onClickOutside(_dropdown_trigger, () => {
         <i class="icon" :class="[shown ? 'i-tabler:chevron-up' : 'i-tabler:chevron-down']" />
       </div>
       <div class="input-container">
-        <TextInput
-          :key="refreshInputKey" :model-value="searchTerm" class="input"
+        <Input
+          :key="refreshInputKey" :model-value="searchTerm" class="input" type="tel"
           :placeholder="placeholder || 'Search by country or dialing code'" @update:model-value="filterOrEmitUpdate"
           @focus="!selectedItem?.value && toggleMenu(true)"
         />
@@ -109,10 +109,12 @@ onClickOutside(_dropdown_trigger, () => {
     background-color: white;
     padding: 0 12px;
     border-radius: 8px 0px 0px 8px;
+    border-right: 1px solid var(--border-color);
 
     [dir='rtl'] & {
       border-radius: 0 8px 8px 0;
       border-right: unset;
+      border-left: 1px solid var(--border-color);
     }
 
     &:hover {

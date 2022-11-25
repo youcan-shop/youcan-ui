@@ -76,7 +76,11 @@ onClickOutside(_dropdown_trigger, () => {
     <SelectMenu
       v-show="shown" class="items-menu" :model-value="selectedItem" :items="filteredItems"
       @update:modelValue="itemSelected"
-    />
+    >
+      <template #no_result>
+        <slot name="no-result" />
+      </template>
+    </SelectMenu>
   </div>
 </template>
 

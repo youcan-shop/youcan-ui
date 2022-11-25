@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watchEffect } from 'vue';
+import { ref } from 'vue';
 import type { SelectItem } from './types';
 
 const props = defineProps<{
@@ -27,7 +27,7 @@ const selectItem = (item: SelectItem) => {
       </div>
     </template>
     <div v-else class="no-results">
-      <span>Your search came up with no results.</span>
+      <slot name="no_result" />
     </div>
   </div>
 </template>

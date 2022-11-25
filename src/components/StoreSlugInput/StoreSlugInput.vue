@@ -176,6 +176,10 @@ const onblur = () => isPopoverDiplayed.value = false;
   border-bottom-left-radius: 12px;
   border-bottom-right-radius: 12px;
   padding: 8px 10px 12px 20px;
+
+  [dir='rtl'] & {
+    direction: rtl;
+  }
 }
 
 .icon-note {
