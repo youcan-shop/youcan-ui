@@ -83,7 +83,12 @@ const passwordInput = ref('');
     <Dropdown v-model="selectedDropdownValue" :items="items" />
     <span>Selected item: {{ selectedDropdownValue }}</span>
 
-    <ComboBox v-model="selectedDropdownValue" :items="items" />
+    <ComboBox v-model="selectedDropdownValue" :items="items">
+      <template #no-result>
+        <span>Your search came up with no results.</span>
+      </template>
+    </ComboBox>
+
     <span>Selected item: {{ selectedDropdownValue }}</span>
 
     <PhoneNumberInput v-model="selectedPhoneNumberValue" :items="items" dial-code="t1" />

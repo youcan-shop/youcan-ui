@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, watch, watchEffect } from 'vue';
+import { computed } from 'vue';
 import { launder } from '~/utils/type.util';
 
 const props = defineProps<{
