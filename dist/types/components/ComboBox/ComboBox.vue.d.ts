@@ -65,7 +65,11 @@ declare const _default: {
     placeholder?: string | undefined;
 }>>> & {
     "onUpdate:modelValue"?: ((...args: any[]) => any) | undefined;
-}, {}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, "update:modelValue"[], "update:modelValue", {}, {}, string> & import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps;
+}, {}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, "update:modelValue"[], "update:modelValue", {}, {}, string> & import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps & (new () => {
+    $slots: {
+        'no-result': (_: {}) => any;
+    };
+});
 export default _default;
 declare type __VLS_NonUndefinedable<T> = T extends undefined ? never : T;
 declare type __VLS_TypePropsToRuntimeProps<T> = {
