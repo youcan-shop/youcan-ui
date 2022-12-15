@@ -1,10 +1,9 @@
 {
   "extends": "./tsconfig",
   "exclude": [
-    "src/**/*.story.vue",
+    "src/**/*.stories.ts",
     "src/_dev",
     "src/utils",
-    "src/constants",
-    "src/histoire.setup.ts"
+    "src/constants"
   ]
 }
