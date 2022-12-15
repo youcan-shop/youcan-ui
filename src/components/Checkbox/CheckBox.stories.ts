@@ -1,12 +1,13 @@
-import CheckBox from '~/components/CheckBox/CheckBox.vue';
+import type { Meta } from '@storybook/vue3';
+import CheckBox from './CheckBox.vue';
 
-// More on how to set up stories at: https://storybook.js.org/docs/7.0/vue/writing-stories/introduction
-export default {
+const meta: Meta<typeof CheckBox> = {
   title: 'Primitives/CheckBox',
   component: CheckBox,
-  layout: 'fullscreen',
-  tags: ['docsPage'],
+  tags: ['primitive', 'input', 'checkbox'],
 };
+
+export default meta;
 
 export const Active = {
   args: {
