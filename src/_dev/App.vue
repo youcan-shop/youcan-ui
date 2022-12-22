@@ -27,15 +27,11 @@ const passwordInput = ref('');
   <div>
     <TextInput v-model="inputValue" type="text" placeholder="Placeholder" />
     {{ inputValue }}
-    <PasswordInput v-model="passwordInput" placeholder="Placeholder" :password-hidden="true" />
+    <label for="fffdd">Password label</label>
+    <PasswordInput id="fffdd" v-model="passwordInput" placeholder="Placeholder" :password-hidden="true" />
     <span>Password: {{ passwordInput }}</span>
     <div class="input-container">
-      <StoreSlugInput
-        v-model="inputValue"
-        placeholder="Store slug"
-        type="text"
-        class="input"
-      >
+      <StoreSlugInput v-model="inputValue" placeholder="Store slug" type="text" class="input">
         <template #title>
           <p>Store slug</p>
         </template>
