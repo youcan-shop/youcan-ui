@@ -28,8 +28,10 @@ const onInput = (emittedValue: string) => {
       <i :class="!isPasswordHidden ? 'i-tabler-eye-off' : 'i-tabler-eye'" />
     </button>
 
-    <Input :id="id" ref="baseInput" :type="isPasswordHidden ? 'password' : 'text'" :placeholder="placeholder"
-      :model-value="inputValue" class="input" @update:model-value="onInput" />
+    <Input
+      :id="id" ref="baseInput" :type="isPasswordHidden ? 'password' : 'text'" :placeholder="placeholder"
+      :model-value="inputValue" class="input" @update:model-value="onInput"
+    />
   </div>
 </template>
 
