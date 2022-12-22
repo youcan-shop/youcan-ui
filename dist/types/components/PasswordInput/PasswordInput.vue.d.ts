@@ -6,6 +6,7 @@ declare const _default: {
             modelValue: string;
             placeholder?: string | undefined;
             passwordHidden?: boolean | undefined;
+            id?: string | undefined;
         }>>> & {
             "onUpdate:modelValue"?: ((...args: any[]) => any) | undefined;
         } & import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, never>;
@@ -26,6 +27,7 @@ declare const _default: {
             modelValue: string;
             placeholder?: string | undefined;
             passwordHidden?: boolean | undefined;
+            id?: string | undefined;
         }>>> & {
             "onUpdate:modelValue"?: ((...args: any[]) => any) | undefined;
         }, {}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, "update:modelValue"[], string, {}, {}, string> & {
@@ -52,6 +54,7 @@ declare const _default: {
         modelValue: string;
         placeholder?: string | undefined;
         passwordHidden?: boolean | undefined;
+        id?: string | undefined;
     }>>> & {
         "onUpdate:modelValue"?: ((...args: any[]) => any) | undefined;
     } & import("vue").ShallowUnwrapRef<{}> & {} & import("vue").ComponentCustomProperties & {};
@@ -62,6 +65,7 @@ declare const _default: {
     modelValue: string;
     placeholder?: string | undefined;
     passwordHidden?: boolean | undefined;
+    id?: string | undefined;
 }>>> & {
     "onUpdate:modelValue"?: ((...args: any[]) => any) | undefined;
 }, {}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, "update:modelValue"[], "update:modelValue", {}, {}, string> & import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps;
