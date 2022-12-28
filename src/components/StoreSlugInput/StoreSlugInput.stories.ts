@@ -9,9 +9,9 @@ import { templatify } from '~/utils/type.util';
  * 2. WHy should the passed down slots require "<p>" tag to have proper space?
  */
 const meta: Meta<typeof StoreSlugInput> = {
-  title: 'Primitives/StoreSlugInput 🟡',
+  title: 'Application/StoreSlugInput 🔴',
   component: StoreSlugInput,
-  tags: ['primitive', 'input', 'store-slug-input'],
+  tags: ['application', 'input', 'store-slug-input'],
   decorators: [() => (
     {
       template: '<div style="width: 500px;"><story /></div>',

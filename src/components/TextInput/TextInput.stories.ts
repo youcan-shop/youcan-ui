@@ -4,7 +4,7 @@ import TextInput from './TextInput.vue';
 const meta: Meta<typeof TextInput> = {
   title: 'Primitives/TextInput 🟢',
   component: TextInput,
-  tags: ['primitive', 'input', 'textfield'],
+  tags: ['primitive', 'application', 'input', 'textfield'],
 };
 
 export default meta;
