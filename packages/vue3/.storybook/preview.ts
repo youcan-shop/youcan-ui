@@ -1,4 +1,5 @@
-import '@youcan/ui-vue3/style';
+import 'uno.css';
+import '../src/assets/main.css';
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },

@@ -1,6 +1,6 @@
 import type { Meta } from '@storybook/vue3';
+import { Utils } from '@youcan/ui-core';
 import StoreSlugInput from './StoreSlugInput.vue';
-import { templatify } from '~/utils/type.util';
 
 /**
  * 1. This component should have default slots, it makes no sense to have
@@ -36,7 +36,7 @@ const Template = (args: Record<string, unknown>) => ({
   </StoreSlugInput>`,
 });
 
-export const HasValue = templatify(Template.bind({}));
+export const HasValue = Utils.templatify(Template.bind({}));
 
 HasValue.args = {
   modelValue: 'ali@youcan.shop',
@@ -44,14 +44,14 @@ HasValue.args = {
   title: 'sssss',
 };
 
-export const Placeholder = templatify(Template.bind({}));
+export const Placeholder = Utils.templatify(Template.bind({}));
 
 Placeholder.args = {
   modelValue: '',
   placeholder: 'Please fill this field',
 };
 
-export const CustomSuffix = templatify(Template.bind({}));
+export const CustomSuffix = Utils.templatify(Template.bind({}));
 
 CustomSuffix.args = {
   modelValue: '',
