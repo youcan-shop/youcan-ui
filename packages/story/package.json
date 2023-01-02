@@ -1,0 +1,34 @@
+{
+  "name": "@youcan/ui-story",
+  "version": "1.0.0",
+  "description": "YouCan components stories",
+  "author": "YouCan <tech@youcan.shop> (https://github.com/youcan-shop/)",
+  "license": "MIT",
+  "homepage": "https://github.com/youcan-shop/youcan-ui",
+  "keywords": [
+    "youcan",
+    "ui",
+    "vue3",
+    "components",
+    "story"
+  ],
+  "scripts": {
+    "dev": "storybook dev -p 6006",
+    "build": "storybook build"
+  },
+  "devDependencies": {
+    "@storybook/addon-essentials": "7.0.0-beta.14",
+    "@storybook/addon-interactions": "7.0.0-beta.14",
+    "@storybook/addon-links": "7.0.0-beta.14",
+    "@storybook/blocks": "7.0.0-beta.14",
+    "@storybook/testing-library": "^0.0.13",
+    "@storybook/vue3": "7.0.0-beta.14",
+    "@storybook/vue3-vite": "7.0.0-beta.14",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "storybook": "7.0.0-beta.14",
+    "typescript": "4.8.2",
+    "vite": "^4.0.3",
+    "vue": "^3.2.45"
+  }
+}

@@ -1,28 +1,18 @@
 {
   "name": "@youcan/ui",
   "version": "1.0.0",
-  "exports": {
-    ".": {
-      "require": "./dist/index.umd.js",
-      "import": "./dist/index.es.js"
-    },
-    "./style": {
-      "require": "./dist/index.css",
-      "import": "./dist/index.css"
-    }
+  "scripts": {
+    "dev": "pnpm --recursive dev",
+    "build": "pnpm --recursive build",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "release": "bumpp package.json packages/*/package.json --commit --push --tag && pnpm lint:fix && pnpm -r release"
   },
-  "main": "./dist/index.umd.js",
-  "module": "./dist/index.es.js",
-  "types": "./dist/types/index.d.ts",
-  "files": [
-    "src",
-    "dist"
-  ],
-  "scripts": {},
   "devDependencies": {
     "@sidi3li/eslint-config": "^1.0.10",
     "bumpp": "^8.2.1",
     "eslint": "^8.30.0",
-    "taze": "^0.8.5"
+    "taze": "^0.8.5",
+    "typescript": "4.8.2"
   }
 }
