@@ -17,6 +17,7 @@
     "build": "storybook build"
   },
   "dependencies": {
+    "@youcan/ui-core": "*",
     "@youcan/ui-vue3": "*"
   },
   "devDependencies": {
