@@ -6,9 +6,6 @@
       "esnext",
       "dom"
     ],
-    "declaration": true,
-    "emitDeclarationOnly": true,
-    "declarationDir": "./dist/types",
     "types": [
       "vite/client"
     ],
