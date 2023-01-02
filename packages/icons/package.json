@@ -1,7 +1,7 @@
 {
   "name": "@youcan/ui-icons",
   "version": "1.0.0",
-  "description": "",
+  "description": "YouCan icon set in Iconify JSON format",
   "author": "YouCan <tech@youcan.shop> (https://github.com/youcan-shop/)",
   "license": "MIT",
   "homepage": "https://github.com/youcan-shop/youcan-ui",
@@ -9,5 +9,24 @@
     "youcan",
     "ui",
     "icons"
-  ]
+  ],
+  "exports": {
+    "./*": "./*",
+    ".": {
+      "require": "./index.js",
+      "import": "./index.mjs"
+    },
+    "./icons.json": "./icons.json",
+    "./info.json": "./info.json"
+  },
+  "main": "index.js",
+  "module": "index.mjs",
+  "types": "index.d.ts",
+  "iconSet": {
+    "icons": "icons.json",
+    "info": "info.json"
+  },
+  "dependencies": {
+    "@iconify/types": "*"
+  }
 }
