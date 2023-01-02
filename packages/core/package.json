@@ -13,6 +13,10 @@
     ".": {
       "require": "./dist/index.cjs",
       "import": "./dist/index.mjs"
+    },
+    "./tokens": {
+      "require": "./dist/tokens.css",
+      "import": "./dist/tokens.css"
     }
   },
   "main": "./dist/index.cjs",
@@ -21,7 +25,8 @@
     "dist"
   ],
   "scripts": {
-    "build": "unbuild"
+    "build-tokens": "node tooling/transform.mjs",
+    "build": "unbuild && pnpm build-tokens"
   },
   "devDependencies": {
     "typescript": "4.8.2",
@@ -35,6 +40,7 @@
     "declaration": true,
     "rollup": {
       "emitCJS": true
-    }
+    },
+    "failOnWarn": false
   }
 }
