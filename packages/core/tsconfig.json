@@ -1,0 +1,15 @@
+{
+  "extends": "../../tsconfig.base",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "lib": [
+      "esnext",
+      "dom"
+    ],
+    "declaration": true,
+    "declarationDir": "./dist/types"
+  },
+  "include": [
+    "src/index.ts"
+  ]
+}

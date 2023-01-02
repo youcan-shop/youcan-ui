@@ -1,6 +1,3 @@
-import path from 'path';
-import Unocss from 'unocss/vite';
-
 module.exports = {
   "stories": [
     "../src/**/*.mdx",
@@ -17,13 +14,5 @@ module.exports = {
   },
   "docs": {
     "docsPage": true
-  },
-  viteFinal(config, { configType }) {
-    console.log(`${path.resolve(__dirname, '..', 'src')}/`);
-
-    config.resolve.alias['~/'] = `${path.resolve(__dirname, '..', 'src')}/`;
-    config.plugins.push(Unocss());
-
-    return config;
-  },
+  }
 }

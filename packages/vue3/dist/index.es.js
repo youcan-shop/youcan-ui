@@ -46,7 +46,7 @@ const $ = (e, t) => {
       placeholder: e.placeholder
     }, d.$attrs, { "onUpdate:modelValue": n }), null, 16, ["model-value", "placeholder"]));
   }
-}), pe = { class: "store-slug-input" }, _e = { class: "input-container" }, ve = { class: "popover" }, me = { class: "store-slug-box-content" }, fe = { class: "box-description" }, he = { class: "store-slug-title" }, ye = { class: "store-slug-description" }, ge = { class: "border-example" }, be = { class: "border-icon-example" }, Ie = { class: "input-border-example" }, $e = { class: "note" }, we = { class: "icon-note" }, Ve = { class: "note-description" }, xe = { class: "slug-suffix" }, ke = /* @__PURE__ */ I({
+}), pe = { class: "store-slug-input" }, _e = { class: "input-container" }, ve = { class: "popover" }, me = { class: "store-slug-box-content" }, fe = { class: "box-description" }, he = { class: "store-slug-title" }, ye = { class: "store-slug-description" }, be = { class: "border-example" }, ge = { class: "border-icon-example" }, Ie = { class: "input-border-example" }, $e = { class: "note" }, we = { class: "icon-note" }, Ve = { class: "note-description" }, xe = { class: "slug-suffix" }, ke = /* @__PURE__ */ I({
   __name: "StoreSlugInput",
   props: {
     modelValue: {
@@ -77,8 +77,8 @@ const $ = (e, t) => {
                   r("div", ye, [
                     w(c.$slots, "description", {}, void 0, !0)
                   ]),
-                  r("div", ge, [
-                    r("div", be, [
+                  r("div", be, [
+                    r("div", ge, [
                       w(c.$slots, "example", {}, void 0, !0)
                     ]),
                     r("div", Ie, [
@@ -142,8 +142,8 @@ function N(...e) {
   Array.isArray(l) || (l = [l]), Array.isArray(o) || (o = [o]);
   const d = [], u = () => {
     d.forEach((v) => v()), d.length = 0;
-  }, s = (v, g, b) => (v.addEventListener(g, b, n), () => v.removeEventListener(g, b, n)), c = Z(() => O(t), (v) => {
-    u(), v && d.push(...l.flatMap((g) => o.map((b) => s(v, g, b))));
+  }, s = (v, b, g) => (v.addEventListener(b, g, n), () => v.removeEventListener(b, g, n)), c = Z(() => O(t), (v) => {
+    u(), v && d.push(...l.flatMap((b) => o.map((g) => s(v, b, g))));
   }, { immediate: !0, flush: "post" }), i = () => {
     c(), u();
   };
@@ -171,7 +171,7 @@ function j(e, t, l = {}) {
       }
       t(a);
     }
-  }, g = [
+  }, b = [
     N(o, "click", v, { passive: !0, capture: d }),
     N(o, "pointerdown", (a) => {
       const p = O(e);
@@ -189,7 +189,7 @@ function j(e, t, l = {}) {
       ((p = o.document.activeElement) == null ? void 0 : p.tagName) === "IFRAME" && !(h != null && h.contains(o.document.activeElement)) && t(a);
     })
   ].filter(Boolean);
-  return () => g.forEach((a) => a());
+  return () => b.forEach((a) => a());
 }
 const K = typeof globalThis < "u" ? globalThis : typeof window < "u" ? window : typeof global < "u" ? global : typeof self < "u" ? self : {}, q = "__vueuse_ssr_handlers__";
 K[q] = K[q] || {};
@@ -318,8 +318,8 @@ const R = /* @__PURE__ */ $(qe, [["__scopeId", "data-v-2f74106b"]]), Ge = { clas
       S(He, {
         item: u.value,
         placeholder: e.placeholder,
-        onClick: v[0] || (v[0] = (g) => s.value = !s.value),
-        onClickOutside: v[1] || (v[1] = (g) => s.value = !1)
+        onClick: v[0] || (v[0] = (b) => s.value = !s.value),
+        onClickOutside: v[1] || (v[1] = (b) => s.value = !1)
       }, null, 8, ["item", "placeholder"]),
       P(S(R, {
         "model-value": u.value,
@@ -336,7 +336,8 @@ const Xe = /* @__PURE__ */ $(Je, [["__scopeId", "data-v-a4109ef5"]]), Ye = { cla
   props: {
     modelValue: null,
     placeholder: null,
-    passwordHidden: { type: Boolean }
+    passwordHidden: { type: Boolean },
+    id: null
   },
   emits: ["update:modelValue"],
   setup(e, { emit: t }) {
@@ -354,6 +355,7 @@ const Xe = /* @__PURE__ */ $(Je, [["__scopeId", "data-v-a4109ef5"]]), Ye = { cla
         }, null, 2)
       ]),
       S(U, {
+        id: e.id,
         ref_key: "baseInput",
         ref: n,
         type: d.value ? "password" : "text",
@@ -361,11 +363,11 @@ const Xe = /* @__PURE__ */ $(Je, [["__scopeId", "data-v-a4109ef5"]]), Ye = { cla
         "model-value": u.value,
         class: "input",
         "onUpdate:modelValue": s
-      }, null, 8, ["type", "placeholder", "model-value"])
+      }, null, 8, ["id", "type", "placeholder", "model-value"])
     ]));
   }
 });
-const et = /* @__PURE__ */ $(Ze, [["__scopeId", "data-v-1f342af8"]]);
+const et = /* @__PURE__ */ $(Ze, [["__scopeId", "data-v-e1b15513"]]);
 const tt = {}, ot = { class: "note" }, lt = { class: "icon" }, nt = { class: "content" };
 function st(e, t) {
   return m(), f("div", ot, [
@@ -454,7 +456,7 @@ const _t = /* @__PURE__ */ $(pt, [["__scopeId", "data-v-dbbecf04"]]), vt = (e) =
     ]));
   }
 });
-const gt = /* @__PURE__ */ $(yt, [["__scopeId", "data-v-539dca17"]]), bt = ["disabled"], It = { class: "text" }, $t = /* @__PURE__ */ I({
+const bt = /* @__PURE__ */ $(yt, [["__scopeId", "data-v-539dca17"]]), gt = ["disabled"], It = { class: "text" }, $t = /* @__PURE__ */ I({
   __name: "Button",
   props: {
     disabled: {
@@ -471,7 +473,7 @@ const gt = /* @__PURE__ */ $(yt, [["__scopeId", "data-v-539dca17"]]), bt = ["dis
       r("span", It, [
         w(t.$slots, "default", {}, void 0, !0)
       ])
-    ], 10, bt));
+    ], 10, gt));
   }
 });
 const wt = /* @__PURE__ */ $($t, [["__scopeId", "data-v-193bb3f6"]]), Vt = /* @__PURE__ */ I({
@@ -504,15 +506,15 @@ const xt = /* @__PURE__ */ $(Vt, [["__scopeId", "data-v-18934737"]]), kt = { cla
       var a;
       d.value = o.find((p) => p.value === n.value || p.label === n.value), d.value ? n.value = (a = d.value) == null ? void 0 : a.label : n.value = "";
     });
-    const g = (a) => {
+    const b = (a) => {
       a = a.toLowerCase(), s.value = o.filter((p) => p.label.toLowerCase().includes(a) || p.value.toLowerCase().includes(a));
-    }, b = _();
-    return j(b, () => {
+    }, g = _();
+    return j(g, () => {
       c.value++, s.value = o, i(!1);
     }), (a, p) => (m(), f("div", kt, [
       r("div", {
         ref_key: "_dropdown_trigger",
-        ref: b,
+        ref: g,
         class: "input-container"
       }, [
         (m(), L(ee, {
@@ -520,7 +522,7 @@ const xt = /* @__PURE__ */ $(Vt, [["__scopeId", "data-v-18934737"]]), kt = { cla
           "model-value": n.value,
           class: "input",
           placeholder: e.placeholder || "Search items",
-          "onUpdate:modelValue": g,
+          "onUpdate:modelValue": b,
           onFocus: p[0] || (p[0] = (h) => i(!0))
         }, null, 8, ["model-value", "placeholder"])),
         r("div", St, [
@@ -556,15 +558,15 @@ const Ot = /* @__PURE__ */ $(Ct, [["__scopeId", "data-v-0d4f44d8"]]), Pt = { cla
   },
   emits: ["update:modelValue", "update:dialCode"],
   setup(e, { emit: t }) {
-    const { modelValue: l, dialCode: o, items: n, placeholder: d } = e, u = _(l), s = k(() => o), c = _(), i = _(!1), v = _(n), g = _(0), b = (y) => i.value = y, a = (y) => {
-      y && (c.value = y, u.value = "", t("update:dialCode", y.value), b(!1));
+    const { modelValue: l, dialCode: o, items: n, placeholder: d } = e, u = _(l), s = k(() => o), c = _(), i = _(!1), v = _(n), b = _(0), g = (y) => i.value = y, a = (y) => {
+      y && (c.value = y, u.value = "", t("update:dialCode", y.value), g(!1));
     };
     E(() => c.value = n.find((y) => y.value === s.value));
     const p = (y) => {
       y = y.toLowerCase(), v.value = n.filter((x) => x.label.toLowerCase().includes(y) || x.value.toLowerCase().includes(y)), c.value && t("update:modelValue", y);
     }, h = _();
     return j(h, () => {
-      v.value = n, u.value !== "" && g.value++, b(!1);
+      v.value = n, u.value !== "" && b.value++, g(!1);
     }), (y, x) => {
       var W;
       return m(), f("div", Pt, [
@@ -575,7 +577,7 @@ const Ot = /* @__PURE__ */ $(Ct, [["__scopeId", "data-v-0d4f44d8"]]), Pt = { cla
         }, [
           r("div", {
             class: "trigger",
-            onClick: x[0] || (x[0] = (oe) => b(!i.value))
+            onClick: x[0] || (x[0] = (oe) => g(!i.value))
           }, [
             r("span", Bt, B(((W = c.value) == null ? void 0 : W.value) || "unknown"), 1),
             r("i", {
@@ -584,7 +586,7 @@ const Ot = /* @__PURE__ */ $(Ct, [["__scopeId", "data-v-0d4f44d8"]]), Pt = { cla
           ]),
           r("div", Et, [
             (m(), L(U, {
-              key: g.value,
+              key: b.value,
               "model-value": u.value,
               class: "input",
               type: "tel",
@@ -592,7 +594,7 @@ const Ot = /* @__PURE__ */ $(Ct, [["__scopeId", "data-v-0d4f44d8"]]), Pt = { cla
               "onUpdate:modelValue": p,
               onFocus: x[1] || (x[1] = (oe) => {
                 var z;
-                return !((z = c.value) != null && z.value) && b(!0);
+                return !((z = c.value) != null && z.value) && g(!0);
               })
             }, null, 8, ["model-value", "placeholder"]))
           ])
@@ -617,7 +619,7 @@ const Lt = /* @__PURE__ */ $(Nt, [["__scopeId", "data-v-037ace4c"]]), Y = /* @__
   PasswordInput: et,
   Note: at,
   Loading: _t,
-  Checkbox: gt,
+  Checkbox: bt,
   PrimaryButton: xt,
   ComboBox: Ot,
   PhoneNumberInput: Lt
@@ -628,7 +630,7 @@ function Tt(e) {
 }
 const At = { install: Tt };
 export {
-  gt as Checkbox,
+  bt as Checkbox,
   Ot as ComboBox,
   Xe as Dropdown,
   _t as Loading,
