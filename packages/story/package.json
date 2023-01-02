@@ -17,8 +17,8 @@
     "build": "storybook build"
   },
   "dependencies": {
-    "@youcan/ui-core": "*",
-    "@youcan/ui-vue3": "*"
+    "@youcan/ui-vue3": "*",
+    "storybook": "7.0.0-beta.14"
   },
   "devDependencies": {
     "@storybook/addon-essentials": "7.0.0-beta.14",
@@ -30,9 +30,9 @@
     "@storybook/vue3-vite": "7.0.0-beta.14",
     "@types/node": "18.7.15",
     "@vitejs/plugin-vue": "^4.0.0",
+    "@youcan/ui-core": "*",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "storybook": "7.0.0-beta.14",
     "typescript": "4.8.2",
     "vite": "^4.0.3",
     "vue": "^3.2.45",
