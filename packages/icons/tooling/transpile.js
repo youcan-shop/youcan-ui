@@ -16,7 +16,7 @@ import info from '../info.json' assert { type: 'json' };
   const source = 'source';
   const prefix = info.prefix || 'youcan';
 
-  const target = resolve(dirname(fileURLToPath(import.meta.url)), '../dist/icons.json');
+  const target = resolve(dirname(fileURLToPath(import.meta.url)), '../icons.json');
 
   // Load icon set
   const iconSet = await importDirectory(source, {
