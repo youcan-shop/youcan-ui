@@ -11,9 +11,12 @@ const inputModel = ref();
 
 <template>
   <div>
-    <Input v-model="inputModel" placeholder="Placeholder text">
+    <Input v-model="inputModel" :error="true" style="max-width:360px;" placeholder="Placeholder text">
       <template #prefix>
         <DropdownPrefix />
+      </template>
+      <template #icon>
+        <i i-youcan-link />
       </template>
     </Input>
 
@@ -25,6 +28,7 @@ const inputModel = ref();
 @import url('https://api.fontshare.com/css?f[]=satoshi@400,500,700,800&display=swap');
 
 * {
+  color: var(--gray-900);
   font: var(--text-md-regular);
 }
 </style>

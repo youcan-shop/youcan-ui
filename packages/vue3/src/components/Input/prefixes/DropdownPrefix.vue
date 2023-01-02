@@ -1,14 +1,14 @@
 <script setup lang="ts">
-const prefix = true;
-defineExpose({ prefix });
 </script>
 
 <template>
-  <div>
-    hii
+  <div class="prefix">
+    Prefix
   </div>
 </template>
 
 <style scoped>
-
+.prefix {
+  padding-left: 11.5px;
+}
 </style>

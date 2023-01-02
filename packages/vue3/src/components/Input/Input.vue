@@ -1,19 +1,17 @@
 <script setup lang="ts">
 import { useFocus } from '@vueuse/core';
-import { computed, onBeforeMount, onMounted, ref, useAttrs, useSlots } from 'vue';
+import { computed, onBeforeMount, ref, useAttrs, useSlots } from 'vue';
 import DropdownPrefix from './prefixes/DropdownPrefix.vue';
 
 const props = defineProps<{
   modelValue: string
-  label?: string
-  icon?: string
-  hint?: string
+  error?: boolean
 }>();
 
 const emit = defineEmits(['update:modelValue']);
 
 const primitive = ref<HTMLInputElement>()!;
-const { prefix } = useSlots();
+const slots = useSlots();
 const attrs = useAttrs();
 
 const { focused } = useFocus(primitive);
@@ -24,11 +22,11 @@ const model = computed({
 });
 
 onBeforeMount(() => {
-  if (!prefix) {
+  if (!slots.prefix) {
     return;
   }
 
-  const type = prefix()[0].type;
+  const type = slots.prefix()[0].type;
 
   if (typeof type !== 'symbol' && [DropdownPrefix].find(n => n === type)) {
     return;
@@ -39,18 +37,26 @@ onBeforeMount(() => {
 </script>
 
 <template>
-  <div :class="{ enabled: !attrs.disabled, focused }" class="wrapper">
-    <div class="prefix">
+  <div :class="{ enabled: !attrs.disabled, focused, error }" class="wrapper">
+    <div v-if="slots.prefix" class="prefix">
       <slot name="prefix" />
     </div>
-
     <input ref="primitive" v-model="model" class="input" type="text" v-bind="$attrs">
+    <div class="tail">
+      <div v-if="slots.icon" class="icon">
+        <slot name="icon" />
+      </div>
+      <div v-if="slots.suffix" class="suffix">
+        <slot name="suffix" />
+      </div>
+    </div>
   </div>
 </template>
 
 <style scoped>
 .wrapper {
   display: flex;
+  align-items: center;
   border-radius: 8px;
   box-shadow: var(--shadow-xs);
   border: 1px solid var(--gray-100);
@@ -70,6 +76,14 @@ onBeforeMount(() => {
   background-color: var(--gray-50);
 }
 
+.wrapper.enabled.error {
+  border: 1px solid var(--red-500);
+}
+
+.wrapper.enabled.error.focused {
+  box-shadow: var(--focus-xs-red);
+}
+
 .input {
   width: 100%;
   border: none;
@@ -81,5 +95,12 @@ onBeforeMount(() => {
 
 .input:placeholder {
   color: var(--gray-300);
+}
+
+.tail {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 11.5px 0 0;
 }
 </style>
