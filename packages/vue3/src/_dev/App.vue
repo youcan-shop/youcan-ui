@@ -4,13 +4,19 @@ import '~/assets/main.css';
 import {
   Input,
 } from '~/components';
+import DropdownPrefix from '~/components/Input/prefixes/DropdownPrefix.vue';
 
 const inputModel = ref();
 </script>
 
 <template>
   <div>
-    <Input v-model="inputModel" placeholder="Placeholder text" />
+    <Input v-model="inputModel" placeholder="Placeholder text">
+      <template #prefix>
+        <DropdownPrefix />
+      </template>
+    </Input>
+
     value: {{ inputModel }}
   </div>
 </template>

@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { useElementHover, useFocus } from '@vueuse/core';
-import { computed, ref, useAttrs, useSlots } from 'vue';
+import { useFocus } from '@vueuse/core';
+import { computed, onBeforeMount, onMounted, ref, useAttrs, useSlots } from 'vue';
+import DropdownPrefix from './prefixes/DropdownPrefix.vue';
 
 const props = defineProps<{
   modelValue: string
@@ -12,8 +13,7 @@ const props = defineProps<{
 const emit = defineEmits(['update:modelValue']);
 
 const primitive = ref<HTMLInputElement>()!;
-
-const slots = useSlots();
+const { prefix } = useSlots();
 const attrs = useAttrs();
 
 const { focused } = useFocus(primitive);
@@ -22,11 +22,28 @@ const model = computed({
   get: () => props.modelValue,
   set: (value: string) => emit('update:modelValue', value),
 });
+
+onBeforeMount(() => {
+  if (!prefix) {
+    return;
+  }
+
+  const type = prefix()[0].type;
+
+  if (typeof type !== 'symbol' && [DropdownPrefix].find(n => n === type)) {
+    return;
+  }
+
+  throw new TypeError('Invalid prefix');
+});
 </script>
 
 <template>
   <div :class="{ enabled: !attrs.disabled, focused }" class="wrapper">
-    <slot class="prefix" name="prefix" />
+    <div class="prefix">
+      <slot name="prefix" />
+    </div>
+
     <input ref="primitive" v-model="model" class="input" type="text" v-bind="$attrs">
   </div>
 </template>
