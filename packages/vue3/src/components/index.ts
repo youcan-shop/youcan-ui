@@ -8,3 +8,4 @@ export { default as Checkbox } from './Checkbox/Checkbox.vue';
 export { default as PrimaryButton } from './Button/PrimaryButton/PrimaryButton.vue';
 export { default as ComboBox } from './ComboBox/ComboBox.vue';
 export { default as PhoneNumberInput } from './PhoneNumberInput/PhoneNumberInput.vue';
+export { default as Input } from './Input/Input.vue';

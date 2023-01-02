@@ -4,11 +4,10 @@ declare const _default: {
         $data: {};
         $props: Partial<{}> & Omit<Readonly<import("vue").ExtractPropTypes<__VLS_TypePropsToRuntimeProps<{
             modelValue: string;
-            type: string;
-            placeholder?: string | undefined;
+            label?: string | undefined;
+            icon?: string | undefined;
+            hint?: string | undefined;
         }>>> & {
-            onFocus?: ((...args: any[]) => any) | undefined;
-            onBlur?: ((...args: any[]) => any) | undefined;
             "onUpdate:modelValue"?: ((...args: any[]) => any) | undefined;
         } & import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, never>;
         $attrs: {
@@ -22,17 +21,16 @@ declare const _default: {
         }>;
         $root: import("vue").ComponentPublicInstance<{}, {}, {}, {}, {}, {}, {}, {}, false, import("vue").ComponentOptionsBase<any, any, any, any, any, any, any, any, any, {}, {}, string>, {}> | null;
         $parent: import("vue").ComponentPublicInstance<{}, {}, {}, {}, {}, {}, {}, {}, false, import("vue").ComponentOptionsBase<any, any, any, any, any, any, any, any, any, {}, {}, string>, {}> | null;
-        $emit: (event: "update:modelValue" | "focus" | "blur", ...args: any[]) => void;
+        $emit: (event: "update:modelValue", ...args: any[]) => void;
         $el: any;
         $options: import("vue").ComponentOptionsBase<Readonly<import("vue").ExtractPropTypes<__VLS_TypePropsToRuntimeProps<{
             modelValue: string;
-            type: string;
-            placeholder?: string | undefined;
+            label?: string | undefined;
+            icon?: string | undefined;
+            hint?: string | undefined;
         }>>> & {
-            onFocus?: ((...args: any[]) => any) | undefined;
-            onBlur?: ((...args: any[]) => any) | undefined;
             "onUpdate:modelValue"?: ((...args: any[]) => any) | undefined;
-        }, {}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, ("update:modelValue" | "focus" | "blur")[], string, {}, {}, string> & {
+        }, {}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, "update:modelValue"[], string, {}, {}, string> & {
             beforeCreate?: ((() => void) | (() => void)[]) | undefined;
             created?: ((() => void) | (() => void)[]) | undefined;
             beforeMount?: ((() => void) | (() => void)[]) | undefined;
@@ -54,11 +52,10 @@ declare const _default: {
         $watch<T extends string | ((...args: any) => any)>(source: T, cb: T extends (...args: any) => infer R ? (args_0: R, args_1: R) => any : (...args: any) => any, options?: import("vue").WatchOptions<boolean> | undefined): import("vue").WatchStopHandle;
     } & Readonly<import("vue").ExtractPropTypes<__VLS_TypePropsToRuntimeProps<{
         modelValue: string;
-        type: string;
-        placeholder?: string | undefined;
+        label?: string | undefined;
+        icon?: string | undefined;
+        hint?: string | undefined;
     }>>> & {
-        onFocus?: ((...args: any[]) => any) | undefined;
-        onBlur?: ((...args: any[]) => any) | undefined;
         "onUpdate:modelValue"?: ((...args: any[]) => any) | undefined;
     } & import("vue").ShallowUnwrapRef<{}> & {} & import("vue").ComponentCustomProperties & {};
     __isFragment?: undefined;
@@ -66,13 +63,12 @@ declare const _default: {
     __isSuspense?: undefined;
 } & import("vue").ComponentOptionsBase<Readonly<import("vue").ExtractPropTypes<__VLS_TypePropsToRuntimeProps<{
     modelValue: string;
-    type: string;
-    placeholder?: string | undefined;
+    label?: string | undefined;
+    icon?: string | undefined;
+    hint?: string | undefined;
 }>>> & {
-    onFocus?: ((...args: any[]) => any) | undefined;
-    onBlur?: ((...args: any[]) => any) | undefined;
     "onUpdate:modelValue"?: ((...args: any[]) => any) | undefined;
-}, {}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, ("update:modelValue" | "focus" | "blur")[], "update:modelValue" | "focus" | "blur", {}, {}, string> & import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps;
+}, {}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, "update:modelValue"[], "update:modelValue", {}, {}, string> & import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps;
 export default _default;
 declare type __VLS_NonUndefinedable<T> = T extends undefined ? never : T;
 declare type __VLS_TypePropsToRuntimeProps<T> = {

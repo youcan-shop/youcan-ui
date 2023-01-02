@@ -1,63 +1,68 @@
 <script setup lang="ts">
-import { computed } from 'vue';
-import { launder } from '~/utils/type.util';
+import { useElementHover, useFocus } from '@vueuse/core';
+import { computed, ref, useAttrs, useSlots } from 'vue';
 
 const props = defineProps<{
   modelValue: string
-  type: string
-  placeholder?: string
+  label?: string
+  icon?: string
+  hint?: string
 }>();
 
-const emit = defineEmits(['update:modelValue', 'focus', 'blur']);
+const emit = defineEmits(['update:modelValue']);
 
-const inputValue = computed(() => props.modelValue);
-const inputType = computed(() => props.type);
+const primitive = ref<HTMLInputElement>()!;
 
-const onInput = ({ target }: Event) => {
-  emit('update:modelValue', launder<HTMLInputElement>(target).value);
-};
+const slots = useSlots();
+const attrs = useAttrs();
 
-const onfocus = () => emit('focus');
-const onblur = () => emit('blur');
+const { focused } = useFocus(primitive);
+
+const model = computed({
+  get: () => props.modelValue,
+  set: (value: string) => emit('update:modelValue', value),
+});
 </script>
 
 <template>
-  <input
-    :value="inputValue" :type="inputType" :placeholder="placeholder" class="input" v-bind="$attrs" @input="onInput"
-    @focus="onfocus" @blur="onblur"
-  >
+  <div :class="{ enabled: !attrs.disabled, focused }" class="wrapper">
+    <slot class="prefix" name="prefix" />
+    <input ref="primitive" v-model="model" class="input" type="text" v-bind="$attrs">
+  </div>
 </template>
 
 <style scoped>
+.wrapper {
+  display: flex;
+  border-radius: 8px;
+  box-shadow: var(--shadow-xs);
+  border: 1px solid var(--gray-100);
+  background-color: var(--base-white);
+}
+
+.wrapper.enabled:hover {
+  border: 1px solid var(--gray-200);
+}
+
+.wrapper.enabled.focused {
+  border: 1px solid var(--brand-500);
+  box-shadow: var(--focus-xs-brand);
+}
+
+.wrapper:not(.enabled) {
+  background-color: var(--gray-50);
+}
+
 .input {
   width: 100%;
-  border: 1px solid var(--border-color);
-  height: 48px;
-  border-radius: 8px;
-  padding: 0px 16px;
-  color: var(--gray-400);
-  font-weight: 400;
-  letter-spacing: 2%;
-  font-size: 14px;
-  line-height: 19.2px;
+  border: none;
   outline: none;
-  transition-property: color, background-color, border-color;
-  transition-duration: 150ms;
-  transition-timing-function: ease-in-out;
+  padding: 11.5px 16px;
+  background-color: transparent;
+  font: var(--text-sm-regular);
 }
 
-.input:hover {
-  border: 1px solid var(--gray-200);
-  box-shadow: 0px 4px 4px var(--black-700);
-}
-
-.input:focus {
-  border: 1px solid var(--primary-color);
-  color: var(--gray-400);
-  box-shadow: 0px 4px 4px var(--black-700);
-}
-
-.input::placeholder {
-  color: var(--placeholder-color);
+.input:placeholder {
+  color: var(--gray-300);
 }
 </style>
