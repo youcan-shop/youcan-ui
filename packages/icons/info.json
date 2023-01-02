@@ -1,0 +1,13 @@
+{
+  "prefix": "youcan",
+  "name": "YouCan Icons",
+  "total": 54,
+  "version": "1.0.0",
+  "author": {
+    "name": "YouCan",
+    "url": "https://github.com/youcan-shop"
+  },
+  "height": 20,
+  "category": "General",
+  "palette": false
+}

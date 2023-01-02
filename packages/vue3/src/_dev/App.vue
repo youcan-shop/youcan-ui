@@ -26,6 +26,7 @@ const passwordInput = ref('');
 <template>
   <div>
     <TextInput v-model="inputValue" type="text" placeholder="Placeholder" />
+    <i class="i-youcan-x" />
     {{ inputValue }}
     <label for="fffdd">Password label</label>
     <PasswordInput id="fffdd" v-model="passwordInput" placeholder="Placeholder" :password-hidden="true" />

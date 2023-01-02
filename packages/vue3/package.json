@@ -42,6 +42,7 @@
     "@vitejs/plugin-vue": "^4.0.0",
     "@vueuse/core": "^9.9.0",
     "@youcan/ui-core": "*",
+    "@youcan/ui-icons": "*",
     "rimraf": "^3.0.2",
     "sass": "1.54.8",
     "typescript": "4.8.2",

@@ -1,5 +1,6 @@
 {
   "name": "@youcan/ui-icons",
+  "type": "module",
   "version": "1.0.0",
   "description": "YouCan icon set in Iconify JSON format",
   "author": "YouCan <tech@youcan.shop> (https://github.com/youcan-shop/)",
@@ -26,7 +27,15 @@
     "icons": "icons.json",
     "info": "info.json"
   },
+  "scripts": {
+    "build": "node tooling/transpile.js"
+  },
   "dependencies": {
     "@iconify/types": "*"
+  },
+  "devDependencies": {
+    "@iconify/tools": "^2.1.2",
+    "@iconify/utils": "^2.0.9",
+    "fs-extra": "^11.1.0"
   }
 }
