@@ -1,0 +1,12 @@
+{
+  "name": "@youcan/ui-core",
+  "version": "1.0.0",
+  "description": "",
+  "author": "YouCan <tech@youcan.shop> (https://github.com/youcan-shop/)",
+  "license": "MIT",
+  "homepage": "https://github.com/youcan-shop/youcan-ui",
+  "keywords": [
+    "youcan",
+    "ui"
+  ]
+}
