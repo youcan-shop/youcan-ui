@@ -1,9 +1,9 @@
-import { truncateSync, writeFileSync } from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { existsSync, truncateSync, writeFileSync } from 'fs';
 import input from './tokens.json' assert { type: 'json' };
 
-const OUTPUT_PATH = path.resolve(path.dirname(fileURLToPath(import.meta.url)), 'tokens.css');
+const OUTPUT_PATH = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', 'dist', 'tokens.css');
 
 const FONT_WEIGHTS = {
   'Thin': 100,
@@ -117,6 +117,9 @@ Object.values(input).forEach((set) => {
 
 output += '\n}';
 
-truncateSync(OUTPUT_PATH);
+if (existsSync(OUTPUT_PATH)) {
+  truncateSync(OUTPUT_PATH);
+}
+
 writeFileSync(OUTPUT_PATH, output, { flag: 'w', encoding: 'utf-8' });
 
