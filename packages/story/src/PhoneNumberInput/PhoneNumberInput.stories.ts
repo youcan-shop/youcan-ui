@@ -1,6 +1,6 @@
 import type { Meta } from '@storybook/vue3';
-import type { SelectItem } from '../_Select/types';
-import PhoneNumberInput from './PhoneNumberInput.vue';
+import { PhoneNumberInput } from '@youcan/ui-vue3';
+import type { SelectItem } from '@youcan/ui-vue3/dist/types/components/_Select/types';
 
 /**
  * 1. Style doesn't look good when background is transparent.
