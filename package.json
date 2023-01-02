@@ -2,8 +2,8 @@
   "name": "@youcan/ui",
   "version": "1.0.0",
   "scripts": {
-    "dev": "pnpm --recursive dev",
-    "build": "pnpm --recursive build",
+    "dev": "pnpm -r dev",
+    "build": "pnpm -r build",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "release": "bumpp package.json packages/*/package.json --commit --push --tag && pnpm lint:fix && pnpm -r release"

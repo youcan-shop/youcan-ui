@@ -29,8 +29,12 @@
     "dist"
   ],
   "scripts": {
-    "dev": "vite dev",
-    "build": "rimraf dist && vue-tsc --declaration --emitDeclarationOnly --project tsconfig.build.json && vite build"
+    "story:dev": "storybook dev -p 6006",
+    "story:build": "storybook build",
+    "components:dev": "vite dev",
+    "components:build": "rimraf dist && vue-tsc --declaration --emitDeclarationOnly --project tsconfig.build.json && vite build",
+    "dev": "pnpm story:dev & pnpm components:dev",
+    "build": "pnpm components:build & pnpm story:build"
   },
   "peerDependencies": {
     "vue": "^3.2.45"
@@ -38,13 +42,23 @@
   "devDependencies": {
     "@iconify-json/line-md": "^1.1.20",
     "@iconify-json/tabler": "^1.1.53",
+    "@storybook/addon-essentials": "7.0.0-beta.14",
+    "@storybook/addon-interactions": "7.0.0-beta.14",
+    "@storybook/addon-links": "7.0.0-beta.14",
+    "@storybook/blocks": "7.0.0-beta.14",
+    "@storybook/testing-library": "^0.0.13",
+    "@storybook/vue3": "7.0.0-beta.14",
+    "@storybook/vue3-vite": "7.0.0-beta.14",
     "@types/node": "18.7.15",
     "@vitejs/plugin-vue": "^4.0.0",
     "@vueuse/core": "^9.9.0",
     "@youcan/ui-core": "*",
     "@youcan/ui-icons": "*",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "rimraf": "^3.0.2",
     "sass": "1.54.8",
+    "storybook": "7.0.0-beta.14",
     "typescript": "4.8.2",
     "unocss": "^0.47.6",
     "vite": "^4.0.3",
