@@ -118,6 +118,7 @@ watch(
   width: min-content;
   box-shadow: var(--shadow-md);
   padding: 12px;
+  border-radius: 8px;
 }
 
 .sliders {
