@@ -103,4 +103,8 @@ onBeforeMount(() => {
   gap: 8px;
   padding: 0 11.5px 0 0;
 }
+
+.icon {
+  color: var(--gray-500);
+}
 </style>
