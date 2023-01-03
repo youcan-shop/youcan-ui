@@ -1,0 +1,53 @@
+<script setup lang="ts">
+import type { BadgeSize, BadgeState } from './types';
+
+withDefaults(
+  defineProps<{
+    size?: BadgeSize
+    state?: BadgeState
+  }>(),
+  {
+    size: 20,
+    state: 'neutral',
+  },
+);
+</script>
+
+<template>
+  <span class="badge" :class="[`state-${state}`]">
+    <slot />
+  </span>
+</template>
+
+<style scoped lang="scss">
+$states: (
+  "neutral": "gray-300",
+  "danger": "red-500",
+  "info": "blue-500",
+  "warning": "yellow-500",
+  "success": "green-500"
+);
+
+.badge {
+  --background-color: var(--gray-300);
+  --height: v-bind(`${size}px`);
+
+  font: var(--text-sm-bold);
+  color: var(--base-white);
+  padding: 0 6px;
+  border-radius: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: min-content;
+  height: var(--height);
+  background-color: var(--background-color);
+
+  @each $state,
+  $color in $states {
+    &.state-#{$state} {
+      --background-color: var(--#{$color});
+    }
+  }
+}
+</style>
