@@ -116,10 +116,11 @@ watch(
 
 <style scoped lang="scss">
 .color-picker {
-  width: min-content;
+  background-color: var(--base-white);
   box-shadow: var(--shadow-md);
-  padding: 12px;
+  width: min-content;
   border-radius: 8px;
+  padding: 12px;
 }
 
 .sliders {

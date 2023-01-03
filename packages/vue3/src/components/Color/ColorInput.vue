@@ -26,16 +26,16 @@ const setColor = (color: { hexa: string }) => model.value = color.hexa;
 </script>
 
 <template>
-  <div>
-    <div
-      ref="wrapper" tabindex="0" :class="{ enabled: !attrs.disabled, focused }" class="wrapper"
-      @click="() => toggle()"
-    >
-      <Backdrop class="preview" :width="40" :height="32" :color="model" />
-      <div class="value">
-        {{ model }}
-      </div>
+  <div
+    ref="wrapper" tabindex="0" :class="{ enabled: !attrs.disabled, focused }" class="wrapper"
+    v-bind="$attrs" @click="() => toggle()"
+  >
+    <Backdrop class="preview" :width="40" :height="32" :color="model" />
+    <div class="value">
+      {{ model }}
     </div>
+  </div>
+  <div class="picker-wrapper">
     <ColorPicker
       v-if="show && !attrs.disabled" ref="picker" class="picker" :color="model" :defaults="[]"
       @setcolor="setColor"
@@ -83,5 +83,14 @@ const setColor = (color: { hexa: string }) => model.value = color.hexa;
 
 .value {
     font: var(--text-sm-regular)
+}
+.picker-wrapper {
+    position: relative;
+}
+.picker {
+    position: absolute;
+    z-index: 100;
+    top: 12px;
+    left: 0;
 }
 </style>
