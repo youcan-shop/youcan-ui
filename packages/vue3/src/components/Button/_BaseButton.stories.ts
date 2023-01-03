@@ -1,6 +1,6 @@
 import type { Meta } from '@storybook/vue3';
 import { Utils } from '@youcan/ui-core';
-import BaseButton from './BaseButton.vue';
+import BaseButton from './_BaseButton.vue';
 
 const meta: Meta<typeof BaseButton> = {
   title: 'Primitive/BaseButton 🔴',

@@ -1,30 +1,31 @@
 <script setup lang="ts">
-import Button from '~/components/Button/Button.vue';
+import type { ButtonIconPosition, ButtonSize } from '~/components/Button/types';
+import BaseButton from '~/components/Button/_BaseButton.vue';
+
+defineProps<{
+  size: ButtonSize
+  disabled?: boolean
+  iconPosition?: ButtonIconPosition
+  roundedFull?: boolean
+}>();
 </script>
 
 <template>
-  <Button v-bind="$attrs" ref="target" class="primary">
+  <BaseButton :size="size" :disabled="disabled" :icon-position="iconPosition" :rounded-full="roundedFull"
+    class="primary">
+    <template #icon>
+      <slot name="icon" />
+    </template>
     <slot />
-  </Button>
+  </BaseButton>
 </template>
 
-<style scoped lang="scss">
-.button.primary {
-  --button-bg-color: var(--primary-color);
-  --button-color: var(--base-white);
-
-  &:hover:not(:disabled) {
-    background: var(--primary-500);
-    transition: all 0.2s ease;
-  }
-
-  &:active {
-    background: var(--primary-600);
-  }
-
-  &:disabled {
-    background-color: hsl(330deg 65% 62%);
-    pointer-events: none;
-  }
+<style scoped>
+.primary {
+  --background-color: var(--brand-500);
+  --hover-background-color: var(--brand-600);
+  --active-background-color: var(--brand-800);
+  --disabled-background-color: var(--gray-100);
+  --focus-shadow: var(--focus-xs-brand);
 }
 </style>

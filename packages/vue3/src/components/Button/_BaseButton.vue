@@ -22,7 +22,7 @@ defineProps<{
 </template>
 
 <style scoped lang="scss">
-$states: disabled, active, hover, focus;
+$states: hover, focus, active, disabled;
 
 .base-button {
   --text-color: var(--base-white);
