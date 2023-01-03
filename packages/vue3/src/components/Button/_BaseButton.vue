@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useSlots } from 'vue';
 import type { ButtonIconPosition, ButtonSize } from './types';
 
 withDefaults(
@@ -14,12 +15,14 @@ withDefaults(
     disabled: false,
   },
 );
+
+const slots = useSlots();
 </script>
 
 <template>
   <button ref="button" class="base-button" :disabled="disabled"
     :class="{ 'rounded-full': roundedFull, [`size-${size}`]: true, [`icon-${iconPosition}`]: true }">
-    <span class="icon">
+    <span v-if="slots.icon" class="icon">
       <slot name="icon" />
     </span>
     <span class="text">
