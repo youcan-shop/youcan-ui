@@ -44,6 +44,18 @@ const constructLinearGradient = (context, width, height, color1, color2, directi
   context.fillStyle = gradient;
   context.fillRect(0, 0, width, height);
 };
+const constructAlphaGradient = (context, width, height, color1, color2) => {
+  const gradient = context.createLinearGradient(
+    0,
+    0,
+    width,
+    0
+  );
+  gradient.addColorStop(0.01, color1);
+  gradient.addColorStop(0.99, color2);
+  context.fillStyle = gradient;
+  context.fillRect(0, 0, width, height);
+};
 const constructHueGradient = (context, width) => {
   const gradient = context.createLinearGradient(0, 0, width, 0);
   gradient.addColorStop(0, "#FF0000");
@@ -130,4 +142,4 @@ const parseColor = (color) => {
   return { ...rgba, ...hsv, a: rgba.a ?? 1 };
 };
 
-export { CLR_BLACK, CLR_OFFWHITE, CLR_WHITE, index as Utils, constructAlphaBackdrop, constructHueGradient, constructLinearGradient, hexToRgb, parseColor, parseRgbString, rgbToHex, rgbToHsv, rgbaToHex, toDec, toHex };
+export { CLR_BLACK, CLR_OFFWHITE, CLR_WHITE, index as Utils, constructAlphaBackdrop, constructAlphaGradient, constructHueGradient, constructLinearGradient, hexToRgb, parseColor, parseRgbString, rgbToHex, rgbToHsv, rgbaToHex, toDec, toHex };

@@ -46,6 +46,18 @@ const constructLinearGradient = (context, width, height, color1, color2, directi
   context.fillStyle = gradient;
   context.fillRect(0, 0, width, height);
 };
+const constructAlphaGradient = (context, width, height, color1, color2) => {
+  const gradient = context.createLinearGradient(
+    0,
+    0,
+    width,
+    0
+  );
+  gradient.addColorStop(0.01, color1);
+  gradient.addColorStop(0.99, color2);
+  context.fillStyle = gradient;
+  context.fillRect(0, 0, width, height);
+};
 const constructHueGradient = (context, width) => {
   const gradient = context.createLinearGradient(0, 0, width, 0);
   gradient.addColorStop(0, "#FF0000");
@@ -137,6 +149,7 @@ exports.CLR_OFFWHITE = CLR_OFFWHITE;
 exports.CLR_WHITE = CLR_WHITE;
 exports.Utils = index;
 exports.constructAlphaBackdrop = constructAlphaBackdrop;
+exports.constructAlphaGradient = constructAlphaGradient;
 exports.constructHueGradient = constructHueGradient;
 exports.constructLinearGradient = constructLinearGradient;
 exports.hexToRgb = hexToRgb;

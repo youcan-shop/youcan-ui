@@ -47,6 +47,27 @@ export const constructLinearGradient = (
   context.fillRect(0, 0, width, height);
 };
 
+export const constructAlphaGradient = (
+  context: CanvasRenderingContext2D,
+  width: number,
+  height: number,
+  color1: string,
+  color2: string,
+) => {
+  const gradient = context.createLinearGradient(
+    0,
+    0,
+    width,
+    0,
+  );
+
+  gradient.addColorStop(0.01, color1);
+  gradient.addColorStop(0.99, color2);
+
+  context.fillStyle = gradient;
+  context.fillRect(0, 0, width, height);
+};
+
 export const constructHueGradient = (
   context: CanvasRenderingContext2D,
   width: number,

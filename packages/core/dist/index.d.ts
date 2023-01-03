@@ -27,6 +27,7 @@ declare const CLR_WHITE = "#FFFFFF";
 declare const CLR_OFFWHITE = "#CCD5DB";
 declare const constructAlphaBackdrop: (radius: number) => HTMLCanvasElement;
 declare const constructLinearGradient: (context: CanvasRenderingContext2D, width: number, height: number, color1: string, color2: string, direction?: string) => void;
+declare const constructAlphaGradient: (context: CanvasRenderingContext2D, width: number, height: number, color1: string, color2: string) => void;
 declare const constructHueGradient: (context: CanvasRenderingContext2D, width: number) => CanvasGradient;
 declare const toHex: (value: number) => string;
 declare const toDec: (value: string) => number;
@@ -41,4 +42,4 @@ declare const rgbToHsv: (rgb: RGB) => {
 };
 declare const parseColor: (color: unknown) => RGBA & HSV;
 
-export { CLR_BLACK, CLR_OFFWHITE, CLR_WHITE, HSV, RGB, RGBA, _default as Utils, constructAlphaBackdrop, constructHueGradient, constructLinearGradient, hexToRgb, parseColor, parseRgbString, rgbToHex, rgbToHsv, rgbaToHex, toDec, toHex };
+export { CLR_BLACK, CLR_OFFWHITE, CLR_WHITE, HSV, RGB, RGBA, _default as Utils, constructAlphaBackdrop, constructAlphaGradient, constructHueGradient, constructLinearGradient, hexToRgb, parseColor, parseRgbString, rgbToHex, rgbToHsv, rgbaToHex, toDec, toHex };
