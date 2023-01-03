@@ -6,12 +6,14 @@ import {
   ColorPicker,
   Input,
   Rating,
+  RatingInput,
   TextArea,
 } from '~/components';
 import DropdownPrefix from '~/components/Input/prefixes/DropdownPrefix.vue';
 
 const textModel = ref();
 const inputModel = ref();
+const ratingModel = ref(1);
 const checkboxModel = ref();
 </script>
 
@@ -31,6 +33,11 @@ const checkboxModel = ref();
 
   <div>
     <Rating :score="3" />
+  </div>
+
+  <div>
+    <RatingInput v-model="ratingModel" :ceil="5" />
+    value: {{ ratingModel }}
   </div>
 
   <div>

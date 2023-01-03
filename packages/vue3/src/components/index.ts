@@ -12,3 +12,4 @@ export { default as ColorPicker } from './Color/ColorPicker.vue';
 export { default as Toggle } from './Toggle/Toggle.vue';
 export { default as TextArea } from './TextArea/TextArea.vue';
 export { default as Rating } from './Rating/Rating.vue';
+export { default as RatingInput } from './Rating/RatingInput.vue';
