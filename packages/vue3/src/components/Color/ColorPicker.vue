@@ -2,11 +2,11 @@
 import { computed, nextTick, onMounted, ref, watch } from 'vue';
 import type { HSV, RGBA } from '@youcan/ui-core';
 import { parseColor, rgbToHex, rgbaToHex } from '@youcan/ui-core';
-import Override from './Override.vue';
-import Swatches from './Swatches.vue';
-import Saturation from './Saturation.vue';
-import Hue from './Hue.vue';
-import Alpha from './Alpha.vue';
+import Override from './Internal/Override.vue';
+import Swatches from './Internal/Swatches.vue';
+import Saturation from './Internal/Saturation.vue';
+import Hue from './Internal/Hue.vue';
+import Alpha from './Internal/Alpha.vue';
 
 const { color, defaults } = withDefaults(
   defineProps<{ color: string; defaults: string[] }>(),
