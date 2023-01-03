@@ -1,6 +1,6 @@
 {
 	"prefix": "youcan",
-	"lastModified": 1672757739,
+	"lastModified": 1672758004,
 	"icons": {
 		"account": {
 			"body": "<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\"><path stroke-miterlimit=\"10\" d=\"M10 12.5a5 5 0 1 0 0-10a5 5 0 0 0 0 10Z\"/><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M2.422 16.875a8.75 8.75 0 0 1 15.156 0\"/></g>"
@@ -23,6 +23,9 @@
 		},
 		"calendar": {
 			"body": "<path fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"1.4\" d=\"M16.25 3.125H3.75a.625.625 0 0 0-.625.625v12.5c0 .345.28.625.625.625h12.5c.345 0 .625-.28.625-.625V3.75a.625.625 0 0 0-.625-.625Zm-2.5-1.25v2.5m-7.5-2.5v2.5m-3.125 2.5h13.75\"/>"
+		},
+		"camera": {
+			"body": "<path fill=\"currentColor\" d=\"M16.25 4.375h-2.164l-1.063-1.594A.617.617 0 0 0 12.5 2.5h-5a.617.617 0 0 0-.523.281L5.914 4.375H3.75A1.883 1.883 0 0 0 1.875 6.25V15a1.883 1.883 0 0 0 1.875 1.875h12.5A1.883 1.883 0 0 0 18.125 15V6.25a1.883 1.883 0 0 0-1.875-1.875Zm-3.438 5.938a2.813 2.813 0 1 1-5.625 0a2.813 2.813 0 0 1 5.625 0Z\"/>"
 		},
 		"caretdown": {
 			"body": "<path fill=\"currentColor\" d=\"M16.828 7.258a.625.625 0 0 0-.578-.383H3.75a.625.625 0 0 0-.578.383a.656.656 0 0 0 .133.687l6.25 6.25a.64.64 0 0 0 .89 0l6.25-6.25a.656.656 0 0 0 .133-.687Z\"/>"
