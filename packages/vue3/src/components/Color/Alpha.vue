@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { type CSSProperties, onMounted, ref, watch } from 'vue';
-import { CLR_BLACK, constructAlphaBackdrop, constructLinearGradient } from '@youcan/ui-core';
+import { CLR_BLACK, constructAlphaBackdrop, constructAlphaGradient } from '@youcan/ui-core';
 import type { RGBA } from '@youcan/ui-core';
 
 const props = withDefaults(
@@ -25,30 +25,30 @@ const renderColor = () => {
   context.fillStyle = context.createPattern(backdrop, 'repeat')!;
   context.fillRect(0, 0, props.width, props.height);
 
-  constructLinearGradient(context, props.width, props.height, 'rgba(255, 255, 255, 0)', props.color, 'right');
+  constructAlphaGradient(context, props.width, props.height, 'rgba(255, 255, 255, 0)', props.color);
 };
 
 const renderSlider = () => {
   alphaSliderStyles.value = {
-    top: `${props.rgba.a * props.height - 2}px`,
+    left: `${props.rgba.a * props.width - 12}px`,
   };
 };
 
 const setAlpha = (event: MouseEvent) => {
-  const { top: hueTop } = wrapper.value!.getBoundingClientRect();
+  const { left: hueLeft } = wrapper.value!.getBoundingClientRect();
 
   function handleMouseMove(e: MouseEvent) {
-    let y = e.clientY - hueTop;
+    let x = e.clientX - hueLeft;
 
-    if (y < 0) {
-      y = 0;
+    if (x < 0) {
+      x = 0;
     }
 
-    if (y > props.height) {
-      y = props.height;
+    if (x > props.width) {
+      x = props.width;
     }
 
-    emit('setalpha', parseFloat((y / props.height).toFixed(2)));
+    emit('setalpha', parseFloat((x / props.width).toFixed(2)));
   }
 
   handleMouseMove(event);
@@ -81,22 +81,25 @@ watch(() => props.rgba, () => renderSlider());
 <style scoped lang="scss">
 .alpha-wrapper {
   display: block;
-  position: relative;
-  margin-left: 8px;
   cursor: pointer;
+  position: relative;
   width: v-bind("`${width}px`");
   height: v-bind("`${height}px`");
 }
 
 .canvas {
-  border-radius: calc(v-bind("`${width}px`") * .5);
+  border-radius: 500px;
+  display: block;
 }
 
 .alpha-wrapper .slider {
-    position: absolute;
-    left: 0;
-    width: v-bind("`${width}px`");
-    background: var(--white);
-    pointer-events: none;
+  position: absolute;
+  width: v-bind("`${width}px`");
+  background: var(--base-white);
+  box-shadow: var(--shadow-sm);
+  pointer-events: none;
+  width: 16px;
+  height: 16px;
+  top: -3px;
 }
 </style>

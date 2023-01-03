@@ -7,7 +7,6 @@ import Swatches from './Swatches.vue';
 import Saturation from './Saturation.vue';
 import Hue from './Hue.vue';
 import Alpha from './Alpha.vue';
-import Backdrop from './Backdrop.vue';
 
 const { color, defaults } = withDefaults(
   defineProps<{ color: string; defaults: string[] }>(),
@@ -20,7 +19,7 @@ const saturationElement = ref();
 const hueElement = ref();
 
 const hexModel = ref<string>('');
-const hexaModel = ref <string>('');
+const hexaModel = ref<string>('');
 const rgbaModel = ref<string>('');
 const currentColor = ref<RGBA & HSV>({ r: 0, g: 0, b: 0, a: 1, h: 0, s: 0, v: 0 });
 
@@ -94,53 +93,54 @@ watch(
 </script>
 
 <template>
-  <!-- <div class="color-picker">
-    <div class="color-settings">
-      <Saturation
-        ref="saturationElement" class="color-saturation" :color="rgbFuncString" :hsv="hsv" :size="160"
-        @setsaturation="setSaturation"
-      />
-      <Hue ref="hueElement" class="color-hue" :hsv="hsv" :width="24" :height="160" @sethue="setHue" />
-      <Alpha class="color-alpha" :color="rgbFuncString" :rgba="rgba" :width="24" :height="160" @setalpha="setAlpha" />
+  <div class="color-picker">
+    <Saturation
+      ref="saturationElement" class="color-saturation" :color="rgbFuncString" :hsv="hsv" :size="224"
+      @setsaturation="setSaturation"
+    />
+    <div class="sliders">
+      <Hue ref="hueElement" class="color-hue" :hsv="hsv" :width="224" :height="10" @sethue="setHue" />
+      <Alpha class="color-alpha" :color="rgbFuncString" :rgba="rgba" :width="224" :height="10" @setalpha="setAlpha" />
     </div>
-    <div class="input-group">
-      <Backdrop class="color-preview" :color="rgbaFuncString" :width="38" :height="38" />
+    <div class="color-override">
+      <label>HEX</label>
       <Override class="hex-input" type="#" :color="hexaModel" @overridecolor="inputHex" />
     </div>
+    <hr>
     <div class="swatches">
       <Swatches :color="rgbaFuncString" :default-swatches="defaults" @setcolor="setColor" />
-    </div>
-  </div> -->
-
-  <div class="color-picker">
-    <Saturation ref="saturationElement" class="color-saturation" :color="rgbFuncString" :hsv="hsv" :size="224" @setsaturation="setSaturation" />
-    <div>
-      <Hue ref="hueElement" class="color-hue" :hsv="hsv" :width="224" :height="10" @sethue="setHue" />
     </div>
   </div>
 </template>
 
 <style scoped lang="scss">
-// .color-picker {
-//   width: min-content;
-// }
+.color-picker {
+  width: min-content;
+  box-shadow: var(--shadow-md);
+  padding: 12px;
+}
 
-// .color-settings {
-//   display: flex;
-// }
+.sliders {
+  margin-top: 12px;
+}
 
-// .input-group {
-//   display: flex;
-//   align-items: center;
-//   width: 100%;
-//   margin-top: 8px;
+.sliders>*+* {
+  margin-top: 8px;
+}
 
-//   &>*+* {
-//     margin-left: 8px;
-//   }
-// }
+.color-override {
+  margin-top: 12px;
+}
 
-// .color-preview {
-//   border-radius: 4px;
-// }
+.color-override label {
+  display: block;
+  font: var(--text-sm-medium);
+  margin-bottom: 4px;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid var(--gray-100);
+  margin: 12px 0;
+}
 </style>

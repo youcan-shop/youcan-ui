@@ -10,16 +10,14 @@ const props = withDefaults(
 const emit = defineEmits(['overridecolor']);
 
 const model = computed({
-  get: () => props.color.substring(1),
-  set: (value: string) => emit('overridecolor', `#${value}`),
+  get: () => props.color,
+  set: (value: string) => emit('overridecolor', value.startsWith('#') ? value : `#${value}`),
 });
 </script>
 
 <template>
-  <div class="color-override">
+  <div class="override">
     <Input v-model="model" class="value/" />
   </div>
 </template>
 
-<style lang="scss" scoped>
-</style>

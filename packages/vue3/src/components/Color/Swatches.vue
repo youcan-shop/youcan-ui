@@ -49,9 +49,6 @@ onUnmounted(() => persistSwatch(props.color));
 
 <template>
   <div v-if="swatchHistory.length" class="swatch-wrapper storage">
-    <div class="label">
-      Recently used
-    </div>
     <div class="swatches storage">
       <div v-for="swatch in swatchHistory" :key="swatch" class="swatch" @click="selectColor(swatch)">
         <div :style="{ background: `url(${colorBase64Encoded})` }" class="alpha" />
@@ -73,12 +70,6 @@ onUnmounted(() => persistSwatch(props.color));
   margin-top: 6px;
 }
 
-.label {
-  font-size: var(--font-size-xs);
-  color: var(--gray-600);
-  margin-bottom: 6px;
-}
-
 .swatches {
   display: flex;
 
@@ -89,9 +80,9 @@ onUnmounted(() => persistSwatch(props.color));
 
 .swatches .swatch {
   position: relative;
-  width: 28px;
-  height: 28px;
-  border-radius: 4px;
+  width: 24px;
+  height: 24px;
+  border-radius: 100px;
   cursor: pointer;
 
   &:nth-child(7n + 1) {
@@ -104,7 +95,7 @@ onUnmounted(() => persistSwatch(props.color));
 
   .alpha {
     height: 100%;
-    border-radius: 4px;
+    border-radius: 100px;
   }
 
   .color {
@@ -113,7 +104,7 @@ onUnmounted(() => persistSwatch(props.color));
     top: 0;
     width: 100%;
     height: 100%;
-    border-radius: 3px;
+    border-radius: 100px;
   }
 }
 </style>

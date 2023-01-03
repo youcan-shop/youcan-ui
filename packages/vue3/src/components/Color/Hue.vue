@@ -81,13 +81,14 @@ defineExpose({ renderColor, renderSlider });
 <style scoped lang="scss">
 .hue-wrapper {
   display: block;
-  position: relative;
   cursor: pointer;
+  position: relative;
   width: v-bind("`${width}px`");
   height: v-bind("`${height}px`");
 }
 
 .canvas {
+  display: block;
   border-radius: 500px;
 }
 
@@ -97,7 +98,8 @@ defineExpose({ renderColor, renderSlider });
     background: var(--base-white);
     box-shadow: var(--shadow-sm);
     pointer-events: none;
-    width: 24px;
-    top: 2px;
+    width: 16px;
+    height: 16px;
+    top: -3px;
 }
 </style>
