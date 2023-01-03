@@ -58,6 +58,7 @@
     "react-dom": "^18.2.0",
     "rimraf": "^3.0.2",
     "sass": "1.54.8",
+    "shiki": "^0.12.1",
     "storybook": "7.0.0-beta.14",
     "typescript": "4.8.2",
     "unocss": "^0.47.6",
