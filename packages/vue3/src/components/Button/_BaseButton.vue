@@ -1,17 +1,24 @@
 <script setup lang="ts">
 import type { ButtonIconPosition, ButtonSize } from './types';
 
-defineProps<{
-  size: ButtonSize
-  disabled?: boolean
-  iconPosition?: ButtonIconPosition
-  roundedFull?: boolean
-}>();
+withDefaults(
+  defineProps<{
+    size: ButtonSize
+    disabled?: boolean
+    iconPosition?: ButtonIconPosition
+    roundedFull?: boolean
+  }>(),
+  {
+    iconPosition: 'left',
+    roundedFull: false,
+    disabled: false,
+  },
+);
 </script>
 
 <template>
   <button ref="button" class="base-button" :disabled="disabled"
-    :class="{ 'rounded-full': roundedFull, [`size-${size}`]: true, [`icon-${iconPosition || 'left'}`]: true }">
+    :class="{ 'rounded-full': roundedFull, [`size-${size}`]: true, [`icon-${iconPosition}`]: true }">
     <span class="icon">
       <slot name="icon" />
     </span>
@@ -34,7 +41,7 @@ $states: hover, focus, active, disabled;
   --text-style: var(--text-sm-medium);
   --icon-position: 'row';
   --border: none;
-  --shadow: none;
+  --shadow: var(--shadow-xs);
 
   $properties: background-color,
   border,

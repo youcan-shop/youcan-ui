@@ -22,11 +22,11 @@ defineProps<{
 
 <style scoped>
 .primary {
-  --background-color: var(--brand-500);
-  --hover-background-color: var(--brand-600);
-  --active-background-color: var(--brand-800);
+  --background-color: var(--red-500);
+  --hover-background-color: var(--red-600);
+  --active-background-color: var(--red-800);
   --disabled-background-color: var(--gray-100);
-  --focus-shadow: var(--focus-xs-brand);
+  --focus-shadow: var(--focus-xs-red);
   --disabled-shadow: none;
 }
 </style>

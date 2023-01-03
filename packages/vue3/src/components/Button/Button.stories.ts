@@ -3,7 +3,7 @@ import { Utils } from '@youcan/ui-core';
 import BaseButton from './_BaseButton.vue';
 
 const meta: Meta<typeof BaseButton> = {
-  title: 'Primitive/BaseButton 🔴',
+  title: 'Primitive/Button',
   component: BaseButton,
   tags: ['primitive', 'button', 'input'],
 };
