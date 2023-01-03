@@ -1,16 +1,21 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { computed } from 'vue';
 
-const checked = ref(false);
+const props = defineProps<{
+  modelValue: boolean
+}>();
 
-const toggle = () => {
-  checked.value = !checked.value;
-};
+const emit = defineEmits(['update:modelValue']);
+
+const model = computed({
+  get: () => props.modelValue,
+  set: (value: boolean) => emit('update:modelValue', value),
+});
 </script>
 
 <template>
-  <button aria-label="toggle button" class="toggle" role="switch" type="button" :aria-checked="checked"
-    @click="toggle" />
+  <button aria-label="toggle button" class="toggle" role="switch" type="button" :aria-checked="model"
+    @click="model = !model" />
 </template>
 
 <style scoped lang="scss">
