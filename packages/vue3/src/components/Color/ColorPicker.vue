@@ -4,6 +4,10 @@ import type { HSV, RGBA } from '@youcan/ui-core';
 import { parseColor, rgbToHex, rgbaToHex } from '@youcan/ui-core';
 import Override from './Override.vue';
 import Swatches from './Swatches.vue';
+import Saturation from './Saturation.vue';
+import Hue from './Hue.vue';
+import Alpha from './Alpha.vue';
+import Backdrop from './Backdrop.vue';
 
 const { color, defaults } = withDefaults(
   defineProps<{ color: string; defaults: string[] }>(),

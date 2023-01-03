@@ -2,6 +2,7 @@
 import { ref } from 'vue';
 import '~/assets/main.css';
 import {
+  ColorPicker,
   Input,
 } from '~/components';
 import DropdownPrefix from '~/components/Input/prefixes/DropdownPrefix.vue';
@@ -21,6 +22,10 @@ const inputModel = ref();
     </Input>
 
     value: {{ inputModel }}
+  </div>
+
+  <div>
+    <ColorPicker />
   </div>
 </template>
 

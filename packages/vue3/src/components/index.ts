@@ -9,3 +9,4 @@ export { default as PrimaryButton } from './Button/PrimaryButton/PrimaryButton.v
 export { default as ComboBox } from './ComboBox/ComboBox.vue';
 export { default as PhoneNumberInput } from './PhoneNumberInput/PhoneNumberInput.vue';
 export { default as Input } from './Input/Input.vue';
+export { default as ColorPicker } from './Color/ColorPicker.vue';
