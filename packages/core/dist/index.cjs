@@ -15,7 +15,7 @@ const TypeUtils = {
   l: l
 };
 
-const index$1 = { ...TypeUtils };
+const index = { ...TypeUtils };
 
 const CLR_BLACK = "#000000";
 const CLR_WHITE = "#FFFFFF";
@@ -132,23 +132,18 @@ const parseColor = (color) => {
   return { ...rgba, ...hsv, a: rgba.a ?? 1 };
 };
 
-const index = {
-  __proto__: null,
-  CLR_BLACK: CLR_BLACK,
-  CLR_WHITE: CLR_WHITE,
-  CLR_OFFWHITE: CLR_OFFWHITE,
-  constructAlphaBackdrop: constructAlphaBackdrop,
-  constructLinearGradient: constructLinearGradient,
-  constructHueGradient: constructHueGradient,
-  toHex: toHex,
-  toDec: toDec,
-  rgbToHex: rgbToHex,
-  rgbaToHex: rgbaToHex,
-  hexToRgb: hexToRgb,
-  parseRgbString: parseRgbString,
-  rgbToHsv: rgbToHsv,
-  parseColor: parseColor
-};
-
-exports.Color = index;
-exports.Utils = index$1;
+exports.CLR_BLACK = CLR_BLACK;
+exports.CLR_OFFWHITE = CLR_OFFWHITE;
+exports.CLR_WHITE = CLR_WHITE;
+exports.Utils = index;
+exports.constructAlphaBackdrop = constructAlphaBackdrop;
+exports.constructHueGradient = constructHueGradient;
+exports.constructLinearGradient = constructLinearGradient;
+exports.hexToRgb = hexToRgb;
+exports.parseColor = parseColor;
+exports.parseRgbString = parseRgbString;
+exports.rgbToHex = rgbToHex;
+exports.rgbToHsv = rgbToHsv;
+exports.rgbaToHex = rgbaToHex;
+exports.toDec = toDec;
+exports.toHex = toHex;

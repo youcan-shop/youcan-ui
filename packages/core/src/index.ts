@@ -1,2 +1,3 @@
 export { default as Utils } from './utils';
-export * as Color from './color';
+export * from './color/types';
+export * from './color/helpers';

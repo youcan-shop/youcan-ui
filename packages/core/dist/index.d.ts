@@ -41,37 +41,4 @@ declare const rgbToHsv: (rgb: RGB) => {
 };
 declare const parseColor: (color: unknown) => RGBA & HSV;
 
-declare const index_CLR_BLACK: typeof CLR_BLACK;
-declare const index_CLR_WHITE: typeof CLR_WHITE;
-declare const index_CLR_OFFWHITE: typeof CLR_OFFWHITE;
-declare const index_constructAlphaBackdrop: typeof constructAlphaBackdrop;
-declare const index_constructLinearGradient: typeof constructLinearGradient;
-declare const index_constructHueGradient: typeof constructHueGradient;
-declare const index_toHex: typeof toHex;
-declare const index_toDec: typeof toDec;
-declare const index_rgbToHex: typeof rgbToHex;
-declare const index_rgbaToHex: typeof rgbaToHex;
-declare const index_hexToRgb: typeof hexToRgb;
-declare const index_parseRgbString: typeof parseRgbString;
-declare const index_rgbToHsv: typeof rgbToHsv;
-declare const index_parseColor: typeof parseColor;
-declare namespace index {
-  export {
-    index_CLR_BLACK as CLR_BLACK,
-    index_CLR_WHITE as CLR_WHITE,
-    index_CLR_OFFWHITE as CLR_OFFWHITE,
-    index_constructAlphaBackdrop as constructAlphaBackdrop,
-    index_constructLinearGradient as constructLinearGradient,
-    index_constructHueGradient as constructHueGradient,
-    index_toHex as toHex,
-    index_toDec as toDec,
-    index_rgbToHex as rgbToHex,
-    index_rgbaToHex as rgbaToHex,
-    index_hexToRgb as hexToRgb,
-    index_parseRgbString as parseRgbString,
-    index_rgbToHsv as rgbToHsv,
-    index_parseColor as parseColor,
-  };
-}
-
-export { index as Color, _default as Utils };
+export { CLR_BLACK, CLR_OFFWHITE, CLR_WHITE, HSV, RGB, RGBA, _default as Utils, constructAlphaBackdrop, constructHueGradient, constructLinearGradient, hexToRgb, parseColor, parseRgbString, rgbToHex, rgbToHsv, rgbaToHex, toDec, toHex };

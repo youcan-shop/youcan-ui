@@ -13,7 +13,7 @@ const TypeUtils = {
   l: l
 };
 
-const index$1 = { ...TypeUtils };
+const index = { ...TypeUtils };
 
 const CLR_BLACK = "#000000";
 const CLR_WHITE = "#FFFFFF";
@@ -130,22 +130,4 @@ const parseColor = (color) => {
   return { ...rgba, ...hsv, a: rgba.a ?? 1 };
 };
 
-const index = {
-  __proto__: null,
-  CLR_BLACK: CLR_BLACK,
-  CLR_WHITE: CLR_WHITE,
-  CLR_OFFWHITE: CLR_OFFWHITE,
-  constructAlphaBackdrop: constructAlphaBackdrop,
-  constructLinearGradient: constructLinearGradient,
-  constructHueGradient: constructHueGradient,
-  toHex: toHex,
-  toDec: toDec,
-  rgbToHex: rgbToHex,
-  rgbaToHex: rgbaToHex,
-  hexToRgb: hexToRgb,
-  parseRgbString: parseRgbString,
-  rgbToHsv: rgbToHsv,
-  parseColor: parseColor
-};
-
-export { index as Color, index$1 as Utils };
+export { CLR_BLACK, CLR_OFFWHITE, CLR_WHITE, index as Utils, constructAlphaBackdrop, constructHueGradient, constructLinearGradient, hexToRgb, parseColor, parseRgbString, rgbToHex, rgbToHsv, rgbaToHex, toDec, toHex };
