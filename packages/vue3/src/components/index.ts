@@ -1,7 +1,4 @@
-export { default as TextInput } from './TextInput/TextInput.vue';
-export { default as StoreSlugInput } from './StoreSlugInput/StoreSlugInput.vue';
 export { default as Dropdown } from './Dropdown/Dropdown.vue';
-export { default as PasswordInput } from './PasswordInput/PasswordInput.vue';
 export { default as Note } from './Note/Note.vue';
 export { default as Loading } from './Loading/Loading.vue';
 export { default as Checkbox } from './Checkbox/Checkbox.vue';
@@ -11,7 +8,6 @@ export { default as PrimaryDestructiveButton } from './Button/PrimaryDestructive
 export { default as SecondaryDestructiveButton } from './Button/SecondaryDestructiveButton.vue';
 export { default as TertiaryButton } from './Button/TertiaryButton.vue';
 export { default as ComboBox } from './ComboBox/ComboBox.vue';
-export { default as PhoneNumberInput } from './PhoneNumberInput/PhoneNumberInput.vue';
 export { default as Input } from './Input/Input.vue';
 export { default as ColorPicker } from './Color/ColorPicker.vue';
 export { default as Toggle } from './Toggle/Toggle.vue';
