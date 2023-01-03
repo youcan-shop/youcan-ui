@@ -1,106 +1,115 @@
 <script setup lang="ts">
-import { ref, watchEffect } from 'vue';
+import { Utils } from '@youcan/ui-core';
+import { computed, useSlots } from 'vue';
 
-const props = defineProps({
-  modelValue: {
-    type: Boolean,
-    default: false,
-  },
-  id: {
-    type: String,
-    default: '',
-  },
-});
-
+const props = defineProps<{ modelValue: boolean }>();
 const emit = defineEmits(['update:modelValue']);
+const slots = useSlots();
 
-const inputId = ref(props.id);
-
-const inputValue = ref(props.modelValue);
-
-watchEffect(() => {
-  emit('update:modelValue', inputValue.value);
+const model = computed({
+  get: () => props.modelValue,
+  set: (value: boolean) => emit('update:modelValue', value),
 });
+
+const idAttr = Utils.uid('checkbox');
 </script>
 
 <template>
-  <label class="checkbox-container">
-    <input :id="inputId" v-model="inputValue" class="checkbox-input" type="checkbox">
-    <span class="checkmark" />
+  <label :for="idAttr">
+    <div class="checkbox">
+      <input
+        v-bind="$attrs"
+        :id="idAttr"
+        v-model="model"
+        tabindex="0"
+        type="checkbox"
+        class="input"
+      >
+      <span class="checkmark"> <i i-youcan-checkmark /> </span>
+    </div>
+    <div v-if="slots.label" class="label">
+      <slot name="label" />
+    </div>
   </label>
 </template>
 
-<style scoped lang="scss">
-.checkbox-container {
+<style scoped>
+label {
+  display: flex;
+  align-items: center;
+}
+
+.label {
   display: inline-block;
-  position: relative;
+  font: var(--text-sm-regular);
+}
+
+.checkbox {
   cursor: pointer;
-  width: 20px;
-  height: 20px;
+  user-select: none;
+  display: inline-block;
+  margin-inline-end: 8px;
+}
 
-  &:hover {
-    .checkbox-input~.checkmark {
-      background-color: var(--stormGray-100);
-    }
-  }
+.input {
+  position: absolute;
+  opacity: 0;
+}
 
-  .checkbox-input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-    background-color: var(--primary-color);
-    border: 1px solid var(--gray-200);
-    height: 0;
-    width: 0;
-  }
+.checkmark {
+  width: 16px;
+  height: 16px;
+  display: grid;
+  border-radius: 4px;
+  place-items: center;
+  box-shadow: var(--shadow-xs);
+  border: 1px solid var(--gray-100);
+  background-color: var(--base-white);
+}
 
-  .checkmark {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    color: var(--white);
-    background-color: var(--white);
-    border: 1px solid var(--gray-200);
-    border-radius: 4px;
+.checkmark i {
+  width: 14px;
+  height: 14px;
+  display: none;
+  color: var(--base-white);
+}
 
-    [dir='rtl'] & {
-      left: unset;
-      right: 0;
-    }
-  }
+.input:checked ~ .checkmark {
+  background-color: var(--brand-500);
+  border: none;
+}
 
-  .checkmark:after {
-    content: "";
-    position: absolute;
-    display: none;
-  }
+.input:checked ~ .checkmark i {
+  display: inline-block;
+}
 
-  .checkbox-input:checked~.checkmark:after {
-    display: block;
-  }
+label:hover input:enabled:checked ~ .checkmark {
+  background-color: var(--brand-600);
+}
 
-  .checkmark:after {
-    left: 6px;
-    top: 1.5px;
-    width: 5px;
-    height: 10px;
-    border: solid var(--white);
-    border-width: 0 1.6px 1.6px 0;
-    -webkit-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    transform: rotate(45deg);
-  }
+label:hover input:enabled:not(:checked) ~ .checkmark {
+  background-color: var(--gray-50);
+}
 
-  .checkbox-input:checked~.checkmark {
-    background-color: var(--base-White);
-    background-color: var(--primary-color);
+input:enabled:is(:focus, :active) ~ .checkmark {
+  box-shadow: var(--focus-xs-brand);
+}
 
-    &:hover {
-      background-color: var(--primary-500);
-      box-shadow: 0px 4px 4px var(--black-700);
-    }
-  }
+input:disabled ~ .checkmark {
+  cursor: default;
+  box-shadow: none;
+}
+
+.checkbox:has(.input:disabled) ~ .label {
+  color: var(--gray-300);
+}
+
+input:disabled:checked ~ .checkmark {
+  background-color: var(--gray-100);
+}
+
+input:disabled:not(checked) ~ .checkmark {
+  background: var(--base-white);
+  border: 1px solid var(--gray-50);
 }
 </style>

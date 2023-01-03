@@ -13,7 +13,16 @@ const TypeUtils = {
   l: l
 };
 
-const index = { ...TypeUtils };
+function uid(prefix) {
+  return prefix + Date.now().toString(36).substring(4) + Math.random().toString(36).substring(2);
+}
+
+const MiscUtils = {
+  __proto__: null,
+  uid: uid
+};
+
+const index = { ...TypeUtils, ...MiscUtils };
 
 const CLR_BLACK = "#000000";
 const CLR_WHITE = "#FFFFFF";
