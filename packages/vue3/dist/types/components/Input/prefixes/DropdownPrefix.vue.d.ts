@@ -2,12 +2,7 @@ declare const _default: {
     new (...args: any[]): {
         $: import("vue").ComponentInternalInstance;
         $data: {};
-        $props: Partial<{}> & Omit<Readonly<import("vue").ExtractPropTypes<__VLS_TypePropsToRuntimeProps<{
-            modelValue: string;
-            error?: boolean | undefined;
-        }>>> & {
-            "onUpdate:modelValue"?: ((...args: any[]) => any) | undefined;
-        } & import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, never>;
+        $props: Partial<{}> & Omit<Readonly<import("vue").ExtractPropTypes<{}>> & import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, never>;
         $attrs: {
             [x: string]: unknown;
         };
@@ -19,14 +14,9 @@ declare const _default: {
         }>;
         $root: import("vue").ComponentPublicInstance<{}, {}, {}, {}, {}, {}, {}, {}, false, import("vue").ComponentOptionsBase<any, any, any, any, any, any, any, any, any, {}, {}, string>, {}> | null;
         $parent: import("vue").ComponentPublicInstance<{}, {}, {}, {}, {}, {}, {}, {}, false, import("vue").ComponentOptionsBase<any, any, any, any, any, any, any, any, any, {}, {}, string>, {}> | null;
-        $emit: (event: "update:modelValue", ...args: any[]) => void;
+        $emit: (event: string, ...args: any[]) => void;
         $el: any;
-        $options: import("vue").ComponentOptionsBase<Readonly<import("vue").ExtractPropTypes<__VLS_TypePropsToRuntimeProps<{
-            modelValue: string;
-            error?: boolean | undefined;
-        }>>> & {
-            "onUpdate:modelValue"?: ((...args: any[]) => any) | undefined;
-        }, {}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, "update:modelValue"[], string, {}, {}, string> & {
+        $options: import("vue").ComponentOptionsBase<Readonly<import("vue").ExtractPropTypes<{}>>, {}, {}, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, {}, {}, string> & {
             beforeCreate?: ((() => void) | (() => void)[]) | undefined;
             created?: ((() => void) | (() => void)[]) | undefined;
             beforeMount?: ((() => void) | (() => void)[]) | undefined;
@@ -46,34 +36,9 @@ declare const _default: {
         $forceUpdate: () => void;
         $nextTick: typeof import("vue").nextTick;
         $watch<T extends string | ((...args: any) => any)>(source: T, cb: T extends (...args: any) => infer R ? (args_0: R, args_1: R) => any : (...args: any) => any, options?: import("vue").WatchOptions<boolean> | undefined): import("vue").WatchStopHandle;
-    } & Readonly<import("vue").ExtractPropTypes<__VLS_TypePropsToRuntimeProps<{
-        modelValue: string;
-        error?: boolean | undefined;
-    }>>> & {
-        "onUpdate:modelValue"?: ((...args: any[]) => any) | undefined;
-    } & import("vue").ShallowUnwrapRef<{}> & {} & import("vue").ComponentCustomProperties & {};
+    } & Readonly<import("vue").ExtractPropTypes<{}>> & import("vue").ShallowUnwrapRef<{}> & {} & import("vue").ComponentCustomProperties & {};
     __isFragment?: undefined;
     __isTeleport?: undefined;
     __isSuspense?: undefined;
-} & import("vue").ComponentOptionsBase<Readonly<import("vue").ExtractPropTypes<__VLS_TypePropsToRuntimeProps<{
-    modelValue: string;
-    error?: boolean | undefined;
-}>>> & {
-    "onUpdate:modelValue"?: ((...args: any[]) => any) | undefined;
-}, {}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, "update:modelValue"[], "update:modelValue", {}, {}, string> & import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps & (new () => {
-    $slots: {
-        prefix: (_: {}) => any;
-        icon: (_: {}) => any;
-        suffix: (_: {}) => any;
-    };
-});
+} & import("vue").ComponentOptionsBase<Readonly<import("vue").ExtractPropTypes<{}>>, {}, {}, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, {}, {}, string> & import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps;
 export default _default;
-declare type __VLS_NonUndefinedable<T> = T extends undefined ? never : T;
-declare type __VLS_TypePropsToRuntimeProps<T> = {
-    [K in keyof T]-?: {} extends Pick<T, K> ? {
-        type: import('vue').PropType<__VLS_NonUndefinedable<T[K]>>;
-    } : {
-        type: import('vue').PropType<T[K]>;
-        required: true;
-    };
-};

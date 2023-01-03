@@ -1,63 +1,110 @@
 <script setup lang="ts">
-import { computed } from 'vue';
-import { launder } from '~/utils/type.util';
+import { useFocus } from '@vueuse/core';
+import { computed, onBeforeMount, ref, useAttrs, useSlots } from 'vue';
+import DropdownPrefix from './prefixes/DropdownPrefix.vue';
 
 const props = defineProps<{
   modelValue: string
-  type: string
-  placeholder?: string
+  error?: boolean
 }>();
 
-const emit = defineEmits(['update:modelValue', 'focus', 'blur']);
+const emit = defineEmits(['update:modelValue']);
 
-const inputValue = computed(() => props.modelValue);
-const inputType = computed(() => props.type);
+const primitive = ref<HTMLInputElement>()!;
+const slots = useSlots();
+const attrs = useAttrs();
 
-const onInput = ({ target }: Event) => {
-  emit('update:modelValue', launder<HTMLInputElement>(target).value);
-};
+const { focused } = useFocus(primitive);
 
-const onfocus = () => emit('focus');
-const onblur = () => emit('blur');
+const model = computed({
+  get: () => props.modelValue,
+  set: (value: string) => emit('update:modelValue', value),
+});
+
+onBeforeMount(() => {
+  if (!slots.prefix) {
+    return;
+  }
+
+  const type = slots.prefix()[0].type;
+
+  if (typeof type !== 'symbol' && [DropdownPrefix].find(n => n === type)) {
+    return;
+  }
+
+  throw new TypeError('Invalid prefix');
+});
 </script>
 
 <template>
-  <input
-    :value="inputValue" :type="inputType" :placeholder="placeholder" class="input" v-bind="$attrs" @input="onInput"
-    @focus="onfocus" @blur="onblur"
-  >
+  <div :class="{ enabled: !attrs.disabled, focused, error }" class="wrapper">
+    <div v-if="slots.prefix" class="prefix">
+      <slot name="prefix" />
+    </div>
+    <input ref="primitive" v-model="model" class="input" type="text" v-bind="$attrs">
+    <div class="tail">
+      <div v-if="slots.icon" class="icon">
+        <slot name="icon" />
+      </div>
+      <div v-if="slots.suffix" class="suffix">
+        <slot name="suffix" />
+      </div>
+    </div>
+  </div>
 </template>
 
 <style scoped>
+.wrapper {
+  display: flex;
+  align-items: center;
+  border-radius: 8px;
+  box-shadow: var(--shadow-xs);
+  border: 1px solid var(--gray-100);
+  background-color: var(--base-white);
+}
+
+.wrapper.enabled:hover {
+  border: 1px solid var(--gray-200);
+}
+
+.wrapper.enabled.focused {
+  border: 1px solid var(--brand-500);
+  box-shadow: var(--focus-xs-brand);
+}
+
+.wrapper:not(.enabled) {
+  background-color: var(--gray-50);
+}
+
+.wrapper.enabled.error {
+  border: 1px solid var(--red-500);
+}
+
+.wrapper.enabled.error.focused {
+  box-shadow: var(--focus-xs-red);
+}
+
 .input {
   width: 100%;
-  border: 1px solid var(--border-color);
-  height: 48px;
-  border-radius: 8px;
-  padding: 0px 16px;
-  color: var(--gray-400);
-  font-weight: 400;
-  letter-spacing: 2%;
-  font-size: 14px;
-  line-height: 19.2px;
+  border: none;
   outline: none;
-  transition-property: color, background-color, border-color;
-  transition-duration: 150ms;
-  transition-timing-function: ease-in-out;
+  padding: 11.5px 16px;
+  background-color: transparent;
+  font: var(--text-sm-regular);
 }
 
-.input:hover {
-  border: 1px solid var(--gray-200);
-  box-shadow: 0px 4px 4px var(--black-700);
+.input:placeholder {
+  color: var(--gray-300);
 }
 
-.input:focus {
-  border: 1px solid var(--primary-color);
-  color: var(--gray-400);
-  box-shadow: 0px 4px 4px var(--black-700);
+.tail {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 11.5px 0 0;
 }
 
-.input::placeholder {
-  color: var(--placeholder-color);
+.icon {
+  color: var(--gray-500);
 }
 </style>
