@@ -29,6 +29,7 @@
     "build": "unbuild && pnpm build-tokens"
   },
   "devDependencies": {
+    "@types/ramda": "^0.28.20",
     "typescript": "4.8.2",
     "unbuild": "^1.0.2"
   },
@@ -42,5 +43,8 @@
       "emitCJS": true
     },
     "failOnWarn": false
+  },
+  "dependencies": {
+    "ramda": "^0.28.0"
   }
 }
