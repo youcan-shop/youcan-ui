@@ -1,9 +1,10 @@
 import type { Meta } from '@storybook/vue3';
-import Badge from './Badge.vue';
+import { Utils } from '@youcan/ui-core';
+import Badge_ from './Badge.vue';
 
-const meta: Meta<typeof Badge> = {
+const meta: Meta<typeof Badge_> = {
   title: 'Application/Badge',
-  component: Badge,
+  component: Badge_,
   tags: ['application', 'display', 'badge', 'note'],
   argTypes: {
     size: {
@@ -23,9 +24,17 @@ const meta: Meta<typeof Badge> = {
 
 export default meta;
 
-export const Default = {
-  args: {
-    size: 20,
-    state: 'neutral',
+const BadgeTemplate = (args: Record<string, unknown>) => ({
+  components: { Badge_ },
+  setup() {
+    return { args };
   },
+  template: '<Badge_ v-bind="args">45</Badge_>',
+});
+
+export const Badge = Utils.templatify(BadgeTemplate.bind({}));
+
+Badge.args = {
+  size: 20,
+  state: 'neutral',
 };
