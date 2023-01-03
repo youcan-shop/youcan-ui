@@ -22,6 +22,8 @@ defineProps<{
 </template>
 
 <style scoped lang="scss">
+$states: disabled, active, hover, focus;
+
 .base-button {
   --text-color: var(--base-white);
   --icon-color: var(--base-white);
@@ -34,37 +36,17 @@ defineProps<{
   --border: none;
   --shadow: none;
 
-  // Disabled state tokens
-  --disabled-text-color: var(--text-color);
-  --disabled-icon-color: var(--icon-color);
-  --disabled-background-color: var(--background-color);
-  --disabled-border: var(--border);
-  --disabled-shadow: var(--shadow);
-  // --------------------------------
+  $properties: background-color,
+  border,
+  shadow,
+  text-color,
+  icon-color;
 
-  // Active state tokens
-  --active-text-color: var(--text-color);
-  --active-icon-color: var(--icon-color);
-  --active-background-color: var(--background-color);
-  --active-border: var(--border);
-  --active-shadow: var(--shadow);
-  // --------------------------------
-
-  // Hover state tokens
-  --hover-text-color: var(--text-color);
-  --hover-icon-color: var(--icon-color);
-  --hover-background-color: var(--background-color);
-  --hover-border: var(--border);
-  --hover-shadow: var(--shadow);
-  // --------------------------------
-
-  // Focus state tokens
-  --focus-text-color: var(--text-color);
-  --focus-icon-color: var(--icon-color);
-  --focus-background-color: var(--background-color);
-  --focus-border: var(--border);
-  --focus-shadow: var(--shadow);
-  // --------------------------------
+  @each $state in $states {
+    @each $property in $properties {
+      --#{$state}-#{$property}: var(--#{$property});
+    }
+  }
 
   display: flex;
   align-items: center;
@@ -171,71 +153,19 @@ defineProps<{
   }
 }
 
-/**
-  * Disabled state
- */
-.base-button:disabled {
-  background-color: var(--disabled-background-color);
-  border: var(--disabled-border);
-  box-shadow: var(--disabled-shadow);
+@each $state in $states {
+  .base-button:#{$state} {
+    background-color: var(--#{$state}-background-color);
+    border: var(--#{$state}-border);
+    box-shadow: var(--#{$state}-shadow);
 
-  .text {
-    color: var(--disabled-text-color);
-  }
+    .text {
+      color: var(--#{$state}-text-color);
+    }
 
-  .icon {
-    color: var(--disabled-icon-color);
-  }
-}
-
-/**
-  * Active state
- */
-.base-button:active {
-  background-color: var(--active-background-color);
-  border: var(--active-border);
-  box-shadow: var(--active-shadow);
-
-  .text {
-    color: var(--active-text-color);
-  }
-
-  .icon {
-    color: var(--active-icon-color);
-  }
-}
-
-/**
-  * Hover state
- */
-.base-button:hover {
-  background-color: var(--hover-background-color);
-  border: var(--hover-border);
-  box-shadow: var(--hover-shadow);
-
-  .text {
-    color: var(--hover-text-color);
-  }
-
-  .icon {
-    color: var(--hover-icon-color);
-  }
-}
-
-/**
-  * Focus state
- */
-.base-button:hover {
-  background-color: var(--focus-background-color);
-  border: var(--focus-border);
-  box-shadow: var(--focus-shadow);
-
-  .text {
-    color: var(--focus-text-color);
-  }
-
-  .icon {
-    color: var(--focus-icon-color);
+    .icon {
+      color: var(--#{$state}-icon-color);
+    }
   }
 }
 </style>
