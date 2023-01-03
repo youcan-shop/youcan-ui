@@ -76,7 +76,7 @@ defineExpose({ renderColor, renderSlider });
 <template>
   <div ref="wrapper" class="hue-wrapper" @mousedown.prevent.stop="setHue">
     <canvas ref="canvas" class="canvas" />
-    <i i-ph-circle-bold :style="hueSliderStyles" class="slider" />
+    <i i-youcan-pointer :style="hueSliderStyles" class="slider" />
   </div>
 </template>
 
@@ -84,7 +84,6 @@ defineExpose({ renderColor, renderSlider });
 .hue-wrapper {
   display: block;
   position: relative;
-  margin-left: 8px;
   cursor: pointer;
   width: v-bind("`${width}px`");
   height: v-bind("`${height}px`");

@@ -1,4 +1,3 @@
-import type { RGBA } from '@youcan/ui-core';
 declare const _default: {
     new (...args: any[]): {
         $: import("vue").ComponentInternalInstance;
@@ -9,16 +8,13 @@ declare const _default: {
             width: number;
         }> & Omit<Readonly<import("vue").ExtractPropTypes<__VLS_WithDefaults<__VLS_TypePropsToRuntimeProps<{
             color: string;
-            rgba: RGBA;
-            height: number;
             width: number;
+            height: number;
         }>, {
             color: string;
             width: number;
             height: number;
-        }>>> & {
-            onSetalpha?: ((...args: any[]) => any) | undefined;
-        } & import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, "color" | "height" | "width">;
+        }>>> & import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, "color" | "height" | "width">;
         $attrs: {
             [x: string]: unknown;
         };
@@ -30,20 +26,17 @@ declare const _default: {
         }>;
         $root: import("vue").ComponentPublicInstance<{}, {}, {}, {}, {}, {}, {}, {}, false, import("vue").ComponentOptionsBase<any, any, any, any, any, any, any, any, any, {}, {}, string>, {}> | null;
         $parent: import("vue").ComponentPublicInstance<{}, {}, {}, {}, {}, {}, {}, {}, false, import("vue").ComponentOptionsBase<any, any, any, any, any, any, any, any, any, {}, {}, string>, {}> | null;
-        $emit: (event: "setalpha", ...args: any[]) => void;
+        $emit: (event: string, ...args: any[]) => void;
         $el: any;
         $options: import("vue").ComponentOptionsBase<Readonly<import("vue").ExtractPropTypes<__VLS_WithDefaults<__VLS_TypePropsToRuntimeProps<{
             color: string;
-            rgba: RGBA;
-            height: number;
             width: number;
+            height: number;
         }>, {
             color: string;
             width: number;
             height: number;
-        }>>> & {
-            onSetalpha?: ((...args: any[]) => any) | undefined;
-        }, {}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, "setalpha"[], string, {
+        }>>>, {}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, {
             color: string;
             height: number;
             width: number;
@@ -69,31 +62,25 @@ declare const _default: {
         $watch<T extends string | ((...args: any) => any)>(source: T, cb: T extends (...args: any) => infer R ? (args_0: R, args_1: R) => any : (...args: any) => any, options?: import("vue").WatchOptions<boolean> | undefined): import("vue").WatchStopHandle;
     } & Readonly<import("vue").ExtractPropTypes<__VLS_WithDefaults<__VLS_TypePropsToRuntimeProps<{
         color: string;
-        rgba: RGBA;
-        height: number;
         width: number;
+        height: number;
     }>, {
         color: string;
         width: number;
         height: number;
-    }>>> & {
-        onSetalpha?: ((...args: any[]) => any) | undefined;
-    } & import("vue").ShallowUnwrapRef<{}> & {} & import("vue").ComponentCustomProperties & {};
+    }>>> & import("vue").ShallowUnwrapRef<{}> & {} & import("vue").ComponentCustomProperties & {};
     __isFragment?: undefined;
     __isTeleport?: undefined;
     __isSuspense?: undefined;
 } & import("vue").ComponentOptionsBase<Readonly<import("vue").ExtractPropTypes<__VLS_WithDefaults<__VLS_TypePropsToRuntimeProps<{
     color: string;
-    rgba: RGBA;
-    height: number;
     width: number;
+    height: number;
 }>, {
     color: string;
     width: number;
     height: number;
-}>>> & {
-    onSetalpha?: ((...args: any[]) => any) | undefined;
-}, {}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, "setalpha"[], "setalpha", {
+}>>>, {}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, {
     color: string;
     height: number;
     width: number;

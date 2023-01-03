@@ -74,7 +74,7 @@ watch(() => props.rgba, () => renderSlider());
 <template>
   <div ref="wrapper" class="alpha-wrapper" @mousedown.prevent.stop="setAlpha">
     <canvas ref="canvas" class="canvas" />
-    <i i-ph-circle-bold :style="alphaSliderStyles" class="slider" />
+    <i i-youcan-pointer :style="alphaSliderStyles" class="slider" />
   </div>
 </template>
 

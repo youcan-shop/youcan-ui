@@ -1,6 +1,6 @@
 {
 	"prefix": "youcan",
-	"lastModified": 1672737045,
+	"lastModified": 1672738176,
 	"icons": {
 		"account": {
 			"body": "<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\"><path stroke-miterlimit=\"10\" d=\"M10 12.5a5 5 0 1 0 0-10a5 5 0 0 0 0 10Z\"/><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M2.422 16.875a8.75 8.75 0 0 1 15.156 0\"/></g>"
@@ -110,6 +110,9 @@
 		},
 		"pay": {
 			"body": "<path fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"1.4\" d=\"M17.5 4.375h-15A.625.625 0 0 0 1.875 5v10c0 .345.28.625.625.625h15c.345 0 .625-.28.625-.625V5a.625.625 0 0 0-.625-.625ZM1.875 7.57h16.25\"/>"
+		},
+		"pointer": {
+			"body": "<path fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.108\" d=\"M10 16a6 6 0 1 0 0-12a6 6 0 0 0 0 12Z\"/>"
 		},
 		"print": {
 			"body": "<g fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"1.4\"><path d=\"M15.625 17.5H4.375a.625.625 0 0 1-.625-.625V3.125a.625.625 0 0 1 .625-.625h7.5l4.375 4.375v10a.624.624 0 0 1-.625.625Z\"/><path d=\"M11.875 2.5v4.375h4.375\"/></g>"

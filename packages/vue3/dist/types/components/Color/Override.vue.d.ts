@@ -1,24 +1,16 @@
-import type { RGBA } from '@youcan/ui-core';
 declare const _default: {
     new (...args: any[]): {
         $: import("vue").ComponentInternalInstance;
         $data: {};
         $props: Partial<{
             color: string;
-            height: number;
-            width: number;
         }> & Omit<Readonly<import("vue").ExtractPropTypes<__VLS_WithDefaults<__VLS_TypePropsToRuntimeProps<{
             color: string;
-            rgba: RGBA;
-            height: number;
-            width: number;
         }>, {
             color: string;
-            width: number;
-            height: number;
         }>>> & {
-            onSetalpha?: ((...args: any[]) => any) | undefined;
-        } & import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, "color" | "height" | "width">;
+            onOverridecolor?: ((...args: any[]) => any) | undefined;
+        } & import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, "color">;
         $attrs: {
             [x: string]: unknown;
         };
@@ -30,23 +22,16 @@ declare const _default: {
         }>;
         $root: import("vue").ComponentPublicInstance<{}, {}, {}, {}, {}, {}, {}, {}, false, import("vue").ComponentOptionsBase<any, any, any, any, any, any, any, any, any, {}, {}, string>, {}> | null;
         $parent: import("vue").ComponentPublicInstance<{}, {}, {}, {}, {}, {}, {}, {}, false, import("vue").ComponentOptionsBase<any, any, any, any, any, any, any, any, any, {}, {}, string>, {}> | null;
-        $emit: (event: "setalpha", ...args: any[]) => void;
+        $emit: (event: "overridecolor", ...args: any[]) => void;
         $el: any;
         $options: import("vue").ComponentOptionsBase<Readonly<import("vue").ExtractPropTypes<__VLS_WithDefaults<__VLS_TypePropsToRuntimeProps<{
             color: string;
-            rgba: RGBA;
-            height: number;
-            width: number;
         }>, {
             color: string;
-            width: number;
-            height: number;
         }>>> & {
-            onSetalpha?: ((...args: any[]) => any) | undefined;
-        }, {}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, "setalpha"[], string, {
+            onOverridecolor?: ((...args: any[]) => any) | undefined;
+        }, {}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, "overridecolor"[], string, {
             color: string;
-            height: number;
-            width: number;
         }, {}, string> & {
             beforeCreate?: ((() => void) | (() => void)[]) | undefined;
             created?: ((() => void) | (() => void)[]) | undefined;
@@ -69,34 +54,22 @@ declare const _default: {
         $watch<T extends string | ((...args: any) => any)>(source: T, cb: T extends (...args: any) => infer R ? (args_0: R, args_1: R) => any : (...args: any) => any, options?: import("vue").WatchOptions<boolean> | undefined): import("vue").WatchStopHandle;
     } & Readonly<import("vue").ExtractPropTypes<__VLS_WithDefaults<__VLS_TypePropsToRuntimeProps<{
         color: string;
-        rgba: RGBA;
-        height: number;
-        width: number;
     }>, {
         color: string;
-        width: number;
-        height: number;
     }>>> & {
-        onSetalpha?: ((...args: any[]) => any) | undefined;
+        onOverridecolor?: ((...args: any[]) => any) | undefined;
     } & import("vue").ShallowUnwrapRef<{}> & {} & import("vue").ComponentCustomProperties & {};
     __isFragment?: undefined;
     __isTeleport?: undefined;
     __isSuspense?: undefined;
 } & import("vue").ComponentOptionsBase<Readonly<import("vue").ExtractPropTypes<__VLS_WithDefaults<__VLS_TypePropsToRuntimeProps<{
     color: string;
-    rgba: RGBA;
-    height: number;
-    width: number;
 }>, {
     color: string;
-    width: number;
-    height: number;
 }>>> & {
-    onSetalpha?: ((...args: any[]) => any) | undefined;
-}, {}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, "setalpha"[], "setalpha", {
+    onOverridecolor?: ((...args: any[]) => any) | undefined;
+}, {}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, "overridecolor"[], "overridecolor", {
     color: string;
-    height: number;
-    width: number;
 }, {}, string> & import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps;
 export default _default;
 declare type __VLS_NonUndefinedable<T> = T extends undefined ? never : T;

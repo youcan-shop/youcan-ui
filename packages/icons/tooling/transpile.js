@@ -1,6 +1,7 @@
 import { promises as fs } from 'fs';
 import { dirname, resolve } from 'path';
 import { fileURLToPath } from 'url';
+import { stdout } from 'process';
 import {
   cleanupSVG,
   deOptimisePaths,
@@ -79,7 +80,8 @@ import info from '../info.json' assert { type: 'json' };
   const count
     = Object.keys(iconSet.entries).length
     + (iconSet.aliases ? Object.keys(iconSet.aliases).length : 0);
-  console.log(`Found ${count} icons`);
+
+  stdout.write(`Found ${count} icons`);
 
   info.total = count;
   info.height = iconSetContent.height || 20;

@@ -94,7 +94,7 @@ watch(
 </script>
 
 <template>
-  <div class="color-picker">
+  <!-- <div class="color-picker">
     <div class="color-settings">
       <Saturation
         ref="saturationElement" class="color-saturation" :color="rgbFuncString" :hsv="hsv" :size="160"
@@ -110,30 +110,37 @@ watch(
     <div class="swatches">
       <Swatches :color="rgbaFuncString" :default-swatches="defaults" @setcolor="setColor" />
     </div>
+  </div> -->
+
+  <div class="color-picker">
+    <Saturation ref="saturationElement" class="color-saturation" :color="rgbFuncString" :hsv="hsv" :size="224" @setsaturation="setSaturation" />
+    <div>
+      <Hue ref="hueElement" class="color-hue" :hsv="hsv" :width="224" :height="10" @sethue="setHue" />
+    </div>
   </div>
 </template>
 
 <style scoped lang="scss">
-.color-picker {
-  width: min-content;
-}
+// .color-picker {
+//   width: min-content;
+// }
 
-.color-settings {
-  display: flex;
-}
+// .color-settings {
+//   display: flex;
+// }
 
-.input-group {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  margin-top: 8px;
+// .input-group {
+//   display: flex;
+//   align-items: center;
+//   width: 100%;
+//   margin-top: 8px;
 
-  &>*+* {
-    margin-left: 8px;
-  }
-}
+//   &>*+* {
+//     margin-left: 8px;
+//   }
+// }
 
-.color-preview {
-  border-radius: 4px;
-}
+// .color-preview {
+//   border-radius: 4px;
+// }
 </style>

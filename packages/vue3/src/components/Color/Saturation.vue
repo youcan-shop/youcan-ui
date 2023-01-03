@@ -90,14 +90,14 @@ defineExpose({ renderColor, renderSlider });
 <template>
   <div ref="wrapper" class="saturation-wrapper" @mousedown.prevent.stop="setSaturation">
     <canvas ref="canvas" class="canvas" />
-    <i i-ph-circle-bold :style="saturationSliderStyles" class="slider" />
+    <i i-youcan-pointer :style="saturationSliderStyles" class="slider" />
   </div>
 </template>
 
 <style scoped lang="scss">
 .saturation-wrapper {
-  position: relative;
   cursor: pointer;
+  position: relative;
   width: v-bind("`${size}px`");
   height: v-bind("`${size}px`");
 }
@@ -107,10 +107,11 @@ defineExpose({ renderColor, renderSlider });
 }
 
 .saturation-wrapper .slider {
-  position: absolute;
-  left: 100px;
   top: 0;
-  color: var(--white);
+  left: 100px;
+  position: absolute;
   pointer-events: none;
+  color: var(--base-white);
+  box-shadow: var(--shadow-sm);
 }
 </style>
