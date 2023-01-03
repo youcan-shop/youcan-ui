@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useFocus } from '@vueuse/core';
-import { computed, ref, useAttrs, useSlots } from 'vue';
+import { computed, ref, useAttrs } from 'vue';
 
 const props = defineProps<{
   modelValue: string
@@ -10,26 +10,28 @@ const props = defineProps<{
 const emit = defineEmits(['update:modelValue']);
 
 const primitive = ref<HTMLInputElement>()!;
-const slots = useSlots();
 const attrs = useAttrs();
 
 const { focused } = useFocus(primitive);
 
 const model = computed({
   get: () => props.modelValue,
-  set: (value: string) => emit('update:modelValue', value),
+  set: (value: string) => {
+    emit('update:modelValue', value);
+  },
 });
 </script>
 
 <template>
   <div :class="{ enabled: !attrs.disabled, focused, error }" class="wrapper">
-    <textarea ref="primitive" v-model="model" class="input" v-bind="$attrs" />
+    <textarea ref="primitive" v-model="model" class="textarea" v-bind="$attrs" />
   </div>
 </template>
 
 <style scoped>
 .wrapper {
   display: flex;
+  height: max-content;
   align-items: center;
   border-radius: 8px;
   box-shadow: var(--shadow-xs);
@@ -58,27 +60,18 @@ const model = computed({
   box-shadow: var(--focus-xs-red);
 }
 
-.input {
+.textarea {
   width: 100%;
+  min-height: 130px;
   border: none;
   outline: none;
   padding: 11.5px 16px;
   background-color: transparent;
   font: var(--text-sm-regular);
+  resize: none;
 }
 
-.input:placeholder {
+.textarea:placeholder {
   color: var(--gray-300);
-}
-
-.tail {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 0 11.5px 0 0;
-}
-
-.icon {
-  color: var(--gray-500);
 }
 </style>

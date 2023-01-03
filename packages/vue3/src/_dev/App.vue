@@ -29,7 +29,7 @@ const checkboxModel = ref();
   </div>
 
   <div>
-    <TextArea v-model="textModel" placeholder="Placeholder text" />
+    <TextArea v-model="textModel" style="max-width:360px;" placeholder="Placeholder text" />
     value: {{ textModel }}
   </div>
 
