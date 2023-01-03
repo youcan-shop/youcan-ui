@@ -5,6 +5,7 @@ import {
   Checkbox,
   ColorPicker,
   Input,
+  InputGroup,
   Rating,
   RatingInput,
   TextArea,
@@ -19,15 +20,30 @@ const checkboxModel = ref();
 
 <template>
   <div>
-    <Input v-model="inputModel" :error="true" style="max-width:360px;" placeholder="Placeholder text">
-      <template #prefix>
-        <DropdownPrefix />
+    <InputGroup>
+      <template #label>
+        Input label
       </template>
-      <template #icon>
-        <i i-youcan-link />
-      </template>
-    </Input>
 
+      <template #error>
+        I think we boofed it
+      </template>
+
+      <template #info>
+        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Exercitationem, commodi.
+      </template>
+
+      <template #input>
+        <Input v-model="inputModel" :error="true" style="max-width:360px;" placeholder="Placeholder text">
+          <template #prefix>
+            <DropdownPrefix />
+          </template>
+          <template #icon>
+            <i i-youcan-link />
+          </template>
+        </Input>
+      </template>
+    </InputGroup>
     value: {{ inputModel }}
   </div>
 

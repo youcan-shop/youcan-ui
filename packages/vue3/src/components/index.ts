@@ -8,6 +8,7 @@ export { default as PrimaryDestructiveButton } from './Button/PrimaryDestructive
 export { default as SecondaryDestructiveButton } from './Button/SecondaryDestructiveButton.vue';
 export { default as TertiaryButton } from './Button/TertiaryButton.vue';
 export { default as Input } from './Input/Input.vue';
+export { default as InputGroup } from './Input/InputGroup.vue';
 export { default as ColorPicker } from './Color/ColorPicker.vue';
 export { default as Toggle } from './Toggle/Toggle.vue';
 export { default as TextArea } from './TextArea/TextArea.vue';
