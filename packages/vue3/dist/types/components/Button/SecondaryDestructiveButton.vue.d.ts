@@ -1,15 +1,14 @@
-import type { SelectItem } from '~/components/_Select/types';
+import type { ButtonIconPosition, ButtonSize } from '~/components/Button/types';
 declare const _default: {
     new (...args: any[]): {
         $: import("vue").ComponentInternalInstance;
         $data: {};
         $props: Partial<{}> & Omit<Readonly<import("vue").ExtractPropTypes<__VLS_TypePropsToRuntimeProps<{
-            items: SelectItem[];
-            modelValue: string;
-            placeholder?: string | undefined;
-        }>>> & {
-            "onUpdate:modelValue"?: ((...args: any[]) => any) | undefined;
-        } & import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, never>;
+            size: ButtonSize;
+            disabled?: boolean | undefined;
+            iconPosition?: ButtonIconPosition | undefined;
+            roundedFull?: boolean | undefined;
+        }>>> & import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, never>;
         $attrs: {
             [x: string]: unknown;
         };
@@ -21,15 +20,14 @@ declare const _default: {
         }>;
         $root: import("vue").ComponentPublicInstance<{}, {}, {}, {}, {}, {}, {}, {}, false, import("vue").ComponentOptionsBase<any, any, any, any, any, any, any, any, any, {}, {}, string>, {}> | null;
         $parent: import("vue").ComponentPublicInstance<{}, {}, {}, {}, {}, {}, {}, {}, false, import("vue").ComponentOptionsBase<any, any, any, any, any, any, any, any, any, {}, {}, string>, {}> | null;
-        $emit: (event: "update:modelValue", ...args: any[]) => void;
+        $emit: (event: string, ...args: any[]) => void;
         $el: any;
         $options: import("vue").ComponentOptionsBase<Readonly<import("vue").ExtractPropTypes<__VLS_TypePropsToRuntimeProps<{
-            items: SelectItem[];
-            modelValue: string;
-            placeholder?: string | undefined;
-        }>>> & {
-            "onUpdate:modelValue"?: ((...args: any[]) => any) | undefined;
-        }, {}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, "update:modelValue"[], string, {}, {}, string> & {
+            size: ButtonSize;
+            disabled?: boolean | undefined;
+            iconPosition?: ButtonIconPosition | undefined;
+            roundedFull?: boolean | undefined;
+        }>>>, {}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, {}, {}, string> & {
             beforeCreate?: ((() => void) | (() => void)[]) | undefined;
             created?: ((() => void) | (() => void)[]) | undefined;
             beforeMount?: ((() => void) | (() => void)[]) | undefined;
@@ -50,24 +48,23 @@ declare const _default: {
         $nextTick: typeof import("vue").nextTick;
         $watch<T extends string | ((...args: any) => any)>(source: T, cb: T extends (...args: any) => infer R ? (args_0: R, args_1: R) => any : (...args: any) => any, options?: import("vue").WatchOptions<boolean> | undefined): import("vue").WatchStopHandle;
     } & Readonly<import("vue").ExtractPropTypes<__VLS_TypePropsToRuntimeProps<{
-        items: SelectItem[];
-        modelValue: string;
-        placeholder?: string | undefined;
-    }>>> & {
-        "onUpdate:modelValue"?: ((...args: any[]) => any) | undefined;
-    } & import("vue").ShallowUnwrapRef<{}> & {} & import("vue").ComponentCustomProperties & {};
+        size: ButtonSize;
+        disabled?: boolean | undefined;
+        iconPosition?: ButtonIconPosition | undefined;
+        roundedFull?: boolean | undefined;
+    }>>> & import("vue").ShallowUnwrapRef<{}> & {} & import("vue").ComponentCustomProperties & {};
     __isFragment?: undefined;
     __isTeleport?: undefined;
     __isSuspense?: undefined;
 } & import("vue").ComponentOptionsBase<Readonly<import("vue").ExtractPropTypes<__VLS_TypePropsToRuntimeProps<{
-    items: SelectItem[];
-    modelValue: string;
-    placeholder?: string | undefined;
-}>>> & {
-    "onUpdate:modelValue"?: ((...args: any[]) => any) | undefined;
-}, {}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, "update:modelValue"[], "update:modelValue", {}, {}, string> & import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps & (new () => {
+    size: ButtonSize;
+    disabled?: boolean | undefined;
+    iconPosition?: ButtonIconPosition | undefined;
+    roundedFull?: boolean | undefined;
+}>>>, {}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, {}, {}, string> & import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps & (new () => {
     $slots: {
-        'no-result': (_: {}) => any;
+        icon: (_: {}) => any;
+        default: (_: {}) => any;
     };
 });
 export default _default;

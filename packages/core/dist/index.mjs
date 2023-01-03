@@ -16,10 +16,22 @@ const TypeUtils = {
 function uid(prefix) {
   return prefix + Date.now().toString(36).substring(4) + Math.random().toString(36).substring(2);
 }
+function partition(predicate) {
+  return function(subject) {
+    return subject.reduce(
+      (acc, val, idx, arr) => {
+        acc[predicate(val, idx, arr) ? 0 : 1].push(val);
+        return acc;
+      },
+      [[], []]
+    );
+  };
+}
 
 const MiscUtils = {
   __proto__: null,
-  uid: uid
+  uid: uid,
+  partition: partition
 };
 
 const index = { ...TypeUtils, ...MiscUtils };

@@ -1,21 +1,12 @@
-import type { HSV } from '@youcan/ui-core';
 declare const _default: {
     new (...args: any[]): {
         $: import("vue").ComponentInternalInstance;
         $data: {};
-        $props: Partial<{
-            size: number;
-            color: string;
-        }> & Omit<Readonly<import("vue").ExtractPropTypes<__VLS_WithDefaults<__VLS_TypePropsToRuntimeProps<{
-            color: string;
-            hsv: HSV;
-            size: number;
-        }>, {
-            color: string;
-            size: number;
+        $props: Partial<{}> & Omit<Readonly<import("vue").ExtractPropTypes<__VLS_TypePropsToRuntimeProps<{
+            modelValue: boolean;
         }>>> & {
-            onSetsaturation?: ((...args: any[]) => any) | undefined;
-        } & import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, "size" | "color">;
+            "onUpdate:modelValue"?: ((...args: any[]) => any) | undefined;
+        } & import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, never>;
         $attrs: {
             [x: string]: unknown;
         };
@@ -27,24 +18,13 @@ declare const _default: {
         }>;
         $root: import("vue").ComponentPublicInstance<{}, {}, {}, {}, {}, {}, {}, {}, false, import("vue").ComponentOptionsBase<any, any, any, any, any, any, any, any, any, {}, {}, string>, {}> | null;
         $parent: import("vue").ComponentPublicInstance<{}, {}, {}, {}, {}, {}, {}, {}, false, import("vue").ComponentOptionsBase<any, any, any, any, any, any, any, any, any, {}, {}, string>, {}> | null;
-        $emit: (event: "setsaturation", ...args: any[]) => void;
+        $emit: (event: "update:modelValue", ...args: any[]) => void;
         $el: any;
-        $options: import("vue").ComponentOptionsBase<Readonly<import("vue").ExtractPropTypes<__VLS_WithDefaults<__VLS_TypePropsToRuntimeProps<{
-            color: string;
-            hsv: HSV;
-            size: number;
-        }>, {
-            color: string;
-            size: number;
+        $options: import("vue").ComponentOptionsBase<Readonly<import("vue").ExtractPropTypes<__VLS_TypePropsToRuntimeProps<{
+            modelValue: boolean;
         }>>> & {
-            onSetsaturation?: ((...args: any[]) => any) | undefined;
-        }, {
-            renderColor: () => void;
-            renderSlider: () => void;
-        }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, "setsaturation"[], string, {
-            size: number;
-            color: string;
-        }, {}, string> & {
+            "onUpdate:modelValue"?: ((...args: any[]) => any) | undefined;
+        }, {}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, "update:modelValue"[], string, {}, {}, string> & {
             beforeCreate?: ((() => void) | (() => void)[]) | undefined;
             created?: ((() => void) | (() => void)[]) | undefined;
             beforeMount?: ((() => void) | (() => void)[]) | undefined;
@@ -64,38 +44,19 @@ declare const _default: {
         $forceUpdate: () => void;
         $nextTick: typeof import("vue").nextTick;
         $watch<T extends string | ((...args: any) => any)>(source: T, cb: T extends (...args: any) => infer R ? (args_0: R, args_1: R) => any : (...args: any) => any, options?: import("vue").WatchOptions<boolean> | undefined): import("vue").WatchStopHandle;
-    } & Readonly<import("vue").ExtractPropTypes<__VLS_WithDefaults<__VLS_TypePropsToRuntimeProps<{
-        color: string;
-        hsv: HSV;
-        size: number;
-    }>, {
-        color: string;
-        size: number;
+    } & Readonly<import("vue").ExtractPropTypes<__VLS_TypePropsToRuntimeProps<{
+        modelValue: boolean;
     }>>> & {
-        onSetsaturation?: ((...args: any[]) => any) | undefined;
-    } & import("vue").ShallowUnwrapRef<{
-        renderColor: () => void;
-        renderSlider: () => void;
-    }> & {} & import("vue").ComponentCustomProperties & {};
+        "onUpdate:modelValue"?: ((...args: any[]) => any) | undefined;
+    } & import("vue").ShallowUnwrapRef<{}> & {} & import("vue").ComponentCustomProperties & {};
     __isFragment?: undefined;
     __isTeleport?: undefined;
     __isSuspense?: undefined;
-} & import("vue").ComponentOptionsBase<Readonly<import("vue").ExtractPropTypes<__VLS_WithDefaults<__VLS_TypePropsToRuntimeProps<{
-    color: string;
-    hsv: HSV;
-    size: number;
-}>, {
-    color: string;
-    size: number;
+} & import("vue").ComponentOptionsBase<Readonly<import("vue").ExtractPropTypes<__VLS_TypePropsToRuntimeProps<{
+    modelValue: boolean;
 }>>> & {
-    onSetsaturation?: ((...args: any[]) => any) | undefined;
-}, {
-    renderColor: () => void;
-    renderSlider: () => void;
-}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, "setsaturation"[], "setsaturation", {
-    size: number;
-    color: string;
-}, {}, string> & import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps;
+    "onUpdate:modelValue"?: ((...args: any[]) => any) | undefined;
+}, {}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, "update:modelValue"[], "update:modelValue", {}, {}, string> & import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps;
 export default _default;
 declare type __VLS_NonUndefinedable<T> = T extends undefined ? never : T;
 declare type __VLS_TypePropsToRuntimeProps<T> = {
@@ -105,9 +66,4 @@ declare type __VLS_TypePropsToRuntimeProps<T> = {
         type: import('vue').PropType<T[K]>;
         required: true;
     };
-};
-declare type __VLS_WithDefaults<P, D> = {
-    [K in keyof Pick<P, keyof P>]: K extends keyof D ? P[K] & {
-        default: D[K];
-    } : P[K];
 };

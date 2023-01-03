@@ -1,13 +1,22 @@
+import type { ButtonIconPosition, ButtonSize } from './types';
 declare const _default: {
     new (...args: any[]): {
         $: import("vue").ComponentInternalInstance;
         $data: {};
-        $props: Partial<{}> & Omit<Readonly<import("vue").ExtractPropTypes<__VLS_TypePropsToRuntimeProps<{
-            modelValue: string;
-            placeholder?: string | undefined;
-        }>>> & {
-            "onUpdate:modelValue"?: ((...args: any[]) => any) | undefined;
-        } & import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, never>;
+        $props: Partial<{
+            disabled: boolean;
+            iconPosition: ButtonIconPosition;
+            roundedFull: boolean;
+        }> & Omit<Readonly<import("vue").ExtractPropTypes<__VLS_WithDefaults<__VLS_TypePropsToRuntimeProps<{
+            size: ButtonSize;
+            disabled?: boolean | undefined;
+            iconPosition?: ButtonIconPosition | undefined;
+            roundedFull?: boolean | undefined;
+        }>, {
+            iconPosition: string;
+            roundedFull: boolean;
+            disabled: boolean;
+        }>>> & import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, "disabled" | "iconPosition" | "roundedFull">;
         $attrs: {
             [x: string]: unknown;
         };
@@ -19,14 +28,22 @@ declare const _default: {
         }>;
         $root: import("vue").ComponentPublicInstance<{}, {}, {}, {}, {}, {}, {}, {}, false, import("vue").ComponentOptionsBase<any, any, any, any, any, any, any, any, any, {}, {}, string>, {}> | null;
         $parent: import("vue").ComponentPublicInstance<{}, {}, {}, {}, {}, {}, {}, {}, false, import("vue").ComponentOptionsBase<any, any, any, any, any, any, any, any, any, {}, {}, string>, {}> | null;
-        $emit: (event: "update:modelValue", ...args: any[]) => void;
+        $emit: (event: string, ...args: any[]) => void;
         $el: any;
-        $options: import("vue").ComponentOptionsBase<Readonly<import("vue").ExtractPropTypes<__VLS_TypePropsToRuntimeProps<{
-            modelValue: string;
-            placeholder?: string | undefined;
-        }>>> & {
-            "onUpdate:modelValue"?: ((...args: any[]) => any) | undefined;
-        }, {}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, "update:modelValue"[], string, {}, {}, string> & {
+        $options: import("vue").ComponentOptionsBase<Readonly<import("vue").ExtractPropTypes<__VLS_WithDefaults<__VLS_TypePropsToRuntimeProps<{
+            size: ButtonSize;
+            disabled?: boolean | undefined;
+            iconPosition?: ButtonIconPosition | undefined;
+            roundedFull?: boolean | undefined;
+        }>, {
+            iconPosition: string;
+            roundedFull: boolean;
+            disabled: boolean;
+        }>>>, {}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, {
+            disabled: boolean;
+            iconPosition: ButtonIconPosition;
+            roundedFull: boolean;
+        }, {}, string> & {
             beforeCreate?: ((() => void) | (() => void)[]) | undefined;
             created?: ((() => void) | (() => void)[]) | undefined;
             beforeMount?: ((() => void) | (() => void)[]) | undefined;
@@ -46,21 +63,38 @@ declare const _default: {
         $forceUpdate: () => void;
         $nextTick: typeof import("vue").nextTick;
         $watch<T extends string | ((...args: any) => any)>(source: T, cb: T extends (...args: any) => infer R ? (args_0: R, args_1: R) => any : (...args: any) => any, options?: import("vue").WatchOptions<boolean> | undefined): import("vue").WatchStopHandle;
-    } & Readonly<import("vue").ExtractPropTypes<__VLS_TypePropsToRuntimeProps<{
-        modelValue: string;
-        placeholder?: string | undefined;
-    }>>> & {
-        "onUpdate:modelValue"?: ((...args: any[]) => any) | undefined;
-    } & import("vue").ShallowUnwrapRef<{}> & {} & import("vue").ComponentCustomProperties & {};
+    } & Readonly<import("vue").ExtractPropTypes<__VLS_WithDefaults<__VLS_TypePropsToRuntimeProps<{
+        size: ButtonSize;
+        disabled?: boolean | undefined;
+        iconPosition?: ButtonIconPosition | undefined;
+        roundedFull?: boolean | undefined;
+    }>, {
+        iconPosition: string;
+        roundedFull: boolean;
+        disabled: boolean;
+    }>>> & import("vue").ShallowUnwrapRef<{}> & {} & import("vue").ComponentCustomProperties & {};
     __isFragment?: undefined;
     __isTeleport?: undefined;
     __isSuspense?: undefined;
-} & import("vue").ComponentOptionsBase<Readonly<import("vue").ExtractPropTypes<__VLS_TypePropsToRuntimeProps<{
-    modelValue: string;
-    placeholder?: string | undefined;
-}>>> & {
-    "onUpdate:modelValue"?: ((...args: any[]) => any) | undefined;
-}, {}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, "update:modelValue"[], "update:modelValue", {}, {}, string> & import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps;
+} & import("vue").ComponentOptionsBase<Readonly<import("vue").ExtractPropTypes<__VLS_WithDefaults<__VLS_TypePropsToRuntimeProps<{
+    size: ButtonSize;
+    disabled?: boolean | undefined;
+    iconPosition?: ButtonIconPosition | undefined;
+    roundedFull?: boolean | undefined;
+}>, {
+    iconPosition: string;
+    roundedFull: boolean;
+    disabled: boolean;
+}>>>, {}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, {
+    disabled: boolean;
+    iconPosition: ButtonIconPosition;
+    roundedFull: boolean;
+}, {}, string> & import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps & (new () => {
+    $slots: {
+        icon: (_: {}) => any;
+        default: (_: {}) => any;
+    };
+});
 export default _default;
 declare type __VLS_NonUndefinedable<T> = T extends undefined ? never : T;
 declare type __VLS_TypePropsToRuntimeProps<T> = {
@@ -70,4 +104,9 @@ declare type __VLS_TypePropsToRuntimeProps<T> = {
         type: import('vue').PropType<T[K]>;
         required: true;
     };
+};
+declare type __VLS_WithDefaults<P, D> = {
+    [K in keyof Pick<P, keyof P>]: K extends keyof D ? P[K] & {
+        default: D[K];
+    } : P[K];
 };

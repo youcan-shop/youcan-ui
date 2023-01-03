@@ -1,6 +1,6 @@
 {
 	"prefix": "youcan",
-	"lastModified": 1672751366,
+	"lastModified": 1672757739,
 	"icons": {
 		"account": {
 			"body": "<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.4\"><path stroke-miterlimit=\"10\" d=\"M10 12.5a5 5 0 1 0 0-10a5 5 0 0 0 0 10Z\"/><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M2.422 16.875a8.75 8.75 0 0 1 15.156 0\"/></g>"
@@ -137,6 +137,9 @@
 		},
 		"special-characters": {
 			"body": "<path fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"1.4\" d=\"M5 5h10M3.75 9.375h12.5m-4.375 0v4.375a1.87 1.87 0 0 0 1.875 1.875h3.125V13.75m-8.75-4.375v1.25a5.008 5.008 0 0 1-5 5\"/>"
+		},
+		"star": {
+			"body": "<path fill=\"currentColor\" d=\"M17.94 8.098a1.172 1.172 0 0 0-1.042-.814l-4.242-.293l-1.57-3.963A1.17 1.17 0 0 0 10 2.285a1.171 1.171 0 0 0-1.085.743l-1.6 3.984l-4.213.272a1.178 1.178 0 0 0-1.043.814A1.2 1.2 0 0 0 2.43 9.39l3.243 2.742l-.965 3.792a1.321 1.321 0 0 0 .5 1.4a1.286 1.286 0 0 0 1.436.043l3.349-2.121h.014l3.606 2.278c.185.12.401.185.622.186a1.179 1.179 0 0 0 1.128-1.486l-1.021-4.149L17.57 9.39a1.2 1.2 0 0 0 .37-1.292Z\"/>"
 		},
 		"strikethrough": {
 			"body": "<path fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"1.4\" d=\"M3.125 10h13.75M5.96 7.5a1.976 1.976 0 0 1-.093-.625C5.867 5.148 7.586 3.75 10 3.75c1.86 0 3.305.828 3.867 1.992m-8.242 7.383c0 1.727 1.96 3.125 4.375 3.125c2.414 0 4.375-1.398 4.375-3.125c0-1.86-1.688-2.578-3.563-3.125\"/>"
