@@ -2,14 +2,12 @@ import {
   defineConfig,
   presetAttributify,
   presetIcons,
-  presetUno,
 } from 'unocss';
 import YouCanIconsInfo from '@youcan/ui-icons/info.json';
 import YouCanIcons from '@youcan/ui-icons/icons.json';
 
 export default defineConfig({
   presets: [
-    presetUno(),
     presetAttributify(),
     presetIcons({
       scale: 1.2,
