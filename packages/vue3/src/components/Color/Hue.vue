@@ -19,37 +19,35 @@ const renderColor = () => {
   canvas.value!.width = width;
   canvas.value!.height = height;
 
-  const gradient = constructHueGradient(context, height);
+  const gradient = constructHueGradient(context, width);
   context.fillStyle = gradient;
   context.fillRect(0, 0, width, height);
 };
 
 const renderSlider = () => {
   hueSliderStyles.value = {
-    top: `${(1 - hsv.h / 360) * height - 2}px`,
+    left: `${(1 - hsv.h / 360) * width - 2}px`,
   };
 };
 
 const setHue = (event: MouseEvent) => {
-  const { top: hueTop } = wrapper.value!.getBoundingClientRect();
+  const { left: hueLeft } = wrapper.value!.getBoundingClientRect();
   const context = canvas.value!.getContext('2d', { willReadFrequently: true })!;
 
   function handleMouseMove(e: MouseEvent) {
-    let y = e.clientY - hueTop;
-
-    if (y < 0) {
-      y = 0;
+    let x = e.clientX - hueLeft;
+    if (x < 0) {
+      x = 0;
     }
 
-    if (y > height) {
-      y = height;
+    if (x > width) {
+      x = width;
     }
-
     hueSliderStyles.value = {
-      top: `${y - 2}px`,
+      left: `${x - 12}px`,
     };
 
-    const previewData = context.getImageData(0, Math.min(y, height - 1), 1, 1);
+    const previewData = context.getImageData(Math.min(x, width - 1), 1, 1, 1);
     const [r, g, b] = previewData.data;
     emit('sethue', { r, g, b });
   }
@@ -90,14 +88,16 @@ defineExpose({ renderColor, renderSlider });
 }
 
 .canvas {
-  border-radius: calc(v-bind("`${width}px`") * .5);
+  border-radius: 500px;
 }
 
 .hue-wrapper .slider {
     position: absolute;
-    left: 0;
     width: v-bind("`${width}px`");
-    background: var(--white);
+    background: var(--base-white);
+    box-shadow: var(--shadow-sm);
     pointer-events: none;
+    width: 24px;
+    top: 2px;
 }
 </style>

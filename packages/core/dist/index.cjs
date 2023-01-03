@@ -46,8 +46,8 @@ const constructLinearGradient = (context, width, height, color1, color2, directi
   context.fillStyle = gradient;
   context.fillRect(0, 0, width, height);
 };
-const constructHueGradient = (context, height) => {
-  const gradient = context.createLinearGradient(0, 0, 0, height);
+const constructHueGradient = (context, width) => {
+  const gradient = context.createLinearGradient(0, 0, width, 0);
   gradient.addColorStop(0, "#FF0000");
   gradient.addColorStop(0.17 * 1, "#FF00FF");
   gradient.addColorStop(0.17 * 2, "#0000FF");

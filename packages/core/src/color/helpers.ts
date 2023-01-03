@@ -49,9 +49,9 @@ export const constructLinearGradient = (
 
 export const constructHueGradient = (
   context: CanvasRenderingContext2D,
-  height: number,
+  width: number,
 ) => {
-  const gradient = context.createLinearGradient(0, 0, 0, height);
+  const gradient = context.createLinearGradient(0, 0, width, 0);
   gradient.addColorStop(0, '#FF0000');
   gradient.addColorStop(0.17 * 1, '#FF00FF');
   gradient.addColorStop(0.17 * 2, '#0000FF');
