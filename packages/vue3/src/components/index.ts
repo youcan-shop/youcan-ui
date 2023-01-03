@@ -7,7 +7,7 @@ export { default as SecondaryButton } from './Button/SecondaryButton.vue';
 export { default as PrimaryDestructiveButton } from './Button/PrimaryDestructiveButton.vue';
 export { default as SecondaryDestructiveButton } from './Button/SecondaryDestructiveButton.vue';
 export { default as TertiaryButton } from './Button/TertiaryButton.vue';
-export { default as ComboBox } from './ComboBox/ComboBox.vue';
 export { default as Input } from './Input/Input.vue';
 export { default as ColorPicker } from './Color/ColorPicker.vue';
 export { default as Toggle } from './Toggle/Toggle.vue';
+export { default as TextArea } from './TextArea/TextArea.vue';
