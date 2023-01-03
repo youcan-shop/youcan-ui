@@ -54,6 +54,8 @@
     "@vueuse/core": "^9.9.0",
     "@youcan/ui-core": "*",
     "@youcan/ui-icons": "*",
+    "@zag-js/number-input": "^0.2.7",
+    "@zag-js/vue": "^0.2.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "rimraf": "^3.0.2",
