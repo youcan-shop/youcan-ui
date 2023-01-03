@@ -10,6 +10,7 @@ export { default as TertiaryButton } from './Button/TertiaryButton.vue';
 export { default as Input } from './Input/Input.vue';
 export { default as InputGroup } from './Input/InputGroup.vue';
 export { default as ColorPicker } from './Color/ColorPicker.vue';
+export { default as ColorInput } from './Color/ColorInput.vue';
 export { default as Toggle } from './Toggle/Toggle.vue';
 export { default as TextArea } from './TextArea/TextArea.vue';
 export { default as Rating } from './Rating/Rating.vue';

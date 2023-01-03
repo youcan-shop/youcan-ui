@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { computed, nextTick, onMounted, ref, watch } from 'vue';
+import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import type { HSV, RGBA } from '@youcan/ui-core';
 import { parseColor, rgbToHex, rgbaToHex } from '@youcan/ui-core';
-import Override from './Override.vue';
-import Swatches from './Swatches.vue';
-import Saturation from './Saturation.vue';
-import Hue from './Hue.vue';
-import Alpha from './Alpha.vue';
+import Override from './Internal/Override.vue';
+import Swatches from './Internal/Swatches.vue';
+import Saturation from './Internal/Saturation.vue';
+import Hue from './Internal/Hue.vue';
+import Alpha from './Internal/Alpha.vue';
 
 const { color, defaults } = withDefaults(
   defineProps<{ color: string; defaults: string[] }>(),
@@ -66,6 +66,7 @@ const setAlpha = (a: number) => {
 const inputHex = (color: string) => {
   currentColor.value = parseColor(color);
   hexModel.value = color;
+  hexaModel.value = color;
   rgbaModel.value = rgbaString.value;
 
   nextTick(() => {
@@ -115,10 +116,11 @@ watch(
 
 <style scoped lang="scss">
 .color-picker {
-  width: min-content;
+  background-color: var(--base-white);
   box-shadow: var(--shadow-md);
-  padding: 12px;
+  width: min-content;
   border-radius: 8px;
+  padding: 12px;
 }
 
 .sliders {

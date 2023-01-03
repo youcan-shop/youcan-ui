@@ -3,19 +3,19 @@ import { ref } from 'vue';
 import '~/assets/main.css';
 import {
   Checkbox,
+  ColorInput,
   ColorPicker,
-  Input,
   InputGroup,
   Rating,
   RatingInput,
   TextArea,
 } from '~/components';
-import DropdownPrefix from '~/components/Input/prefixes/DropdownPrefix.vue';
 
 const textModel = ref();
 const inputModel = ref();
 const ratingModel = ref(1);
 const checkboxModel = ref();
+const colorModel = ref('#ff7420ff');
 </script>
 
 <template>
@@ -34,14 +34,7 @@ const checkboxModel = ref();
       </template>
 
       <template #input>
-        <Input v-model="inputModel" :error="true" style="max-width:360px;" placeholder="Placeholder text">
-          <template #prefix>
-            <DropdownPrefix />
-          </template>
-          <template #icon>
-            <i i-youcan-link />
-          </template>
-        </Input>
+        <ColorInput v-model="colorModel" style="max-width:360px;" />
       </template>
     </InputGroup>
     value: {{ inputModel }}
