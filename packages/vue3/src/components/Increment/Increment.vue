@@ -2,7 +2,7 @@
 import { Utils } from '@youcan/ui-core';
 import * as numberInput from '@zag-js/number-input';
 import { normalizeProps, useMachine } from '@zag-js/vue';
-import { computed } from 'vue';
+import { computed, watchEffect } from 'vue';
 import type { IncrementMachineValue } from './types';
 
 const props = withDefaults(defineProps<{
@@ -28,18 +28,16 @@ const model = computed({
 console.log(model.value);
 
 const [state, send] = useMachine(numberInput.machine({
-  value: model.value,
-  onChange: (value: IncrementMachineValue) => console.log(value),
+  value: '10',
+  // onChange: (value: IncrementMachineValue) => console.log(value),
   id: props.id,
-  min: props.min,
-  max: props.max,
-  step: props.step,
-  allowMouseWheel: false,
 }));
 
 const api = computed(() =>
   numberInput.connect(state.value, send, normalizeProps),
 );
+
+console.log(api.value.inputProps);
 </script>
 
 <template>
@@ -49,7 +47,7 @@ const api = computed(() =>
       <button v-bind="api.decrementTriggerProps">
         DEC
       </button>
-      <input v-bind="api.inputProps">
+      <input v-bind="api.inputProps" value="10">
       <button v-bind="api.incrementTriggerProps">
         INC
       </button>
