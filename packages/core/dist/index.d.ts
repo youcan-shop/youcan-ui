@@ -1,4 +1,5 @@
 declare const _default: {
+    uid(prefix: string): string;
     l<T>(arg: unknown): T;
     templatify: (template: unknown) => {
         args: Record<string, unknown>;

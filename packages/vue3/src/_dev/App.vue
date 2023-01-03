@@ -2,12 +2,14 @@
 import { ref } from 'vue';
 import '~/assets/main.css';
 import {
+  Checkbox,
   ColorPicker,
   Input,
 } from '~/components';
 import DropdownPrefix from '~/components/Input/prefixes/DropdownPrefix.vue';
 
 const inputModel = ref();
+const checkboxModel = ref();
 </script>
 
 <template>
@@ -26,6 +28,14 @@ const inputModel = ref();
 
   <div>
     <ColorPicker />
+  </div>
+
+  <div>
+    <Checkbox v-model="checkboxModel" disabled>
+      <template #label>
+        What the dog doing
+      </template>
+    </Checkbox>
   </div>
 </template>
 
