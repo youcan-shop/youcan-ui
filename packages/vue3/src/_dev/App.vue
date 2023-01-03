@@ -5,9 +5,11 @@ import {
   Checkbox,
   ColorPicker,
   Input,
+  TextArea,
 } from '~/components';
 import DropdownPrefix from '~/components/Input/prefixes/DropdownPrefix.vue';
 
+const textModel = ref();
 const inputModel = ref();
 const checkboxModel = ref();
 </script>
@@ -24,6 +26,11 @@ const checkboxModel = ref();
     </Input>
 
     value: {{ inputModel }}
+  </div>
+
+  <div>
+    <TextArea v-model="textModel" style="max-width:360px;" placeholder="Placeholder text" />
+    value: {{ textModel }}
   </div>
 
   <div>
