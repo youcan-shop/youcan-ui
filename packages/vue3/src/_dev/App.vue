@@ -5,6 +5,7 @@ import {
   Checkbox,
   ColorPicker,
   Input,
+  Rating,
   TextArea,
 } from '~/components';
 import DropdownPrefix from '~/components/Input/prefixes/DropdownPrefix.vue';
@@ -26,6 +27,10 @@ const checkboxModel = ref();
     </Input>
 
     value: {{ inputModel }}
+  </div>
+
+  <div>
+    <Rating :score="3" />
   </div>
 
   <div>

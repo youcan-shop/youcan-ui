@@ -1,6 +1,7 @@
 declare const _default: {
     uid(prefix: string): string;
-    l<T>(arg: unknown): T;
+    partition<T>(predicate: (acc: T, idx?: number | undefined, arr?: T[] | undefined) => boolean): (subject: T[]) => [T[], T[]];
+    l<T_1>(arg: unknown): T_1;
     templatify: (template: unknown) => {
         args: Record<string, unknown>;
     };

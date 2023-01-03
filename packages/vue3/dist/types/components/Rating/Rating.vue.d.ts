@@ -1,21 +1,17 @@
-import type { HSV } from '@youcan/ui-core';
 declare const _default: {
     new (...args: any[]): {
         $: import("vue").ComponentInternalInstance;
         $data: {};
         $props: Partial<{
-            size: number;
-            color: string;
+            ceil: number;
+            score: number;
         }> & Omit<Readonly<import("vue").ExtractPropTypes<__VLS_WithDefaults<__VLS_TypePropsToRuntimeProps<{
-            color: string;
-            hsv: HSV;
-            size: number;
+            ceil?: number | undefined;
+            score: number;
         }>, {
-            color: string;
-            size: number;
-        }>>> & {
-            onSetsaturation?: ((...args: any[]) => any) | undefined;
-        } & import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, "size" | "color">;
+            ceil: number;
+            score: number;
+        }>>> & import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, "ceil" | "score">;
         $attrs: {
             [x: string]: unknown;
         };
@@ -27,23 +23,17 @@ declare const _default: {
         }>;
         $root: import("vue").ComponentPublicInstance<{}, {}, {}, {}, {}, {}, {}, {}, false, import("vue").ComponentOptionsBase<any, any, any, any, any, any, any, any, any, {}, {}, string>, {}> | null;
         $parent: import("vue").ComponentPublicInstance<{}, {}, {}, {}, {}, {}, {}, {}, false, import("vue").ComponentOptionsBase<any, any, any, any, any, any, any, any, any, {}, {}, string>, {}> | null;
-        $emit: (event: "setsaturation", ...args: any[]) => void;
+        $emit: (event: string, ...args: any[]) => void;
         $el: any;
         $options: import("vue").ComponentOptionsBase<Readonly<import("vue").ExtractPropTypes<__VLS_WithDefaults<__VLS_TypePropsToRuntimeProps<{
-            color: string;
-            hsv: HSV;
-            size: number;
+            ceil?: number | undefined;
+            score: number;
         }>, {
-            color: string;
-            size: number;
-        }>>> & {
-            onSetsaturation?: ((...args: any[]) => any) | undefined;
-        }, {
-            renderColor: () => void;
-            renderSlider: () => void;
-        }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, "setsaturation"[], string, {
-            size: number;
-            color: string;
+            ceil: number;
+            score: number;
+        }>>>, {}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, {
+            ceil: number;
+            score: number;
         }, {}, string> & {
             beforeCreate?: ((() => void) | (() => void)[]) | undefined;
             created?: ((() => void) | (() => void)[]) | undefined;
@@ -65,36 +55,24 @@ declare const _default: {
         $nextTick: typeof import("vue").nextTick;
         $watch<T extends string | ((...args: any) => any)>(source: T, cb: T extends (...args: any) => infer R ? (args_0: R, args_1: R) => any : (...args: any) => any, options?: import("vue").WatchOptions<boolean> | undefined): import("vue").WatchStopHandle;
     } & Readonly<import("vue").ExtractPropTypes<__VLS_WithDefaults<__VLS_TypePropsToRuntimeProps<{
-        color: string;
-        hsv: HSV;
-        size: number;
+        ceil?: number | undefined;
+        score: number;
     }>, {
-        color: string;
-        size: number;
-    }>>> & {
-        onSetsaturation?: ((...args: any[]) => any) | undefined;
-    } & import("vue").ShallowUnwrapRef<{
-        renderColor: () => void;
-        renderSlider: () => void;
-    }> & {} & import("vue").ComponentCustomProperties & {};
+        ceil: number;
+        score: number;
+    }>>> & import("vue").ShallowUnwrapRef<{}> & {} & import("vue").ComponentCustomProperties & {};
     __isFragment?: undefined;
     __isTeleport?: undefined;
     __isSuspense?: undefined;
 } & import("vue").ComponentOptionsBase<Readonly<import("vue").ExtractPropTypes<__VLS_WithDefaults<__VLS_TypePropsToRuntimeProps<{
-    color: string;
-    hsv: HSV;
-    size: number;
+    ceil?: number | undefined;
+    score: number;
 }>, {
-    color: string;
-    size: number;
-}>>> & {
-    onSetsaturation?: ((...args: any[]) => any) | undefined;
-}, {
-    renderColor: () => void;
-    renderSlider: () => void;
-}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, "setsaturation"[], "setsaturation", {
-    size: number;
-    color: string;
+    ceil: number;
+    score: number;
+}>>>, {}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, {
+    ceil: number;
+    score: number;
 }, {}, string> & import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps;
 export default _default;
 declare type __VLS_NonUndefinedable<T> = T extends undefined ? never : T;
