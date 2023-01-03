@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, nextTick, onMounted, ref, watch } from 'vue';
+import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import type { HSV, RGBA } from '@youcan/ui-core';
 import { parseColor, rgbToHex, rgbaToHex } from '@youcan/ui-core';
 import Override from './Internal/Override.vue';
@@ -66,6 +66,7 @@ const setAlpha = (a: number) => {
 const inputHex = (color: string) => {
   currentColor.value = parseColor(color);
   hexModel.value = color;
+  hexaModel.value = color;
   rgbaModel.value = rgbaString.value;
 
   nextTick(() => {
