@@ -1,8 +1,6 @@
 <script setup lang="ts">
-import { off } from 'process';
 import { Utils } from '@youcan/ui-core';
-import { computed, onMounted, ref, watchEffect } from 'vue';
-import type { IncrementMachineValue } from './types';
+import { computed, onMounted, ref } from 'vue';
 import TertiaryButtonVue from '~/components/Button/TertiaryButton.vue';
 
 const props = withDefaults(defineProps<{

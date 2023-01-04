@@ -12,8 +12,42 @@ export default meta;
 
 export const TagInput = {
   args: {
+    type: 'text',
+    modelValue: [
+      { label: 'Cosmetics' },
+      { label: 'Beauty' },
+      { label: 'Women' },
+    ],
+    placeholder: 'Placeholder text',
+  },
+  argTypes: {
+    type: {
+      options: ['text', 'color'],
+      control: {
+        type: 'select',
+      },
+    },
   },
 };
+
+const Tag_Template = (args: Record<string, unknown>, { argTypes }: Record<string, Record<string, unknown>>) => ({
+  props: Object.keys(argTypes).filter(x => x !== 'modelValue'),
+  data() {
+    return {
+      type: 'text',
+      modelValue: [
+        { label: 'Cosmetics' },
+        { label: 'Beauty' },
+        { label: 'Women' },
+      ],
+      placeholder: 'Placeholder text',
+    };
+  },
+  components: { Tag_ },
+  template: '<Tag_ v-bind="$props" v-model="modelValue" /><span class="sb-c-preview-text">Data: {{ modelValue }}</span>',
+});
+
+export const VModelTagInput = Tag_Template.bind({});
 
 export const TagItem = {
   render: (args: Record<string, unknown>, { argTypes }: Record<string, Record<string, unknown>>) => ({
