@@ -21,3 +21,4 @@ export { default as FileInput } from './Upload/FileInput.vue';
 export { default as UploadedFile } from './Upload/UploadedFile.vue';
 export { default as UploadedMedia } from './Upload/UploadedMedia.vue';
 export { default as Increment } from './Increment/Increment.vue';
+export { default as Tag } from './Tag/Tag.vue';
