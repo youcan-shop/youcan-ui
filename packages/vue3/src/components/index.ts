@@ -18,3 +18,5 @@ export { default as RatingInput } from './Rating/RatingInput.vue';
 export { default as Badge } from './Badge/Badge.vue';
 export { default as Thumbnail } from './Thumbnail/Thumbnail.vue';
 export { default as FileInput } from './Upload/FileInput.vue';
+export { default as UploadedFile } from './Upload/UploadedFile.vue';
+export { default as UploadedMedia } from './Upload/UploadedMedia.vue';

@@ -3,8 +3,9 @@ import { ref } from 'vue';
 import '~/assets/main.css';
 import {
   FileInput,
+  UploadedFile,
+  UploadedMedia,
 } from '~/components';
-import UploadedFile from '~/components/Upload/Internal/UploadedFile.vue';
 
 const fileArr = ref<File[]>([]);
 
@@ -33,6 +34,9 @@ function deletefile(file: File) {
     </div>
     <div class="files">
       <UploadedFile v-for="file in fileArr" :key="file.name" :file="file" @delete="deletefile(file)" />
+    </div>
+    <div class="files">
+      <UploadedMedia v-for="file in fileArr" :key="file.name" :file="file" @delete="deletefile(file)" />
     </div>
   </div>
 </template>
