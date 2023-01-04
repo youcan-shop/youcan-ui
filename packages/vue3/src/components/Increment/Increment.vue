@@ -17,7 +17,7 @@ const props = withDefaults(defineProps<{
   id: Utils.uid('increment_'),
   min: 0,
   step: 1,
-  disabled: true,
+  disabled: false,
 });
 
 const emit = defineEmits(['update:modelValue']);
@@ -136,6 +136,7 @@ onMounted(() => {
   border-radius: 8px;
   border: var(--border);
   box-shadow: var(--shadow);
+  outline: none;
 }
 
 .increment:hover {
