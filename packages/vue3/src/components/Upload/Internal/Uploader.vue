@@ -1,39 +1,29 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
-const props = withDefaults(
-  defineProps<{ modelValue: File[]; limit?: number }>(),
-  { limit: 1 },
-);
+const props = withDefaults(defineProps<{ limit?: number }>(), { limit: 1 });
 
-const emit = defineEmits([
-  'update:modelValue',
-  'dragenter',
-  'dragleave',
-  'drop',
-]);
+const emit = defineEmits(['dragenter', 'dragleave', 'input', 'drop']);
 
 const facade = ref();
 const input = ref<HTMLInputElement>();
 
-function addFile(file: File) {
-  emit('update:modelValue', [...props.modelValue, file]);
+function addfiles(files: File[]) {
+  emit('input', files);
 }
 
 function handledrop(e: DragEvent) {
   const files = Array.from(e.dataTransfer?.files ?? []);
-  files.forEach((file) => {
-    addFile(file);
-    emit('drop', file);
-  });
+
+  emit('drop', files);
+  addfiles(files);
 }
 
 function handleinput(_e: Event) {
   const files = Array.from(input.value!.files ?? []);
-  files.forEach((file) => {
-    addFile(file);
-    emit('drop', file);
-  });
+
+  emit('drop', files);
+  addfiles(files);
 }
 
 function handledragenter(e: DragEvent) {
