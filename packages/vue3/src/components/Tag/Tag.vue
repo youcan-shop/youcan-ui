@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, ref, watch } from 'vue';
+import { computed, onMounted, ref, vModelRadio, watch } from 'vue';
 import { Utils } from '@youcan/ui-core';
 import TagItem from './TagItem.vue';
 import type { TagItemType, TagItemValue, UniqueTagItem } from './types';
@@ -7,6 +7,7 @@ import type { TagItemType, TagItemValue, UniqueTagItem } from './types';
 const props = withDefaults(defineProps<{
   modelValue: TagItemValue[]
   type?: TagItemType
+  max?: number
   placeholder?: string
   disabled?: boolean
   error?: boolean
@@ -24,9 +25,17 @@ const tagsContainer = ref<HTMLDivElement>();
 const newTagLabel = ref('');
 
 const model = computed({
-  get: () => props.modelValue.map((item: TagItemValue) => ({ ...item, id: Utils.uid(item.label) }) as UniqueTagItem),
-  set: (value: UniqueTagItem[]) => emit('update:modelValue', value.map(({ label, hexColor }: UniqueTagItem) => ({ label, hexColor }) as TagItemValue)),
+  get: () => props.modelValue,
+  set: (value: TagItemValue[]) => emit('update:modelValue', value),
 });
+
+const updateTag = (index: number, value: TagItemValue) => {
+  if (props.disabled) {
+    return;
+  }
+
+  model.value = Utils.updateArray(model.value, index, value);
+};
 
 const removeTag = (index: number) => {
   if (props.disabled) {
@@ -41,16 +50,19 @@ onMounted(() => {
     if (event.key === 'Enter') {
       event.preventDefault();
 
-      if (!newTagLabel.value) {
+      if (!newTagLabel.value || (typeof props.max === 'number' && model.value.length >= props.max)) {
         return;
       }
 
       model.value = model.value.concat({
-        id: Utils.uid(newTagLabel.value),
         label: newTagLabel.value,
       });
 
       newTagLabel.value = '';
+    }
+
+    if (event.key === 'Backspace' && !newTagLabel.value) {
+      removeTag(model.value.length - 1);
     }
   });
 
@@ -64,9 +76,10 @@ onMounted(() => {
 
 <template>
   <div ref="tagsContainer" class="tag" tabindex="0" :disabled="disabled" :error="error">
-    <TagItem v-for="(tag, index) in model" :key="tag.id" v-model="model[index]" :type="type"
-      @remove="removeTag(index)" />
-    <input ref="tagInput" v-model="newTagLabel" type="text" class="tag-input" :placeholder="placeholder">
+    <TagItem v-for="(tag, index) in model" :key="`${tag.label}-${index}`" :model-value="model[index]" :type="type"
+      @update:model-value="(value) => updateTag(index, value)" @remove="removeTag(index)" />
+    <input v-show="typeof max === 'undefined' || model.length < max" ref="tagInput" v-model="newTagLabel" type="text"
+      class="tag-input" :placeholder="placeholder">
   </div>
 </template>
 
@@ -87,6 +100,7 @@ onMounted(() => {
   border-radius: 8px;
   border: var(--border);
   box-shadow: var(--shadow);
+  outline: none;
 }
 
 .tag:hover {

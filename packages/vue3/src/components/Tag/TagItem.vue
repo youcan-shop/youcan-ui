@@ -22,25 +22,17 @@ const model = computed({
 
 const colorValue = computed({
   get: () => model.value.hexColor || '#eb5685',
-  set: (value?: string) => model.value.hexColor = value,
+  set: (value?: string) => model.value = Object.assign({}, model.value, { hexColor: value }),
 });
 
 const isColorPickerVisible = ref(false);
-
-const toggleColorPicker = (state = !isColorPickerVisible.value) => {
-  isColorPickerVisible.value = state;
-};
-
 const colorPicker = ref<HTMLDivElement>();
+
+const toggleColorPicker = (state = !isColorPickerVisible.value) => isColorPickerVisible.value = state;
+const setColor = (color: ColorObject) => colorValue.value = color.hexa;
+const removeItem = () => emit('remove');
+
 onClickOutside(colorPicker, () => toggleColorPicker(false));
-
-const setColor = (color: ColorObject) => {
-  colorValue.value = color.hexa;
-};
-
-const removeItem = () => {
-  emit('remove');
-};
 </script>
 
 <template>
