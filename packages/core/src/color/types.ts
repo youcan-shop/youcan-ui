@@ -14,3 +14,10 @@ export interface HSV {
   s: number
   v: number
 }
+
+export interface ColorObject {
+  rgba: RGBA
+  hsv: HSV
+  hex: string
+  hexa: string
+}
