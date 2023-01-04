@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { ref, useSlots } from 'vue';
-import Uploader from './Internal/Uploader.vue';
+import BaseFileInput from './Internal/BaseFileInput.vue';
 
-const props = withDefaults(
+withDefaults(
   defineProps<{ size?: 'sm' | 'md' | 'lg'; limit?: number }>(),
   { size: 'md', limit: 1 },
 );
 
+const emit = defineEmits(['input']);
 const slots = useSlots();
 
 const files = ref<File[]>([]);
@@ -14,11 +15,12 @@ const dragging = ref<boolean>(false);
 
 function handlefiles(files: File[]) {
   dragging.value = false;
+  emit('input', files);
 }
 </script>
 
 <template>
-  <Uploader
+  <BaseFileInput
     v-model="files" :limit="limit" @input="handlefiles" @drop="handlefiles" @dragenter="dragging = true"
     @dragleave="dragging = false"
   >
@@ -35,7 +37,7 @@ function handlefiles(files: File[]) {
         </div>
       </div>
     </template>
-  </Uploader>
+  </BaseFileInput>
 </template>
 
 <style scoped>
