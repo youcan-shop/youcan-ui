@@ -12,7 +12,7 @@ defineProps<{
 
 <template>
   <BaseButton :size="size" :disabled="disabled" :icon-position="iconPosition" :rounded-full="roundedFull"
-    class="primary">
+    class="primary-destructive">
     <template #icon>
       <slot name="icon" />
     </template>
@@ -21,7 +21,7 @@ defineProps<{
 </template>
 
 <style scoped>
-.primary {
+.primary-destructive {
   --background-color: var(--red-500);
   --hover-background-color: var(--red-600);
   --active-background-color: var(--red-800);
