@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, watch } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
 import { Utils } from '@youcan/ui-core';
 import TagItem from './TagItem.vue';
 import type { TagItemType, TagItemValue, UniqueTagItem } from './types';
@@ -14,26 +14,43 @@ const props = withDefaults(defineProps<{
 
 const emit = defineEmits(['update:modelValue']);
 
+const tagInput = ref<HTMLInputElement>();
+const newTagLabel = ref('');
+
 const model = computed({
   get: () => props.modelValue.map((item: TagItemValue) => ({ ...item, id: Utils.uid(item.label) }) as UniqueTagItem),
   set: (value: UniqueTagItem[]) => emit('update:modelValue', value.map(({ label, hexColor }: UniqueTagItem) => ({ label, hexColor }) as TagItemValue)),
-  // set: (value: UniqueTagItem[]) => console.log(value.map(({ label, hexColor }: UniqueTagItem) => ({ label, hexColor }) as TagItemValue)),
 });
 
 const removeTag = (index: number) => {
   model.value = Utils.removeFromArray(model.value, index);
-  console.log(Utils.removeFromArray(model.value, index));
 };
 
-watch(model, (value) => {
-  console.log(value);
+onMounted(() => {
+  tagInput.value?.addEventListener('keydown', (event: KeyboardEvent) => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+
+      if (!newTagLabel.value) {
+        return;
+      }
+
+      model.value = model.value.concat({
+        id: Utils.uid(newTagLabel.value),
+        label: newTagLabel.value,
+      });
+
+      newTagLabel.value = '';
+    }
+  });
 });
 </script>
 
 <template>
   <div class="tag">
-    <TagItem v-for="(tag, index) in model" :key="tag.id" v-model="model[index]" @remove="removeTag(index)" />
-    <input type="text" class="tag-input">
+    <TagItem v-for="(tag, index) in model" :key="tag.id" v-model="model[index]" :type="type"
+      @remove="removeTag(index)" />
+    <input ref="tagInput" v-model="newTagLabel" type="text" class="tag-input">
   </div>
 </template>
 
