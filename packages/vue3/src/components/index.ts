@@ -18,3 +18,4 @@ export { default as RatingInput } from './Rating/RatingInput.vue';
 export { default as Badge } from './Badge/Badge.vue';
 export { default as Thumbnail } from './Thumbnail/Thumbnail.vue';
 export { default as Increment } from './Increment/Increment.vue';
+export { default as Tag } from './Tag/Tag.vue';
