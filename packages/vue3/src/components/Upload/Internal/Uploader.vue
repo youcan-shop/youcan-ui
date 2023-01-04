@@ -14,15 +14,11 @@ function addfiles(files: File[]) {
 
 function handledrop(e: DragEvent) {
   const files = Array.from(e.dataTransfer?.files ?? []);
-
-  emit('drop', files);
   addfiles(files);
 }
 
 function handleinput(_e: Event) {
   const files = Array.from(input.value!.files ?? []);
-
-  emit('drop', files);
   addfiles(files);
 }
 
@@ -47,23 +43,14 @@ function handleclick(_e: MouseEvent) {
 
 <template>
   <div
-    class="dropzone"
-    @dragleave.prevent="handledragleave"
-    @dragenter.prevent="handledragenter"
-    @drop.prevent="handledrop"
-    @click="handleclick"
-    @keypress="handlekeypress"
+    class="dropzone" @dragleave.prevent="handledragleave" @dragover.prevent @dragenter.prevent="handledragenter"
+    @drop.prevent="handledrop" @click="handleclick" @keypress="handlekeypress"
   >
-    <input
-      ref="input"
-      hidden
-      type="file"
-      :multiple="props.limit > 1"
-      @input="handleinput"
-    >
-    <slot ref="facade" name="facade" @drop.prevent />
+    <input ref="input" hidden type="file" :multiple="props.limit > 1" @input="handleinput">
+    <slot ref="facade" name="facade" />
   </div>
 </template>
 
 <style scoped>
+
 </style>
