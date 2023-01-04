@@ -12,7 +12,7 @@ defineProps<{
 
 <template>
   <BaseButton :size="size" :disabled="disabled" :icon-position="iconPosition" :rounded-full="roundedFull"
-    class="primary">
+    class="secondary">
     <template #icon>
       <slot name="icon" />
     </template>
@@ -21,7 +21,7 @@ defineProps<{
 </template>
 
 <style scoped>
-.primary {
+.secondary {
   --text-color: var(--gray-900);
   --disabled-text-color: var(--gray-100);
   --icon-color: var(--brand-500);
