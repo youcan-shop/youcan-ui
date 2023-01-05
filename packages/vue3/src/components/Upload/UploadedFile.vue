@@ -50,7 +50,7 @@ const emit = defineEmits(['delete']);
 }
 
 .actions {
-  margin-left: auto;
+  margin-inline-start: auto;
 }
 
 .actions .icon-remove {

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import '~/assets/main.css';
-import { Checkbox, Dropdown } from '~/components';
+import { Checkbox, Dropdown, Input } from '~/components';
 import type { DropdownItemDefinition, DropdownItemGroups } from '~/components/Dropdown/types';
 
 const items = {
@@ -40,11 +40,12 @@ const items = {
 } as DropdownItemGroups;
 
 const selected = ref<DropdownItemDefinition | null>(null);
+const inputmodel = ref<DropdownItemDefinition | null>(null);
 </script>
 
 <template>
   <div>
-    <Dropdown v-model="selected" :searchable="true" :items="items" />
+    <Dropdown v-model="selected" style="width:360px" icon="i-youcan-language" placeholder="Choose a monkey island" :searchable="true" :items="items" />
   </div>
   {{ selected?.label ?? 'none' }}
 </template>

@@ -44,9 +44,9 @@ const results = computed<DropdownItemArray | DropdownItemGroups>(() => {
   );
 });
 
-function toggle(item: DropdownItemDefinition, value: boolean) {
+function toggle(item: DropdownItemDefinition, value: boolean): void {
   if (props.multiple) {
-    emit('toggle', item);
+    return emit('toggle', item);
   }
 
   value && emit('select', item);
