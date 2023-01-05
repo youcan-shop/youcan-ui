@@ -68,9 +68,9 @@ onMounted(() => {
     width: 100%;
     height: 100%;
     display: none;
-    margin-left: auto;
     position: absolute;
     border-radius: 8px;
+    margin-inline-start: auto;
     background: linear-gradient(0deg, rgba(0, 0, 0, 0.24), rgba(0, 0, 0, 0.24)), url(.jpg);
 }
 

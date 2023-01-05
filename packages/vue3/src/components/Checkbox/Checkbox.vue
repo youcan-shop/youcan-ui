@@ -15,17 +15,16 @@ const idAttr = Utils.uid('checkbox');
 </script>
 
 <template>
-  <label :for="idAttr">
-    <div class="checkbox">
+  <label :for="idAttr" v-bind="$attrs">
+    <div class="checkbox" :class="{ 'has-label': slots.label }">
       <input
         v-bind="$attrs"
         :id="idAttr"
         v-model="model"
-        tabindex="0"
         type="checkbox"
         class="input"
       >
-      <span class="checkmark"> <i i-youcan-checkmark /> </span>
+      <span class="checkmark" :class="{ checked: model }"> <i i-youcan-checkmark /> </span>
     </div>
     <div v-if="slots.label" class="label">
       <slot name="label" />
@@ -47,7 +46,10 @@ label {
 .checkbox {
   cursor: pointer;
   user-select: none;
-  display: inline-block;
+  display: block;
+}
+
+.checkbox.has-label {
   margin-inline-end: 8px;
 }
 
@@ -74,21 +76,21 @@ label {
   color: var(--base-white);
 }
 
-.input:checked ~ .checkmark {
+.checkmark.checked {
   background-color: var(--brand-500);
-  border: none;
+  border: 1px solid transparent;
 }
 
-.input:checked ~ .checkmark i {
+.checkmark.checked i {
   display: inline-block;
 }
 
-label:hover input:enabled:checked ~ .checkmark {
-  background-color: var(--brand-600);
+label:hover input:enabled ~ .checkmark {
+  background-color: var(--gray-50);
 }
 
-label:hover input:enabled:not(:checked) ~ .checkmark {
-  background-color: var(--gray-50);
+label:hover input:enabled ~ .checkmark.checked {
+  background-color: var(--brand-600);
 }
 
 input:enabled:is(:focus, :active) ~ .checkmark {
@@ -104,12 +106,12 @@ input:disabled ~ .checkmark {
   color: var(--gray-300);
 }
 
-input:disabled:checked ~ .checkmark {
-  background-color: var(--gray-100);
-}
-
-input:disabled:not(checked) ~ .checkmark {
+input:disabled ~ .checkmark {
   background: var(--base-white);
   border: 1px solid var(--gray-50);
+}
+
+input:disabled ~ .checkmark.checked {
+  background-color: var(--gray-100);
 }
 </style>
