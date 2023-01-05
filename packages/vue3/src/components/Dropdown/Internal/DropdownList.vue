@@ -109,8 +109,6 @@ function toggle(item: DropdownItemDefinition, value: boolean): void {
 
 <style scoped>
 .dropdown-list {
-  padding: 8px 0;
-  overflow-x: auto;
   position: relative;
   border-radius: 8px;
   box-shadow: var(--shadow-md);
@@ -122,7 +120,9 @@ function toggle(item: DropdownItemDefinition, value: boolean): void {
   --max-height: 240px;
 
   max-height: var(--max-height);
+  border-radius: 8px;
   overflow-y: auto;
+  padding: 8px 0;
 }
 
 .dropdown-list.searchable {
@@ -134,7 +134,7 @@ function toggle(item: DropdownItemDefinition, value: boolean): void {
   left: 0;
   position: sticky;
   padding-top: 4px;
-  background: var(--base-white);
+  background-color: transparent;
 }
 
 .search input {

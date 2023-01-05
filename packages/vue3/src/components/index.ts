@@ -23,3 +23,5 @@ export { default as UploadedMedia } from './Upload/UploadedMedia.vue';
 export { default as Increment } from './Increment/Increment.vue';
 export { default as Tag } from './Tag/Tag.vue';
 export { default as MultiselectDropdown } from './Dropdown/MultiselectDropdown.vue';
+export { default as StaticStatus } from './Status/StaticStatus.vue';
+export { default as EditableStatus } from './Status/EditableStatus.vue';
