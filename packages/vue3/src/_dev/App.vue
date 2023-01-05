@@ -3,10 +3,10 @@ import { ref } from 'vue';
 import '~/assets/main.css';
 import { Checkbox } from '~/components';
 import DropdownList from '~/components/Dropdown/Internal/DropdownList.vue';
-import type { DropdownItemDefinition } from '~/components/Dropdown/types';
+import type { DropdownItemGroups } from '~/components/Dropdown/types';
 
-const items = [
-  {
+const items = {
+  One: [{
     value: 1,
     image: 'https://wp.clutchpoints.com/wp-content/uploads/2021/07/There_s-an-entire-JRPG-on-Google_s-banner-to-celebrate-Tokyo-2020.jpg',
     label: 'Monkey island',
@@ -20,18 +20,20 @@ const items = [
     value: 3,
     image: 'https://wp.clutchpoints.com/wp-content/uploads/2021/07/There_s-an-entire-JRPG-on-Google_s-banner-to-celebrate-Tokyo-2020.jpg',
     label: 'Monkey island 3',
-  },
-  {
-    value: 3,
-    image: 'https://wp.clutchpoints.com/wp-content/uploads/2021/07/There_s-an-entire-JRPG-on-Google_s-banner-to-celebrate-Tokyo-2020.jpg',
-    label: 'Monkey island 3',
-  },
-  {
-    value: 3,
-    image: 'https://wp.clutchpoints.com/wp-content/uploads/2021/07/There_s-an-entire-JRPG-on-Google_s-banner-to-celebrate-Tokyo-2020.jpg',
-    label: 'Monkey island 3',
-  },
-] as DropdownItemDefinition<number>[];
+  }],
+  Two: [
+    {
+      value: 3,
+      image: 'https://wp.clutchpoints.com/wp-content/uploads/2021/07/There_s-an-entire-JRPG-on-Google_s-banner-to-celebrate-Tokyo-2020.jpg',
+      label: 'Monkey island 3',
+    },
+    {
+      value: 3,
+      image: 'https://wp.clutchpoints.com/wp-content/uploads/2021/07/There_s-an-entire-JRPG-on-Google_s-banner-to-celebrate-Tokyo-2020.jpg',
+      label: 'Monkey island 3',
+    },
+  ],
+} as DropdownItemGroups;
 
 const selected = ref(false);
 
@@ -42,7 +44,7 @@ const toggle = (val: boolean) => {
 
 <template>
   <div>
-    <DropdownList :items="items" />
+    <DropdownList :searchable="true" :items="items" />
   </div>
 
   <Checkbox v-model="selected" />
