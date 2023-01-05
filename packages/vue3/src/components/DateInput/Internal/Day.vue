@@ -1,22 +1,29 @@
 <script setup lang="ts">
-import type { DayEdge } from '../types';
+import type { DayDisplayFormat, DayEdge } from '../types';
 
-const props = withDefaults(defineProps<{
+const { format, date } = withDefaults(defineProps<{
   edge: DayEdge
   date: Date
   isToday: boolean
   isSelected: boolean
   inCurrentMonth?: boolean
+  format?: DayDisplayFormat
   disabled?: boolean
 }>(), {
   inCurrentMonth: true,
+  format: 'numeric',
 });
+
+// get two-letters day of the day
+const getDay = () => {
+  return format === 'numeric' ? date.getDate() : new Intl.DateTimeFormat('en-US', { weekday: 'short' }).format(date);
+};
 </script>
 
 <template>
   <button :disabled="disabled" class="day"
-    :class="{ isSelected, isToday, [`edge--${edge}`]: true, outOfMonth: !inCurrentMonth }">
-    <span class="text">{{ date.getDate() }}</span>
+    :class="{ isSelected, isToday, [`edge--${edge}`]: true, outOfMonth: !inCurrentMonth, [`format-${format}`]: true }">
+    <span class="text">{{ getDay() }}</span>
   </button>
 </template>
 
@@ -37,13 +44,15 @@ const props = withDefaults(defineProps<{
   border-radius: 0;
   outline: none;
 
-  &:not(:disabled, .outOfMonth) {
+  &:not(:disabled) {
     &:hover {
       --background-color: var(--gray-50);
+      z-index: 1;
     }
 
     &:focus {
       box-shadow: var(--focus-xs-brand);
+      z-index: 2;
     }
 
     &:disabled {
@@ -51,7 +60,7 @@ const props = withDefaults(defineProps<{
     }
   }
 
-  &.isToday:not(.outOfMonth) {
+  &.isToday {
     --font: var(--text-sm-medium);
     --color: var(--base-white);
     --background-color: var(--blue-500);
@@ -61,7 +70,7 @@ const props = withDefaults(defineProps<{
     }
   }
 
-  &.isSelected:not(.outOfMonth) {
+  &.isSelected {
     --font: var(--text-sm-medium);
     --color: var(--base-white);
     --background-color: var(--brand-500);
@@ -101,10 +110,12 @@ const props = withDefaults(defineProps<{
   }
 
   &.outOfMonth {
-    --background-color: var(--base-white);
+    color: var(--gray-300) !important;
+  }
 
+  &.format-2-letters {
     .text {
-      display: none;
+      font: var(--text-xs-medium);
     }
   }
 }
