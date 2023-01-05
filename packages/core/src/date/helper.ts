@@ -1,4 +1,4 @@
-import type { DayStatus } from './types';
+import type { AlphabeticalMonthFormat, AlphabeticalWeekdayFormat, DayStatus } from './types';
 
 /**
  * Returns the number of days in the month of the given date.
@@ -106,10 +106,21 @@ export const getDaysForDateMonthCycle = (date: Date): DayStatus[] => {
 };
 
 /**
- * Returns the short form of the weekday of the given date, using the English (US) locale.
+ * Returns the alphabetical form of the weekday of the given date, using the English (US) locale and the specified format.
  *
- * @param date - The date to get the short form of the weekday for.
+ * @param date - The date to get the alphabetical form of the weekday for.
+ * @param format - The format of the alphabetical weekday.
  */
-export const getShortWeekday = (date: Date): string => {
-  return Intl.DateTimeFormat('en-US', { weekday: 'short' }).format(date);
+export const getAlphabeticalWeekday = (date: Date, format: AlphabeticalWeekdayFormat = 'short'): string => {
+  return Intl.DateTimeFormat('en-US', { weekday: format }).format(date);
+};
+
+/**
+ * Returns the alphabetical form of the month of the given date, using the English (US) locale and the specified format.
+ *
+ * @param date - The date to get the alphabetical form of the month for.
+ * @param format - The format of the alphabetical month.
+ */
+export const getAlphabeticalMonth = (date: Date, format: AlphabeticalMonthFormat = 'long'): string => {
+  return Intl.DateTimeFormat('en-US', { month: format }).format(date);
 };

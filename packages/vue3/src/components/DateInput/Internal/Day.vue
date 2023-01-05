@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { DateUtils } from '@youcan/ui-core';
 import type { DayDisplayFormat, DayEdge } from '../types';
 
 const { format, date } = withDefaults(defineProps<{
@@ -16,7 +17,7 @@ const { format, date } = withDefaults(defineProps<{
 
 // get two-letters day of the day
 const getDay = () => {
-  return format === 'numeric' ? date.getDate() : new Intl.DateTimeFormat('en-US', { weekday: 'short' }).format(date);
+  return format === 'numeric' ? date.getDate() : DateUtils.getAlphabeticalWeekday(date);
 };
 </script>
 
@@ -56,7 +57,7 @@ const getDay = () => {
     }
 
     &:disabled {
-      --color: var(--gray-300);
+      --color: var(--gray-200);
     }
   }
 
@@ -115,7 +116,8 @@ const getDay = () => {
 
   &.format-2-letters {
     .text {
-      font: var(--text-xs-medium);
+      font: var(--text-xs-bold);
+      color: #AAAAAA;
     }
   }
 }
