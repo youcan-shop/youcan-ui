@@ -7,6 +7,7 @@ import DropdownItem from './DropdownItem.vue';
 import { Input } from '~/components';
 const props = withDefaults(
   defineProps<{
+    selected: DropdownItemArray | DropdownItemDefinition | null
     items: DropdownItemArray | DropdownItemGroups
     searchable?: boolean
     multiple?: boolean
@@ -20,6 +21,16 @@ const props = withDefaults(
 const emit = defineEmits(['toggle', 'select']);
 
 const search = ref<string>('');
+
+function isSelected(item: DropdownItemDefinition): boolean {
+  if (props.selected == null) {
+    return false;
+  }
+
+  return Array.isArray(props.selected)
+    ? !!props.selected.find(s => s.label === item.label)
+    : props.selected.label === item.label;
+}
 
 function matches(haystack: string, needle: string) {
   return haystack.toLowerCase().includes(needle.toLowerCase());
@@ -46,7 +57,7 @@ const results = computed<DropdownItemArray | DropdownItemGroups>(() => {
 
 function toggle(item: DropdownItemDefinition, value: boolean): void {
   if (props.multiple) {
-    return emit('toggle', item);
+    return emit('toggle', item, value);
   }
 
   value && emit('select', item);
@@ -66,7 +77,7 @@ function toggle(item: DropdownItemDefinition, value: boolean): void {
         :key="item.value"
         :checkbox="multiple"
         :item="item"
-        :selected="false"
+        :selected="isSelected(item)"
         @toggle="(value) => toggle(item, value)"
       />
     </div>
@@ -82,7 +93,7 @@ function toggle(item: DropdownItemDefinition, value: boolean): void {
             v-for="item in group"
             :key="item.value"
             :checkbox="multiple"
-            :selected="false"
+            :selected="isSelected(item)"
             :item="item"
             @toggle="(value) => toggle(item, value)"
           />

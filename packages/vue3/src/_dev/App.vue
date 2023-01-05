@@ -2,6 +2,7 @@
 import { ref } from 'vue';
 import '~/assets/main.css';
 import { Checkbox, Dropdown, Input } from '~/components';
+import MultiselectDropdown from '~/components/Dropdown/MultiselectDropdown.vue';
 import type { DropdownItemDefinition, DropdownItemGroups } from '~/components/Dropdown/types';
 
 const items = {
@@ -9,45 +10,51 @@ const items = {
     value: 1,
     image: 'https://wp.clutchpoints.com/wp-content/uploads/2021/07/There_s-an-entire-JRPG-on-Google_s-banner-to-celebrate-Tokyo-2020.jpg',
     label: 'Monkey island',
-    selected: false,
   },
   {
     value: 2,
     image: 'https://wp.clutchpoints.com/wp-content/uploads/2021/07/There_s-an-entire-JRPG-on-Google_s-banner-to-celebrate-Tokyo-2020.jpg',
     label: 'Monkey island 2',
-    selected: false,
   },
   {
     value: 3,
     image: 'https://wp.clutchpoints.com/wp-content/uploads/2021/07/There_s-an-entire-JRPG-on-Google_s-banner-to-celebrate-Tokyo-2020.jpg',
     label: 'Monkey island 3',
-    selected: false,
   }],
   Two: [
     {
-      value: 3,
+      value: 4,
       image: 'https://wp.clutchpoints.com/wp-content/uploads/2021/07/There_s-an-entire-JRPG-on-Google_s-banner-to-celebrate-Tokyo-2020.jpg',
-      label: 'Monkey island 3',
-      selected: false,
+      label: 'Monkey island 4',
     },
     {
-      value: 3,
+      value: 5,
       image: 'https://wp.clutchpoints.com/wp-content/uploads/2021/07/There_s-an-entire-JRPG-on-Google_s-banner-to-celebrate-Tokyo-2020.jpg',
-      label: 'Monkey island 3',
-      selected: false,
+      label: 'Monkey island 5',
     },
   ],
 } as DropdownItemGroups;
 
+const multiselected = ref<DropdownItemDefinition[]>([]);
 const selected = ref<DropdownItemDefinition | null>(null);
 const inputmodel = ref<DropdownItemDefinition | null>(null);
 </script>
 
 <template>
   <div>
-    <Dropdown v-model="selected" style="width:360px" icon="i-youcan-language" placeholder="Choose a monkey island" :searchable="true" :items="items" />
+    <Dropdown
+      v-model="selected" style="width:360px" icon="i-youcan-language" placeholder="Choose a monkey island"
+      :searchable="true" :items="items"
+    />
+    {{ selected?.label ?? 'none' }}
   </div>
-  {{ selected?.label ?? 'none' }}
+  <div>
+    <MultiselectDropdown
+      v-model="multiselected" style="width:360px" icon="i-youcan-language"
+      label="Choose a monkey island" :searchable="true" :items="items"
+    />
+    {{ multiselected }}
+  </div>
 </template>
 
 <style scoped>

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
+import { onClickOutside } from '@vueuse/core';
 import type { DropdownItemArray, DropdownItemDefinition, DropdownItemGroups } from './types';
 import DropdownList from './Internal/DropdownList.vue';
 
@@ -16,10 +17,12 @@ const props = withDefaults(
 
 const emit = defineEmits(['update:modelValue']);
 
+const list = ref();
 const showList = ref(false);
 function toggleList(override = !showList.value) {
   showList.value = override;
 }
+onClickOutside(list, () => toggleList(false));
 
 const model = computed<DropdownItemDefinition | null>({
   get: () => props.modelValue,
@@ -40,8 +43,8 @@ const model = computed<DropdownItemDefinition | null>({
 
       <i i-youcan-down class="chevron" />
     </button>
-    <div v-if="showList" class="dropdown-wrapper">
-      <DropdownList class="dropdown-list" v-bind="{ items, searchable, multiple: false }" @select="(i) => model = i" />
+    <div v-if="showList" ref="list" class="dropdown-wrapper">
+      <DropdownList class="dropdown-list" v-bind="{ items, searchable, selected: modelValue, multiple: false }" @select="(i) => model = i" />
     </div>
   </div>
 </template>
@@ -90,6 +93,7 @@ const model = computed<DropdownItemDefinition | null>({
 }
 .dropdown-list {
   position: absolute;
+  z-index: 10;
   width: 100%;
   top: 8px;
 }
