@@ -22,3 +22,4 @@ export { default as UploadedFile } from './Upload/UploadedFile.vue';
 export { default as UploadedMedia } from './Upload/UploadedMedia.vue';
 export { default as Increment } from './Increment/Increment.vue';
 export { default as Tag } from './Tag/Tag.vue';
+export { default as MultiselectDropdown } from './Dropdown/MultiselectDropdown.vue';
