@@ -124,3 +124,34 @@ export const getAlphabeticalWeekday = (date: Date, format: AlphabeticalWeekdayFo
 export const getAlphabeticalMonth = (date: Date, format: AlphabeticalMonthFormat = 'long'): string => {
   return Intl.DateTimeFormat('en-US', { month: format }).format(date);
 };
+
+/**
+ * Determines whether the two given dates represent the same day.
+ *
+ * @param a - The first date to compare.
+ * @param b - The second date to compare.
+ */
+export const isSameDay = (a: Date, b: Date): boolean => {
+  return a.toDateString() === b.toDateString();
+};
+
+/**
+ * Determines whether the given date is between the start and end dates (inclusive).
+ *
+ * @param date - The date to check.
+ * @param start - The start of the range.
+ * @param end - The end of the range.
+ */
+export const isBetween = (date: Date, start: Date, end: Date): boolean => {
+  return date >= start && date <= end;
+};
+
+/**
+ * Determines whether the given date is on or after the second date.
+ *
+ * @param a - The date to check.
+ * @param b - The second date to compare.
+ */
+export const biggerThan = (a: Date, b: Date): boolean => {
+  return a >= b;
+};

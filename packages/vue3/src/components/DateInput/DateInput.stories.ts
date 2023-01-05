@@ -1,5 +1,4 @@
 import type { Meta } from '@storybook/vue3';
-import { Utils } from '@youcan/ui-core';
 import DateInput_ from './DateInput.vue';
 
 const meta: Meta<typeof DateInput_> = {
@@ -10,15 +9,19 @@ const meta: Meta<typeof DateInput_> = {
 
 export default meta;
 
-const Template = (args: Record<string, unknown>) => ({
-  components: { DateInput_ },
-  setup() {
-    return { args };
+const Template = (args: Record<string, unknown>, { argTypes }: Record<string, Record<string, unknown>>) => ({
+  props: Object.keys(argTypes).filter(x => x !== 'value'),
+  data() {
+    return {
+      value: {
+        start: null,
+        end: null,
+      },
+    };
   },
-  template: '<DateInput_ v-bind="args" />',
+  components: { DateInput_ },
+  template: '<DateInput_ v-bind="$props" v-model="value" @update:model-value="action" /><span class="sb-c-preview-text">Date: {{ value }}</span>',
+  methods: { action: (value: boolean) => console.log(`Date: ${value}`) },
 });
 
-export const Test = Utils.templatify(Template.bind({}));
-
-Test.args = {
-};
+export const Default = Template.bind({});

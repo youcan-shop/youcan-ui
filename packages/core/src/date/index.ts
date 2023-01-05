@@ -1,4 +1,3 @@
-import * as DateUtils from './helper';
+import * as DateUtils from './helpers';
 
 export default { ...DateUtils };
-export * from './types';
