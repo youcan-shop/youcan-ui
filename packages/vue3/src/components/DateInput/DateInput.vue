@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { DayStatus } from '@youcan/ui-core';
 import { DateUtils } from '@youcan/ui-core';
-import { computed, nextTick, ref } from 'vue';
+import { computed, ref } from 'vue';
 import Day from './Internal/Day.vue';
 import MonthSwitcher from './Internal/MonthSwitcher.vue';
 import type { DateInputValue } from './types';
