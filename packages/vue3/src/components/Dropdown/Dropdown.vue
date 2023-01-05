@@ -69,11 +69,6 @@ const model = computed<DropdownItemDefinition | null>({
   color: var(--gray-900);
 }
 
-.dropdown-input .icon {
-  height: 16px;
-  width: 16px;
-}
-
 .dropdown-input:hover {
   background-color: var(--gray-50);
 }
