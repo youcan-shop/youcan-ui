@@ -14,3 +14,7 @@ interface DropdownItemWithImage<T> extends DropdownItem<T> {
 }
 
 export type DropdownItemDefinition<T = any> = DropdownItemWithIcon<T> | DropdownItemWithImage<T>;
+
+export type DropdownItemArray<T = any> = DropdownItemDefinition<T>[];
+
+export type DropdownItemGroups<T = any> = Record<string, DropdownItemArray<T>>;

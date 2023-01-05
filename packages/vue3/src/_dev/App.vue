@@ -2,26 +2,47 @@
 import { ref } from 'vue';
 import '~/assets/main.css';
 import { Checkbox } from '~/components';
-import DropdownItem from '~/components/Dropdown/Internal/DropdownItem.vue';
+import DropdownList from '~/components/Dropdown/Internal/DropdownList.vue';
 import type { DropdownItemDefinition } from '~/components/Dropdown/types';
 
-const item = {
-  value: 1,
-  image: 'https://wp.clutchpoints.com/wp-content/uploads/2021/07/There_s-an-entire-JRPG-on-Google_s-banner-to-celebrate-Tokyo-2020.jpg',
-  label: 'Monkey island',
-} as DropdownItemDefinition<number>;
+const items = [
+  {
+    value: 1,
+    image: 'https://wp.clutchpoints.com/wp-content/uploads/2021/07/There_s-an-entire-JRPG-on-Google_s-banner-to-celebrate-Tokyo-2020.jpg',
+    label: 'Monkey island',
+  },
+  {
+    value: 2,
+    image: 'https://wp.clutchpoints.com/wp-content/uploads/2021/07/There_s-an-entire-JRPG-on-Google_s-banner-to-celebrate-Tokyo-2020.jpg',
+    label: 'Monkey island 2',
+  },
+  {
+    value: 3,
+    image: 'https://wp.clutchpoints.com/wp-content/uploads/2021/07/There_s-an-entire-JRPG-on-Google_s-banner-to-celebrate-Tokyo-2020.jpg',
+    label: 'Monkey island 3',
+  },
+  {
+    value: 3,
+    image: 'https://wp.clutchpoints.com/wp-content/uploads/2021/07/There_s-an-entire-JRPG-on-Google_s-banner-to-celebrate-Tokyo-2020.jpg',
+    label: 'Monkey island 3',
+  },
+  {
+    value: 3,
+    image: 'https://wp.clutchpoints.com/wp-content/uploads/2021/07/There_s-an-entire-JRPG-on-Google_s-banner-to-celebrate-Tokyo-2020.jpg',
+    label: 'Monkey island 3',
+  },
+] as DropdownItemDefinition<number>[];
 
 const selected = ref(false);
 
 const toggle = (val: boolean) => {
-  console.log(val);
   selected.value = val;
 };
 </script>
 
 <template>
   <div>
-    <DropdownItem :checkbox="true" :item="item" :selected="selected" @toggle="toggle" />
+    <DropdownList :items="items" />
   </div>
 
   <Checkbox v-model="selected" />
