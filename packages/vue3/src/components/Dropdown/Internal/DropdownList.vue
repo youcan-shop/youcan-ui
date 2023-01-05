@@ -1,15 +1,23 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 
-import type {
-  DropdownItemArray,
-  DropdownItemGroups,
-} from '../types';
+import type { DropdownItemArray, DropdownItemGroups } from '../types';
 
 import DropdownItem from './DropdownItem.vue';
 import { Input } from '~/components';
 
-const props = defineProps<{ items: DropdownItemArray | DropdownItemGroups; searchable: boolean }>();
+const props = withDefaults(
+  defineProps<{
+    items: DropdownItemArray | DropdownItemGroups
+    searchable?: boolean
+    multiple?: boolean
+  }>(),
+  {
+    searchable: false,
+    multiple: false,
+  },
+);
+
 const search = ref<string>('');
 
 function matches(haystack: string, needle: string) {
@@ -43,18 +51,30 @@ const results = computed<DropdownItemArray | DropdownItemGroups>(() => {
     </div>
 
     <!-- item array -->
-    <div v-if="Array.isArray(results)" class="array-list">
-      <DropdownItem v-for="item in results" :key="item.value" :item="item" :selected="false" />
+    <div v-if="Array.isArray(results)" class="inner">
+      <DropdownItem
+        v-for="item in results"
+        :key="item.value"
+        :checkbox="multiple"
+        :item="item"
+        :selected="false"
+      />
     </div>
 
     <!-- categorized items -->
-    <div v-else-if="Object.entries(results).length" class="grouped-list">
+    <div v-else-if="Object.entries(results).length" class="inner">
       <div v-for="[label, group] in Object.entries(results)" :key="label">
         <div class="title">
           {{ label }}
         </div>
         <div class="array-list">
-          <DropdownItem v-for="item in group" :key="item.value" :item="item" :selected="false" />
+          <DropdownItem
+            v-for="item in group"
+            :key="item.value"
+            :checkbox="multiple"
+            :selected="false"
+            :item="item"
+          />
         </div>
       </div>
     </div>
@@ -67,51 +87,55 @@ const results = computed<DropdownItemArray | DropdownItemGroups>(() => {
 
 <style scoped>
 .dropdown-list {
-    --max-height: 240px;
+  padding: 8px 0;
+  overflow-x: auto;
+  position: relative;
+  border-radius: 8px;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--gray-100);
+  background-color: var(--base-white);
+}
 
-    padding: 8px 0;
-    overflow-x: auto;
-    position: relative;
-    border-radius: 8px;
-    box-shadow: var(--shadow-md);
-    max-height: var(--max-height);
-    border: 1px solid var(--gray-100);
-    background-color: var(--base-white);
+.dropdown-list .inner {
+  --max-height: 240px;
+
+  max-height: var(--max-height);
+  overflow-y: auto;
 }
 
 .dropdown-list.searchable {
-    padding-top: 0;
+  padding-top: 0;
 }
 
 .search {
-    top: 0;
-    left: 0;
-    position: sticky;
-    padding-top: 4px;
-    background: var(--base-white);
+  top: 0;
+  left: 0;
+  position: sticky;
+  padding-top: 4px;
+  background: var(--base-white);
 }
 
 .search input {
-    width: 100%;
-    border: none;
-    outline: none;
-    padding: 10px 16px;
-    font: var(--text-sm-regular);
-    border-bottom: 1px solid var(--brand-500);
+  width: 100%;
+  border: none;
+  outline: none;
+  padding: 10px 16px;
+  font: var(--text-sm-regular);
+  border-bottom: 1px solid var(--brand-500);
 }
 
 .search::placeholder {
-    color: var(--gray-300);
+  color: var(--gray-300);
 }
 
-.grouped-list .title {
-    padding: 6px 16px;
-    font: var(--text-sm-medium);
+.inner .title {
+  padding: 6px 16px;
+  font: var(--text-sm-medium);
 }
 
 .no-results {
-    padding: 10px 16px;
-    color: var(--gray-500);
-    font: var(--text-sm-regular);
+  padding: 10px 16px;
+  color: var(--gray-500);
+  font: var(--text-sm-regular);
 }
 </style>

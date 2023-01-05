@@ -44,7 +44,7 @@ const toggle = (val: boolean) => {
 
 <template>
   <div>
-    <DropdownList :searchable="true" :items="items" />
+    <DropdownList :multiple="true" :searchable="true" :items="items" />
   </div>
 
   <Checkbox v-model="selected" />
