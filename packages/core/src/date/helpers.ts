@@ -155,3 +155,16 @@ export const isBetween = (date: Date, start: Date, end: Date): boolean => {
 export const biggerThan = (a: Date, b: Date): boolean => {
   return a >= b;
 };
+
+/**
+ * Returns the calendar day of the given date.
+ *
+ * @param date - The date to get the calendar day for.
+ */
+export const getCalendarDay = (date: Date | undefined, label: string): string => {
+  if (!date) {
+    return label;
+  }
+
+  return date.toLocaleString().split(',')[0];
+};
