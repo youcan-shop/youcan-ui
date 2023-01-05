@@ -14,8 +14,8 @@ const Template = (args: Record<string, unknown>, { argTypes }: Record<string, Re
   data() {
     return {
       value: {
-        start: null,
-        end: null,
+        // start: null,
+        // end: null,
       },
     };
   },

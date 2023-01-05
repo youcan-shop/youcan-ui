@@ -136,14 +136,14 @@ export const isSameDay = (a: Date, b: Date): boolean => {
 };
 
 /**
- * Determines whether the given date is between the start and end dates (inclusive).
+ * Determines whether the given date is between the start and end dates (exclusive).
  *
  * @param date - The date to check.
  * @param start - The start of the range.
  * @param end - The end of the range.
  */
 export const isBetween = (date: Date, start: Date, end: Date): boolean => {
-  return date >= start && date <= end;
+  return date > start && date < end;
 };
 
 /**

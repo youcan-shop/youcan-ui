@@ -7,7 +7,7 @@ import MonthSwitcher from './Internal/MonthSwitcher.vue';
 import type { DateInputValue } from './types';
 
 const props = defineProps<{
-  modelValue: DateInputValue | null
+  modelValue: DateInputValue
 }>();
 
 const emit = defineEmits(['update:modelValue']);
@@ -33,7 +33,7 @@ const handleDayClick = (day: DayStatus) => {
 
     model.value = {
       start: day.date,
-      end: null,
+      end: undefined,
     };
 
     return;
@@ -70,15 +70,16 @@ const handleDayHover = (day: DayStatus) => {
 
 const getEdge = (day: DayStatus) => {
   if (!model.value?.start && !model.value?.end) {
-    if (day.isToday) {
-      return 'both';
-    }
-
-    return 'none';
+    return day.isToday ? 'both' : 'none';
   }
 
-  if (model.value.start && model.value.end && DateUtils.isSameDay(model.value.start, model.value.end)) {
-    return 'both';
+  if (model.value.start && model.value.end) {
+    if (DateUtils.isSameDay(model.value.start, model.value.end)) {
+      return 'both';
+    }
+    else if (DateUtils.isBetween(day.date, model.value.start, model.value.end)) {
+      return 'middle';
+    }
   }
 
   if (model.value.start && DateUtils.isSameDay(day.date, model.value.start)) {
@@ -89,10 +90,6 @@ const getEdge = (day: DayStatus) => {
     return 'end';
   }
 
-  if (model.value.start && model.value.end && DateUtils.isBetween(day.date, model.value.start, model.value.end)) {
-    return 'middle';
-  }
-
   if (model.value?.start && model.value?.end && day.isToday) {
     return 'both';
   }
@@ -101,7 +98,9 @@ const getEdge = (day: DayStatus) => {
 };
 
 const isActive = (day: DayStatus) => {
-  if (model.value?.start && DateUtils.isSameDay(day.date, model.value.start)) {
+  if (
+    (model.value?.start && DateUtils.isSameDay(day.date, model.value.start))
+    || (model.value?.end && DateUtils.isSameDay(day.date, model.value.end))) {
     return true;
   }
 
