@@ -1,53 +1,52 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import '~/assets/main.css';
-import { Checkbox } from '~/components';
-import DropdownList from '~/components/Dropdown/Internal/DropdownList.vue';
-import type { DropdownItemGroups } from '~/components/Dropdown/types';
+import { Checkbox, Dropdown } from '~/components';
+import type { DropdownItemDefinition, DropdownItemGroups } from '~/components/Dropdown/types';
 
 const items = {
   One: [{
     value: 1,
     image: 'https://wp.clutchpoints.com/wp-content/uploads/2021/07/There_s-an-entire-JRPG-on-Google_s-banner-to-celebrate-Tokyo-2020.jpg',
     label: 'Monkey island',
+    selected: false,
   },
   {
     value: 2,
     image: 'https://wp.clutchpoints.com/wp-content/uploads/2021/07/There_s-an-entire-JRPG-on-Google_s-banner-to-celebrate-Tokyo-2020.jpg',
     label: 'Monkey island 2',
+    selected: false,
   },
   {
     value: 3,
     image: 'https://wp.clutchpoints.com/wp-content/uploads/2021/07/There_s-an-entire-JRPG-on-Google_s-banner-to-celebrate-Tokyo-2020.jpg',
     label: 'Monkey island 3',
+    selected: false,
   }],
   Two: [
     {
       value: 3,
       image: 'https://wp.clutchpoints.com/wp-content/uploads/2021/07/There_s-an-entire-JRPG-on-Google_s-banner-to-celebrate-Tokyo-2020.jpg',
       label: 'Monkey island 3',
+      selected: false,
     },
     {
       value: 3,
       image: 'https://wp.clutchpoints.com/wp-content/uploads/2021/07/There_s-an-entire-JRPG-on-Google_s-banner-to-celebrate-Tokyo-2020.jpg',
       label: 'Monkey island 3',
+      selected: false,
     },
   ],
 } as DropdownItemGroups;
 
-const selected = ref(false);
-
-const toggle = (val: boolean) => {
-  selected.value = val;
-};
+const selected = ref<DropdownItemDefinition | null>(null);
 </script>
 
 <template>
   <div>
-    <DropdownList :multiple="true" :searchable="true" :items="items" />
+    <Dropdown v-model="selected" :searchable="true" :items="items" />
   </div>
-
-  <Checkbox v-model="selected" />
+  {{ selected?.label ?? 'none' }}
 </template>
 
 <style scoped>

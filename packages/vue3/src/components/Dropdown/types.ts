@@ -1,6 +1,7 @@
 interface DropdownItem<T> {
   value: T
   label: string
+  selected: boolean
 }
 
 interface DropdownItemWithIcon<T> extends DropdownItem<T> {

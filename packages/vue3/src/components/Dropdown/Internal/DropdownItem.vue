@@ -5,17 +5,16 @@ import { Checkbox, Thumbnail } from '~/components';
 
 const props = withDefaults(
   defineProps<{
-    selected: boolean
     checkbox?: boolean
     item: DropdownItemDefinition
   }>(),
-  { selected: false, checkbox: false },
+  { checkbox: false },
 );
 
 const emit = defineEmits(['toggle']);
 
 const model = computed<boolean>({
-  get: () => props.selected,
+  get: () => props.item.selected,
   set: (value: boolean) => emit('toggle', value),
 });
 

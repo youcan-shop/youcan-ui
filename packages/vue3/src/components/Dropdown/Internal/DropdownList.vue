@@ -1,11 +1,10 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 
-import type { DropdownItemArray, DropdownItemGroups } from '../types';
+import type { DropdownItemArray, DropdownItemDefinition, DropdownItemGroups } from '../types';
 
 import DropdownItem from './DropdownItem.vue';
 import { Input } from '~/components';
-
 const props = withDefaults(
   defineProps<{
     items: DropdownItemArray | DropdownItemGroups
@@ -17,6 +16,8 @@ const props = withDefaults(
     multiple: false,
   },
 );
+
+const emit = defineEmits(['toggle', 'select']);
 
 const search = ref<string>('');
 
@@ -42,6 +43,14 @@ const results = computed<DropdownItemArray | DropdownItemGroups>(() => {
       .filter(([, group]) => group.length),
   );
 });
+
+function toggle(item: DropdownItemDefinition, value: boolean) {
+  if (props.multiple) {
+    emit('toggle', item);
+  }
+
+  value && emit('select', item);
+}
 </script>
 
 <template>
@@ -58,6 +67,7 @@ const results = computed<DropdownItemArray | DropdownItemGroups>(() => {
         :checkbox="multiple"
         :item="item"
         :selected="false"
+        @toggle="(value) => toggle(item, value)"
       />
     </div>
 
@@ -74,6 +84,7 @@ const results = computed<DropdownItemArray | DropdownItemGroups>(() => {
             :checkbox="multiple"
             :selected="false"
             :item="item"
+            @toggle="(value) => toggle(item, value)"
           />
         </div>
       </div>
