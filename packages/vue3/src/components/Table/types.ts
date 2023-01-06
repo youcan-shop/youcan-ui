@@ -1,3 +1,6 @@
+import type { Component } from 'vue';
+import type { ThumbnailSize } from '~/components/Thumbnail/types';
+
 export interface TableColumn {
   label?: string
   accessor: string
@@ -5,3 +8,33 @@ export interface TableColumn {
 }
 
 export type TableColumnSort = 'none' | 'asc' | 'desc';
+
+export interface TableColumnValue {
+  value: string | TableDataComposable
+  accessor: string
+  isString: boolean
+  component?: Component | ''
+}
+
+export interface TableData {
+  [key: string]: string | TableDataComposable
+}
+
+export type TableDataComposable = {
+  variant: 'link'
+  data: TableDataLink
+} | {
+  variant: 'thumbnail'
+  data: TableDataThumbnail
+};
+
+export interface TableDataLink {
+  label?: string
+  href: string
+}
+
+export interface TableDataThumbnail {
+  size: ThumbnailSize
+  src?: string
+  alt?: string
+}

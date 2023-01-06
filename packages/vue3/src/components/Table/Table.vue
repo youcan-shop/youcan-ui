@@ -1,13 +1,39 @@
 <script setup lang="ts">
-import type { TableColumn } from './types';
+import { computed } from 'vue';
+import type { TableColumn, TableColumnValue, TableData, TableDataComposable } from './types';
+import ColumnRegistrar from './cr';
 
-defineProps<{
+const props = defineProps<{
   columns: TableColumn[]
+  data: TableData[]
 }>();
 
 const emit = defineEmits<{
   (event: 'sort', column: TableColumn, index: number): void
 }>();
+
+const rows = computed(
+  () => props.data.map((row) => {
+    const rowObject = {} as Record<keyof TableData, TableColumnValue>;
+
+    Object.keys(row).forEach((key: keyof TableData) => {
+      const value = row[key];
+
+      if (typeof value === 'undefined') {
+        return null;
+      }
+
+      rowObject[key] = {
+        value,
+        accessor: key as string,
+        isString: typeof value !== 'object',
+        component: typeof value !== 'string' ? ColumnRegistrar(value.variant) : '',
+      };
+    });
+
+    return rowObject;
+  }).filter(row => row !== null),
+);
 
 const emitSort = (column: TableColumn, index: number) => emit('sort', column, index);
 </script>
@@ -23,6 +49,17 @@ const emitSort = (column: TableColumn, index: number) => emit('sort', column, in
             @click="emitSort(column, index)" />
         </th>
       </thead>
+      <tbody>
+        <tr v-for="(row, index) in rows" :key="index">
+          <td v-for="column in columns" :key="column.accessor">
+            <template v-if="row[column.accessor]">
+              <span v-if="row[column.accessor].isString">{{ row[column.accessor].value }}</span>
+              <component :is="row[column.accessor].component" v-else-if="row[column.accessor].component"
+                v-bind="row[column.accessor].value" />
+            </template>
+          </td>
+        </tr>
+      </tbody>
     </table>
   </div>
 </template>

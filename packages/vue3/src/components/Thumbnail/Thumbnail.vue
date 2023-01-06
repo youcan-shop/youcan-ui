@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { ThumbnailSize } from './typess';
+import type { ThumbnailSize } from './types';
 
 withDefaults(
   defineProps<{
