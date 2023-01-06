@@ -23,3 +23,5 @@ export { default as UploadedMedia } from './Upload/UploadedMedia.vue';
 export { default as Increment } from './Increment/Increment.vue';
 export { default as Tag } from './Tag/Tag.vue';
 export { default as MultiselectDropdown } from './Dropdown/MultiselectDropdown.vue';
+export { default as DatePicker } from './DateInput/DatePicker.vue';
+export { default as DateInput } from './DateInput/DateInput.vue';
