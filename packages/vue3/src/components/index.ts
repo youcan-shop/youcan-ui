@@ -25,3 +25,5 @@ export { default as Tag } from './Tag/Tag.vue';
 export { default as MultiselectDropdown } from './Dropdown/MultiselectDropdown.vue';
 export { default as StaticStatus } from './Status/StaticStatus.vue';
 export { default as EditableStatus } from './Status/EditableStatus.vue';
+export { default as DatePicker } from './DateInput/DatePicker.vue';
+export { default as DateInput } from './DateInput/DateInput.vue';
