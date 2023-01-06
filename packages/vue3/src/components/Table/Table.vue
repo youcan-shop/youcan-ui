@@ -2,6 +2,7 @@
 import { computed } from 'vue';
 import type { TableColumn, TableColumnValue, TableData, TableDataComposable } from './types';
 import ColumnRegistrar from './cr';
+import { launder } from '~/utils/type.util';
 
 const props = defineProps<{
   columns: TableColumn[]
@@ -54,8 +55,8 @@ const emitSort = (column: TableColumn, index: number) => emit('sort', column, in
           <td v-for="column in columns" :key="column.accessor">
             <template v-if="row[column.accessor]">
               <span v-if="row[column.accessor].isString">{{ row[column.accessor].value }}</span>
-              <component :is="row[column.accessor].component" v-else-if="row[column.accessor].component"
-                v-bind="row[column.accessor].value" />
+              <component :is="row[column.accessor].component" v-else-if="!row[column.accessor].isString"
+                v-bind="launder<TableDataComposable>(row[column.accessor].value).data" />
             </template>
           </td>
         </tr>
