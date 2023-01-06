@@ -11,9 +11,10 @@ const props = defineProps<{
 const emit = defineEmits(['update:modelValue']);
 
 const list = ref();
+const button = ref();
 const show = ref(false);
 const toggle = (override = !show.value) => show.value = override;
-onClickOutside(list, () => toggle(false));
+onClickOutside(list, () => toggle(false), { ignore: [button] });
 
 const model = computed({
   get: () => props.modelValue,
@@ -26,7 +27,7 @@ const model = computed({
 
 <template>
   <div class="wrapper">
-    <button class="editable-status" @click="() => toggle()">
+    <button ref="button" class="editable-status" @click="() => toggle()">
       <div class="static-status">
         {{ model.label }}
       </div>
