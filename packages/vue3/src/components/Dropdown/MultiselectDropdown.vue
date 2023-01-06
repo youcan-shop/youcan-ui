@@ -20,11 +20,10 @@ const props = withDefaults(
 const emit = defineEmits(['update:modelValue']);
 
 const list = ref();
+const button = ref();
 const showList = ref(false);
-function toggleList(override = !showList.value) {
-  showList.value = override;
-}
-onClickOutside(list, () => toggleList(false));
+const toggleList = (override = !showList.value) => showList.value = override;
+onClickOutside(list, () => toggleList(false), { ignore: [button] });
 
 function toggle(item: DropdownItemDefinition, value: boolean): void {
   if (!value) {
@@ -43,7 +42,7 @@ function toggle(item: DropdownItemDefinition, value: boolean): void {
 
 <template>
   <div>
-    <button class="dropdown-input" @click="() => toggleList()">
+    <button ref="button" class="dropdown-input" @click="() => toggleList()">
       <i v-if="icon" class="icon" :class="icon" />
       <span class="label">
         <span>
