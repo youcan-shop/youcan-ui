@@ -104,6 +104,7 @@ function toggle(item: DropdownItemDefinition, value: boolean): void {
 
 .dropdown-list {
     position: absolute;
+    z-index: 10;
     width: 100%;
     top: 8px;
 }
