@@ -1,5 +1,5 @@
 export interface TableColumn {
-  label: string
+  label?: string
   accessor: string
   sortable?: TableColumnSort
 }
