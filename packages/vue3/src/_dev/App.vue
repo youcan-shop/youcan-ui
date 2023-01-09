@@ -18,6 +18,18 @@ const columns: TableColumn[] = [
 const data = ref<TableData[]>(
   [
     {
+      image: {
+        variant: 'button',
+        data: {
+          label: 'Call to action',
+          // iconName: 'i-youcan-x',
+        },
+        events: {
+          click: () => {
+            console.log('click');
+          },
+        },
+      },
       name: 'John Doe',
       age: {
         variant: 'status',
@@ -48,11 +60,6 @@ const data = ref<TableData[]>(
         data: {
           percentage: 0,
           type: 'info',
-        },
-        events: {
-          click: () => {
-            console.log('click');
-          },
         },
       },
       email: 'Doe@gmail.com',

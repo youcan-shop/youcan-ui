@@ -1,6 +1,7 @@
 import type { Component } from 'vue';
 import type { StatusDefinition } from '../Status/types';
 import type { PercentageType } from '../Percentage/types';
+import type { ButtonIconPosition, ButtonSize } from '../Button/types';
 import type { ThumbnailSize } from '~/components/Thumbnail/types';
 
 export interface TableColumn {
@@ -22,7 +23,7 @@ export interface TableData {
   [key: string]: string | number | TableDataComposable
 }
 
-export type TableComposableVariant = 'link' | 'thumbnail' | 'status' | 'percentage';
+export type TableComposableVariant = 'link' | 'thumbnail' | 'status' | 'percentage' | 'button';
 
 export type TableDataComposable = {
   variant: Extract<TableComposableVariant, 'link'>
@@ -39,7 +40,13 @@ export type TableDataComposable = {
 } | {
   variant: Extract<TableComposableVariant, 'percentage'>
   data: TableDataPercentage
-  events: Record<string, () => void>
+  events?: Record<string, () => void>
+} | {
+  variant: Extract<TableComposableVariant, 'button'>
+  data: TableDataButton
+  events?: {
+    click: () => void
+  }
 };
 
 export interface TableDataLink {
@@ -61,4 +68,13 @@ export interface TableDataStatus {
 export interface TableDataPercentage {
   percentage: number
   type: PercentageType
+}
+
+export interface TableDataButton {
+  label: string
+  iconName?: string
+  size?: ButtonSize
+  disabled?: boolean
+  iconPosition?: ButtonIconPosition
+  roundedFull?: boolean
 }

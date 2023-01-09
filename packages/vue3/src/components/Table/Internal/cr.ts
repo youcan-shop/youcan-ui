@@ -8,6 +8,7 @@ export default function (name: TableComposableVariant): Component | string {
     case 'link': return defineAsyncComponent(() => import('~/components/Table/Internal/Link.vue'));
     case 'status': return defineAsyncComponent(() => import('~/components/Status/EditableStatus.vue'));
     case 'percentage': return defineAsyncComponent(() => import('~/components/Percentage/Percentage.vue'));
+    case 'button': return defineAsyncComponent(() => import('~/components/Table/Internal/Button.vue'));
     default: return '';
   }
 }
