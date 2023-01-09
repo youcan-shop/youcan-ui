@@ -6,6 +6,7 @@ export default function (name: TableComposableVariant): Component | string {
   switch (name) {
     case 'thumbnail': return defineAsyncComponent(() => import('~/components/Thumbnail/Thumbnail.vue'));
     case 'link': return defineAsyncComponent(() => import('~/components/Table/Internal/Link.vue'));
+    case 'status': return defineAsyncComponent(() => import('~/components/Status/EditableStatus.vue'));
     default: return '';
   }
 }

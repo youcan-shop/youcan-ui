@@ -3,7 +3,7 @@ withDefaults(
   defineProps<{
     href: string
     label: string
-    target: string
+    target?: string
   }>(),
   {
     target: '_blank',

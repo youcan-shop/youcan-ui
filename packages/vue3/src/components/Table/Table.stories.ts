@@ -20,7 +20,17 @@ export const Default = {
       { label: 'Profile', accessor: 'profile' },
     ],
     data: [
-      { name: 'John Doe', age: 42, email: 'Doe@gmail.com' },
+      {
+        name: 'John Doe',
+        age: {
+          variant: 'status',
+          data: {
+            statuses: [{ label: 'Old', color: 'red', value: 42 }, { label: 'Young', color: 'green', value: 22 }],
+            modelValue: { label: 'Young', color: 'green', value: 22 },
+          },
+        },
+        email: 'Doe@gmail.com',
+      },
       {
         name: 'Ali baba',
         image: {

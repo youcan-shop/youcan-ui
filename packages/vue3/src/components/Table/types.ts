@@ -1,4 +1,5 @@
 import type { Component } from 'vue';
+import type { StatusDefinition } from '../Status/types';
 import type { ThumbnailSize } from '~/components/Thumbnail/types';
 
 export interface TableColumn {
@@ -20,7 +21,7 @@ export interface TableData {
   [key: string]: string | number | TableDataComposable
 }
 
-export type TableComposableVariant = 'link' | 'thumbnail';
+export type TableComposableVariant = 'link' | 'thumbnail' | 'status';
 
 export type TableDataComposable = {
   variant: Extract<TableComposableVariant, 'link'>
@@ -28,6 +29,9 @@ export type TableDataComposable = {
 } | {
   variant: Extract<TableComposableVariant, 'thumbnail'>
   data: TableDataThumbnail
+} | {
+  variant: Extract<TableComposableVariant, 'status'>
+  data: TableDataStatus
 };
 
 export interface TableDataLink {
@@ -39,4 +43,9 @@ export interface TableDataThumbnail {
   size: ThumbnailSize
   src?: string
   alt?: string
+}
+
+export interface TableDataStatus {
+  statuses: StatusDefinition[]
+  modelValue: StatusDefinition
 }

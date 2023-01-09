@@ -37,6 +37,8 @@ const rows = computed(
 );
 
 const emitSort = (column: TableColumn, index: number) => emit('sort', column, index);
+
+const loggg = (x: any, y: any) => console.log(x, y);
 </script>
 
 <template>
@@ -56,7 +58,7 @@ const emitSort = (column: TableColumn, index: number) => emit('sort', column, in
             <template v-if="row[column.accessor]">
               <span v-if="row[column.accessor].isString" class="text-column">{{ row[column.accessor].value }}</span>
               <component :is="row[column.accessor].component" v-else-if="!row[column.accessor].isString"
-                v-bind="launder<TableDataComposable>(row[column.accessor].value).data" />
+                v-bind="launder<TableDataComposable>(row[column.accessor].value).data" v-on="loggg" />
             </template>
           </td>
         </tr>
