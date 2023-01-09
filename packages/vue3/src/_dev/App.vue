@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import '~/assets/main.css';
-import { DropdownPrefix, Input, InputGroup, Percentage } from '~/components';
+import { DropdownPrefix, Input, InputGroup, Percentage, Tab, TabsBar } from '~/components';
 import type { DropdownItemGroups } from '~/components/Dropdown/types';
 
 const items = {
@@ -71,6 +71,15 @@ const model = ref({ main: '', prefix: null });
         Lorem ipsum, dolor sit amet consectetur adipisicing elit. Optio, qui?
       </template>
     </InputGroup>
+  </div>
+
+  <div>
+    <TabsBar>
+      <Tab label="General" />
+      <Tab label="Privacy" :active="true" />
+      <Tab label="Errors" :error-count="3" />
+      <Tab label="Disabled" :disabled="true" />
+    </TabsBar>
   </div>
 </template>
 
