@@ -50,11 +50,11 @@ const emitSort = (column: TableColumn, index: number) => emit('sort', column, in
             @click="emitSort(column, index)" />
         </th>
       </thead>
-      <tbody>
+      <tbody class="table-body">
         <tr v-for="(row, index) in rows" :key="index">
           <td v-for="column in columns" :key="column.accessor">
             <template v-if="row[column.accessor]">
-              <span v-if="row[column.accessor].isString">{{ row[column.accessor].value }}</span>
+              <span v-if="row[column.accessor].isString" class="text-column">{{ row[column.accessor].value }}</span>
               <component :is="row[column.accessor].component" v-else-if="!row[column.accessor].isString"
                 v-bind="launder<TableDataComposable>(row[column.accessor].value).data" />
             </template>
@@ -107,5 +107,10 @@ const emitSort = (column: TableColumn, index: number) => emit('sort', column, in
 
 .table-head .head-column * {
   vertical-align: middle;
+}
+
+.table-body .text-column {
+  font: var(--text-sm-regular);
+  color: var(--gray-900);
 }
 </style>
