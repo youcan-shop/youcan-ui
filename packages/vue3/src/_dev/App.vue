@@ -43,7 +43,18 @@ const data = ref<TableData[]>(
           label: 'Facebook',
         },
       },
-      age: 42,
+      age: {
+        variant: 'percentage',
+        data: {
+          percentage: 0,
+          type: 'info',
+        },
+        events: {
+          click: () => {
+            console.log('click');
+          },
+        },
+      },
       email: 'Doe@gmail.com',
     },
     { name: 'John Smith', age: 22, email: 'Smith@gmail.com' },

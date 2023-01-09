@@ -82,6 +82,8 @@ function handleSubCompModel(row: number, accessor: string, data: unknown) {
 
   emit('update:data', ougaBouga(ffff.value));
 }
+
+const looooog = () => console.log('sss');
 </script>
 
 <template>
@@ -96,13 +98,14 @@ function handleSubCompModel(row: number, accessor: string, data: unknown) {
         </th>
       </thead>
       <tbody class="table-body">
-        <tr v-for="(row, index) in rows" :key="index">
-          <td v-for="column in columns" :key="column.accessor">
+        <tr v-for="(row, index) in rows" :key="index" class="table-row">
+          <td v-for="column in columns" :key="column.accessor" class="table-cell">
             <template v-if="row[column.accessor]">
               <span v-if="row[column.accessor].isString" class="text-column">{{ row[column.accessor].value }}</span>
               <component :is="row[column.accessor].component" v-else-if="!row[column.accessor].isString"
                 v-bind="launder<TableDataComposable>(row[column.accessor].value).data"
-                @update:model-value="(data: unknown) => handleSubCompModel(index, column.accessor, data)" />
+                @update:model-value="(data: unknown) => handleSubCompModel(index, column.accessor, data)"
+                v-on="launder<TableDataComposable>(row[column.accessor].value).events || {}" />
             </template>
           </td>
         </tr>
@@ -168,5 +171,9 @@ function handleSubCompModel(row: number, accessor: string, data: unknown) {
 .table-body .text-column {
   font: var(--text-sm-regular);
   color: var(--gray-900);
+}
+
+.table-body .table-row .table-cell * {
+  width: max-content;
 }
 </style>
