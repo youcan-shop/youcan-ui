@@ -1,8 +1,10 @@
 <script setup lang="ts">
+import type { PercentageType } from './types';
+
 withDefaults(
   defineProps<{
     percentage: number
-    type: 'success' | 'info' | 'warning' | 'danger' | null
+    type: PercentageType
   }>(),
   { type: null },
 );
