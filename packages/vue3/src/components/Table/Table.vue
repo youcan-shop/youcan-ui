@@ -81,6 +81,7 @@ const emitSort = (column: TableColumn, index: number) => emit('sort', column, in
 .table-head {
   background-color: var(--gray-50);
   height: 52px;
+  border-bottom: 1px solid var(--gray-100);
 }
 
 .table-head .head-column {
@@ -107,6 +108,15 @@ const emitSort = (column: TableColumn, index: number) => emit('sort', column, in
 
 .table-head .head-column * {
   vertical-align: middle;
+}
+
+.table-body tr {
+  background-color: var(--base-white);
+  height: 68px;
+}
+
+.table-body tr td {
+  padding: 0 12px;
 }
 
 .table-body .text-column {
