@@ -31,3 +31,6 @@ export { default as DropdownPrefix } from './Input/prefixes/DropdownPrefix.vue';
 export { default as Percentage } from './Percentage/Percentage.vue';
 export { default as Tab } from './Tabs/Tab.vue';
 export { default as TabsBar } from './Tabs/TabsBar.vue';
+export { default as Sidebar } from './Sidebar/Sidebar.vue';
+export { default as SidebarItem } from './Sidebar/SidebarItem.vue';
+export { default as SidebarSubitem } from './Sidebar/SidebarSubitem.vue';
