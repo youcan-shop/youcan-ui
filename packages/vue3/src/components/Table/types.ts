@@ -23,7 +23,7 @@ export interface TableData {
   [key: string]: string | number | TableDataComposable
 }
 
-export type TableComposableVariant = 'link' | 'thumbnail' | 'status' | 'percentage' | 'button' | 'rating';
+export type TableComposableVariant = 'link' | 'thumbnail' | 'status' | 'percentage' | 'button' | 'rating' | 'toggle';
 
 export type TableDataComposable = {
   variant: Extract<TableComposableVariant, 'link'>
@@ -47,6 +47,9 @@ export type TableDataComposable = {
 } | {
   variant: Extract<TableComposableVariant, 'rating'>
   data: TableDataRating
+} | {
+  variant: Extract<TableComposableVariant, 'toggle'>
+  data: TableDataToggle
 };
 
 export interface TableDataLink {
@@ -82,4 +85,8 @@ export interface TableDataButton {
 export interface TableDataRating {
   modelValue: number
   ceil?: number
+}
+
+export interface TableDataToggle {
+  modelValue: boolean
 }

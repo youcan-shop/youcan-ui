@@ -70,7 +70,17 @@ const data = ref<TableData[]>(
       },
       email: 'Doe@gmail.com',
     },
-    { name: 'John Smith', age: 22, email: 'Smith@gmail.com' },
+    {
+      name: 'John Smith',
+      age: 22,
+      email: 'Smith@gmail.com',
+      profile: {
+        variant: 'toggle',
+        data: {
+          modelValue: true,
+        },
+      },
+    },
   ],
 );
 </script>

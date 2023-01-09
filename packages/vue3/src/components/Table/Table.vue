@@ -174,6 +174,6 @@ const looooog = () => console.log('sss');
 }
 
 .table-body .table-row .table-cell * {
-  width: max-content;
+  /* width: max-content; */
 }
 </style>

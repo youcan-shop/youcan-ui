@@ -10,6 +10,7 @@ export default function (name: TableComposableVariant): Component | string {
     case 'percentage': return defineAsyncComponent(() => import('~/components/Percentage/Percentage.vue'));
     case 'button': return defineAsyncComponent(() => import('~/components/Table/Internal/Button.vue'));
     case 'rating': return defineAsyncComponent(() => import('~/components/Rating/RatingInput.vue'));
+    case 'toggle': return defineAsyncComponent(() => import('~/components/Toggle/Toggle.vue'));
     default: return '';
   }
 }
