@@ -173,7 +173,15 @@ const looooog = () => console.log('sss');
   color: var(--gray-900);
 }
 
-.table-body .table-row .table-cell * {
-  /* width: max-content; */
+.table-body .table-row .table-cell .percentage {
+  width: fit-content;
+}
+
+.table-body .table-row .table-cell .increment {
+  --width: max-content;
+}
+
+.table-body .table-row .table-cell .increment:deep(input) {
+  width: 30px;
 }
 </style>

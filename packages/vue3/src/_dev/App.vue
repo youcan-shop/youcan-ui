@@ -80,6 +80,12 @@ const data = ref<TableData[]>(
           modelValue: true,
         },
       },
+      image: {
+        variant: 'counter',
+        data: {
+          modelValue: '1',
+        },
+      },
     },
   ],
 );
