@@ -20,8 +20,8 @@ const toggle = (override = !expanded.value) => expanded.value = override;
       </div>
 
       <div v-if="slots.default" class="expand-icon">
-        <i v-if="expanded" i-youcan-account />
-        <i v-else i-youcan-pay />
+        <i v-if="expanded" i-youcan-minus />
+        <i v-else i-youcan-plus />
       </div>
     </button>
     <div v-if="slots.default && expanded" class="subitems">
@@ -65,6 +65,8 @@ const toggle = (override = !expanded.value) => expanded.value = override;
 }
 
 .expand-icon {
+    width: 16px;
+    height: 16px;
     color: var(--base-white);
     margin-inline-start: auto;
 }
