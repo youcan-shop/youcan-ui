@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, useSlots } from 'vue';
 import type { TableColumn, TableColumnValue, TableData, TableDataComposable } from './types';
-import ColumnRegistrar from './Internal/cr';
+// import ColumnRegistrar from './Internal/cr';
 import { launder } from '~/utils/type.util';
 
 const props = defineProps<{
@@ -28,7 +28,7 @@ const rows = computed(
         value,
         accessor: key as string,
         isString: typeof value !== 'object',
-        component: typeof value !== 'string' ? ColumnRegistrar(value.variant) : '',
+        // component: typeof value !== 'string' ? ColumnRegistrar(value.variant) : '',
       };
     });
 
@@ -39,6 +39,9 @@ const rows = computed(
 const emitSort = (column: TableColumn, index: number) => emit('sort', column, index);
 
 const loggg = (x: any, y: any) => console.log(x, y);
+
+const slots = useSlots();
+console.log(slots.default()[0].children.default());
 </script>
 
 <template>
@@ -53,15 +56,7 @@ const loggg = (x: any, y: any) => console.log(x, y);
         </th>
       </thead>
       <tbody class="table-body">
-        <tr v-for="(row, index) in rows" :key="index">
-          <td v-for="column in columns" :key="column.accessor">
-            <template v-if="row[column.accessor]">
-              <span v-if="row[column.accessor].isString" class="text-column">{{ row[column.accessor].value }}</span>
-              <component :is="row[column.accessor].component" v-else-if="!row[column.accessor].isString"
-                v-bind="launder<TableDataComposable>(row[column.accessor].value).data" v-on="loggg" />
-            </template>
-          </td>
-        </tr>
+        <slot :sss="columns" />
       </tbody>
     </table>
   </div>
@@ -110,15 +105,6 @@ const loggg = (x: any, y: any) => console.log(x, y);
 
 .table-head .head-column * {
   vertical-align: middle;
-}
-
-.table-body tr {
-  background-color: var(--base-white);
-  height: 68px;
-}
-
-.table-body tr td {
-  padding: 0 12px;
 }
 
 .table-body .text-column {
