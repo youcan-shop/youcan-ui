@@ -23,20 +23,17 @@ export interface TableData {
   [key: string]: string | number | TableDataComposable
 }
 
-export type TableComposableVariant = 'link' | 'thumbnail' | 'status' | 'percentage' | 'button';
+export type TableComposableVariant = 'link' | 'thumbnail' | 'status' | 'percentage' | 'button' | 'rating';
 
 export type TableDataComposable = {
   variant: Extract<TableComposableVariant, 'link'>
   data: TableDataLink
-  events?: Record<string, () => void>
 } | {
   variant: Extract<TableComposableVariant, 'thumbnail'>
   data: TableDataThumbnail
-  events?: Record<string, () => void>
 } | {
   variant: Extract<TableComposableVariant, 'status'>
   data: TableDataStatus
-  events?: Record<string, () => void>
 } | {
   variant: Extract<TableComposableVariant, 'percentage'>
   data: TableDataPercentage
@@ -47,6 +44,9 @@ export type TableDataComposable = {
   events?: {
     click: () => void
   }
+} | {
+  variant: Extract<TableComposableVariant, 'rating'>
+  data: TableDataRating
 };
 
 export interface TableDataLink {
@@ -77,4 +77,9 @@ export interface TableDataButton {
   disabled?: boolean
   iconPosition?: ButtonIconPosition
   roundedFull?: boolean
+}
+
+export interface TableDataRating {
+  modelValue: number
+  ceil?: number
 }

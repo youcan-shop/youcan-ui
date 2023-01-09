@@ -30,6 +30,12 @@ const data = ref<TableData[]>(
           },
         },
       },
+      profile: {
+        variant: 'rating',
+        data: {
+          modelValue: 3,
+        },
+      },
       name: 'John Doe',
       age: {
         variant: 'status',
