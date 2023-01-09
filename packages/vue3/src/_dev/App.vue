@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import '~/assets/main.css';
-import { DropdownPrefix, Input, InputGroup } from '~/components';
+import { DropdownPrefix, Input, InputGroup, Percentage } from '~/components';
 import type { DropdownItemGroups } from '~/components/Dropdown/types';
 
 const items = {
@@ -54,7 +54,7 @@ const model = ref({ main: '', prefix: null });
           </template>
 
           <template #suffix>
-            km/h
+            <Percentage type="info" :percentage="(model.main.length / 32) * 100" />
           </template>
 
           <template #prefix>
