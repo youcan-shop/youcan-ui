@@ -1,5 +1,6 @@
 import type { Meta } from '@storybook/vue3';
 import Table from './Table.vue';
+import type { TableData } from './types';
 
 const meta: Meta<typeof Table> = {
   title: 'Application/Table',
@@ -16,6 +17,7 @@ export const Default = {
       { label: 'Name', accessor: 'name', sortable: 'desc' },
       { label: 'Age', accessor: 'age' },
       { label: 'Email', accessor: 'email' },
+      { label: 'Profile', accessor: 'profile' },
     ],
     data: [
       { name: 'John Doe', age: 42, email: 'Doe@gmail.com' },
@@ -27,10 +29,17 @@ export const Default = {
             size: 'small',
           },
         },
+        profile: {
+          variant: 'link',
+          data: {
+            href: 'https://www.google.com',
+            label: 'Facebook',
+          },
+        },
         age: 42,
         email: 'Doe@gmail.com',
       },
       { name: 'John Smith', age: 22, email: 'Smith@gmail.com' },
-    ],
+    ] as TableData[],
   },
 };

@@ -17,14 +17,16 @@ export interface TableColumnValue {
 }
 
 export interface TableData {
-  [key: string]: string | TableDataComposable
+  [key: string]: string | number | TableDataComposable
 }
 
+export type TableComposableVariant = 'link' | 'thumbnail';
+
 export type TableDataComposable = {
-  variant: 'link'
+  variant: Extract<TableComposableVariant, 'link'>
   data: TableDataLink
 } | {
-  variant: 'thumbnail'
+  variant: Extract<TableComposableVariant, 'thumbnail'>
   data: TableDataThumbnail
 };
 

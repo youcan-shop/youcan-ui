@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import type { TableColumn, TableColumnValue, TableData, TableDataComposable } from './types';
-import ColumnRegistrar from './cr';
+import ColumnRegistrar from './Internal/cr';
 import { launder } from '~/utils/type.util';
 
 const props = defineProps<{
