@@ -66,6 +66,9 @@ const model = computed<DropdownItemDefinition | null>({
 
 .dropdown-input .label {
   color: var(--gray-900);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .dropdown-input:hover {

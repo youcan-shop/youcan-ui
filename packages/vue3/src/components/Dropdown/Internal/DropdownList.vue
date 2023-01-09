@@ -111,6 +111,7 @@ function toggle(item: DropdownItemDefinition, value: boolean): void {
 .dropdown-list {
   position: relative;
   border-radius: 8px;
+  min-width: fit-content;
   box-shadow: var(--shadow-md);
   border: 1px solid var(--gray-100);
   background-color: var(--base-white);
@@ -123,6 +124,9 @@ function toggle(item: DropdownItemDefinition, value: boolean): void {
   border-radius: 8px;
   overflow-y: auto;
   padding: 8px 0;
+  overflow-x: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .dropdown-list.searchable {
