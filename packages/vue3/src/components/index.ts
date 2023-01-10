@@ -36,3 +36,5 @@ export { default as SidebarItem } from './Sidebar/SidebarItem.vue';
 export { default as SidebarSubitem } from './Sidebar/SidebarSubitem.vue';
 export { default as Topbar } from './Topbar/Topbar.vue';
 export { default as ActionBar } from './ActionBar/ActionBar.vue';
+export { default as SettingsNav } from './SettingsNav/SettingsNav.vue';
+export { default as SettingsNavItem } from './SettingsNav/SettingsNavItem.vue';
