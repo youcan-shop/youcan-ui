@@ -101,7 +101,10 @@ const looooog = () => console.log('sss');
         <tr v-for="(row, index) in rows" :key="index" class="table-row">
           <td v-for="column in columns" :key="column.accessor" class="table-cell">
             <template v-if="row[column.accessor]">
-              <span v-if="row[column.accessor].isString" class="text-column">{{ row[column.accessor].value }}</span>
+              <span v-if="row[column.accessor].isString" class="text-column"
+                :class="{ na: row[column.accessor].value.toString().toLocaleLowerCase() === 'n/a' }">
+                {{ row[column.accessor].value }}
+              </span>
               <component :is="row[column.accessor].component" v-else-if="!row[column.accessor].isString"
                 v-bind="launder<TableDataComposable>(row[column.accessor].value).data"
                 @update:model-value="(data: unknown) => handleSubCompModel(index, column.accessor, data)"
@@ -171,6 +174,12 @@ const looooog = () => console.log('sss');
 .table-body .text-column {
   font: var(--text-sm-regular);
   color: var(--gray-900);
+}
+
+.table-body .text-column.na {
+  font: var(--text-sm-medium);
+  color: var(--gray-300);
+  text-transform: uppercase;
 }
 
 .table-body .table-row .table-cell .percentage {

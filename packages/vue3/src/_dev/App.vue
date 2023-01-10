@@ -68,7 +68,7 @@ const data = ref<TableData[]>(
           type: 'info',
         },
       },
-      email: 'Doe@gmail.com',
+      email: 'n/a',
     },
     {
       name: 'John Smith',
