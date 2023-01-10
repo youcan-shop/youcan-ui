@@ -6,13 +6,14 @@ import DropdownList from './Internal/DropdownList.vue';
 
 const props = withDefaults(
   defineProps<{
+    size?: 36 | 44
     icon?: string
     placeholder: string
     searchable?: boolean
     modelValue: DropdownItemDefinition | null
     items: DropdownItemArray | DropdownItemGroups
   }>(),
-  { searchable: false },
+  { searchable: false, size: 36 },
 );
 
 const emit = defineEmits(['update:modelValue']);
@@ -34,7 +35,7 @@ const model = computed<DropdownItemDefinition | null>({
 
 <template>
   <div>
-    <button ref="button" class="dropdown-input" @click="() => toggleList()">
+    <button ref="button" :class="`size-${size}`" class="dropdown-input" @click="() => toggleList()">
       <i v-if="icon" class="icon" :class="icon" />
       <span class="label">
         {{ model?.label ?? placeholder }}
@@ -54,20 +55,28 @@ const model = computed<DropdownItemDefinition | null>({
   width: 100%;
   display: flex;
   cursor: pointer;
-  padding: 12px 16px;
-  border-radius: 8px;
   align-items: center;
   color: var(--gray-500);
   box-shadow: var(--shadow-xs);
-  font: var(--text-sm-regular);
   border: 1px solid var(--gray-100);
   background-color: var(--base-white);
+}
+
+.dropdown-input.size-36 {
+  padding: 7.5px 12px;
+  border-radius: 4px;
+}
+
+.dropdown-input.size-44 {
+  padding: 11.5px 16px;
+  border-radius: 8px;
 }
 
 .dropdown-input .label {
   color: var(--gray-900);
   overflow: hidden;
   white-space: nowrap;
+  font: var(--text-sm-regular);
   text-overflow: ellipsis;
 }
 

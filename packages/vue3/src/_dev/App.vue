@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import '~/assets/main.css';
-import { ActionBar, DropdownPrefix, Input, InputGroup, Percentage, SecondaryButton, Sidebar, SidebarItem, SidebarSubitem, Tab, TabsBar } from '~/components';
-import type { DropdownItemGroups } from '~/components/Dropdown/types';
+import { Dropdown, DropdownPrefix, Input, InputGroup, Percentage, SecondaryButton, Sidebar, SidebarItem, SidebarSubitem, Tab, TabsBar, TertiaryButton } from '~/components';
+import Topbar from '~/components/Topbar/Topbar.vue';
+import type { DropdownItemArray, DropdownItemGroups } from '~/components/Dropdown/types';
 
 const items = {
   One: [
@@ -42,6 +43,13 @@ const items = {
 } as DropdownItemGroups;
 
 const model = ref({ main: '', prefix: null });
+
+const languagemodel = ref();
+const languages = [
+  { label: 'French', value: 'fr' },
+  { label: 'Arabic', value: 'fr' },
+  { label: 'English', value: 'ar' },
+] as DropdownItemArray;
 </script>
 
 <template>
@@ -65,6 +73,31 @@ const model = ref({ main: '', prefix: null });
     </Sidebar>
 
     <div class="inner">
+      <Topbar>
+        <template #start>
+          <div>
+            Hii
+          </div>
+
+          <div>
+            Nae
+          </div>
+        </template>
+
+        <template #end>
+          <Dropdown v-model="languagemodel" :size="44" :items="languages" icon="i-youcan-language" placeholder="Language" />
+
+          <SecondaryButton size="md" icon-position="only">
+            <template #icon>
+              <i i-youcan-account />
+            </template>
+          </SecondaryButton>
+
+          <TertiaryButton size="md">
+            Hi
+          </TertiaryButton>
+        </template>
+      </Topbar>
       <div>
         <InputGroup style="max-width: 500px">
           <template #input>
@@ -121,6 +154,6 @@ main {
 }
 
 .inner {
-  padding: 16px;
+  width: 100%;
 }
 </style>
