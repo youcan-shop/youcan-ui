@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import '~/assets/main.css';
-import { Dropdown, DropdownPrefix, Input, InputGroup, Percentage, SecondaryButton, SettingsNav, SettingsNavItem, Sidebar, SidebarItem, SidebarSubitem, Tab, TabsBar, TertiaryButton } from '~/components';
+import { Dropdown, DropdownPrefix, Input, InputGroup, Percentage, SearchInput, SecondaryButton, SettingsNav, SettingsNavItem, Sidebar, SidebarItem, SidebarSubitem, Tab, TabsBar, TertiaryButton } from '~/components';
 import Topbar from '~/components/Topbar/Topbar.vue';
 import type { DropdownItemArray, DropdownItemGroups } from '~/components/Dropdown/types';
+import type { QueryResult } from '~/components/Search/types';
 
 const items = {
   One: [
@@ -50,6 +51,24 @@ const languages = [
   { label: 'Arabic', value: 'fr' },
   { label: 'English', value: 'ar' },
 ] as DropdownItemArray;
+
+const queryhandler = async (query: string): Promise<QueryResult[]> => {
+  await new Promise(resolve => setTimeout(resolve, 1000));
+
+  const items: QueryResult[] = [
+    {
+      label: 'One',
+      thumbnail: 'https://wp.clutchpoints.com/wp-content/uploads/2021/07/There_s-an-entire-JRPG-on-Google_s-banner-to-celebrate-Tokyo-2020.jpg',
+      description: 'Something idk',
+      value: 1,
+      suffix: { type: 'rating', ceil: 5, score: 3 },
+    },
+    { label: 'Two', value: 2, suffix: { type: 'rating', ceil: 5, score: 5 } },
+    { label: 'Three', value: 3, suffix: { type: 'rating', ceil: 5, score: 1 } },
+  ];
+
+  return items.filter(i => i.label.toLowerCase().includes(query.toLowerCase()));
+};
 </script>
 
 <template>
@@ -85,7 +104,10 @@ const languages = [
         </template>
 
         <template #end>
-          <Dropdown v-model="languagemodel" :size="44" :items="languages" icon="i-youcan-language" placeholder="Language" />
+          <Dropdown
+            v-model="languagemodel" :size="44" :items="languages" icon="i-youcan-language"
+            placeholder="Language"
+          />
 
           <SecondaryButton size="md" icon-position="only">
             <template #icon>
@@ -98,6 +120,11 @@ const languages = [
           </TertiaryButton>
         </template>
       </Topbar>
+
+      <div style="padding: 16px;">
+        <SearchInput :query-handler="queryhandler" placeholder="Search.." :thumbnails="true" />
+      </div>
+
       <div>
         <InputGroup style="max-width: 500px">
           <template #input>

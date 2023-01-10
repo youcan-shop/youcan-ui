@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useFocus } from '@vueuse/core';
-import { computed, onBeforeMount, ref, useAttrs, useSlots } from 'vue';
+import { computed, defineExpose, onBeforeMount, ref, useAttrs, useSlots } from 'vue';
 import DropdownPrefix from './prefixes/DropdownPrefix.vue';
 
 const props = defineProps<{
