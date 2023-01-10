@@ -134,6 +134,14 @@ const languages = [
           <Tab label="Disabled" :disabled="true" />
         </TabsBar>
       </div>
+
+      <div>
+        <ActionBar>
+          <SecondaryButton size="md">
+            Hii
+          </SecondaryButton>
+        </ActionBar>
+      </div>
     </div>
   </main>
 </template>
