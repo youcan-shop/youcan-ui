@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import '~/assets/main.css';
-import { DropdownPrefix, Input, InputGroup, Percentage, Sidebar, SidebarItem, SidebarSubitem, Tab, TabsBar } from '~/components';
+import { ActionBar, DropdownPrefix, Input, InputGroup, Percentage, SecondaryButton, Sidebar, SidebarItem, SidebarSubitem, Tab, TabsBar } from '~/components';
 import type { DropdownItemGroups } from '~/components/Dropdown/types';
 
 const items = {
@@ -101,6 +101,14 @@ const model = ref({ main: '', prefix: null });
           <Tab label="Disabled" :disabled="true" />
         </TabsBar>
       </div>
+
+      <div>
+        <ActionBar>
+          <SecondaryButton size="md">
+            Hii
+          </SecondaryButton>
+        </ActionBar>
+      </div>
     </div>
   </main>
 </template>
@@ -110,5 +118,9 @@ main {
   margin: 0;
   padding: 0;
   display: flex;
+}
+
+.inner {
+  padding: 16px;
 }
 </style>

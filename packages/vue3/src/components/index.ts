@@ -34,3 +34,4 @@ export { default as TabsBar } from './Tabs/TabsBar.vue';
 export { default as Sidebar } from './Sidebar/Sidebar.vue';
 export { default as SidebarItem } from './Sidebar/SidebarItem.vue';
 export { default as SidebarSubitem } from './Sidebar/SidebarSubitem.vue';
+export { default as ActionBar } from './ActionBar/ActionBar.vue';
