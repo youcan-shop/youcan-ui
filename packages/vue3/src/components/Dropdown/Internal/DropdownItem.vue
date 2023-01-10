@@ -39,29 +39,32 @@ function toggle(override = !model.value) {
 
 <style scoped>
 .item {
-    gap: 8px;
-    width: 100%;
-    border: none;
-    display: flex;
-    cursor: pointer;
-    user-select: none;
-    padding: 12px 16px;
-    align-items: center;
-    font: var(--text-sm-regular);
-    background-color: var(--base-white);
+  gap: 8px;
+  width: 100%;
+  border: none;
+  display: flex;
+  cursor: pointer;
+  user-select: none;
+  padding: 12px 16px;
+  align-items: center;
+  background-color: var(--base-white);
+}
+
+.item .label {
+  font: var(--text-sm-regular);
 }
 
 .item:hover {
-    background-color: var(--gray-50);
+  background-color: var(--gray-50);
 }
 
 .item:focus,
 .item:active {
-    outline: none;
-    background: var(--gray-100);
+  outline: none;
+  background: var(--gray-100);
 }
 
 .preview {
-    color: var(--gray-500);
+  color: var(--gray-500);
 }
 </style>
