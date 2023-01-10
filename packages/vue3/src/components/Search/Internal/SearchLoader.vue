@@ -26,7 +26,7 @@
     animation: loader 1000ms ease infinite;
 }
 
-.text {
+.label {
     color: var(--gray-900);
     font: var(--text-sm-regular);
 }
