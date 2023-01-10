@@ -12,6 +12,7 @@ export default function (name: TableComposableVariant): Component | string {
     case 'rating': return defineAsyncComponent(() => import('~/components/Rating/RatingInput.vue'));
     case 'toggle': return defineAsyncComponent(() => import('~/components/Toggle/Toggle.vue'));
     case 'counter': return defineAsyncComponent(() => import('~/components/Increment/Increment.vue'));
+    case 'icon': return defineAsyncComponent(() => import('~/components/Table/Internal/Icon.vue'));
     default: return '';
   }
 }

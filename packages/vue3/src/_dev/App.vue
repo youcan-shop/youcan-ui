@@ -73,7 +73,20 @@ const data = ref<TableData[]>(
     {
       name: 'John Smith',
       age: 22,
-      email: 'Smith@gmail.com',
+      email: {
+        variant: 'icon',
+        data: {
+          iconName: 'i-youcan-expand',
+        },
+        events: {
+          click: () => {
+            console.log('click');
+          },
+          mouseover: () => {
+            console.log('mouseover');
+          },
+        },
+      },
       profile: {
         variant: 'toggle',
         data: {

@@ -23,7 +23,7 @@ export interface TableData {
   [key: string]: string | number | TableDataComposable
 }
 
-export type TableComposableVariant = 'link' | 'thumbnail' | 'status' | 'percentage' | 'button' | 'rating' | 'toggle' | 'counter';
+export type TableComposableVariant = 'link' | 'thumbnail' | 'status' | 'percentage' | 'button' | 'rating' | 'toggle' | 'counter' | 'icon';
 
 export type TableDataComposable = {
   variant: Extract<TableComposableVariant, 'link'>
@@ -53,6 +53,13 @@ export type TableDataComposable = {
 } | {
   variant: Extract<TableComposableVariant, 'counter'>
   data: TableDataCounter
+} | {
+  variant: Extract<TableComposableVariant, 'icon'>
+  data: TableDataIcon
+  events?: {
+    click?: () => void
+    mouseover?: () => void
+  }
 };
 
 export interface TableDataLink {
@@ -102,3 +109,8 @@ export interface TableDataCounter {
   id?: string
   disabled?: boolean
 }
+
+export interface TableDataIcon {
+  iconName: string
+}
+
