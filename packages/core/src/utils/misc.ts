@@ -31,3 +31,31 @@ export function toDataUrl(file: File | Blob): Promise<string> {
     reader.readAsDataURL(file);
   });
 }
+
+function deferred(ms: number) {
+  let cancel;
+
+  const promise = new Promise((resolve, reject) => {
+    cancel = reject;
+    setTimeout(resolve, ms);
+  });
+
+  return { promise, cancel };
+}
+
+export function debounce(closure: Function, ms: number) {
+  let t: any = { promise: null, cancel: (_ = undefined) => undefined };
+  return [
+    async (...args: unknown[]) => {
+      try {
+        t.cancel();
+        t = deferred(ms);
+
+        await t.promise;
+        await closure(...args);
+      }
+      catch (_) { }
+    },
+    (_: unknown = undefined) => t.cancel(),
+  ];
+}

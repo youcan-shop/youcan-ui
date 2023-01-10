@@ -40,3 +40,4 @@ export { default as SettingsNav } from './SettingsNav/SettingsNav.vue';
 export { default as SettingsNavItem } from './SettingsNav/SettingsNavItem.vue';
 export { default as Table } from './Table/Table.vue';
 export { default as PaginationBar } from './PaginationBar/PaginationBar.vue';
+export { default as SearchInput } from './Search/SearchInput.vue';

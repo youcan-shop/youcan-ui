@@ -28,8 +28,13 @@ onBeforeMount(() => {
 </template>
 
 <style scoped>
+.rating {
+  display: flex;
+  align-items: center;
+}
+
 .star {
-  display: inline-block;
+  display: block;
   margin-inline-end: 2px;
   color: var(--gray-100);
 }
