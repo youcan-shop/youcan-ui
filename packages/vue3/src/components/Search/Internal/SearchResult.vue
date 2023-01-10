@@ -40,7 +40,8 @@ button {
     align-items: center;
 }
 
-.label, .description {
+.label,
+.description {
     font: var(--text-sm-regular);
 }
 
@@ -53,12 +54,12 @@ button {
 }
 
 .result:hover {
-  background-color: var(--gray-50);
+    background-color: var(--gray-50);
 }
 
 .result:focus,
 .result:active {
-  outline: none;
-  background: var(--gray-100);
+    outline: none;
+    background: var(--gray-100);
 }
 </style>
