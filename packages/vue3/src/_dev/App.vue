@@ -128,7 +128,7 @@ const actions: TableActions[] = [
 
 <template>
   <div>
-    <Table v-model:data="data" :columns="columns" :actions="actions" />
+    <Table v-model:data="data" :columns="columns" :actions="actions" :checkable="true" />
     <textarea id="" name="" cols="30" rows="10" :value="JSON.stringify(data)" />
   </div>
 </template>

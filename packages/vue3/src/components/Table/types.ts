@@ -28,9 +28,9 @@ export interface TableColumnValue {
   component?: Component | ''
 }
 
-export interface TableData {
+export type TableData = { checked?: boolean } & {
   [key: string]: string | number | TableDataComposable
-}
+};
 
 export type TableComposableVariant = 'link' | 'thumbnail' | 'status' | 'percentage' | 'button' | 'rating' | 'toggle' | 'counter' | 'icon';
 
@@ -69,6 +69,9 @@ export type TableDataComposable = {
     click?: () => void
     mouseover?: () => void
   }
+} | {
+  variant: 'checkbox'
+  data: TableDataCheckbox
 };
 
 export interface TableDataLink {
@@ -121,5 +124,9 @@ export interface TableDataCounter {
 
 export interface TableDataIcon {
   iconName: string
+}
+
+export interface TableDataCheckbox {
+  modelValue: boolean
 }
 
