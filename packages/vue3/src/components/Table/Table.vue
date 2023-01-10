@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { computed, defineAsyncComponent, ref, shallowRef } from 'vue';
-import Checkbox from '../Checkbox/Checkbox.vue';
+import { computed, shallowRef } from 'vue';
 import type { TableActions, TableColumn, TableColumnValue, TableData, TableDataComposable } from './types';
 import ColumnRegistrar from './Internal/cr';
 import TableButton from './Internal/Button.vue';
@@ -10,7 +9,6 @@ const props = defineProps<{
   columns: TableColumn[]
   data: TableData[]
   actions?: TableActions[]
-  checkable?: boolean
 }>();
 
 const emit = defineEmits<{
@@ -20,11 +18,7 @@ const emit = defineEmits<{
 
 const tableColumns = computed(() => {
   if (props.actions && props.actions.length > 0) {
-    return [
-      props.checkable ? { accessor: 'check', label: 'xx' } : null,
-      ...props.columns,
-      { accessor: 'actions', label: 'Actions' },
-    ].filter(column => column !== null) as TableColumn[];
+    return [...props.columns, { accessor: 'actions', label: 'Actions' }];
   }
 
   return props.columns;
@@ -33,20 +27,6 @@ const tableColumns = computed(() => {
 const rows = computed(
   () => props.data.map((row) => {
     const rowObject = {} as Record<keyof TableData, TableColumnValue>;
-
-    if (props.checkable) {
-      rowObject.check = {
-        value: {
-          variant: 'checkbox',
-          data: {
-            modelValue: false,
-          },
-        },
-        accessor: 'check',
-        isString: false,
-        component: defineAsyncComponent(() => import('~/components/Checkbox/Checkbox.vue')),
-      };
-    }
 
     Object.keys(row).forEach((key: keyof TableData) => {
       const value = row[key];
@@ -70,10 +50,6 @@ const rows = computed(
 const emitSort = (column: TableColumn, index: number) => emit('sort', column, index);
 
 function ougaBouga(ddd: Record<keyof TableData, TableColumnValue>[]): TableData[] {
-  // create an array called xxc with 3 number from q to 2, and push ddd into the first position
-  // const xxc = Array.from({ length: 3 }, (_, i) => i + 2).reverse();
-  // xxc.unshift(ddd);
-
   const yy: TableData[] = props.data.map((row: TableData, index: number) => {
     const rowObject: TableData = {};
 
@@ -93,12 +69,6 @@ function ougaBouga(ddd: Record<keyof TableData, TableColumnValue>[]): TableData[
     return rowObject;
   });
 
-  if (props.checkable) {
-    yy.forEach((row, index) => {
-      row.check = ddd[index].check.value;
-    });
-  }
-
   return yy;
 }
 
@@ -107,21 +77,16 @@ function handleSubCompModel(row: number, accessor: string, data: unknown) {
 
   const ffff = shallowRef(rows.value);
   const propRow = props.data[row][accessor] as TableDataComposable;
-  console.log(propRow);
 
   ffff.value[row][accessor].value = {
     // @ts-expect-error - TS is crying about variant type here, but it's not a problem since it's valid
-    variant: propRow?.variant || 'checkbox',
+    variant: propRow.variant,
     data: {
-      ...propRow?.data || {},
+      ...propRow.data,
       // @ts-expect-error - Expected from TS to not know the type def here since the value is dynamically set
       modelValue: data,
     },
   };
-
-  console.log(ffff.value[row][accessor]);
-
-  console.log(ougaBouga(ffff.value));
 
   console.log(ougaBouga(ffff.value), props.data);
 
@@ -129,8 +94,6 @@ function handleSubCompModel(row: number, accessor: string, data: unknown) {
 }
 
 const looooog = () => console.log('sss');
-
-const allChecked = ref(false);
 </script>
 
 <template>
@@ -138,21 +101,15 @@ const allChecked = ref(false);
     <table class="table">
       <thead class="table-head">
         <th v-for="(column, index) in tableColumns" :key="column.accessor" class="head-column">
-          <template v-if="column.accessor === 'check'">
-            <Checkbox v-model="allChecked" />
-          </template>
-          <template v-else>
-            <span class="text">{{ column.label }}</span>
-            <i v-if="column.sortable && column.sortable !== 'none'" class="i-youcan-caretdown sort-icon"
-              :style="{ transform: column.sortable === 'asc' ? 'rotate(180deg)' : '' }" tabindex="1"
-              @click="emitSort(column, index)" />
-          </template>
+          <span class="text">{{ column.label }}</span>
+          <i v-if="column.sortable && column.sortable !== 'none'" class="i-youcan-caretdown sort-icon"
+            :style="{ transform: column.sortable === 'asc' ? 'rotate(180deg)' : '' }" tabindex="1"
+            @click="emitSort(column, index)" />
         </th>
       </thead>
       <tbody class="table-body">
         <tr v-for="(row, index) in rows" :key="index" class="table-row">
           <td v-for="column in tableColumns" :key="column.accessor" class="table-cell">
-            <!-- <Checkbox v-if="column.accessor === 'check' && props.checkable" v-model="" /> -->
             <template v-if="row[column.accessor]">
               <span v-if="row[column.accessor].isString" class="text-column"
                 :class="{ na: row[column.accessor].value.toString().toLocaleLowerCase() === 'n/a' }">
@@ -236,10 +193,6 @@ const allChecked = ref(false);
   display: flex;
   align-items: center;
   gap: 8px;
-}
-
-.table-body .table-row .table-cell .cell-actions .secondary {
-  --icon-color: var(--gray-500);
 }
 
 .table-body .text-column {
