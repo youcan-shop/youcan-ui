@@ -3,7 +3,7 @@ import { ref } from 'vue';
 import '~/assets/main.css';
 import { EditableStatus, StaticStatus } from '~/components';
 import Table from '~/components/Table/Table.vue';
-import type { TableColumn, TableData } from '~/components/Table/types';
+import type { TableActions, TableColumn, TableData } from '~/components/Table/types';
 
 const status = ref({ label: 'Success', value: 1, color: '#25B86A' });
 
@@ -102,11 +102,33 @@ const data = ref<TableData[]>(
     },
   ],
 );
+
+const actions: TableActions[] = [
+  {
+    label: 'Edit',
+    iconName: 'i-youcan-edit',
+    criteria: (value?: TableData) => !!(value?.age && value?.age > 18),
+    events: {
+      click: () => {
+        console.log('edit');
+      },
+    },
+  },
+  {
+    label: 'Delete',
+    iconName: 'i-youcan-delete',
+    events: {
+      click: () => {
+        console.log('delete');
+      },
+    },
+  },
+];
 </script>
 
 <template>
   <div>
-    <Table v-model:data="data" :columns="columns" />
+    <Table v-model:data="data" :columns="columns" :actions="actions" />
     <textarea id="" name="" cols="30" rows="10" :value="JSON.stringify(data)" />
   </div>
 </template>

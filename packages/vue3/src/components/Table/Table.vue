@@ -1,18 +1,28 @@
 <script setup lang="ts">
 import { computed, shallowRef } from 'vue';
-import type { TableColumn, TableColumnValue, TableData, TableDataComposable } from './types';
+import type { TableActions, TableColumn, TableColumnValue, TableData, TableDataComposable } from './types';
 import ColumnRegistrar from './Internal/cr';
+import TableButton from './Internal/Button.vue';
 import { launder } from '~/utils/type.util';
 
 const props = defineProps<{
   columns: TableColumn[]
   data: TableData[]
+  actions?: TableActions[]
 }>();
 
 const emit = defineEmits<{
   (event: 'sort', column: TableColumn, index: number): void
   (event: 'update:data', data: TableData[]): void
 }>();
+
+const tableColumns = computed(() => {
+  if (props.actions && props.actions.length > 0) {
+    return [...props.columns, { accessor: 'actions', label: 'Actions' }];
+  }
+
+  return props.columns;
+});
 
 const rows = computed(
   () => props.data.map((row) => {
@@ -90,7 +100,7 @@ const looooog = () => console.log('sss');
   <div class="table-container">
     <table class="table">
       <thead class="table-head">
-        <th v-for="(column, index) in columns" :key="column.accessor" class="head-column">
+        <th v-for="(column, index) in tableColumns" :key="column.accessor" class="head-column">
           <span class="text">{{ column.label }}</span>
           <i v-if="column.sortable && column.sortable !== 'none'" class="i-youcan-caretdown sort-icon"
             :style="{ transform: column.sortable === 'asc' ? 'rotate(180deg)' : '' }" tabindex="1"
@@ -99,7 +109,7 @@ const looooog = () => console.log('sss');
       </thead>
       <tbody class="table-body">
         <tr v-for="(row, index) in rows" :key="index" class="table-row">
-          <td v-for="column in columns" :key="column.accessor" class="table-cell">
+          <td v-for="column in tableColumns" :key="column.accessor" class="table-cell">
             <template v-if="row[column.accessor]">
               <span v-if="row[column.accessor].isString" class="text-column"
                 :class="{ na: row[column.accessor].value.toString().toLocaleLowerCase() === 'n/a' }">
@@ -110,6 +120,13 @@ const looooog = () => console.log('sss');
                 @update:model-value="(data: unknown) => handleSubCompModel(index, column.accessor, data)"
                 v-on="launder<TableDataComposable>(row[column.accessor].value).events || {}" />
             </template>
+            <div v-if="column.accessor === 'actions'" class="cell-actions">
+              <template v-for="action in actions" :key="action.label">
+                <TableButton v-if="!action.criteria || action.criteria(data[index])" size="xs"
+                  :icon-name="action.iconName" :label="action.label" :rounded-full="true" icon-position="only"
+                  v-on="action.events || {}" />
+              </template>
+            </div>
           </td>
         </tr>
       </tbody>
@@ -162,13 +179,20 @@ const looooog = () => console.log('sss');
   vertical-align: middle;
 }
 
-.table-body tr {
+.table-body .table-row {
   background-color: var(--base-white);
   height: 68px;
+  border-bottom: 1px solid var(--gray-100);
 }
 
-.table-body tr td {
+.table-body .table-row .table-cell {
   padding: 0 12px;
+}
+
+.table-body .table-row .table-cell .cell-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .table-body .text-column {

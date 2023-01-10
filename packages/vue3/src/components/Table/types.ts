@@ -12,6 +12,15 @@ export interface TableColumn {
 
 export type TableColumnSort = 'none' | 'asc' | 'desc';
 
+export interface TableActions {
+  label: string
+  iconName?: string
+  criteria?: (value: TableData) => boolean
+  events?: {
+    click: (row: TableData, index: number) => void
+  }
+}
+
 export interface TableColumnValue {
   value: string | TableDataComposable
   accessor: string
