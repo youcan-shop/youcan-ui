@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import '~/assets/main.css';
-import { Dropdown, DropdownPrefix, Input, InputGroup, Percentage, SecondaryButton, Sidebar, SidebarItem, SidebarSubitem, Tab, TabsBar, TertiaryButton } from '~/components';
+import { Dropdown, DropdownPrefix, Input, InputGroup, Percentage, SecondaryButton, SettingsNav, SettingsNavItem, Sidebar, SidebarItem, SidebarSubitem, Tab, TabsBar, TertiaryButton } from '~/components';
 import Topbar from '~/components/Topbar/Topbar.vue';
 import type { DropdownItemArray, DropdownItemGroups } from '~/components/Dropdown/types';
 
@@ -141,6 +141,19 @@ const languages = [
             Hii
           </SecondaryButton>
         </ActionBar>
+      </div>
+
+      <div class="settings">
+        <SettingsNav>
+          <template #header>
+            Settings
+          </template>
+
+          <template #items>
+            <SettingsNavItem icon="i-youcan-settings-branding" label="Branding" />
+            <SettingsNavItem :active="true" icon="i-youcan-settings-home-page" label="Homepage" />
+          </template>
+        </SettingsNav>
       </div>
     </div>
   </main>
