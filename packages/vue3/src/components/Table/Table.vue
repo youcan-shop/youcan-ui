@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import { watch } from 'fs';
 import { computed, ref, shallowRef, watchEffect } from 'vue';
-import Checkbox from '../Checkbox/Checkbox.vue';
-import type { TableActions, TableColumn, TableColumnValue, TableData, TableDataComposable } from './types';
-import ColumnRegistrar from './Internal/cr';
 import TableButton from './Internal/Button.vue';
+import CellsRegistrar from './Internal/cells-registrar';
+import type { TableActions, TableColumn, TableColumnValue, TableData, TableDataComposable } from './types';
+import Checkbox from '~/components/Checkbox/Checkbox.vue';
 import { launder } from '~/utils/type.util';
 
 const props = defineProps<{
@@ -21,6 +20,9 @@ const emit = defineEmits<{
   (event: 'update:selected-rows', data: TableData[]): void
   (event: 'check', indexes: Array<number>): void
 }>();
+
+const allChecked = ref(false);
+const checkedRows = ref(Array<boolean>(props.data.length).fill(false));
 
 const tableColumns = computed(() => {
   if (props.actions && props.actions.length > 0) {
@@ -49,7 +51,7 @@ const rows = computed(
         value,
         accessor: key as string,
         isString: typeof value !== 'object',
-        component: typeof value !== 'string' ? ColumnRegistrar(value.variant) : '',
+        component: typeof value === 'object' ? CellsRegistrar(value.variant) : undefined,
       };
     });
 
@@ -59,8 +61,8 @@ const rows = computed(
 
 const emitSort = (column: TableColumn, index: number) => emit('sort', column, index);
 
-function ougaBouga(ddd: Record<keyof TableData, TableColumnValue>[]): TableData[] {
-  const yy: TableData[] = props.data.map((row: TableData, index: number) => {
+function mapRowsToTableData(ddd: Record<keyof TableData, TableColumnValue>[]): TableData[] {
+  return props.data.map((row: TableData, index: number) => {
     const rowObject: TableData = {};
 
     Object.keys(row).forEach((key: keyof TableData) => {
@@ -78,17 +80,13 @@ function ougaBouga(ddd: Record<keyof TableData, TableColumnValue>[]): TableData[
 
     return rowObject;
   });
-
-  return yy;
 }
 
 function handleSubCompModel(row: number, accessor: string, data: unknown) {
-  console.log(row, accessor, data);
-
-  const ffff = shallowRef(rows.value);
+  const rowsReplica = shallowRef(rows.value);
   const propRow = props.data[row][accessor] as TableDataComposable;
 
-  ffff.value[row][accessor].value = {
+  rowsReplica.value[row][accessor].value = {
     // @ts-expect-error - TS is crying about variant type here, but it's not a problem since it's valid
     variant: propRow.variant,
     data: {
@@ -98,15 +96,8 @@ function handleSubCompModel(row: number, accessor: string, data: unknown) {
     },
   };
 
-  console.log(ougaBouga(ffff.value), props.data);
-
-  emit('update:data', ougaBouga(ffff.value));
+  emit('update:data', mapRowsToTableData(rowsReplica.value));
 }
-
-const looooog = () => console.log('sss');
-
-const allChecked = ref(false);
-const checkedRows = ref(Array<boolean>(props.data.length).fill(false));
 
 watchEffect(() => {
   emit('update:selected-rows', props.data.filter((_, index) => checkedRows.value[index]));
@@ -190,8 +181,6 @@ const batchSelect = (value: boolean) => checkedRows.value = Array<boolean>(props
 
 .table-head .head-column {
   text-align: start;
-  /* display: flex; */
-  /* align-items: center; */
   height: 100%;
   padding: 0 16px;
 }

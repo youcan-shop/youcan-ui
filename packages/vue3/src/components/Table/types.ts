@@ -22,10 +22,10 @@ export interface TableActions {
 }
 
 export interface TableColumnValue {
-  value: string | TableDataComposable
+  value: string | number | TableDataComposable
   accessor: string
   isString: boolean
-  component?: Component | ''
+  component?: Component | undefined
 }
 
 export interface TableData {
@@ -34,65 +34,45 @@ export interface TableData {
 
 export type TableComposableVariant = 'link' | 'thumbnail' | 'status' | 'percentage' | 'button' | 'rating' | 'toggle' | 'counter' | 'icon';
 
-export type TableDataComposable = {
-  variant: Extract<TableComposableVariant, 'link'>
-  data: TableDataLink
-} | {
-  variant: Extract<TableComposableVariant, 'thumbnail'>
-  data: TableDataThumbnail
-} | {
-  variant: Extract<TableComposableVariant, 'status'>
-  data: TableDataStatus
-} | {
-  variant: Extract<TableComposableVariant, 'percentage'>
-  data: TableDataPercentage
-  events?: Record<string, () => void>
-} | {
-  variant: Extract<TableComposableVariant, 'button'>
-  data: TableDataButton
-  events?: {
-    click: () => void
-  }
-} | {
-  variant: Extract<TableComposableVariant, 'rating'>
-  data: TableDataRating
-} | {
-  variant: Extract<TableComposableVariant, 'toggle'>
-  data: TableDataToggle
-} | {
-  variant: Extract<TableComposableVariant, 'counter'>
-  data: TableDataCounter
-} | {
-  variant: Extract<TableComposableVariant, 'icon'>
-  data: TableDataIcon
-  events?: {
-    click?: () => void
-    mouseover?: () => void
-  }
-};
+interface TableComposable<T extends TableComposableVariant, U, V extends Record<string, () => void> = Record<string, () => void>> {
+  variant: Extract<TableComposableVariant, T>
+  data: U
+  events?: V
+}
 
-export interface TableDataLink {
+export type TableDataComposable =
+  TableComposable<'link', TableDataLink> |
+  TableComposable<'thumbnail', TableDataThumbnail> |
+  TableComposable<'status', TableDataStatus> |
+  TableComposable<'percentage', TableDataPercentage> |
+  TableComposable<'button', TableDataButton, { click: () => void }> |
+  TableComposable<'rating', TableDataRating> |
+  TableComposable<'toggle', TableDataToggle> |
+  TableComposable<'counter', TableDataCounter> |
+  TableComposable<'icon', TableDataIcon, { click?: () => void; mouseover?: () => void }>;
+
+interface TableDataLink {
   label?: string
   href: string
 }
 
-export interface TableDataThumbnail {
+interface TableDataThumbnail {
   size: ThumbnailSize
   src?: string
   alt?: string
 }
 
-export interface TableDataStatus {
+interface TableDataStatus {
   statuses: StatusDefinition[]
   modelValue: StatusDefinition
 }
 
-export interface TableDataPercentage {
+interface TableDataPercentage {
   percentage: number
   type: PercentageType
 }
 
-export interface TableDataButton {
+interface TableDataButton {
   label: string
   iconName?: string
   size?: ButtonSize
@@ -101,16 +81,16 @@ export interface TableDataButton {
   roundedFull?: boolean
 }
 
-export interface TableDataRating {
+interface TableDataRating {
   modelValue: number
   ceil?: number
 }
 
-export interface TableDataToggle {
+interface TableDataToggle {
   modelValue: boolean
 }
 
-export interface TableDataCounter {
+interface TableDataCounter {
   modelValue: string
   max?: number
   min?: number
@@ -119,7 +99,7 @@ export interface TableDataCounter {
   disabled?: boolean
 }
 
-export interface TableDataIcon {
+interface TableDataIcon {
   iconName: string
 }
 
