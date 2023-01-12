@@ -1,5 +1,7 @@
 <script setup lang="ts">
-import { computed, shallowRef } from 'vue';
+import { watch } from 'fs';
+import { computed, ref, shallowRef, watchEffect } from 'vue';
+import Checkbox from '../Checkbox/Checkbox.vue';
 import type { TableActions, TableColumn, TableColumnValue, TableData, TableDataComposable } from './types';
 import ColumnRegistrar from './Internal/cr';
 import TableButton from './Internal/Button.vue';
@@ -9,16 +11,24 @@ const props = defineProps<{
   columns: TableColumn[]
   data: TableData[]
   actions?: TableActions[]
+  selectable?: boolean
+  selectedRows?: TableData[]
 }>();
 
 const emit = defineEmits<{
   (event: 'sort', column: TableColumn, index: number): void
   (event: 'update:data', data: TableData[]): void
+  (event: 'update:selected-rows', data: TableData[]): void
+  (event: 'check', indexes: Array<number>): void
 }>();
 
 const tableColumns = computed(() => {
   if (props.actions && props.actions.length > 0) {
-    return [...props.columns, { accessor: 'actions', label: 'Actions' }];
+    return [
+      props.selectable ? { accessor: 'check', label: 'Checkbox' } : null,
+      ...props.columns,
+      { accessor: 'actions', label: 'Actions' },
+    ].filter(column => column !== null) as TableColumn[];
   }
 
   return props.columns;
@@ -94,6 +104,19 @@ function handleSubCompModel(row: number, accessor: string, data: unknown) {
 }
 
 const looooog = () => console.log('sss');
+
+const allChecked = ref(false);
+const checkedRows = ref(Array<boolean>(props.data.length).fill(false));
+
+watchEffect(() => {
+  emit('update:selected-rows', props.data.filter((_, index) => checkedRows.value[index]));
+
+  const selectedIndexes = checkedRows.value.map((_, index) => {
+    return _ ? index : null;
+  }).filter(index => index !== null) as Array<number>;
+
+  emit('check', selectedIndexes);
+});
 </script>
 
 <template>
@@ -101,16 +124,24 @@ const looooog = () => console.log('sss');
     <table class="table">
       <thead class="table-head">
         <th v-for="(column, index) in tableColumns" :key="column.accessor" class="head-column">
-          <span class="text">{{ column.label }}</span>
-          <i v-if="column.sortable && column.sortable !== 'none'" class="i-youcan-caretdown sort-icon"
-            :style="{ transform: column.sortable === 'asc' ? 'rotate(180deg)' : '' }" tabindex="1"
-            @click="emitSort(column, index)" />
+          <template v-if="column.accessor === 'check'">
+            <Checkbox v-model="allChecked" />
+          </template>
+          <template v-else>
+            <span class="text">{{ column.label }}</span>
+            <i v-if="column.sortable && column.sortable !== 'none'" class="i-youcan-caretdown sort-icon"
+              :style="{ transform: column.sortable === 'asc' ? 'rotate(180deg)' : '' }" tabindex="1"
+              @click="emitSort(column, index)" />
+          </template>
         </th>
       </thead>
       <tbody class="table-body">
         <tr v-for="(row, index) in rows" :key="index" class="table-row">
           <td v-for="column in tableColumns" :key="column.accessor" class="table-cell">
-            <template v-if="row[column.accessor]">
+            <template v-if="column.accessor === 'check'">
+              <Checkbox v-model="checkedRows[index]" />
+            </template>
+            <template v-else-if="row[column.accessor]">
               <span v-if="row[column.accessor].isString" class="text-column"
                 :class="{ na: row[column.accessor].value.toString().toLocaleLowerCase() === 'n/a' }">
                 {{ row[column.accessor].value }}
@@ -193,6 +224,10 @@ const looooog = () => console.log('sss');
   display: flex;
   align-items: center;
   gap: 8px;
+}
+
+.table-body .table-row .table-cell .cell-actions .secondary {
+  --icon-color: var(--gray-500);
 }
 
 .table-body .text-column {
