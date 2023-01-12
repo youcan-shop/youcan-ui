@@ -116,7 +116,11 @@ watchEffect(() => {
   }).filter(index => index !== null) as Array<number>;
 
   emit('check', selectedIndexes);
+
+  allChecked.value = checkedRows.value.every(row => row);
 });
+
+const batchSelect = (value: boolean) => checkedRows.value = Array<boolean>(props.data.length).fill(value);
 </script>
 
 <template>
@@ -125,7 +129,7 @@ watchEffect(() => {
       <thead class="table-head">
         <th v-for="(column, index) in tableColumns" :key="column.accessor" class="head-column">
           <template v-if="column.accessor === 'check'">
-            <Checkbox v-model="allChecked" />
+            <Checkbox v-model="allChecked" @update:model-value="batchSelect" />
           </template>
           <template v-else>
             <span class="text">{{ column.label }}</span>
