@@ -136,11 +136,11 @@ watchEffect(() => {
         </th>
       </thead>
       <tbody class="table-body">
-        <tr v-for="(row, index) in rows" :key="index" class="table-row">
+        <tr v-for="(row, index) in rows" :key="index" class="table-row" :class="{ selected: checkedRows[index] }">
           <td v-for="column in tableColumns" :key="column.accessor" class="table-cell">
-            <template v-if="column.accessor === 'check'">
+            <div v-if="column.accessor === 'check'" class="row-checker">
               <Checkbox v-model="checkedRows[index]" />
-            </template>
+            </div>
             <template v-else-if="row[column.accessor]">
               <span v-if="row[column.accessor].isString" class="text-column"
                 :class="{ na: row[column.accessor].value.toString().toLocaleLowerCase() === 'n/a' }">
@@ -216,7 +216,23 @@ watchEffect(() => {
   border-bottom: 1px solid var(--gray-100);
 }
 
+.table-body .table-row.selected {
+  background-color: var(--brand-50);
+}
+
+.table-body .table-row.selected .table-cell:first-of-type::before {
+  content: '';
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  background-color: var(--brand-500);
+  width: 3px;
+  height: calc(100% + 1px);
+}
+
 .table-body .table-row .table-cell {
+  position: relative;
   padding: 0 12px;
 }
 
@@ -239,6 +255,10 @@ watchEffect(() => {
   font: var(--text-sm-medium);
   color: var(--gray-300);
   text-transform: uppercase;
+}
+
+.table-body .table-row .table-cell .row-checker {
+  padding-left: 4px;
 }
 
 .table-body .table-row .table-cell .percentage {
