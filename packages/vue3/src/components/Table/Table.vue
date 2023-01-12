@@ -224,6 +224,10 @@ const batchSelect = (value: boolean) => checkedRows.value = Array<boolean>(props
   background-color: var(--brand-50);
 }
 
+.table-body .table-row.selected .table-cell:first-of-type {
+  position: relative;
+}
+
 .table-body .table-row.selected .table-cell:first-of-type::before {
   content: '';
   display: block;
@@ -236,7 +240,6 @@ const batchSelect = (value: boolean) => checkedRows.value = Array<boolean>(props
 }
 
 .table-body .table-row .table-cell {
-  position: relative;
   padding: 0 12px;
 }
 
