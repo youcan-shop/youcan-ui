@@ -9,11 +9,20 @@ const meta: Meta<typeof PaginationBar> = {
 
 export default meta;
 
-export const Default = {
-  args: {
-    count: 2,
-    total: 14,
-    current: 5,
-    size: 20,
+const Template = (args: Record<string, unknown>, { argTypes }: Record<string, Record<string, unknown>>) => ({
+  props: Object.keys(argTypes).filter(x => x !== 'value'),
+  data() {
+    return {
+      value: 5,
+      count: 2,
+      total: 14,
+      size: 20,
+    };
   },
-};
+  components: { PaginationBar },
+  template: '<PaginationBar v-bind="$props" v-model:current="value" :size="20" @update:current="action" /><span class="sb-c-preview-text">Page: {{ value }}</span>',
+  methods: { action: (value: number) => console.log(`Page: ${value}`) },
+});
+
+export const Default = Template.bind({
+});

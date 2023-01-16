@@ -9,6 +9,10 @@ const props = defineProps<{
   size: number
 }>();
 
+const emit = defineEmits<{
+  (event: 'update:current', value: number): void
+}>();
+
 const handlePaginationButtons = computed(() => {
   const paginationButtons = [];
 
@@ -35,20 +39,28 @@ const handlePaginationButtons = computed(() => {
 
   return paginationButtons;
 });
+
+function updateCurrentPage(index: number) {
+  if (index === props.current) {
+    return;
+  }
+
+  emit('update:current', index);
+}
 </script>
 
 <template>
   <div class="pagination-bar">
     <span class="text">Showing {{ count }} of {{ total }} results</span>
     <div class="navigation">
-      <SecondaryButton size="sm" :disabled="current === 1">
+      <SecondaryButton size="sm" :disabled="current === 1" @click="updateCurrentPage(current - 1)">
         Previous
       </SecondaryButton>
       <SecondaryButton v-for="index in handlePaginationButtons" :key="index" size="sm" class="navigation-button"
-        :class="{ active: current === index }">
+        :class="{ active: current === index }" :disabled="index === '...'" @click="updateCurrentPage(index as number)">
         {{ index }}
       </SecondaryButton>
-      <SecondaryButton size="sm" :disabled="current === size">
+      <SecondaryButton size="sm" :disabled="current === size" @click="updateCurrentPage(current + 1)">
         Next
       </SecondaryButton>
     </div>
