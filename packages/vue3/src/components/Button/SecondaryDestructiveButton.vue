@@ -23,6 +23,7 @@ defineProps<{
 <style scoped>
 .secondary-destructive {
   --text-color: var(--gray-900);
+  --text-style: var(--text-sm-regular);
   --disabled-text-color: var(--gray-100);
   --icon-color: var(--red-500);
   --disabled-icon-color: var(--gray-100);
