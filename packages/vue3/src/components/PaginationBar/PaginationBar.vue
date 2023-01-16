@@ -1,9 +1,88 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { computed } from 'vue';
+import SecondaryButton from '~/components/Button/SecondaryButton.vue';
+
+const props = defineProps<{
+  count: number
+  total: number
+  current: number
+  size: number
+}>();
+
+const handlePaginationButtons = computed(() => {
+  const paginationButtons = [];
+
+  if (props.size <= 3) {
+    for (let i = 1; i <= props.size; i++) {
+      paginationButtons.push(i);
+    }
+  }
+  else if (props.current === 1) {
+    paginationButtons.push(1, 2, 3, '...', props.size);
+  }
+  else if (props.current === 2) {
+    paginationButtons.push(1, 2, 3, '...', props.size);
+  }
+  else if (props.current === props.size) {
+    paginationButtons.push(1, '...', props.size - 2, props.size - 1, props.size);
+  }
+  else if (props.current === props.size - 1) {
+    paginationButtons.push(1, '...', props.size - 2, props.size - 1, props.size);
+  }
+  else {
+    paginationButtons.push(1, '...', props.current - 1, props.current, props.current + 1, '...', props.size);
+  }
+
+  return paginationButtons;
+});
+</script>
 
 <template>
-  <div>Hello world</div>
+  <div class="pagination-bar">
+    <span class="text">Showing {{ count }} of {{ total }} results</span>
+    <div class="navigation">
+      <SecondaryButton size="sm" :disabled="current === 1">
+        Previous
+      </SecondaryButton>
+      <SecondaryButton v-for="index in handlePaginationButtons" :key="index" size="sm" class="navigation-button"
+        :class="{ active: current === index }">
+        {{ index }}
+      </SecondaryButton>
+      <SecondaryButton size="sm" :disabled="current === size">
+        Next
+      </SecondaryButton>
+    </div>
+  </div>
 </template>
 
 <style scoped>
+.pagination-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--base-white);
+  padding: 0 20px;
+  height: 60px;
+}
 
+.pagination-bar .text {
+  font: var(--text-sm-regular);
+  color: var(--gray-500);
+}
+
+.pagination-bar .navigation {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pagination-bar .navigation .navigation-button {
+  width: 36px;
+  height: 36px;
+  --text-color: var(--gray-300);
+}
+
+.pagination-bar .navigation .navigation-button.active {
+  --text-color: var(--gray-900);
+}
 </style>
