@@ -116,7 +116,7 @@ const model = computed({
 }
 
 .status-list-item .label {
-  font: var(--text-sm-medium);
+  font: var(--text-sm-regular);
 }
 
 .status-list-item .color {
