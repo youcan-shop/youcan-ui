@@ -76,10 +76,14 @@ onMounted(() => {
 
 <template>
   <div ref="tagsContainer" class="tag" tabindex="0" :disabled="disabled" :error="error">
-    <TagItem v-for="(tag, index) in model" :key="`${tag.label}-${index}`" :model-value="model[index]" :type="type"
-      @update:model-value="(value) => updateTag(index, value)" @remove="removeTag(index)" />
-    <input v-show="typeof max === 'undefined' || model.length < max" ref="tagInput" v-model="newTagLabel" type="text"
-      class="tag-input" :placeholder="placeholder">
+    <TagItem
+      v-for="(tag, index) in model" :key="`${tag.label}-${index}`" :model-value="model[index]" :type="type"
+      @update:model-value="(value) => updateTag(index, value)" @remove="removeTag(index)"
+    />
+    <input
+      v-show="typeof max === 'undefined' || model.length < max" ref="tagInput" v-model="newTagLabel" type="text"
+      class="tag-input" :placeholder="placeholder"
+    >
   </div>
 </template>
 

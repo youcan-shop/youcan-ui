@@ -44,8 +44,10 @@ const model = computed<DropdownItemDefinition | null>({
       <i i-youcan-down class="chevron" />
     </button>
     <div v-if="showList" ref="list" class="dropdown-wrapper">
-      <DropdownList class="dropdown-list" v-bind="{ items, searchable, selected: modelValue, multiple: false }"
-        @select="(i) => model = i" />
+      <DropdownList
+        class="dropdown-list" v-bind="{ items, searchable, selected: modelValue, multiple: false }"
+        @select="(i) => model = i"
+      />
     </div>
   </div>
 </template>

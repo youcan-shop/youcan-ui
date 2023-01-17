@@ -124,9 +124,11 @@ const batchSelect = (value: boolean) => checkedRows.value = Array<boolean>(props
           </template>
           <template v-else>
             <span class="text">{{ column.label }}</span>
-            <i v-if="column.sortable && column.sortable !== 'none'" class="i-youcan-caretdown sort-icon"
+            <i
+              v-if="column.sortable && column.sortable !== 'none'" class="i-youcan-caretdown sort-icon"
               :style="{ transform: column.sortable === 'asc' ? 'rotate(180deg)' : '' }" tabindex="1"
-              @click="emitSort(column, index)" />
+              @click="emitSort(column, index)"
+            />
           </template>
         </th>
       </thead>
@@ -137,20 +139,26 @@ const batchSelect = (value: boolean) => checkedRows.value = Array<boolean>(props
               <Checkbox v-model="checkedRows[index]" />
             </div>
             <template v-else-if="row[column.accessor]">
-              <span v-if="row[column.accessor].isString" class="text-column"
-                :class="{ na: row[column.accessor].value.toString().toLocaleLowerCase() === 'n/a' }">
+              <span
+                v-if="row[column.accessor].isString" class="text-column"
+                :class="{ na: row[column.accessor].value.toString().toLocaleLowerCase() === 'n/a' }"
+              >
                 {{ row[column.accessor].value }}
               </span>
-              <component :is="row[column.accessor].component" v-else-if="!row[column.accessor].isString"
+              <component
+                :is="row[column.accessor].component" v-else-if="!row[column.accessor].isString"
                 v-bind="launder<TableDataComposable>(row[column.accessor].value).data"
                 @update:model-value="(data: unknown) => handleSubCompModel(index, column.accessor, data)"
-                v-on="launder<TableDataComposable>(row[column.accessor].value).events || {}" />
+                v-on="launder<TableDataComposable>(row[column.accessor].value).events || {}"
+              />
             </template>
             <div v-if="column.accessor === 'actions'" class="cell-actions">
               <template v-for="action in actions" :key="action.label">
-                <TableButton v-if="!action.criteria || action.criteria(data[index])" size="xs"
+                <TableButton
+                  v-if="!action.criteria || action.criteria(data[index])" size="xs"
                   :icon-name="action.iconName" :label="action.label" :rounded-full="true" icon-position="only"
-                  v-on="action.events || {}" />
+                  v-on="action.events || {}"
+                />
               </template>
             </div>
           </td>

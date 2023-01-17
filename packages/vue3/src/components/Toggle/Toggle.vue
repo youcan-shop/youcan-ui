@@ -14,8 +14,10 @@ const model = computed({
 </script>
 
 <template>
-  <button aria-label="toggle button" class="toggle" role="switch" type="button" :aria-checked="model"
-    @click="model = !model" />
+  <button
+    aria-label="toggle button" class="toggle" role="switch" type="button" :aria-checked="model"
+    @click="model = !model"
+  />
 </template>
 
 <style scoped lang="scss">

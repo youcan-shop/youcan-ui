@@ -37,11 +37,15 @@ onClickOutside(colorPicker, () => toggleColorPicker(false));
 
 <template>
   <div class="tag-item">
-    <Backdrop v-if="type === 'color'" class="preview" :width="15" :height="15" :color="colorValue"
-      @click="toggleColorPicker" />
+    <Backdrop
+      v-if="type === 'color'" class="preview" :width="15" :height="15" :color="colorValue"
+      @click="toggleColorPicker"
+    />
     <div v-if="type === 'color'" class="color-picker-container">
-      <ColorPicker v-show="isColorPickerVisible" ref="colorPicker" :color="colorValue" :defaults="[]"
-        @setcolor="setColor" />
+      <ColorPicker
+        v-show="isColorPickerVisible" ref="colorPicker" :color="colorValue" :defaults="[]"
+        @setcolor="setColor"
+      />
     </div>
     <span class="text">{{ model.label }}</span>
     <i class="i-youcan-x icon" @click="removeItem" />

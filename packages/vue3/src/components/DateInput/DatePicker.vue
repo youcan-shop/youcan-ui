@@ -116,11 +116,15 @@ const isActive = (day: DayStatus) => {
   <div class="date-picker">
     <MonthSwitcher v-model="month" />
     <div class="days-container">
-      <Day v-for="weekDay in weekDays" :key="weekDay.getTime()" :date="weekDay" edge="none" :is-selected="false"
-        :is-today="false" :disabled="true" :in-current-month="false" format="2-letters" />
-      <Day v-for="day in days" :key="day.date.getTime()" :date="day.date" :edge="getEdge(day)"
+      <Day
+        v-for="weekDay in weekDays" :key="weekDay.getTime()" :date="weekDay" edge="none" :is-selected="false"
+        :is-today="false" :disabled="true" :in-current-month="false" format="2-letters"
+      />
+      <Day
+        v-for="day in days" :key="day.date.getTime()" :date="day.date" :edge="getEdge(day)"
         :is-selected="isActive(day)" :is-today="day.isToday" :disabled="false" :in-current-month="day.inCurrentMonth"
-        @click="handleDayClick(day)" @mouseover="handleDayHover(day)" />
+        @click="handleDayClick(day)" @mouseover="handleDayHover(day)"
+      />
     </div>
   </div>
 </template>

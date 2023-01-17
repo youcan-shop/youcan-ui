@@ -28,15 +28,19 @@ onMounted(() => {
       <Thumbnail class="preview" :alt="file.name" :src="isImage && dataUrl ? dataUrl : undefined" size="large" />
     </div>
     <div class="actions">
-      <TertiaryButton tabindex="0" class="action" size="md" icon-position="only" :rounded-full="true"
-        @click="togglePreview(true)">
+      <TertiaryButton
+        tabindex="0" class="action" size="md" icon-position="only" :rounded-full="true"
+        @click="togglePreview(true)"
+      >
         <template #icon>
           <i i-youcan-view />
         </template>
       </TertiaryButton>
 
-      <PrimaryDestructiveButton tabindex="0" class="action" size="md" icon-position="only" :rounded-full="true"
-        @click="emit('delete', file)">
+      <PrimaryDestructiveButton
+        tabindex="0" class="action" size="md" icon-position="only" :rounded-full="true"
+        @click="emit('delete', file)"
+      >
         <template #icon>
           <i i-youcan-remove />
         </template>

@@ -6,7 +6,7 @@
     "build": "pnpm -r build",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "release": "bumpp package.json packages/*/package.json --commit --push --tag && pnpm lint:fix && pnpm -r release"
+    "release": "pnpm lint:fix && bumpp package.json packages/*/package.json --commit --push --tag && pnpm -r release"
   },
   "devDependencies": {
     "@sidi3li/eslint-config": "^1.0.10",

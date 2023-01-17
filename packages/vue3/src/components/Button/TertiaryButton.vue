@@ -11,8 +11,10 @@ defineProps<{
 </script>
 
 <template>
-  <BaseButton :size="size" :disabled="disabled" :icon-position="iconPosition" :rounded-full="roundedFull"
-    class="tertiary">
+  <BaseButton
+    :size="size" :disabled="disabled" :icon-position="iconPosition" :rounded-full="roundedFull"
+    class="tertiary"
+  >
     <template #icon>
       <slot name="icon" />
     </template>

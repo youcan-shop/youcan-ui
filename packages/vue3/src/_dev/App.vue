@@ -130,8 +130,10 @@ const selectedRows = ref<TableData[]>([]);
 
 <template>
   <div>
-    <Table v-model:data="data" v-model:selected-rows="selectedRows" :columns="columns" :actions="actions"
-      :selectable="true" />
+    <Table
+      v-model:data="data" v-model:selected-rows="selectedRows" :columns="columns" :actions="actions"
+      :selectable="true"
+    />
     <textarea id="" name="" cols="100" rows="10" :value="JSON.stringify(data)" />
     <textarea id="" name="" cols="100" rows="10" :value="JSON.stringify(selectedRows)" />
   </div>

@@ -32,8 +32,10 @@ onClickOutside(datePicker, () => toggleDatePicker(false));
 
 <template>
   <div class="date-input">
-    <SecondaryButton size="sm" icon-position="right" class="input-trigger" :disabled="disabled"
-      @click="toggleDatePicker()">
+    <SecondaryButton
+      size="sm" icon-position="right" class="input-trigger" :disabled="disabled"
+      @click="toggleDatePicker()"
+    >
       <span v-show="model.start || model.start">
         {{ DateUtils.getCalendarDay(model.start, 'Start') }} - {{ DateUtils.getCalendarDay(model.end, 'End') }}
       </span>

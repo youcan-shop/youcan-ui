@@ -26,16 +26,20 @@ const setColor = (color: { hexa: string }) => model.value = color.hexa;
 </script>
 
 <template>
-  <div ref="wrapper" tabindex="0" :class="{ enabled: !attrs.disabled, focused }" class="wrapper" v-bind="$attrs"
-    @click="() => toggle()">
+  <div
+    ref="wrapper" tabindex="0" :class="{ enabled: !attrs.disabled, focused }" class="wrapper" v-bind="$attrs"
+    @click="() => toggle()"
+  >
     <Backdrop class="preview" :width="40" :height="32" :color="model" />
     <div class="value">
       {{ model }}
     </div>
   </div>
   <div class="picker-wrapper">
-    <ColorPicker v-if="show && !attrs.disabled" ref="picker" class="picker" :color="model" :defaults="[]"
-      @setcolor="setColor" />
+    <ColorPicker
+      v-if="show && !attrs.disabled" ref="picker" class="picker" :color="model" :defaults="[]"
+      @setcolor="setColor"
+    />
   </div>
 </template>
 
