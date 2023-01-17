@@ -28,7 +28,8 @@
     "info": "info.json"
   },
   "scripts": {
-    "build": "node tooling/transpile.js"
+    "build": "node tooling/transpile.js",
+    "release": "pnpm publish --access public"
   },
   "dependencies": {
     "@iconify/types": "*"

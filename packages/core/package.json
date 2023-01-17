@@ -26,7 +26,8 @@
   ],
   "scripts": {
     "build-tokens": "node tooling/transform.mjs",
-    "build": "unbuild && pnpm build-tokens"
+    "build": "unbuild && pnpm build-tokens",
+    "release": "pnpm publish --access public"
   },
   "dependencies": {
     "ramda": "^0.28.0"
