@@ -87,7 +87,7 @@ onMounted(() => {
 .tag {
   --width: 460px;
   --border: 1px solid var(--gray-100);
-  --shadow: var(--shadow-xs);
+  --shadow: var(--shadow-xs-gray);
   --background-color: var(--base-white);
 
   display: flex;
@@ -110,7 +110,7 @@ onMounted(() => {
 .tag[disabled='false'][error='false']:focus,
 .tag[disabled='false'][error='false']:focus-within {
   --border: 1px solid var(--brand-500);
-  --shadow: var(--focus-xs-brand);
+  --shadow: var(--focus-shadow-xs-brand);
 }
 
 .tag[disabled='false'][error='true'] {
@@ -120,7 +120,7 @@ onMounted(() => {
 .tag[disabled='false'][error='true']:focus,
 .tag[disabled='false'][error='true']:focus-within {
   --border: 1px solid var(--red-500);
-  --shadow: var(--focus-xs-red);
+  --shadow: var(--focus-shadow-xs-red);
 }
 
 .tag[disabled='true'] {

@@ -111,7 +111,7 @@ onMounted(() => {
     <input :id="id" ref="input" v-model="model" class="input" tabindex="-1">
     <TertiaryButtonVue size="xs" icon-position="only" :disabled="disabled" @click="increment">
       <template #icon>
-        <i class="i-youcan-add" />
+        <i class="i-youcan-plus" />
       </template>
     </TertiaryButtonVue>
   </div>
@@ -123,7 +123,7 @@ onMounted(() => {
   --text-color: var(--gray-900);
   --background-color: var(--base-white);
   --border: 1px solid var(--gray-100);
-  --shadow: var(--shadow-xs);
+  --shadow: var(--shadow-xs-gray);
 
   display: flex;
   align-items: center;
@@ -144,7 +144,7 @@ onMounted(() => {
 .increment[disabled='false']:focus,
 .increment[disabled='false']:focus-within {
   --border: 1px solid var(--brand-500);
-  --shadow: var(--focus-xs-brand);
+  --shadow: var(--focus-shadow-xs-brand);
 }
 
 .increment[disabled='true'] {

@@ -1,8 +1,1 @@
 @import url('https://fonts.cdnfonts.com/css/mona-sans?styles=144345,144339,144351,144321,144327');
-
-* {
-  margin: 0;
-  box-sizing: border-box;
-  color: var(--gray-900);
-  font: var(--text-md-regular);
-}

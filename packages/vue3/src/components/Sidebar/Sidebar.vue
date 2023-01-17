@@ -28,67 +28,71 @@ const toggle = (override = !collapsed.value) => collapsed.value = override;
 
 <style scoped>
 .sidebar {
-    --sidebar-width: 230px;
-    --sidebar-height: 100vh;
+  --sidebar-width: 230px;
+  --sidebar-height: 100vh;
 
-    display: flex;
-    flex-direction: column;
-    width: var(--sidebar-width);
-    height: var(--sidebar-height);
-    background-color: var(--gray-800);
+  display: flex;
+  flex-direction: column;
+  width: var(--sidebar-width);
+  height: var(--sidebar-height);
+  background-color: var(--gray-800);
 }
 
 .sidebar-header {
-    gap: 12px;
-    height: 64px;
-    display: flex;
-    padding: 0 12px;
-    align-items: center;
-    font: var(--text-lg-medium);
-    border-bottom: 1px solid var(--gray-700);
+  gap: 12px;
+  height: 64px;
+  display: flex;
+  padding: 0 12px;
+  align-items: center;
+  font: var(--text-lg-medium);
+  border-bottom: 1px solid var(--gray-700);
+}
+
+.sidebar-header:hover {
+  background-color: var(--gray-700);
+}
+
+.sidebar-header:active {
+  background-color: var(--gray-600);
 }
 
 .sidebar-items.lower {
-    margin-top: auto;
+  margin-top: auto;
 }
 
 .item-label,
 :deep(.item-label) {
-    color: var(--base-white);
-    font: var(--text-sm-medium);
+  color: var(--base-white);
+  font: var(--text-sm-medium);
 }
 
 .item-icon,
 :deep(.item-icon) {
-    color: var(--base-white);
+  color: var(--gray-100);
+  outline: none;
 }
 
 .sidebar-header .item-label {
-    font: var(--text-lg-medium);
+  font: var(--text-lg-medium);
 }
 
 .sidebar-header .item-icon {
-    padding: 0;
-    border: none;
-    cursor: pointer;
-    background-color: transparent;
-}
-
-.sidebar-header .item-icon:is(:hover, :focus, :active) {
-    outline: none;
-    color: var(--gray-100);
+  padding: 0;
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
 }
 
 /* collapsed */
 
 .sidebar.collapsed {
-    width: fit-content;
+  width: fit-content;
 }
 
 .sidebar.collapsed .item-label,
 .sidebar.collapsed:deep(.item-label),
 .sidebar.collapsed:deep(.sidebar-subitem),
 .sidebar.collapsed:deep(.expand-icon) {
-    display: none;
+  display: none;
 }
 </style>

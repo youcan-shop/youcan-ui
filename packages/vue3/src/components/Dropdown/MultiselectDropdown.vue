@@ -56,55 +56,56 @@ function toggle(item: DropdownItemDefinition, value: boolean): void {
       <i i-youcan-down class="chevron" />
     </button>
     <div v-if="showList" ref="list" class="dropdown-wrapper">
-      <DropdownList class="dropdown-list" v-bind="{ items, selected: modelValue, searchable, multiple: true }" @toggle="toggle" />
+      <DropdownList class="dropdown-list" v-bind="{ items, selected: modelValue, searchable, multiple: true }"
+        @toggle="toggle" />
     </div>
   </div>
 </template>
 
 <style scoped>
 .dropdown-input {
-    gap: 8px;
-    width: 100%;
-    display: flex;
-    cursor: pointer;
-    padding: 12px 16px;
-    border-radius: 8px;
-    align-items: center;
-    color: var(--gray-500);
-    box-shadow: var(--shadow-xs);
-    font: var(--text-sm-regular);
-    border: 1px solid var(--gray-100);
-    background-color: var(--base-white);
+  gap: 8px;
+  width: 100%;
+  display: flex;
+  cursor: pointer;
+  padding: 12px 16px;
+  border-radius: 8px;
+  align-items: center;
+  color: var(--gray-500);
+  box-shadow: var(--shadow-xs-gray);
+  font: var(--text-sm-regular);
+  border: 1px solid var(--gray-100);
+  background-color: var(--base-white);
 }
 
 .dropdown-input .label {
-    display: flex;
-    gap: 8px;
-    color: var(--gray-900);
+  display: flex;
+  gap: 8px;
+  color: var(--gray-900);
 }
 
 .dropdown-input:hover {
-    background-color: var(--gray-50);
+  background-color: var(--gray-50);
 }
 
 .dropdown-input:is(:focus, :active) {
-    outline: none;
-    box-shadow: var(--focus-xs-brand);
-    border: 1px solid var(--brand-500);
+  outline: none;
+  box-shadow: var(--focus-shadow-xs-brand);
+  border: 1px solid var(--brand-500);
 }
 
 .dropdown-input .chevron {
-    margin-inline-start: auto;
+  margin-inline-start: auto;
 }
 
 .dropdown-wrapper {
-    position: relative;
+  position: relative;
 }
 
 .dropdown-list {
-    position: absolute;
-    z-index: 10;
-    width: 100%;
-    top: 8px;
+  position: absolute;
+  z-index: 10;
+  width: 100%;
+  top: 8px;
 }
 </style>

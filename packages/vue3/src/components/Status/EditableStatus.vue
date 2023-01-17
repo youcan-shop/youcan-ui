@@ -47,86 +47,86 @@ const model = computed({
 
 <style scoped>
 .editable-status {
-    padding: 0;
-    border: none;
-    display: flex;
-    cursor: pointer;
-    border-radius: 4px;
-    padding-right: 12px;
-    align-items: center;
-    background-color: v-bind('model.color');
+  padding: 0;
+  border: none;
+  display: flex;
+  cursor: pointer;
+  border-radius: 4px;
+  padding-right: 12px;
+  align-items: center;
+  background-color: v-bind('model.color');
 }
 
 .editable-status:hover {
-    filter: brightness(0.9);
+  filter: brightness(0.9);
 }
 
 .editable-status:is(:focus, :active) {
-    outline: none;
-    filter: brightness(0.7);
+  outline: none;
+  filter: brightness(0.7);
 }
 
 .editable-status .icon {
-    width: 12px;
-    height: 12px;
-    color: var(--base-white);
+  width: 12px;
+  height: 12px;
+  color: var(--base-white);
 }
 
 .editable-status .static-status {
-    text-align: center;
-    max-width: fit-content;
-    font: var(--text-sm-bold);
-    color: var(--base-white);
-    border-radius: 4px 0 0 4px;
-    box-shadow: var(--shadow-xs);
-    padding: 7.5px 8px 7.5px 12px;
-    background: v-bind('model.color');
+  text-align: center;
+  max-width: fit-content;
+  font: var(--text-sm-medium);
+  color: var(--base-white);
+  border-radius: 4px 0 0 4px;
+  box-shadow: var(--shadow-xs-gray);
+  padding: 7.5px 8px 7.5px 12px;
+  background: v-bind('model.color');
 }
 
 .status-list {
-    top: 8px;
-    display: flex;
-    padding: 8px 0;
-    min-width: 100px;
-    border-radius: 4px;
-    position: absolute;
-    flex-direction: column;
-    border: 1px solid var(--gray-100);
-    background-color: var(--base-white);
+  top: 8px;
+  display: flex;
+  padding: 8px 0;
+  min-width: 100px;
+  border-radius: 4px;
+  position: absolute;
+  flex-direction: column;
+  border: 1px solid var(--gray-100);
+  background-color: var(--base-white);
 }
 
 .status-list-item {
-    gap: 8px;
-    border: none;
-    display: flex;
-    cursor: pointer;
-    padding: 10px 12px;
-    align-items: center;
-    text-align: inherit;
-    background-color: transparent;
+  gap: 8px;
+  border: none;
+  display: flex;
+  cursor: pointer;
+  padding: 10px 12px;
+  align-items: center;
+  text-align: inherit;
+  background-color: transparent;
 }
 
 .status-list-item:hover {
-    background-color: var(--gray-50);
+  background-color: var(--gray-50);
 }
 
 .status-list-item:is(:focus, :active) {
-    outline: none;
-    background-color: var(--gray-100);
+  outline: none;
+  background-color: var(--gray-100);
 }
 
 .status-list-item .label {
-    font: var(--text-sm-medium);
+  font: var(--text-sm-regular);
 }
 
 .status-list-item .color {
-    width: 6px;
-    height: 6px;
-    display: block;
-    border-radius: 100%;
+  width: 6px;
+  height: 6px;
+  display: block;
+  border-radius: 100%;
 }
 
 .status-list-wrapper {
-    position: relative;
+  position: relative;
 }
 </style>

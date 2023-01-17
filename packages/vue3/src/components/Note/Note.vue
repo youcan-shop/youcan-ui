@@ -1,20 +1,25 @@
 <template>
   <div class="note">
     <div class="icon">
-      <slot name="icon" class="icon" />
+      <slot name="icon" class="icon">
+        <i class="icon i-tabler-mail-opened" />
+      </slot>
     </div>
     <div class="content">
-      <slot name="content" />
+      <slot name="content">
+        <p>Don't forget to check your inbox, we have sent a link to verify your account.</p>
+      </slot>
     </div>
   </div>
 </template>
 
 <style scoped lang="scss">
 .note {
-  --note-background: var(--white);
-  --note-border-color: var(--gray-25);
-  --note-icon-color: var(--primary-400);
+  --note-background: var(--base-white);
+  --note-border-color: var(--gray-100);
+  --note-icon-color: var(--brand-500);
   --note-text-color: var(--gray-700);
+
   display: flex;
   align-items: center;
   max-width: 540px;
@@ -31,8 +36,6 @@
 
 .content {
   color: var(--note-text-color);
-  line-height: 22px;
-  font-weight: 400;
-  font-size: 15px;
+  font: var(--text-sm-regular);
 }
 </style>

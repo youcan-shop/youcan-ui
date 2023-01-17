@@ -32,42 +32,42 @@ const toggle = (override = !expanded.value) => expanded.value = override;
 
 <style scoped>
 .sidebar-item {
-    --height: 46px;
+  --height: 46px;
 
-    gap: 12px;
-    width: 100%;
-    border: none;
-    display: flex;
-    cursor: pointer;
-    padding: 0 12px;
-    align-items: center;
-    height: var(--height);
-    background-color: transparent;
+  gap: 12px;
+  width: 100%;
+  border: none;
+  display: flex;
+  cursor: pointer;
+  padding: 0 12px;
+  align-items: center;
+  height: var(--height);
+  background-color: transparent;
 }
 
 .sidebar-item:hover {
-    background-color: var(--gray-700);
+  background-color: var(--gray-700);
 }
 
 .sidebar-item:is(:focus, :active) {
-    outline: none;
-    background-color: var(--gray-700);
+  outline: none;
+  background-color: var(--gray-600);
 }
 
 .sidebar-item.active {
-    /* background-color: var(--gray-700); */
-    box-shadow: inset 2px 0px 0px 0px var(--base-white);
+  background-color: var(--gray-700);
+  box-shadow: inset 2px 0px 0px 0px var(--base-white);
 }
 
 .subitems {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .expand-icon {
-    width: 16px;
-    height: 16px;
-    color: var(--base-white);
-    margin-inline-start: auto;
+  width: 16px;
+  height: 16px;
+  color: var(--base-white);
+  margin-inline-start: auto;
 }
 </style>

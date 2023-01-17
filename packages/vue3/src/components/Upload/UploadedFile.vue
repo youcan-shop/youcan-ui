@@ -26,7 +26,7 @@ const emit = defineEmits(['delete']);
   padding: 12px 16px;
   border-radius: 8px;
   align-items: center;
-  box-shadow: var(--shadow-xs);
+  box-shadow: var(--shadow-xs-gray);
   border: 1px solid var(--gray-100);
   background-color: var(--base-white);
 }
@@ -59,6 +59,8 @@ const emit = defineEmits(['delete']);
 }
 
 @keyframes spinner {
-  to {transform: rotate(360deg);}
+  to {
+    transform: rotate(360deg);
+  }
 }
 </style>

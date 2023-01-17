@@ -45,18 +45,14 @@ const model = computed<DropdownItemDefinition | null>({
       <i i-youcan-caretdown class="chevron" />
     </button>
     <div v-if="showList" ref="list" class="dropdown-wrapper">
-      <DropdownList
-        class="dropdown-list"
-        v-bind="{ items, searchable, selected: modelValue, multiple: false }"
-        @select="(i) => (model = i)"
-      />
+      <DropdownList class="dropdown-list" v-bind="{ items, searchable, selected: modelValue, multiple: false }"
+        @select="(i) => (model = i)" />
     </div>
   </div>
 </template>
 
 <style scoped>
-.dropdown-prefix-wrapper {
-}
+.dropdown-prefix-wrapper {}
 
 .dropdown-input {
   gap: 8px;
@@ -91,7 +87,7 @@ const model = computed<DropdownItemDefinition | null>({
 
 .dropdown-input:is(:focus, :active) {
   outline: none;
-  box-shadow: var(--focus-xs-brand);
+  box-shadow: var(--focus-shadow-xs-brand);
   outline: 1px solid var(--brand-500);
 }
 

@@ -50,13 +50,7 @@ watchEffect(() => {
   <div class="loading">
     <svg class="loading-svg" viewBox="0 0 100 100">
       <circle class="loading-circle" cx="50" cy="50" r="45" />
-      <circle
-        class="loading-circle-progress"
-        :style="progressStyle"
-        cx="50"
-        cy="50"
-        r="45"
-      />
+      <circle class="loading-circle-progress" :style="progressStyle" cx="50" cy="50" r="45" />
     </svg>
     <div class="loading-value">
       {{ `${progress}%` }}
@@ -66,7 +60,8 @@ watchEffect(() => {
 
 <style scoped>
 .loading {
-  --loading-stroke-color: var(--gray-10);
+  --loading-stroke-color: var(--gray-100);
+
   position: relative;
   width: 120px;
   height: 120px;
@@ -86,7 +81,7 @@ watchEffect(() => {
 
 .loading-circle-progress {
   fill: none;
-  stroke: var(--primary-color);
+  stroke: var(--brand-500);
   stroke-width: 4;
   stroke-dasharray: 284;
   stroke-linecap: round;
@@ -94,12 +89,10 @@ watchEffect(() => {
 
 .loading-value {
   position: absolute;
-  font-weight: 500;
-  line-height: 36px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 24px;
-  color: var(--primary-color);
+  font: var(--text-xl-medium);
+  color: var(--brand-500);
 }
 </style>

@@ -12,13 +12,13 @@ defineProps<{ status: StaticStatusDefinition }>();
 
 <style scoped>
 .status {
-    text-align: center;
-    border-radius: 4px;
-    padding: 7.5px 12px;
-    max-width: fit-content;
-    font: var(--text-sm-bold);
-    color: var(--base-white);
-    box-shadow: var(--shadow-xs);
-    background: v-bind('status.color');
+  text-align: center;
+  border-radius: 4px;
+  padding: 7.5px 12px;
+  max-width: fit-content;
+  font: var(--text-sm-medium);
+  color: var(--base-white);
+  box-shadow: var(--shadow-xs-gray);
+  background: v-bind('status.color');
 }
 </style>

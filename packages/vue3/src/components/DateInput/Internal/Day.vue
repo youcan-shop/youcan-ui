@@ -52,7 +52,7 @@ const getDay = () => {
     }
 
     &:focus {
-      box-shadow: var(--focus-xs-brand);
+      box-shadow: var(--focus-shadow-xs-brand);
       z-index: 2;
     }
 

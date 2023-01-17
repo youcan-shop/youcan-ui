@@ -112,6 +112,6 @@ defineExpose({ renderColor, renderSlider });
   position: absolute;
   pointer-events: none;
   color: var(--base-white);
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-sm-gray);
 }
 </style>

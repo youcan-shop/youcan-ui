@@ -58,7 +58,7 @@ onBeforeMount(() => {
   display: flex;
   align-items: center;
   border-radius: 8px;
-  box-shadow: var(--shadow-xs);
+  box-shadow: var(--shadow-xs-gray);
   border: 1px solid var(--gray-100);
   background-color: var(--base-white);
 }
@@ -69,7 +69,7 @@ onBeforeMount(() => {
 
 .wrapper.enabled.focused {
   border: 1px solid var(--brand-500);
-  box-shadow: var(--focus-xs-brand);
+  box-shadow: var(--focus-shadow-xs-brand);
 }
 
 .wrapper:not(.enabled) {
@@ -81,7 +81,7 @@ onBeforeMount(() => {
 }
 
 .wrapper.enabled.error.focused {
-  box-shadow: var(--focus-xs-red);
+  box-shadow: var(--focus-shadow-xs-red);
 }
 
 .input {
