@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import '~/assets/main.css';
-import { EditableStatus, StaticStatus } from '~/components';
+import { EditableStatus, PrimaryButton, StaticStatus } from '~/components';
 import Table from '~/components/Table/Table.vue';
 import type { TableActions, TableColumn, TableData } from '~/components/Table/types';
+import Input from '~/components/Input/Input.vue';
 
 const status = ref({ label: 'Success', value: 1, color: '#25B86A' });
 
@@ -130,12 +131,9 @@ const selectedRows = ref<TableData[]>([]);
 
 <template>
   <div>
-    <Table
-      v-model:data="data" v-model:selected-rows="selectedRows" :columns="columns" :actions="actions"
-      :selectable="true"
-    />
-    <textarea id="" name="" cols="100" rows="10" :value="JSON.stringify(data)" />
-    <textarea id="" name="" cols="100" rows="10" :value="JSON.stringify(selectedRows)" />
+    <PrimaryButton size="sm">
+      Primary
+    </PrimaryButton>
   </div>
 </template>
 

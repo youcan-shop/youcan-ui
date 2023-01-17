@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { useFocus } from '@vueuse/core';
-import { computed, defineExpose, onBeforeMount, ref, useAttrs, useSlots } from 'vue';
+import { computed, onBeforeMount, ref, useAttrs, useSlots } from 'vue';
 import DropdownPrefix from './prefixes/DropdownPrefix.vue';
 
 const props = defineProps<{
@@ -13,8 +12,6 @@ const emit = defineEmits(['update:modelValue']);
 const primitive = ref<HTMLInputElement>()!;
 const slots = useSlots();
 const attrs = useAttrs();
-
-const { focused } = useFocus(primitive);
 
 const model = computed({
   get: () => props.modelValue,
@@ -37,12 +34,12 @@ onBeforeMount(() => {
 </script>
 
 <template>
-  <div :class="{ enabled: !attrs.disabled, focused, error }" class="wrapper">
+  <div :class="{ enabled: !attrs.disabled, error }" class="wrapper">
     <div v-if="slots.prefix" class="prefix">
       <slot name="prefix" />
     </div>
     <input ref="primitive" v-model="model" class="input" type="text" v-bind="$attrs">
-    <div class="tail">
+    <div v-if="slots.icon || slots.suffix" class="tail">
       <div v-if="slots.icon" class="icon">
         <slot name="icon" />
       </div>
@@ -55,21 +52,24 @@ onBeforeMount(() => {
 
 <style scoped>
 .wrapper {
+  --border: 1px solid var(--gray-100);
+  --shadow: var(--shadow-xs-gray);
+
   display: flex;
   align-items: center;
   border-radius: 8px;
-  box-shadow: var(--shadow-xs-gray);
-  border: 1px solid var(--gray-100);
+  box-shadow: var(--shadow);
+  border: var(--border);
   background-color: var(--base-white);
 }
 
 .wrapper.enabled:hover {
-  border: 1px solid var(--gray-200);
+  --border: 1px solid var(--gray-200);
 }
 
-.wrapper.enabled.focused {
-  border: 1px solid var(--brand-500);
-  box-shadow: var(--focus-shadow-xs-brand);
+.wrapper.enabled:has(.input:focus) {
+  --border: 1px solid var(--brand-500);
+  --shadow: var(--focus-shadow-xs-brand);
 }
 
 .wrapper:not(.enabled) {
@@ -77,11 +77,11 @@ onBeforeMount(() => {
 }
 
 .wrapper.enabled.error {
-  border: 1px solid var(--red-500);
+  --border: 1px solid var(--red-500);
 }
 
-.wrapper.enabled.error.focused {
-  box-shadow: var(--focus-shadow-xs-red);
+.wrapper.enabled.error:has(.input:focus) {
+  --shadow: var(--focus-shadow-xs-red);
 }
 
 .input {
