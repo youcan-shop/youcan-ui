@@ -52,7 +52,7 @@ button:is(:focus, :active) {
 }
 
 .tab:is(:focus, :active):not(.active, .disabled) .label {
-  box-shadow: var(--focus-xs-brand);
+  box-shadow: var(--focus-shadow-xs-brand);
   outline: 1px solid var(--brand-500);
 }
 

@@ -26,13 +26,13 @@ const changeMonth = (increment: boolean) => {
   <div class="month-switcher">
     <TertiaryButton icon-position="only" size="xs" @click="changeMonth(false)">
       <template #icon>
-        <i class="i-youcan-caretleft" />
+        <i class="i-youcan-caret-left" />
       </template>
     </TertiaryButton>
     <span class="text">{{ DateUtils.getAlphabeticalMonth(model) }} {{ model.getFullYear() }}</span>
     <TertiaryButton icon-position="only" size="xs" @click="changeMonth(true)">
       <template #icon>
-        <i class="i-youcan-caretright" />
+        <i class="i-youcan-caret-right" />
       </template>
     </TertiaryButton>
   </div>

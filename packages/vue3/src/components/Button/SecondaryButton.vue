@@ -34,7 +34,7 @@ const slots = useSlots();
   --hover-background-color: var(--gray-50);
   --active-background-color: var(--gray-100);
   --disabled-background-color: var(--base-white);
-  --focus-shadow: var(--focus-xs-brand);
+  --focus-shadow: var(--focus-shadow-xs-brand);
   --disabled-shadow: none;
   --border: 1px solid var(--gray-100);
   --focus-border: 1px solid var(--brand-500);

@@ -78,7 +78,7 @@ const model = computed({
   font: var(--text-sm-medium);
   color: var(--base-white);
   border-radius: 4px 0 0 4px;
-  box-shadow: var(--shadow-xs);
+  box-shadow: var(--shadow-xs-gray);
   padding: 7.5px 8px 7.5px 12px;
   background: v-bind('model.color');
 }

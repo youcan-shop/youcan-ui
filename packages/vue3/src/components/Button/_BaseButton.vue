@@ -44,7 +44,7 @@ $states: hover, focus, active, disabled;
   --text-style: var(--text-sm-medium);
   --icon-position: 'row';
   --border: none;
-  --shadow: var(--shadow-xs);
+  --shadow: var(--shadow-xs-gray);
 
   $properties: background-color,
   border,

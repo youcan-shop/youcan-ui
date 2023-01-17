@@ -39,7 +39,7 @@ onClickOutside(datePicker, () => toggleDatePicker(false));
       </span>
       <span v-show="!model.start && !model.start">Select date range</span>
       <template #icon>
-        <i class="i-youcan-calendar" />
+        <i class="i-youcan-calendar-blank" />
       </template>
     </SecondaryButton>
     <div class="date-picker-container">

@@ -31,7 +31,7 @@ defineProps<{
   --hover-background-color: var(--gray-50);
   --active-background-color: var(--gray-100);
   --disabled-background-color: var(--base-white);
-  --focus-shadow: var(--focus-xs-red);
+  --focus-shadow: var(--focus-shadow-xs-red);
   --disabled-shadow: none;
   --border: 1px solid var(--gray-100);
   --focus-border: 1px solid var(--red-500);

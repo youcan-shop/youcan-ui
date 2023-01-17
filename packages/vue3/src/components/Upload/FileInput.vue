@@ -20,10 +20,8 @@ function handlefiles(files: File[]) {
 </script>
 
 <template>
-  <BaseFileInput
-    v-model="files" :limit="limit" @input="handlefiles" @drop="handlefiles" @dragenter="dragging = true"
-    @dragleave="dragging = false"
-  >
+  <BaseFileInput v-model="files" :limit="limit" @input="handlefiles" @drop="handlefiles" @dragenter="dragging = true"
+    @dragleave="dragging = false">
     <template #facade>
       <div role="button" tabindex="0" class="facade" :class="{ dragging, sm: size === 'sm', lg: size === 'lg' }">
         <div>
@@ -46,7 +44,7 @@ function handlefiles(files: File[]) {
   border-radius: 4px;
   padding: 12px 16px;
   place-items: center;
-  box-shadow: var(--shadow-xs);
+  box-shadow: var(--shadow-xs-gray);
   background-color: var(--gray-50);
   border: 1px solid var(--gray-100);
 }
@@ -69,7 +67,7 @@ function handlefiles(files: File[]) {
 .facade:focus {
   outline: none;
   border: 1px solid var(--brand-500);
-  box-shadow: var(--focus-xs-brand);
+  box-shadow: var(--focus-shadow-xs-brand);
 }
 
 .facade.dragging {

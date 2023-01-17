@@ -93,13 +93,13 @@ defineExpose({ renderColor, renderSlider });
 }
 
 .hue-wrapper .slider {
-    position: absolute;
-    width: v-bind("`${width}px`");
-    background: var(--base-white);
-    box-shadow: var(--shadow-sm);
-    pointer-events: none;
-    width: 16px;
-    height: 16px;
-    top: -3px;
+  position: absolute;
+  width: v-bind("`${width}px`");
+  background: var(--base-white);
+  box-shadow: var(--shadow-sm-gray);
+  pointer-events: none;
+  width: 16px;
+  height: 16px;
+  top: -3px;
 }
 </style>

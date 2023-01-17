@@ -26,7 +26,7 @@ defineProps<{
   --hover-background-color: var(--brand-600);
   --active-background-color: var(--brand-800);
   --disabled-background-color: var(--gray-100);
-  --focus-shadow: var(--focus-xs-brand);
+  --focus-shadow: var(--focus-shadow-xs-brand);
   --disabled-shadow: none;
 }
 </style>

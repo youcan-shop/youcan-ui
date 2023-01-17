@@ -58,7 +58,7 @@ onClickOutside(colorPicker, () => toggleColorPicker(false));
   padding: 0 8px;
   border-radius: 4px;
   background: var(--gray-50);
-  box-shadow: var(--shadow-xs);
+  box-shadow: var(--shadow-xs-gray);
   position: relative;
 }
 

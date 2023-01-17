@@ -96,7 +96,7 @@ watch(() => props.rgba, () => renderSlider());
   position: absolute;
   width: v-bind("`${width}px`");
   background: var(--base-white);
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-sm-gray);
   pointer-events: none;
   width: 16px;
   height: 16px;

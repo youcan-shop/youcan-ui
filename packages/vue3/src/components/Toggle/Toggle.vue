@@ -28,7 +28,7 @@ const model = computed({
   height: calc(var(--knob-size) + (var(--padding) * 2));
   background-color: var(--gray-100);
   border-radius: var(--knob-size);
-  box-shadow: var(--shadow-xs);
+  box-shadow: var(--shadow-xs-gray);
   padding: var(--padding);
   display: flex;
   align-items: center;
@@ -47,7 +47,7 @@ const model = computed({
     height: var(--knob-size);
     background-color: var(--base-white);
     border-radius: 50%;
-    box-shadow: var(--shadow-xs);
+    box-shadow: var(--shadow-xs-gray);
     transition: transform 120ms ease-in-out;
   }
 

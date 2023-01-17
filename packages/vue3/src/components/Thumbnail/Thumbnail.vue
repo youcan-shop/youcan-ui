@@ -17,7 +17,7 @@ withDefaults(
   <div class="thumbnail" :class="[`size-${size}`]">
     <img v-if="src" :src="src" :alt="alt" class="image" loading="lazy">
     <div v-else class="placeholder">
-      <i class="i-youcan-camera icon" />
+      <i class="i-youcan-image icon" />
     </div>
   </div>
 </template>
@@ -32,7 +32,7 @@ withDefaults(
   width: var(--size);
   height: var(--size);
   border-radius: 4px;
-  box-shadow: var(--shadow-xs);
+  box-shadow: var(--shadow-xs-gray);
   background-color: var(--base-white);
   border: 1px solid var(--gray-100);
   overflow: hidden;

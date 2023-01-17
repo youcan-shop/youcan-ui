@@ -18,7 +18,7 @@ defineProps<{ status: StaticStatusDefinition }>();
   max-width: fit-content;
   font: var(--text-sm-medium);
   color: var(--base-white);
-  box-shadow: var(--shadow-xs);
+  box-shadow: var(--shadow-xs-gray);
   background: v-bind('status.color');
 }
 </style>

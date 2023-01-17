@@ -44,7 +44,8 @@ const model = computed<DropdownItemDefinition | null>({
       <i i-youcan-down class="chevron" />
     </button>
     <div v-if="showList" ref="list" class="dropdown-wrapper">
-      <DropdownList class="dropdown-list" v-bind="{ items, searchable, selected: modelValue, multiple: false }" @select="(i) => model = i" />
+      <DropdownList class="dropdown-list" v-bind="{ items, searchable, selected: modelValue, multiple: false }"
+        @select="(i) => model = i" />
     </div>
   </div>
 </template>
@@ -57,7 +58,7 @@ const model = computed<DropdownItemDefinition | null>({
   cursor: pointer;
   align-items: center;
   color: var(--gray-500);
-  box-shadow: var(--shadow-xs);
+  box-shadow: var(--shadow-xs-gray);
   border: 1px solid var(--gray-100);
   background-color: var(--base-white);
 }
@@ -86,7 +87,7 @@ const model = computed<DropdownItemDefinition | null>({
 
 .dropdown-input:is(:focus, :active) {
   outline: none;
-  box-shadow: var(--focus-xs-brand);
+  box-shadow: var(--focus-shadow-xs-brand);
   border: 1px solid var(--brand-500);
 }
 
@@ -97,6 +98,7 @@ const model = computed<DropdownItemDefinition | null>({
 .dropdown-wrapper {
   position: relative;
 }
+
 .dropdown-list {
   position: absolute;
   z-index: 10;
