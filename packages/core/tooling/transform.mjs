@@ -1,6 +1,7 @@
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { existsSync, truncateSync, writeFileSync } from 'fs';
+import { ensureFileSync } from 'fs-extra';
 import input from './tokens.json' assert { type: 'json' };
 
 const OUTPUT_PATH = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', 'dist', 'tokens.css');
@@ -12,6 +13,7 @@ const FONT_WEIGHTS = {
   'Regular': 400,
   'Medium': 500,
   'Semi Bold': 600,
+  'SemiBold': 600,
   'Bold': 700,
   'Black': 800,
 };
@@ -85,6 +87,16 @@ function prefix(path) {
 
 function transform(path, unit, set) {
   const transformer = TRANSFORMERS[unit.type];
+  if (typeof unit.type === 'undefined') {
+    let output = '';
+
+    Object.entries(unit).forEach(([unitId, unit]) => {
+      output += `${transform([...path, unitId], unit, set)}\n`;
+    });
+
+    return output;
+  }
+
   if (transformer == null) {
     return null;
   }
@@ -116,6 +128,8 @@ Object.values(input).forEach((set) => {
 });
 
 output += '\n}';
+
+ensureFileSync(OUTPUT_PATH);
 
 if (existsSync(OUTPUT_PATH)) {
   truncateSync(OUTPUT_PATH);
