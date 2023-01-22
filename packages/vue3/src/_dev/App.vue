@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import '~/assets/main.css';
-import { EditableStatus, PrimaryButton, StaticStatus } from '~/components';
+import { EditableStatus, PrimaryButton, Sidebar, SidebarItem, SidebarSubitem, StaticStatus } from '~/components';
 import Table from '~/components/Table/Table.vue';
 import type { TableActions, TableColumn, TableData } from '~/components/Table/types';
 import Input from '~/components/Input/Input.vue';
@@ -134,6 +134,18 @@ const selectedRows = ref<TableData[]>([]);
     <PrimaryButton size="sm">
       Primary
     </PrimaryButton>
+    <Sidebar>
+      <template #header>
+        Hello
+      </template>
+      <template #items>
+        <SidebarItem :active="false" label="hello" icon="i-youcan-cube">
+          <SidebarSubitem label="dddfd" />
+          <span v-if="true === false">hello</span>
+          <span v-if="true === false">hello</span>
+        </SidebarItem>
+      </template>
+    </Sidebar>
   </div>
 </template>
 

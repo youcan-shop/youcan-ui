@@ -9,7 +9,7 @@ const toggle = (override = !collapsed.value) => collapsed.value = override;
   <aside class="sidebar" :class="{ collapsed }">
     <div class="sidebar-header">
       <button class="item-icon" @click="() => toggle()">
-        <i i-youcan-sidebar-collapse />
+        <i i-youcan-list />
       </button>
       <div class="item-label">
         <slot name="header" />

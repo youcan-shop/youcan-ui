@@ -1,16 +1,22 @@
 <script setup lang="ts">
-import { ref, useSlots } from 'vue';
+import { computed, ref, useSlots } from 'vue';
 
 defineProps<{ icon: string; label: string; count?: number; active?: boolean }>();
 const slots = useSlots();
 
 const expanded = ref(false);
 const toggle = (override = !expanded.value) => expanded.value = override;
+
+const hasChildren = computed(() => {
+  return slots.default
+    && slots.default().length > 0
+    && slots.default().filter((s: any) => s.type.__name === 'SidebarSubitem').length > 0;
+});
 </script>
 
 <template>
   <div>
-    <button :class="{ active }" class="sidebar-item" @click="() => slots.default && toggle()">
+    <button :class="{ active }" class="sidebar-item" @click="() => hasChildren && toggle()">
       <div class="item-icon">
         <i :class="icon" />
       </div>
@@ -19,12 +25,12 @@ const toggle = (override = !expanded.value) => expanded.value = override;
         {{ label }}
       </div>
 
-      <div v-if="slots.default" class="expand-icon">
+      <div v-if="hasChildren" class="expand-icon">
         <i v-if="expanded" i-youcan-minus />
         <i v-else i-youcan-plus />
       </div>
     </button>
-    <div v-if="slots.default && expanded" class="subitems">
+    <div v-if="hasChildren && expanded" class="subitems">
       <slot />
     </div>
   </div>
