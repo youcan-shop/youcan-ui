@@ -4,7 +4,7 @@ import type { ButtonIconPosition, ButtonSize } from '~/components/Button/types';
 import BaseButton from '~/components/Button/_BaseButton.vue';
 
 defineProps<{
-  size: ButtonSize
+  size?: ButtonSize
   disabled?: boolean
   iconPosition?: ButtonIconPosition
   roundedFull?: boolean
@@ -27,14 +27,14 @@ const slots = useSlots();
 .tertiary {
   --text-color: var(--gray-900);
   --text-style: var(--text-sm-regular);
-  --disabled-text-color: var(--gray-100);
-  --icon-color: var(--gray-500);
-  --disabled-icon-color: var(--gray-100);
-  --background-color: var(--base-white);
+  --disabled-text-color: var(--gray-300);
+  --icon-color: var(--gray-700);
+  --disabled-icon-color: var(--gray-300);
+  --background-color: transparent;
   --hover-background-color: var(--gray-50);
   --active-background-color: var(--gray-100);
-  --disabled-background-color: var(--base-white);
-  --focus-shadow: var(--focus-shadow-xs-brand);
-  --disabled-shadow: none;
+  --disabled-background-color: transparent;
+  --shadow: none;
+  --focus-shadow: var(--focus-no-shadow-brand);
 }
 </style>

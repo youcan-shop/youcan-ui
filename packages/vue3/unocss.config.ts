@@ -10,7 +10,6 @@ export default defineConfig({
   presets: [
     presetAttributify(),
     presetIcons({
-      scale: 1.2,
       warn: true,
       extraProperties: {
         width: '20px',

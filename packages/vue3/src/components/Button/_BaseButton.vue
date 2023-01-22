@@ -4,12 +4,13 @@ import type { ButtonIconPosition, ButtonSize } from './types';
 
 withDefaults(
   defineProps<{
-    size: ButtonSize
+    size?: ButtonSize
     disabled?: boolean
     iconPosition?: ButtonIconPosition
     roundedFull?: boolean
   }>(),
   {
+    size: 'md',
     iconPosition: 'left',
     roundedFull: false,
     disabled: false,
@@ -45,7 +46,7 @@ $states: hover, focus, active, disabled;
   --icon-position: 'row';
   --border: none;
   --shadow: var(--shadow-xs-gray);
-
+  --gap: 8px;
   $properties: background-color,
   border,
   shadow,
@@ -62,7 +63,7 @@ $states: hover, focus, active, disabled;
   align-items: center;
   justify-content: center;
   flex-direction: var(--icon-position);
-  gap: 8px;
+  gap: var(--gap);
   border-radius: var(--border-radius);
   background-color: var(--background-color);
   border: var(--border);
@@ -87,18 +88,32 @@ $states: hover, focus, active, disabled;
     justify-content: center;
   }
 
+  &.size-xxs {
+    --padding: 4px 8px;
+    --gap: 4px;
+
+    &.icon-only {
+      --padding: 6px;
+    }
+  }
+
   &.size-xs {
     --padding: 6px 12px;
-    --border-radius: 4px;
-    --icon-size: 16px;
 
     &.icon-only {
       --padding: 8px;
     }
   }
 
+  &.size-xs,
+  &.size-xxs {
+    --icon-size: 16px;
+    --border-radius: 4px;
+  }
+
   &.size-sm {
     --padding: 8px 12px;
+    --border-radius: 4px;
 
     &.icon-only {
       --padding: 8px;
