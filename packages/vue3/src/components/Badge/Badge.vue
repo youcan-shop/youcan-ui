@@ -21,11 +21,11 @@ withDefaults(
 
 <style scoped lang="scss">
 $states: (
-  "neutral": "gray-300",
+  "neutral": "gray-500",
   "danger": "red-500",
   "info": "blue-500",
   "warning": "yellow-500",
-  "success": "green-500"
+  "success": "green-600"
 );
 
 .badge {

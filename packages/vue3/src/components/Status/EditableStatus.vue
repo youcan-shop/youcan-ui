@@ -93,6 +93,7 @@ const model = computed({
   flex-direction: column;
   border: 1px solid var(--gray-100);
   background-color: var(--base-white);
+  box-shadow: var(--shadow-md-gray);
 }
 
 .status-list-item {

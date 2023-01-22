@@ -27,7 +27,7 @@ withDefaults(
 }
 
 .percentage.success {
-  color: var(--green-500);
+  color: var(--green-700);
   background-color: var(--green-50);
 }
 
