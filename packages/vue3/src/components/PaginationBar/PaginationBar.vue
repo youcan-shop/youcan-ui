@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
+import NavigationButton from './Internal/NavigationButton.vue';
 import SecondaryButton from '~/components/Button/SecondaryButton.vue';
 
 const props = defineProps<{
@@ -56,12 +57,8 @@ function updateCurrentPage(index: number) {
       <SecondaryButton size="sm" :disabled="current === 1" @click="updateCurrentPage(current - 1)">
         Previous
       </SecondaryButton>
-      <SecondaryButton
-        v-for="index in handlePaginationButtons" :key="index" size="sm" class="navigation-button"
-        :class="{ active: current === index }" :disabled="index === '...'" @click="updateCurrentPage(index as number)"
-      >
-        {{ index }}
-      </SecondaryButton>
+      <NavigationButton v-for="index in handlePaginationButtons" :key="index" :current="current" :index="index"
+        @click="updateCurrentPage(index as number)" />
       <SecondaryButton size="sm" :disabled="current === size" @click="updateCurrentPage(current + 1)">
         Next
       </SecondaryButton>
@@ -88,15 +85,5 @@ function updateCurrentPage(index: number) {
   display: flex;
   align-items: center;
   gap: 8px;
-}
-
-.pagination-bar .navigation .navigation-button {
-  width: 36px;
-  height: 36px;
-  --text-color: var(--gray-300);
-}
-
-.pagination-bar .navigation .navigation-button.active {
-  --text-color: var(--gray-900);
 }
 </style>

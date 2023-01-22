@@ -17,13 +17,7 @@ onBeforeMount(() => {
 
 <template>
   <div class="rating">
-    <i
-      v-for="idx in ceil"
-      :key="idx"
-      i-youcan-star
-      class="star"
-      :class="{ active: idx <= score }"
-    />
+    <i v-for="idx in ceil" :key="idx" class="star i-youcan-star" :class="{ active: idx <= score }" />
   </div>
 </template>
 

@@ -81,11 +81,15 @@ $states: hover, focus, active, disabled;
 
   .icon {
     color: var(--icon-color);
-    width: var(--icon-size);
-    height: var(--icon-size);
     display: flex;
     align-items: center;
     justify-content: center;
+
+    :deep(i) {
+      width: var(--icon-size);
+      height: var(--icon-size);
+      flex: none;
+    }
   }
 
   &.size-xxs {

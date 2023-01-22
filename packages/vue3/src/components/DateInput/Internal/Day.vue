@@ -22,10 +22,8 @@ const getDay = () => {
 </script>
 
 <template>
-  <button
-    :disabled="disabled" class="day"
-    :class="{ isSelected, isToday, [`edge--${edge}`]: true, outOfMonth: !inCurrentMonth, [`format-${format}`]: true }"
-  >
+  <button :disabled="disabled" class="day"
+    :class="{ isSelected, isToday, [`edge--${edge}`]: true, outOfMonth: !inCurrentMonth, [`format-${format}`]: true }">
     <span class="text">{{ getDay() }}</span>
   </button>
 </template>
@@ -113,13 +111,13 @@ const getDay = () => {
   }
 
   &.outOfMonth {
-    color: var(--gray-300) !important;
+    color: var(--gray-200) !important;
   }
 
   &.format-2-letters {
     .text {
-      font: var(--text-xs-bold);
-      color: #AAAAAA;
+      font: var(--text-xs-medium);
+      color: var(--gray-500);
     }
   }
 }
