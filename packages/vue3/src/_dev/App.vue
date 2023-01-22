@@ -134,6 +134,18 @@ const selectedRows = ref<TableData[]>([]);
     <TertiaryButton size="sm">
       Primary
     </TertiaryButton>
+    <Sidebar>
+      <template #header>
+        Hello
+      </template>
+      <template #items>
+        <SidebarItem :active="false" label="hello" icon="i-youcan-cube">
+          <SidebarSubitem label="dddfd" />
+          <span v-if="true === false">hello</span>
+          <span v-if="true === false">hello</span>
+        </SidebarItem>
+      </template>
+    </Sidebar>
   </div>
 </template>
 

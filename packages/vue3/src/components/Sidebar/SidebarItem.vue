@@ -10,7 +10,7 @@ const toggle = (override = !expanded.value) => expanded.value = override;
 const hasChildren = computed(() => {
   return slots.default
     && slots.default().length > 0
-    && slots.default().filter((s: any) => s.type.__name === 'SidebarSubitem').length > 0;
+    && slots.default().filter((s: any) => typeof s.type === 'object').length > 0;
 });
 </script>
 
@@ -18,7 +18,7 @@ const hasChildren = computed(() => {
   <div>
     <button :class="{ active }" class="sidebar-item" @click="() => hasChildren && toggle()">
       <div class="item-icon">
-        <i :class="icon" />
+        <i class="icon" :class="icon" />
       </div>
 
       <div class="item-label">
@@ -63,6 +63,12 @@ const hasChildren = computed(() => {
 .sidebar-item.active {
   background-color: var(--gray-700);
   box-shadow: inset 2px 0px 0px 0px var(--base-white);
+}
+
+.sidebar-item .item-icon .icon {
+  width: 20px;
+  height: 20px;
+  color: var(--gray-100);
 }
 
 .subitems {
