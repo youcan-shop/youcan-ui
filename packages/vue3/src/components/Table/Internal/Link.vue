@@ -12,13 +12,8 @@ withDefaults(
 </script>
 
 <template>
-  <a :href="href" :target="target" class="link">{{ label }}</a>
+  <a :href="href" :target="target" class="link"
+    :style="{ font: 'var(--text-sm-medium)', color: 'var(--blue-600)', textDecoration: 'none' }">
+    {{ label }}
+  </a>
 </template>
-
-<style scoped>
-.link {
-  font: var(--text-sm-medium);
-  color: var(--blue-600);
-  text-decoration: none;
-}
-</style>

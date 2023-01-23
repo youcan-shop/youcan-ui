@@ -15,7 +15,11 @@ withDefaults(
 
 <template>
   <div class="thumbnail" :class="[`size-${size}`]">
-    <img v-if="src" :src="src" :alt="alt" class="image" loading="lazy">
+    <object v-if="src" :data="src" type="image/png" class="image">
+      <div class="placeholder">
+        <i class="i-youcan-image icon" />
+      </div>
+    </object>
     <div v-else class="placeholder">
       <i class="i-youcan-image icon" />
     </div>
@@ -56,5 +60,6 @@ withDefaults(
 .image {
   width: 100%;
   height: 100%;
+  aspect-ratio: 1 / 1;
 }
 </style>
