@@ -30,9 +30,9 @@ onMounted(async () => refresh());
 <template>
   <div>
     <Input ref="input" v-model="query" class="search-input" v-bind="$attrs" type="text">
-      <template #icon>
-        <i i-youcan-magnifyingglass />
-      </template>
+    <template #icon>
+      <i i-youcan-magnifying-glass />
+    </template>
     </Input>
 
     <div class="result-list-wrapper">
@@ -42,10 +42,8 @@ onMounted(async () => refresh());
         <SearchNoResults v-else-if="!results.length" />
 
         <div v-else class="results">
-          <SearchResult
-            v-for="result in results" :key="Utils.uid(result.label)" class="search-result"
-            :thumbnail="thumbnails" :result="result" @click="emit('select', result)"
-          />
+          <SearchResult v-for="result in results" :key="Utils.uid(result.label)" class="search-result"
+            :thumbnail="thumbnails" :result="result" @click="emit('select', result)" />
         </div>
       </div>
     </div>
@@ -54,29 +52,29 @@ onMounted(async () => refresh());
 
 <style scoped>
 .result-list-wrapper {
-    display: none;
-    position: relative;
+  display: none;
+  position: relative;
 }
 
 .search-input.focused+.result-list-wrapper,
 .result-list-wrapper:has(.search-result:is(:focus, :active)) {
-    display: block;
+  display: block;
 }
 
 .result-list {
-    left: 0;
-    top: 8px;
-    width: 100%;
-    z-index: 20;
-    padding: 8px 0;
-    border-radius: 8px;
-    position: absolute;
-    box-shadow: var(--shadow-md);
-    border: 1px solid var(--gray-100);
-    background-color: var(--base-white);
+  left: 0;
+  top: 8px;
+  width: 100%;
+  z-index: 20;
+  padding: 8px 0;
+  border-radius: 8px;
+  position: absolute;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--gray-100);
+  background-color: var(--base-white);
 }
 
 .loading {
-    padding: 10px 16px;
+  padding: 10px 16px;
 }
 </style>

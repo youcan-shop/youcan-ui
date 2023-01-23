@@ -37,20 +37,20 @@ export const Default = {
           variant: 'thumbnail',
           data: {
             size: 'small',
-            src: 'https://avatars.githubusercontent.com/u/57347114?s=280&v=4',
+            src: 'https://pbs.twimg.com/profile_images/1581689201568907264/TB8YZOra_400x400.jpg',
           },
         },
         profile: {
           variant: 'link',
           data: {
-            href: 'https://www.google.com',
-            label: 'Facebook',
+            href: 'https://twitter.com/hmimsali',
+            label: 'Twitter',
           },
         },
         age: 42,
         email: 'Doe@gmail.com',
       },
-      { name: 'John Smith', age: 22, email: 'Smith@gmail.com' },
+      { name: 'John Smith', age: 22, email: 'ali@youcan.shop' },
     ] as TableData[],
   },
 };
