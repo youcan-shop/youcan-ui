@@ -32,7 +32,7 @@ const model = computed({
         {{ model.label }}
       </div>
 
-      <i class="icon" i-youcan-caretdown />
+      <i class="icon i-youcan-caret-down" />
     </button>
     <div class="status-list-wrapper">
       <div v-show="show" ref="list" class="status-list">
