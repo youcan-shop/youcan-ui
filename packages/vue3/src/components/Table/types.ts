@@ -1,5 +1,5 @@
 import type { Component } from 'vue';
-import type { StatusDefinition } from '../Status/types';
+import type { StaticStatusDefinition, StatusDefinition } from '../Status/types';
 import type { PercentageType } from '../Percentage/types';
 import type { ButtonIconPosition, ButtonSize } from '../Button/types';
 import type { ThumbnailSize } from '~/components/Thumbnail/types';
@@ -32,7 +32,7 @@ export interface TableData {
   [key: string]: string | number | TableDataComposable
 }
 
-export type TableComposableVariant = 'link' | 'thumbnail' | 'status' | 'percentage' | 'button' | 'rating' | 'toggle' | 'counter' | 'icon';
+export type TableComposableVariant = 'link' | 'thumbnail' | 'status' | 'static-status' | 'percentage' | 'button' | 'rating' | 'toggle' | 'counter' | 'icon';
 
 interface TableComposable<T extends TableComposableVariant, U, V extends Record<string, () => void> = Record<string, () => void>> {
   variant: Extract<TableComposableVariant, T>
@@ -44,6 +44,7 @@ export type TableDataComposable =
   TableComposable<'link', TableDataLink> |
   TableComposable<'thumbnail', TableDataThumbnail> |
   TableComposable<'status', TableDataStatus> |
+  TableComposable<'static-status', TableDataStaticStatus> |
   TableComposable<'percentage', TableDataPercentage> |
   TableComposable<'button', TableDataButton, { click: () => void }> |
   TableComposable<'rating', TableDataRating> |
@@ -65,6 +66,10 @@ interface TableDataThumbnail {
 interface TableDataStatus {
   statuses: StatusDefinition[]
   modelValue: StatusDefinition
+}
+
+interface TableDataStaticStatus {
+  status: StaticStatusDefinition
 }
 
 interface TableDataPercentage {
