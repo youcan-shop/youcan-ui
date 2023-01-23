@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 
-import type { DropdownItemArray, DropdownItemDefinition, DropdownItemGroups } from '../types';
+import type { DropdownItemArray, DropdownItemDefinition, DropdownItemGroups } from './types';
 
-import DropdownItem from './DropdownItem.vue';
+import DropdownItem from './Internal/DropdownItem.vue';
 import { Input } from '~/components';
 const props = withDefaults(
   defineProps<{

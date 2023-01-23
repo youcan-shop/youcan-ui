@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onClickOutside } from '@vueuse/core';
 import { computed, ref } from 'vue';
-import DropdownList from '~/components/Dropdown/Internal/DropdownList.vue';
+import DropdownList from '~/components/Dropdown/DropdownList.vue';
 import type {
   DropdownItemArray,
   DropdownItemDefinition,

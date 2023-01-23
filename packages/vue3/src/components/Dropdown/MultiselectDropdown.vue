@@ -4,7 +4,7 @@ import { Utils } from '@youcan/ui-core';
 import { onClickOutside } from '@vueuse/core';
 import { Badge } from '..';
 import type { DropdownItemArray, DropdownItemDefinition, DropdownItemGroups } from './types';
-import DropdownList from './Internal/DropdownList.vue';
+import DropdownList from './DropdownList.vue';
 
 const props = withDefaults(
   defineProps<{
