@@ -1,4 +1,5 @@
 export { default as Dropdown } from './Dropdown/Dropdown.vue';
+export { default as DropdownList } from './Dropdown/DropdownList.vue';
 export { default as Note } from './Note/Note.vue';
 export { default as Loading } from './Loading/Loading.vue';
 export { default as Checkbox } from './Checkbox/Checkbox.vue';

@@ -2,7 +2,7 @@
 import { computed, ref } from 'vue';
 import { onClickOutside } from '@vueuse/core';
 import type { DropdownItemArray, DropdownItemDefinition, DropdownItemGroups } from './types';
-import DropdownList from './Internal/DropdownList.vue';
+import DropdownList from './DropdownList.vue';
 
 const props = withDefaults(
   defineProps<{
@@ -44,8 +44,10 @@ const model = computed<DropdownItemDefinition | null>({
       <i class="chevron i-youcan-carret-down" />
     </button>
     <div v-if="showList" ref="list" class="dropdown-wrapper">
-      <DropdownList class="dropdown-list" v-bind="{ items, searchable, selected: modelValue, multiple: false }"
-        @select="(i) => model = i" />
+      <DropdownList
+        class="dropdown-list" v-bind="{ items, searchable, selected: modelValue, multiple: false }"
+        @select="(i) => model = i"
+      />
     </div>
   </div>
 </template>
