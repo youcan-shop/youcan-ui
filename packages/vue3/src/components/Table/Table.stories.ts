@@ -37,6 +37,7 @@ export const Default = {
           variant: 'thumbnail',
           data: {
             size: 'small',
+            src: 'https://avatars.githubusercontent.com/u/57347114?s=280&v=4',
           },
         },
         profile: {
