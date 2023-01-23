@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onClickOutside } from '@vueuse/core';
 import { computed, ref } from 'vue';
-import DropdownList from '~/components/Dropdown/Internal/DropdownList.vue';
+import DropdownList from '~/components/Dropdown/DropdownList.vue';
 import type {
   DropdownItemArray,
   DropdownItemDefinition,
@@ -45,10 +45,8 @@ const model = computed<DropdownItemDefinition | null>({
       <i i-youcan-caretdown class="chevron" />
     </button>
     <div v-if="showList" ref="list" class="dropdown-wrapper">
-      <DropdownList
-        class="dropdown-list" v-bind="{ items, searchable, selected: modelValue, multiple: false }"
-        @select="(i) => (model = i)"
-      />
+      <DropdownList class="dropdown-list" v-bind="{ items, searchable, selected: modelValue, multiple: false }"
+        @select="(i) => (model = i)" />
     </div>
   </div>
 </template>

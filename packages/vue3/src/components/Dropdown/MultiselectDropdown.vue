@@ -4,7 +4,7 @@ import { Utils } from '@youcan/ui-core';
 import { onClickOutside } from '@vueuse/core';
 import { Badge } from '..';
 import type { DropdownItemArray, DropdownItemDefinition, DropdownItemGroups } from './types';
-import DropdownList from './Internal/DropdownList.vue';
+import DropdownList from './DropdownList.vue';
 
 const props = withDefaults(
   defineProps<{
@@ -56,10 +56,8 @@ function toggle(item: DropdownItemDefinition, value: boolean): void {
       <i i-youcan-down class="chevron" />
     </button>
     <div v-if="showList" ref="list" class="dropdown-wrapper">
-      <DropdownList
-        class="dropdown-list" v-bind="{ items, selected: modelValue, searchable, multiple: true }"
-        @toggle="toggle"
-      />
+      <DropdownList class="dropdown-list" v-bind="{ items, selected: modelValue, searchable, multiple: true }"
+        @toggle="toggle" />
     </div>
   </div>
 </template>
