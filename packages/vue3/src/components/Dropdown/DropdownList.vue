@@ -144,6 +144,7 @@ function toggle(item: DropdownItemDefinition, value: boolean): void {
 .inner .title {
   padding: 6px 16px;
   font: var(--text-sm-medium);
+  color: var(--gray-900);
 }
 
 .no-results {

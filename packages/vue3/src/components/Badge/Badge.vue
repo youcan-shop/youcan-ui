@@ -32,7 +32,7 @@ $states: (
   --background-color: var(--gray-300);
   --height: v-bind(`${size}px`);
 
-  font: var(--text-sm-bold);
+  font: var(--text-sm-medium);
   color: var(--base-white);
   padding: 0 6px;
   border-radius: 100px;

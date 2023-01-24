@@ -53,7 +53,7 @@ function toggle(item: DropdownItemDefinition, value: boolean): void {
         </Badge>
       </span>
 
-      <i i-youcan-down class="chevron" />
+      <i class="chevron i-youcan-carret-down" />
     </button>
     <div v-if="showList" ref="list" class="dropdown-wrapper">
       <DropdownList class="dropdown-list" v-bind="{ items, selected: modelValue, searchable, multiple: true }"
