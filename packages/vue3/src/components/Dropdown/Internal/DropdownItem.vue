@@ -52,6 +52,7 @@ function toggle(override = !model.value) {
 
 .item .label {
   font: var(--text-sm-regular);
+  color: var(--gray-900);
 }
 
 .item:hover {

@@ -124,7 +124,7 @@ const batchSelect = (value: boolean) => checkedRows.value = Array<boolean>(props
           </template>
           <template v-else>
             <span class="text">{{ column.label }}</span>
-            <i v-if="column.sortable && column.sortable !== 'none'" class="i-youcan-caretdown sort-icon"
+            <i v-if="column.sortable && column.sortable !== 'none'" class="i-youcan-caret-down sort-icon"
               :style="{ transform: column.sortable === 'asc' ? 'rotate(180deg)' : '' }" tabindex="1"
               @click="emitSort(column, index)" />
           </template>

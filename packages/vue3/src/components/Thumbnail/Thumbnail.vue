@@ -50,6 +50,13 @@ withDefaults(
   --size: 44px;
 }
 
+.placeholder {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .placeholder .icon {
   display: block;
   color: var(--gray-300);
