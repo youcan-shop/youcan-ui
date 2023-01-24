@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import '~/assets/main.css';
-import { EditableStatus, PrimaryButton, Sidebar, SidebarItem, SidebarSubitem, StaticStatus, TertiaryButton } from '~/components';
+import { EditableStatus, PrimaryButton, Sidebar, SidebarItem, SidebarSubitem, StaticStatus, TertiaryButton, Toast } from '~/components';
 import Table from '~/components/Table/Table.vue';
 import type { TableActions, TableColumn, TableData } from '~/components/Table/types';
 import Input from '~/components/Input/Input.vue';
@@ -146,6 +146,7 @@ const selectedRows = ref<TableData[]>([]);
         </SidebarItem>
       </template>
     </Sidebar>
+    <Toast />
   </div>
 </template>
 
