@@ -49,7 +49,7 @@ const Template = (args: Record<string, unknown>, { argTypes }: Record<string, Re
   props: Object.keys(argTypes),
   components: { Toast },
   template: `
-    <Toast v-bind="$props" :type="type" :hasIcon="hasIcon" :canClose="canClose" :hasActions="hasActions" :primaryButton="primaryButton" :secondaryButton="secondaryButton" :closeAfter="closeAfter"
+    <Toast v-bind="$props"
     >
       <template #title>
         Title of Toast
