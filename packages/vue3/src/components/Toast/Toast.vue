@@ -30,13 +30,11 @@ if (props.closeAfterDuration && typeof props.closeAfterDuration === 'number') {
   <div class="toast-block" :class="[type]">
     <div class="main">
       <div class="icon-block" :class="[type]">
-        <i
-          class="icon" :class="{
-            'i-youcan-warning-circle warning': type === 'warning',
-            'i-youcan-check-circle success': type === 'success',
-            'i-youcan-info info': type === 'info',
-          }"
-        />
+        <i class="icon" :class="{
+          'i-youcan-warning-circle warning': type === 'warning',
+          'i-youcan-check-circle success': type === 'success',
+          'i-youcan-info-1 info': type === 'info',
+        }" />
       </div>
       <div class="content-container">
         <span class="title" :class="[type]">
@@ -80,20 +78,24 @@ if (props.closeAfterDuration && typeof props.closeAfterDuration === 'number') {
 .toast-block.warning {
   --border-color: var(--orange-500);
 }
+
 .toast-block.success {
   --border-color: var(--green-600);
 }
+
 .toast-block.info {
   --border-color: var(--blue-500);
 }
 
-.content-container .description{
+.content-container .description {
   padding-bottom: 4px;
 }
+
 .icon {
   width: 20px;
   height: 20px;
 }
+
 .icon.warning {
   color: var(--orange-500);
 }
@@ -130,9 +132,11 @@ if (props.closeAfterDuration && typeof props.closeAfterDuration === 'number') {
   flex-direction: column;
   gap: 4px;
 }
+
 .title {
   font: var(--text-sm-medium);
 }
+
 .title.success {
   color: var(--green-600);
 }
