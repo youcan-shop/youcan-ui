@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { ToastType } from './types';
+import TertiaryButton from '~/components/Button/TertiaryButton.vue';
 
 const props = withDefaults(
   defineProps<{
@@ -50,11 +51,11 @@ if (props.closeAfterDuration && typeof props.closeAfterDuration === 'number') {
       </div>
       <!-- Close button -->
       <div class="btn">
-        <button
-          class="close-button" @click="handleClose"
-        >
-          <i class="i-tabler:x" />
-        </button>
+        <TertiaryButton class="close-button" size="xs" icon-position="only" @click="handleClose">
+          <template #icon>
+            <i class="i-tabler:x" />
+          </template>
+        </TertiaryButton>
       </div>
     </div>
   </div>
@@ -65,15 +66,16 @@ if (props.closeAfterDuration && typeof props.closeAfterDuration === 'number') {
   --border-color: var(--gray-500);
   width: 496px;
   display: flex;
-  padding: 12px 12px 16px;
   gap: 8px;
   background-color: var(--base-white);
-  border-radius: 8px;
+  border-radius: 4px;
   position: relative;
-  padding: 16px;
   border: 1px solid var(--gray-100);
+  border-width: 0px 0px 0px 1px;
   border-left: 4px solid var(--border-color);
+  padding: 12px;
 }
+
 .toast-block.warning {
   --border-color: var(--orange-500);
 }
@@ -82,6 +84,10 @@ if (props.closeAfterDuration && typeof props.closeAfterDuration === 'number') {
 }
 .toast-block.info {
   --border-color: var(--blue-500);
+}
+
+.content-container .description{
+  padding-bottom: 4px;
 }
 .icon {
   width: 20px;
@@ -101,8 +107,6 @@ if (props.closeAfterDuration && typeof props.closeAfterDuration === 'number') {
 
 .close-button {
   cursor: pointer;
-  border: 0;
-  background: transparent;
   padding: 0;
   color: var(--gray-500);
 }
@@ -112,15 +116,11 @@ if (props.closeAfterDuration && typeof props.closeAfterDuration === 'number') {
   height: 18px;
 }
 
-.icon:hover {
-  background: #f3f3f6;
-}
-
 .main {
   display: flex;
   width: 100%;
   justify-content: space-between;
-  gap: 10px;
+  column-gap: 8px;
 }
 .header {
   display: flex;
@@ -135,7 +135,6 @@ if (props.closeAfterDuration && typeof props.closeAfterDuration === 'number') {
 }
 .title {
   font: var(--text-sm-medium);
-  padding-bottom: 4px;
 }
 .title.success {
   color: var(--green-600);
