@@ -16,6 +16,7 @@ const emit = defineEmits<{
 
 const handleClose = () => {
   emit('close');
+  console.log('closed');
 };
 
 if (props.closeAfterDuration && typeof props.closeAfterDuration === 'number') {
@@ -124,7 +125,7 @@ if (props.closeAfterDuration && typeof props.closeAfterDuration === 'number') {
 }
 .header {
   display: flex;
-  column-gap: 10px;
+  gap: 10px;
 }
 
 .content-container {
