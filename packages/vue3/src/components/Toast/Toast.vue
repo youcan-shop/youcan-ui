@@ -120,7 +120,7 @@ if (props.closeAfterDuration && typeof props.closeAfterDuration === 'number') {
   display: flex;
   width: 100%;
   justify-content: space-between;
-  column-gap: 8px;
+  gap: 8px;
 }
 .header {
   display: flex;
