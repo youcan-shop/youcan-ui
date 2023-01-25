@@ -123,10 +123,6 @@ if (props.closeAfterDuration && typeof props.closeAfterDuration === 'number') {
   justify-content: space-between;
   gap: 8px;
 }
-.header {
-  display: flex;
-  gap: 10px;
-}
 
 .content-container {
   width: 100%;
@@ -152,11 +148,5 @@ if (props.closeAfterDuration && typeof props.closeAfterDuration === 'number') {
 .description {
   font: var(--text-sm-regular);
   color: var(--gray-900);
-}
-
-.actions-container {
-  display: flex;
-  align-items: center;
-  gap: 12px;
 }
 </style>
