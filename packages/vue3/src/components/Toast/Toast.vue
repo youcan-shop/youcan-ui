@@ -6,7 +6,7 @@ const props = withDefaults(
     type: ToastType
     closeAfterDuration?: number
   }>(),
-  { type: 'neutral' },
+  { type: 'info' },
 );
 
 const emit = defineEmits<{
@@ -15,7 +15,6 @@ const emit = defineEmits<{
 
 const handleClose = () => {
   emit('close');
-  console.log('closed');
 };
 
 if (props.closeAfterDuration && typeof props.closeAfterDuration === 'number') {
@@ -31,10 +30,9 @@ if (props.closeAfterDuration && typeof props.closeAfterDuration === 'number') {
       <div class="icon-block" :class="[type]">
         <i
           class="icon" :class="{
-            'i-tabler:alert-circle error': type === 'error',
             'i-tabler:alert-triangle warning': type === 'warning',
             'i-tabler:circle-check success': type === 'success',
-            'i-tabler:info-circle neutral': type === 'neutral',
+            'i-tabler:info-circle neutral': type === 'info',
           }"
         />
       </div>
@@ -81,7 +79,7 @@ if (props.closeAfterDuration && typeof props.closeAfterDuration === 'number') {
       width: 20px;
       height: 20px;
 
-      &.error {
+      &.warning {
         color: #E3262D;
       }
 
@@ -90,7 +88,7 @@ if (props.closeAfterDuration && typeof props.closeAfterDuration === 'number') {
       }
     }
 
-    &.error {
+    &.warning {
       background-color: #FFEBEB;
       border-color: #FFF5F5;
     }

@@ -10,7 +10,7 @@ const meta: Meta<typeof Toast> = {
       control: {
         type: 'select',
       },
-      options: ['neutral', 'success', 'warning', 'error'],
+      options: ['success', 'warning', 'info'],
     },
 
     closeAfterDuration: {
@@ -25,7 +25,7 @@ const Template = (args: Record<string, unknown>, { argTypes }: Record<string, Re
   props: Object.keys(argTypes),
   components: { Toast },
   template: `
-    <Toast v-bind="$props" :closeAfterDuration="2000"
+    <Toast v-bind="$props" :closeAfterDuration="2000" :type="type"
     >
       <template #title>
         Title of Toast
