@@ -9,35 +9,11 @@ const meta: Meta<typeof Toast> = {
     type: {
       control: {
         type: 'select',
-        options: ['neutral', 'success', 'warning', 'error'],
       },
+      options: ['neutral', 'success', 'warning', 'error'],
     },
-    hasIcon: {
-      control: {
-        type: 'boolean',
-      },
-    },
-    canClose: {
-      control: {
-        type: 'boolean',
-      },
-    },
-    hasActions: {
-      control: {
-        type: 'boolean',
-      },
-    },
-    primaryButton: {
-      control: {
-        type: 'text',
-      },
-    },
-    secondaryButton: {
-      control: {
-        type: 'text',
-      },
-    },
-    closeAfter: {
+
+    closeAfterDuration: {
       control: {
         type: 'number',
       },
@@ -49,7 +25,7 @@ const Template = (args: Record<string, unknown>, { argTypes }: Record<string, Re
   props: Object.keys(argTypes),
   components: { Toast },
   template: `
-    <Toast v-bind="$props"
+    <Toast v-bind="$props" :closeAfterDuration="2000"
     >
       <template #title>
         Title of Toast

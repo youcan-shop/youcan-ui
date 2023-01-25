@@ -1,45 +1,34 @@
 <script setup lang="ts">
 import type { ToastType } from './types';
 
-const props = defineProps({
-  type: {
-    type: String as () => ToastType,
-    default: 'neutral',
-  },
-  hasIcon: {
-    type: Boolean,
-    default: true,
-  },
-  canClose: {
-    type: Boolean,
-    default: true,
-  },
-  hasActions: {
-    type: Boolean,
-    default: false,
-  },
-  primaryButton: String,
-  secondaryButton: String,
-  closeAfter: Number,
-});
+const props = withDefaults(
+  defineProps<{
+    type: ToastType
+    closeAfterDuration?: number
+  }>(),
+  { type: 'neutral' },
+);
 
-const emit = defineEmits(['clickPrimaryButton', 'clickSecondaryButton', 'close']);
+const emit = defineEmits<{
+  (e: 'close'): void
+}>();
 
-if (typeof props.closeAfter !== 'undefined' && typeof props.closeAfter === 'number') {
-  setTimeout(() => {
-    emit('close');
-  }, props.closeAfter);
-}
-
-const closeToast = () => {
+const handleClose = () => {
   emit('close');
+  console.log('closed');
 };
+
+if (props.closeAfterDuration && typeof props.closeAfterDuration === 'number') {
+  setTimeout(() => {
+    handleClose();
+  }, props.closeAfterDuration);
+}
 </script>
 
 <template>
   <div class="toast-block">
     <div class="main">
-      <div v-if="hasIcon" class="icon-block" :class="[type]">
+      <div class="icon-block" :class="[type]">
         <i
           class="icon" :class="{
             'i-tabler:alert-circle error': type === 'error',
@@ -62,7 +51,9 @@ const closeToast = () => {
         </span>
       </div>
       <!-- Close button -->
-      <button v-if="canClose" class="close-button" @click="() => closeToast()">
+      <button
+        class="close-button" @click="handleClose"
+      >
         <i class="i-tabler:x" />
       </button>
     </div>
