@@ -15,7 +15,6 @@ const emit = defineEmits<{
 
 const handleClose = () => {
   emit('close');
-  console.log('close');
 };
 
 if (props.closeAfterDuration && typeof props.closeAfterDuration === 'number') {
@@ -63,7 +62,8 @@ if (props.closeAfterDuration && typeof props.closeAfterDuration === 'number') {
 
 <style scoped>
 .toast-block {
-  width: 396px;
+  --border-color: var(--gray-500);
+  width: 496px;
   display: flex;
   padding: 12px 12px 16px;
   gap: 8px;
@@ -72,18 +72,16 @@ if (props.closeAfterDuration && typeof props.closeAfterDuration === 'number') {
   position: relative;
   padding: 16px;
   border: 1px solid var(--gray-100);
+  border-left: 4px solid var(--border-color);
 }
-
 .toast-block.warning {
-  border-left: 4px solid var(--orange-500);
+  --border-color: var(--orange-500);
 }
-
 .toast-block.success {
-  border-left: 4px solid var(--green-600);
+  --border-color: var(--green-600);
 }
-
 .toast-block.info {
-  border-left: 4px solid var(--blue-500);
+  --border-color: var(--blue-500);
 }
 .icon {
   width: 20px;
