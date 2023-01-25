@@ -31,9 +31,9 @@ if (props.closeAfterDuration && typeof props.closeAfterDuration === 'number') {
       <div class="icon-block" :class="[type]">
         <i
           class="icon" :class="{
-            'i-tabler:alert-triangle warning': type === 'warning',
-            'i-tabler:circle-check success': type === 'success',
-            'i-tabler:info-circle info': type === 'info',
+            'i-youcan-warning-circle warning': type === 'warning',
+            'i-youcan-check-circle success': type === 'success',
+            'i-youcan-info info': type === 'info',
           }"
         />
       </div>
