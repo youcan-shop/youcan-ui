@@ -15,6 +15,7 @@ const emit = defineEmits<{
 
 const handleClose = () => {
   emit('close');
+  console.log('close');
 };
 
 if (props.closeAfterDuration && typeof props.closeAfterDuration === 'number') {
@@ -25,14 +26,14 @@ if (props.closeAfterDuration && typeof props.closeAfterDuration === 'number') {
 </script>
 
 <template>
-  <div class="toast-block">
+  <div class="toast-block" :class="[type]">
     <div class="main">
       <div class="icon-block" :class="[type]">
         <i
           class="icon" :class="{
             'i-tabler:alert-triangle warning': type === 'warning',
             'i-tabler:circle-check success': type === 'success',
-            'i-tabler:info-circle neutral': type === 'info',
+            'i-tabler:info-circle info': type === 'info',
           }"
         />
       </div>
@@ -42,133 +43,122 @@ if (props.closeAfterDuration && typeof props.closeAfterDuration === 'number') {
             Example: Short toast title
           </slot>
         </span>
-        <span class="description">
+        <span class="description" :class="[type]">
           <slot name="description">
             Example: Short description using toast.
           </slot>
         </span>
       </div>
       <!-- Close button -->
-      <button
-        class="close-button" @click="handleClose"
-      >
-        <i class="i-tabler:x" />
-      </button>
+      <div class="btn">
+        <button
+          class="close-button" @click="handleClose"
+        >
+          <i class="i-tabler:x" />
+        </button>
+      </div>
     </div>
   </div>
 </template>
 
-<style lang="scss">
+<style scoped>
 .toast-block {
   width: 396px;
   display: flex;
   padding: 12px 12px 16px;
   gap: 8px;
-  flex-direction: column;
   background-color: var(--base-white);
   border-radius: 8px;
   position: relative;
   padding: 16px;
-  border: 1px solid #F3F3F6;
+  border: 1px solid var(--gray-100);
+}
+
+.toast-block.warning {
+  border-left: 4px solid var(--orange-500);
+}
+
+.toast-block.success {
   border-left: 4px solid var(--green-600);
+}
 
-  .icon-block {
-    display: flex;
+.toast-block.info {
+  border-left: 4px solid var(--blue-500);
+}
+.icon {
+  width: 20px;
+  height: 20px;
+}
+.icon.warning {
+  color: var(--orange-500);
+}
 
-    .icon {
-      width: 20px;
-      height: 20px;
+.icon.success {
+  color: var(--green-600);
+}
 
-      &.warning {
-        color: #E3262D;
-      }
+.icon.info {
+  color: var(--blue-500);
+}
 
-      &.success {
-        color: var(--green-600);
-      }
-    }
+.close-button {
+  cursor: pointer;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  color: var(--gray-500);
+}
 
-    &.warning {
-      background-color: #FFEBEB;
-      border-color: #FFF5F5;
-    }
+.icon {
+  width: 18px;
+  height: 18px;
+}
 
-    &.success {
-      background-color: #E6F7E6;
-      border-color: #E6F7E6;
-    }
-  }
+.icon:hover {
+  background: #f3f3f6;
+}
 
-  .close-button {
-    width: max-content;
-    position: absolute;
-    cursor: pointer;
-    top: 8px;
-    right: 16px;
-    padding: 8px;
-    font-size: 14px;
-    line-height: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 8px;
-    transition: background 150 ease-in-out;
-    outline: none;
-    user-select: none;
-    background: transparent;
-    border: 1px solid transparent;
-    color: #6E7487;
+.main {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  gap: 10px;
+}
+.header {
+  display: flex;
+  column-gap: 10px;
+}
 
-    [dir='rtl'] & {
-      right: unset;
-      left: 16px;
-    }
+.content-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.title {
+  font: var(--text-sm-medium);
+  padding-bottom: 4px;
+}
+.title.success {
+  color: var(--green-600);
+}
 
-    .icon {
-      width: 18px;
-      height: 18px;
-    }
+.title.info {
+  color: var(--blue-500);
+}
 
-    &:hover {
-      background: #F3F3F6;
-    }
-  }
+.title.warning {
+  color: var(--orange-500);
+}
 
-  .main {
-    display: flex;
-    gap: 10px;
+.description {
+  font: var(--text-sm-regular);
+  color: var(--gray-900);
+}
 
-    .header {
-      display: flex;
-      column-gap: 10px;
-    }
-
-    .content-container {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-
-      .title {
-        color: #6E7487;
-        font: var(--text-sm-medium);
-
-        &.success {
-          color: var(--green-600);
-        }
-      }
-
-      .description {
-        font: var(--text-sm-regular);
-        color: var(--gray-900);
-      }
-    }
-
-    .actions-container {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-  }
+.actions-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 </style>
