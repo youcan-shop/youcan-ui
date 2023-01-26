@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import type { ToastType } from './types';
+import type { InfoType } from './types';
 import TertiaryButton from '~/components/Button/TertiaryButton.vue';
 
 const props = withDefaults(
   defineProps<{
-    type: ToastType
+    type: InfoType
     closeAfterDuration?: number
   }>(),
-  { type: 'info' },
+  { type: 'warning' },
 );
 
 const emit = defineEmits<{
@@ -16,7 +16,6 @@ const emit = defineEmits<{
 
 const handleClose = () => {
   emit('close');
-  console.log('closed');
 };
 
 if (props.closeAfterDuration && typeof props.closeAfterDuration === 'number') {
@@ -67,6 +66,7 @@ if (props.closeAfterDuration && typeof props.closeAfterDuration === 'number') {
   display: flex;
   gap: 8px;
   background-color: var(--base-white);
+  box-shadow: rgba(144, 135, 135, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
   border-radius: 4px;
   position: relative;
   border: 1px solid var(--gray-100);
@@ -76,7 +76,7 @@ if (props.closeAfterDuration && typeof props.closeAfterDuration === 'number') {
 }
 
 .toast-block.warning {
-  --border-color: var(--orange-500);
+  --border-color: var(--yellow-700);
 }
 
 .toast-block.success {
@@ -97,7 +97,7 @@ if (props.closeAfterDuration && typeof props.closeAfterDuration === 'number') {
 }
 
 .icon.warning {
-  color: var(--orange-500);
+  color: var(--yellow-700);
 }
 
 .icon.success {
@@ -146,7 +146,7 @@ if (props.closeAfterDuration && typeof props.closeAfterDuration === 'number') {
 }
 
 .title.warning {
-  color: var(--orange-500);
+  color: var(--yellow-700);
 }
 
 .description {
