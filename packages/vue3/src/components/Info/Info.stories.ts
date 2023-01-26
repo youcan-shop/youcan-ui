@@ -1,10 +1,10 @@
 import type { Meta } from '@storybook/vue3';
-import Toast from './Toast.vue';
+import Info from './Info.vue';
 
-const meta: Meta<typeof Toast> = {
-  title: 'Application/Toast',
-  component: Toast,
-  tags: ['toast', 'alert'],
+const meta: Meta<typeof Info> = {
+  title: 'Application/Info',
+  component: Info,
+  tags: ['info', 'alert'],
   argTypes: {
     type: {
       control: {
@@ -23,9 +23,9 @@ const meta: Meta<typeof Toast> = {
 
 const Template = (args: Record<string, unknown>, { argTypes }: Record<string, Record<string, unknown>>) => ({
   props: Object.keys(argTypes),
-  components: { Toast },
+  components: { Info },
   template: `
-    <Toast v-bind="$props" :closeAfterDuration="2000" :type="type"
+    <Info v-bind="$props" :closeAfterDuration="2000" :type="type"
     >
       <template #title>
         Title of Toast
@@ -33,7 +33,7 @@ const Template = (args: Record<string, unknown>, { argTypes }: Record<string, Re
       <template #description>
         Description a Toast description for testing purposes
       </template>
-    </Toast>
+    </Info>
   `,
 });
 
