@@ -70,6 +70,7 @@ if (props.closeAfterDuration && typeof props.closeAfterDuration === 'number') {
   border-radius: 4px;
   position: relative;
   border: 1px solid var(--gray-100);
+  margin-bottom: 12px;
   border-width: 0px 0px 0px 1px;
   border-left: 4px solid var(--border-color);
   padding: 12px;
