@@ -28,8 +28,18 @@ export interface TableColumnValue {
   component?: Component | undefined
 }
 
-export interface TableData {
+export interface TableDataRow {
   [key: string]: string | number | TableDataComposable
+}
+
+export interface TableData {
+  row: TableDataRow
+  children?: TableDataRow[]
+}
+
+export interface TableInternalData {
+  row: Record<keyof TableDataRow, TableColumnValue>
+  children?: Pick<TableInternalData, 'row'>[]
 }
 
 export type TableComposableVariant = 'link' | 'thumbnail' | 'status' | 'static-status' | 'percentage' | 'button' | 'rating' | 'toggle' | 'counter' | 'icon';
@@ -49,8 +59,7 @@ export type TableDataComposable =
   TableComposable<'button', TableDataButton, { click: () => void }> |
   TableComposable<'rating', TableDataRating> |
   TableComposable<'toggle', TableDataToggle> |
-  TableComposable<'counter', TableDataCounter> |
-  TableComposable<'icon', TableDataIcon, { click?: () => void; mouseover?: () => void }>;
+  TableComposable<'counter', TableDataCounter>;
 
 interface TableDataLink {
   label?: string
@@ -102,9 +111,5 @@ interface TableDataCounter {
   step?: number
   id?: string
   disabled?: boolean
-}
-
-interface TableDataIcon {
-  iconName: string
 }
 

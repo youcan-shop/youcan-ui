@@ -2,7 +2,7 @@
 import { computed, ref, shallowRef, watchEffect } from 'vue';
 import TableButton from './Internal/Button.vue';
 import CellsRegistrar from './Internal/cells-registrar';
-import type { TableActions, TableColumn, TableColumnValue, TableData, TableDataComposable } from './types';
+import type { TableActions, TableColumn, TableColumnValue, TableData, TableDataComposable, TableDataRow, TableInternalData } from './types';
 import Checkbox from '~/components/Checkbox/Checkbox.vue';
 import { launder } from '~/utils/type.util';
 
@@ -23,6 +23,7 @@ const emit = defineEmits<{
 
 const allChecked = ref(false);
 const checkedRows = ref(Array<boolean>(props.data.length).fill(false));
+// const hasChildren = computed(() => props.data.some(row => row.children && row.children.length > 0));
 
 const tableColumns = computed(() => {
   if (props.actions && props.actions.length > 0) {
@@ -37,17 +38,20 @@ const tableColumns = computed(() => {
 });
 
 const rows = computed(
-  () => props.data.map((row) => {
-    const rowObject = {} as Record<keyof TableData, TableColumnValue>;
+  () => props.data.map(({ row }) => {
+    const rowObject: TableInternalData = {
+      row: {},
+      children: [],
+    };
 
-    Object.keys(row).forEach((key: keyof TableData) => {
+    Object.keys(row).forEach((key: Exclude<keyof TableDataRow, number>) => {
       const value = row[key];
 
       if (typeof value === 'undefined') {
         return null;
       }
 
-      rowObject[key] = {
+      rowObject.row[key] = {
         value,
         accessor: key as string,
         isString: typeof value !== 'object',
@@ -61,21 +65,24 @@ const rows = computed(
 
 const emitSort = (column: TableColumn, index: number) => emit('sort', column, index);
 
-function mapRowsToTableData(ddd: Record<keyof TableData, TableColumnValue>[]): TableData[] {
-  return props.data.map((row: TableData, index: number) => {
-    const rowObject: TableData = {};
+function mapRowsToTableData(records: TableInternalData[]): TableData[] {
+  return props.data.map(({ row }: TableData, index: number) => {
+    const rowObject: TableData = {
+      row: {},
+      children: [],
+    };
 
-    Object.keys(row).forEach((key: keyof TableData) => {
-      const composedRow = rows.value[index][key];
+    Object.keys(row).forEach((key: Exclude<keyof TableDataRow, number>) => {
+      const composedRow = rows.value[index].row[key];
       const propRow = row[key];
 
       if (typeof composedRow === 'undefined' || typeof propRow !== 'object') {
-        rowObject[key] = propRow;
+        rowObject.row[key] = propRow;
 
         return;
       }
 
-      rowObject[key] = ddd[index][key].value;
+      rowObject.row[key] = records[index].row[key].value;
     });
 
     return rowObject;
@@ -84,9 +91,9 @@ function mapRowsToTableData(ddd: Record<keyof TableData, TableColumnValue>[]): T
 
 function handleSubCompModel(row: number, accessor: string, data: unknown) {
   const rowsReplica = shallowRef(rows.value);
-  const propRow = props.data[row][accessor] as TableDataComposable;
+  const propRow = props.data[row].row[accessor] as TableDataComposable;
 
-  rowsReplica.value[row][accessor].value = {
+  rowsReplica.value[row].row[accessor].value = {
     // @ts-expect-error - TS is crying about variant type here, but it's not a problem since it's valid
     variant: propRow.variant,
     data: {
@@ -136,15 +143,15 @@ const batchSelect = (value: boolean) => checkedRows.value = Array<boolean>(props
             <div v-if="column.accessor === 'check'" class="row-checker">
               <Checkbox v-model="checkedRows[index]" />
             </div>
-            <template v-else-if="row[column.accessor]">
-              <span v-if="row[column.accessor].isString" class="text-column"
-                :class="{ na: row[column.accessor].value.toString().toLocaleLowerCase() === 'n/a' }">
-                {{ row[column.accessor].value }}
+            <template v-else-if="row.row[column.accessor]">
+              <span v-if="row.row[column.accessor].isString" class="text-column"
+                :class="{ na: row.row[column.accessor].value.toString().toLocaleLowerCase() === 'n/a' }">
+                {{ row.row[column.accessor].value }}
               </span>
-              <component :is="row[column.accessor].component" v-else-if="!row[column.accessor].isString"
-                v-bind="launder<TableDataComposable>(row[column.accessor].value).data"
+              <component :is="row.row[column.accessor].component" v-else-if="!row.row[column.accessor].isString"
+                v-bind="launder<TableDataComposable>(row.row[column.accessor].value).data"
                 @update:model-value="(data: unknown) => handleSubCompModel(index, column.accessor, data)"
-                v-on="launder<TableDataComposable>(row[column.accessor].value).events || {}" />
+                v-on="launder<TableDataComposable>(row.row[column.accessor].value).events || {}" />
             </template>
             <div v-if="column.accessor === 'actions'" class="cell-actions">
               <template v-for="action in actions" :key="action.label">
