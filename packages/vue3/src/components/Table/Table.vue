@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { computed, ref, shallowRef, watchEffect } from 'vue';
+import SecondaryButton from '../Button/SecondaryButton.vue';
 import TableButton from './Internal/Button.vue';
 import CellsRegistrar from './Internal/cells-registrar';
 import type { TableActions, TableColumn, TableColumnValue, TableData, TableDataComposable, TableDataRow, TableInternalData } from './types';
+import TertiaryButton from '~/components/Button/TertiaryButton.vue';
 import Checkbox from '~/components/Checkbox/Checkbox.vue';
 import { launder } from '~/utils/type.util';
 
@@ -23,12 +25,14 @@ const emit = defineEmits<{
 
 const allChecked = ref(false);
 const checkedRows = ref(Array<boolean>(props.data.length).fill(false));
-// const hasChildren = computed(() => props.data.some(row => row.children && row.children.length > 0));
+const expandedRows = ref(Array<boolean>(props.data.length).fill(false));
+const hasChildren = computed(() => props.data.some(row => row.children && row.children.length > 0));
 
 const tableColumns = computed(() => {
   if (props.actions && props.actions.length > 0) {
     return [
       props.selectable ? { accessor: 'check', label: 'Checkbox' } : null,
+      hasChildren.value ? { accessor: '_expand', label: 'Expand' } : null,
       ...props.columns,
       { accessor: 'actions', label: 'Actions' },
     ].filter(column => column !== null) as TableColumn[];
@@ -38,26 +42,38 @@ const tableColumns = computed(() => {
 });
 
 const rows = computed(
-  () => props.data.map(({ row }) => {
+  () => props.data.map(({ row, children }) => {
     const rowObject: TableInternalData = {
       row: {},
       children: [],
+      expanded: false,
     };
 
-    Object.keys(row).forEach((key: Exclude<keyof TableDataRow, number>) => {
-      const value = row[key];
+    function fieldsMapper(dataRow: TableDataRow) {
+      const tableRowObject: Record<Exclude<keyof TableDataRow, number>, TableColumnValue> = {};
 
-      if (typeof value === 'undefined') {
-        return null;
-      }
+      Object.keys(dataRow).forEach((key) => {
+        const value = dataRow[key];
 
-      rowObject.row[key] = {
-        value,
-        accessor: key as string,
-        isString: typeof value !== 'object',
-        component: typeof value === 'object' ? CellsRegistrar(value.variant) : undefined,
-      };
-    });
+        if (typeof value === 'undefined') {
+          return null;
+        }
+
+        tableRowObject[key] = {
+          value,
+          accessor: key as string,
+          isString: typeof value !== 'object',
+          component: typeof value === 'object' ? CellsRegistrar(value.variant) : undefined,
+        };
+      });
+
+      return tableRowObject;
+    }
+
+    rowObject.row = fieldsMapper(row);
+    if (children) {
+      rowObject.children = children.map(child => ({ row: fieldsMapper(child) }));
+    }
 
     return rowObject;
   }).filter(row => row !== null),
@@ -119,15 +135,23 @@ watchEffect(() => {
 });
 
 const batchSelect = (value: boolean) => checkedRows.value = Array<boolean>(props.data.length).fill(value);
+
+const nikonikoNIIII = () => {
+  console.log('nikonikoNIIII');
+};
 </script>
 
 <template>
   <div class="table-container">
+    {{ hasChildren }}
     <table class="table">
       <thead class="table-head">
         <th v-for="(column, index) in tableColumns" :key="column.accessor" class="head-column">
           <template v-if="column.accessor === 'check'">
             <Checkbox v-model="allChecked" @update:model-value="batchSelect" />
+          </template>
+          <template v-else-if="column.accessor === '_expand'">
+            <span />
           </template>
           <template v-else>
             <span class="text">{{ column.label }}</span>
@@ -143,6 +167,14 @@ const batchSelect = (value: boolean) => checkedRows.value = Array<boolean>(props
             <div v-if="column.accessor === 'check'" class="row-checker">
               <Checkbox v-model="checkedRows[index]" />
             </div>
+            <template v-else-if="column.accessor === '_expand' && row.children && row.children.length > 0">
+              <TertiaryButton size="xs" icon-position="only" rounded-full
+                @click="expandedRows[index] = !expandedRows[index]">
+                <template #icon>
+                  <i class="" :class="[expandedRows[index] ? 'i-youcan-carret-down' : 'i-youcan-caret-right']" />
+                </template>
+              </TertiaryButton>
+            </template>
             <template v-else-if="row.row[column.accessor]">
               <span v-if="row.row[column.accessor].isString" class="text-column"
                 :class="{ na: row.row[column.accessor].value.toString().toLocaleLowerCase() === 'n/a' }">

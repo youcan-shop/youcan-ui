@@ -47,6 +47,68 @@ const data = ref<TableData[]>(
         },
         email: 'Doe@gmail.com',
       },
+      children: [
+        {
+          image: {
+            variant: 'button',
+            data: {
+              label: 'Call to action',
+              // iconName: 'i-youcan-x',
+            },
+            events: {
+              click: () => {
+                console.log('click');
+              },
+            },
+          },
+          profile: {
+            variant: 'rating',
+            data: {
+              modelValue: 3,
+            },
+          },
+          name: 'John Doe',
+          age: {
+            variant: 'status',
+            data: {
+              statuses: [{ label: 'Old', color: 'red', value: 42 }, { label: 'Young', color: 'green', value: 22 }],
+              modelValue: { label: 'Young', color: 'green', value: 22 },
+            },
+          },
+          email: 'Doe@gmail.com',
+        },
+      ],
+    },
+    {
+      row: {
+        image: {
+          variant: 'button',
+          data: {
+            label: 'Call to action',
+            // iconName: 'i-youcan-x',
+          },
+          events: {
+            click: () => {
+              console.log('click');
+            },
+          },
+        },
+        profile: {
+          variant: 'rating',
+          data: {
+            modelValue: 3,
+          },
+        },
+        name: 'John Doe',
+        age: {
+          variant: 'status',
+          data: {
+            statuses: [{ label: 'Old', color: 'red', value: 42 }, { label: 'Young', color: 'green', value: 22 }],
+            modelValue: { label: 'Young', color: 'green', value: 22 },
+          },
+        },
+        email: 'Doe@gmail.com',
+      },
     },
   ],
 );

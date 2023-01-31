@@ -40,6 +40,7 @@ export interface TableData {
 export interface TableInternalData {
   row: Record<keyof TableDataRow, TableColumnValue>
   children?: Pick<TableInternalData, 'row'>[]
+  expanded: boolean // not used
 }
 
 export type TableComposableVariant = 'link' | 'thumbnail' | 'status' | 'static-status' | 'percentage' | 'button' | 'rating' | 'toggle' | 'counter' | 'icon';
