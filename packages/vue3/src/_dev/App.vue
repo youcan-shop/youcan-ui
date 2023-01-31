@@ -6,127 +6,114 @@ import Table from '~/components/Table/Table.vue';
 import type { TableActions, TableColumn, TableData } from '~/components/Table/types';
 import Input from '~/components/Input/Input.vue';
 
-const status = ref({ label: 'Success', value: 1, color: '#25B86A' });
+const endpointSA = (text: string) => text;
 
-const columns: TableColumn[] = [
-  { label: '', accessor: 'image' },
-  { label: 'Name', accessor: 'name', sortable: 'desc' },
-  { label: 'Age', accessor: 'age' },
-  { label: 'Email', accessor: 'email' },
-  { label: 'Profile', accessor: 'profile' },
-];
-
-const data = ref<TableData[]>(
-  [
-    {
-      image: {
-        variant: 'button',
-        data: {
-          label: 'Call to action',
-          // iconName: 'i-youcan-x',
-        },
-        events: {
-          click: () => {
-            console.log('click');
-          },
-        },
-      },
-      profile: {
-        variant: 'rating',
-        data: {
-          modelValue: 3,
-        },
-      },
-      name: 'John Doe',
-      age: {
-        variant: 'status',
-        data: {
-          statuses: [{ label: 'Old', color: 'red', value: 42 }, { label: 'Young', color: 'green', value: 22 }],
-          modelValue: { label: 'Young', color: 'green', value: 22 },
-        },
-      },
-      email: 'Doe@gmail.com',
-    },
-    {
-      name: 'Ali baba',
-      image: {
-        variant: 'thumbnail',
-        data: {
-          size: 'small',
-        },
-      },
-      profile: {
-        variant: 'link',
-        data: {
-          href: 'https://www.google.com',
-          label: 'Facebook',
-        },
-      },
-      age: {
-        variant: 'percentage',
-        data: {
-          percentage: 0,
-          type: 'info',
-        },
-      },
-      email: 'n/a',
-    },
-    {
-      name: 'John Smith',
-      age: 22,
-      email: {
-        variant: 'icon',
-        data: {
-          iconName: 'i-youcan-expand',
-        },
-        events: {
-          click: () => {
-            console.log('click');
-          },
-          mouseover: () => {
-            console.log('mouseover');
-          },
-        },
-      },
-      profile: {
-        variant: 'toggle',
-        data: {
-          modelValue: true,
-        },
-      },
-      image: {
-        variant: 'counter',
-        data: {
-          modelValue: '1',
-        },
-      },
-    },
-  ],
-);
-
-const actions: TableActions[] = [
+const items = [
   {
-    label: 'Edit',
-    iconName: 'i-youcan-edit',
-    criteria: (value?: TableData) => !!(value?.age && value?.age > 18),
-    events: {
-      click: () => {
-        console.log('edit');
-      },
-    },
+    label: 'sidebar.dashboard',
+    icon: 'i-youcan-house-simple',
+    href: endpointSA('dashboard'),
   },
   {
-    label: 'Delete',
-    iconName: 'i-youcan-delete',
-    events: {
-      click: () => {
-        console.log('delete');
+    label: 'sidebar.orders.title',
+    icon: 'i-youcan-cube',
+    href: '',
+    children: [
+      {
+        label: 'sidebar.orders.all',
+        href: endpointSA('orders.index'),
       },
-    },
+      {
+        label: 'sidebar.orders.new',
+        href: endpointSA('orders.create'),
+      },
+      {
+        label: 'sidebar.orders.abandoned-carts',
+        href: endpointSA('abandoned-cart.dashboard'),
+      },
+    ],
+  },
+  {
+    label: 'sidebar.products.title',
+    icon: 'i-youcan-tag',
+    href: '',
+    children: [
+      {
+        label: 'sidebar.products.all',
+        href: endpointSA('products.index'),
+      },
+      {
+        label: 'sidebar.products.new',
+        href: endpointSA('products.create'),
+      },
+      {
+        label: 'sidebar.products.categories',
+        href: endpointSA('categories.index'),
+      },
+      {
+        label: 'sidebar.products.reviews',
+        href: endpointSA('products.reviews.index'),
+      },
+      {
+        label: 'sidebar.products.inventories',
+        href: endpointSA('products.inventory.index'),
+      },
+    ],
+  },
+  {
+    label: 'sidebar.upsells',
+    icon: 'i-youcan-caret-double-up',
+    href: '/upsells',
+  },
+  {
+    label: 'sidebar.coupons',
+    icon: 'i-youcan-ticket',
+    href: '/coupons',
+  },
+  {
+    label: 'sidebar.customers',
+    icon: 'i-youcan-users',
+    href: '/customers',
+  },
+  {
+    label: 'sidebar.store',
+    icon: 'i-youcan-storefront',
+    href: '/store',
+  },
+  {
+    label: 'sidebar.insights',
+    icon: 'i-youcan-chart-line',
+    href: '/insights',
+  },
+  {
+    label: 'sidebar.invoices',
+    icon: 'i-youcan-receipt',
+    href: '/invoices',
+  },
+  {
+    label: 'sidebar.apps',
+    icon: 'i-youcan-squares-four',
+    href: '/apps',
   },
 ];
 
-const selectedRows = ref<TableData[]>([]);
+const subItems = [
+  {
+    label: 'sidebar.affiliate',
+    icon: 'i-youcan-share-network',
+    href: '/affiliate',
+  },
+  {
+    label: 'sidebar.support',
+    icon: 'i-youcan-headset',
+    href: '/support',
+  },
+  {
+    label: 'sidebar.settings',
+    icon: 'i-youcan-gear',
+    href: '/settings',
+  },
+];
 </script>
 
 <template>
@@ -139,10 +126,10 @@ const selectedRows = ref<TableData[]>([]);
         Hello
       </template>
       <template #items>
-        <SidebarItem :active="false" label="hello" icon="i-youcan-cube">
-          <SidebarSubitem label="dddfd" />
-          <span v-if="true === false">hello</span>
-          <span v-if="true === false">hello</span>
+        <SidebarItem v-for="item in items" :key="item.href" :icon="item.icon" :label="item.label">
+          <template v-if="item.children">
+            <SidebarSubitem v-for="subItem in item.children" :key="subItem.href" :label="subItem.label" />
+          </template>
         </SidebarItem>
       </template>
     </Sidebar>
