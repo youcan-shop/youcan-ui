@@ -1,16 +1,21 @@
 <script setup lang="ts">
-import { computed, ref, useSlots } from 'vue';
+import { computed, mergeProps, ref, useSlots } from 'vue';
 
-defineProps<{ icon: string; label: string; count?: number; active?: boolean }>();
+const props = defineProps<{
+  icon: string
+  label: string
+  count?: number
+  active?: boolean
+}>();
 const slots = useSlots();
 
-const expanded = ref(false);
+const expanded = ref(!!props.active);
 const toggle = (override = !expanded.value) => expanded.value = override;
 
 const hasChildren = computed(() => {
   return slots.default
-    && slots.default().length > 0;
-  // && slots.default().filter((s: any) => typeof s.type === 'object').length > 0;
+    && slots.default().length > 0
+    && slots.default().filter((s: any) => typeof s.type === 'object').length > 0;
 });
 </script>
 
