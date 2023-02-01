@@ -18,7 +18,7 @@ const idAttr = Utils.uid('checkbox');
   <label :for="idAttr" v-bind="$attrs">
     <div class="checkbox" :class="{ 'has-label': slots.label }">
       <input v-bind="$attrs" :id="idAttr" v-model="model" type="checkbox" class="input">
-      <span class="checkmark" :class="{ checked: model }"> <i i-youcan-checkmark /> </span>
+      <span class="checkmark" :class="{ checked: model }"> <i class="i-youcan-check" /> </span>
     </div>
     <div v-if="slots.label" class="label">
       <slot name="label" />
