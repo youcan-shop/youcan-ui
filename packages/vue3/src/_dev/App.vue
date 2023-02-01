@@ -5,6 +5,7 @@ import { EditableStatus, Info, PrimaryButton, Sidebar, SidebarItem, SidebarSubit
 import Table from '~/components/Table/Table.vue';
 import type { TableActions, TableColumn, TableData } from '~/components/Table/types';
 import Input from '~/components/Input/Input.vue';
+import RichText from '~/components/RichText/RichText.vue';
 
 const endpointSA = (text: string) => text;
 
@@ -118,22 +119,7 @@ const subItems = [
 
 <template>
   <div>
-    <TertiaryButton size="sm">
-      Primary
-    </TertiaryButton>
-    <Sidebar>
-      <template #header>
-        Hello
-      </template>
-      <template #items>
-        <SidebarItem v-for="item in items" :key="item.href" :icon="item.icon" :label="item.label">
-          <template v-if="item.children">
-            <SidebarSubitem v-for="subItem in item.children" :key="subItem.href" :label="subItem.label" />
-          </template>
-        </SidebarItem>
-      </template>
-    </Sidebar>
-    <Info />
+    <RichText />
   </div>
 </template>
 
