@@ -28,6 +28,10 @@ export interface TableColumnValue {
   component?: Component | undefined
 }
 
+export interface TableColumnValues {
+  [key: string]: TableColumnValue
+}
+
 export interface TableDataRow {
   [key: string]: string | number | TableDataComposable
 }
@@ -40,7 +44,7 @@ export interface TableData {
 export interface TableInternalData {
   row: Record<keyof TableDataRow, TableColumnValue>
   children?: Pick<TableInternalData, 'row'>[]
-  expanded: boolean // not used
+  expanded?: boolean // not used
 }
 
 export type TableComposableVariant = 'link' | 'thumbnail' | 'status' | 'static-status' | 'percentage' | 'button' | 'rating' | 'toggle' | 'counter' | 'icon';
