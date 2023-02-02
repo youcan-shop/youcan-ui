@@ -43,7 +43,6 @@ const rows = computed(
     const rowObject: TableInternalData = {
       row: {},
       children: [],
-      expanded: false,
     };
 
     function fieldsMapper(dataRow: TableDataRow) {
