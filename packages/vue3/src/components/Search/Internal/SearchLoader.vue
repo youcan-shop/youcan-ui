@@ -5,7 +5,7 @@
 <template>
   <div class="loader">
     <div class="icon">
-      <i i-youcan-refresh />
+      <i class="i-youcan-arrows-clockwise" />
     </div>
     <div class="label">
       Fetching resuts...
@@ -15,23 +15,25 @@
 
 <style scoped>
 .loader {
-    gap: 8px;
-    display: flex;
-    padding: 10px 16px;
-    align-items: center;
+  gap: 8px;
+  display: flex;
+  padding: 10px 16px;
+  align-items: center;
 }
 
 .icon {
-    color: var(--brand-500);
-    animation: loader 1000ms ease infinite;
+  color: var(--brand-500);
+  animation: loader 1000ms ease infinite;
 }
 
 .label {
-    color: var(--gray-900);
-    font: var(--text-sm-regular);
+  color: var(--gray-900);
+  font: var(--text-sm-regular);
 }
 
 @keyframes loader {
-  to {transform: rotate(-360deg);}
+  to {
+    transform: rotate(-360deg);
+  }
 }
 </style>

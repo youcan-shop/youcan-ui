@@ -4,6 +4,13 @@ import type { PercentageType } from '../Percentage/types';
 import type { ButtonIconPosition, ButtonSize } from '../Button/types';
 import type { ThumbnailSize } from '~/components/Thumbnail/types';
 
+export interface HandleSubCompModel {
+  index: number
+  accessor: string
+  data: unknown
+  child?: boolean
+}
+
 export interface TableColumn {
   label?: string
   accessor: string

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import type { TableActions, TableColumn, TableColumnValue, TableData, TableDataComposable, TableDataRow, TableInternalData } from '../types';
+import type { HandleSubCompModel, TableActions, TableColumn, TableColumnValue, TableData, TableDataComposable, TableDataRow, TableInternalData } from '../types';
 import TableButton from './Button.vue';
 import TertiaryButton from '~/components/Button/TertiaryButton.vue';
 import Checkbox from '~/components/Checkbox/Checkbox.vue';
@@ -20,11 +20,11 @@ const props = defineProps<{
 const emit = defineEmits<{
   (event: 'update:selected-rows', data: boolean): void
   (event: 'update:expend', data: boolean): void
-  (event: 'update:sub-comp-model', data: { index: number; accessor: string; data: unknown; child?: boolean }): void
+  (event: 'update:sub-comp-model', data: HandleSubCompModel): void
 }>();
 
 const isSelected = computed({
-  get: () => props.selected,
+  get: () => props.selected || false,
   set: (value) => {
     emit('update:selected-rows', value!);
   },
@@ -58,58 +58,36 @@ const checkActionCriteria = (action: TableActions, data: TableData) => {
         <Checkbox v-model="isSelected" />
       </div>
       <template v-else-if="column.accessor === '_expand' && row.children && row.children.length > 0">
-        <TertiaryButton
-          size="xs" icon-position="only" rounded-full
-          @click="isExpended = !isExpended"
-        >
+        <TertiaryButton size="xs" icon-position="only" rounded-full @click="isExpended = !isExpended">
           <template #icon>
             <i class="" :class="[isExpended ? 'i-youcan-carret-down' : 'i-youcan-caret-right']" />
           </template>
         </TertiaryButton>
       </template>
       <template v-else-if="row.row[column.accessor]">
-        <div
-          v-if="row.row[column.accessor].isString" class="text-column"
-          :class="{ na: row.row[column.accessor].value.toString().toLocaleLowerCase() === 'n/a' }"
-        >
+        <div v-if="row.row[column.accessor].isString" class="text-column"
+          :class="{ na: row.row[column.accessor].value.toString().toLocaleLowerCase() === 'n/a' }">
           {{ row.row[column.accessor].value }}
         </div>
-        <component
-          :is="row.row[column.accessor].component" v-else-if="!row.row[column.accessor].isString"
+        <component :is="row.row[column.accessor].component" v-else-if="!row.row[column.accessor].isString"
           v-bind="launder<TableDataComposable>(row.row[column.accessor].value).data"
-          @update:model-value="(data: unknown) => handleSubCompModel(index, column.accessor, data, data.child)"
-          v-on="launder<TableDataComposable>(row.row[column.accessor].value).events || {}"
-        />
+          @update:model-value="(data: HandleSubCompModel & unknown) => handleSubCompModel(index, column.accessor, data, data.child || false)"
+          v-on="launder<TableDataComposable>(row.row[column.accessor].value).events || {}" />
       </template>
       <div v-if="column.accessor === 'actions' && actions?.length" class="cell-actions">
         <template v-for="action in actions" :key="action.label">
           <!-- v-if="!action.criteria || action.criteria(data[index])" -->
-          <TableButton
-            v-if="checkActionCriteria(action, data[index])"
-            size="xs"
-            :data="data"
-            :icon-name="action.iconName"
-            :label="action.label"
-            :rounded-full="true"
-            icon-position="only"
-            v-on="action.events || {}"
-          />
+          <TableButton v-if="checkActionCriteria(action, data[index])" size="xs" :data="data"
+            :icon-name="action.iconName" :label="action.label" :rounded-full="true" icon-position="only"
+            v-on="action.events || {}" />
         </template>
       </div>
     </td>
   </tr>
   <template v-if="isExpended && row">
-    <TableRow
-      v-for="(child, i) in row.children"
-      :key="i"
-      :index="i"
-      :row="child"
-      :data="data"
-      is-child
-      :columns="columns"
-      :actions="actions"
-      @update:sub-comp-model="(data) => handleSubCompModel(i, data.accessor, data.data, true)"
-    />
+    <TableRow v-for="(child, i) in row.children" :key="i" :index="i" :row="child" :data="data" is-child
+      :columns="columns" :actions="actions"
+      @update:sub-comp-model="(data: HandleSubCompModel) => handleSubCompModel(i, data.accessor, data.data, true)" />
   </template>
 </template>
 
