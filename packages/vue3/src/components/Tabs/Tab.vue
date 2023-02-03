@@ -10,7 +10,7 @@ defineProps<{
 </script>
 
 <template>
-  <button :disabled="disabled || active" class="tab" :class="{ active, disabled, error: errorCount }">
+  <button type="button" :disabled="disabled || active" class="tab" :class="{ active, disabled, error: errorCount }">
     <div class="label">
       {{ label }}
     </div>

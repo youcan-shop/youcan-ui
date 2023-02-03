@@ -3,7 +3,7 @@ defineProps<{ label: string; active?: boolean }>();
 </script>
 
 <template>
-  <button class="sidebar-subitem" :class="{ active }">
+  <button type="button" class="sidebar-subitem" :class="{ active }">
     {{ label }}
   </button>
 </template>
