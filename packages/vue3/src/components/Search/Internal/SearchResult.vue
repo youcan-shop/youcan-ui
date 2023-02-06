@@ -6,7 +6,7 @@ defineProps<{ result: QueryResult; thumbnail?: boolean }>();
 </script>
 
 <template>
-  <button class="result" v-bind="$attrs">
+  <button class="result">
     <Thumbnail v-if="thumbnail" :src="result.thumbnail" :alt="result.label" />
 
     <div class="label">

@@ -3,7 +3,7 @@ defineProps<{ label: string; icon: string; active?: boolean }>();
 </script>
 
 <template>
-  <button v-bind="$attrs" :disabled="active" :class="{ active }" class="settings-nav-item">
+  <button :disabled="active" :class="{ active }" class="settings-nav-item">
     <div class="icon">
       <i :class="icon" />
     </div>

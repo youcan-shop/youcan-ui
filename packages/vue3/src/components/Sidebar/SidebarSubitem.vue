@@ -3,7 +3,7 @@ defineProps<{ label: string; active?: boolean }>();
 </script>
 
 <template>
-  <button v-bind="$attrs" class="sidebar-subitem" :class="{ active }">
+  <button class="sidebar-subitem" :class="{ active }">
     {{ label }}
   </button>
 </template>

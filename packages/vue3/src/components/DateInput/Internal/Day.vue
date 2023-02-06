@@ -23,7 +23,7 @@ const getDay = () => {
 
 <template>
   <button
-    :disabled="disabled" class="day" v-bind="$attrs"
+    :disabled="disabled" class="day"
     :class="{ isSelected, isToday, [`edge--${edge}`]: true, outOfMonth: !inCurrentMonth, [`format-${format}`]: true }"
   >
     <span class="text">{{ getDay() }}</span>
