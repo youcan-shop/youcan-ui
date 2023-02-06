@@ -27,7 +27,7 @@ const model = computed({
 
 <template>
   <div class="wrapper">
-    <button ref="button" class="editable-status" @click="() => toggle()">
+    <button ref="button" type="button" class="editable-status" @click="() => toggle()">
       <div class="static-status">
         {{ model.label }}
       </div>
@@ -36,7 +36,7 @@ const model = computed({
     </button>
     <div class="status-list-wrapper">
       <div v-show="show" ref="list" class="status-list">
-        <button v-for="status in statuses" :key="status.value" class="status-list-item" @click="model = status">
+        <button v-for="status in statuses" :key="status.value" type="button" class="status-list-item" @click="model = status">
           <span class="color" :style="{ backgroundColor: status.color }" />
           <span class="label">{{ status.label }}</span>
         </button>
