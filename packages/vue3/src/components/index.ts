@@ -42,4 +42,4 @@ export { default as SettingsNavItem } from './SettingsNav/SettingsNavItem.vue';
 export { default as Table } from './Table/Table.vue';
 export { default as PaginationBar } from './PaginationBar/PaginationBar.vue';
 export { default as SearchInput } from './Search/SearchInput.vue';
-export { default as Info } from './Info/Info.vue';
+export { default as Alert } from './Alert/Alert.vue';
