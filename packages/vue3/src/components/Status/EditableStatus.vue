@@ -6,7 +6,6 @@ import type { StatusDefinition } from './types';
 const props = defineProps<{
   statuses: StatusDefinition[]
   modelValue: StatusDefinition
-  type?: 'submit' | 'reset' | 'button'
 }>();
 
 const emit = defineEmits(['update:modelValue']);
