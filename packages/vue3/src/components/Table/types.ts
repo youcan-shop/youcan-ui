@@ -24,7 +24,7 @@ export interface TableActions {
   iconName?: string
   criteria?: (value: TableData) => boolean
   events?: {
-    click: (row: TableData, index: number) => void
+    click: (row: TableDataRow, index?: number) => void
   }
 }
 
