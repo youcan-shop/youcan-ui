@@ -22,7 +22,7 @@ const slots = useSlots();
 
 <template>
   <button
-    ref="button" class="base-button" type="button" :disabled="disabled"
+    ref="button" class="base-button" v-bind="$attrs" :disabled="disabled"
     :class="{ 'rounded-full': roundedFull, [`size-${size}`]: true, [`icon-${iconPosition}`]: true }"
   >
     <span v-if="slots.icon" class="icon">

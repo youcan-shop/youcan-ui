@@ -42,7 +42,7 @@ function toggle(item: DropdownItemDefinition, value: boolean): void {
 
 <template>
   <div>
-    <button ref="button" type="button" class="dropdown-input" @click="() => toggleList()">
+    <button ref="button" v-bind="$attrs" class="dropdown-input" @click="() => toggleList()">
       <i v-if="icon" class="icon" :class="icon" />
       <span class="label">
         <span>

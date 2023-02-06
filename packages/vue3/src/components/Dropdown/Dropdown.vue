@@ -35,7 +35,7 @@ const model = computed<DropdownItemDefinition | null>({
 
 <template>
   <div>
-    <button ref="button" type="button" :class="`size-${size}`" class="dropdown-input" @click="() => toggleList()">
+    <button ref="button" v-bind="$attrs" :class="`size-${size}`" class="dropdown-input" @click="() => toggleList()">
       <i v-if="icon" class="icon" :class="icon" />
       <span class="label">
         {{ model?.label ?? placeholder }}

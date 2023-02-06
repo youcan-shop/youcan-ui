@@ -37,7 +37,7 @@ const model = computed<DropdownItemDefinition | null>({
 
 <template>
   <div class="dropdown-prefix-wrapper">
-    <button ref="button" type="button" class="dropdown-input" @click="() => toggleList()">
+    <button ref="button" v-bind="$attrs" class="dropdown-input" @click="() => toggleList()">
       <span class="label">
         {{ model?.label ?? placeholder }}
       </span>

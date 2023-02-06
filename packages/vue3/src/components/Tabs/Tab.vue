@@ -10,7 +10,7 @@ defineProps<{
 </script>
 
 <template>
-  <button type="button" :disabled="disabled || active" class="tab" :class="{ active, disabled, error: errorCount }">
+  <button v-bind="$attrs" :disabled="disabled || active" class="tab" :class="{ active, disabled, error: errorCount }">
     <div class="label">
       {{ label }}
     </div>

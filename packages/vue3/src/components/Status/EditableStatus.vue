@@ -27,7 +27,7 @@ const model = computed({
 
 <template>
   <div class="wrapper">
-    <button ref="button" type="button" class="editable-status" @click="() => toggle()">
+    <button ref="button" v-bind="$attrs" class="editable-status" @click="() => toggle()">
       <div class="static-status">
         {{ model.label }}
       </div>
