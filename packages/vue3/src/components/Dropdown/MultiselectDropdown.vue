@@ -13,7 +13,6 @@ const props = withDefaults(
     searchable?: boolean
     modelValue: DropdownItemDefinition[]
     items: DropdownItemArray | DropdownItemGroups
-    type?: 'submit' | 'reset' | 'button'
   }>(),
   { searchable: false },
 );
@@ -43,7 +42,7 @@ function toggle(item: DropdownItemDefinition, value: boolean): void {
 
 <template>
   <div>
-    <button ref="button" :type="type" class="dropdown-input" @click="() => toggleList()">
+    <button ref="button" type="button" class="dropdown-input" @click="() => toggleList()">
       <i v-if="icon" class="icon" :class="icon" />
       <span class="label">
         <span>

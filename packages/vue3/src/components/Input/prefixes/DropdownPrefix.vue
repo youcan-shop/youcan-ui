@@ -14,7 +14,7 @@ const props = withDefaults(
     searchable?: boolean
     modelValue: DropdownItemDefinition | null
     items: DropdownItemArray | DropdownItemGroups
-    type?: 'submit' | 'reset' | 'button'
+
   }>(),
   { searchable: false },
 );
@@ -38,7 +38,7 @@ const model = computed<DropdownItemDefinition | null>({
 
 <template>
   <div class="dropdown-prefix-wrapper">
-    <button ref="button" :type="type" class="dropdown-input" @click="() => toggleList()">
+    <button ref="button" type="button" class="dropdown-input" @click="() => toggleList()">
       <span class="label">
         {{ model?.label ?? placeholder }}
       </span>
