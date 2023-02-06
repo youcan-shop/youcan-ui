@@ -14,6 +14,7 @@ const props = withDefaults(
     searchable?: boolean
     modelValue: DropdownItemDefinition | null
     items: DropdownItemArray | DropdownItemGroups
+    type?: 'submit' | 'reset' | 'button'
   }>(),
   { searchable: false },
 );
@@ -37,7 +38,7 @@ const model = computed<DropdownItemDefinition | null>({
 
 <template>
   <div class="dropdown-prefix-wrapper">
-    <button ref="button" class="dropdown-input" @click="() => toggleList()">
+    <button ref="button" :type="type" class="dropdown-input" @click="() => toggleList()">
       <span class="label">
         {{ model?.label ?? placeholder }}
       </span>
@@ -45,8 +46,10 @@ const model = computed<DropdownItemDefinition | null>({
       <i class="chevron i-youcan-carret-down" />
     </button>
     <div v-if="showList" ref="list" class="dropdown-wrapper">
-      <DropdownList class="dropdown-list" v-bind="{ items, searchable, selected: modelValue, multiple: false }"
-        @select="(i) => (model = i)" />
+      <DropdownList
+        class="dropdown-list" v-bind="{ items, searchable, selected: modelValue, multiple: false }"
+        @select="(i) => (model = i)"
+      />
     </div>
   </div>
 </template>

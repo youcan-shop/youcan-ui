@@ -12,6 +12,7 @@ const props = withDefaults(
     searchable?: boolean
     modelValue: DropdownItemDefinition | null
     items: DropdownItemArray | DropdownItemGroups
+    type?: 'button' | 'submit' | 'reset'
   }>(),
   { searchable: false, size: 36 },
 );
@@ -35,7 +36,7 @@ const model = computed<DropdownItemDefinition | null>({
 
 <template>
   <div>
-    <button ref="button" :class="`size-${size}`" class="dropdown-input" @click="() => toggleList()">
+    <button ref="button" :type="type" :class="`size-${size}`" class="dropdown-input" @click="() => toggleList()">
       <i v-if="icon" class="icon" :class="icon" />
       <span class="label">
         {{ model?.label ?? placeholder }}
