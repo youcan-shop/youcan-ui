@@ -26,8 +26,8 @@ const data = ref<TableData[]>(
             // iconName: 'i-youcan-x',
           },
           events: {
-            click: () => {
-              console.log('click');
+            click: (x) => {
+              console.log('click', x);
             },
           },
         },
@@ -118,8 +118,8 @@ const actions: TableActions[] = [
     label: 'Delete',
     iconName: 'i-youcan-trash',
     events: {
-      click: () => {
-        console.log('delete');
+      click: (x) => {
+        console.log('delete', x);
       },
     },
   },

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import type { HandleSubCompModel, TableActions, TableColumn, TableColumnValue, TableData, TableDataComposable, TableDataRow, TableInternalData } from '../types';
+import { TableDataRow } from '../types';
+import type { HandleSubCompModel, TableActions, TableColumn, TableColumnValue, TableData, TableDataComposable, TableInternalData } from '../types';
 import TableButton from './Button.vue';
 import TertiaryButton from '~/components/Button/TertiaryButton.vue';
 import Checkbox from '~/components/Checkbox/Checkbox.vue';
@@ -15,6 +16,7 @@ const props = defineProps<{
   expended?: boolean
   isChild?: boolean
   data: TableData[]
+  originalRow?: TableDataRow
 }>();
 
 const emit = defineEmits<{
@@ -22,6 +24,25 @@ const emit = defineEmits<{
   (event: 'update:expend', data: boolean): void
   (event: 'update:sub-comp-model', data: HandleSubCompModel): void
 }>();
+
+const rowActions = computed(() => {
+  if (!props.actions) {
+    return [];
+  }
+
+  return props.actions.map(action => ({
+    ...action,
+    events: Object.assign(
+      {},
+      action.events,
+      {
+        click: () => {
+          action.events?.click(props.originalRow ? props.originalRow : props.data[props.index].row);
+        },
+      },
+    ),
+  }));
+});
 
 const isSelected = computed({
   get: () => props.selected || false,
@@ -75,7 +96,7 @@ const checkActionCriteria = (action: TableActions, data: TableData) => {
           v-on="launder<TableDataComposable>(row.row[column.accessor].value).events || {}" />
       </template>
       <div v-if="column.accessor === 'actions' && actions?.length" class="cell-actions">
-        <template v-for="action in actions" :key="action.label">
+        <template v-for="action in rowActions" :key="action.label">
           <!-- v-if="!action.criteria || action.criteria(data[index])" -->
           <TableButton v-if="checkActionCriteria(action, data[index])" size="xs" :data="data"
             :icon-name="action.iconName" :label="action.label" :rounded-full="true" icon-position="only"
@@ -86,7 +107,7 @@ const checkActionCriteria = (action: TableActions, data: TableData) => {
   </tr>
   <template v-if="isExpended && row">
     <TableRow v-for="(child, i) in row.children" :key="i" :index="i" :row="child" :data="data" is-child
-      :columns="columns" :actions="actions"
+      :columns="columns" :actions="actions" :original-row="(data[index].children as TableDataRow[])[i]"
       @update:sub-comp-model="(data: HandleSubCompModel) => handleSubCompModel(i, data.accessor, data.data, true)" />
   </template>
 </template>
