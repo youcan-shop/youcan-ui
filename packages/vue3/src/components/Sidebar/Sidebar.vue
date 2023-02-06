@@ -8,7 +8,7 @@ const toggle = (override = !collapsed.value) => collapsed.value = override;
 <template>
   <aside class="sidebar" :class="{ collapsed }">
     <div class="sidebar-header">
-      <button v-bind="$attrs" class="item-icon" @click="() => toggle()">
+      <button class="item-icon" @click="() => toggle()">
         <i i-youcan-list />
       </button>
       <div class="item-label">

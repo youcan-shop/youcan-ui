@@ -14,8 +14,10 @@ const slots = useSlots();
 </script>
 
 <template>
-  <BaseButton :size="size" :disabled="disabled" :icon-position="iconPosition" :rounded-full="roundedFull"
-    class="tertiary">
+  <BaseButton
+    :size="size" :disabled="disabled" :icon-position="iconPosition" :rounded-full="roundedFull"
+    class="tertiary"
+  >
     <template v-if="slots.icon" #icon>
       <slot name="icon" />
     </template>

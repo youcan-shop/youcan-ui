@@ -14,8 +14,9 @@ const props = withDefaults(
     searchable?: boolean
     modelValue: DropdownItemDefinition | null
     items: DropdownItemArray | DropdownItemGroups
+    type: 'submit' | 'button' | 'reset' | undefined
   }>(),
-  { searchable: false },
+  { searchable: false, type: 'submit' },
 );
 
 const emit = defineEmits(['update:modelValue']);
@@ -37,7 +38,7 @@ const model = computed<DropdownItemDefinition | null>({
 
 <template>
   <div class="dropdown-prefix-wrapper">
-    <button ref="button" v-bind="$attrs" class="dropdown-input" @click="() => toggleList()">
+    <button ref="button" :type="type" class="dropdown-input" @click="() => toggleList()">
       <span class="label">
         {{ model?.label ?? placeholder }}
       </span>

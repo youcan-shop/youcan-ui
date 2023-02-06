@@ -21,7 +21,7 @@ const hasChildren = computed(() => {
 
 <template>
   <div>
-    <button v-bind="$attrs" :class="{ active }" class="sidebar-item" @click="() => hasChildren && toggle()">
+    <button :class="{ active }" class="sidebar-item" @click="() => hasChildren && toggle()">
       <div class="item-icon">
         <i class="icon" :class="icon" />
       </div>

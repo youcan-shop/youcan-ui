@@ -2,7 +2,7 @@
 import { Utils } from '@youcan/ui-core';
 import { computed, useSlots } from 'vue';
 
-const props = defineProps<{ modelValue: boolean }>();
+const props = defineProps<{ modelValue: boolean; type: string }>();
 const emit = defineEmits(['update:modelValue']);
 const slots = useSlots();
 
