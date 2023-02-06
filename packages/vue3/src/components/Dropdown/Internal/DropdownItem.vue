@@ -25,7 +25,7 @@ function toggle(override = !model.value) {
 </script>
 
 <template>
-  <button role="button" type="button" class="item" @click="() => toggle()">
+  <button role="button" v-bind="$attrs" class="item" @click="() => toggle()">
     <Checkbox v-if="checkbox" v-model="model" tabindex="-1" class="checkbox" />
     <div v-if="item.image || item.icon" class="preview">
       <Thumbnail v-if="item.image" size="small" :src="item.image" :alt="item.label" class="preview-image" />
