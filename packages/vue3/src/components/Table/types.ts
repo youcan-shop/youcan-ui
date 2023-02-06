@@ -107,7 +107,7 @@ interface TableDataButton {
 }
 
 interface TableDataRating {
-  modelValue: number
+  score: number
   ceil?: number
 }
 
