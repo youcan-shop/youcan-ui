@@ -18,10 +18,11 @@ import type { DropdownItemArray } from '../Dropdown/types';
 import InsertTable from './internal/Table.vue';
 import { TextStyleExtended } from './extensions/textstyle';
 import Colors from './internal/Color.vue';
-import handleDrop from './handleDrop';
+import handleDropEvent from './handleDrop';
 
-defineProps<{
+const props = defineProps<{
   modelValue: string
+  uploadImageHandler: (file: File) => Promise<string | null>
 }>();
 
 const emit = defineEmits(['update:modelValue']);
@@ -33,7 +34,7 @@ const editor = useEditor({
     emit('update:modelValue', html);
   },
   editorProps: {
-    handleDrop,
+    handleDrop: (view, event, slice, moved) => handleDropEvent(view, event, slice, moved, props.uploadImageHandler),
   },
   extensions: [
     StarterKit,

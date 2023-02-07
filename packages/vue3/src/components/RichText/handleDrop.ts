@@ -1,31 +1,11 @@
 import type { Slice } from 'prosemirror-model';
 import type { EditorView } from 'prosemirror-view';
 
-const UPLOAD_IMAGE_BASE_URL = 'https://seller-area.youcan.shop/admin/upload/file/others';
-
 const MAX_IMAGE_SIZE_MB = 10;
 const MAX_IMAGE_WIDTH = 2000;
 const MAX_IMAGE_HEIGHT = 2000;
 
-async function uploadImage(file: File): Promise<string> {
-  const data = new FormData();
-  data.append('image', file);
-  const response = await fetch(UPLOAD_IMAGE_BASE_URL, {
-    method: 'POST',
-    body: data,
-  });
-
-  const responseData = await response.json();
-
-  if (response.ok) {
-    const { link } = responseData;
-    return link;
-  }
-
-  throw new Error('failed to upload image');
-}
-
-export default function (view: EditorView, event: DragEvent, slice: Slice, moved: boolean) {
+export default function (view: EditorView, event: DragEvent, slice: Slice, moved: boolean, uploadImage: (file: File) => Promise<string | null>) {
   if (!moved && event.dataTransfer && event.dataTransfer.files && event.dataTransfer.files[0]) {
     const file = event.dataTransfer.files[0];
     const filesize = ((file.size / 1024) / 1024).toFixed(4);
@@ -39,6 +19,8 @@ export default function (view: EditorView, event: DragEvent, slice: Slice, moved
         }
         else {
           const src = await uploadImage(file);
+          if (!src) { return alert('failed to update the image'); }
+
           const { schema } = view.state;
           const coordinates = view.posAtCoords({ left: event.clientX, top: event.clientY })!;
           const node = schema.nodes.image.create({ src });
