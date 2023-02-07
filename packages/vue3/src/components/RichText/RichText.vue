@@ -12,6 +12,7 @@ import TableCell from '@tiptap/extension-table-cell';
 import TableHeader from '@tiptap/extension-table-header';
 import TableRow from '@tiptap/extension-table-row';
 import Image from '@tiptap/extension-image';
+import Link from '@tiptap/extension-link';
 import TertiaryButton from '../Button/TertiaryButton.vue';
 import { Dropdown } from '..';
 import type { DropdownItemArray } from '../Dropdown/types';
@@ -59,6 +60,9 @@ const editor = useEditor({
     Image.configure({
       allowBase64: true,
     }),
+    Link.configure({
+      openOnClick: false,
+    }),
   ],
 });
 
@@ -82,6 +86,32 @@ const textAlignment = [
   { icon: 'i-youcan-text-align-right', label: 'right', value: 'right' },
   { icon: 'i-youcan-text-align-justify', label: 'justify', value: 'justify' },
 ];
+
+const setLink = () => {
+  const previousUrl = editor?.value!.getAttributes('link').href;
+  const url = window.prompt('URL', previousUrl);
+
+  if (url === null) { return; }
+
+  if (url === '') {
+    editor?.value!
+      .chain()
+      .focus()
+      .extendMarkRange('link')
+      .unsetLink()
+      .run();
+
+    return;
+  }
+
+  // update link
+  editor?.value!
+    .chain()
+    .focus()
+    .extendMarkRange('link')
+    .setLink({ href: url })
+    .run();
+};
 
 const _toolbar: Record<string, Record<string, any>> = reactive({
   bold: {
@@ -163,6 +193,11 @@ const _toolbar: Record<string, Record<string, any>> = reactive({
     type: 'TertiaryButton',
     icon: 'i-youcan-list-numbers',
     action: () => editor.value?.chain().focus().toggleBulletList().run(),
+  },
+  link: {
+    type: 'TertiaryButton',
+    icon: 'i-youcan-link-simple',
+    action: setLink,
   },
 });
 
