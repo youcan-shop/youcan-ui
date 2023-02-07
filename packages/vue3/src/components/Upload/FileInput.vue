@@ -20,17 +20,15 @@ function handlefiles(files: File[]) {
 </script>
 
 <template>
-  <BaseFileInput
-    v-model="files" :limit="limit" @input="handlefiles" @drop="handlefiles" @dragenter="dragging = true"
-    @dragleave="dragging = false"
-  >
+  <BaseFileInput v-model="files" :limit="limit" @input="handlefiles" @drop="handlefiles" @dragenter="dragging = true"
+    @dragleave="dragging = false">
     <template #facade>
       <div role="button" tabindex="0" class="facade" :class="{ dragging, sm: size === 'sm', lg: size === 'lg' }">
         <div>
           <div class="label">
             <slot v-if="slots.label" name="label" />
             <div v-else class="default-label-content">
-              <i i-youcan-import />
+              <i class="i-youcan-upload-simple" />
               <div>Browse your computer</div>
             </div>
           </div>

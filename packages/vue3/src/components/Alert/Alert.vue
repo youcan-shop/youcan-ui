@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import type { InfoType } from './types';
+import type { AlertType } from './types';
 import TertiaryButton from '~/components/Button/TertiaryButton.vue';
 
 const props = withDefaults(
   defineProps<{
-    type: InfoType
+    type: AlertType
     closeAfterDuration?: number
   }>(),
   { type: 'warning' },

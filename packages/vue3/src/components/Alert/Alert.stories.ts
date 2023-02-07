@@ -1,9 +1,9 @@
 import type { Meta } from '@storybook/vue3';
-import Info from './Info.vue';
+import Alert from './Alert.vue';
 
-const meta: Meta<typeof Info> = {
-  title: 'Application/Info',
-  component: Info,
+const meta: Meta<typeof Alert> = {
+  title: 'Application/Alert',
+  component: Alert,
   tags: ['info', 'alert'],
   argTypes: {
     type: {
@@ -23,9 +23,9 @@ const meta: Meta<typeof Info> = {
 
 const Template = (args: Record<string, unknown>, { argTypes }: Record<string, Record<string, unknown>>) => ({
   props: Object.keys(argTypes),
-  components: { Info },
+  components: { Alert },
   template: `
-    <Info v-bind="$props" :closeAfterDuration="2000" :type="type"
+    <Alert v-bind="$props" :closeAfterDuration="2000" :type="type"
     >
       <template #title>
         Title of Toast
@@ -33,7 +33,7 @@ const Template = (args: Record<string, unknown>, { argTypes }: Record<string, Re
       <template #description>
         Description a Toast description for testing purposes
       </template>
-    </Info>
+    </Alert>
   `,
 });
 

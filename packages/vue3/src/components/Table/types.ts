@@ -4,6 +4,13 @@ import type { PercentageType } from '../Percentage/types';
 import type { ButtonIconPosition, ButtonSize } from '../Button/types';
 import type { ThumbnailSize } from '~/components/Thumbnail/types';
 
+export interface HandleSubCompModel {
+  index: number
+  accessor: string
+  data: unknown
+  child?: boolean
+}
+
 export interface TableColumn {
   label?: string
   accessor: string
@@ -17,7 +24,7 @@ export interface TableActions {
   iconName?: string
   criteria?: (value: TableData) => boolean
   events?: {
-    click: (row: TableData, index: number) => void
+    click: (row: TableDataRow, index?: number) => void
   }
 }
 
@@ -28,8 +35,22 @@ export interface TableColumnValue {
   component?: Component | undefined
 }
 
-export interface TableData {
+export interface TableColumnValues {
+  [key: string]: TableColumnValue
+}
+
+export interface TableDataRow {
   [key: string]: string | number | TableDataComposable
+}
+
+export interface TableData {
+  row: TableDataRow
+  children?: TableDataRow[]
+}
+
+export interface TableInternalData {
+  row: Record<keyof TableDataRow, TableColumnValue>
+  children?: Pick<TableInternalData, 'row'>[]
 }
 
 export type TableComposableVariant = 'link' | 'thumbnail' | 'status' | 'static-status' | 'percentage' | 'button' | 'rating' | 'toggle' | 'counter' | 'icon';
@@ -49,8 +70,7 @@ export type TableDataComposable =
   TableComposable<'button', TableDataButton, { click: () => void }> |
   TableComposable<'rating', TableDataRating> |
   TableComposable<'toggle', TableDataToggle> |
-  TableComposable<'counter', TableDataCounter> |
-  TableComposable<'icon', TableDataIcon, { click?: () => void; mouseover?: () => void }>;
+  TableComposable<'counter', TableDataCounter>;
 
 interface TableDataLink {
   label?: string
@@ -87,7 +107,7 @@ interface TableDataButton {
 }
 
 interface TableDataRating {
-  modelValue: number
+  score: number
   ceil?: number
 }
 
@@ -102,9 +122,5 @@ interface TableDataCounter {
   step?: number
   id?: string
   disabled?: boolean
-}
-
-interface TableDataIcon {
-  iconName: string
 }
 

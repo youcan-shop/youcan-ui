@@ -42,7 +42,7 @@ function toggle(item: DropdownItemDefinition, value: boolean): void {
 
 <template>
   <div>
-    <button ref="button" class="dropdown-input" @click="() => toggleList()">
+    <button ref="button" type="button" class="dropdown-input" @click="() => toggleList()">
       <i v-if="icon" class="icon" :class="icon" />
       <span class="label">
         <span>
@@ -56,8 +56,10 @@ function toggle(item: DropdownItemDefinition, value: boolean): void {
       <i class="chevron i-youcan-carret-down" />
     </button>
     <div v-if="showList" ref="list" class="dropdown-wrapper">
-      <DropdownList class="dropdown-list" v-bind="{ items, selected: modelValue, searchable, multiple: true }"
-        @toggle="toggle" />
+      <DropdownList
+        class="dropdown-list" v-bind="{ items, selected: modelValue, searchable, multiple: true }"
+        @toggle="toggle"
+      />
     </div>
   </div>
 </template>

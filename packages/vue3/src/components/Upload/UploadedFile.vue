@@ -6,15 +6,15 @@ const emit = defineEmits(['delete']);
 <template>
   <div class="file">
     <div class="status-icon">
-      <i v-if="error" i-youcan-warning class="icon-error" />
-      <i v-else-if="progress" i-youcan-loading class="icon-loading" />
-      <i v-else i-youcan-check class="icon-success" />
+      <i v-if="error" class="icon-error i-youcan-warning-circle" />
+      <i v-else-if="progress" class="icon-loading i-youcan-circle-notch" />
+      <i v-else class="icon-success i-youcan-check-circle" />
     </div>
     <div class="name">
       {{ file.name }}
     </div>
     <div class="actions">
-      <i i-youcan-remove class="icon-remove" @click="emit('delete', file)" />
+      <i class="icon-remove i-youcan-trash" @click="emit('delete', file)" />
     </div>
   </div>
 </template>
