@@ -26,7 +26,7 @@ onClickOutside(dropdownRef, () => {
 
 <template>
   <div class="input-table">
-    <SecondaryButton size="sm" @click="toggleDropdown()">
+    <SecondaryButton size="sm" icon-position="only" @click="toggleDropdown()">
       <template #icon>
         <i
           class="i-youcan-table"

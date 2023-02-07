@@ -44,7 +44,7 @@ watch(custom, (value: string) => {
 
 <template>
   <div class="input-color">
-    <SecondaryButton size="sm" @click="toggleDropdown()">
+    <SecondaryButton size="sm" icon-position="only" @click="toggleDropdown()">
       <template #icon>
         <i
           :class="icon"
