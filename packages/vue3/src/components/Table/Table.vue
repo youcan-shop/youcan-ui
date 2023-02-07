@@ -18,6 +18,7 @@ const emit = defineEmits<{
   (event: 'update:data', data: TableData[]): void
   (event: 'update:selected-rows', data: TableData[]): void
   (event: 'check', indexes: Array<number>): void
+  (event: 'update:cell', data: unknown): void
 }>();
 
 const allChecked = ref(false);
@@ -108,12 +109,14 @@ function mapRowsToTableData(records: TableInternalData[]): TableData[] {
 }
 
 function handleSubCompModel(row: number, accessor: string, data: unknown, parentRow?: number) {
+  emit('update:cell', data);
+
   if (typeof parentRow === 'undefined') {
     const rowsReplica = shallowRef(rows.value);
     const propRow = props.data[row].row[accessor] as TableDataComposable;
 
     rowsReplica.value[row].row[accessor].value = {
-    // @ts-expect-error - TS is crying about variant type here, but it's not a problem since it's valid
+      // @ts-expect-error - TS is crying about variant type here, but it's not a problem since it's valid
       variant: propRow.variant,
       data: {
         ...propRow.data,
@@ -129,7 +132,7 @@ function handleSubCompModel(row: number, accessor: string, data: unknown, parent
     const propRow = props.data[parentRow].children![row][accessor] as TableDataComposable;
 
     rowsReplica.value[parentRow].children![row].row[accessor].value = {
-    // @ts-expect-error - TS is crying about variant type here, but it's not a problem since it's valid
+      // @ts-expect-error - TS is crying about variant type here, but it's not a problem since it's valid
       variant: propRow.variant,
       data: {
         ...propRow.data,
@@ -170,28 +173,18 @@ const batchSelect = (value: boolean) => checkedRows.value = Array<boolean>(props
           </template>
           <template v-else>
             <span class="text">{{ column.label }}</span>
-            <i
-              v-if="column.sortable && column.sortable !== 'none'" class="i-youcan-caret-down sort-icon"
+            <i v-if="column.sortable && column.sortable !== 'none'" class="i-youcan-caret-down sort-icon"
               :style="{ transform: column.sortable === 'asc' ? 'rotate(180deg)' : '' }" tabindex="1"
-              @click="emitSort(column, index)"
-            />
+              @click="emitSort(column, index)" />
           </template>
         </th>
       </thead>
       <tbody class="table-body">
         <template v-for="(row, index) in rows" :key="index">
-          <TableRow
-            :index="index"
-            :row="row"
-            :columns="tableColumns"
-            :selected="checkedRows[index]"
-            :expended="expandedRows[index]"
-            :actions="actions"
-            :data="data"
-            @update:selected-rows="checkedRows[index] = $event"
-            @update:expend="expandedRows[index] = $event"
-            @update:sub-comp-model="handleSubCompModel($event.index, $event.accessor, $event.data, $event.child ? index : undefined)"
-          />
+          <TableRow :index="index" :row="row" :columns="tableColumns" :selected="checkedRows[index]"
+            :expended="expandedRows[index]" :actions="actions" :data="data"
+            @update:selected-rows="checkedRows[index] = $event" @update:expend="expandedRows[index] = $event"
+            @update:sub-comp-model="handleSubCompModel($event.index, $event.accessor, $event.data, $event.child ? index : undefined)" />
         </template>
       </tbody>
     </table>
