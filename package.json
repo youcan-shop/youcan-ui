@@ -1,6 +1,6 @@
 {
   "name": "@youcan/ui",
-  "version": "2.1.3",
+  "version": "2.1.4",
   "scripts": {
     "dev": "pnpm -r dev",
     "build": "pnpm -r build",
