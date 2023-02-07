@@ -9,6 +9,8 @@ import TertiaryButton from '../Button/TertiaryButton.vue';
 import { Dropdown } from '..';
 import type { DropdownItemArray } from '../Dropdown/types';
 import { TextStyleExtended } from './extensions/textstyle';
+import { IndentExtension } from './extensions/indent-outdent';
+import Color from './internal/Color.vue';
 
 const editor = useEditor({
   content: '<p>I’m running Tiptap with Vue.js. 🎉</p>',
@@ -21,6 +23,7 @@ const editor = useEditor({
       types: ['heading', 'paragraph'],
       alignments: ['left', 'center', 'right', 'justify'],
     }),
+    IndentExtension,
   ],
 });
 
@@ -85,19 +88,22 @@ const _toolbar: Record<string, Record<string, any>> = reactive({
   hr: {
     type: 'TertiaryButton',
     icon: 'i-youcan-minus',
-    action: editor.value?.chain().focus().setHorizontalRule().run(),
+    action: () => editor.value?.chain().focus().setHorizontalRule().run(),
   },
   undo: {
     type: 'TertiaryButton',
     icon: 'i-youcan-arrow-bend-up-left',
-    action: editor.value?.chain().focus().undo().run(),
+    action: () => editor.value?.chain().focus().undo().run(),
   },
   redo: {
     type: 'TertiaryButton',
     icon: 'i-youcan-arrow-bend-up-right',
-    action: editor.value?.chain().focus().redo().run(),
+    action: () => editor.value?.chain().focus().redo().run(),
   },
-
+  highlight: {
+    type: 'Color',
+    model: '#000000',
+  },
 });
 
 // Update text size
@@ -124,7 +130,7 @@ const toolbar: Record<string, (_?: any) => void> = {
   // heading: (level: Level) => editor.value?.chain().focus().toggleHeading({ level }).run(),
   ul: () => editor.value?.chain().focus().toggleBulletList().run(),
   ol: () => editor.value?.chain().focus().toggleOrderedList().run(),
-  text: () => editor.value?.commands.setFontSize('110'),
+
 //   iframe: (url: string) => editor.value?.chain().focus().setIframe({ src: url }).run(),
 };
 
@@ -140,6 +146,7 @@ const run = (action: string) => toolbar[action]();
         </template>
       </TertiaryButton>
       <Dropdown v-if="el.type === 'Dropdown'" v-model="el.model" :items="el.items" placeholder="" />
+      <Color v-if="el.type === 'Color'" v-model="el.model" icon="i-youcan-eyedropper-sample" />
     </div>
   </div>
   <EditorContent :editor="editor" />
