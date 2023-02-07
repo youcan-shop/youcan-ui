@@ -19,6 +19,7 @@ async function uploadImage(file: File): Promise<string> {
     <RichText v-model="content" :upload-image-handler="uploadImage" />
     <h1>Output</h1>
     <div v-html="content" />
+    <textarea>{{ content }}</textarea>
   </div>
 </template>
 

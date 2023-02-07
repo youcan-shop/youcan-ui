@@ -15,6 +15,7 @@ import Image from '@tiptap/extension-image';
 import TertiaryButton from '../Button/TertiaryButton.vue';
 import { Dropdown } from '..';
 import type { DropdownItemArray } from '../Dropdown/types';
+import SecondaryButton from '../Button/SecondaryButton.vue';
 import InsertTable from './internal/Table.vue';
 import { TextStyleExtended } from './extensions/textstyle';
 import Colors from './internal/Color.vue';
@@ -148,6 +149,11 @@ const _toolbar: Record<string, Record<string, any>> = reactive({
     type: 'table',
     model: { rows: '2', cols: '2' },
   },
+  clear: {
+    type: 'SecondaryButton',
+    label: 'clear formatting',
+    action: () => editor.value?.chain().focus().clearNodes().unsetAllMarks().run(),
+  },
 });
 
 // Update text size
@@ -208,6 +214,9 @@ const run = (action: string) => toolbar[action]();
       <Dropdown v-if="el.type === 'Dropdown'" v-model="el.model" :items="el.items" placeholder="" />
       <Colors v-if="el.type === 'Colors'" v-model="el.model" :icon="el.icon" />
       <InsertTable v-if="el.type === 'table'" v-model="el.model" @insert="insertTable" />
+      <SecondaryButton v-if="el.type === 'SecondaryButton'" size="sm" @click="el.action()">
+        {{ el.label }}
+      </SecondaryButton>
     </div>
   </div>
   <EditorContent :editor="editor" />

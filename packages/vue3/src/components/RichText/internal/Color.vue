@@ -3,7 +3,7 @@ import { computed, ref, watch } from 'vue';
 import { onClickOutside } from '@vueuse/core';
 import { swatches } from './swatches';
 import { SecondaryButton } from '~/components';
-import Input from '~/components/Input/Input.vue';
+import ColorInput from '~/components/Color/ColorInput.vue';
 
 const props = withDefaults(defineProps<{
   modelValue: string
@@ -55,7 +55,7 @@ watch(custom, (value: string) => {
       <ul class="swatches">
         <li v-for="(color, i) in swatches" :key="i" class="swatch" :style="{ backgroundColor: color }" @click="setColor(color)" />
       </ul>
-      <Input v-model="custom" placeholder="hex color" />
+      <ColorInput v-model="custom" placeholder="hex color" />
     </div>
   </div>
 </template>
