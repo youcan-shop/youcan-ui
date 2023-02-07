@@ -4,25 +4,13 @@ import RichText from '~/components/RichText/RichText.vue';
 
 const content = ref('');
 
-const UPLOAD_IMAGE_BASE_URL = 'https://seller-area.youcan.shop/admin/upload/file/others';
-
 async function uploadImage(file: File): Promise<string> {
-  alert('nice');
-  const data = new FormData();
-  data.append('image', file);
-  const response = await fetch(UPLOAD_IMAGE_BASE_URL, {
-    method: 'POST',
-    body: data,
+  console.info('file:', file);
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve('https://placeholder.com/assets/images/150x150-2-500x500.png');
+    }, 2000);
   });
-
-  const responseData = await response.json();
-
-  if (response.ok) {
-    const { link } = responseData;
-    return link;
-  }
-
-  throw new Error('failed to upload image');
 }
 </script>
 
