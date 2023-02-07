@@ -60,11 +60,12 @@ const editor = useEditor({
     TableCell,
     Image.configure({
       allowBase64: true,
+      inline: true,
     }),
     Link.configure({
       openOnClick: false,
     }),
-    Iframe,
+    Iframe.configure(),
   ],
 });
 
