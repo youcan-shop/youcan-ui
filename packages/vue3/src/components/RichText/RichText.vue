@@ -1,9 +1,14 @@
 <script setup lang="ts">
 import { EditorContent, useEditor } from '@tiptap/vue-3';
 import StarterKit from '@tiptap/starter-kit';
-import { onBeforeUnmount } from 'vue';
+import { onBeforeUnmount, reactive, watch } from 'vue';
 import Underline from '@tiptap/extension-underline';
 import HorizontalRule from '@tiptap/extension-horizontal-rule';
+import TertiaryButton from '../Button/TertiaryButton.vue';
+import DropdownItem from '../Dropdown/Internal/DropdownItem.vue';
+import { Dropdown } from '..';
+import type { DropdownItemArray } from '../Dropdown/types';
+import { TextStyleExtended } from './extensions/textstyle';
 
 const editor = useEditor({
   content: '<p>I’m running Tiptap with Vue.js. 🎉</p>',
@@ -11,12 +16,57 @@ const editor = useEditor({
     StarterKit,
     Underline,
     HorizontalRule,
-
+    TextStyleExtended,
   ],
 });
 
 onBeforeUnmount(() => {
   editor.value?.destroy();
+});
+
+const fontSizes: DropdownItemArray = (() => {
+  const _items = [];
+  for (let i = 8; i < 100; i++) {
+    if (i % 2 === 0) {
+      _items.push({ label: String(i), value: i });
+    }
+  }
+  return _items;
+})();
+
+const _toolbar: Record<string, Record<string, any>> = reactive({
+  bold: {
+    type: 'TertiaryButton',
+    icon: 'text-bolder',
+    action: () => editor.value?.chain().focus().toggleBold().run(),
+
+  },
+  italic: {
+    type: 'TertiaryButton',
+    icon: 'text-italic',
+    action: () => editor.value?.chain().focus().toggleItalic().run(),
+  },
+  underline: {
+    type: 'TertiaryButton',
+    icon: 'text-underline',
+    action: () => editor.value?.chain().focus().setUnderline().run(),
+  },
+  strike: {
+    type: 'TertiaryButton',
+    icon: 'text-strikethrough',
+    action: () => editor.value?.chain().focus().toggleStrike().run(),
+  },
+  textSize: {
+    type: 'Dropdown',
+    items: fontSizes,
+    model: fontSizes[0],
+  },
+
+});
+
+// Update text size
+watch(_toolbar.textSize, (newValue) => {
+  editor.value?.commands.setFontSize(String(newValue.model.value));
 });
 
 const toolbar: Record<string, (_?: any) => void> = {
@@ -33,6 +83,7 @@ const toolbar: Record<string, (_?: any) => void> = {
   heading: (level: Level) => editor.value?.chain().focus().toggleHeading({ level }).run(),
   ul: () => editor.value?.chain().focus().toggleBulletList().run(),
   ol: () => editor.value?.chain().focus().toggleOrderedList().run(),
+  text: () => editor.value?.commands.setFontSize('110'),
 //   iframe: (url: string) => editor.value?.chain().focus().setIframe({ src: url }).run(),
 };
 
@@ -40,11 +91,29 @@ const run = (action: string) => toolbar[action]();
 </script>
 
 <template>
-  <h1>Hello</h1>
-  <div>
-    <div v-for="el in Object.keys(toolbar)" :key="el" @click="run(el)">
-      {{ el }}
+  <div class="rich-text-editor">
+    <div v-for="(el, i) in Object.values(_toolbar)" :key="i">
+      <TertiaryButton v-if="el.type === 'TertiaryButton'" icon-position="only" size="sm" @click="el.action()">
+        <template #icon>
+          <i :class="`i-youcan-${el.icon}`" />
+        </template>
+      </TertiaryButton>
+      <Dropdown v-if="el.type === 'Dropdown'" v-model="el.model" :items="el.items" placeholder="" />
     </div>
   </div>
   <EditorContent :editor="editor" />
+
+  <TertiaryButton @click="toolbar.text()">
+    font size
+  </TertiaryButton>
 </template>
+
+<style scoped>
+.rich-text-editor{
+  border: 1px solid var(--gray-100);
+  border-radius: 8px;
+  padding: 8px;
+  gap: 8px;
+  display: flex;
+}
+</style>
