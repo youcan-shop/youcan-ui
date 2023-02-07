@@ -5,11 +5,11 @@ import { onBeforeUnmount, reactive, watch } from 'vue';
 import Underline from '@tiptap/extension-underline';
 import HorizontalRule from '@tiptap/extension-horizontal-rule';
 import TextAlign from '@tiptap/extension-text-align';
+import Highlight from '@tiptap/extension-highlight';
 import TertiaryButton from '../Button/TertiaryButton.vue';
 import { Dropdown } from '..';
 import type { DropdownItemArray } from '../Dropdown/types';
 import { TextStyleExtended } from './extensions/textstyle';
-import { IndentExtension } from './extensions/indent-outdent';
 import Color from './internal/Color.vue';
 
 const editor = useEditor({
@@ -23,7 +23,7 @@ const editor = useEditor({
       types: ['heading', 'paragraph'],
       alignments: ['left', 'center', 'right', 'justify'],
     }),
-    IndentExtension,
+    Highlight.configure({ multicolor: true }),
   ],
 });
 
@@ -114,6 +114,12 @@ watch(_toolbar.textSize, (newValue) => {
 // Update text alignment
 watch(_toolbar.textAlign, (newValue) => {
   editor.value?.chain().focus().setTextAlign(newValue.model.value).run();
+});
+
+//
+watch(_toolbar.highlight, (newValue) => {
+  console.log('newValue.model.value: ', newValue.model.toLowerCase());
+  editor.value?.chain().focus().toggleHighlight({ color: newValue.model.toLowerCase() }).run();
 });
 
 const toolbar: Record<string, (_?: any) => void> = {

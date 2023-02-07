@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
+import { onClickOutside } from '@vueuse/core';
 import { swatches } from './swatches';
 import { SecondaryButton } from '~/components';
 import Input from '~/components/Input/Input.vue';
@@ -15,6 +16,7 @@ const props = withDefaults(defineProps<{
 const emit = defineEmits(['update:modelValue']);
 
 const custom = ref('');
+const dropdownRef = ref();
 const showDropdown = ref(false);
 
 const model = computed({
@@ -29,7 +31,15 @@ const setColor = (hex: string) => {
   model.value = hex;
 };
 
-const toggleDropdown = () => showDropdown.value = !showDropdown.value;
+const toggleDropdown = (show = !showDropdown.value) => showDropdown.value = show;
+
+onClickOutside(dropdownRef, () => {
+  toggleDropdown(false);
+});
+
+watch(custom, (value: string) => {
+  model.value = value;
+});
 </script>
 
 <template>
@@ -41,7 +51,7 @@ const toggleDropdown = () => showDropdown.value = !showDropdown.value;
         />
       </template>
     </SecondaryButton>
-    <div v-show="showDropdown" class="colors-dropdown">
+    <div v-show="showDropdown" ref="dropdownRef" class="colors-dropdown">
       <ul class="swatches">
         <li v-for="(color, i) in swatches" :key="i" class="swatch" :style="{ backgroundColor: color }" @click="setColor(color)" />
       </ul>
@@ -62,7 +72,7 @@ const toggleDropdown = () => showDropdown.value = !showDropdown.value;
   box-shadow: var(--shadow-xs-gray);
   border: 1px solid var(--gray-100);
   background-color: var(--base-white);
-  padding: 7.5px 12px;
+  padding:12px;
   border-radius: 4px;
   width: 200px;
 }
