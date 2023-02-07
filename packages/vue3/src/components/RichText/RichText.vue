@@ -77,6 +77,26 @@ const _toolbar: Record<string, Record<string, any>> = reactive({
     items: textAlignment,
     model: textAlignment[0],
   },
+  code: {
+    type: 'TertiaryButton',
+    icon: 'i-youcan-code',
+    action: () => editor.value?.chain().focus().toggleCodeBlock().run(),
+  },
+  hr: {
+    type: 'TertiaryButton',
+    icon: 'i-youcan-minus',
+    action: editor.value?.chain().focus().setHorizontalRule().run(),
+  },
+  undo: {
+    type: 'TertiaryButton',
+    icon: 'i-youcan-arrow-bend-up-left',
+    action: editor.value?.chain().focus().undo().run(),
+  },
+  redo: {
+    type: 'TertiaryButton',
+    icon: 'i-youcan-arrow-bend-up-right',
+    action: editor.value?.chain().focus().redo().run(),
+  },
 
 });
 
@@ -123,10 +143,6 @@ const run = (action: string) => toolbar[action]();
     </div>
   </div>
   <EditorContent :editor="editor" />
-
-  <TertiaryButton @click="toolbar.text()">
-    font size
-  </TertiaryButton>
 </template>
 
 <style scoped>
