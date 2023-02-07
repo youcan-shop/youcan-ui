@@ -123,8 +123,10 @@ function handleSubCompModel(row: number, accessor: string, data: unknown, parent
       },
     };
 
-    emit('update:cell', { row: rowsReplica.value[row], accessor });
-    emit('update:data', mapRowsToTableData(rowsReplica.value));
+    const patchedData = mapRowsToTableData(rowsReplica.value);
+
+    emit('update:cell', { row: patchedData[row].row, accessor });
+    emit('update:data', patchedData);
   }
   else {
     const rowsReplica = shallowRef(rows.value);
@@ -140,8 +142,10 @@ function handleSubCompModel(row: number, accessor: string, data: unknown, parent
       },
     };
 
-    emit('update:cell', { row: rowsReplica.value[parentRow].children![row], accessor });
-    emit('update:data', mapRowsToTableData(rowsReplica.value));
+    const patchedData = mapRowsToTableData(rowsReplica.value);
+
+    emit('update:cell', { row: patchedData[parentRow].children![row], accessor });
+    emit('update:data', patchedData);
   }
 }
 
