@@ -154,6 +154,16 @@ const _toolbar: Record<string, Record<string, any>> = reactive({
     label: 'clear formatting',
     action: () => editor.value?.chain().focus().clearNodes().unsetAllMarks().run(),
   },
+  ol: {
+    type: 'TertiaryButton',
+    icon: 'i-youcan-list-numbers',
+    action: () => editor.value?.chain().focus().toggleOrderedList().run(),
+  },
+  ul: {
+    type: 'TertiaryButton',
+    icon: 'i-youcan-list-numbers',
+    action: () => editor.value?.chain().focus().toggleBulletList().run(),
+  },
 });
 
 // Update text size
@@ -177,7 +187,6 @@ watch(_toolbar.color, (newValue) => {
 });
 
 function insertTable(data: Record<string, string>) {
-  console.log('wwaaaa', data);
   const { rows, cols } = data;
   editor.value?.chain().focus().insertTable({ rows: Number(rows), cols: Number(cols), withHeaderRow: true }).run();
 }
