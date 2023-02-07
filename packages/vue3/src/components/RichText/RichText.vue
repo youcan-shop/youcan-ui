@@ -7,9 +7,14 @@ import HorizontalRule from '@tiptap/extension-horizontal-rule';
 import TextAlign from '@tiptap/extension-text-align';
 import Highlight from '@tiptap/extension-highlight';
 import Color from '@tiptap/extension-color';
+import Table from '@tiptap/extension-table';
+import TableCell from '@tiptap/extension-table-cell';
+import TableHeader from '@tiptap/extension-table-header';
+import TableRow from '@tiptap/extension-table-row';
 import TertiaryButton from '../Button/TertiaryButton.vue';
 import { Dropdown } from '..';
 import type { DropdownItemArray } from '../Dropdown/types';
+import InsertTable from './internal/Table.vue';
 import { TextStyleExtended } from './extensions/textstyle';
 import Colors from './internal/Color.vue';
 
@@ -28,6 +33,12 @@ const editor = useEditor({
     Color.configure({
       types: ['textStyle'],
     }),
+    Table.configure({
+      resizable: true,
+    }),
+    TableRow,
+    TableHeader,
+    TableCell,
   ],
 });
 
@@ -114,6 +125,10 @@ const _toolbar: Record<string, Record<string, any>> = reactive({
     model: '#000000',
     icon: 'i-youcan-eyedropper-sample',
   },
+  table: {
+    type: 'table',
+    model: { rows: '2', cols: '2' },
+  },
 });
 
 // Update text size
@@ -135,6 +150,12 @@ watch(_toolbar.highlight, (newValue) => {
 watch(_toolbar.color, (newValue) => {
   editor.value?.commands.setColor(newValue.model.toLowerCase());
 });
+
+function insertTable(data: Record<string, string>) {
+  console.log('wwaaaa', data);
+  const { rows, cols } = data;
+  editor.value?.chain().focus().insertTable({ rows: Number(rows), cols: Number(cols), withHeaderRow: true }).run();
+}
 
 const toolbar: Record<string, (_?: any) => void> = {
   bold: () => editor.value?.chain().focus().toggleBold().run(),
@@ -167,17 +188,80 @@ const run = (action: string) => toolbar[action]();
       </TertiaryButton>
       <Dropdown v-if="el.type === 'Dropdown'" v-model="el.model" :items="el.items" placeholder="" />
       <Colors v-if="el.type === 'Colors'" v-model="el.model" :icon="el.icon" />
+      <InsertTable v-if="el.type === 'table'" v-model="el.model" @insert="insertTable" />
     </div>
   </div>
   <EditorContent :editor="editor" />
 </template>
 
-<style scoped>
+<style lang="scss">
 .rich-text-editor{
   border: 1px solid var(--gray-100);
   border-radius: 8px;
   padding: 8px;
   gap: 8px;
   display: flex;
+}
+.ProseMirror {
+  table {
+    border-collapse: collapse;
+    table-layout: fixed;
+    width: 100%;
+    margin: 0;
+    overflow: hidden;
+
+    td,
+    th {
+      min-width: 1em;
+      border: 2px solid #ced4da;
+      padding: 3px 5px;
+      vertical-align: top;
+      box-sizing: border-box;
+      position: relative;
+
+      > * {
+        margin-bottom: 0;
+      }
+    }
+
+    th {
+      font-weight: bold;
+      text-align: left;
+      background-color: #f1f3f5;
+    }
+
+    .selectedCell:after {
+      z-index: 2;
+      position: absolute;
+      content: "";
+      left: 0; right: 0; top: 0; bottom: 0;
+      background: rgba(200, 200, 255, 0.4);
+      pointer-events: none;
+    }
+
+    .column-resize-handle {
+      position: absolute;
+      right: -2px;
+      top: 0;
+      bottom: -2px;
+      width: 4px;
+      background-color: #adf;
+      pointer-events: none;
+    }
+
+    p {
+      margin: 0;
+    }
+  }
+}
+
+.tableWrapper {
+  padding: 1rem 0;
+  overflow-x: auto;
+}
+
+.resize-cursor {
+  cursor: ew-resize;
+  cursor: col-resize;
 }
 </style>
