@@ -22,6 +22,7 @@ import { TextStyleExtended } from './extensions/textstyle';
 import Colors from './internal/Color.vue';
 import handleDropEvent from './handleDrop';
 import Iframe from './extensions/iframe';
+import EmojiPicker from './internal/Emojipicker.vue';
 
 const props = defineProps<{
   modelValue: string
@@ -212,6 +213,10 @@ const _toolbar: Record<string, Record<string, any>> = reactive({
       }
     },
   },
+  emoji: {
+    type: 'EmojiPicker',
+    icon: 'i-youcan-smiley-sticker',
+  },
   embed: {
     type: 'TertiaryButton',
     icon: 'i-youcan-video-camera',
@@ -249,6 +254,10 @@ function insertTable(data: Record<string, string>) {
   const { rows, cols } = data;
   editor.value?.chain().focus().insertTable({ rows: Number(rows), cols: Number(cols), withHeaderRow: true }).run();
 }
+
+function insertEmoji(emoji: string) {
+  editor.value?.commands.insertContent(emoji);
+}
 </script>
 
 <template>
@@ -265,6 +274,7 @@ function insertTable(data: Record<string, string>) {
       <SecondaryButton v-if="el.type === 'SecondaryButton'" size="sm" @click="el.action()">
         {{ el.label }}
       </SecondaryButton>
+      <EmojiPicker v-if="el.type === 'EmojiPicker'" :icon="el.icon" @select="insertEmoji" />
     </div>
   </div>
   <EditorContent :editor="editor" />
