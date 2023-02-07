@@ -121,7 +121,7 @@ const toolbar: Record<string, (_?: any) => void> = {
   clearNodes: () => editor.value?.chain().focus().clearNodes().run(),
   undo: () => editor.value?.chain().focus().undo().run(),
   redo: () => editor.value?.chain().focus().redo().run(),
-  heading: (level: Level) => editor.value?.chain().focus().toggleHeading({ level }).run(),
+  // heading: (level: Level) => editor.value?.chain().focus().toggleHeading({ level }).run(),
   ul: () => editor.value?.chain().focus().toggleBulletList().run(),
   ol: () => editor.value?.chain().focus().toggleOrderedList().run(),
   text: () => editor.value?.commands.setFontSize('110'),
@@ -136,7 +136,7 @@ const run = (action: string) => toolbar[action]();
     <div v-for="(el, i) in Object.values(_toolbar)" :key="i">
       <TertiaryButton v-if="el.type === 'TertiaryButton'" icon-position="only" size="sm" @click="el.action()">
         <template #icon>
-          <i :class="`i-youcan-${el.icon}`" />
+          <i :class="`${el.icon}`" />
         </template>
       </TertiaryButton>
       <Dropdown v-if="el.type === 'Dropdown'" v-model="el.model" :items="el.items" placeholder="" />
