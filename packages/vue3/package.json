@@ -68,6 +68,7 @@
   },
   "dependencies": {
     "@tiptap/extension-horizontal-rule": "2.0.0-beta.209",
+    "@tiptap/extension-text-align": "^2.0.0-beta.213",
     "@tiptap/extension-text-style": "^2.0.0-beta.213",
     "@tiptap/extension-underline": "2.0.0-beta.209",
     "@tiptap/starter-kit": "2.0.0-beta.209",

@@ -4,8 +4,8 @@ import StarterKit from '@tiptap/starter-kit';
 import { onBeforeUnmount, reactive, watch } from 'vue';
 import Underline from '@tiptap/extension-underline';
 import HorizontalRule from '@tiptap/extension-horizontal-rule';
+import TextAlign from '@tiptap/extension-text-align';
 import TertiaryButton from '../Button/TertiaryButton.vue';
-import DropdownItem from '../Dropdown/Internal/DropdownItem.vue';
 import { Dropdown } from '..';
 import type { DropdownItemArray } from '../Dropdown/types';
 import { TextStyleExtended } from './extensions/textstyle';
@@ -17,6 +17,10 @@ const editor = useEditor({
     Underline,
     HorizontalRule,
     TextStyleExtended,
+    TextAlign.configure({
+      types: ['heading', 'paragraph'],
+      alignments: ['left', 'center', 'right', 'justify'],
+    }),
   ],
 });
 
@@ -34,26 +38,33 @@ const fontSizes: DropdownItemArray = (() => {
   return _items;
 })();
 
+const textAlignment = [
+  { icon: 'i-youcan-text-align-left', label: 'left', value: 'left' },
+  { icon: 'i-youcan-text-align-center', label: 'center', value: 'center' },
+  { icon: 'i-youcan-text-align-right', label: 'right', value: 'right' },
+  { icon: 'i-youcan-text-align-justify', label: 'justify', value: 'justify' },
+];
+
 const _toolbar: Record<string, Record<string, any>> = reactive({
   bold: {
     type: 'TertiaryButton',
-    icon: 'text-bolder',
+    icon: 'i-youcan-text-bolder',
     action: () => editor.value?.chain().focus().toggleBold().run(),
 
   },
   italic: {
     type: 'TertiaryButton',
-    icon: 'text-italic',
+    icon: 'i-youcan-text-italic',
     action: () => editor.value?.chain().focus().toggleItalic().run(),
   },
   underline: {
     type: 'TertiaryButton',
-    icon: 'text-underline',
+    icon: 'i-youcan-text-underline',
     action: () => editor.value?.chain().focus().setUnderline().run(),
   },
   strike: {
     type: 'TertiaryButton',
-    icon: 'text-strikethrough',
+    icon: 'i-youcan-text-strikethrough',
     action: () => editor.value?.chain().focus().toggleStrike().run(),
   },
   textSize: {
@@ -61,12 +72,22 @@ const _toolbar: Record<string, Record<string, any>> = reactive({
     items: fontSizes,
     model: fontSizes[0],
   },
+  textAlign: {
+    type: 'Dropdown',
+    items: textAlignment,
+    model: textAlignment[0],
+  },
 
 });
 
 // Update text size
 watch(_toolbar.textSize, (newValue) => {
   editor.value?.commands.setFontSize(String(newValue.model.value));
+});
+
+// Update text alignment
+watch(_toolbar.textAlign, (newValue) => {
+  editor.value?.chain().focus().setTextAlign(newValue.model.value).run();
 });
 
 const toolbar: Record<string, (_?: any) => void> = {
