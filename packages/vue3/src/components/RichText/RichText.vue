@@ -199,6 +199,16 @@ const _toolbar: Record<string, Record<string, any>> = reactive({
     icon: 'i-youcan-link-simple',
     action: setLink,
   },
+  image: {
+    type: 'TertiaryButton',
+    icon: 'i-youcan-image',
+    action: () => {
+      const url = window.prompt('URL');
+      if (url) {
+        editor.value?.chain().focus().setImage({ src: url }).run();
+      }
+    },
+  },
 });
 
 // Update text size
