@@ -6,11 +6,12 @@ import Underline from '@tiptap/extension-underline';
 import HorizontalRule from '@tiptap/extension-horizontal-rule';
 import TextAlign from '@tiptap/extension-text-align';
 import Highlight from '@tiptap/extension-highlight';
+import Color from '@tiptap/extension-color';
 import TertiaryButton from '../Button/TertiaryButton.vue';
 import { Dropdown } from '..';
 import type { DropdownItemArray } from '../Dropdown/types';
 import { TextStyleExtended } from './extensions/textstyle';
-import Color from './internal/Color.vue';
+import Colors from './internal/Color.vue';
 
 const editor = useEditor({
   content: '<p>I’m running Tiptap with Vue.js. 🎉</p>',
@@ -24,6 +25,9 @@ const editor = useEditor({
       alignments: ['left', 'center', 'right', 'justify'],
     }),
     Highlight.configure({ multicolor: true }),
+    Color.configure({
+      types: ['textStyle'],
+    }),
   ],
 });
 
@@ -101,8 +105,14 @@ const _toolbar: Record<string, Record<string, any>> = reactive({
     action: () => editor.value?.chain().focus().redo().run(),
   },
   highlight: {
-    type: 'Color',
+    type: 'Colors',
     model: '#000000',
+    icon: 'i-youcan-paint-bucket',
+  },
+  color: {
+    type: 'Colors',
+    model: '#000000',
+    icon: 'i-youcan-eyedropper-sample',
   },
 });
 
@@ -116,10 +126,14 @@ watch(_toolbar.textAlign, (newValue) => {
   editor.value?.chain().focus().setTextAlign(newValue.model.value).run();
 });
 
-//
+// highlight color
 watch(_toolbar.highlight, (newValue) => {
-  console.log('newValue.model.value: ', newValue.model.toLowerCase());
   editor.value?.chain().focus().toggleHighlight({ color: newValue.model.toLowerCase() }).run();
+});
+
+// text color
+watch(_toolbar.color, (newValue) => {
+  editor.value?.commands.setColor(newValue.model.toLowerCase());
 });
 
 const toolbar: Record<string, (_?: any) => void> = {
@@ -152,7 +166,7 @@ const run = (action: string) => toolbar[action]();
         </template>
       </TertiaryButton>
       <Dropdown v-if="el.type === 'Dropdown'" v-model="el.model" :items="el.items" placeholder="" />
-      <Color v-if="el.type === 'Color'" v-model="el.model" icon="i-youcan-eyedropper-sample" />
+      <Colors v-if="el.type === 'Colors'" v-model="el.model" :icon="el.icon" />
     </div>
   </div>
   <EditorContent :editor="editor" />
