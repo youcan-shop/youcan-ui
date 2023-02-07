@@ -213,7 +213,7 @@ const run = (action: string) => toolbar[action]();
     td,
     th {
       min-width: 1em;
-      border: 2px solid #ced4da;
+      border: 2px solid var(--gray-100);
       padding: 3px 5px;
       vertical-align: top;
       box-sizing: border-box;
@@ -227,7 +227,7 @@ const run = (action: string) => toolbar[action]();
     th {
       font-weight: bold;
       text-align: left;
-      background-color: #f1f3f5;
+      background-color: var(--gray-50);
     }
 
     .selectedCell:after {
@@ -235,7 +235,7 @@ const run = (action: string) => toolbar[action]();
       position: absolute;
       content: "";
       left: 0; right: 0; top: 0; bottom: 0;
-      background: rgba(200, 200, 255, 0.4);
+      background: var(--gray-100);
       pointer-events: none;
     }
 
@@ -245,7 +245,7 @@ const run = (action: string) => toolbar[action]();
       top: 0;
       bottom: -2px;
       width: 4px;
-      background-color: #adf;
+      background-color: var(--gray-100);
       pointer-events: none;
     }
 
