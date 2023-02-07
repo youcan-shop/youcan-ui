@@ -11,12 +11,14 @@ import Table from '@tiptap/extension-table';
 import TableCell from '@tiptap/extension-table-cell';
 import TableHeader from '@tiptap/extension-table-header';
 import TableRow from '@tiptap/extension-table-row';
+import Image from '@tiptap/extension-image';
 import TertiaryButton from '../Button/TertiaryButton.vue';
 import { Dropdown } from '..';
 import type { DropdownItemArray } from '../Dropdown/types';
 import InsertTable from './internal/Table.vue';
 import { TextStyleExtended } from './extensions/textstyle';
 import Colors from './internal/Color.vue';
+import handleDrop from './handleDrop';
 
 defineProps<{
   modelValue: string
@@ -29,6 +31,9 @@ const editor = useEditor({
   onUpdate: ({ editor }) => {
     const html = editor.getHTML();
     emit('update:modelValue', html);
+  },
+  editorProps: {
+    handleDrop,
   },
   extensions: [
     StarterKit,
@@ -49,6 +54,9 @@ const editor = useEditor({
     TableRow,
     TableHeader,
     TableCell,
+    Image.configure({
+      allowBase64: true,
+    }),
   ],
 });
 
