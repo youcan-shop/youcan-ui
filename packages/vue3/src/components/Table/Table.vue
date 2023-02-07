@@ -18,7 +18,7 @@ const emit = defineEmits<{
   (event: 'update:data', data: TableData[]): void
   (event: 'update:selected-rows', data: TableData[]): void
   (event: 'check', indexes: Array<number>): void
-  (event: 'update:cell', data: unknown): void
+  (event: 'update:cell', data: { row: unknown; accessor: string }): void
 }>();
 
 const allChecked = ref(false);
@@ -109,8 +109,6 @@ function mapRowsToTableData(records: TableInternalData[]): TableData[] {
 }
 
 function handleSubCompModel(row: number, accessor: string, data: unknown, parentRow?: number) {
-  emit('update:cell', data);
-
   if (typeof parentRow === 'undefined') {
     const rowsReplica = shallowRef(rows.value);
     const propRow = props.data[row].row[accessor] as TableDataComposable;
@@ -125,6 +123,7 @@ function handleSubCompModel(row: number, accessor: string, data: unknown, parent
       },
     };
 
+    emit('update:cell', { row: rowsReplica.value[row], accessor });
     emit('update:data', mapRowsToTableData(rowsReplica.value));
   }
   else {
@@ -141,6 +140,7 @@ function handleSubCompModel(row: number, accessor: string, data: unknown, parent
       },
     };
 
+    emit('update:cell', { row: rowsReplica.value[parentRow].children![row], accessor });
     emit('update:data', mapRowsToTableData(rowsReplica.value));
   }
 }
