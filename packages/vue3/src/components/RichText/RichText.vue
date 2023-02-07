@@ -18,8 +18,18 @@ import InsertTable from './internal/Table.vue';
 import { TextStyleExtended } from './extensions/textstyle';
 import Colors from './internal/Color.vue';
 
+defineProps<{
+  modelValue: string
+}>();
+
+const emit = defineEmits(['update:modelValue']);
+
 const editor = useEditor({
   content: '<p>I’m running Tiptap with Vue.js. 🎉</p>',
+  onUpdate: ({ editor }) => {
+    const html = editor.getHTML();
+    emit('update:modelValue', html);
+  },
   extensions: [
     StarterKit,
     Underline,
