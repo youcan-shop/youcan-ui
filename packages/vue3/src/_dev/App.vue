@@ -2,10 +2,9 @@
 import { ref } from 'vue';
 import RichText from '~/components/RichText/RichText.vue';
 
-const content = ref('');
+const content = ref('<h1>HELLO</h1>');
 
 async function uploadImage(file: File): Promise<string> {
-  console.info('file:', file);
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve('https://placeholder.com/assets/images/150x150-2-500x500.png');
@@ -19,7 +18,6 @@ async function uploadImage(file: File): Promise<string> {
     <RichText v-model="content" :upload-image-handler="uploadImage" />
     <h1>Output</h1>
     <div v-html="content" />
-    <textarea>{{ content }}</textarea>
   </div>
 </template>
 

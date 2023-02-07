@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue';
 import { onClickOutside } from '@vueuse/core';
-import { swatches } from './swatches';
+import { swatches as _swatches } from './swatches';
 import { SecondaryButton } from '~/components';
 import ColorInput from '~/components/Color/ColorInput.vue';
 
@@ -10,7 +10,7 @@ const props = withDefaults(defineProps<{
   icon: string
   swatches?: string[]
 }>(), {
-  swatches,
+  swatches: _swatches,
 });
 
 const emit = defineEmits(['update:modelValue']);

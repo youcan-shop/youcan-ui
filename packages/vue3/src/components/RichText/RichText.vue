@@ -21,6 +21,7 @@ import InsertTable from './internal/Table.vue';
 import { TextStyleExtended } from './extensions/textstyle';
 import Colors from './internal/Color.vue';
 import handleDropEvent from './handleDrop';
+import Iframe from './extensions/iframe';
 
 const props = defineProps<{
   modelValue: string
@@ -30,7 +31,7 @@ const props = defineProps<{
 const emit = defineEmits(['update:modelValue']);
 
 const editor = useEditor({
-  content: '<p>I’m running Tiptap with Vue.js. 🎉</p>',
+  content: props.modelValue,
   onUpdate: ({ editor }) => {
     const html = editor.getHTML();
     emit('update:modelValue', html);
@@ -63,6 +64,7 @@ const editor = useEditor({
     Link.configure({
       openOnClick: false,
     }),
+    Iframe,
   ],
 });
 
@@ -209,6 +211,17 @@ const _toolbar: Record<string, Record<string, any>> = reactive({
       }
     },
   },
+  embed: {
+    type: 'TertiaryButton',
+    icon: 'i-youcan-video-camera',
+    action: () => {
+      const url = window.prompt('URL');
+
+      if (url) {
+        editor.value?.chain().focus().setIframe({ src: url }).run();
+      }
+    },
+  },
 });
 
 // Update text size
@@ -235,26 +248,6 @@ function insertTable(data: Record<string, string>) {
   const { rows, cols } = data;
   editor.value?.chain().focus().insertTable({ rows: Number(rows), cols: Number(cols), withHeaderRow: true }).run();
 }
-
-const toolbar: Record<string, (_?: any) => void> = {
-  bold: () => editor.value?.chain().focus().toggleBold().run(),
-  italic: () => editor.value?.chain().focus().toggleItalic().run(),
-  strike: () => editor.value?.chain().focus().toggleStrike().run(),
-  code: () => editor.value?.chain().focus().toggleCodeBlock().run(),
-  underline: () => editor.value?.chain().focus().setUnderline().run(),
-  hr: () => editor.value?.chain().focus().setHorizontalRule().run(),
-  clearMarks: () => editor.value?.chain().focus().unsetAllMarks().run(),
-  clearNodes: () => editor.value?.chain().focus().clearNodes().run(),
-  undo: () => editor.value?.chain().focus().undo().run(),
-  redo: () => editor.value?.chain().focus().redo().run(),
-  // heading: (level: Level) => editor.value?.chain().focus().toggleHeading({ level }).run(),
-  ul: () => editor.value?.chain().focus().toggleBulletList().run(),
-  ol: () => editor.value?.chain().focus().toggleOrderedList().run(),
-
-//   iframe: (url: string) => editor.value?.chain().focus().setIframe({ src: url }).run(),
-};
-
-const run = (action: string) => toolbar[action]();
 </script>
 
 <template>
@@ -284,7 +277,12 @@ const run = (action: string) => toolbar[action]();
   gap: 8px;
   display: flex;
 }
+
 .ProseMirror {
+  min-height: 173px;
+  max-height: 100%;
+  overflow-y: auto;
+
   table {
     border-collapse: collapse;
     table-layout: fixed;
