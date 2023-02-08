@@ -32,18 +32,18 @@ export const TextStyleExtended = TextStyle.extend({
     return {
       ...this.parent?.(),
       setFontSize:
-                (fontSize: string) =>
-                  ({ commands }) => {
-                    return commands.setMark(this.name, { fontSize });
-                  },
+        (fontSize: string) =>
+          ({ commands }) => {
+            return commands.setMark(this.name, { fontSize });
+          },
       unsetFontSize:
-                () =>
-                  ({ chain }) => {
-                    return chain()
-                      .setMark(this.name, { fontSize: null })
-                      .removeEmptyTextStyle()
-                      .run();
-                  },
+        () =>
+          ({ chain }) => {
+            return chain()
+              .setMark(this.name, { fontSize: null })
+              .removeEmptyTextStyle()
+              .run();
+          },
     };
   },
 });
