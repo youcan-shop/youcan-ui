@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref } from 'vue';
 import '~/assets/main.css';
+import { ref } from 'vue';
 
 import RichText from '~/components/RichText/RichText.vue';
 
