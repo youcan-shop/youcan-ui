@@ -4,13 +4,15 @@ import { onClickOutside } from '@vueuse/core';
 import { emojis as _emojis } from './emojis';
 import TertiaryButton from '~/components/Button/TertiaryButton.vue';
 
-const props = withDefaults(defineProps<{
-  modelValue: string
-  icon: string
-  emojis?: string[]
-}>(), {
-  emojis: _emojis,
-});
+const props = withDefaults(
+  defineProps<{
+    icon: string
+    emojis?: string[]
+  }>(),
+  {
+    emojis: () => _emojis,
+  },
+);
 
 const emit = defineEmits(['select']);
 
@@ -18,7 +20,7 @@ const dropdownRef = ref();
 const showDropdown = ref(false);
 
 const model = computed({
-  get: () => props.modelValue,
+  get: () => '',
   set: (value) => {
     emit('select', value);
   },

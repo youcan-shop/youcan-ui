@@ -19,7 +19,7 @@ export default function (view: EditorView, event: DragEvent, slice: Slice, moved
     img.src = _URL.createObjectURL(file);
 
     img.onload = async function () {
-      if (this.width > MAX_IMAGE_WIDTH || this.height > MAX_IMAGE_HEIGHT) {
+      if (img.width > MAX_IMAGE_WIDTH || img.height > MAX_IMAGE_HEIGHT) {
         alert(`image not valid max image size is ${MAX_IMAGE_WIDTH} x ${MAX_IMAGE_HEIGHT}`);
       }
       else {

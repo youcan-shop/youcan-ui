@@ -10,7 +10,7 @@ const props = withDefaults(defineProps<{
   icon: string
   swatches?: string[]
 }>(), {
-  swatches: _swatches,
+  swatches: () => _swatches,
 });
 
 const emit = defineEmits(['update:modelValue']);
