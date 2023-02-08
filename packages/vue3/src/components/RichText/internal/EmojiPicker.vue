@@ -2,7 +2,6 @@
 import { computed, ref, watch } from 'vue';
 import { onClickOutside } from '@vueuse/core';
 import { emojis as _emojis } from './emojis';
-import { SecondaryButton } from '~/components';
 import TertiaryButton from '~/components/Button/TertiaryButton.vue';
 
 const props = withDefaults(defineProps<{

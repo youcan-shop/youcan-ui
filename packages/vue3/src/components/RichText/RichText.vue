@@ -99,23 +99,10 @@ const setLink = () => {
   if (url === null) { return; }
 
   if (url === '') {
-    editor?.value!
-      .chain()
-      .focus()
-      .extendMarkRange('link')
-      .unsetLink()
-      .run();
-
-    return;
+    return editor?.value!.chain().focus().extendMarkRange('link').unsetLink().run();
   }
 
-  // update link
-  editor?.value!
-    .chain()
-    .focus()
-    .extendMarkRange('link')
-    .setLink({ href: url })
-    .run();
+  editor?.value!.chain().focus().extendMarkRange('link').setLink({ href: url }).run();
 };
 
 const _toolbar: Record<string, Record<string, any>> = reactive({
@@ -128,6 +115,7 @@ const _toolbar: Record<string, Record<string, any>> = reactive({
   },
   italic: {
     tooltip: 'Italic (ctrl+I)',
+    type: 'TertiaryButton',
     icon: 'i-youcan-text-italic',
     action: () => editor.value?.chain().focus().toggleItalic().run(),
   },
@@ -143,6 +131,18 @@ const _toolbar: Record<string, Record<string, any>> = reactive({
     icon: 'i-youcan-text-strikethrough',
     action: () => editor.value?.chain().focus().toggleStrike().run(),
   },
+  color: {
+    tooltip: 'Text color',
+    type: 'Colors',
+    model: '#000000',
+    icon: 'i-youcan-eyedropper-sample',
+  },
+  highlight: {
+    tooltip: 'Background color',
+    type: 'Colors',
+    model: '#000000',
+    icon: 'i-youcan-paint-bucket',
+  },
   fontSize: {
     tooltip: 'Font size',
     type: 'Dropdown',
@@ -154,53 +154,6 @@ const _toolbar: Record<string, Record<string, any>> = reactive({
     type: 'Dropdown',
     items: textAlignment,
     model: textAlignment[0],
-  },
-  code: {
-    tooltip: 'Code',
-    type: 'TertiaryButton',
-    icon: 'i-youcan-code',
-    action: () => editor.value?.chain().focus().toggleCodeBlock().run(),
-  },
-  hr: {
-    tooltip: 'Insert divider',
-    type: 'TertiaryButton',
-    icon: 'i-youcan-minus',
-    action: () => editor.value?.chain().focus().setHorizontalRule().run(),
-  },
-  undo: {
-    tooltip: 'Undo',
-    type: 'TertiaryButton',
-    icon: 'i-youcan-arrow-bend-up-left',
-    action: () => editor.value?.chain().focus().undo().run(),
-  },
-  redo: {
-    tooltip: 'Redo',
-    type: 'TertiaryButton',
-    icon: 'i-youcan-arrow-bend-up-right',
-    action: () => editor.value?.chain().focus().redo().run(),
-  },
-  highlight: {
-    tooltip: 'Background color',
-    type: 'Colors',
-    model: '#000000',
-    icon: 'i-youcan-paint-bucket',
-  },
-  color: {
-    tooltip: 'Text color',
-    type: 'Colors',
-    model: '#000000',
-    icon: 'i-youcan-eyedropper-sample',
-  },
-  table: {
-    tooltip: 'Insert table',
-    type: 'table',
-    model: { rows: '2', cols: '2' },
-  },
-  clear: {
-    tooltip: 'Clear formatting',
-    type: 'SecondaryButton',
-    label: 'clear formatting',
-    action: () => editor.value?.chain().focus().clearNodes().unsetAllMarks().run(),
   },
   ol: {
     tooltip: 'Ordered list',
@@ -214,11 +167,45 @@ const _toolbar: Record<string, Record<string, any>> = reactive({
     icon: 'i-youcan-list-numbers',
     action: () => editor.value?.chain().focus().toggleBulletList().run(),
   },
+  undo: {
+    tooltip: 'Undo',
+    type: 'TertiaryButton',
+    icon: 'i-youcan-arrow-bend-up-left',
+    action: () => editor.value?.chain().focus().undo().run(),
+  },
+  redo: {
+    tooltip: 'Redo',
+    type: 'TertiaryButton',
+    icon: 'i-youcan-arrow-bend-up-right',
+    action: () => editor.value?.chain().focus().redo().run(),
+  },
+  emoji: {
+    tooltip: 'Insert emojis',
+    type: 'EmojiPicker',
+    icon: 'i-youcan-smiley-sticker',
+  },
   link: {
     tooltip: 'Insert link',
     type: 'TertiaryButton',
     icon: 'i-youcan-link-simple',
     action: setLink,
+  },
+  hr: {
+    tooltip: 'Insert divider',
+    type: 'TertiaryButton',
+    icon: 'i-youcan-minus',
+    action: () => editor.value?.chain().focus().setHorizontalRule().run(),
+  },
+  table: {
+    tooltip: 'Insert table',
+    type: 'table',
+    model: { rows: '2', cols: '2' },
+  },
+  code: {
+    tooltip: 'Code',
+    type: 'TertiaryButton',
+    icon: 'i-youcan-code',
+    action: () => editor.value?.chain().focus().toggleCodeBlock().run(),
   },
   image: {
     tooltip: 'Insert image',
@@ -231,11 +218,6 @@ const _toolbar: Record<string, Record<string, any>> = reactive({
       }
     },
   },
-  emoji: {
-    tooltip: 'Insert emojis',
-    type: 'EmojiPicker',
-    icon: 'i-youcan-smiley-sticker',
-  },
   embed: {
     tooltip: 'Embed video',
     type: 'TertiaryButton',
@@ -247,6 +229,12 @@ const _toolbar: Record<string, Record<string, any>> = reactive({
         editor.value?.chain().focus().setIframe({ src: url }).run();
       }
     },
+  },
+  clear: {
+    tooltip: 'Clear formatting',
+    type: 'SecondaryButton',
+    label: 'clear formatting',
+    action: () => editor.value?.chain().focus().clearNodes().unsetAllMarks().run(),
   },
 });
 
@@ -305,8 +293,12 @@ function insertEmoji(emoji: string) {
 </template>
 
 <style lang="scss">
+.tool-bar{
+  border: 1px solid var(--gray-100);
+}
+
 /* Change Icon color */
-.icon i {
+.tool-bar > icon i {
   color: var(--gray-700)
 }
 
@@ -316,7 +308,7 @@ function insertEmoji(emoji: string) {
 }
 
 .rich-text-editor:focus-within {
-  border:1px solid var(--brand-500) !important;
+  outline:1px solid var(--brand-500) !important;
 }
 
 .editor-content{
@@ -325,7 +317,6 @@ function insertEmoji(emoji: string) {
 
 .rich-text-editor .tool-bar {
   width: 100%;
-  border-radius: 8px;
   padding: 8px;
   gap: 8px;
   display: flex;
