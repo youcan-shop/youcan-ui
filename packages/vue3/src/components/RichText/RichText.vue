@@ -23,6 +23,7 @@ import Colors from './internal/Color.vue';
 import handleDropEvent from './handleDrop';
 import Iframe from './extensions/iframe';
 import EmojiPicker from './internal/Emojipicker.vue';
+import Tooltip from './internal/Tooltip.vue';
 
 const props = defineProps<{
   modelValue: string
@@ -119,91 +120,108 @@ const setLink = () => {
 
 const _toolbar: Record<string, Record<string, any>> = reactive({
   bold: {
+    tooltip: 'Bold (ctrl+B)',
     type: 'TertiaryButton',
     icon: 'i-youcan-text-bolder',
     action: () => editor.value?.chain().focus().toggleBold().run(),
 
   },
   italic: {
-    type: 'TertiaryButton',
+    tooltip: 'Italic (ctrl+I)',
     icon: 'i-youcan-text-italic',
     action: () => editor.value?.chain().focus().toggleItalic().run(),
   },
   underline: {
+    tooltip: 'Underline (ctrl+U)',
     type: 'TertiaryButton',
     icon: 'i-youcan-text-underline',
     action: () => editor.value?.chain().focus().setUnderline().run(),
   },
   strike: {
+    tooltip: 'Strikethrough (ctrl+shift+X)',
     type: 'TertiaryButton',
     icon: 'i-youcan-text-strikethrough',
     action: () => editor.value?.chain().focus().toggleStrike().run(),
   },
-  textSize: {
+  fontSize: {
+    tooltip: 'Font size',
     type: 'Dropdown',
     items: fontSizes,
     model: fontSizes[0],
   },
   textAlign: {
+    tooltip: 'Text alignment',
     type: 'Dropdown',
     items: textAlignment,
     model: textAlignment[0],
   },
   code: {
+    tooltip: 'Code',
     type: 'TertiaryButton',
     icon: 'i-youcan-code',
     action: () => editor.value?.chain().focus().toggleCodeBlock().run(),
   },
   hr: {
+    tooltip: 'Insert divider',
     type: 'TertiaryButton',
     icon: 'i-youcan-minus',
     action: () => editor.value?.chain().focus().setHorizontalRule().run(),
   },
   undo: {
+    tooltip: 'Undo',
     type: 'TertiaryButton',
     icon: 'i-youcan-arrow-bend-up-left',
     action: () => editor.value?.chain().focus().undo().run(),
   },
   redo: {
+    tooltip: 'Redo',
     type: 'TertiaryButton',
     icon: 'i-youcan-arrow-bend-up-right',
     action: () => editor.value?.chain().focus().redo().run(),
   },
   highlight: {
+    tooltip: 'Background color',
     type: 'Colors',
     model: '#000000',
     icon: 'i-youcan-paint-bucket',
   },
   color: {
+    tooltip: 'Text color',
     type: 'Colors',
     model: '#000000',
     icon: 'i-youcan-eyedropper-sample',
   },
   table: {
+    tooltip: 'Insert table',
     type: 'table',
     model: { rows: '2', cols: '2' },
   },
   clear: {
+    tooltip: 'Clear formatting',
     type: 'SecondaryButton',
     label: 'clear formatting',
     action: () => editor.value?.chain().focus().clearNodes().unsetAllMarks().run(),
   },
   ol: {
+    tooltip: 'Ordered list',
     type: 'TertiaryButton',
     icon: 'i-youcan-list-numbers',
     action: () => editor.value?.chain().focus().toggleOrderedList().run(),
   },
   ul: {
+    tooltip: 'Unordered list',
     type: 'TertiaryButton',
     icon: 'i-youcan-list-numbers',
     action: () => editor.value?.chain().focus().toggleBulletList().run(),
   },
   link: {
+    tooltip: 'Insert link',
     type: 'TertiaryButton',
     icon: 'i-youcan-link-simple',
     action: setLink,
   },
   image: {
+    tooltip: 'Insert image',
     type: 'TertiaryButton',
     icon: 'i-youcan-image',
     action: () => {
@@ -214,10 +232,12 @@ const _toolbar: Record<string, Record<string, any>> = reactive({
     },
   },
   emoji: {
+    tooltip: 'Insert emojis',
     type: 'EmojiPicker',
     icon: 'i-youcan-smiley-sticker',
   },
   embed: {
+    tooltip: 'Embed video',
     type: 'TertiaryButton',
     icon: 'i-youcan-video-camera',
     action: () => {
@@ -263,18 +283,20 @@ function insertEmoji(emoji: string) {
 <template>
   <div class="rich-text-editor">
     <div v-for="(el, i) in Object.values(_toolbar)" :key="i">
-      <TertiaryButton v-if="el.type === 'TertiaryButton'" icon-position="only" size="sm" @click="el.action()">
-        <template #icon>
-          <i :class="`${el.icon}`" />
-        </template>
-      </TertiaryButton>
-      <Dropdown v-if="el.type === 'Dropdown'" v-model="el.model" :items="el.items" placeholder="" />
-      <Colors v-if="el.type === 'Colors'" v-model="el.model" :icon="el.icon" />
-      <InsertTable v-if="el.type === 'table'" v-model="el.model" @insert="insertTable" />
-      <SecondaryButton v-if="el.type === 'SecondaryButton'" size="sm" @click="el.action()">
-        {{ el.label }}
-      </SecondaryButton>
-      <EmojiPicker v-if="el.type === 'EmojiPicker'" :icon="el.icon" @select="insertEmoji" />
+      <Tooltip :label="el.tooltip">
+        <TertiaryButton v-if="el.type === 'TertiaryButton'" icon-position="only" size="sm" @click="el.action()">
+          <template #icon>
+            <i :class="`${el.icon}`" />
+          </template>
+        </TertiaryButton>
+        <Dropdown v-if="el.type === 'Dropdown'" v-model="el.model" :items="el.items" placeholder="" />
+        <Colors v-if="el.type === 'Colors'" v-model="el.model" :icon="el.icon" />
+        <InsertTable v-if="el.type === 'table'" v-model="el.model" @insert="insertTable" />
+        <SecondaryButton v-if="el.type === 'SecondaryButton'" size="sm" @click="el.action()">
+          {{ el.label }}
+        </SecondaryButton>
+        <EmojiPicker v-if="el.type === 'EmojiPicker'" :icon="el.icon" @select="insertEmoji" />
+      </Tooltip>
     </div>
   </div>
   <EditorContent :editor="editor" />
