@@ -25,10 +25,13 @@ import EmojiPicker from './internal/Emojipicker.vue';
 import Tooltip from './internal/Tooltip.vue';
 import toolbar from './toolbar';
 
-const props = defineProps<{
+const props = withDefaults(defineProps<{
   modelValue: string
+  dir?: string
   uploadImageHandler: (file: File) => Promise<string | null>
-}>();
+}>(), {
+  dir: 'ltr',
+});
 
 const emit = defineEmits(['update:modelValue']);
 
@@ -127,7 +130,7 @@ watch(_toolbar.color, (newValue) => {
         </Tooltip>
       </div>
     </div>
-    <EditorContent class="editor-content" :editor="editor" />
+    <EditorContent class="editor-content" :editor="editor" :style="{ direction: dir }" />
   </div>
 </template>
 
