@@ -132,18 +132,23 @@ watch(_toolbar.color, (newValue) => {
 </template>
 
 <style lang="scss">
+.rich-text-editor {
+  border: 1px solid var(--gray-100);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
 .tool-bar{
   border: 1px solid var(--gray-100);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-self: center;
 }
 
 /* Change Icon color */
 .tool-bar > icon i {
   color: var(--gray-700)
-}
-
-.rich-text-editor {
-  border: 1px solid var(--gray-100);
-  border-radius: 8px;
 }
 
 .rich-text-editor:focus-within {
