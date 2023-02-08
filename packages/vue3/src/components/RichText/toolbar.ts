@@ -154,7 +154,6 @@ export default function (editor: ShallowRef<Editor | undefined>): Record<string,
         const url = window.prompt('URL');
 
         if (url) {
-          // @ts-expect-error setIframe
           editor.value?.chain().focus().setIframe({ src: url }).run();
         }
       },

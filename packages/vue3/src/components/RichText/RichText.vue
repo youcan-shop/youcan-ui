@@ -67,7 +67,6 @@ const editor = useEditor({
     Link.configure({
       openOnClick: false,
     }),
-    // @ts-expect-error Custom integration
     Iframe,
   ],
 });
@@ -89,7 +88,6 @@ const _toolbar = toolbar(editor);
 
 // Update text size
 watch(_toolbar.fontSize, (newValue) => {
-  // @ts-expect-error setFontSize
   editor.value?.commands.setFontSize(String(newValue.model.value));
 });
 

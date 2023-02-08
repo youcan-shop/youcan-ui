@@ -33,13 +33,11 @@ export const TextStyleExtended = TextStyle.extend({
       ...this.parent?.(),
       setFontSize:
         (fontSize: string) =>
-          // @ts-expect-error commands
           ({ commands }) => {
             return commands.setMark(this.name, { fontSize });
           },
       unsetFontSize:
         () =>
-          // @ts-expect-error chain
           ({ chain }) => {
             return chain()
               .setMark(this.name, { fontSize: null })
