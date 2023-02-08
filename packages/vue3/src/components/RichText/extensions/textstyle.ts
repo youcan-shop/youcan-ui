@@ -32,7 +32,7 @@ export const TextStyleExtended = TextStyle.extend({
     return {
       ...this.parent?.(),
       setFontSize:
-                fontSize =>
+                (fontSize: string) =>
                   ({ commands }) => {
                     return commands.setMark(this.name, { fontSize });
                   },

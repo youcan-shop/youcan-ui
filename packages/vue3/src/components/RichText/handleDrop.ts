@@ -10,7 +10,7 @@ export default function (view: EditorView, event: DragEvent, slice: Slice, moved
     const file = event.dataTransfer.files[0];
     const filesize = ((file.size / 1024) / 1024).toFixed(4);
 
-    if ((file.type !== 'image/jpeg' || file.type !== 'image/png') || Number(filesize) < MAX_IMAGE_SIZE_MB) {
+    if ((file.type !== 'image/jpeg' && file.type !== 'image/png') || Number(filesize) < MAX_IMAGE_SIZE_MB) {
       return alert('image not valid');
     }
 

@@ -35,7 +35,8 @@
     "components:build": "rimraf dist && vue-tsc --declaration --emitDeclarationOnly --project tsconfig.build.json && vite build",
     "dev": "pnpm story:dev & pnpm components:dev",
     "build": "pnpm components:build & pnpm story:build",
-    "release": "pnpm publish --access public"
+    "release": "pnpm publish --access public",
+    "lint": "eslint ."
   },
   "peerDependencies": {
     "vue": "^3.2.45"
