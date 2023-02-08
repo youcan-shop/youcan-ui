@@ -2,7 +2,7 @@
 import { computed, ref, watch } from 'vue';
 import { onClickOutside } from '@vueuse/core';
 import { swatches as _swatches } from './swatches';
-import { SecondaryButton } from '~/components';
+import { TertiaryButton } from '~/components';
 import ColorInput from '~/components/Color/ColorInput.vue';
 
 const props = withDefaults(defineProps<{
@@ -44,13 +44,13 @@ watch(custom, (value: string) => {
 
 <template>
   <div class="input-color">
-    <SecondaryButton size="sm" icon-position="only" @click="toggleDropdown()">
+    <TertiaryButton size="sm" icon-position="only" @click="toggleDropdown()">
       <template #icon>
         <i
           :class="icon"
         />
       </template>
-    </SecondaryButton>
+    </TertiaryButton>
     <div v-show="showDropdown" ref="dropdownRef" class="colors-dropdown">
       <ul class="swatches">
         <li v-for="(color, i) in swatches" :key="i" class="swatch" :style="{ backgroundColor: color }" @click="setColor(color)" />

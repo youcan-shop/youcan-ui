@@ -251,7 +251,7 @@ const _toolbar: Record<string, Record<string, any>> = reactive({
 });
 
 // Update text size
-watch(_toolbar.textSize, (newValue) => {
+watch(_toolbar.fontSize, (newValue) => {
   editor.value?.commands.setFontSize(String(newValue.model.value));
 });
 
@@ -282,29 +282,49 @@ function insertEmoji(emoji: string) {
 
 <template>
   <div class="rich-text-editor">
-    <div v-for="(el, i) in Object.values(_toolbar)" :key="i">
-      <Tooltip :label="el.tooltip">
-        <TertiaryButton v-if="el.type === 'TertiaryButton'" icon-position="only" size="sm" @click="el.action()">
-          <template #icon>
-            <i :class="`${el.icon}`" />
-          </template>
-        </TertiaryButton>
-        <Dropdown v-if="el.type === 'Dropdown'" v-model="el.model" :items="el.items" placeholder="" />
-        <Colors v-if="el.type === 'Colors'" v-model="el.model" :icon="el.icon" />
-        <InsertTable v-if="el.type === 'table'" v-model="el.model" @insert="insertTable" />
-        <SecondaryButton v-if="el.type === 'SecondaryButton'" size="sm" @click="el.action()">
-          {{ el.label }}
-        </SecondaryButton>
-        <EmojiPicker v-if="el.type === 'EmojiPicker'" :icon="el.icon" @select="insertEmoji" />
-      </Tooltip>
+    <div class="tool-bar">
+      <div v-for="(el, i) in Object.values(_toolbar)" :key="i">
+        <Tooltip :label="el.tooltip">
+          <TertiaryButton v-if="el.type === 'TertiaryButton'" icon-position="only" size="sm" @click="el.action()">
+            <template #icon>
+              <i :class="`${el.icon}`" />
+            </template>
+          </TertiaryButton>
+          <Dropdown v-if="el.type === 'Dropdown'" v-model="el.model" :items="el.items" placeholder="" />
+          <Colors v-if="el.type === 'Colors'" v-model="el.model" :icon="el.icon" />
+          <InsertTable v-if="el.type === 'table'" v-model="el.model" @insert="insertTable" />
+          <SecondaryButton v-if="el.type === 'SecondaryButton'" size="sm" @click="el.action()">
+            {{ el.label }}
+          </SecondaryButton>
+          <EmojiPicker v-if="el.type === 'EmojiPicker'" :icon="el.icon" @select="insertEmoji" />
+        </Tooltip>
+      </div>
     </div>
+    <EditorContent class="editor-content" :editor="editor" />
   </div>
-  <EditorContent :editor="editor" />
 </template>
 
 <style lang="scss">
-.rich-text-editor{
+/* Change Icon color */
+.icon i {
+  color: var(--gray-700)
+}
+
+.rich-text-editor {
   border: 1px solid var(--gray-100);
+  border-radius: 8px;
+}
+
+.rich-text-editor:focus-within {
+  border:1px solid var(--brand-500) !important;
+}
+
+.editor-content{
+  padding: 10px;
+}
+
+.rich-text-editor .tool-bar {
+  width: 100%;
   border-radius: 8px;
   padding: 8px;
   gap: 8px;
@@ -315,6 +335,7 @@ function insertEmoji(emoji: string) {
   min-height: 173px;
   max-height: 100%;
   overflow-y: auto;
+  outline: none;
 
   table {
     border-collapse: collapse;

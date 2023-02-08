@@ -26,9 +26,11 @@ const props = defineProps<{
     background: var(--gray-900);
     font: var(--text-xs-medium);
     color: var(--base-white);
+    box-shadow: var(--shadow-xs-gray);
     position: absolute;
     bottom: -25px;
     border-radius: 2px;
     min-width: max-content;
+    z-index: 99999;
 }
 </style>

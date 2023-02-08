@@ -1,14 +1,13 @@
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue';
+import { ref } from 'vue';
 import { onClickOutside } from '@vueuse/core';
-import { swatches } from './swatches';
-import { PrimaryButton, SecondaryButton } from '~/components';
+import { PrimaryButton, TertiaryButton } from '~/components';
 import Input from '~/components/Input/Input.vue';
 
 const emit = defineEmits(['insert']);
 
-const rows = ref('2');
-const cols = ref('2');
+const rows = ref();
+const cols = ref();
 
 const dropdownRef = ref();
 const showDropdown = ref(false);
@@ -26,13 +25,13 @@ onClickOutside(dropdownRef, () => {
 
 <template>
   <div class="input-table">
-    <SecondaryButton size="sm" icon-position="only" @click="toggleDropdown()">
+    <TertiaryButton size="sm" icon-position="only" @click="toggleDropdown()">
       <template #icon>
         <i
           class="i-youcan-table"
         />
       </template>
-    </SecondaryButton>
+    </TertiaryButton>
     <div v-show="showDropdown" ref="dropdownRef" class="table-dropdown">
       <Input v-model="rows" type="number" placeholder="rows" />
       <Input v-model="cols" type="number" placeholder="columns" />
