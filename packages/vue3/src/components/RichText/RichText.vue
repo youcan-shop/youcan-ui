@@ -231,6 +231,5 @@ watch(_toolbar.color, (newValue) => {
 
 .resize-cursor {
   cursor: ew-resize;
-  cursor: col-resize;
 }
 </style>
