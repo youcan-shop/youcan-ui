@@ -56,7 +56,7 @@
     "@vueuse/core": "^9.9.0",
     "@youcan/ui-core": "*",
     "@youcan/ui-icons": "*",
-    "@/youcan/ui-visuals": "*",
+    "@youcan/ui-visuals": "*",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "rimraf": "^3.0.2",

@@ -44,6 +44,19 @@ importers:
       '@iconify/utils': 2.0.9
       fs-extra: 11.1.0
 
+  packages/visuals:
+    specifiers:
+      '@iconify/tools': ^2.1.2
+      '@iconify/types': '*'
+      '@iconify/utils': ^2.0.9
+      fs-extra: ^11.1.0
+    dependencies:
+      '@iconify/types': 2.0.0
+    devDependencies:
+      '@iconify/tools': 2.1.2_@iconify+types@2.0.0
+      '@iconify/utils': 2.0.9
+      fs-extra: 11.1.0
+
   packages/vue3:
     specifiers:
       '@iconify-json/line-md': ^1.1.20
@@ -76,6 +89,7 @@ importers:
       '@vueuse/core': ^9.9.0
       '@youcan/ui-core': '*'
       '@youcan/ui-icons': '*'
+      '@youcan/ui-visuals': '*'
       react: ^18.2.0
       react-dom: ^18.2.0
       rimraf: ^3.0.2
@@ -118,6 +132,7 @@ importers:
       '@vueuse/core': 9.9.0_vue@3.2.45
       '@youcan/ui-core': link:../core
       '@youcan/ui-icons': link:../icons
+      '@youcan/ui-visuals': link:../visuals
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
       rimraf: 3.0.2
@@ -1733,19 +1748,6 @@ packages:
 
   /@iconify/types/2.0.0:
     resolution: {integrity: sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg==}
-
-  /@iconify/utils/2.0.6:
-    resolution: {integrity: sha512-XVC4T1gKbtKBjwvWdTthYkRWNNiGDfsbyuTvFdbcOux77KIF2w03hQMxKcMTtFwezzW/DV5CC3DNZfY3Tcs0hA==}
-    dependencies:
-      '@antfu/install-pkg': 0.1.1
-      '@antfu/utils': 0.7.2
-      '@iconify/types': 2.0.0
-      debug: 4.3.4
-      kolorist: 1.6.0
-      local-pkg: 0.4.2
-    transitivePeerDependencies:
-      - supports-color
-    dev: true
 
   /@iconify/utils/2.0.9:
     resolution: {integrity: sha512-ropNqaeamoxZvXxvaTJXrI0MrqdWdDVIs/mW7/sEQbNi0aXYUGL2iuLs1da3QR163gyG63kiyTsqw2oQYamw3Q==}
@@ -4147,7 +4149,7 @@ packages:
   /@unocss/preset-icons/0.47.6:
     resolution: {integrity: sha512-YvANR5ueN+r1E4YOfqF1llyUzS6yxROrJ+7MGNdIfyNHFcTwdHRy0f6y8uyiMYWyLc6nGGrUjjdo+DEc30obSA==}
     dependencies:
-      '@iconify/utils': 2.0.6
+      '@iconify/utils': 2.0.9
       '@unocss/core': 0.47.6
       ohmyfetch: 0.4.21
     transitivePeerDependencies:
