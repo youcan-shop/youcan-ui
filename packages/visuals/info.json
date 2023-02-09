@@ -1,0 +1,13 @@
+{
+  "prefix": "visuals",
+  "name": "YouCan visuals",
+  "total": 12,
+  "version": "1.0.0",
+  "author": {
+    "name": "YouCan",
+    "url": "https://github.com/youcan-shop"
+  },
+  "height": 80,
+  "category": "Empty",
+  "palette": false
+}
