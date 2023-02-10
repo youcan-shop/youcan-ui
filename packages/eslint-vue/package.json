@@ -1,6 +1,6 @@
 {
   "name": "@youcan/eslint-config-vue",
-  "version": "2.2.3",
+  "version": "2.2.4",
   "description": "",
   "author": "YouCan <tech@youcan.shop> (https://github.com/youcan-shop/)",
   "keywords": [
@@ -10,6 +10,9 @@
   "files": [
     "index.js"
   ],
+  "scripts": {
+    "release": "pnpm publish --access public"
+  },
   "peerDependencies": {
     "eslint": ">=7.4.0"
   },

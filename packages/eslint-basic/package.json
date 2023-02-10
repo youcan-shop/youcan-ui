@@ -1,6 +1,6 @@
 {
   "name": "@youcan/eslint-config-basic",
-  "version": "2.2.3",
+  "version": "2.2.4",
   "description": "",
   "author": "YouCan <tech@youcan.shop> (https://github.com/youcan-shop/)",
   "homepage": "https://github.com/youcan-shop/eslint-config",
@@ -12,7 +12,8 @@
     "*.js"
   ],
   "scripts": {
-    "lint": "eslint . --config=index.js"
+    "lint": "eslint . --config=index.js",
+    "release": "pnpm publish --access public"
   },
   "peerDependencies": {
     "eslint": ">=7.4.0"

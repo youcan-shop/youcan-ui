@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-youcan",
-  "version": "2.2.3",
+  "version": "2.2.4",
   "homepage": "https://github.com/youcan-shop/eslint-config",
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
@@ -10,7 +10,8 @@
   ],
   "scripts": {
     "build": "rimraf dist && unbuild",
-    "stub": "unbuild --stub"
+    "stub": "unbuild --stub",
+    "release": "pnpm publish --access public"
   },
   "dependencies": {
     "@typescript-eslint/utils": "^5.51.0"
