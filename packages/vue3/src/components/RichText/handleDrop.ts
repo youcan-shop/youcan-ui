@@ -1,11 +1,10 @@
-import type { Slice } from 'prosemirror-model';
-import type { EditorView } from 'prosemirror-view';
+import type { EditorView } from '@tiptap/pm/view';
 
 const MAX_IMAGE_SIZE_MB = 10;
 const MAX_IMAGE_WIDTH = 2000;
 const MAX_IMAGE_HEIGHT = 2000;
 
-export default function (view: EditorView, event: DragEvent, slice: Slice, moved: boolean, uploadImage: (file: File) => Promise<string | null>) {
+export default function (view: EditorView, event: DragEvent, slice: unknown, moved: boolean, uploadImage: (file: File) => Promise<string | null>) {
   if (!moved && event.dataTransfer && event.dataTransfer.files && event.dataTransfer.files[0]) {
     const file = event.dataTransfer.files[0];
     const filesize = ((file.size / 1024) / 1024).toFixed(4);
