@@ -15,15 +15,15 @@
 
 <style scoped>
 .loader {
-  gap: 8px;
   display: flex;
-  padding: 10px 16px;
   align-items: center;
+  padding: 10px 16px;
+  gap: 8px;
 }
 
 .icon {
-  color: var(--brand-500);
   animation: loader 1000ms ease infinite;
+  color: var(--brand-500);
 }
 
 .label {

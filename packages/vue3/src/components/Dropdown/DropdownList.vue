@@ -100,23 +100,23 @@ function toggle(item: DropdownItemDefinition, value: boolean): void {
 <style scoped>
 .dropdown-list {
   position: relative;
-  border-radius: 8px;
   min-width: fit-content;
-  box-shadow: var(--shadow-md);
   border: 1px solid var(--gray-100);
+  border-radius: 8px;
   background-color: var(--base-white);
+  box-shadow: var(--shadow-md);
 }
 
 .dropdown-list .inner {
   --max-height: 240px;
 
   max-height: var(--max-height);
-  border-radius: 8px;
-  overflow-y: auto;
   padding: 8px 0;
   overflow-x: hidden;
-  white-space: nowrap;
+  overflow-y: auto;
+  border-radius: 8px;
   text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .dropdown-list.searchable {
@@ -124,20 +124,20 @@ function toggle(item: DropdownItemDefinition, value: boolean): void {
 }
 
 .search {
+  position: sticky;
   top: 0;
   left: 0;
-  position: sticky;
   padding-top: 4px;
   background-color: transparent;
 }
 
 .search input {
   width: 100%;
-  border: none;
-  outline: none;
   padding: 10px 16px;
-  font: var(--text-sm-regular);
+  border: none;
   border-bottom: 1px solid var(--brand-500);
+  outline: none;
+  font: var(--text-sm-regular);
 }
 
 .search::placeholder {
@@ -146,8 +146,8 @@ function toggle(item: DropdownItemDefinition, value: boolean): void {
 
 .inner .title {
   padding: 6px 16px;
-  font: var(--text-sm-medium);
   color: var(--gray-900);
+  font: var(--text-sm-medium);
 }
 
 .no-results {

@@ -13,24 +13,21 @@ defineProps<{
 
 <style scoped>
 .tooltip {
-    position: relative;
+  position: relative;
 }
 
 .tooltip:hover .label {
-    display: block;
-}
-
-.tooltip .label {
-    display: none;
-    padding:  3px 8px;
-    background: var(--gray-900);
-    font: var(--text-xs-medium);
-    color: var(--base-white);
-    box-shadow: var(--shadow-xs-gray);
-    position: absolute;
-    bottom: -25px;
-    border-radius: 2px;
-    min-width: max-content;
-    z-index: 99999;
+  display: block;
+  display: none;
+  position: absolute;
+  z-index: 99999;
+  bottom: -25px;
+  min-width: max-content;
+  padding: 3px 8px;
+  border-radius: 2px;
+  background: var(--gray-900);
+  box-shadow: var(--shadow-xs-gray);
+  color: var(--base-white);
+  font: var(--text-xs-medium);
 }
 </style>

@@ -23,10 +23,10 @@
   display: flex;
   align-items: center;
   max-width: 540px;
-  background: var(--note-background);
+  padding: 2px 25px;
   border: 1px solid var(--note-border-color);
   border-radius: 8px;
-  padding: 2px 25px;
+  background: var(--note-background);
   gap: 32px;
 }
 

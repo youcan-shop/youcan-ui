@@ -45,15 +45,15 @@ const hasChildren = computed(() => {
 .sidebar-item {
   --height: 46px;
 
-  gap: 12px;
-  width: 100%;
-  border: none;
   display: flex;
-  cursor: pointer;
-  padding: 0 12px;
   align-items: center;
+  width: 100%;
   height: var(--height);
+  padding: 0 12px;
+  border: none;
   background-color: transparent;
+  cursor: pointer;
+  gap: 12px;
 }
 
 .sidebar-item:hover {
@@ -67,7 +67,7 @@ const hasChildren = computed(() => {
 
 .sidebar-item.active {
   background-color: var(--gray-700);
-  box-shadow: inset 2px 0px 0px 0px var(--base-white);
+  box-shadow: inset 2px 0 0 0 var(--base-white);
 }
 
 .sidebar-item .item-icon .icon {
@@ -84,7 +84,7 @@ const hasChildren = computed(() => {
 .expand-icon {
   width: 16px;
   height: 16px;
-  color: var(--base-white);
   margin-inline-start: auto;
+  color: var(--base-white);
 }
 </style>

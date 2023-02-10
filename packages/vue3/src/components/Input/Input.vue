@@ -57,10 +57,10 @@ onBeforeMount(() => {
 
   display: flex;
   align-items: center;
-  border-radius: 8px;
-  box-shadow: var(--shadow);
   border: var(--border);
+  border-radius: 8px;
   background-color: var(--base-white);
+  box-shadow: var(--shadow);
 }
 
 .wrapper.enabled:hover {
@@ -86,9 +86,9 @@ onBeforeMount(() => {
 
 .input {
   width: 100%;
+  padding: 11.5px 16px;
   border: none;
   outline: none;
-  padding: 11.5px 16px;
   background-color: transparent;
   font: var(--text-sm-regular);
 }

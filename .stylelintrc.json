@@ -1,0 +1,8 @@
+{
+  "extends": [
+    "stylelint-config-property-sort-order-smacss",
+    "stylelint-config-standard-scss",
+    "stylelint-config-standard-vue",
+    "stylelint-config-standard-vue/scss"
+  ]
+}

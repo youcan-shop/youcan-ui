@@ -81,25 +81,25 @@ watch(() => props.rgba, () => renderSlider());
 <style scoped lang="scss">
 .alpha-wrapper {
   display: block;
-  cursor: pointer;
   position: relative;
   width: v-bind("`${width}px`");
   height: v-bind("`${height}px`");
+  cursor: pointer;
 }
 
 .canvas {
-  border-radius: 500px;
   display: block;
+  border-radius: 500px;
 }
 
 .alpha-wrapper .slider {
   position: absolute;
+  top: -3px;
   width: v-bind("`${width}px`");
+  width: 16px;
+  height: 16px;
   background: var(--base-white);
   box-shadow: var(--shadow-sm-gray);
   pointer-events: none;
-  width: 16px;
-  height: 16px;
-  top: -3px;
 }
 </style>

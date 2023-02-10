@@ -95,56 +95,56 @@ onMounted(() => {
   --background-color: var(--base-white);
 
   display: flex;
-  align-items: center;
   flex-wrap: wrap;
-  gap: 6px;
-  padding: 6px;
+  align-items: center;
   width: var(--width);
-  background-color: var(--background-color);
-  border-radius: 8px;
+  padding: 6px;
   border: var(--border);
-  box-shadow: var(--shadow);
+  border-radius: 8px;
   outline: none;
+  background-color: var(--background-color);
+  box-shadow: var(--shadow);
+  gap: 6px;
 }
 
 .tag:hover {
   --border: 1px solid var(--gray-200);
 }
 
-.tag[disabled='false'][error='false']:focus,
-.tag[disabled='false'][error='false']:focus-within {
+.tag[disabled="false"][error="false"]:focus,
+.tag[disabled="false"][error="false"]:focus-within {
   --border: 1px solid var(--brand-500);
   --shadow: var(--focus-shadow-xs-brand);
 }
 
-.tag[disabled='false'][error='true'] {
+.tag[disabled="false"][error="true"] {
   --border: 1px solid var(--red-500);
 }
 
-.tag[disabled='false'][error='true']:focus,
-.tag[disabled='false'][error='true']:focus-within {
+.tag[disabled="false"][error="true"]:focus,
+.tag[disabled="false"][error="true"]:focus-within {
   --border: 1px solid var(--red-500);
   --shadow: var(--focus-shadow-xs-red);
 }
 
-.tag[disabled='true'] {
+.tag[disabled="true"] {
   --text-color: var(--gray-300);
   --background-color: var(--gray-50);
-}
-
-.tag[disabled='true'] .tag-input {
-  background-color: var(--gray-50);
-  pointer-events: none;
 }
 
 .tag .tag-input {
   flex: 1;
   min-width: 146px;
+  border: none;
+  outline: none;
   background-color: var(--base-white);
   color: var(--gray-900);
   font: var(--text-sm-regular);
-  border: none;
-  outline: none;
+}
+
+.tag[disabled="true"] .tag-input {
+  background-color: var(--gray-50);
+  pointer-events: none;
 }
 
 .tag .tag-input::placeholder {

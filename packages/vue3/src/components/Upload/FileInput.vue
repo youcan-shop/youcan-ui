@@ -43,12 +43,12 @@ function handlefiles(files: File[]) {
 <style scoped>
 .facade {
   display: grid;
-  border-radius: 4px;
   padding: 12px 16px;
-  place-items: center;
-  box-shadow: var(--shadow-xs-gray);
-  background-color: var(--gray-50);
   border: 1px solid var(--gray-100);
+  border-radius: 4px;
+  background-color: var(--gray-50);
+  box-shadow: var(--shadow-xs-gray);
+  place-items: center;
 }
 
 .facade.sm {
@@ -67,8 +67,8 @@ function handlefiles(files: File[]) {
 
 .facade:active,
 .facade:focus {
-  outline: none;
   border: 1px solid var(--brand-500);
+  outline: none;
   box-shadow: var(--focus-shadow-xs-brand);
 }
 

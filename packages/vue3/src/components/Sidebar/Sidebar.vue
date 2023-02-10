@@ -39,13 +39,13 @@ const toggle = (override = !collapsed.value) => collapsed.value = override;
 }
 
 .sidebar-header {
-  gap: 12px;
-  height: 64px;
   display: flex;
-  padding: 0 12px;
   align-items: center;
-  font: var(--text-lg-medium);
+  height: 64px;
+  padding: 0 12px;
   border-bottom: 1px solid var(--gray-700);
+  font: var(--text-lg-medium);
+  gap: 12px;
 }
 
 .sidebar-header:hover {
@@ -68,8 +68,8 @@ const toggle = (override = !collapsed.value) => collapsed.value = override;
 
 .item-icon,
 :deep(.item-icon) {
-  color: var(--gray-100);
   outline: none;
+  color: var(--gray-100);
 }
 
 .sidebar-header .item-label {
@@ -79,8 +79,8 @@ const toggle = (override = !collapsed.value) => collapsed.value = override;
 .sidebar-header .item-icon {
   padding: 0;
   border: none;
-  cursor: pointer;
   background-color: transparent;
+  cursor: pointer;
 }
 
 /* collapsed */

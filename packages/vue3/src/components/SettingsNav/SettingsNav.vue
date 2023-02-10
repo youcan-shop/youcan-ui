@@ -16,17 +16,17 @@
 
 <style scoped>
 .settings-nav {
-  padding: 0 0 8px;
   max-width: 240px;
-  border-radius: 8px;
-  box-shadow: var(--shadow-xs-gray);
+  padding: 0 0 8px;
   border: 1px solid var(--gray-100);
+  border-radius: 8px;
   background-color: var(--base-white);
+  box-shadow: var(--shadow-xs-gray);
 }
 
 .header {
+  padding: 16px 8px 16px 20px;
   border-bottom: 1px solid var(--gray-100);
   font-weight: var(--text-md-medium);
-  padding: 16px 8px 16px 20px;
 }
 </style>

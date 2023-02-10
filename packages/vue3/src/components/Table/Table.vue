@@ -201,33 +201,33 @@ const batchSelect = (value: boolean) => checkedRows.value = Array<boolean>(props
 
 <style scoped>
 .table-container {
-  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100%;
 }
 
 .table {
   width: 100%;
-  border-collapse: collapse;
   overflow: hidden;
+  border-collapse: collapse;
 }
 
 .table-head {
-  background-color: var(--gray-50);
   height: 52px;
   border-bottom: 1px solid var(--gray-100);
+  background-color: var(--gray-50);
 }
 
 .table-head .head-column {
-  text-align: start;
   height: 100%;
   padding: 0 16px;
+  text-align: start;
 }
 
 .table-head .head-column .text {
-  font: var(--text-sm-medium);
   color: var(--gray-700);
+  font: var(--text-sm-medium);
 }
 
 .table-head .head-column .sort-icon {
@@ -244,13 +244,13 @@ const batchSelect = (value: boolean) => checkedRows.value = Array<boolean>(props
 }
 
 .table-body .text-column {
-  font: var(--text-sm-regular);
   color: var(--gray-900);
+  font: var(--text-sm-regular);
 }
 
 .table-body .text-column.na {
-  font: var(--text-sm-medium);
   color: var(--gray-300);
+  font: var(--text-sm-medium);
   text-transform: uppercase;
 }
 </style>

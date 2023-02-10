@@ -60,34 +60,36 @@ onClickOutside(dropdownRef, () => {
 .input-emoji {
   position: relative;
 }
+
 .emojis-dropdown {
   position: absolute;
   z-index: 999999;
-  margin-top:10px;
-  color: var(--gray-500);
-  box-shadow: var(--shadow-xs-gray);
-  border: 1px solid var(--gray-100);
-  background-color: var(--base-white);
-  padding:12px;
-  border-radius: 4px;
   width: 200px;
   height: 200px;
+  margin-top: 10px;
+  padding: 12px;
+  border: 1px solid var(--gray-100);
+  border-radius: 4px;
+  background-color: var(--base-white);
+  box-shadow: var(--shadow-xs-gray);
+  color: var(--gray-500);
 }
 
 .emojis {
   display: flex;
+  flex-wrap: wrap;
   align-items: start;
   justify-content: start;
-  flex-wrap: wrap;
-  gap: 10px;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  margin-bottom: 10px;
-  height: 100%;
   width: 100%;
+  height: 100%;
+  margin: 0;
+  margin-bottom: 10px;
+  padding: 0;
   overflow: auto;
+  list-style: none;
+  gap: 10px;
 }
+
 .emojis .emoji {
   font-size: 18px;
   cursor: pointer;

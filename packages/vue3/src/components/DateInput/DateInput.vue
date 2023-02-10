@@ -57,12 +57,10 @@ onClickOutside(datePicker, () => toggleDatePicker(false));
 }
 
 .input-trigger {
-  width: 100%;
-}
-
-.input-trigger {
-  justify-content: space-between;
   --icon-color: gray(--gray-500);
+
+  justify-content: space-between;
+  width: 100%;
 }
 
 .date-picker-container {

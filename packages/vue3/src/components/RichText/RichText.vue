@@ -136,60 +136,60 @@ watch(_toolbar.color, (newValue) => {
 
 <style lang="scss">
 .rich-text-editor {
+  overflow: hidden;
   border: 1px solid var(--gray-100);
   border-radius: 8px;
-  overflow: hidden;
 }
 
-.tool-bar{
-  border: 1px solid var(--gray-100);
+.tool-bar {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  border: 1px solid var(--gray-100);
   justify-self: center;
 }
 
 /* Change Icon color */
-.tool-bar > icon i {
-  color: var(--gray-700)
+.tool-bar > .icon i {
+  color: var(--gray-700);
 }
 
 .rich-text-editor:focus-within {
-  outline:1px solid var(--brand-500) !important;
+  outline: 1px solid var(--brand-500) !important;
 }
 
-.editor-content{
+.editor-content {
   padding: 10px;
 }
 
 .rich-text-editor .tool-bar {
+  display: flex;
   width: 100%;
   padding: 8px;
   gap: 8px;
-  display: flex;
 }
 
-.ProseMirror {
+.ProseMirror { /* stylelint-disable-line */
   min-height: 173px;
   max-height: 100%;
   overflow-y: auto;
   outline: none;
 
   table {
-    border-collapse: collapse;
-    table-layout: fixed;
     width: 100%;
     margin: 0;
     overflow: hidden;
+    table-layout: fixed;
+    border-collapse: collapse;
 
     td,
     th {
-      min-width: 1em;
-      border: 2px solid var(--gray-100);
-      padding: 3px 5px;
-      vertical-align: top;
-      box-sizing: border-box;
       position: relative;
+      box-sizing: border-box;
+      min-width: 1em;
+      padding: 3px 5px;
+      border: 2px solid var(--gray-100);
+      vertical-align: top;
 
       > * {
         margin-bottom: 0;
@@ -197,27 +197,27 @@ watch(_toolbar.color, (newValue) => {
     }
 
     th {
+      background-color: var(--gray-50);
       font-weight: bold;
       text-align: left;
-      background-color: var(--gray-50);
     }
 
-    .selectedCell:after {
-      z-index: 2;
-      position: absolute;
+    .selectedCell::after { /* stylelint-disable-line */
       content: "";
-      left: 0;
-      right: 0;
+      position: absolute;
+      z-index: 2;
       top: 0;
+      right: 0;
       bottom: 0;
+      left: 0;
       background: var(--gray-100);
       pointer-events: none;
     }
 
     .column-resize-handle {
       position: absolute;
-      right: -2px;
       top: 0;
+      right: -2px;
       bottom: -2px;
       width: 4px;
       background-color: var(--gray-100);
@@ -230,7 +230,7 @@ watch(_toolbar.color, (newValue) => {
   }
 }
 
-.tableWrapper {
+.tableWrapper { /* stylelint-disable-line */
   padding: 1rem 0;
   overflow-x: auto;
 }

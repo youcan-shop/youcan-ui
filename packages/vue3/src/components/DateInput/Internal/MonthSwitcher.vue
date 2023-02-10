@@ -47,7 +47,7 @@ const changeMonth = (increment: boolean) => {
 }
 
 .month-switcher .text {
-  font: var(--text-sm-medium);
   color: var(--gray-900);
+  font: var(--text-sm-medium);
 }
 </style>

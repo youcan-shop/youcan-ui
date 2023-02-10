@@ -54,15 +54,15 @@ const model = computed<DropdownItemDefinition | null>({
 
 <style scoped>
 .dropdown-input {
-  gap: 8px;
-  width: 100%;
   display: flex;
-  cursor: pointer;
   align-items: center;
-  color: var(--gray-500);
-  box-shadow: var(--shadow-xs-gray);
+  width: 100%;
   border: 1px solid var(--gray-100);
   background-color: var(--base-white);
+  box-shadow: var(--shadow-xs-gray);
+  color: var(--gray-500);
+  cursor: pointer;
+  gap: 8px;
 }
 
 .dropdown-input.size-36 {
@@ -76,11 +76,11 @@ const model = computed<DropdownItemDefinition | null>({
 }
 
 .dropdown-input .label {
-  color: var(--gray-900);
   overflow: hidden;
-  white-space: nowrap;
+  color: var(--gray-900);
   font: var(--text-sm-regular);
   text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .dropdown-input:hover {
@@ -88,9 +88,9 @@ const model = computed<DropdownItemDefinition | null>({
 }
 
 .dropdown-input:is(:focus, :active) {
+  border: 1px solid var(--brand-500);
   outline: none;
   box-shadow: var(--focus-shadow-xs-brand);
-  border: 1px solid var(--brand-500);
 }
 
 .dropdown-input .chevron {
@@ -104,7 +104,7 @@ const model = computed<DropdownItemDefinition | null>({
 .dropdown-list {
   position: absolute;
   z-index: 10;
-  width: 100%;
   top: 8px;
+  width: 100%;
 }
 </style>

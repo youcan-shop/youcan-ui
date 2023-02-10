@@ -15,19 +15,19 @@
 
 <style scoped>
 .wrapper {
-    gap: 8px;
-    display: flex;
-    padding: 10px 16px;
-    align-items: center;
+  display: flex;
+  align-items: center;
+  padding: 10px 16px;
+  gap: 8px;
 }
 
 .icon {
-    color: var(--gray-500);
-    animation: loader 1000ms ease infinite;
+  animation: loader 1000ms ease infinite;
+  color: var(--gray-500);
 }
 
 .label {
-    color: var(--gray-900);
-    font: var(--text-sm-regular);
+  color: var(--gray-900);
+  font: var(--text-sm-regular);
 }
 </style>

@@ -35,11 +35,11 @@ withDefaults(
   justify-content: center;
   width: var(--size);
   height: var(--size);
-  border-radius: 4px;
-  box-shadow: var(--shadow-xs-gray);
-  background-color: var(--base-white);
-  border: 1px solid var(--gray-100);
   overflow: hidden;
+  border: 1px solid var(--gray-100);
+  border-radius: 4px;
+  background-color: var(--base-white);
+  box-shadow: var(--shadow-xs-gray);
 }
 
 .thumbnail.size-small {
@@ -51,17 +51,17 @@ withDefaults(
 }
 
 .placeholder {
-  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 100%;
 }
 
 .placeholder .icon {
   display: block;
-  color: var(--gray-300);
   width: 20px;
   height: 20px;
+  color: var(--gray-300);
 }
 
 .image {

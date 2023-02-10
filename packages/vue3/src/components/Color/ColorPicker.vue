@@ -116,18 +116,18 @@ watch(
 
 <style scoped lang="scss">
 .color-picker {
+  width: min-content;
+  padding: 12px;
+  border-radius: 8px;
   background-color: var(--base-white);
   box-shadow: var(--shadow-md);
-  width: min-content;
-  border-radius: 8px;
-  padding: 12px;
 }
 
 .sliders {
   margin-top: 12px;
 }
 
-.sliders>*+* {
+.sliders > * + * {
   margin-top: 8px;
 }
 
@@ -137,13 +137,13 @@ watch(
 
 .color-override label {
   display: block;
-  font: var(--text-sm-medium);
   margin-bottom: 4px;
+  font: var(--text-sm-medium);
 }
 
 hr {
+  margin: 12px 0;
   border: none;
   border-top: 1px solid var(--gray-100);
-  margin: 12px 0;
 }
 </style>

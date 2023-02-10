@@ -38,9 +38,9 @@ label {
 }
 
 .checkbox {
+  display: block;
   cursor: pointer;
   user-select: none;
-  display: block;
 }
 
 .checkbox.has-label {
@@ -53,59 +53,56 @@ label {
 }
 
 .checkmark {
+  display: grid;
   width: 16px;
   height: 16px;
-  display: grid;
-  border-radius: 4px;
-  place-items: center;
-  box-shadow: var(--shadow-xs-gray);
   border: 1px solid var(--gray-100);
+  border-radius: 4px;
   background-color: var(--base-white);
+  box-shadow: var(--shadow-xs-gray);
+  place-items: center;
 }
 
 .checkmark i {
+  display: none;
   width: 14px;
   height: 14px;
-  display: none;
   color: var(--base-white);
 }
 
 .checkmark.checked {
-  background-color: var(--brand-500);
   border: 1px solid transparent;
+  background-color: var(--brand-500);
 }
 
 .checkmark.checked i {
   display: inline-block;
 }
 
-label:hover input:enabled~.checkmark {
-  background-color: var(--gray-50);
+input:disabled ~ .checkmark {
+  border: 1px solid var(--gray-50);
+  background: var(--base-white);
+  box-shadow: none;
+  cursor: default;
 }
 
-label:hover input:enabled~.checkmark.checked {
-  background-color: var(--brand-600);
-}
-
-input:enabled:is(:focus, :active)~.checkmark {
+input:enabled:is(:focus, :active) ~ .checkmark {
   box-shadow: var(--focus-shadow-xs-brand);
 }
 
-input:disabled~.checkmark {
-  cursor: default;
-  box-shadow: none;
+label:hover input:enabled ~ .checkmark {
+  background-color: var(--gray-50);
 }
 
-.checkbox:has(.input:disabled)~.label {
-  color: var(--gray-300);
-}
-
-input:disabled~.checkmark {
-  background: var(--base-white);
-  border: 1px solid var(--gray-50);
-}
-
-input:disabled~.checkmark.checked {
+input:disabled ~ .checkmark.checked {
   background-color: var(--gray-100);
+}
+
+label:hover input:enabled ~ .checkmark.checked {
+  background-color: var(--brand-600);
+}
+
+.checkbox:has(.input:disabled) ~ .label {
+  color: var(--gray-300);
 }
 </style>

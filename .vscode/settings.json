@@ -3,6 +3,10 @@
   "editor.formatOnSave": false,
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true,
+    "source.fixAll.stylelint": true,
     "source.organizeImports": false
-  }
+  },
+  "stylelint.validate": [
+    "vue"
+  ]
 }
