@@ -45,15 +45,16 @@ $states: hover, focus, active, disabled;
   --border-radius: 8px;
   --icon-size: 20px;
   --text-style: var(--text-sm-medium);
-  --icon-position: 'row';
+  --icon-position: "row";
   --border: none;
   --shadow: var(--shadow-xs-gray);
   --gap: 8px;
+
   $properties: background-color,
-  border,
-  shadow,
-  text-color,
-  icon-color;
+    border,
+    shadow,
+    text-color,
+    icon-color;
 
   @each $state in $states {
     @each $property in $properties {
@@ -62,35 +63,35 @@ $states: hover, focus, active, disabled;
   }
 
   display: flex;
+  flex-direction: var(--icon-position);
   align-items: center;
   justify-content: center;
-  flex-direction: var(--icon-position);
-  gap: var(--gap);
-  border-radius: var(--border-radius);
-  background-color: var(--background-color);
-  border: var(--border);
   padding: var(--padding);
-  box-shadow: var(--shadow);
+  border: var(--border);
+  border-radius: var(--border-radius);
   outline: none;
+  background-color: var(--background-color);
+  box-shadow: var(--shadow);
+  gap: var(--gap);
 
   .text {
-    color: var(--text-color);
-    font: var(--text-style);
     display: flex;
     align-items: center;
     justify-content: center;
+    color: var(--text-color);
+    font: var(--text-style);
   }
 
   .icon {
-    color: var(--icon-color);
     display: flex;
     align-items: center;
     justify-content: center;
+    color: var(--icon-color);
 
     :deep(i) {
+      flex: none;
       width: var(--icon-size);
       height: var(--icon-size);
-      flex: none;
     }
   }
 
@@ -186,8 +187,8 @@ $states: hover, focus, active, disabled;
 
 @each $state in $states {
   .base-button:#{$state} {
-    background-color: var(--#{$state}-background-color);
     border: var(--#{$state}-border);
+    background-color: var(--#{$state}-background-color);
     box-shadow: var(--#{$state}-shadow);
 
     .text {

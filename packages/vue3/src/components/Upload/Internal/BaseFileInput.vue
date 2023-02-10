@@ -50,7 +50,3 @@ function handleclick(_e: MouseEvent) {
     <slot ref="facade" name="facade" />
   </div>
 </template>
-
-<style scoped>
-
-</style>

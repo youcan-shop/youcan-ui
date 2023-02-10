@@ -26,34 +26,34 @@ const model = computed({
   --padding: calc(var(--knob-size) / 8);
   --toggle-width: calc((var(--knob-size) * 2) + (var(--padding) * 2));
 
+  display: flex;
+  position: relative;
+  align-items: center;
   width: var(--toggle-width);
   height: calc(var(--knob-size) + (var(--padding) * 2));
-  background-color: var(--gray-100);
-  border-radius: var(--knob-size);
-  box-shadow: var(--shadow-xs-gray);
   padding: var(--padding);
-  display: flex;
-  align-items: center;
-  position: relative;
-  border: none;
   transition: background-color 80ms linear;
+  border: none;
+  border-radius: var(--knob-size);
+  background-color: var(--gray-100);
+  box-shadow: var(--shadow-xs-gray);
   cursor: pointer;
 
   &::before {
-    content: '';
+    content: "";
     display: block;
     position: absolute;
     top: var(--padding);
     left: var(--padding);
     width: var(--knob-size);
     height: var(--knob-size);
-    background-color: var(--base-white);
-    border-radius: 50%;
-    box-shadow: var(--shadow-xs-gray);
     transition: transform 120ms ease-in-out;
+    border-radius: 50%;
+    background-color: var(--base-white);
+    box-shadow: var(--shadow-xs-gray);
   }
 
-  &[aria-checked='true'] {
+  &[aria-checked="true"] {
     background-color: var(--blue-700);
 
     &::before {

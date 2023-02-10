@@ -57,24 +57,24 @@ onMounted(() => {
 
 <style scoped>
 .file {
+  position: relative;
   width: 240px;
   height: 240px;
   border-radius: 8px;
-  position: relative;
-  box-shadow: var(--shadow-xs-gray);
   background-color: var(--base-white);
+  box-shadow: var(--shadow-xs-gray);
 }
 
 .actions {
+  display: none;
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  display: none;
-  position: absolute;
-  border-radius: 8px;
   margin-inline-start: auto;
-  background: linear-gradient(0deg, rgba(0, 0, 0, 0.24), rgba(0, 0, 0, 0.24)), url(.jpg);
+  border-radius: 8px;
+  background: linear-gradient(0deg, rgb(0 0 0 / 24%), rgb(0 0 0 / 24%)), url(".jpg");
 }
 
 .actions .action {
@@ -90,12 +90,13 @@ onMounted(() => {
 }
 
 .actions .icon-remove {
-  cursor: pointer;
   color: var(--red-500);
+  cursor: pointer;
 }
 
 .preview.size-large {
   --size: 240px;
+
   border-radius: 8px;
 }
 
@@ -105,25 +106,25 @@ onMounted(() => {
 }
 
 .preview:deep(.icon) {
-  height: 44px;
   width: 44px;
+  height: 44px;
 }
 
 .popup {
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
   display: grid;
   position: absolute;
+  top: 0;
+  left: 0;
   align-items: center;
-  background: linear-gradient(0deg, rgba(0, 0, 0, 0.24), rgba(0, 0, 0, 0.24)), url(.jpg);
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(0deg, rgb(0 0 0 / 24%), rgb(0 0 0 / 24%)), url(".jpg");
 }
 
 .popup img {
-  margin: auto;
-  max-height: 90vh;
   max-width: 100vw;
+  max-height: 90vh;
+  margin: auto;
 }
 
 @keyframes spinner {

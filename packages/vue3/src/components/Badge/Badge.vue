@@ -32,19 +32,19 @@ $states: (
   --background-color: var(--gray-300);
   --height: v-bind(`${size}px`);
 
-  font: var(--text-sm-medium);
-  color: var(--base-white);
-  padding: 0 6px;
-  border-radius: 100px;
   display: flex;
   align-items: center;
   justify-content: center;
   width: min-content;
   height: var(--height);
+  padding: 0 6px;
+  border-radius: 100px;
   background-color: var(--background-color);
+  color: var(--base-white);
+  font: var(--text-sm-medium);
 
   @each $state,
-  $color in $states {
+    $color in $states {
     &.state-#{$state} {
       --background-color: var(--#{$color});
     }

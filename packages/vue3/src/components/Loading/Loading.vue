@@ -74,17 +74,17 @@ watchEffect(() => {
 }
 
 .loading-circle {
-  fill: none;
-  stroke: var(--loading-stroke-color);
   stroke-width: 4;
+  stroke: var(--loading-stroke-color);
+  fill: none;
 }
 
 .loading-circle-progress {
-  fill: none;
-  stroke: var(--brand-500);
   stroke-width: 4;
-  stroke-dasharray: 284;
   stroke-linecap: round;
+  stroke-dasharray: 284;
+  stroke: var(--brand-500);
+  fill: none;
 }
 
 .loading-value {
@@ -92,7 +92,7 @@ watchEffect(() => {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font: var(--text-xl-medium);
   color: var(--brand-500);
+  font: var(--text-xl-medium);
 }
 </style>

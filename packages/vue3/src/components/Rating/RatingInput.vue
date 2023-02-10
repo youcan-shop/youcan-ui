@@ -41,13 +41,13 @@ onUpdated(() => {
 
 <style scoped>
 .star {
-    cursor: pointer;
-    display: inline-block;
-    margin-inline-end: 2px;
-    color: var(--gray-100);
+  display: inline-block;
+  margin-inline-end: 2px;
+  color: var(--gray-100);
+  cursor: pointer;
 }
 
 .star.active {
-    color: var(--yellow-500);
+  color: var(--yellow-500);
 }
 </style>

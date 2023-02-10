@@ -23,8 +23,8 @@ defineProps<{
 <style scoped>
 button {
   border: none;
-  cursor: pointer;
   background-color: transparent;
+  cursor: pointer;
 }
 
 button:is(:focus, :active) {
@@ -32,13 +32,13 @@ button:is(:focus, :active) {
 }
 
 .tab {
-  gap: 4px;
   display: flex;
-  padding: 16px 0;
   align-items: center;
-  margin-bottom: -1px;
   justify-content: center;
+  margin-bottom: -1px;
+  padding: 16px 0;
   border-bottom: 1px solid transparent;
+  gap: 4px;
 }
 
 .tab .label {
@@ -51,22 +51,26 @@ button:is(:focus, :active) {
   color: var(--gray-900);
 }
 
-.tab:is(:focus, :active):not(.active, .disabled) .label {
-  box-shadow: var(--focus-shadow-xs-brand);
-  outline: 1px solid var(--brand-500);
-}
-
-.tab.active {
-  cursor: default;
-  border-bottom: 2px solid var(--brand-500);
-}
-
 .tab.active .label {
   color: var(--brand-500);
 }
 
 .tab.error .label {
   color: var(--red-500);
+}
+
+.tab.disabled .label {
+  color: var(--gray-300);
+}
+
+.tab:is(:focus, :active):not(.active, .disabled) .label {
+  outline: 1px solid var(--brand-500);
+  box-shadow: var(--focus-shadow-xs-brand);
+}
+
+.tab.active {
+  border-bottom: 2px solid var(--brand-500);
+  cursor: default;
 }
 
 .tab.error:hover .label {
@@ -79,9 +83,5 @@ button:is(:focus, :active) {
 
 .tab.disabled {
   pointer-events: none;
-}
-
-.tab.disabled .label {
-  color: var(--gray-300);
 }
 </style>

@@ -39,20 +39,20 @@ function toggle(override = !model.value) {
 
 <style scoped>
 .item {
-  gap: 8px;
-  width: 100%;
-  border: none;
   display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 12px 16px;
+  border: none;
+  background-color: var(--base-white);
   cursor: pointer;
   user-select: none;
-  padding: 12px 16px;
-  align-items: center;
-  background-color: var(--base-white);
+  gap: 8px;
 }
 
 .item .label {
-  font: var(--text-sm-regular);
   color: var(--gray-900);
+  font: var(--text-sm-regular);
 }
 
 .item:hover {

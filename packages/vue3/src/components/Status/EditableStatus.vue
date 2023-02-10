@@ -47,14 +47,14 @@ const model = computed({
 
 <style scoped>
 .editable-status {
-  padding: 0;
-  border: none;
   display: flex;
-  cursor: pointer;
-  border-radius: 4px;
-  padding-right: 12px;
   align-items: center;
-  background-color: v-bind('model.color');
+  padding: 0;
+  padding-right: 12px;
+  border: none;
+  border-radius: 4px;
+  background-color: v-bind("model.color");
+  cursor: pointer;
 }
 
 .editable-status:hover {
@@ -73,38 +73,38 @@ const model = computed({
 }
 
 .editable-status .static-status {
-  text-align: center;
   max-width: fit-content;
-  font: var(--text-sm-medium);
-  color: var(--base-white);
-  border-radius: 4px 0 0 4px;
-  box-shadow: var(--shadow-xs-gray);
   padding: 7.5px 8px 7.5px 12px;
-  background: v-bind('model.color');
+  border-radius: 4px 0 0 4px;
+  background: v-bind("model.color");
+  box-shadow: var(--shadow-xs-gray);
+  color: var(--base-white);
+  font: var(--text-sm-medium);
+  text-align: center;
 }
 
 .status-list {
-  top: 8px;
   display: flex;
-  padding: 8px 0;
-  min-width: 100px;
-  border-radius: 4px;
   position: absolute;
+  top: 8px;
   flex-direction: column;
+  min-width: 100px;
+  padding: 8px 0;
   border: 1px solid var(--gray-100);
+  border-radius: 4px;
   background-color: var(--base-white);
   box-shadow: var(--shadow-md-gray);
 }
 
 .status-list-item {
-  gap: 8px;
-  border: none;
   display: flex;
-  cursor: pointer;
-  padding: 10px 12px;
   align-items: center;
-  text-align: inherit;
+  padding: 10px 12px;
+  border: none;
   background-color: transparent;
+  text-align: inherit;
+  cursor: pointer;
+  gap: 8px;
 }
 
 .status-list-item:hover {
@@ -121,9 +121,9 @@ const model = computed({
 }
 
 .status-list-item .color {
+  display: block;
   width: 6px;
   height: 6px;
-  display: block;
   border-radius: 100%;
 }
 

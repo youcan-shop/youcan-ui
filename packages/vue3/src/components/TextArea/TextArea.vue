@@ -31,12 +31,12 @@ const model = computed({
 <style scoped>
 .wrapper {
   display: flex;
-  height: max-content;
   align-items: center;
-  border-radius: 8px;
-  box-shadow: var(--shadow-xs-gray);
+  height: max-content;
   border: 1px solid var(--gray-100);
+  border-radius: 8px;
   background-color: var(--base-white);
+  box-shadow: var(--shadow-xs-gray);
 }
 
 .wrapper.enabled:hover {
@@ -63,9 +63,9 @@ const model = computed({
 .textarea {
   width: 100%;
   min-height: 130px;
+  padding: 11.5px 16px;
   border: none;
   outline: none;
-  padding: 11.5px 16px;
   background-color: transparent;
   font: var(--text-sm-regular);
   resize: none;

@@ -21,14 +21,14 @@ const emit = defineEmits(['delete']);
 
 <style scoped>
 .file {
-  gap: 8px;
   display: flex;
-  padding: 12px 16px;
-  border-radius: 8px;
   align-items: center;
-  box-shadow: var(--shadow-xs-gray);
+  padding: 12px 16px;
   border: 1px solid var(--gray-100);
+  border-radius: 8px;
   background-color: var(--base-white);
+  box-shadow: var(--shadow-xs-gray);
+  gap: 8px;
 }
 
 .file .name {
@@ -45,8 +45,8 @@ const emit = defineEmits(['delete']);
 }
 
 .file .status-icon .icon-loading {
-  color: var(--blue-500);
   animation: spinner 1200ms linear infinite;
+  color: var(--blue-500);
 }
 
 .actions {
@@ -54,8 +54,8 @@ const emit = defineEmits(['delete']);
 }
 
 .actions .icon-remove {
-  cursor: pointer;
   color: var(--red-500);
+  cursor: pointer;
 }
 
 @keyframes spinner {

@@ -16,43 +16,43 @@ defineProps<{ label: string; icon: string; active?: boolean }>();
 
 <style scoped>
 button {
-    width: 100%;
-    border: none;
+  width: 100%;
+  border: none;
 }
 
 .settings-nav-item {
-    gap: 12px;
-    padding: 12px;
-    display: flex;
-    cursor: pointer;
-    align-items: center;
-    background-color: var(--base-white);
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  background-color: var(--base-white);
+  cursor: pointer;
+  gap: 12px;
 }
 
 .settings-nav-item .label,
 .settings-nav-item .icon {
-    color: var(--gray-700);
-    font: var(--text-sm-regular);
+  color: var(--gray-700);
+  font: var(--text-sm-regular);
 }
 
 .settings-nav-item:not(.active):hover {
-    background-color: var(--gray-50);
+  background-color: var(--gray-50);
 }
 
 .settings-nav-item:not(.active):is(:focus, :active) {
-    outline: none;
-    background-color: var(--gray-100);
+  outline: none;
+  background-color: var(--gray-100);
 }
 
 .settings-nav-item.active {
-    cursor: default;
-    margin-left: -1px;
-    box-shadow: inset 3px 0px 0px 0px var(--brand-500);
+  margin-left: -1px;
+  box-shadow: inset 3px 0 0 0 var(--brand-500);
+  cursor: default;
 }
 
 .settings-nav-item.active .label,
 .settings-nav-item.active .icon {
-    color: var(--brand-500);
-    font: var(--text-sm-medium);
+  color: var(--brand-500);
+  font: var(--text-sm-medium);
 }
 </style>

@@ -134,18 +134,18 @@ const isActive = (day: DayStatus) => {
   display: flex;
   flex-direction: column;
   width: max-content;
-  gap: 24px;
   padding: 12px;
-  background-color: var(--base-white);
+  border: 1px solid #ebebeb;
   border-radius: 8px;
-  box-shadow: 0px 6px 6px 0px rgba(0, 0, 0, 0.06);
-  border: 1px solid #EBEBEB;
+  background-color: var(--base-white);
+  box-shadow: 0 6px 6px 0 rgb(0 0 0 / 6%);
+  gap: 24px;
 }
 
 .days-container {
-  width: max-content;
   display: grid;
   grid-template-columns: repeat(7, auto);
+  width: max-content;
   background-color: var(--base-white);
 }
 </style>

@@ -102,8 +102,8 @@ onUnmounted(() => persistSwatch(props.color));
 
   .color {
     position: absolute;
-    left: 0;
     top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     border-radius: 100px;

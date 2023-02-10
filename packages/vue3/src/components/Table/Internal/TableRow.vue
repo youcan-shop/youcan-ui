@@ -122,9 +122,13 @@ const checkActionCriteria = (action: TableActions, data: TableData) => {
 
 <style scoped>
 .table-row {
-  background-color: var(--base-white);
   height: 68px;
   border-bottom: 1px solid var(--gray-100);
+  background-color: var(--base-white);
+}
+
+.table-row .table-cell {
+  padding: 0 12px;
 }
 
 .table-row.selected {
@@ -136,18 +140,14 @@ const checkActionCriteria = (action: TableActions, data: TableData) => {
 }
 
 .table-row.selected .table-cell:first-of-type::before {
-  content: '';
+  content: "";
   display: block;
   position: absolute;
-  left: 0;
   top: 0;
-  background-color: var(--brand-500);
+  left: 0;
   width: 3px;
   height: calc(100% + 1px);
-}
-
-.table-row .table-cell {
-  padding: 0 12px;
+  background-color: var(--brand-500);
 }
 
 .table-row .table-cell .cell-actions {
@@ -181,18 +181,18 @@ const checkActionCriteria = (action: TableActions, data: TableData) => {
 }
 
 .table-row.expended-wrapper {
-  box-shadow: var(--shadow-sm-gray);
   position: relative;
+  box-shadow: var(--shadow-sm-gray);
 }
 
 .text-column {
-  font: var(--text-sm-regular);
   color: var(--gray-900);
+  font: var(--text-sm-regular);
 }
 
 .text-column.na {
-  font: var(--text-sm-medium);
   color: var(--gray-300);
+  font: var(--text-sm-medium);
   text-transform: uppercase;
 }
 </style>

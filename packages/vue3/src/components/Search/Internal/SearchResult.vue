@@ -25,41 +25,41 @@ defineProps<{ result: QueryResult; thumbnail?: boolean }>();
 
 <style scoped>
 button {
-    width: 100%;
-    border: none;
-    background: none;
-    text-align: left;
+  width: 100%;
+  border: none;
+  background: none;
+  text-align: left;
 }
 
 .result {
-    gap: 8px;
-    height: 52px;
-    display: flex;
-    padding: 0 16px;
-    cursor: pointer;
-    align-items: center;
+  display: flex;
+  align-items: center;
+  height: 52px;
+  padding: 0 16px;
+  cursor: pointer;
+  gap: 8px;
 }
 
 .label,
 .description {
-    font: var(--text-sm-regular);
+  font: var(--text-sm-regular);
 }
 
 .description {
-    color: var(--gray-500);
+  color: var(--gray-500);
 }
 
 .suffix {
-    margin-inline-start: auto;
+  margin-inline-start: auto;
 }
 
 .result:hover {
-    background-color: var(--gray-50);
+  background-color: var(--gray-50);
 }
 
 .result:focus,
 .result:active {
-    outline: none;
-    background: var(--gray-100);
+  outline: none;
+  background: var(--gray-100);
 }
 </style>

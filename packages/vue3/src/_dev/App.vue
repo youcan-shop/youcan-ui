@@ -22,7 +22,3 @@ async function uploadImage(file: File): Promise<string> {
     <div v-html="content" />
   </div>
 </template>
-
-<style scoped>
-
-</style>

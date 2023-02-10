@@ -64,18 +64,19 @@ if (props.closeAfterDuration && typeof props.closeAfterDuration === 'number') {
 <style scoped>
 .toast-block {
   --border-color: var(--gray-500);
-  width: 496px;
+
   display: flex;
-  gap: 8px;
-  background-color: var(--base-white);
-  box-shadow: rgba(144, 135, 135, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
-  border-radius: 4px;
   position: relative;
-  border: 1px solid var(--gray-100);
+  width: 496px;
   margin-bottom: 12px;
-  border-width: 0px 0px 0px 1px;
-  border-left: 4px solid var(--border-color);
   padding: 12px;
+  border: 1px solid var(--gray-100);
+  border-left: 4px solid var(--border-color);
+  border-width: 0 0 0 1px;
+  border-radius: 4px;
+  background-color: var(--base-white);
+  box-shadow: rgb(144 135 135 / 2%) 0 1px 3px 0, rgb(27 31 35 / 15%) 0 0 0 1px;
+  gap: 8px;
 }
 
 .toast-block.warning {
@@ -90,13 +91,25 @@ if (props.closeAfterDuration && typeof props.closeAfterDuration === 'number') {
   --border-color: var(--blue-500);
 }
 
+.content-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 4px;
+}
+
+.description {
+  color: var(--gray-900);
+  font: var(--text-sm-regular);
+}
+
 .content-container .description {
   padding-bottom: 4px;
 }
 
 .icon {
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
 }
 
 .icon.warning {
@@ -112,28 +125,16 @@ if (props.closeAfterDuration && typeof props.closeAfterDuration === 'number') {
 }
 
 .close-button {
-  cursor: pointer;
   padding: 0;
   color: var(--gray-500);
-}
-
-.icon {
-  width: 18px;
-  height: 18px;
+  cursor: pointer;
 }
 
 .main {
   display: flex;
-  width: 100%;
   justify-content: space-between;
-  gap: 8px;
-}
-
-.content-container {
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
+  gap: 8px;
 }
 
 .title {
@@ -150,10 +151,5 @@ if (props.closeAfterDuration && typeof props.closeAfterDuration === 'number') {
 
 .title.warning {
   color: var(--yellow-700);
-}
-
-.description {
-  font: var(--text-sm-regular);
-  color: var(--gray-900);
 }
 </style>

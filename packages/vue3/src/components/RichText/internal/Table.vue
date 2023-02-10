@@ -49,19 +49,20 @@ onClickOutside(dropdownRef, () => {
 .input-table {
   position: relative;
 }
+
 .table-dropdown {
+  display: flex;
   position: absolute;
   z-index: 999999;
-  margin-top:10px;
-  color: var(--gray-500);
-  box-shadow: var(--shadow-xs-gray);
-  border: 1px solid var(--gray-100);
-  background-color: var(--base-white);
-  padding:12px;
-  border-radius: 4px;
-  width: 200px;
-  display: flex;
   flex-direction: column;
-  gap: 20px
+  width: 200px;
+  margin-top: 10px;
+  padding: 12px;
+  border: 1px solid var(--gray-100);
+  border-radius: 4px;
+  background-color: var(--base-white);
+  box-shadow: var(--shadow-xs-gray);
+  color: var(--gray-500);
+  gap: 20px;
 }
 </style>

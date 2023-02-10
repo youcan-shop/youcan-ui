@@ -24,7 +24,7 @@ const getDay = () => {
 <template>
   <button
     :disabled="disabled" class="day"
-    :class="{ isSelected, isToday, [`edge--${edge}`]: true, outOfMonth: !inCurrentMonth, [`format-${format}`]: true }"
+    :class="{ 'is-selected': isSelected, 'is-today': isToday, [`edge--${edge}`]: true, 'out-of-month': !inCurrentMonth, [`format-${format}`]: true }"
   >
     <span class="text">{{ getDay() }}</span>
   </button>
@@ -38,24 +38,25 @@ const getDay = () => {
 
   width: 40px;
   height: 36px;
-  background-color: var(--background-color);
-  font: var(--font);
-  color: var(--color);
-  padding: 0;
   margin: 0;
+  padding: 0;
   border: none;
   border-radius: 0;
   outline: none;
+  background-color: var(--background-color);
+  color: var(--color);
+  font: var(--font);
 
   &:not(:disabled) {
     &:hover {
       --background-color: var(--gray-50);
+
       z-index: 1;
     }
 
     &:focus {
-      box-shadow: var(--focus-shadow-xs-brand);
       z-index: 2;
+      box-shadow: var(--focus-shadow-xs-brand);
     }
 
     &:disabled {
@@ -63,7 +64,7 @@ const getDay = () => {
     }
   }
 
-  &.isToday {
+  &.is-today {
     --font: var(--text-sm-medium);
     --color: var(--base-white);
     --background-color: var(--blue-500);
@@ -73,7 +74,7 @@ const getDay = () => {
     }
   }
 
-  &.isSelected {
+  &.is-selected {
     --font: var(--text-sm-medium);
     --color: var(--base-white);
     --background-color: var(--brand-500);
@@ -82,12 +83,14 @@ const getDay = () => {
       --background-color: var(--brand-600);
     }
 
-    &.edge--middle {
-      --color: var(--gray-900);
-      --background-color: var(--brand-50);
+    &.edge {
+      &--middle {
+        --color: var(--gray-900);
+        --background-color: var(--brand-50);
 
-      &:not(:disabled):hover {
-        --background-color: var(--brand-100);
+        &:not(:disabled):hover {
+          --background-color: var(--brand-100);
+        }
       }
     }
   }
@@ -112,14 +115,14 @@ const getDay = () => {
     }
   }
 
-  &.outOfMonth {
+  &.out-of-month {
     color: var(--gray-200) !important;
   }
 
   &.format-2-letters {
     .text {
-      font: var(--text-xs-medium);
       color: var(--gray-500);
+      font: var(--text-xs-medium);
     }
   }
 }

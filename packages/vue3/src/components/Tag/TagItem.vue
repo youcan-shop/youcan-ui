@@ -55,15 +55,15 @@ onClickOutside(colorPicker, () => toggleColorPicker(false));
 <style scoped>
 .tag-item {
   display: flex;
+  position: relative;
   align-items: center;
-  gap: 4px;
   width: max-content;
   height: 32px;
   padding: 0 8px;
   border-radius: 4px;
   background: var(--gray-50);
   box-shadow: var(--shadow-xs-gray);
-  position: relative;
+  gap: 4px;
 }
 
 .tag-item .text {
@@ -72,9 +72,9 @@ onClickOutside(colorPicker, () => toggleColorPicker(false));
 }
 
 .tag-item .icon {
-  color: var(--gray-500);
   width: 16px;
   height: 16px;
+  color: var(--gray-500);
   cursor: pointer;
 }
 

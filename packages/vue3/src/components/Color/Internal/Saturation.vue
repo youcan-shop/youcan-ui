@@ -96,10 +96,10 @@ defineExpose({ renderColor, renderSlider });
 
 <style scoped lang="scss">
 .saturation-wrapper {
-  cursor: pointer;
   position: relative;
   width: v-bind("`${size}px`");
   height: v-bind("`${size}px`");
+  cursor: pointer;
 }
 
 .canvas {
@@ -107,11 +107,11 @@ defineExpose({ renderColor, renderSlider });
 }
 
 .saturation-wrapper .slider {
+  position: absolute;
   top: 0;
   left: 100px;
-  position: absolute;
-  pointer-events: none;
-  color: var(--base-white);
   box-shadow: var(--shadow-sm-gray);
+  color: var(--base-white);
+  pointer-events: none;
 }
 </style>

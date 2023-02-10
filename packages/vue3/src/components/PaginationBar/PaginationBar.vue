@@ -73,14 +73,14 @@ function updateCurrentPage(index: number) {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: var(--base-white);
-  padding: 0 20px;
   height: 60px;
+  padding: 0 20px;
+  background-color: var(--base-white);
 }
 
 .pagination-bar .text {
-  font: var(--text-sm-regular);
   color: var(--gray-500);
+  font: var(--text-sm-regular);
 }
 
 .pagination-bar .navigation {

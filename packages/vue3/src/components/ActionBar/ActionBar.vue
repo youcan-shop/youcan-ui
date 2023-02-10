@@ -10,9 +10,9 @@
 
 <style scoped>
 .action-bar {
-    padding: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 12px;
 }
 </style>

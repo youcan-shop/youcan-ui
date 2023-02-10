@@ -10,13 +10,13 @@ defineProps<{ label: string; active?: boolean }>();
 
 <style scoped>
 .sidebar-subitem {
-  border: none;
-  cursor: pointer;
-  text-align: left;
   padding: 4px 44px;
+  border: none;
+  background-color: transparent;
   color: var(--gray-100);
   font: var(--text-sm-regular);
-  background-color: transparent;
+  text-align: left;
+  cursor: pointer;
 }
 
 .sidebar-subitem:is(:hover, :active, :focus) {

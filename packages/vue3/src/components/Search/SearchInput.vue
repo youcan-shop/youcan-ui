@@ -58,22 +58,22 @@ onMounted(async () => refresh());
   position: relative;
 }
 
-.search-input.focused+.result-list-wrapper,
+.search-input.focused + .result-list-wrapper,
 .result-list-wrapper:has(.search-result:is(:focus, :active)) {
   display: block;
 }
 
 .result-list {
-  left: 0;
-  top: 8px;
-  width: 100%;
-  z-index: 20;
-  padding: 8px 0;
-  border-radius: 8px;
   position: absolute;
-  box-shadow: var(--shadow-md);
+  z-index: 20;
+  top: 8px;
+  left: 0;
+  width: 100%;
+  padding: 8px 0;
   border: 1px solid var(--gray-100);
+  border-radius: 8px;
   background-color: var(--base-white);
+  box-shadow: var(--shadow-md);
 }
 
 .loading {

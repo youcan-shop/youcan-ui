@@ -29,19 +29,20 @@ const idAttr = Utils.uid('input_group_');
 
 <style scoped>
 .input-group > * + * {
-    margin-top: 8px ;
+  margin-top: 8px;
 }
+
 .label {
-    font: var(--text-sm-regular);
+  font: var(--text-sm-regular);
 }
 
 .error {
-    color: var(--red-500);
-    font: var(--text-sm-medium);
+  color: var(--red-500);
+  font: var(--text-sm-medium);
 }
 
 .info {
-    color: var(--gray-500);
-    font: var(--text-sm-regular);
+  color: var(--gray-500);
+  font: var(--text-sm-regular);
 }
 </style>

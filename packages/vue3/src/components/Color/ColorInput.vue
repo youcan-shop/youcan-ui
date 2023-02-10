@@ -47,14 +47,14 @@ const setColor = (color: { hexa: string }) => model.value = color.hexa;
 
 <style scoped>
 .wrapper {
-  gap: 12px;
-  padding: 6px;
   display: flex;
   align-items: center;
-  border-radius: 8px;
-  box-shadow: var(--shadow-xs-gray);
+  padding: 6px;
   border: 1px solid var(--gray-100);
+  border-radius: 8px;
   background-color: var(--base-white);
+  box-shadow: var(--shadow-xs-gray);
+  gap: 12px;
 }
 
 .wrapper.enabled:hover {
@@ -76,7 +76,7 @@ const setColor = (color: { hexa: string }) => model.value = color.hexa;
 
 .wrapper:focus,
 .wrapper:active {
-  outline: none
+  outline: none;
 }
 
 .preview {
@@ -84,7 +84,7 @@ const setColor = (color: { hexa: string }) => model.value = color.hexa;
 }
 
 .value {
-  font: var(--text-sm-regular)
+  font: var(--text-sm-regular);
 }
 
 .picker-wrapper {

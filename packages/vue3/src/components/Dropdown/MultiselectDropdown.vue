@@ -66,18 +66,18 @@ function toggle(item: DropdownItemDefinition, value: boolean): void {
 
 <style scoped>
 .dropdown-input {
-  gap: 8px;
-  width: 100%;
   display: flex;
-  cursor: pointer;
-  padding: 12px 16px;
-  border-radius: 8px;
   align-items: center;
-  color: var(--gray-500);
-  box-shadow: var(--shadow-xs-gray);
-  font: var(--text-sm-regular);
+  width: 100%;
+  padding: 12px 16px;
   border: 1px solid var(--gray-100);
+  border-radius: 8px;
   background-color: var(--base-white);
+  box-shadow: var(--shadow-xs-gray);
+  color: var(--gray-500);
+  font: var(--text-sm-regular);
+  cursor: pointer;
+  gap: 8px;
 }
 
 .dropdown-input .label {
@@ -91,9 +91,9 @@ function toggle(item: DropdownItemDefinition, value: boolean): void {
 }
 
 .dropdown-input:is(:focus, :active) {
+  border: 1px solid var(--brand-500);
   outline: none;
   box-shadow: var(--focus-shadow-xs-brand);
-  border: 1px solid var(--brand-500);
 }
 
 .dropdown-input .chevron {
@@ -107,7 +107,7 @@ function toggle(item: DropdownItemDefinition, value: boolean): void {
 .dropdown-list {
   position: absolute;
   z-index: 10;
-  width: 100%;
   top: 8px;
+  width: 100%;
 }
 </style>
