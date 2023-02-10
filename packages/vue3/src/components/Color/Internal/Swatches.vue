@@ -19,7 +19,9 @@ if (localStorage && SWATCH_STORAGE_KEY) {
 }
 
 const persistSwatch = (color: string) => {
-  if (!color) { return; }
+  if (!color) {
+    return;
+  }
 
   const colors = swatchHistory.value || [];
   const index = colors.indexOf(color);

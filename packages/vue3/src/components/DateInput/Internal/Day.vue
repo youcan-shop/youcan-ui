@@ -22,8 +22,10 @@ const getDay = () => {
 </script>
 
 <template>
-  <button :disabled="disabled" class="day"
-    :class="{ isSelected, isToday, [`edge--${edge}`]: true, outOfMonth: !inCurrentMonth, [`format-${format}`]: true }">
+  <button
+    :disabled="disabled" class="day"
+    :class="{ isSelected, isToday, [`edge--${edge}`]: true, outOfMonth: !inCurrentMonth, [`format-${format}`]: true }"
+  >
     <span class="text">{{ getDay() }}</span>
   </button>
 </template>

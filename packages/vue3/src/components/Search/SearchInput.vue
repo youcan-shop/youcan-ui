@@ -30,9 +30,9 @@ onMounted(async () => refresh());
 <template>
   <div>
     <Input ref="input" v-model="query" class="search-input" v-bind="$attrs" type="text">
-    <template #icon>
-      <i i-youcan-magnifying-glass />
-    </template>
+      <template #icon>
+        <i i-youcan-magnifying-glass />
+      </template>
     </Input>
 
     <div class="result-list-wrapper">
@@ -42,8 +42,10 @@ onMounted(async () => refresh());
         <SearchNoResults v-else-if="!results.length" />
 
         <div v-else class="results">
-          <SearchResult v-for="result in results" :key="Utils.uid(result.label)" class="search-result"
-            :thumbnail="thumbnails" :result="result" @click="emit('select', result)" />
+          <SearchResult
+            v-for="result in results" :key="Utils.uid(result.label)" class="search-result"
+            :thumbnail="thumbnails" :result="result" @click="emit('select', result)"
+          />
         </div>
       </div>
     </div>

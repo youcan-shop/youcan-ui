@@ -14,7 +14,9 @@ const { focused } = useFocus(wrapper);
 
 const picker = ref();
 const show = ref(false);
-function toggle(override = !show.value) { show.value = override; }
+function toggle(override = !show.value) {
+  show.value = override;
+}
 onClickOutside(picker, () => toggle(false));
 
 const model = computed({

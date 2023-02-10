@@ -5,8 +5,8 @@
   "scripts": {
     "dev": "pnpm -r dev",
     "build": "pnpm -r build",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
+    "lint": "eslint packages/**/*.{ts,js,vue}",
+    "lint:fix": "eslint packages/**/*.{ts,js,vue} --fix",
     "prepare": "pnpm -r run stub",
     "release": "pnpm build && bumpp package.json packages/*/package.json --commit --push --tag && pnpm -r release"
   },
@@ -15,8 +15,8 @@
     "bumpp": "^8.2.1",
     "eslint": "^8.33.0",
     "eslint-plugin-youcan": "workspace:*",
+    "rimraf": "^3.0.2",
     "taze": "^0.8.5",
-    "typescript": "^4.9.5",
-    "rimraf": "^3.0.2"
+    "typescript": "^4.9.5"
   }
 }

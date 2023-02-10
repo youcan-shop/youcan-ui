@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, watch, watchEffect } from 'vue';
+import { computed, ref } from 'vue';
 import type { ColorObject } from '@youcan/ui-core';
 import { onClickOutside } from '@vueuse/core';
 import type { TagItemType, TagItemValue } from './types';

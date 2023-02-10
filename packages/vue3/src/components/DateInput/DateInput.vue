@@ -13,7 +13,6 @@ const props = defineProps<{
 
 const emit = defineEmits(['update:modelValue']);
 
-const month = ref(new Date());
 const model = computed({
   get: () => props.modelValue,
   set: (value: DateInputValue | null) => emit('update:modelValue', value),

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue';
+import { computed, nextTick, onMounted, ref, watch } from 'vue';
 import type { HSV, RGBA } from '@youcan/ui-core';
 import { parseColor, rgbToHex, rgbaToHex } from '@youcan/ui-core';
 import Override from './Internal/Override.vue';

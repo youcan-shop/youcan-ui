@@ -20,4 +20,3 @@ const model = computed({
     <Input v-model="model" class="value/" />
   </div>
 </template>
-

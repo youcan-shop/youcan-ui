@@ -24,7 +24,7 @@ module.exports = {
     window: 'readonly',
   },
   rules: {
-    'padding-line-between-statements': ['error', { blankLine: "always", prev: "*", next: "return" }],
+    'padding-line-between-statements': ['error', { blankLine: 'always', prev: '*', next: 'return' }],
     'no-var': 'warn',
     'object-shorthand': ['warn', 'properties'],
 
@@ -241,4 +241,4 @@ module.exports = {
 
     'promise/param-names': 'error',
   },
-}
+};

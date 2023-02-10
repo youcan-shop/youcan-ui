@@ -354,4 +354,4 @@ module.exports = {
     'youcan/import-dedupe': 'error',
     // 'youcan/prefer-inline-type-import': 'error',
   },
-}
+};

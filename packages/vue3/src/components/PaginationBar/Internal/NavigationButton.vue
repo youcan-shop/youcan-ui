@@ -12,12 +12,16 @@ const isDisabled = computed(() => props.index === '...');
 </script>
 
 <template>
-  <SecondaryButton v-if="current !== index" size="sm" class="navigation-button" :class="{ active: current === index }"
-    :disabled="isDisabled">
+  <SecondaryButton
+    v-if="current !== index" size="sm" class="navigation-button" :class="{ active: current === index }"
+    :disabled="isDisabled"
+  >
     {{ index }}
   </SecondaryButton>
-  <PrimaryButton v-else size="sm" class="navigation-button" :class="{ active: current === index }"
-    :disabled="isDisabled">
+  <PrimaryButton
+    v-else size="sm" class="navigation-button" :class="{ active: current === index }"
+    :disabled="isDisabled"
+  >
     {{ index }}
   </PrimaryButton>
 </template>

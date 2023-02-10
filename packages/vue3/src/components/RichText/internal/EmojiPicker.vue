@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue';
 import { onClickOutside } from '@vueuse/core';
+import { computed, ref } from 'vue';
 import { emojis as _emojis } from './emojis';
 import TertiaryButton from '~/components/Button/TertiaryButton.vue';
 
-const props = withDefaults(
+withDefaults(
   defineProps<{
     icon: string
     emojis?: string[]

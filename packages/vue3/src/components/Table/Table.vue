@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref, shallowRef, toRaw, watchEffect } from 'vue';
-import TableRow from './Internal/TableRow.vue';
 import CellsRegistrar from './Internal/cells-registrar';
+import TableRow from './Internal/TableRow.vue';
 import type { TableActions, TableColumn, TableColumnValue, TableColumnValues, TableData, TableDataComposable, TableDataRow, TableInternalData } from './types';
 import Checkbox from '~/components/Checkbox/Checkbox.vue';
 
@@ -177,18 +177,22 @@ const batchSelect = (value: boolean) => checkedRows.value = Array<boolean>(props
           </template>
           <template v-else>
             <span class="text">{{ column.label }}</span>
-            <i v-if="column.sortable && column.sortable !== 'none'" class="i-youcan-caret-down sort-icon"
+            <i
+              v-if="column.sortable && column.sortable !== 'none'" class="i-youcan-caret-down sort-icon"
               :style="{ transform: column.sortable === 'asc' ? 'rotate(180deg)' : '' }" tabindex="1"
-              @click="emitSort(column, index)" />
+              @click="emitSort(column, index)"
+            />
           </template>
         </th>
       </thead>
       <tbody class="table-body">
         <template v-for="(row, index) in rows" :key="index">
-          <TableRow :index="index" :row="row" :columns="tableColumns" :selected="checkedRows[index]"
+          <TableRow
+            :index="index" :row="row" :columns="tableColumns" :selected="checkedRows[index]"
             :expended="expandedRows[index]" :actions="actions" :data="data"
             @update:selected-rows="checkedRows[index] = $event" @update:expend="expandedRows[index] = $event"
-            @update:sub-comp-model="handleSubCompModel($event.index, $event.accessor, $event.data, $event.child ? index : undefined)" />
+            @update:sub-comp-model="handleSubCompModel($event.index, $event.accessor, $event.data, $event.child ? index : undefined)"
+          />
         </template>
       </tbody>
     </table>
