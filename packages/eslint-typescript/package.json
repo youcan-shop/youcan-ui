@@ -1,0 +1,27 @@
+{
+  "name": "@youcan/eslint-config-ts",
+  "version": "2.2.2",
+  "description": "",
+  "author": "YouCan <tech@youcan.shop> (https://github.com/youcan-shop/)",
+  "homepage": "https://github.com/youcan-shop/eslint-config",
+  "keywords": [
+    "eslint-config"
+  ],
+  "main": "index.js",
+  "files": [
+    "index.js"
+  ],
+  "peerDependencies": {
+    "eslint": ">=7.4.0",
+    "typescript": ">=3.9"
+  },
+  "dependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.51.0",
+    "@typescript-eslint/parser": "^5.51.0",
+    "@youcan/eslint-config-basic": "workspace:*",
+    "eslint-plugin-jest": "^27.2.1"
+  },
+  "devDependencies": {
+    "eslint": "^8.33.0"
+  }
+}

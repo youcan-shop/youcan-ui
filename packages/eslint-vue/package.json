@@ -1,0 +1,25 @@
+{
+  "name": "@youcan/eslint-config-vue",
+  "version": "2.2.2",
+  "description": "",
+  "author": "YouCan <tech@youcan.shop> (https://github.com/youcan-shop/)",
+  "keywords": [
+    "eslint-config"
+  ],
+  "main": "index.js",
+  "files": [
+    "index.js"
+  ],
+  "peerDependencies": {
+    "eslint": ">=7.4.0"
+  },
+  "dependencies": {
+    "@youcan/eslint-config-basic": "workspace:*",
+    "@youcan/eslint-config-ts": "workspace:*",
+    "eslint-plugin-vue": "^9.9.0",
+    "local-pkg": "^0.4.3"
+  },
+  "devDependencies": {
+    "eslint": "^8.33.0"
+  }
+}

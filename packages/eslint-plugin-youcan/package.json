@@ -1,0 +1,22 @@
+{
+  "name": "eslint-plugin-youcan",
+  "version": "2.2.2",
+  "homepage": "https://github.com/youcan-shop/eslint-config",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "rimraf dist && unbuild",
+    "stub": "unbuild --stub"
+  },
+  "dependencies": {
+    "@typescript-eslint/utils": "^5.51.0"
+  },
+  "devDependencies": {
+    "@types/node": "^18.13.0",
+    "unbuild": "^1.1.1"
+  }
+}

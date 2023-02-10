@@ -1,0 +1,6 @@
+{
+  "extends": "@youcan",
+  "plugins": [
+    "youcan"
+  ]
+}
