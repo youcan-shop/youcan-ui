@@ -6,7 +6,5 @@
     "source.fixAll.stylelint": true,
     "source.organizeImports": false
   },
-  "stylelint.validate": [
-    "vue"
-  ]
+  "stylelint.validate": ["vue"]
 }

@@ -7,6 +7,7 @@
     "usernamehw.errorlens",
     "streetsidesoftware.code-spell-checker",
     "antfu.where-am-i",
-    "lokalise.i18n-ally"
+    "lokalise.i18n-ally",
+    "stylelint.vscode-stylelint"
   ]
 }
