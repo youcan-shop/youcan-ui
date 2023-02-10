@@ -11,7 +11,7 @@
     "release": "pnpm build && bumpp package.json packages/*/package.json --commit --push --tag && pnpm -r release"
   },
   "devDependencies": {
-    "@sidi3li/eslint-config": "^1.0.10",
+    "@youcan/eslint-config": "*",
     "bumpp": "^8.2.1",
     "eslint": "^8.33.0",
     "eslint-plugin-youcan": "workspace:*",
