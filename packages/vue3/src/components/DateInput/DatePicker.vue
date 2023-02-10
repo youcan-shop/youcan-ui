@@ -63,7 +63,7 @@ const handleDayHover = (day: DayStatus) => {
 
     model.value = {
       start: endIsBiggerThanStartDate ? day.date : model.value.start,
-      end: model.value.end && endIsBiggerThanStartDate ? model.value.end : (endIsBiggerThanStartDate ? model.value.start : day.date),
+      end: (model.value.end && endIsBiggerThanStartDate) ? model.value.end : (endIsBiggerThanStartDate ? model.value.start : day.date),
     };
   }
 };

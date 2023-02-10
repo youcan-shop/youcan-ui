@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { computed, onMounted, ref, vModelRadio, watch } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { Utils } from '@youcan/ui-core';
 import TagItem from './TagItem.vue';
-import type { TagItemType, TagItemValue, UniqueTagItem } from './types';
+import type { TagItemType, TagItemValue } from './types';
 
 const props = withDefaults(defineProps<{
   modelValue: TagItemValue[]

@@ -29,11 +29,13 @@ if (props.closeAfterDuration && typeof props.closeAfterDuration === 'number') {
   <div class="toast-block" :class="[type]">
     <div class="main">
       <div class="icon-block" :class="[type]">
-        <i class="icon" :class="{
-          'i-youcan-warning-circle warning': type === 'warning',
-          'i-youcan-check-circle success': type === 'success',
-          'i-youcan-info-1 info': type === 'info',
-        }" />
+        <i
+          class="icon" :class="{
+            'i-youcan-warning-circle warning': type === 'warning',
+            'i-youcan-check-circle success': type === 'success',
+            'i-youcan-info-1 info': type === 'info',
+          }"
+        />
       </div>
       <div class="content-container">
         <span class="title" :class="[type]">

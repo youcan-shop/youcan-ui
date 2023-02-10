@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { TableDataRow } from '../types';
-import type { HandleSubCompModel, TableActions, TableColumn, TableColumnValue, TableData, TableDataComposable, TableInternalData } from '../types';
+import type { HandleSubCompModel, TableActions, TableColumn, TableData, TableInternalData } from '../types';
 import TableButton from './Button.vue';
 import TertiaryButton from '~/components/Button/TertiaryButton.vue';
 import Checkbox from '~/components/Checkbox/Checkbox.vue';
@@ -86,29 +86,37 @@ const checkActionCriteria = (action: TableActions, data: TableData) => {
         </TertiaryButton>
       </template>
       <template v-else-if="row.row[column.accessor]">
-        <div v-if="row.row[column.accessor].isString" class="text-column"
-          :class="{ na: row.row[column.accessor].value.toString().toLocaleLowerCase() === 'n/a' }">
+        <div
+          v-if="row.row[column.accessor].isString" class="text-column"
+          :class="{ na: row.row[column.accessor].value.toString().toLocaleLowerCase() === 'n/a' }"
+        >
           {{ row.row[column.accessor].value }}
         </div>
-        <component :is="row.row[column.accessor].component" v-else-if="!row.row[column.accessor].isString"
+        <component
+          :is="row.row[column.accessor].component" v-else-if="!row.row[column.accessor].isString"
           v-bind="launder<TableDataComposable>(row.row[column.accessor].value).data"
           @update:model-value="(data: HandleSubCompModel & unknown) => handleSubCompModel(index, column.accessor, data, data.child || false)"
-          v-on="launder<TableDataComposable>(row.row[column.accessor].value).events || {}" />
+          v-on="launder<TableDataComposable>(row.row[column.accessor].value).events || {}"
+        />
       </template>
       <div v-if="column.accessor === 'actions' && actions?.length" class="cell-actions">
         <template v-for="action in rowActions" :key="action.label">
           <!-- v-if="!action.criteria || action.criteria(data[index])" -->
-          <TableButton v-if="checkActionCriteria(action, data[index])" size="xs" :data="data"
+          <TableButton
+            v-if="checkActionCriteria(action, data[index])" size="xs" :data="data"
             :icon-name="action.iconName" :label="action.label" :rounded-full="true" icon-position="only"
-            v-on="action.events || {}" />
+            v-on="action.events || {}"
+          />
         </template>
       </div>
     </td>
   </tr>
   <template v-if="isExpended && row">
-    <TableRow v-for="(child, i) in row.children" :key="i" :index="i" :row="child" :data="data" is-child
+    <TableRow
+      v-for="(child, i) in row.children" :key="i" :index="i" :row="child" :data="data" is-child
       :columns="columns" :actions="actions" :original-row="(data[index].children as TableDataRow[])[i]"
-      @update:sub-comp-model="(data: HandleSubCompModel) => handleSubCompModel(i, data.accessor, data.data, true)" />
+      @update:sub-comp-model="(data: HandleSubCompModel) => handleSubCompModel(i, data.accessor, data.data, true)"
+    />
   </template>
 </template>
 

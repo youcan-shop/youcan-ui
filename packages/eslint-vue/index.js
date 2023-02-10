@@ -1,9 +1,10 @@
-const { isPackageExists } = require('local-pkg')
+const { isPackageExists } = require('local-pkg');
 
-const TS = isPackageExists('typescript')
+const TS = isPackageExists('typescript');
 
-if (!TS)
-  console.warn('[@youcan/eslint-config] TypeScript is not installed, fallback to JS only.')
+if (!TS) {
+  console.warn('[@youcan/eslint-config] TypeScript is not installed, fallback to JS only.');
+}
 
 module.exports = {
   overrides: [
@@ -30,6 +31,7 @@ module.exports = {
   ],
   rules: {
     'vue/max-attributes-per-line': 'off',
+    'vue/first-attribute-linebreak': ['error', { singleline: 'ignore', multiline: 'below' }],
     'vue/no-v-html': 'off',
     'vue/require-prop-types': 'off',
     'vue/require-default-prop': 'off',
@@ -106,4 +108,4 @@ module.exports = {
     'vue/space-unary-ops': ['error', { words: true, nonwords: false }],
     'vue/template-curly-spacing': 'error',
   },
-}
+};

@@ -57,8 +57,10 @@ function updateCurrentPage(index: number) {
       <SecondaryButton size="sm" :disabled="current === 1" @click="updateCurrentPage(current - 1)">
         Previous
       </SecondaryButton>
-      <NavigationButton v-for="index in handlePaginationButtons" :key="index" :current="current" :index="index"
-        @click="updateCurrentPage(index as number)" />
+      <NavigationButton
+        v-for="index in handlePaginationButtons" :key="index" :current="current" :index="index"
+        @click="updateCurrentPage(index as number)"
+      />
       <SecondaryButton size="sm" :disabled="current === size" @click="updateCurrentPage(current + 1)">
         Next
       </SecondaryButton>

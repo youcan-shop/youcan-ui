@@ -2,7 +2,6 @@
 import { computed, ref } from 'vue';
 import type { DropdownItemArray, DropdownItemDefinition, DropdownItemGroups } from './types';
 import DropdownItem from './Internal/DropdownItem.vue';
-import { Input } from '~/components';
 
 const props = withDefaults(
   defineProps<{
@@ -71,8 +70,10 @@ function toggle(item: DropdownItemDefinition, value: boolean): void {
 
     <!-- item array -->
     <div v-if="Array.isArray(results)" class="inner">
-      <DropdownItem v-for="item in results" :key="item.value" :checkbox="multiple" :item="item"
-        :selected="isSelected(item)" @toggle="(value) => toggle(item, value)" />
+      <DropdownItem
+        v-for="item in results" :key="item.value" :checkbox="multiple" :item="item"
+        :selected="isSelected(item)" @toggle="(value) => toggle(item, value)"
+      />
     </div>
 
     <!-- categorized items -->
@@ -82,8 +83,10 @@ function toggle(item: DropdownItemDefinition, value: boolean): void {
           {{ label }}
         </div>
         <div class="array-list">
-          <DropdownItem v-for="item in group" :key="item.value" :checkbox="multiple" :selected="isSelected(item)"
-            :item="item" @toggle="(value) => toggle(item, value)" />
+          <DropdownItem
+            v-for="item in group" :key="item.value" :checkbox="multiple" :selected="isSelected(item)"
+            :item="item" @toggle="(value) => toggle(item, value)"
+          />
         </div>
       </div>
     </div>
