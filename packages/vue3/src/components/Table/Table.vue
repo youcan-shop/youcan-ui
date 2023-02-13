@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, shallowRef, toRaw, watchEffect } from 'vue';
+import { computed, ref, shallowRef, toRaw } from 'vue';
 import CellsRegistrar from './Internal/cells-registrar';
 import TableRow from './Internal/TableRow.vue';
 import type { TableActions, TableColumn, TableColumnValue, TableColumnValues, TableData, TableDataComposable, TableDataRow, TableInternalData } from './types';
@@ -21,17 +21,8 @@ const emit = defineEmits<{
   (event: 'update:cell', data: { row: unknown; accessor: string }): void
 }>();
 
-const allChecked = ref(false);
 const expandedRows = ref(Array<boolean>(props.data.length).fill(false));
 const hasChildren = computed(() => props.data.some(row => row.children && row.children.length > 0));
-const checkedRows = ref<boolean[]>([]);
-
-if (props.selectedRows && props.selectedRows.length) {
-  checkedRows.value = props.data.map(row => props.selectedRows!.some(selectedRow => selectedRow.row.id === row.row.id));
-}
-else {
-  checkedRows.value = Array(props.data.length).fill(false);
-}
 
 const tableColumns = computed(() => {
   if (props.actions && props.actions.length > 0) {
@@ -156,23 +147,33 @@ function handleSubCompModel(row: number, accessor: string, data: unknown, parent
   }
 }
 
-watchEffect(() => {
-  checkedRows.value = props.data.map(row => props.selectedRows!.some(selectedRow => selectedRow.row.id === row.row.id));
+const checkedRows = computed({
+  get: () => {
+    if (props.selectedRows && props.selectedRows.length) {
+      return props.data.map(row => props.selectedRows!.some(selectedRow => selectedRow.row.id === row.row.id));
+    }
+    else {
+      return Array(props.data.length).fill(false);
+    }
+  },
+  set: (value: boolean[]) => {
+    emit('update:selected-rows', props.data.filter((_, index) => value[index]));
+
+    const selectedIndexes = value.map((_, index) => {
+      return _ ? index : null;
+    }).filter(index => index !== null) as Array<number>;
+
+    emit('check', selectedIndexes);
+  },
 });
 
-watchEffect(() => {
-  emit('update:selected-rows', props.data.filter((_, index) => checkedRows.value[index]));
-
-  const selectedIndexes = checkedRows.value.map((_, index) => {
-    return _ ? index : null;
-  }).filter(index => index !== null) as Array<number>;
-
-  emit('check', selectedIndexes);
-
-  allChecked.value = checkedRows.value.every(row => row);
-});
+const isAllChecked = computed(() => checkedRows.value.every(row => row));
 
 const batchSelect = (value: boolean) => checkedRows.value = Array<boolean>(props.data.length).fill(value);
+
+function selectRow(index: number, data: boolean) {
+  checkedRows.value = checkedRows.value.map((row, i) => i === index ? data : row);
+}
 </script>
 
 <template>
@@ -181,7 +182,7 @@ const batchSelect = (value: boolean) => checkedRows.value = Array<boolean>(props
       <thead class="table-head">
         <th v-for="(column, index) in tableColumns" :key="column.accessor" class="head-column">
           <template v-if="column.accessor === 'check'">
-            <Checkbox v-model="allChecked" @update:model-value="batchSelect" />
+            <Checkbox v-model="isAllChecked" @update:model-value="batchSelect" />
           </template>
           <template v-else-if="column.accessor === '_expand'">
             <span />
@@ -201,7 +202,7 @@ const batchSelect = (value: boolean) => checkedRows.value = Array<boolean>(props
           <TableRow
             :index="index" :row="row" :columns="tableColumns" :selected="checkedRows[index]"
             :expended="expandedRows[index]" :actions="actions" :data="data"
-            @update:selected-rows="checkedRows[index] = $event"
+            @update:selected-rows="selectRow(index, $event)"
             @update:expend="expandedRows[index] = $event"
             @update:sub-comp-model="handleSubCompModel($event.index, $event.accessor, $event.data, $event.child ? index : undefined)"
           />
