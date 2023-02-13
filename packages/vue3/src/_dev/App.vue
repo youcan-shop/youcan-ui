@@ -1,15 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import '~/assets/main.css';
-import { Draggable, DraggableItem } from '~/components';
+import { Draggable } from '~/components';
 
-const helloKitty = ref({
-  label: 'Order ID',
-  value: 'order_id',
-  selected: false,
-});
-
-const helloKitties = ref([{
+const items = ref([{
   label: 'Order ID',
   value: 'order_id',
 }, {
@@ -20,8 +14,7 @@ const helloKitties = ref([{
 
 <template>
   <div>
-    <DraggableItem v-model="helloKitty" />
-    <Draggable v-model="helloKitties" :can-check="true" />
-    <textarea cols="30" v-text="JSON.stringify(helloKitties)" />
+    <Draggable v-model="items" :can-check="true" />
+    <textarea cols="30" v-text="JSON.stringify(items)" />
   </div>
 </template>
