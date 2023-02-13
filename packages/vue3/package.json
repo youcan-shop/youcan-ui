@@ -41,6 +41,24 @@
   "peerDependencies": {
     "vue": "^3.2.45"
   },
+  "dependencies": {
+    "@tiptap/core": "2.0.0-beta.215",
+    "@tiptap/extension-color": "2.0.0-beta.210",
+    "@tiptap/extension-highlight": "2.0.0-beta.210",
+    "@tiptap/extension-horizontal-rule": "2.0.0-beta.210",
+    "@tiptap/extension-image": "2.0.0-beta.210",
+    "@tiptap/extension-link": "2.0.0-beta.210",
+    "@tiptap/extension-table": "2.0.0-beta.210",
+    "@tiptap/extension-table-cell": "2.0.0-beta.210",
+    "@tiptap/extension-table-header": "2.0.0-beta.210",
+    "@tiptap/extension-table-row": "2.0.0-beta.210",
+    "@tiptap/extension-text-align": "^2.0.0-beta.210",
+    "@tiptap/extension-text-style": "2.0.0-beta.210",
+    "@tiptap/extension-underline": "2.0.0-beta.210",
+    "@tiptap/pm": "2.0.0-beta.210",
+    "@tiptap/starter-kit": "2.0.0-beta.210",
+    "@tiptap/vue-3": "2.0.0-beta.210"
+  },
   "devDependencies": {
     "@iconify-json/line-md": "^1.1.20",
     "@iconify-json/tabler": "^1.1.53",
@@ -65,24 +83,7 @@
     "unocss": "^0.47.6",
     "vite": "^4.0.3",
     "vue": "^3.2.45",
-    "vue-tsc": "1.0.9"
-  },
-  "dependencies": {
-    "@tiptap/core": "2.0.0-beta.215",
-    "@tiptap/extension-color": "2.0.0-beta.210",
-    "@tiptap/extension-highlight": "2.0.0-beta.210",
-    "@tiptap/extension-horizontal-rule": "2.0.0-beta.210",
-    "@tiptap/extension-image": "2.0.0-beta.210",
-    "@tiptap/extension-link": "2.0.0-beta.210",
-    "@tiptap/extension-table": "2.0.0-beta.210",
-    "@tiptap/extension-table-cell": "2.0.0-beta.210",
-    "@tiptap/extension-table-header": "2.0.0-beta.210",
-    "@tiptap/extension-table-row": "2.0.0-beta.210",
-    "@tiptap/extension-text-align": "^2.0.0-beta.210",
-    "@tiptap/extension-text-style": "2.0.0-beta.210",
-    "@tiptap/extension-underline": "2.0.0-beta.210",
-    "@tiptap/pm": "2.0.0-beta.210",
-    "@tiptap/starter-kit": "2.0.0-beta.210",
-    "@tiptap/vue-3": "2.0.0-beta.210"
+    "vue-tsc": "1.0.9",
+    "vuedraggable": "^4.1.0"
   }
 }

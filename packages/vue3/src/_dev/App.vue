@@ -1,24 +1,20 @@
 <script setup lang="ts">
-import '~/assets/main.css';
 import { ref } from 'vue';
+import '~/assets/main.css';
+import { Draggable } from '~/components';
 
-import RichText from '~/components/RichText/RichText.vue';
-
-const content = ref('<h1>HELLO</h1>');
-
-async function uploadImage(file: File): Promise<string> {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve('https://placeholder.com/assets/images/150x150-2-500x500.png');
-    }, 2000);
-  });
-}
+const items = ref([{
+  label: 'Order ID',
+  value: 'order_id',
+}, {
+  label: 'Order ID 2',
+  value: 'order_id',
+}]);
 </script>
 
 <template>
   <div>
-    <RichText v-model="content" :upload-image-handler="uploadImage" />
-    <h1>Output</h1>
-    <div v-html="content" />
+    <Draggable v-model="items" :can-check="true" />
+    <textarea cols="30" v-text="JSON.stringify(items)" />
   </div>
 </template>

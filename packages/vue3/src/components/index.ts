@@ -43,3 +43,5 @@ export { default as Table } from './Table/Table.vue';
 export { default as PaginationBar } from './PaginationBar/PaginationBar.vue';
 export { default as SearchInput } from './Search/SearchInput.vue';
 export { default as Alert } from './Alert/Alert.vue';
+export { default as DraggableItem } from './Draggable/DraggableItem.vue';
+export { default as Draggable } from './Draggable/Draggable.vue';

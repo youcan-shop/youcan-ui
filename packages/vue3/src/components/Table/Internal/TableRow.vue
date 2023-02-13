@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { TableDataRow } from '../types';
-import type { HandleSubCompModel, TableActions, TableColumn, TableData, TableInternalData } from '../types';
+import type { HandleSubCompModel, TableActions, TableColumn, TableColumnValue, TableData, TableDataComposable, TableInternalData } from '../types';
 import TableButton from './Button.vue';
 import TertiaryButton from '~/components/Button/TertiaryButton.vue';
 import Checkbox from '~/components/Checkbox/Checkbox.vue';
@@ -70,6 +70,8 @@ const handleSubCompModel = (index: number, accessor: string, data: unknown, chil
 const checkActionCriteria = (action: TableActions, data: TableData) => {
   return !action.criteria || action.criteria(data);
 };
+
+const castToTableDataComposable = (value: TableColumnValue['value']) => launder<TableDataComposable>(value);
 </script>
 
 <template>
@@ -94,9 +96,9 @@ const checkActionCriteria = (action: TableActions, data: TableData) => {
         </div>
         <component
           :is="row.row[column.accessor].component" v-else-if="!row.row[column.accessor].isString"
-          v-bind="launder<TableDataComposable>(row.row[column.accessor].value).data"
+          v-bind="castToTableDataComposable(row.row[column.accessor].value).data"
           @update:model-value="(data: HandleSubCompModel & unknown) => handleSubCompModel(index, column.accessor, data, data.child || false)"
-          v-on="launder<TableDataComposable>(row.row[column.accessor].value).events || {}"
+          v-on="castToTableDataComposable(row.row[column.accessor].value).events || {}"
         />
       </template>
       <div v-if="column.accessor === 'actions' && actions?.length" class="cell-actions">
