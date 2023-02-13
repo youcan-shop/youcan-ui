@@ -7,7 +7,7 @@
     "build": "pnpm -r build",
     "eslint": "eslint packages/**/*.{ts,js,vue}",
     "stylelint": "stylelint packages/**/*.{vue,css}",
-    "lint": "pnpm lint && pnpm stylelint",
+    "lint": "pnpm eslint && pnpm stylelint",
     "lint:fix": "pnpm eslint --fix && pnpm stylelint --fix",
     "prepare": "pnpm -r run stub",
     "release": "pnpm build && bumpp package.json packages/*/package.json --commit --push --tag && pnpm -r release"
