@@ -6,16 +6,20 @@ import type { DraggableItemType } from './types';
 
 const props = defineProps<{
   modelValue: DraggableItemType[]
+  canCheck?: boolean
 }>();
 
 const emit = defineEmits<{
   (event: 'update:model-value', modelValue: DraggableItemType[]): void
+  (event: 'check', item: DraggableItemType, checked: boolean): void
 }>();
 
 const model = computed({
   get: () => props.modelValue,
   set: (value: DraggableItemType[]) => emit('update:model-value', value),
 });
+
+const handleCheck = (value: DraggableItemType, checked: boolean) => emit('check', value, checked);
 </script>
 
 <template>
@@ -31,7 +35,7 @@ const model = computed({
     handle=".handle"
   >
     <template #item="{ index }">
-      <DraggableItem v-model="model[index]" />
+      <DraggableItem v-model="model[index]" :can-check="canCheck" @check="(value, checked) => handleCheck(value, checked)" />
     </template>
   </draggable>
 </template>

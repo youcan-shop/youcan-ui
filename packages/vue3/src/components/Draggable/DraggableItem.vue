@@ -5,25 +5,31 @@ import type { DraggableItemType } from './types';
 
 const props = defineProps<{
   modelValue: DraggableItemType
+  canCheck?: boolean
 }>();
 
 const emit = defineEmits<{
   (event: 'update:model-value', modelValue: DraggableItemType): void
+  (event: 'check', item: DraggableItemType, checked: boolean): void
 }>();
 
 const model = computed({
-  get: () => props.modelValue,
+  get: () => ({ ...props.modelValue, checked: props.modelValue.checked || false }),
   set: (value: DraggableItemType) => emit('update:model-value', value),
 });
 
-const handleCheck = (value: boolean) => model.value = { ...model.value, selected: value };
+function handleCheck(value: boolean) {
+  emit('check', model.value, value);
+
+  model.value = { ...model.value, checked: value };
+}
 </script>
 
 <template>
   <li class="draggable-item">
     <i class="handle i-youcan-dots-six-vertical" />
     <span class="label">{{ model.label }}</span>
-    <Checkbox v-if="typeof model.selected !== 'undefined'" v-model="model.selected" @update:model-value="handleCheck" />
+    <Checkbox v-if="canCheck" v-model="model.checked" @update:model-value="handleCheck" />
   </li>
 </template>
 

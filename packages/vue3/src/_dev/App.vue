@@ -12,18 +12,16 @@ const helloKitty = ref({
 const helloKitties = ref([{
   label: 'Order ID',
   value: 'order_id',
-  selected: false,
 }, {
   label: 'Order ID 2',
   value: 'order_id',
-  selected: false,
 }]);
 </script>
 
 <template>
   <div>
     <DraggableItem v-model="helloKitty" />
-    <Draggable v-model="helloKitties" />
+    <Draggable v-model="helloKitties" :can-check="true" />
     <textarea cols="30" v-text="JSON.stringify(helloKitties)" />
   </div>
 </template>
