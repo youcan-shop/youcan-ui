@@ -42,6 +42,7 @@ const handleCheck = (value: boolean) => model.value = { ...model.value, selected
 }
 
 .handle {
+  flex: none;
   width: 20px;
   height: 20px;
   color: var(--gray-500);
@@ -53,6 +54,7 @@ const handleCheck = (value: boolean) => model.value = { ...model.value, selected
 }
 
 .label {
+  width: 100%;
   color: var(--gray-900);
   font: var(--text-sm-regular);
 }
