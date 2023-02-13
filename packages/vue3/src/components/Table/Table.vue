@@ -22,9 +22,17 @@ const emit = defineEmits<{
 }>();
 
 const allChecked = ref(false);
-const checkedRows = ref(Array<boolean>(props.data.length).fill(false));
 const expandedRows = ref(Array<boolean>(props.data.length).fill(false));
 const hasChildren = computed(() => props.data.some(row => row.children && row.children.length > 0));
+
+const checkedRows = ref<boolean[]>([]);
+
+if (props.selectedRows && props.selectedRows.length) {
+  checkedRows.value = props.data.map(row => props.selectedRows!.some(selectedRow => selectedRow.row.id === row.row.id));
+}
+else {
+  checkedRows.value = Array(props.data.length).fill(false);
+}
 
 const tableColumns = computed(() => {
   if (props.actions && props.actions.length > 0) {
@@ -150,6 +158,11 @@ function handleSubCompModel(row: number, accessor: string, data: unknown, parent
 }
 
 watchEffect(() => {
+  console.log(props.selectedRows);
+  checkedRows.value = props.data.map(row => props.selectedRows!.some(selectedRow => selectedRow.row.id === row.row.id));
+});
+
+watchEffect(() => {
   emit('update:selected-rows', props.data.filter((_, index) => checkedRows.value[index]));
 
   const selectedIndexes = checkedRows.value.map((_, index) => {
@@ -190,7 +203,8 @@ const batchSelect = (value: boolean) => checkedRows.value = Array<boolean>(props
           <TableRow
             :index="index" :row="row" :columns="tableColumns" :selected="checkedRows[index]"
             :expended="expandedRows[index]" :actions="actions" :data="data"
-            @update:selected-rows="checkedRows[index] = $event" @update:expend="expandedRows[index] = $event"
+            @update:selected-rows="checkedRows[index] = $event"
+            @update:expend="expandedRows[index] = $event"
             @update:sub-comp-model="handleSubCompModel($event.index, $event.accessor, $event.data, $event.child ? index : undefined)"
           />
         </template>
