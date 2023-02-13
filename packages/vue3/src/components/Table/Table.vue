@@ -24,7 +24,6 @@ const emit = defineEmits<{
 const allChecked = ref(false);
 const expandedRows = ref(Array<boolean>(props.data.length).fill(false));
 const hasChildren = computed(() => props.data.some(row => row.children && row.children.length > 0));
-
 const checkedRows = ref<boolean[]>([]);
 
 if (props.selectedRows && props.selectedRows.length) {
@@ -158,7 +157,6 @@ function handleSubCompModel(row: number, accessor: string, data: unknown, parent
 }
 
 watchEffect(() => {
-  console.log(props.selectedRows);
   checkedRows.value = props.data.map(row => props.selectedRows!.some(selectedRow => selectedRow.row.id === row.row.id));
 });
 
