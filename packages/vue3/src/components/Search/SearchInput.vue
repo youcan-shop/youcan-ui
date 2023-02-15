@@ -34,7 +34,7 @@ onMounted(async () => refresh());
         <i i-youcan-magnifying-glass />
       </template>
     </Input>
-    
+
     <div class="result-list-wrapper">
       <div class="result-list">
         <SearchLoader v-if="loading" />
@@ -44,7 +44,7 @@ onMounted(async () => refresh());
         <div v-else class="results">
           <SearchResult
             v-for="result in results" :key="Utils.uid(result.label)" class="search-result"
-            :thumbnail="thumbnails" :result="result" @click="emit('select',result)"
+            :thumbnail="thumbnails" :result="result" @click="emit('select', result)"
           />
         </div>
       </div>
@@ -58,7 +58,7 @@ onMounted(async () => refresh());
   position: relative;
 }
 
-.search-input-wrapper:focus-within .result-list-wrapper{
+.search-input-wrapper:focus-within .result-list-wrapper {
   display: block;
 }
 
