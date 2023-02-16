@@ -1,7 +1,5 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import draggable from 'vuedraggable';
-import DraggableItem from './DraggableItem.vue';
 import type { DraggableItemType } from './types';
 
 const props = defineProps<{
@@ -23,7 +21,10 @@ const handleCheck = (value: DraggableItemType, checked: boolean) => emit('check'
 </script>
 
 <template>
-  <draggable
+  <p>hl</p>
+
+  <DraggableItem v-model="model[index]" :can-check="canCheck" @check="(value, checked) => handleCheck(value, checked)" />
+  <!-- <draggable
     v-model="model"
     :component-data="{
       name: 'fade',
@@ -37,7 +38,7 @@ const handleCheck = (value: DraggableItemType, checked: boolean) => emit('check'
     <template #item="{ index }">
       <DraggableItem v-model="model[index]" :can-check="canCheck" @check="(value, checked) => handleCheck(value, checked)" />
     </template>
-  </draggable>
+  </draggable> -->
 </template>
 
 <style scoped>
