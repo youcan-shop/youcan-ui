@@ -18,6 +18,7 @@ const mode = ref(items);
 </script>
 
 <template>
+  <Draggable v-model="mode" :can-check="true" />
   <DragV2/>
 
 </template>
