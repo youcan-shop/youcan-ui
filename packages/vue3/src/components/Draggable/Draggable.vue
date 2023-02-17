@@ -1,8 +1,11 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
+import { Sortable } from 'sortablejs-vue3';
+import DraggableItem from './DraggableItem.vue';
 import type { DraggableItemType } from './types';
 
 const props = defineProps<{
+  list: DraggableItemType[]
   modelValue: DraggableItemType[]
   canCheck?: boolean
 }>();
@@ -12,33 +15,43 @@ const emit = defineEmits<{
   (event: 'check', item: DraggableItemType, checked: boolean): void
 }>();
 
+const list = ref(props.list);
+
 const model = computed({
   get: () => props.modelValue,
   set: (value: DraggableItemType[]) => emit('update:model-value', value),
 });
 
 const handleCheck = (value: DraggableItemType, checked: boolean) => emit('check', value, checked);
+
+function moveItemInArray(from: number, to: number) {
+  const _new = list.value;
+
+  const item = _new.splice(from, 1)[0];
+  _new.splice(to, 0, item);
+
+  list.value = _new;
+  model.value = _new;
+}
+
+const handleEnd = (e: any) => {
+  moveItemInArray(e.oldIndex, e.newIndex);
+};
 </script>
 
 <template>
-  <p>hl</p>
-
-  <DraggableItem v-model="model[index]" :can-check="canCheck" @check="(value, checked) => handleCheck(value, checked)" />
-  <!-- <draggable
-    v-model="model"
-    :component-data="{
-      name: 'fade',
-      type: 'transition-group',
-    }"
+  {{ list }}
+  <Sortable
+    :list="list"
     tag="ul"
     item-key="value"
     class="draggable"
-    handle=".handle"
+    @end="handleEnd"
   >
     <template #item="{ index }">
       <DraggableItem v-model="model[index]" :can-check="canCheck" @check="(value, checked) => handleCheck(value, checked)" />
     </template>
-  </draggable> -->
+  </Sortable>
 </template>
 
 <style scoped>
