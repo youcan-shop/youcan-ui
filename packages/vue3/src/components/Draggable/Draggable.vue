@@ -26,10 +26,11 @@ const handleCheck = (value: DraggableItemType, checked: boolean) => emit('check'
 
 function moveItemInArray(from: number, to: number) {
   const _new = list.value;
-
+  console.log(_new);
   const item = _new.splice(from, 1)[0];
   _new.splice(to, 0, item);
-
+  console.log('-----');
+  console.log(list.value);
   list.value = _new;
   model.value = _new;
 }
