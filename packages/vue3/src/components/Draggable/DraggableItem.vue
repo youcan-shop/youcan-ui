@@ -26,6 +26,7 @@ function handleCheck(value: boolean) {
 </script>
 
 <template>
+  {{ model }}
   <li class="draggable-item">
     <i class="handle i-youcan-dots-six-vertical" />
     <span class="label">{{ model.label }}</span>
