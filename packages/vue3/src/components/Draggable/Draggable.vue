@@ -14,26 +14,26 @@ const emit = defineEmits<{
   (event: 'check', item: DraggableItemType, checked: boolean): void
 }>();
 
-const list = props.modelValue;
-
-const models = computed({
+const model = computed({
   get: () => props.modelValue,
   set: (value: DraggableItemType[]) => emit('update:model-value', value),
 });
 
-const handleCheck = (value: DraggableItemType, checked: boolean) => emit('check', value, checked);
+const handleCheck = (value: DraggableItemType, checked: boolean) => {
+  console.log('haa');
+  emit('check', value, checked);
+};
 
 function getItemModel(itemId: string | number) {
-  return models.value.findIndex(model => model.id === itemId);
+  return model.value.findIndex(model => model.id === itemId);
 }
 </script>
 
 <template>
-  {{ models }}
   <div class="draggable">
-    <SlickList v-model:list="list" axis="y">
-      <SlickItem v-for="item in list" :key="item.id" :index="item.id">
-        <DraggableItem v-model="models[getItemModel(item.id)]" :can-check="canCheck" @check="(value: DraggableItemType, checked:boolean) => handleCheck(value, checked)" />
+    <SlickList v-model:list="model" axis="y">
+      <SlickItem v-for="(item, i) in model" :key="item.id" :index="i">
+        <DraggableItem v-model="model[getItemModel(item.id)]" class="draggable-item" :can-check="canCheck" @check="(value: DraggableItemType, checked:boolean) => handleCheck(value, checked)" />
       </SlickItem>
     </SlickList>
   </div>
@@ -48,5 +48,9 @@ function getItemModel(itemId: string | number) {
   border-radius: 4px;
   background-color: var(--gray-50);
   gap: 8px;
+}
+
+.draggable-item{
+  margin-bottom: 10px;
 }
 </style>

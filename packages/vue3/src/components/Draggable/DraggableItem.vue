@@ -21,12 +21,13 @@ const model = computed({
 function handleCheck(value: boolean) {
   emit('check', model.value, value);
 
+  console.log(value);
+
   model.value = { ...model.value, checked: value };
 }
 </script>
 
 <template>
-  {{ model }}
   <li class="draggable-item">
     <i class="handle i-youcan-dots-six-vertical" />
     <span class="label">{{ model.label }}</span>
