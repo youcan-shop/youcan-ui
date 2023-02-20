@@ -1,5 +1,5 @@
 export interface DraggableItemType {
-  id: string | number
+  id: number
   label: string
   value: unknown
   checked?: boolean

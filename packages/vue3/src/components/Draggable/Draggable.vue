@@ -29,13 +29,11 @@ function getItemModel(itemId: string | number) {
 </script>
 
 <template>
-  <div class="draggable">
-    <SlickList v-model:list="model" axis="y">
-      <SlickItem v-for="(item, i) in model" :key="item.id" :index="i">
-        <DraggableItem v-model="model[getItemModel(item.id)]" class="draggable-item" :can-check="canCheck" @check="(value: DraggableItemType, checked:boolean) => handleCheck(value, checked)" />
-      </SlickItem>
-    </SlickList>
-  </div>
+  <SlickList v-model:list="model" axis="y" class="draggable">
+    <SlickItem v-for="(item, i) in model" :key="item.id" :index="i">
+      <DraggableItem v-model="model[getItemModel(item.id)]" class="draggable-item" :can-check="canCheck" @check="handleCheck" />
+    </SlickItem>
+  </SlickList>
 </template>
 
 <style scoped>
@@ -47,9 +45,5 @@ function getItemModel(itemId: string | number) {
   border-radius: 4px;
   background-color: var(--gray-50);
   gap: 8px;
-}
-
-.draggable-item{
-  margin-bottom: 10px;
 }
 </style>
