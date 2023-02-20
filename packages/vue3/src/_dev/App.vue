@@ -1,20 +1,17 @@
 <script setup lang="ts">
-import { SearchInput } from '~/components';
-import { QueryResult } from '~/components/Search/types';
+import { ref } from 'vue';
+import type { DraggableItemType } from '~/components/Draggable/types';
+import Draggable from '~/components/Draggable/Draggable.vue';
+const items: DraggableItemType[] = [
+  { label: 'test 1', value: 'test 1', checked: false },
+  { label: 'test 2', value: 'test 2', checked: false },
+  { label: 'test 3', value: 'test 3', checked: false },
+  { label: 'test 4', value: 'test 4', checked: true },
+];
 
-async function queryHandler():Promise<QueryResult[]> {
-  return [{
-    label:'hi',
-    value: 'hi'
-  }]
-}
-
-function handleSelect(){
-  alert('life is life')
-}
-
+const mode = ref(items);
 </script>
 
 <template>
-  <SearchInput :query-handler="queryHandler" @select="handleSelect"/>
+  <Draggable v-model="mode" :can-check="true" />
 </template>

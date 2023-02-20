@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import draggable from 'vuedraggable';
-import DraggableItem from './DraggableItem.vue';
+import { SlickItem, SlickList } from 'vue-slicksort';
 import type { DraggableItemType } from './types';
+import DraggableItem from './DraggableItem.vue';
 
 const props = defineProps<{
   modelValue: DraggableItemType[]
@@ -19,25 +19,21 @@ const model = computed({
   set: (value: DraggableItemType[]) => emit('update:model-value', value),
 });
 
-const handleCheck = (value: DraggableItemType, checked: boolean) => emit('check', value, checked);
+const handleCheck = (value: DraggableItemType, checked: boolean) => {
+  emit('check', value, checked);
+};
+
+function getItemModel(value: unknown) {
+  return model.value.findIndex(model => model.value === value);
+}
 </script>
 
 <template>
-  <draggable
-    v-model="model"
-    :component-data="{
-      name: 'fade',
-      type: 'transition-group',
-    }"
-    tag="ul"
-    item-key="value"
-    class="draggable"
-    handle=".handle"
-  >
-    <template #item="{ index }">
-      <DraggableItem v-model="model[index]" :can-check="canCheck" @check="(value, checked) => handleCheck(value, checked)" />
-    </template>
-  </draggable>
+  <SlickList v-model:list="model" axis="y" class="draggable">
+    <SlickItem v-for="(item, i) in model" :key="item.value" :index="i">
+      <DraggableItem v-model="model[getItemModel(item.value)]" class="draggable-item" :can-check="canCheck" @check="handleCheck" />
+    </SlickItem>
+  </SlickList>
 </template>
 
 <style scoped>
