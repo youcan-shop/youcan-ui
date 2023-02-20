@@ -20,7 +20,6 @@ const model = computed({
 });
 
 const handleCheck = (value: DraggableItemType, checked: boolean) => {
-  console.log('haa');
   emit('check', value, checked);
 };
 

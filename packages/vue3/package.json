@@ -58,8 +58,6 @@
     "@tiptap/pm": "2.0.0-beta.210",
     "@tiptap/starter-kit": "2.0.0-beta.210",
     "@tiptap/vue-3": "2.0.0-beta.210",
-    "sortablejs": "^1.15.0",
-    "sortablejs-vue3": "^1.2.6",
     "vue-slicksort": "^2.0.5"
   },
   "devDependencies": {
