@@ -23,15 +23,15 @@ const handleCheck = (value: DraggableItemType, checked: boolean) => {
   emit('check', value, checked);
 };
 
-function getItemModel(itemId: string | number) {
-  return model.value.findIndex(model => model.id === itemId);
+function getItemModel(value: unknown) {
+  return model.value.findIndex(model => model.value === value);
 }
 </script>
 
 <template>
   <SlickList v-model:list="model" axis="y" class="draggable">
-    <SlickItem v-for="(item, i) in model" :key="item.id" :index="i">
-      <DraggableItem v-model="model[getItemModel(item.id)]" class="draggable-item" :can-check="canCheck" @check="handleCheck" />
+    <SlickItem v-for="(item, i) in model" :key="item.value" :index="i">
+      <DraggableItem v-model="model[getItemModel(item.value)]" class="draggable-item" :can-check="canCheck" @check="handleCheck" />
     </SlickItem>
   </SlickList>
 </template>
