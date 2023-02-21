@@ -29,7 +29,7 @@ function getItemModel(value: unknown) {
 </script>
 
 <template>
-  <SlickList v-model:list="model" axis="y" class="draggable">
+  <SlickList v-model:list="model" axis="y" class="draggable" :use-drag-handle="true">
     <SlickItem v-for="(item, i) in model" :key="item.value" :index="i">
       <DraggableItem v-model="model[getItemModel(item.value)]" class="draggable-item" :can-check="canCheck" @check="handleCheck" />
     </SlickItem>
