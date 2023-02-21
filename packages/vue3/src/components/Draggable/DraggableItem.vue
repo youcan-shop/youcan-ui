@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
+import { DragHandle } from 'vue-slicksort';
 import Checkbox from '../Checkbox/Checkbox.vue';
 import type { DraggableItemType } from './types';
 
@@ -27,7 +28,9 @@ function handleCheck(value: boolean) {
 
 <template>
   <li class="draggable-item">
-    <i class="handle i-youcan-dots-six-vertical" />
+    <DragHandle>
+      <i class="handle i-youcan-dots-six-vertical" />
+    </DragHandle>
     <span class="label">{{ model.label }}</span>
     <Checkbox v-if="canCheck" v-model="model.checked" @update:model-value="handleCheck" />
   </li>
