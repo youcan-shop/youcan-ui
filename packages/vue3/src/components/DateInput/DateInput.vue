@@ -8,7 +8,7 @@ import SecondaryButton from '~/components/Button/SecondaryButton.vue';
 
 const props = defineProps<{
   modelValue: DateInputValue
-  disabled: boolean
+  disabled?: boolean
 }>();
 
 const emit = defineEmits(['update:modelValue']);
@@ -32,7 +32,7 @@ onClickOutside(datePicker, () => toggleDatePicker(false));
 <template>
   <div class="date-input">
     <SecondaryButton
-      size="sm" icon-position="right" class="input-trigger" :disabled="disabled"
+      size="sm" icon-position="right" class="input-trigger" :disabled="disabled" type="button"
       @click="toggleDatePicker()"
     >
       <span v-show="model.start || model.start">
