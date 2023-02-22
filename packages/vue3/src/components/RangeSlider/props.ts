@@ -61,7 +61,7 @@ export default {
       }
 
       if (typeof value(0) !== 'string') {
-        console.error('[Vue3Slider] Error: prop formatTooltip must return a string');
+        console.error('[YouCanUI/RangeSlider] Error: prop formatTooltip must return a string');
 
         return false;
       }
