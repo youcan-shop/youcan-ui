@@ -8,6 +8,6 @@ const model = ref(7);
 <template>
   <div style="max-width: 300px;">
     <div style="height: 100px;" />
-    <RangeSlider v-model="model" :format-tool-tip="(v:string) => `${v}px`" :tooltip-visible="true" :disabled="false" :step="1" tooltip="hola" />
+    <RangeSlider v-model="model" :format-tool-tip="(v:string) => `${v}px`" :tooltip-visible="true" :disabled="true" :step="1" tooltip="hola" />
   </div>
 </template>

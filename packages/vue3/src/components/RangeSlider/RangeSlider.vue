@@ -188,6 +188,14 @@ onMounted(() => {
   -webkit-app-region: no-drag;
 }
 
+.range-slider.disabled > * {
+  background-color: var(--gray-100);
+}
+
+.range-slider.disabled .range-slider-knob {
+  background-color: var(--gray-200);
+}
+
 .range-slider .range-slider-tooltip {
   margin-bottom: -8px;
   padding: 6px 10px;
