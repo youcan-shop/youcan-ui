@@ -1,17 +1,13 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import type { DraggableItemType } from '~/components/Draggable/types';
-import Draggable from '~/components/Draggable/Draggable.vue';
-const items: DraggableItemType[] = [
-  { label: 'test 1', value: 'test 1', checked: false },
-  { label: 'test 2', value: 'test 2', checked: false },
-  { label: 'test 3', value: 'test 3', checked: false },
-  { label: 'test 4', value: 'test 4', checked: true },
-];
+import RangeSlider from '~/components/RangeSlider/RangeSlider.vue';
 
-const mode = ref(items);
+const model = ref(7);
 </script>
 
 <template>
-  <Draggable v-model="mode" :can-check="true" />
+  <div style="max-width: 300px;">
+    <div style="height: 100px;" />
+    <RangeSlider v-model="model" :format-tool-tip="(v:string) => `${v}px`" :tooltip-visible="true" :disabled="false" :step="1" tooltip="hola" />
+  </div>
 </template>
