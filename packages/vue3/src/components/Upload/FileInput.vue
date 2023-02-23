@@ -44,7 +44,7 @@ function handlefiles(files: File[]) {
 .facade {
   display: grid;
   padding: 12px 16px;
-  border: 1px solid var(--gray-100);
+  border: 1px solid var(--gray-200);
   border-radius: 4px;
   background-color: var(--gray-50);
   box-shadow: var(--shadow-xs-gray);
