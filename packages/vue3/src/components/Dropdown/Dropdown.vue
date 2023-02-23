@@ -57,7 +57,7 @@ const model = computed<DropdownItemDefinition | null>({
   display: flex;
   align-items: center;
   width: 100%;
-  border: 1px solid var(--gray-100);
+  border: 1px solid var(--gray-200);
   background-color: var(--base-white);
   box-shadow: var(--shadow-xs-gray);
   color: var(--gray-500);
