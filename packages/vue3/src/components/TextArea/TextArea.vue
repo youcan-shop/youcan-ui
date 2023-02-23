@@ -40,7 +40,7 @@ const model = computed({
 }
 
 .wrapper.enabled:hover {
-  border: 1px solid var(--gray-200);
+  border: 1px solid var(--gray-300);
 }
 
 .wrapper.enabled.focused {
