@@ -137,7 +137,7 @@ watch(_toolbar.color, (newValue) => {
 <style lang="scss">
 .rich-text-editor {
   overflow: hidden;
-  border: 1px solid var(--gray-100);
+  border: 1px solid var(--gray-200);
   border-radius: 8px;
 }
 
@@ -145,7 +145,7 @@ watch(_toolbar.color, (newValue) => {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  border: 1px solid var(--gray-100);
+  border: 1px solid var(--gray-200);
   justify-self: center;
 }
 
@@ -188,7 +188,7 @@ watch(_toolbar.color, (newValue) => {
       box-sizing: border-box;
       min-width: 1em;
       padding: 3px 5px;
-      border: 2px solid var(--gray-100);
+      border: 2px solid var(--gray-200);
       vertical-align: top;
 
       > * {
