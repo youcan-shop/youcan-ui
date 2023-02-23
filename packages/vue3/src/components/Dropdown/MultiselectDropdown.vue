@@ -70,7 +70,7 @@ function toggle(item: DropdownItemDefinition, value: boolean): void {
   align-items: center;
   width: 100%;
   padding: 12px 16px;
-  border: 1px solid var(--gray-100);
+  border: 1px solid var(--gray-200);
   border-radius: 8px;
   background-color: var(--base-white);
   box-shadow: var(--shadow-xs-gray);
