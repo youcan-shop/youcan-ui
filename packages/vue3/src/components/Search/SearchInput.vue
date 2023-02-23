@@ -69,7 +69,7 @@ onMounted(async () => refresh());
   left: 0;
   width: 100%;
   padding: 8px 0;
-  border: 1px solid var(--gray-100);
+  border: 1px solid var(--gray-200);
   border-radius: 8px;
   background-color: var(--base-white);
   box-shadow: var(--shadow-md);
