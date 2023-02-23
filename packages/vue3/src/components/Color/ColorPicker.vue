@@ -144,6 +144,6 @@ watch(
 hr {
   margin: 12px 0;
   border: none;
-  border-top: 1px solid var(--gray-100);
+  border-top: 1px solid var(--gray-200);
 }
 </style>
