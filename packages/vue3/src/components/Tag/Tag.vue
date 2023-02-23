@@ -108,7 +108,7 @@ onMounted(() => {
 }
 
 .tag:hover {
-  --border: 1px solid var(--gray-200);
+  --border: 1px solid var(--gray-300);
 }
 
 .tag[disabled="false"][error="false"]:focus,
