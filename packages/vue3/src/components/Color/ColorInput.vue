@@ -50,7 +50,7 @@ const setColor = (color: { hexa: string }) => model.value = color.hexa;
   display: flex;
   align-items: center;
   padding: 6px;
-  border: 1px solid var(--gray-100);
+  border: 1px solid var(--gray-200);
   border-radius: 8px;
   background-color: var(--base-white);
   box-shadow: var(--shadow-xs-gray);
@@ -58,7 +58,7 @@ const setColor = (color: { hexa: string }) => model.value = color.hexa;
 }
 
 .wrapper.enabled:hover {
-  border: 1px solid var(--gray-200);
+  border: 1px solid var(--gray-300);
 }
 
 .wrapper.enabled.focused {
