@@ -80,7 +80,7 @@ label {
 }
 
 input:disabled ~ .checkmark {
-  border: 1px solid var(--gray-50);
+  border: 1px solid var(--gray-200);
   background: var(--base-white);
   box-shadow: none;
   cursor: default;
