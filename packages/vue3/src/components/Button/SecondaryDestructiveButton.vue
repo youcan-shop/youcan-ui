@@ -38,7 +38,9 @@ const slots = useSlots();
   --disabled-background-color: var(--base-white);
   --focus-shadow: var(--focus-shadow-xs-red);
   --disabled-shadow: none;
-  --border: 1px solid var(--gray-100);
+  --border: 1px solid var(--gray-200);
   --focus-border: 1px solid var(--red-500);
+  --hover-border: 1px solid var(--gray-300);
+  --active-border: 1px solid var(--gray-300);
 }
 </style>
