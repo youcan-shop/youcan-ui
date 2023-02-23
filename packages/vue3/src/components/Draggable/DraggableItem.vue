@@ -42,7 +42,7 @@ function handleCheck(value: boolean) {
   align-items: center;
   height: 44px;
   padding: 0 16px;
-  border: 1px solid var(--gray-100);
+  border: 1px solid var(--gray-200);
   border-radius: 4px;
   background-color: var(--base-white);
   box-shadow: var(--shadow-xs-gray);

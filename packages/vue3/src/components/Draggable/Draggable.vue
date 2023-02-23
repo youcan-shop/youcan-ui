@@ -41,7 +41,7 @@ function getItemModel(value: unknown) {
   display: flex;
   flex-direction: column;
   padding: 16px;
-  border: 1px solid var(--gray-100);
+  border: 1px solid var(--gray-200);
   border-radius: 4px;
   background-color: var(--gray-50);
   gap: 8px;
