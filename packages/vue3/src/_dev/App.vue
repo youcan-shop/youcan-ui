@@ -1,17 +1,30 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-import type { DraggableItemType } from '~/components/Draggable/types';
-import Draggable from '~/components/Draggable/Draggable.vue';
-const items: DraggableItemType[] = [
-  { label: 'test 1', value: 'test 1', checked: false },
-  { label: 'test 2', value: 'test 2', checked: false },
-  { label: 'test 3', value: 'test 3', checked: false },
-  { label: 'test 4', value: 'test 4', checked: true },
-];
+import { Sidebar, SidebarItem, SidebarSubitem } from '~/components';
 
-const mode = ref(items);
+import 'uno.css';
+import '../assets/main.css';
 </script>
 
 <template>
-  <Draggable v-model="mode" :can-check="true" />
+  <Sidebar>
+    <template #header>
+      Store
+    </template>
+    <template #items>
+      <SidebarItem icon="i-youcan-house-simple" label="Home" />
+      <SidebarItem icon="i-youcan-cube" label="Orders">
+        <SidebarSubitem label="All Orders" />
+        <SidebarSubitem label="Create Orders" />
+      </SidebarItem>
+      <SidebarItem icon="i-youcan-tag" label="Products">
+        <SidebarSubitem label="All Products" />
+        <SidebarSubitem label="Create Products" />
+      </SidebarItem>
+      <SidebarItem icon="i-youcan-squares-four" label="Apps" />
+    </template>
+    <template #lower-items>
+      <SidebarItem icon="i-youcan-headset" label="Support" />
+      <SidebarItem icon="i-youcan-gear" label="Settings" />
+    </template>
+  </Sidebar>
 </template>
