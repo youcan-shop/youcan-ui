@@ -46,10 +46,10 @@ const toggle = (override = !collapsed.value) => collapsed.value = override;
   display: flex;
   align-items: center;
   height: 68px;
-  padding: 0 18px;
+  padding: 0 16px;
   border-bottom: 1px solid var(--gray-700);
   font: var(--text-lg-medium);
-  gap: 22px;
+  gap: 20px;
 }
 
 .sidebar-header:hover {
