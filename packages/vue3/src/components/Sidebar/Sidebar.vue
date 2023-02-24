@@ -38,14 +38,18 @@ const toggle = (override = !collapsed.value) => collapsed.value = override;
   background-color: var(--gray-800);
 }
 
+.sidebar i {
+  color: var(--gray-400);
+}
+
 .sidebar-header {
   display: flex;
   align-items: center;
-  height: 64px;
-  padding: 0 12px;
+  height: 68px;
+  padding: 0 16px;
   border-bottom: 1px solid var(--gray-700);
   font: var(--text-lg-medium);
-  gap: 12px;
+  gap: 20px;
 }
 
 .sidebar-header:hover {

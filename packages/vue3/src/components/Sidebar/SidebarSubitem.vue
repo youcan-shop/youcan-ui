@@ -10,22 +10,30 @@ defineProps<{ label: string; active?: boolean }>();
 
 <style scoped>
 .sidebar-subitem {
-  padding: 4px 44px;
+  padding: 5.5px 60px;
   border: none;
   background-color: transparent;
-  color: var(--gray-100);
+  color: var(--gray-400);
   font: var(--text-sm-regular);
   text-align: left;
   cursor: pointer;
 }
 
-.sidebar-subitem:is(:hover, :active, :focus) {
+.sidebar-subitem:first-child {
+  margin-top: 8px;
+}
+
+.sidebar-subitem:last-child {
+  margin-bottom: 8px;
+}
+
+.sidebar-subitem:is(:hover, :focus) {
   outline: none;
-  background-color: var(--gray-700);
+  color: var(--gray-200);
 }
 
 .sidebar-subitem.active {
-  color: var(--base-white);
+  color: var(--gray-200);
   font: var(--text-sm-medium);
 }
 </style>
