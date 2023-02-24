@@ -31,8 +31,7 @@ const hasChildren = computed(() => {
       </div>
 
       <div v-if="hasChildren" class="expand-icon">
-        <i v-if="expanded" i-youcan-minus />
-        <i v-else i-youcan-plus />
+        <i i-youcan-caret-down />
       </div>
     </button>
     <div v-if="hasChildren && expanded" class="subitems">
@@ -43,17 +42,18 @@ const hasChildren = computed(() => {
 
 <style scoped>
 .sidebar-item {
-  --height: 46px;
+  --height: 48px;
 
   display: flex;
+  position: relative;
   align-items: center;
   width: 100%;
   height: var(--height);
-  padding: 0 12px;
+  padding: 0 18px;
   border: none;
   background-color: transparent;
   cursor: pointer;
-  gap: 12px;
+  gap: 22px;
 }
 
 .sidebar-item:hover {
@@ -73,7 +73,7 @@ const hasChildren = computed(() => {
 .sidebar-item .item-icon .icon {
   width: 20px;
   height: 20px;
-  color: var(--gray-100);
+  color: var(--gray-400);
 }
 
 .subitems {
