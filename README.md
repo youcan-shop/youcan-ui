@@ -17,6 +17,8 @@ curl -fsSL https://get.pnpm.io/install.sh | env PNPM_VERSION=7.18.2 sh -
 ``` bash
 brew install nvm
 nvm install 18.12.1
+nvm use 18.12.1
+nvm alias default 18.12.1 #to make it default when you open terminal next time
 ```
 
 ### steps:
