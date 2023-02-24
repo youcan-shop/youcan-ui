@@ -70,6 +70,12 @@ const hasChildren = computed(() => {
   box-shadow: inset 2px 0 0 0 var(--base-white);
 }
 
+.sidebar-item .expand-icon .icon {
+  width: 10px;
+  height: 10px;
+  color: var(--gray-400);
+}
+
 .sidebar-item .item-icon .icon {
   width: 22px;
   height: 22px;
@@ -78,12 +84,6 @@ const hasChildren = computed(() => {
 
 .sidebar-item.active .item-icon .icon {
   color: var(--base-white);
-}
-
-.sidebar-item .expand-icon .icon {
-  width: 10px;
-  height: 10px;
-  color: var(--gray-400);
 }
 
 .subitems {
