@@ -36,7 +36,7 @@ withDefaults(
   width: var(--size);
   height: var(--size);
   overflow: hidden;
-  border: 1px solid var(--gray-100);
+  border: 1px solid var(--gray-200);
   border-radius: 4px;
   background-color: var(--base-white);
   box-shadow: var(--shadow-xs-gray);

@@ -56,7 +56,7 @@ label {
   display: grid;
   width: 16px;
   height: 16px;
-  border: 1px solid var(--gray-100);
+  border: 1px solid var(--gray-200);
   border-radius: 4px;
   background-color: var(--base-white);
   box-shadow: var(--shadow-xs-gray);
@@ -80,7 +80,7 @@ label {
 }
 
 input:disabled ~ .checkmark {
-  border: 1px solid var(--gray-50);
+  border: 1px solid var(--gray-200);
   background: var(--base-white);
   box-shadow: none;
   cursor: default;

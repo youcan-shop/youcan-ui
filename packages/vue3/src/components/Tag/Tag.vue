@@ -90,7 +90,7 @@ onMounted(() => {
 <style scoped>
 .tag {
   --width: 460px;
-  --border: 1px solid var(--gray-100);
+  --border: 1px solid var(--gray-200);
   --shadow: var(--shadow-xs-gray);
   --background-color: var(--base-white);
 
@@ -108,7 +108,7 @@ onMounted(() => {
 }
 
 .tag:hover {
-  --border: 1px solid var(--gray-200);
+  --border: 1px solid var(--gray-300);
 }
 
 .tag[disabled="false"][error="false"]:focus,

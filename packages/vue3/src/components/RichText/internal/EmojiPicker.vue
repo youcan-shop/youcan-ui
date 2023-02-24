@@ -68,7 +68,7 @@ onClickOutside(dropdownRef, () => {
   height: 200px;
   margin-top: 10px;
   padding: 12px;
-  border: 1px solid var(--gray-100);
+  border: 1px solid var(--gray-200);
   border-radius: 4px;
   background-color: var(--base-white);
   box-shadow: var(--shadow-xs-gray);

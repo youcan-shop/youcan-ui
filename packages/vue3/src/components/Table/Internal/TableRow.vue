@@ -125,7 +125,7 @@ const castToTableDataComposable = (value: TableColumnValue['value']) => launder<
 <style scoped>
 .table-row {
   height: 68px;
-  border-bottom: 1px solid var(--gray-100);
+  border-bottom: 1px solid var(--gray-200);
   background-color: var(--base-white);
 }
 

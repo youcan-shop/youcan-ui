@@ -18,7 +18,7 @@
 .settings-nav {
   max-width: 240px;
   padding: 0 0 8px;
-  border: 1px solid var(--gray-100);
+  border: 1px solid var(--gray-200);
   border-radius: 8px;
   background-color: var(--base-white);
   box-shadow: var(--shadow-xs-gray);
@@ -26,7 +26,7 @@
 
 .header {
   padding: 16px 8px 16px 20px;
-  border-bottom: 1px solid var(--gray-100);
+  border-bottom: 1px solid var(--gray-200);
   font-weight: var(--text-md-medium);
 }
 </style>

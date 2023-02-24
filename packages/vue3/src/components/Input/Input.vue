@@ -52,7 +52,7 @@ onBeforeMount(() => {
 
 <style scoped>
 .wrapper {
-  --border: 1px solid var(--gray-100);
+  --border: 1px solid var(--gray-200);
   --shadow: var(--shadow-xs-gray);
 
   display: flex;
@@ -64,7 +64,7 @@ onBeforeMount(() => {
 }
 
 .wrapper.enabled:hover {
-  --border: 1px solid var(--gray-200);
+  --border: 1px solid var(--gray-300);
 }
 
 .wrapper.enabled:has(.input:focus) {

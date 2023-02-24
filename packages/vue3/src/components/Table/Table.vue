@@ -228,7 +228,7 @@ function selectRow(index: number, data: boolean) {
 
 .table-head {
   height: 52px;
-  border-bottom: 1px solid var(--gray-100);
+  border-bottom: 1px solid var(--gray-200);
   background-color: var(--gray-50);
 }
 

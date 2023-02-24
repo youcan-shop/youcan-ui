@@ -33,14 +33,14 @@ const model = computed({
   display: flex;
   align-items: center;
   height: max-content;
-  border: 1px solid var(--gray-100);
+  border: 1px solid var(--gray-200);
   border-radius: 8px;
   background-color: var(--base-white);
   box-shadow: var(--shadow-xs-gray);
 }
 
 .wrapper.enabled:hover {
-  border: 1px solid var(--gray-200);
+  border: 1px solid var(--gray-300);
 }
 
 .wrapper.enabled.focused {

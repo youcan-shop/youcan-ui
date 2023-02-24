@@ -122,7 +122,7 @@ onMounted(() => {
   --width: 460px;
   --text-color: var(--gray-900);
   --background-color: var(--base-white);
-  --border: 1px solid var(--gray-100);
+  --border: 1px solid var(--gray-200);
   --shadow: var(--shadow-xs-gray);
 
   display: flex;
@@ -151,7 +151,7 @@ onMounted(() => {
 }
 
 .increment:hover {
-  --border: 1px solid var(--gray-200);
+  --border: 1px solid var(--gray-300);
 }
 
 .increment[disabled="false"]:focus,

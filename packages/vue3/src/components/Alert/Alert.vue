@@ -6,8 +6,12 @@ const props = withDefaults(
   defineProps<{
     type: AlertType
     closeAfterDuration?: number
+    canClose?: boolean
   }>(),
-  { type: 'warning' },
+  {
+    type: 'warning',
+    canClose: true,
+  },
 );
 
 const emit = defineEmits<{
@@ -50,7 +54,7 @@ if (props.closeAfterDuration && typeof props.closeAfterDuration === 'number') {
         </span>
       </div>
       <!-- Close button -->
-      <div class="btn">
+      <div v-if="canClose" class="btn">
         <TertiaryButton class="close-button" size="xs" icon-position="only" @click="handleClose">
           <template #icon>
             <i class="i-tabler:x" />
@@ -70,12 +74,12 @@ if (props.closeAfterDuration && typeof props.closeAfterDuration === 'number') {
   width: 496px;
   margin-bottom: 12px;
   padding: 12px;
-  border: 1px solid var(--gray-100);
+  border: 1px solid var(--gray-200);
   border-left: 4px solid var(--border-color);
   border-width: 0 0 0 1px;
   border-radius: 4px;
   background-color: var(--base-white);
-  box-shadow: rgb(144 135 135 / 2%) 0 1px 3px 0, rgb(27 31 35 / 15%) 0 0 0 1px;
+  box-shadow: var(--shadow-xs-gray);
   gap: 8px;
 }
 
