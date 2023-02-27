@@ -3,8 +3,8 @@ import { Utils } from '@youcan/ui-core';
 import { computed, useSlots } from 'vue';
 
 const props = defineProps<{
-  name: string
   modelValue?: boolean
+  name?: string
 }>();
 
 const emit = defineEmits<{
@@ -23,7 +23,7 @@ const id = Utils.uid('radio_');
 
 <template>
   <div class="radio">
-    <input :id="id" type="radio" :name="name" class="trigger">
+    <input :id="id" v-model="model" type="radio" :name="name" class="trigger">
     <label v-if="slots.default" class="label" :for="id">
       <slot />
     </label>
