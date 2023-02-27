@@ -10,7 +10,7 @@
     "lint": "pnpm eslint && pnpm stylelint",
     "lint:fix": "pnpm eslint --fix && pnpm stylelint --fix",
     "prepare": "pnpm -r run stub",
-    "release": "pnpm build && bumpp package.json packages/*/package.json --commit --push --tag && pnpm -r release"
+    "release": "pnpm build && bumpp package.json packages/*/package.json --commit \"[chore]: Release v\" --push --tag && pnpm -r release"
   },
   "devDependencies": {
     "@youcan/eslint-config": "*",
