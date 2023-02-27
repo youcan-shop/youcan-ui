@@ -46,3 +46,4 @@ export { default as Alert } from './Alert/Alert.vue';
 export { default as DraggableItem } from './Draggable/DraggableItem.vue';
 export { default as Draggable } from './Draggable/Draggable.vue';
 export { default as Radio } from './Radio/Radio.vue';
+export { default as RadioGroup } from './Radio/RadioGroup.vue';
