@@ -23,7 +23,7 @@ const id = Utils.uid('radio_');
 
 <template>
   <div class="radio">
-    <input :id="id" v-model="model" type="radio" :name="name" class="trigger">
+    <input :id="id" v-model="model" type="radio" :name="name" class="trigger" :checked="model">
     <label v-if="slots.default" class="label" :for="id">
       <slot />
     </label>
