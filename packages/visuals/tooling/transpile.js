@@ -6,8 +6,6 @@ import {
   cleanupSVG,
   deOptimisePaths,
   importDirectory,
-  isEmptyColor,
-  parseColors,
   runSVGO,
 } from '@iconify/tools';
 import { ensureFile } from 'fs-extra';
@@ -37,22 +35,6 @@ import info from '../info.json' assert { type: 'json' };
     // Clean up and validate icon
     // This will throw an exception if icon is invalid
     await cleanupSVG(svg);
-    await parseColors(svg, {
-      defaultColor: 'currentColor',
-      callback: (attr, colorStr, color) => {
-        if (!color) {
-          // Color cannot be parsed!
-          throw new Error(`Invalid color: "${colorStr}" in attribute ${attr}`);
-        }
-
-        if (isEmptyColor(color)) {
-          // Color is empty: 'none' or 'transparent'. Return as is
-          return color;
-        }
-
-        return 'currentColor';
-      },
-    });
 
     // Optimise
     await runSVGO(svg);

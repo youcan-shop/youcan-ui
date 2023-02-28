@@ -11,5 +11,6 @@ const fffg = ref();
   <div>
     <RadioGroup v-model="fffg" :items="[{ label: 'sss', value: 222 }, { label: 'xxx', value: 333 }]" name="sss" />
     <div>{{ JSON.stringify(fffg) }}</div>
+    <i class="i-visuals-task" />
   </div>
 </template>
