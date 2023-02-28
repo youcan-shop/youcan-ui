@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-youcan",
-  "version": "2.2.13",
+  "version": "2.2.14",
   "homepage": "https://github.com/youcan-shop/eslint-config",
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
