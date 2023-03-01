@@ -25,16 +25,17 @@ const expandedRows = ref(Array<boolean>(props.data.length).fill(false));
 const hasChildren = computed(() => props.data.some(row => row.children && row.children.length > 0));
 
 const tableColumns = computed(() => {
+  const columns = [
+    props.selectable ? { accessor: 'check', label: 'Checkbox' } : null,
+    hasChildren.value ? { accessor: '_expand', label: 'Expand' } : null,
+    ...props.columns,
+  ];
+
   if (props.actions && props.actions.length > 0) {
-    return [
-      props.selectable ? { accessor: 'check', label: 'Checkbox' } : null,
-      hasChildren.value ? { accessor: '_expand', label: 'Expand' } : null,
-      ...props.columns,
-      { accessor: 'actions', label: 'Actions' },
-    ].filter(column => column !== null) as TableColumn[];
+    columns.push({ accessor: 'actions', label: 'Actions' });
   }
 
-  return props.columns;
+  return columns.filter(column => column !== null) as TableColumn[];
 });
 
 const rows = computed(

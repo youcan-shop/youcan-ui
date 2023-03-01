@@ -2,15 +2,18 @@
 import 'uno.css';
 import '../assets/main.css';
 import { ref } from 'vue';
-import RadioGroup from '~/components/Radio/RadioGroup.vue';
+import type { TableData } from '~/components/Table/types';
+import Table from '~/components/Table/Table.vue';
 
-const fffg = ref();
+const data = ref<TableData[]>([{
+  row: {
+    image: 'ss',
+  },
+}]);
 </script>
 
 <template>
   <div>
-    <RadioGroup v-model="fffg" :items="[{ label: 'sss', value: 222 }, { label: 'xxx', value: 333 }]" name="sss" />
-    <div>{{ JSON.stringify(fffg) }}</div>
-    <i class="i-visuals-task" />
+    <Table :data="data" :columns="[{ accessor: 'image', label: 'sssss' }]" />
   </div>
 </template>
