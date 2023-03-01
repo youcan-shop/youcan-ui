@@ -17,3 +17,5 @@ const data = ref<TableData[]>([{
     <Table :data="data" :columns="[{ accessor: 'image', label: 'sssss' }]" />
   </div>
 </template>
+
+<source srcset="">
