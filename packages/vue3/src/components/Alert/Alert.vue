@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useSlots } from 'vue';
 import type { AlertType } from './types';
 import TertiaryButton from '~/components/Button/TertiaryButton.vue';
 
@@ -17,6 +18,7 @@ const props = withDefaults(
 const emit = defineEmits<{
   (e: 'close'): void
 }>();
+const { title, description } = useSlots();
 
 const handleClose = () => {
   emit('close');
@@ -42,15 +44,11 @@ if (props.closeAfterDuration && typeof props.closeAfterDuration === 'number') {
         />
       </div>
       <div class="content-container">
-        <span class="title" :class="[type]">
-          <slot name="title">
-            Example: Short toast title
-          </slot>
+        <span v-if="title" class="title" :class="[type]">
+          <slot name="title" />
         </span>
-        <span class="description" :class="[type]">
-          <slot name="description">
-            Example: Short description using toast.
-          </slot>
+        <span v-if="description" class="description" :class="[type]">
+          <slot name="description" />
         </span>
       </div>
       <!-- Close button -->
@@ -71,7 +69,7 @@ if (props.closeAfterDuration && typeof props.closeAfterDuration === 'number') {
 
   display: flex;
   position: relative;
-  width: 496px;
+  width: 100%;
   margin-bottom: 12px;
   padding: 12px;
   border: 1px solid var(--gray-200);
