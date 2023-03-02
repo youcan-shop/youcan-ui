@@ -1,11 +1,18 @@
 <script setup lang="ts">
 import { computed, onBeforeMount, ref, useAttrs, useSlots } from 'vue';
 import DropdownPrefix from './prefixes/DropdownPrefix.vue';
+import type { HTMLInputTypeAttribute } from './types';
 
-const props = defineProps<{
-  modelValue: string
-  error?: boolean
-}>();
+const props = withDefaults(
+  defineProps<{
+    type?: HTMLInputTypeAttribute
+    modelValue: string
+    error?: boolean
+  }>(),
+  {
+    type: 'text',
+  },
+);
 
 const emit = defineEmits(['update:modelValue']);
 
@@ -38,7 +45,7 @@ onBeforeMount(() => {
     <div v-if="slots.prefix" class="prefix">
       <slot name="prefix" />
     </div>
-    <input ref="primitive" v-model="model" class="input" type="text" v-bind="$attrs">
+    <input ref="primitive" v-model="model" class="input" :type="type" v-bind="$attrs">
     <div v-if="slots.icon || slots.suffix" class="tail">
       <div v-if="slots.icon" class="icon">
         <slot name="icon" />
