@@ -53,14 +53,15 @@ const model = computed({
 }
 
 .trigger {
-  width: 18px;
-  height: 18px;
+  width: 14px;
+  height: 14px;
   margin: 0;
   transition: 75ms all linear;
   border: 1px solid var(--gray-200);
   border-radius: 50%;
   background-color: var(--base-white);
   appearance: none;
+  outline: 2px solid var(--base-white);
 }
 
 .trigger:hover {
@@ -73,10 +74,8 @@ const model = computed({
 }
 
 .trigger:checked {
-  border: 4px solid var(--brand-500);
-}
-
-.trigger:checked:hover {
-  border-color: var(--brand-600);
+  outline-color: var(--brand-500);
+  border: 3px solid var(--base-white);
+  background-color: var(--brand-500);
 }
 </style>
