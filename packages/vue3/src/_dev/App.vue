@@ -7,13 +7,21 @@ import Table from '~/components/Table/Table.vue';
 
 const data = ref<TableData[]>([{
   row: {
-    image: 'ss',
+    image: {
+      variant: 'input',
+      data: {
+        modelValue: '6',
+        type: 'number',
+        min: 4,
+        max: 7,
+      },
+    },
   },
 }]);
 </script>
 
 <template>
   <div>
-    <Table :data="data" :columns="[{ accessor: 'image', label: 'sssss' }]" />
+    <Table :data="data" :columns="[{ accessor: 'image', label: 'input' }]" />
   </div>
 </template>
