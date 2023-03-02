@@ -2,6 +2,7 @@ import type { Component } from 'vue';
 import type { StaticStatusDefinition, StatusDefinition } from '../Status/types';
 import type { PercentageType } from '../Percentage/types';
 import type { ButtonIconPosition, ButtonSize } from '../Button/types';
+import type { HTMLInputTypeAttribute } from '../Input/types';
 import type { ThumbnailSize } from '~/components/Thumbnail/types';
 
 export interface HandleSubCompModel {
@@ -53,7 +54,7 @@ export interface TableInternalData {
   children?: Pick<TableInternalData, 'row'>[]
 }
 
-export type TableComposableVariant = 'link' | 'thumbnail' | 'status' | 'static-status' | 'percentage' | 'button' | 'rating' | 'toggle' | 'counter' | 'icon';
+export type TableComposableVariant = 'link' | 'thumbnail' | 'status' | 'static-status' | 'percentage' | 'button' | 'rating' | 'toggle' | 'counter' | 'icon' | 'input';
 
 interface TableComposable<T extends TableComposableVariant, U, V extends Record<string, () => void> = Record<string, () => void>> {
   variant: Extract<TableComposableVariant, T>
@@ -70,7 +71,8 @@ export type TableDataComposable =
   TableComposable<'button', TableDataButton, { click: () => void }> |
   TableComposable<'rating', TableDataRating> |
   TableComposable<'toggle', TableDataToggle> |
-  TableComposable<'counter', TableDataCounter>;
+  TableComposable<'counter', TableDataCounter> |
+  TableComposable<'input', TableDataInput>;
 
 interface TableDataLink {
   label?: string
@@ -124,3 +126,19 @@ interface TableDataCounter {
   disabled?: boolean
 }
 
+type TableDataInput = TableDataNumberInput | TableDataGenericInput;
+
+interface BaseTableDataInput<T extends HTMLInputTypeAttribute> {
+  modelValue: string
+  type: T
+  id?: string
+  disabled?: boolean
+}
+
+interface TableDataNumberInput extends BaseTableDataInput<'number'> {
+  max?: number
+  min?: number
+  step?: number
+}
+
+interface TableDataGenericInput extends BaseTableDataInput<Exclude<HTMLInputTypeAttribute, 'number'>> {}
