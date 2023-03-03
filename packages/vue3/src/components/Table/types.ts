@@ -30,7 +30,7 @@ export interface TableActions {
 }
 
 export interface TableColumnValue {
-  value: string | number | TableDataComposable
+  value: string | number | boolean | TableDataComposable
   accessor: string
   isString: boolean
   component?: Component | undefined
@@ -41,7 +41,7 @@ export interface TableColumnValues {
 }
 
 export interface TableDataRow {
-  [key: string]: string | number | TableDataComposable
+  [key: string]: string | number | boolean | TableDataComposable
 }
 
 export interface TableData {
