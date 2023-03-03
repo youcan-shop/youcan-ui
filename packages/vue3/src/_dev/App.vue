@@ -7,6 +7,7 @@ import Table from '~/components/Table/Table.vue';
 
 const data = ref<TableData[]>([{
   row: {
+    isEditable: true,
     image: {
       variant: 'input',
       data: {
