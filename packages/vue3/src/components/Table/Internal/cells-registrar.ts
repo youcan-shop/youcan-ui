@@ -9,6 +9,7 @@ import Rating from '~/components/Rating/Rating.vue';
 import Toggle from '~/components/Toggle/Toggle.vue';
 import Increment from '~/components/Increment/Increment.vue';
 import StaticStatus from '~/components/Status/StaticStatus.vue';
+import Input from '~/components/Input/Input.vue';
 
 export default function (name: TableComposableVariant): Component | undefined {
   switch (name) {
@@ -21,6 +22,7 @@ export default function (name: TableComposableVariant): Component | undefined {
     case 'rating': return Rating;
     case 'toggle': return Toggle;
     case 'counter': return Increment;
+    case 'input': return Input;
     default: return undefined;
   }
 }

@@ -1,29 +1,27 @@
 <script setup lang="ts">
 import 'uno.css';
 import '../assets/main.css';
-import Alert from '~/components/Alert/Alert.vue';
+import { ref } from 'vue';
+import type { TableData } from '~/components/Table/types';
+import Table from '~/components/Table/Table.vue';
+
+const data = ref<TableData[]>([{
+  row: {
+    image: {
+      variant: 'input',
+      data: {
+        modelValue: '6',
+        type: 'number',
+        min: 4,
+        max: 7,
+      },
+    },
+  },
+}]);
 </script>
 
 <template>
   <div>
-    <div class="container">
-      <h3>Alert component</h3>
-      <Alert type="info">
-        <template #title>
-          hello
-        </template>
-      </Alert>
-    </div>
+    <Table :data="data" :columns="[{ accessor: 'image', label: 'input' }]" />
   </div>
 </template>
-
-<style>
-h3{
-  font: var(--text-lg-regular)
-}
-.container {
-  max-width: 600px;
-  margin: auto;
-  margin-top: 10%;
-}
-</style>
