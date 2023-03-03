@@ -56,7 +56,7 @@ export interface TableInternalData {
 
 export type TableComposableVariant = 'link' | 'thumbnail' | 'status' | 'static-status' | 'percentage' | 'button' | 'rating' | 'toggle' | 'counter' | 'icon' | 'input';
 
-interface TableComposable<T extends TableComposableVariant, U, V extends Record<string, () => void> = Record<string, () => void>> {
+export interface TableComposable<T extends TableComposableVariant, U, V extends Record<string, () => void> = Record<string, () => void>> {
   variant: Extract<TableComposableVariant, T>
   data: U
   events?: V
@@ -74,32 +74,32 @@ export type TableDataComposable =
   TableComposable<'counter', TableDataCounter> |
   TableComposable<'input', TableDataInput>;
 
-interface TableDataLink {
+export interface TableDataLink {
   label?: string
   href: string
 }
 
-interface TableDataThumbnail {
+export interface TableDataThumbnail {
   size: ThumbnailSize
   src?: string
   alt?: string
 }
 
-interface TableDataStatus {
+export interface TableDataStatus {
   statuses: StatusDefinition[]
   modelValue: StatusDefinition
 }
 
-interface TableDataStaticStatus {
+export interface TableDataStaticStatus {
   status: StaticStatusDefinition
 }
 
-interface TableDataPercentage {
+export interface TableDataPercentage {
   percentage: number
   type: PercentageType
 }
 
-interface TableDataButton {
+export interface TableDataButton {
   label: string
   iconName?: string
   size?: ButtonSize
@@ -108,16 +108,16 @@ interface TableDataButton {
   roundedFull?: boolean
 }
 
-interface TableDataRating {
+export interface TableDataRating {
   score: number
   ceil?: number
 }
 
-interface TableDataToggle {
+export interface TableDataToggle {
   modelValue: boolean
 }
 
-interface TableDataCounter {
+export interface TableDataCounter {
   modelValue: string
   max?: number
   min?: number
@@ -126,7 +126,7 @@ interface TableDataCounter {
   disabled?: boolean
 }
 
-type TableDataInput = TableDataNumberInput | TableDataGenericInput;
+export type TableDataInput = TableDataNumberInput | TableDataGenericInput;
 
 interface BaseTableDataInput<T extends HTMLInputTypeAttribute> {
   modelValue: string
