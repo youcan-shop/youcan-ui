@@ -22,6 +22,6 @@ const data = ref<TableData[]>([{
 
 <template>
   <div>
-    <Table :data="data" :columns="[{ accessor: 'image', label: 'input' }, { accessor: 'isEditable', label: 'input' }]" />
+    <Table :data="data" :columns="[{ accessor: 'image', label: 'input' }, { accessor: 'isEditable', label: 'input', size: '30.0%' }]" />
   </div>
 </template>
