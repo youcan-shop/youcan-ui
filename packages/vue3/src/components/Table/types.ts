@@ -1,4 +1,5 @@
 import type { Component } from 'vue';
+import type { Enumerate } from '@youcan/ui-core';
 import type { StaticStatusDefinition, StatusDefinition } from '../Status/types';
 import type { PercentageType } from '../Percentage/types';
 import type { ButtonIconPosition, ButtonSize } from '../Button/types';
@@ -17,6 +18,8 @@ export interface TableColumn {
   accessor: string
   sortable?: TableColumnSort
 }
+
+type TableColumnSize = Enumerate<>;
 
 export type TableColumnSort = 'none' | 'asc' | 'desc';
 
