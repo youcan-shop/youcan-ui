@@ -67,7 +67,7 @@ const handleSubCompModel = (index: number, accessor: string, data: unknown, chil
   });
 };
 
-const checkActionCriteria = (action: TableActions, data: TableData) => {
+const checkActionCriteria = (action: TableActions, data: TableData | TableDataRow) => {
   return !action.criteria || action.criteria(data);
 };
 
@@ -106,7 +106,7 @@ const castToTableDataComposable = (value: TableColumnValue['value']) => launder<
         <template v-for="action in rowActions" :key="action.label">
           <!-- v-if="!action.criteria || action.criteria(data[index])" -->
           <TableButton
-            v-if="checkActionCriteria(action, data[index])" size="xs" :data="data"
+            v-if="checkActionCriteria(action, isChild && originalRow ? originalRow : data[index])" size="xs" :data="data"
             :icon-name="action.iconName" :label="action.label" :rounded-full="true" icon-position="only"
             v-on="action.events || {}"
           />
