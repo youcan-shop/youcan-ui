@@ -2,7 +2,7 @@
 import 'uno.css';
 import '../assets/main.css';
 import { ref } from 'vue';
-import type { TableData } from '~/components/Table/types';
+import type { TableActions, TableData } from '~/components/Table/types';
 import Table from '~/components/Table/Table.vue';
 
 const data = ref<TableData[]>([{
@@ -17,11 +17,31 @@ const data = ref<TableData[]>([{
       },
     },
   },
+  children: [
+    {
+      isEditable: true,
+    },
+    {
+      isEditable: false,
+    },
+  ],
 }]);
+
+const actions = ref<TableActions[]>([
+  {
+    label: 'sss',
+    criteria: (xxx) => {
+      console.log(xxx);
+
+      return true;
+    },
+    iconName: 'i-youcan-x',
+  },
+]);
 </script>
 
 <template>
   <div>
-    <Table :data="data" :columns="[{ accessor: 'image', label: 'input', fullContent: true }, { accessor: 'isEditable', label: 'input', size: '50.0%' }]" />
+    <Table :actions="actions" :data="data" :columns="[{ accessor: 'image', label: 'input', fullContent: true }, { accessor: 'isEditable', label: 'input', size: '50.0%' }]" />
   </div>
 </template>
