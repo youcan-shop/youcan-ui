@@ -10,6 +10,7 @@ defineProps<{ label: string; active?: boolean }>();
 
 <style scoped>
 .sidebar-subitem {
+  box-sizing: border-box;
   padding: 5.5px 60px;
   border: none;
   background-color: transparent;

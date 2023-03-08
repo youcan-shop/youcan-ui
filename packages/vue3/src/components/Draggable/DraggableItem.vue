@@ -39,6 +39,7 @@ function handleCheck(value: boolean) {
 <style scoped>
 .draggable-item {
   display: flex;
+  box-sizing: border-box;
   align-items: center;
   height: 44px;
   padding: 0 16px;
@@ -46,8 +47,8 @@ function handleCheck(value: boolean) {
   border-radius: 4px;
   background-color: var(--base-white);
   box-shadow: var(--shadow-xs-gray);
-  gap: 8px;
   user-select: none;
+  gap: 8px;
 }
 
 .handle {

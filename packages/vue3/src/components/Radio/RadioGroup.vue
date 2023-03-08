@@ -39,5 +39,6 @@ const handleRadioCheck = (radio: RadioData) => model.value = radio.value;
 <style scoped>
 .radio-group {
   all: unset;
+  box-sizing: border-box;
 }
 </style>

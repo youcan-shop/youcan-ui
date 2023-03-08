@@ -63,6 +63,7 @@ $states: hover, focus, active, disabled;
   }
 
   display: flex;
+  box-sizing: border-box;
   flex-direction: var(--icon-position);
   align-items: center;
   justify-content: center;

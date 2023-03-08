@@ -126,6 +126,7 @@ onMounted(() => {
   --shadow: var(--shadow-xs-gray);
 
   display: flex;
+  box-sizing: border-box;
   align-items: center;
   width: var(--width);
   padding: 6px 10px;

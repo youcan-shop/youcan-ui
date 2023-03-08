@@ -95,6 +95,7 @@ onMounted(() => {
   --background-color: var(--base-white);
 
   display: flex;
+  box-sizing: border-box;
   flex-wrap: wrap;
   align-items: center;
   width: var(--width);

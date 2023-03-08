@@ -22,6 +22,7 @@ defineProps<{
 
 <style scoped>
 button {
+  box-sizing: border-box;
   border: none;
   background-color: transparent;
   cursor: pointer;

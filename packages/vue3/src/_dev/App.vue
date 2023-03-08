@@ -9,10 +9,9 @@ const data = ref<TableData[]>([{
   row: {
     isEditable: true,
     image: {
-      variant: 'input',
+      variant: 'counter',
       data: {
         modelValue: '6',
-        type: 'number',
         min: 4,
         max: 7,
       },
@@ -23,6 +22,6 @@ const data = ref<TableData[]>([{
 
 <template>
   <div>
-    <Table :data="data" :columns="[{ accessor: 'image', label: 'input' }]" />
+    <Table :data="data" :columns="[{ accessor: 'image', label: 'input', fullContent: true }, { accessor: 'isEditable', label: 'input', size: '50.0%' }]" />
   </div>
 </template>

@@ -58,6 +58,7 @@ onMounted(() => {
 <style scoped>
 .file {
   position: relative;
+  box-sizing: border-box;
   width: 240px;
   height: 240px;
   border-radius: 8px;

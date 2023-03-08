@@ -69,6 +69,7 @@ if (props.closeAfterDuration && typeof props.closeAfterDuration === 'number') {
 
   display: flex;
   position: relative;
+  box-sizing: border-box;
   width: 100%;
   margin-bottom: 12px;
   padding: 12px;

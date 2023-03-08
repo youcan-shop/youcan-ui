@@ -67,6 +67,7 @@ function toggle(item: DropdownItemDefinition, value: boolean): void {
 <style scoped>
 .dropdown-input {
   display: flex;
+  box-sizing: border-box;
   align-items: center;
   width: 100%;
   padding: 12px 16px;

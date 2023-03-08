@@ -39,6 +39,7 @@ label {
 
 .checkbox {
   display: block;
+  box-sizing: border-box;
   cursor: pointer;
   user-select: none;
 }

@@ -1,4 +1,5 @@
 import type { Component } from 'vue';
+import type { IntegerRange } from '@youcan/ui-core';
 import type { StaticStatusDefinition, StatusDefinition } from '../Status/types';
 import type { PercentageType } from '../Percentage/types';
 import type { ButtonIconPosition, ButtonSize } from '../Button/types';
@@ -16,7 +17,11 @@ export interface TableColumn {
   label?: string
   accessor: string
   sortable?: TableColumnSort
+  size?: TableColumnSize
+  fullContent?: boolean
 }
+
+type TableColumnSize = `${IntegerRange<0, 100>}.${IntegerRange<0, 100>}%`;
 
 export type TableColumnSort = 'none' | 'asc' | 'desc';
 

@@ -181,7 +181,7 @@ function selectRow(index: number, data: boolean) {
   <div class="table-container">
     <table class="table">
       <thead class="table-head">
-        <th v-for="(column, index) in tableColumns" :key="column.accessor" class="head-column">
+        <th v-for="(column, index) in tableColumns" :key="column.accessor" class="head-column" :style="{ width: column.size ?? undefined }">
           <template v-if="column.accessor === 'check'">
             <Checkbox v-model="isAllChecked" @update:model-value="batchSelect" />
           </template>
@@ -216,6 +216,7 @@ function selectRow(index: number, data: boolean) {
 <style scoped>
 .table-container {
   display: flex;
+  box-sizing: border-box;
   align-items: center;
   justify-content: center;
   width: 100%;

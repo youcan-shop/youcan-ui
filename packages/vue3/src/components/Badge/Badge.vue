@@ -33,6 +33,7 @@ $states: (
   --height: v-bind(`${size}px`);
 
   display: flex;
+  box-sizing: border-box;
   align-items: center;
   justify-content: center;
   width: min-content;

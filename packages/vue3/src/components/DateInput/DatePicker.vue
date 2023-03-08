@@ -132,6 +132,7 @@ const isActive = (day: DayStatus) => {
 <style scoped>
 .date-picker {
   display: flex;
+  box-sizing: border-box;
   flex-direction: column;
   width: max-content;
   padding: 12px;

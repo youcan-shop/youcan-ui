@@ -46,6 +46,7 @@ const hasChildren = computed(() => {
 
   display: flex;
   position: relative;
+  box-sizing: border-box;
   align-items: center;
   width: 100%;
   height: var(--height);

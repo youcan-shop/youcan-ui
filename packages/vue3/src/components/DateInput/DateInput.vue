@@ -53,6 +53,7 @@ onClickOutside(datePicker, () => toggleDatePicker(false));
 .date-input {
   --width: 460px;
 
+  box-sizing: border-box;
   width: var(--width);
 }
 

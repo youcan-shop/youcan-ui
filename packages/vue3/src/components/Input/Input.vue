@@ -63,6 +63,7 @@ onBeforeMount(() => {
   --shadow: var(--shadow-xs-gray);
 
   display: flex;
+  box-sizing: border-box;
   align-items: center;
   border: var(--border);
   border-radius: 8px;

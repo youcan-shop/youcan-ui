@@ -100,6 +100,7 @@ function toggle(item: DropdownItemDefinition, value: boolean): void {
 <style scoped>
 .dropdown-list {
   position: relative;
+  box-sizing: border-box;
   min-width: fit-content;
   border: 1px solid var(--gray-200);
   border-radius: 8px;

@@ -22,6 +22,7 @@ const emit = defineEmits(['delete']);
 <style scoped>
 .file {
   display: flex;
+  box-sizing: border-box;
   align-items: center;
   padding: 12px 16px;
   border: 1px solid var(--gray-200);

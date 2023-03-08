@@ -48,6 +48,7 @@ const setColor = (color: { hexa: string }) => model.value = color.hexa;
 <style scoped>
 .wrapper {
   display: flex;
+  box-sizing: border-box;
   align-items: center;
   padding: 6px;
   border: 1px solid var(--gray-200);

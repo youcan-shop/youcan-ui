@@ -33,6 +33,7 @@ const id = Utils.uid('radio_');
 <style scoped>
 .radio {
   display: flex;
+  box-sizing: border-box;
   align-items: center;
   gap: 8px;
 }

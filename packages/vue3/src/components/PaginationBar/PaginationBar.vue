@@ -71,6 +71,7 @@ function updateCurrentPage(index: number) {
 <style scoped>
 .pagination-bar {
   display: flex;
+  box-sizing: border-box;
   align-items: center;
   justify-content: space-between;
   height: 60px;
