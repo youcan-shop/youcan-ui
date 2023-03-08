@@ -18,6 +18,7 @@ withDefaults(
 
 <style scoped>
 .percentage {
+  box-sizing: border-box;
   padding: 7.5px 12px;
   border-radius: 4px;
   background-color: var(--gray-50);

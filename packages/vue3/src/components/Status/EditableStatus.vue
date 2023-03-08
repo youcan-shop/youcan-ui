@@ -48,6 +48,7 @@ const model = computed({
 <style scoped>
 .editable-status {
   display: flex;
+  box-sizing: border-box;
   align-items: center;
   padding: 0;
   padding-right: 12px;

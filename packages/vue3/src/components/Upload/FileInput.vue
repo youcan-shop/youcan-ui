@@ -43,6 +43,7 @@ function handlefiles(files: File[]) {
 <style scoped>
 .facade {
   display: grid;
+  box-sizing: border-box;
   padding: 12px 16px;
   border: 1px solid var(--gray-200);
   border-radius: 4px;

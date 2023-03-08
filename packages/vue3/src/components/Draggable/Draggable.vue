@@ -39,6 +39,7 @@ function getItemModel(value: unknown) {
 <style scoped>
 .draggable {
   display: flex;
+  box-sizing: border-box;
   flex-direction: column;
   padding: 16px;
   border: 1px solid var(--gray-200);

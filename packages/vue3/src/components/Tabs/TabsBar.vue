@@ -10,9 +10,10 @@
 
 <style scoped>
 .list {
-  gap: 40px;
   display: flex;
+  box-sizing: border-box;
   align-items: center;
   border-bottom: 1px solid var(--gray-200);
+  gap: 40px;
 }
 </style>

@@ -11,6 +11,7 @@
 <style scoped>
 .action-bar {
   display: flex;
+  box-sizing: border-box;
   align-items: center;
   justify-content: flex-end;
   height: 68px;

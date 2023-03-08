@@ -116,6 +116,7 @@ watch(
 
 <style scoped lang="scss">
 .color-picker {
+  box-sizing: border-box;
   width: min-content;
   padding: 12px;
   border-radius: 8px;

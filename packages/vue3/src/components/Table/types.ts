@@ -18,6 +18,7 @@ export interface TableColumn {
   accessor: string
   sortable?: TableColumnSort
   size?: TableColumnSize
+  fullContent?: boolean
 }
 
 type TableColumnSize = `${IntegerRange<0, 100>}.${IntegerRange<0, 100>}%`;

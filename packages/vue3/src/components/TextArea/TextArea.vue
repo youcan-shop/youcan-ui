@@ -31,6 +31,7 @@ const model = computed({
 <style scoped>
 .wrapper {
   display: flex;
+  box-sizing: border-box;
   align-items: center;
   height: max-content;
   border: 1px solid var(--gray-200);

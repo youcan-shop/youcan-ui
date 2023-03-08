@@ -56,6 +56,7 @@ onClickOutside(colorPicker, () => toggleColorPicker(false));
 .tag-item {
   display: flex;
   position: relative;
+  box-sizing: border-box;
   align-items: center;
   width: max-content;
   height: 32px;

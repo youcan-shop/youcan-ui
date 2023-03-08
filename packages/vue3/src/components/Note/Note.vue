@@ -21,6 +21,7 @@
   --note-text-color: var(--gray-700);
 
   display: flex;
+  box-sizing: border-box;
   align-items: center;
   max-width: 540px;
   padding: 2px 25px;

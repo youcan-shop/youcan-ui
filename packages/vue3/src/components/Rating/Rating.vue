@@ -24,6 +24,7 @@ onBeforeMount(() => {
 <style scoped>
 .rating {
   display: flex;
+  box-sizing: border-box;
   align-items: center;
 }
 

@@ -32,6 +32,7 @@ const toggle = (override = !collapsed.value) => collapsed.value = override;
   --sidebar-height: 100vh;
 
   display: flex;
+  box-sizing: border-box;
   flex-direction: column;
   width: var(--sidebar-width);
   height: var(--sidebar-height);

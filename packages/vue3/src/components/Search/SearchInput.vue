@@ -56,6 +56,7 @@ onMounted(async () => refresh());
 .result-list-wrapper {
   display: none;
   position: relative;
+  box-sizing: border-box;
 }
 
 .search-input-wrapper:focus-within .result-list-wrapper {

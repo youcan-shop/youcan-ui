@@ -19,6 +19,7 @@
 .topbar-start,
 .topbar-end {
   display: flex;
+  box-sizing: border-box;
   align-items: center;
 }
 

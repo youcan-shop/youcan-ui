@@ -63,6 +63,7 @@ watchEffect(() => {
   --loading-stroke-color: var(--gray-100);
 
   position: relative;
+  box-sizing: border-box;
   width: 120px;
   height: 120px;
 }

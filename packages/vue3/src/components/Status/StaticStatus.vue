@@ -12,6 +12,7 @@ defineProps<{ status: StaticStatusDefinition }>();
 
 <style scoped>
 .status {
+  box-sizing: border-box;
   max-width: fit-content;
   padding: 7.5px 12px;
   border-radius: 4px;

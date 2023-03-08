@@ -90,13 +90,14 @@ const castToTableDataComposable = (value: TableColumnValue['value']) => launder<
       <template v-else-if="row.row[column.accessor]">
         <div
           v-if="row.row[column.accessor].isString" class="text-column"
-          :class="{ na: row.row[column.accessor].value.toString().toLocaleLowerCase() === 'n/a' }"
+          :class="{ 'na': row.row[column.accessor].value.toString().toLocaleLowerCase() === 'n/a', 'cell-full-width': column.fullContent }"
         >
           {{ row.row[column.accessor].value }}
         </div>
         <component
           :is="row.row[column.accessor].component" v-else-if="!row.row[column.accessor].isString"
           v-bind="castToTableDataComposable(row.row[column.accessor].value).data"
+          :class="{ 'cell-full-width': column.fullContent }"
           @update:model-value="(data: HandleSubCompModel & unknown) => handleSubCompModel(index, column.accessor, data, data.child || false)"
           v-on="castToTableDataComposable(row.row[column.accessor].value).events || {}"
         />
@@ -176,6 +177,10 @@ const castToTableDataComposable = (value: TableColumnValue['value']) => launder<
 
 .table-row .table-cell .increment:deep(input) {
   width: 30px;
+}
+
+.table-row .table-cell .cell-full-width {
+  width: 100%;
 }
 
 .table-row.expended-child {

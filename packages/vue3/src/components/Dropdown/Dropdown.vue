@@ -55,6 +55,7 @@ const model = computed<DropdownItemDefinition | null>({
 <style scoped>
 .dropdown-input {
   display: flex;
+  box-sizing: border-box;
   align-items: center;
   width: 100%;
   border: 1px solid var(--gray-200);

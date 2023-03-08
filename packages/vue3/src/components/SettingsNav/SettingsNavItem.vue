@@ -16,6 +16,7 @@ defineProps<{ label: string; icon: string; active?: boolean }>();
 
 <style scoped>
 button {
+  box-sizing: border-box;
   width: 100%;
   border: none;
 }

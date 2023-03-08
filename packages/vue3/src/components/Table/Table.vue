@@ -216,6 +216,7 @@ function selectRow(index: number, data: boolean) {
 <style scoped>
 .table-container {
   display: flex;
+  box-sizing: border-box;
   align-items: center;
   justify-content: center;
   width: 100%;

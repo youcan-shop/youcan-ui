@@ -16,6 +16,7 @@
 
 <style scoped>
 .settings-nav {
+  box-sizing: border-box;
   max-width: 240px;
   padding: 0 0 8px;
   border: 1px solid var(--gray-200);

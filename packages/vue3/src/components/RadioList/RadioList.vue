@@ -28,6 +28,7 @@ const model = computed({
 <style scoped>
 .radio-list {
   display: flex;
+  box-sizing: border-box;
   flex-direction: column;
   gap: 8px;
 }
@@ -43,7 +44,8 @@ const model = computed({
   cursor: pointer;
 }
 
-.name, .suffix {
+.name,
+.suffix {
   color: var(--gray-900);
   font: var(--text-sm-regular);
 }
@@ -59,9 +61,9 @@ const model = computed({
   transition: 75ms all linear;
   border: 1px solid var(--gray-200);
   border-radius: 50%;
+  outline: 2px solid var(--base-white);
   background-color: var(--base-white);
   appearance: none;
-  outline: 2px solid var(--base-white);
 }
 
 .trigger:hover {
@@ -74,8 +76,8 @@ const model = computed({
 }
 
 .trigger:checked {
-  outline-color: var(--brand-500);
   border: 3px solid var(--base-white);
+  outline-color: var(--brand-500);
   background-color: var(--brand-500);
 }
 </style>

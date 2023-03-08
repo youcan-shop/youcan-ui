@@ -28,6 +28,7 @@ const model = computed({
 
   display: flex;
   position: relative;
+  box-sizing: border-box;
   align-items: center;
   width: var(--toggle-width);
   height: calc(var(--knob-size) + (var(--padding) * 2));

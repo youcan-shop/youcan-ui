@@ -42,6 +42,7 @@ onUpdated(() => {
 <style scoped>
 .star {
   display: inline-block;
+  box-sizing: border-box;
   margin-inline-end: 2px;
   color: var(--gray-100);
   cursor: pointer;

@@ -136,6 +136,7 @@ watch(_toolbar.color, (newValue) => {
 
 <style lang="scss">
 .rich-text-editor {
+  box-sizing: border-box;
   overflow: hidden;
   border: 1px solid var(--gray-200);
   border-radius: 8px;
