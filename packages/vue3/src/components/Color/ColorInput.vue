@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { onClickOutside, useFocus } from '@vueuse/core';
-import { computed, ref, useAttrs } from 'vue';
+import { computed, onMounted, ref, useAttrs } from 'vue';
+import { createPopper } from '@popperjs/core';
 import ColorPicker from './ColorPicker.vue';
 import Backdrop from './Internal/Backdrop.vue';
 
@@ -25,27 +26,53 @@ const model = computed({
 });
 
 const setColor = (color: { hexa: string }) => model.value = color.hexa;
+
+const pickerWrapper = ref();
+
+onMounted(() => {
+  if (!wrapper.value || pickerWrapper.value) {
+    return;
+  }
+
+  createPopper(wrapper.value, pickerWrapper.value, {
+    placement: 'bottom',
+    modifiers: [
+      {
+        name: 'offset',
+        options: {
+          offset: [0, 8],
+        },
+      },
+    ],
+  });
+});
 </script>
 
 <template>
-  <div
-    ref="wrapper" tabindex="0" :class="{ enabled: !attrs.disabled, focused }" class="wrapper" v-bind="$attrs"
-    @click="() => toggle()"
-  >
-    <Backdrop class="preview" :width="40" :height="32" :color="model" />
-    <div class="value">
-      {{ model }}
+  <div class="color-input">
+    <div
+      ref="wrapper" tabindex="0" :class="{ enabled: !attrs.disabled, focused }" class="wrapper" v-bind="$attrs"
+      @click="() => toggle()"
+    >
+      <Backdrop class="preview" :width="40" :height="32" :color="model" />
+      <div class="value">
+        {{ model }}
+      </div>
     </div>
-  </div>
-  <div class="picker-wrapper">
-    <ColorPicker
-      v-if="show && !attrs.disabled" ref="picker" class="picker" :color="model" :defaults="[]"
-      @setcolor="setColor"
-    />
+    <div ref="pickerWrapper" class="picker-wrapper">
+      <ColorPicker
+        v-show="show && !attrs.disabled" ref="picker" class="picker" :color="model" :defaults="[]"
+        @setcolor="setColor"
+      />
+    </div>
   </div>
 </template>
 
 <style scoped>
+.color-input {
+  position: relative;
+}
+
 .wrapper {
   display: flex;
   box-sizing: border-box;
@@ -89,13 +116,11 @@ const setColor = (color: { hexa: string }) => model.value = color.hexa;
 }
 
 .picker-wrapper {
-  position: relative;
+  width: 100%;
 }
 
 .picker {
-  position: absolute;
-  z-index: 100;
-  top: 12px;
-  left: 0;
+  border: 1px solid var(--gray-200);
+  box-shadow: var(--shadow-md-gray);
 }
 </style>
