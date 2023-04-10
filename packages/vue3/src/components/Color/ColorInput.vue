@@ -30,7 +30,7 @@ const setColor = (color: { hexa: string }) => model.value = color.hexa;
 const pickerWrapper = ref();
 
 onMounted(() => {
-  if (!wrapper.value || pickerWrapper.value) {
+  if (!wrapper.value || !pickerWrapper.value) {
     return;
   }
 
