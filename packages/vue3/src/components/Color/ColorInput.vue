@@ -116,6 +116,7 @@ onMounted(() => {
 }
 
 .picker-wrapper {
+  z-index: 100;
   width: 100%;
 }
 
