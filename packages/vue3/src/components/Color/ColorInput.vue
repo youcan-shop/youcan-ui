@@ -61,7 +61,7 @@ onMounted(() => {
     </div>
     <div ref="pickerWrapper" class="picker-wrapper">
       <ColorPicker
-        v-show="show && !attrs.disabled" ref="picker" class="picker" :color="model" :defaults="[]"
+        v-if="show && !attrs.disabled" ref="picker" class="picker" :color="model" :defaults="[]"
         @setcolor="setColor"
       />
     </div>
