@@ -8,9 +8,17 @@ import Saturation from './Internal/Saturation.vue';
 import Hue from './Internal/Hue.vue';
 import Alpha from './Internal/Alpha.vue';
 
-const { color, defaults } = withDefaults(
-  defineProps<{ color: string; defaults: string[] }>(),
-  { color: '#000000', defaults: () => [] },
+const { color, defaults, preserveTransparency } = withDefaults(
+  defineProps<{
+    color: string
+    defaults: string[]
+    preserveTransparency?: boolean
+  }>(),
+  {
+    color: '#000000',
+    defaults: () => [],
+    preserveTransparency: false,
+  },
 );
 
 const emit = defineEmits(['setcolor']);
@@ -93,7 +101,7 @@ watch(
 );
 
 function constructColor(color: unknown) {
-  return parseColor(color, currentColor.value.a);
+  return preserveTransparency ? parseColor(color, currentColor.value.a) : parseColor(color);
 }
 </script>
 

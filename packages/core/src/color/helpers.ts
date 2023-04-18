@@ -187,7 +187,5 @@ export const parseColor = (color: unknown, alpha = 1): RGBA & HSV => {
 
   const hsv = rgbToHsv(rgba);
 
-  console.log(rgba, hsv, color);
-
   return { ...rgba, ...hsv, a: rgba.a ?? alpha } as RGBA & HSV;
 };
