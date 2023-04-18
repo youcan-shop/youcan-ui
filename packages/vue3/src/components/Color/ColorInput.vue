@@ -5,7 +5,16 @@ import { createPopper } from '@popperjs/core';
 import ColorPicker from './ColorPicker.vue';
 import Backdrop from './Internal/Backdrop.vue';
 
-const props = withDefaults(defineProps<{ modelValue?: string }>(), { modelValue: '#ff7420ff' });
+const props = withDefaults(
+  defineProps<{
+    modelValue?: string
+    preserveTransparency?: boolean
+  }>(),
+  {
+    modelValue: '#ff7420ff',
+    preserveTransparency: false,
+  },
+);
 const emit = defineEmits(['update:modelValue']);
 
 const attrs = useAttrs();
@@ -62,7 +71,7 @@ onMounted(() => {
     <div ref="pickerWrapper" class="picker-wrapper">
       <ColorPicker
         v-if="show && !attrs.disabled" ref="picker" class="picker" :color="model" :defaults="[]"
-        @setcolor="setColor"
+        :preserve-transparency="preserveTransparency" @setcolor="setColor"
       />
     </div>
   </div>

@@ -86,6 +86,7 @@ export const constructHueGradient = (
 
 export const toHex = (value: number): string => {
   const hex = value.toString(16);
+
   return hex.length === 1 ? `0${hex}` : hex;
 };
 
@@ -99,6 +100,7 @@ export const rgbToHex = ({ r, g, b }: RGB): string => {
 
 export const rgbaToHex = ({ r, g, b, a }: RGBA): string => {
   const alpha = ((a * 255) | 1 << 8).toString(16).slice(1);
+
   return `#${toHex(r)}${toHex(g)}${toHex(b)}${alpha}`.toUpperCase();
 };
 
@@ -158,15 +160,16 @@ export const rgbToHsv = (rgb: RGB) => {
 
   const s = parseFloat((max === 0 ? 0 : 1 - min / max).toFixed(2));
   const v = parseFloat(max.toFixed(2));
+
   return { h, s, v };
 };
 
 // no other way i could do this sanely
-export const parseColor = (color: unknown): RGBA & HSV => {
-  let rgba: RGBA = { r: 0, g: 0, b: 0, a: 1 };
+export const parseColor = (color: unknown, alpha = 1): RGBA & HSV => {
+  let rgba: RGBA = { r: 0, g: 0, b: 0, a: alpha };
 
   if (/#/.test(color as string)) {
-    rgba = { ...hexToRgb(color as string), a: 1 };
+    rgba = { ...hexToRgb(color as string), a: alpha };
   }
 
   else if (/rgb/.test(color as string)) {
@@ -178,10 +181,11 @@ export const parseColor = (color: unknown): RGBA & HSV => {
   }
 
   else if (is(Object)(color)) {
-    const a = 'a' in color ? color.a : 1;
+    const a = 'a' in color ? color.a : alpha;
     rgba = l<RGBA>({ ...color, a });
   }
 
   const hsv = rgbToHsv(rgba);
-  return { ...rgba, ...hsv, a: rgba.a ?? 1 } as RGBA & HSV;
+
+  return { ...rgba, ...hsv, a: rgba.a ?? alpha } as RGBA & HSV;
 };

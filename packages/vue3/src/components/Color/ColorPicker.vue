@@ -8,9 +8,17 @@ import Saturation from './Internal/Saturation.vue';
 import Hue from './Internal/Hue.vue';
 import Alpha from './Internal/Alpha.vue';
 
-const { color, defaults } = withDefaults(
-  defineProps<{ color: string; defaults: string[] }>(),
-  { color: '#000000', defaults: () => [] },
+const { color, defaults, preserveTransparency } = withDefaults(
+  defineProps<{
+    color: string
+    defaults: string[]
+    preserveTransparency?: boolean
+  }>(),
+  {
+    color: '#000000',
+    defaults: () => [],
+    preserveTransparency: false,
+  },
 );
 
 const emit = defineEmits(['setcolor']);
@@ -39,17 +47,17 @@ const setModels = () => {
 };
 
 onMounted(() => {
-  currentColor.value = parseColor(color);
+  currentColor.value = constructColor(color);
   setModels();
 });
 
 const setSaturation = (color: unknown) => {
-  currentColor.value = parseColor(color);
+  currentColor.value = constructColor(color);
   setModels();
 };
 
 const setHue = (color: unknown) => {
-  currentColor.value = parseColor(color);
+  currentColor.value = constructColor(color);
   setModels();
 
   nextTick(() => {
@@ -64,7 +72,7 @@ const setAlpha = (a: number) => {
 };
 
 const inputHex = (color: string) => {
-  currentColor.value = parseColor(color);
+  currentColor.value = constructColor(color);
   hexModel.value = color;
   hexaModel.value = color;
   rgbaModel.value = rgbaString.value;
@@ -77,7 +85,7 @@ const inputHex = (color: string) => {
 };
 
 const setColor = (color: string) => {
-  currentColor.value = parseColor(color);
+  currentColor.value = constructColor(color);
   setModels();
 
   nextTick(() => {
@@ -91,6 +99,10 @@ watch(
   rgba,
   () => emit('setcolor', { rgba: rgba.value, hsv: hsv.value, hex: hexModel.value, hexa: hexaModel.value }),
 );
+
+function constructColor(color: unknown) {
+  return preserveTransparency ? parseColor(color, currentColor.value.a) : parseColor(color);
+}
 </script>
 
 <template>
