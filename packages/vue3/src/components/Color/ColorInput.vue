@@ -5,7 +5,16 @@ import { createPopper } from '@popperjs/core';
 import ColorPicker from './ColorPicker.vue';
 import Backdrop from './Internal/Backdrop.vue';
 
-const props = withDefaults(defineProps<{ modelValue?: string }>(), { modelValue: '#ff7420ff' });
+const props = withDefaults(
+  defineProps<{
+    modelValue?: string
+    preserveTransparency?: boolean
+  }>(),
+  {
+    modelValue: '#ff7420ff',
+    preserveTransparency: false,
+  },
+);
 const emit = defineEmits(['update:modelValue']);
 
 const attrs = useAttrs();

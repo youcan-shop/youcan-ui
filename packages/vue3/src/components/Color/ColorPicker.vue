@@ -39,17 +39,17 @@ const setModels = () => {
 };
 
 onMounted(() => {
-  currentColor.value = parseColor(color);
+  currentColor.value = constructColor(color);
   setModels();
 });
 
 const setSaturation = (color: unknown) => {
-  currentColor.value = parseColor(color);
+  currentColor.value = constructColor(color);
   setModels();
 };
 
 const setHue = (color: unknown) => {
-  currentColor.value = parseColor(color);
+  currentColor.value = constructColor(color);
   setModels();
 
   nextTick(() => {
@@ -64,7 +64,7 @@ const setAlpha = (a: number) => {
 };
 
 const inputHex = (color: string) => {
-  currentColor.value = parseColor(color);
+  currentColor.value = constructColor(color);
   hexModel.value = color;
   hexaModel.value = color;
   rgbaModel.value = rgbaString.value;
@@ -77,7 +77,7 @@ const inputHex = (color: string) => {
 };
 
 const setColor = (color: string) => {
-  currentColor.value = parseColor(color);
+  currentColor.value = constructColor(color);
   setModels();
 
   nextTick(() => {
@@ -91,6 +91,10 @@ watch(
   rgba,
   () => emit('setcolor', { rgba: rgba.value, hsv: hsv.value, hex: hexModel.value, hexa: hexaModel.value }),
 );
+
+function constructColor(color: unknown) {
+  return parseColor(color, currentColor.value.a);
+}
 </script>
 
 <template>
