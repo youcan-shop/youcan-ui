@@ -15,7 +15,7 @@ const props = withDefaults(
     preserveTransparency?: boolean
   }>(),
   {
-    color: '#cccccc',
+    color: '#ffffff',
     defaults: () => [],
     preserveTransparency: false,
   },
