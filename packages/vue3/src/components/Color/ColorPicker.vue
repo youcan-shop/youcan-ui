@@ -29,7 +29,7 @@ const hueElement = ref();
 const hexModel = ref<string>('');
 const hexaModel = ref<string>('');
 const rgbaModel = ref<string>('');
-const currentColor = ref<RGBA & HSV>({ r: 245, g: 0, b: 0, a: 1, h: 0, s: 0, v: 0 });
+const currentColor = ref<RGBA & HSV>({ r: 255, g: 255, b: 255, a: 1, h: 0, s: 0, v: 0 });
 
 const rgba = computed<RGBA>(() => ({ r: currentColor.value.r, g: currentColor.value.g, b: currentColor.value.b, a: currentColor.value.a } as RGBA));
 const hsv = computed<HSV>(() => ({ h: currentColor.value.h, s: currentColor.value.s, v: currentColor.value.v } as HSV));

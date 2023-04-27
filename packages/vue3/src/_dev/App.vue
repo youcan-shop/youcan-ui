@@ -4,7 +4,7 @@ import '../assets/main.css';
 import { ref } from 'vue';
 import ColorInput from '~/components/Color/ColorInput.vue';
 
-const color = ref('#1CFF007C');
+const color = ref('');
 const alpha = ref(false);
 </script>
 
