@@ -1,20 +1,19 @@
 <script setup lang="ts">
 import type { HSV } from '@youcan/ui-core';
-import { type CSSProperties, onMounted, ref } from 'vue';
 import { CLR_BLACK, CLR_WHITE, constructLinearGradient } from '@youcan/ui-core';
+import { type CSSProperties, computed, nextTick, onMounted, ref } from 'vue';
 
-const props = withDefaults(
-  defineProps<{ color: string; hsv: HSV; size: number }>(),
-  { color: CLR_BLACK, size: 152 },
-);
-
+const props = defineProps<{ color: string; hsv: HSV; size: number }>();
 const emit = defineEmits(['setsaturation']);
+
+const _curent = computed(() => props.color);
 
 const wrapper = ref<HTMLDivElement>();
 const canvas = ref<HTMLCanvasElement>();
 const saturationSliderStyles = ref<CSSProperties>({});
 
 const renderColor = () => {
+  console.log('hee', _curent.value);
   const context = canvas.value!.getContext('2d', { willReadFrequently: true })!;
 
   canvas.value!.width = props.size;
@@ -65,6 +64,7 @@ const setSaturation = (event: MouseEvent) => {
 
     const previewData = context.getImageData(Math.min(x, props.size - 1), Math.min(y, props.size - 1), 1, 1);
     const [r, g, b] = previewData.data;
+
     emit('setsaturation', { r, g, b });
   }
 
@@ -80,8 +80,10 @@ const setSaturation = (event: MouseEvent) => {
 };
 
 onMounted(() => {
-  renderColor();
-  renderSlider();
+  nextTick(() => {
+    renderColor();
+    renderSlider();
+  });
 });
 
 defineExpose({ renderColor, renderSlider });
