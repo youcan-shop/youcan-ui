@@ -1,12 +1,10 @@
 <script setup lang="ts">
 import type { HSV } from '@youcan/ui-core';
 import { CLR_BLACK, CLR_WHITE, constructLinearGradient } from '@youcan/ui-core';
-import { type CSSProperties, computed, nextTick, onMounted, ref } from 'vue';
+import { type CSSProperties, nextTick, onMounted, ref } from 'vue';
 
 const props = defineProps<{ color: string; hsv: HSV; size: number }>();
 const emit = defineEmits(['setsaturation']);
-
-const _curent = computed(() => props.color);
 
 const wrapper = ref<HTMLDivElement>();
 const canvas = ref<HTMLCanvasElement>();
