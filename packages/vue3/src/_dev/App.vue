@@ -4,7 +4,7 @@ import '../assets/main.css';
 import { ref } from 'vue';
 import ColorInput from '~/components/Color/ColorInput.vue';
 
-const color = ref('#FFFFFFFF');
+const color = ref('');
 const alpha = ref(false);
 </script>
 
@@ -18,6 +18,6 @@ const alpha = ref(false);
         Reset transparency
       </option>
     </select>
-    <ColorInput v-model="color" :preserve-transparency="alpha" />
+    <ColorInput v-model="color" :preserve-transparency="true" />
   </div>
 </template>

@@ -11,7 +11,7 @@ const props = withDefaults(
     preserveTransparency?: boolean
   }>(),
   {
-    modelValue: '#ff7420ff',
+    modelValue: '#ffffff',
     preserveTransparency: false,
   },
 );
@@ -70,7 +70,7 @@ onMounted(() => {
     </div>
     <div ref="pickerWrapper" class="picker-wrapper">
       <ColorPicker
-        v-if="show && !attrs.disabled" ref="picker" class="picker" :color="model" :defaults="[]"
+        v-show="show && !attrs.disabled" ref="picker" class="picker" :color="model" :defaults="[]"
         :preserve-transparency="preserveTransparency" @setcolor="setColor"
       />
     </div>
@@ -118,6 +118,7 @@ onMounted(() => {
 
 .preview {
   border-radius: 4px;
+  border: 1px solid var(--gray-200);
 }
 
 .value {

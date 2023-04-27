@@ -8,14 +8,14 @@ import Saturation from './Internal/Saturation.vue';
 import Hue from './Internal/Hue.vue';
 import Alpha from './Internal/Alpha.vue';
 
-const { color, defaults, preserveTransparency } = withDefaults(
+const props = withDefaults(
   defineProps<{
     color: string
     defaults: string[]
     preserveTransparency?: boolean
   }>(),
   {
-    color: '#000000',
+    color: '#ffffff',
     defaults: () => [],
     preserveTransparency: false,
   },
@@ -29,7 +29,7 @@ const hueElement = ref();
 const hexModel = ref<string>('');
 const hexaModel = ref<string>('');
 const rgbaModel = ref<string>('');
-const currentColor = ref<RGBA & HSV>({ r: 0, g: 0, b: 0, a: 1, h: 0, s: 0, v: 0 });
+const currentColor = ref<RGBA & HSV>({ r: 255, g: 255, b: 255, a: 1, h: 0, s: 0, v: 0 });
 
 const rgba = computed<RGBA>(() => ({ r: currentColor.value.r, g: currentColor.value.g, b: currentColor.value.b, a: currentColor.value.a } as RGBA));
 const hsv = computed<HSV>(() => ({ h: currentColor.value.h, s: currentColor.value.s, v: currentColor.value.v } as HSV));
@@ -47,7 +47,7 @@ const setModels = () => {
 };
 
 onMounted(() => {
-  currentColor.value = constructColor(color);
+  currentColor.value = constructColor(props.color);
   setModels();
 });
 
@@ -101,7 +101,7 @@ watch(
 );
 
 function constructColor(color: unknown) {
-  return preserveTransparency ? parseColor(color, currentColor.value.a) : parseColor(color);
+  return props.preserveTransparency ? parseColor(color, currentColor.value.a) : parseColor(color);
 }
 </script>
 
