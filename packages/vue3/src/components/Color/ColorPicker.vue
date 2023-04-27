@@ -48,7 +48,6 @@ const setModels = () => {
 
 onMounted(() => {
   currentColor.value = constructColor(props.color);
-  console.log(props.color, currentColor.value);
   setModels();
 });
 
@@ -108,7 +107,6 @@ function constructColor(color: unknown) {
 
 <template>
   <div class="color-picker">
-    {{ rgbFuncString }}
     <Saturation
       ref="saturationElement" class="color-saturation" :color="rgbFuncString" :hsv="hsv" :size="224"
       @setsaturation="setSaturation"

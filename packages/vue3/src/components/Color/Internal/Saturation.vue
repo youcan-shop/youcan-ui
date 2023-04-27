@@ -13,7 +13,6 @@ const canvas = ref<HTMLCanvasElement>();
 const saturationSliderStyles = ref<CSSProperties>({});
 
 const renderColor = () => {
-  console.log('hee', _curent.value);
   const context = canvas.value!.getContext('2d', { willReadFrequently: true })!;
 
   canvas.value!.width = props.size;
