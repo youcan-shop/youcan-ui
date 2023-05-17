@@ -4,8 +4,13 @@ import '../assets/main.css';
 import { ref } from 'vue';
 import ColorInput from '~/components/Color/ColorInput.vue';
 
-const color = ref('');
+const color = ref('#7A7A7A72');
 const alpha = ref(false);
+const showColorInput = ref(true);
+
+const toggleColorInput = () => {
+  showColorInput.value = !showColorInput.value;
+};
 </script>
 
 <template>
@@ -18,6 +23,9 @@ const alpha = ref(false);
         Reset transparency
       </option>
     </select>
-    <ColorInput v-model="color" :preserve-transparency="true" />
+    <ColorInput v-if="showColorInput" v-model="color" :preserve-transparency="alpha" />
+    <button @click="toggleColorInput">
+      Toggle color picker
+    </button>
   </div>
 </template>

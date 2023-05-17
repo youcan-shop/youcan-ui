@@ -114,6 +114,17 @@ export const hexToRgb = (hex: string): RGB => {
   } as RGB;
 };
 
+export const hexaToRgb = (hex: string): RGBA => {
+  hex = hex.startsWith('#') ? hex.slice(1) : hex;
+
+  return {
+    r: toDec(hex.slice(0, 2)),
+    g: toDec(hex.slice(2, 4)),
+    b: toDec(hex.slice(4, 6)),
+    a: +(parseInt(hex.substring(6, 8), 16) / 255).toFixed(2),
+  } as RGBA;
+};
+
 export const parseRgbString = (value: string) => {
   const rgba = (/rgba?\((.*?)\)/.exec(value) || ['', '0,0,0,1'])[1].split(',');
 
@@ -168,8 +179,12 @@ export const rgbToHsv = (rgb: RGB) => {
 export const parseColor = (color: unknown, alpha = 1): RGBA & HSV => {
   let rgba: RGBA = { r: 0, g: 0, b: 0, a: alpha };
 
-  if (/#/.test(color as string)) {
+  if (/^#[a-zA-Z0-9]{1,6}$/.test(color as string)) {
     rgba = { ...hexToRgb(color as string), a: alpha };
+  }
+
+  else if (/^#[a-zA-Z0-9]{1,8}$/.test(color as string)) {
+    rgba = { ...hexaToRgb(color as string) };
   }
 
   else if (/rgb/.test(color as string)) {
