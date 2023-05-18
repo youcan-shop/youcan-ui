@@ -13,7 +13,7 @@ withDefaults(
     size: 'md',
     iconPosition: 'left',
     roundedFull: false,
-    disabled: false
+    disabled: false,
   },
 );
 
