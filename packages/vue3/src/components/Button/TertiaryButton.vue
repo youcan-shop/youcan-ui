@@ -1,13 +1,14 @@
 <script setup lang="ts">
 import { useSlots } from 'vue';
-import type { ButtonIconPosition, ButtonSize } from '~/components/Button/types';
+import type { ButtonIconPosition, ButtonSize, ButtonTypes } from '~/components/Button/types';
 import BaseButton from '~/components/Button/_BaseButton.vue';
 
 defineProps<{
   size?: ButtonSize
   disabled?: boolean
   iconPosition?: ButtonIconPosition
-  roundedFull?: boolean
+  roundedFull?: boolean,
+  type?: ButtonTypes
 }>();
 
 const slots = useSlots();
@@ -15,7 +16,7 @@ const slots = useSlots();
 
 <template>
   <BaseButton
-    :size="size" :disabled="disabled" :icon-position="iconPosition" :rounded-full="roundedFull"
+    :size="size" :disabled="disabled" :icon-position="iconPosition" :rounded-full="roundedFull" :type="type"
     class="tertiary"
   >
     <template v-if="slots.icon" #icon>
