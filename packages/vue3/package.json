@@ -13,8 +13,14 @@
   ],
   "exports": {
     ".": {
-      "require": "./dist/index.umd.js",
-      "import": "./dist/index.es.js"
+      "require": {
+        "default": "./dist/index.umd.js",
+        "types": "./dist/types/index.d.ts"
+      },
+      "import": {
+        "default": "./dist/index.es.js",
+        "types": "./dist/types/index.d.ts"
+      }
     },
     "./style": {
       "require": "./dist/index.css",
