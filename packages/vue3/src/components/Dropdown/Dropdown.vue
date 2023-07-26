@@ -12,8 +12,9 @@ const props = withDefaults(
     searchable?: boolean
     modelValue: DropdownItemDefinition | null
     items: DropdownItemArray | DropdownItemGroups
+    disabled?: boolean
   }>(),
-  { searchable: false, size: 36 },
+  { searchable: false, size: 36, disabled: false },
 );
 
 const emit = defineEmits(['update:modelValue']);
@@ -35,7 +36,7 @@ const model = computed<DropdownItemDefinition | null>({
 
 <template>
   <div>
-    <button ref="button" type="button" :class="`size-${size}`" class="dropdown-input" @click="() => toggleList()">
+    <button ref="button" type="button" :class="[{ disabled }, `size-${size}`]" class="dropdown-input" @click="() => toggleList()">
       <i v-if="icon" class="icon" :class="icon" />
       <span class="label">
         {{ model?.label ?? placeholder }}
@@ -43,7 +44,7 @@ const model = computed<DropdownItemDefinition | null>({
 
       <i class="chevron i-youcan-carret-down" />
     </button>
-    <div v-if="showList" ref="list" class="dropdown-wrapper">
+    <div v-if="showList && !disabled" ref="list" class="dropdown-wrapper">
       <DropdownList
         class="dropdown-list" v-bind="{ items, searchable, selected: modelValue, multiple: false }"
         @select="(i) => model = i"
@@ -66,6 +67,11 @@ const model = computed<DropdownItemDefinition | null>({
   gap: 8px;
 }
 
+.dropdown-input.disabled {
+  background-color: var(--gray-50);
+  cursor: default;
+}
+
 .dropdown-input.size-36 {
   padding: 7.5px 12px;
   border-radius: 4px;
@@ -84,11 +90,11 @@ const model = computed<DropdownItemDefinition | null>({
   white-space: nowrap;
 }
 
-.dropdown-input:hover {
+.dropdown-input:not(.disabled):hover {
   background-color: var(--gray-50);
 }
 
-.dropdown-input:is(:focus, :active) {
+.dropdown-input:not(.disabled):is(:focus, :active) {
   border: 1px solid var(--brand-500);
   outline: none;
   box-shadow: var(--focus-shadow-xs-brand);
