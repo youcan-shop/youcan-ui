@@ -19,6 +19,7 @@ export interface TableColumn {
   sortable?: TableColumnSort
   size?: TableColumnSize
   fullContent?: boolean
+  tooltip?: string
 }
 
 type TableColumnSize = `${IntegerRange<0, 100>}.${IntegerRange<0, 100>}%`;
@@ -28,6 +29,7 @@ export type TableColumnSort = 'none' | 'asc' | 'desc';
 export interface TableActions {
   label: string
   iconName?: string
+  tooltip?: string
   criteria?: (value: TableData | TableDataRow) => boolean
   events?: {
     click: (row: TableDataRow, index?: number) => void
