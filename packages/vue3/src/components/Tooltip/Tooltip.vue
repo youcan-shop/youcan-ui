@@ -21,14 +21,12 @@ defineProps<{
 
   .tooltip-trigger {
     visibility: hidden;
+    opacity: 0;
     position: absolute;
     z-index: 99;
-    top: 100%;
-    left: 50%;
     width: max-content;
     max-width: 300px;
     padding: 8px 12px;
-    transform: translateX(-50%);
     transition: all 0.2s ease-in-out;
     border-radius: 4px;
     background-color: #000;
@@ -38,39 +36,63 @@ defineProps<{
 
   &:hover {
     .tooltip-trigger {
-      visibility: visible !important;
+      visibility: visible;
+      opacity: 1;
     }
   }
 
   &.left {
     .tooltip-trigger {
-        top: 50%;
-        right: calc(70% + 8px);
-        left: unset;
-        transform: translateY(calc(-50%));
+      top: 50%;
+      transform: translate(calc(-100% - 4px), -50%);
+      left: 0;
     }
   }
 
   &.right {
     .tooltip-trigger {
-        top: 50%;
-        right: unset;
-        left: calc(70% + 8px);
-        transform: translateY(-50%);
+      top: 50%;
+      transform: translate(calc(100% + 4px), -50%);
+      right: 0;
     }
   }
 
   &.top {
     .tooltip-trigger {
-        top: unset;
-        bottom: calc(70% + 8px);
+      left: 50%;
+      transform: translate(-50%, calc(-100% - 4px));
+      top: 0;
     }
   }
 
   &.bottom {
     .tooltip-trigger {
-        top: calc(70% + 8px);
-        bottom: unset;
+      left: 50%;
+      transform: translate(-50%, calc(100% + 4px));
+      bottom: 0;
+    }
+  }
+}
+
+[dir="rtl"] {
+  .tooltip {
+    &.left {
+      .tooltip-trigger {
+        top: 50%;
+        transform: translate(calc(100% + 4px), -50%);
+        right: 0;
+      }
+    }
+
+    &.right {
+      .tooltip-trigger {
+        top: unset;
+        right: unset;
+        transform: unset;
+        top: 50%;
+        transform: translate(calc(-100% - 4px), -50%);
+        left: 0;
+      }
     }
   }
 }
