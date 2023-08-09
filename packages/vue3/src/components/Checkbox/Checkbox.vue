@@ -2,14 +2,24 @@
 import { Utils } from '@youcan/ui-core';
 import { computed, useSlots } from 'vue';
 
-const props = defineProps<{ modelValue: boolean }>();
+const props = defineProps<{
+  value?: number | string
+  modelValue: boolean | Array<number | string>
+}>();
+
 const emit = defineEmits(['update:modelValue']);
 const slots = useSlots();
 
 const model = computed({
   get: () => props.modelValue,
-  set: (value: boolean) => emit('update:modelValue', value),
+  set: (value: boolean | Array<number | string>) => emit('update:modelValue', value),
 });
+
+const checked = computed(
+  () => Array.isArray(model.value)
+    ? model.value.find(i => i === props.value!)
+    : model.value,
+);
 
 const idAttr = Utils.uid('checkbox');
 </script>
@@ -17,8 +27,8 @@ const idAttr = Utils.uid('checkbox');
 <template>
   <label :for="idAttr" v-bind="$attrs">
     <div class="checkbox" :class="{ 'has-label': slots.label }">
-      <input v-bind="$attrs" :id="idAttr" v-model="model" type="checkbox" class="input">
-      <span class="checkmark" :class="{ checked: model }"> <i class="i-youcan-check" /> </span>
+      <input v-bind="$attrs" :id="idAttr" v-model="model" type="checkbox" class="input" :value="value">
+      <span class="checkmark" :class="{ checked }"> <i class="i-youcan-check" /> </span>
     </div>
     <div v-if="slots.label" class="label">
       <slot name="label" />
