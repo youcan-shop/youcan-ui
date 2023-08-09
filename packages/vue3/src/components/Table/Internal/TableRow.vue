@@ -93,9 +93,13 @@ const castToTableDataComposable = (value: TableColumnValue['value']) => launder<
           v-if="row.row[column.accessor].isString" class="text-column"
           :class="{ 'na': row.row[column.accessor].value.toString().toLocaleLowerCase() === 'n/a', 'cell-full-width': column.fullContent }"
         >
-          <Tooltip :label="column.tooltip" position="top">
+          <Tooltip v-if="column.tooltip" :label="column.tooltip" position="top">
             {{ row.row[column.accessor].value }}
           </Tooltip>
+
+          <template v-else>
+            {{ row.row[column.accessor].value }}
+          </template>
         </div>
         <component
           :is="row.row[column.accessor].component" v-else-if="!row.row[column.accessor].isString"
@@ -108,13 +112,19 @@ const castToTableDataComposable = (value: TableColumnValue['value']) => launder<
       <div v-if="column.accessor === 'actions' && actions?.length" class="cell-actions">
         <template v-for="action in rowActions" :key="action.label">
           <!-- v-if="!action.criteria || action.criteria(data[index])" -->
-          <Tooltip :label="action.tooltip" position="top">
+          <Tooltip v-if="action.tooltip" :label="action.tooltip" position="top">
             <TableButton
               v-if="checkActionCriteria(action, isChild && originalRow ? originalRow : data[index])" size="xs" :data="data"
               :icon-name="action.iconName" :label="action.label" :rounded-full="true" icon-position="only"
               v-on="action.events || {}"
             />
           </Tooltip>
+
+          <TableButton
+            v-else-if="checkActionCriteria(action, isChild && originalRow ? originalRow : data[index])" size="xs" :data="data"
+            :icon-name="action.iconName" :label="action.label" :rounded-full="true" icon-position="only"
+            v-on="action.events || {}"
+          />
         </template>
       </div>
     </td>
