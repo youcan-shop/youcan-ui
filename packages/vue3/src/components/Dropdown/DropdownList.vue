@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 import type { DropdownItemArray, DropdownItemDefinition, DropdownItemGroups } from './types';
 import DropdownItem from './Internal/DropdownItem.vue';
 
@@ -7,7 +7,7 @@ const props = withDefaults(
   defineProps<{
     selected: DropdownItemArray | DropdownItemDefinition | null
     items: DropdownItemArray | DropdownItemGroups
-    searchable?: boolean
+    searchable?: boolean | 'async'
     multiple?: boolean
   }>(),
   {
@@ -16,9 +16,13 @@ const props = withDefaults(
   },
 );
 
-const emit = defineEmits(['toggle', 'select']);
+const emit = defineEmits(['toggle', 'select', 'search']);
 
 const search = ref<string>('');
+
+const asyncSearch = ref<string>('');
+
+watch(asyncSearch, (value: string) => emit('search', value));
 
 function isSelected(item: DropdownItemDefinition): boolean {
   if (props.selected == null) {
@@ -63,8 +67,12 @@ function toggle(item: DropdownItemDefinition, value: boolean): void {
 </script>
 
 <template>
-  <div :class="{ searchable }" class="dropdown-list">
-    <div v-if="searchable" class="search">
+  <div :class="{ searchable: searchable ? 'searchable' : null }" class="dropdown-list">
+    <div v-if="searchable === 'async'" class="search">
+      <input v-model="asyncSearch" type="text" placeholder="Search..">
+    </div>
+
+    <div v-else-if="searchable" class="search">
       <input v-model="search" type="text" placeholder="Search..">
     </div>
 

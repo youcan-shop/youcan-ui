@@ -9,7 +9,7 @@ const props = withDefaults(
     size?: 36 | 44
     icon?: string
     placeholder: string
-    searchable?: boolean
+    searchable?: boolean | 'async'
     modelValue: DropdownItemDefinition | null
     items: DropdownItemArray | DropdownItemGroups
     disabled?: boolean
@@ -17,7 +17,7 @@ const props = withDefaults(
   { searchable: false, size: 36, disabled: false },
 );
 
-const emit = defineEmits(['update:modelValue']);
+const emit = defineEmits(['update:modelValue', 'search']);
 
 const list = ref();
 const button = ref();
@@ -48,6 +48,7 @@ const model = computed<DropdownItemDefinition | null>({
       <DropdownList
         class="dropdown-list" v-bind="{ items, searchable, selected: modelValue, multiple: false }"
         @select="(i) => model = i"
+        @search="(s) => emit('search', s)"
       />
     </div>
   </div>
