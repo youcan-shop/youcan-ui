@@ -2,6 +2,7 @@
 import { computed, ref } from 'vue';
 import type { DropdownItemArray, DropdownItemDefinition, DropdownItemGroups } from './types';
 import DropdownItem from './Internal/DropdownItem.vue';
+import { searchHandler } from './helpers';
 
 const props = withDefaults(
   defineProps<{
@@ -14,24 +15,7 @@ const props = withDefaults(
   {
     searchable: false,
     multiple: false,
-    searchHandler: (searchTerm: string, items: DropdownItemArray | DropdownItemGroups = {}): DropdownItemArray | DropdownItemGroups => {
-      if (!searchTerm) {
-        return items;
-      }
-
-      if (Array.isArray(items)) {
-        return items.filter(item => item.label.toLowerCase().includes(searchTerm.toLowerCase()) ? item : null);
-      }
-
-      return Object.fromEntries(
-        Object.entries(items)
-          .map(([label, group]) => [
-            label,
-            group.filter((item: DropdownItemDefinition) => item.label.toLowerCase().includes(searchTerm.toLowerCase()) ? item : null),
-          ])
-          .filter(([, group]) => group.length),
-      );
-    },
+    searchHandler,
   },
 );
 
@@ -42,12 +26,12 @@ const search = computed<string>({
   get: () => searchTerm.value,
   set: (value: string) => {
     searchTerm.value = value.trim();
-    props.searchHandler(value, props.items);
+    props.searchHandler(value.trim(), props.items);
   },
 });
 
 const results = computed<DropdownItemArray | DropdownItemGroups>(() => {
-  const data = props.searchHandler(search.value, props.items);
+  const data = props.searchHandler(search.value.trim(), props.items);
 
   if (Array.isArray(data)) {
     return data;

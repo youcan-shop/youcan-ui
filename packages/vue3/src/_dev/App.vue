@@ -16,6 +16,7 @@ const items = [
 const category = ref(null);
 
 function search(term: string) {
+  console.log('soso');
   const data = [
     {
       label: term,
@@ -29,8 +30,6 @@ function search(term: string) {
       value: String(Math.floor(Math.random() * 1000)),
     });
   }
-
-  console.log(data);
 
   // if we return array here, it will act like the dropdown items, but if we return nothing the dropdown will just use the items prop
   // return [
@@ -52,6 +51,7 @@ function search(term: string) {
       searchable
       :items="items"
       placeholder="Select category"
+      :search-handler="search"
     />
   </div>
 </template>
