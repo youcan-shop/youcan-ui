@@ -2,6 +2,7 @@
 import { computed, ref } from 'vue';
 import type { DropdownItemArray, DropdownItemDefinition, DropdownItemGroups } from './types';
 import DropdownItem from './Internal/DropdownItem.vue';
+import { searchHandler } from './helpers';
 
 const props = withDefaults(
   defineProps<{
@@ -9,16 +10,35 @@ const props = withDefaults(
     items: DropdownItemArray | DropdownItemGroups
     searchable?: boolean
     multiple?: boolean
+    searchHandler?: (searchTerm: string, items?: DropdownItemArray | DropdownItemGroups) => void
   }>(),
   {
     searchable: false,
     multiple: false,
+    searchHandler,
   },
 );
 
 const emit = defineEmits(['toggle', 'select']);
 
-const search = ref<string>('');
+const searchTerm = ref<string>('');
+const search = computed<string>({
+  get: () => searchTerm.value,
+  set: (value: string) => {
+    searchTerm.value = value.trim();
+    props.searchHandler(value.trim(), props.items);
+  },
+});
+
+const results = computed<DropdownItemArray | DropdownItemGroups>(() => {
+  const data = props.searchHandler(search.value.trim(), props.items);
+
+  if (Array.isArray(data)) {
+    return data;
+  }
+
+  return props.items;
+});
 
 function isSelected(item: DropdownItemDefinition): boolean {
   if (props.selected == null) {
@@ -29,29 +49,6 @@ function isSelected(item: DropdownItemDefinition): boolean {
     ? !!props.selected.find(s => s.label === item.label)
     : props.selected.label === item.label;
 }
-
-function matches(haystack: string, needle: string) {
-  return haystack.toLowerCase().includes(needle.toLowerCase());
-}
-
-const results = computed<DropdownItemArray | DropdownItemGroups>(() => {
-  if (!search.value) {
-    return props.items;
-  }
-
-  if (Array.isArray(props.items)) {
-    return props.items.filter(item => matches(item.label, search.value));
-  }
-
-  return Object.fromEntries(
-    Object.entries(props.items)
-      .map(([label, group]) => [
-        label,
-        group.filter(item => matches(item.label, search.value)),
-      ])
-      .filter(([, group]) => group.length),
-  );
-});
 
 function toggle(item: DropdownItemDefinition, value: boolean): void {
   if (props.multiple) {
