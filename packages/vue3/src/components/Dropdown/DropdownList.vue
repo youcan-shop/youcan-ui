@@ -76,7 +76,7 @@ function toggle(item: DropdownItemDefinition, value: boolean): void {
 </script>
 
 <template>
-  <div :class="{ searchable: searchable ? 'searchable' : null }" class="dropdown-list">
+  <div :class="{ searchable }" class="dropdown-list">
     <div v-if="searchable" class="search">
       <input v-model="search" type="text" placeholder="Search..">
     </div>
