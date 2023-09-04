@@ -83,9 +83,6 @@ function toggle(item: DropdownItemDefinition, value: boolean): void {
 
     <!-- item array -->
     <div v-if="Array.isArray(results)" class="inner">
-      <pre>
-        {{ results }}
-      </pre>
       <DropdownItem
         v-for="item in results" :key="item.value" :checkbox="multiple" :item="item"
         :selected="isSelected(item)" @toggle="(value) => toggle(item, value)"
