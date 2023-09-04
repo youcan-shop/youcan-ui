@@ -13,11 +13,12 @@ const props = withDefaults(
     modelValue: DropdownItemDefinition | null
     items: DropdownItemArray | DropdownItemGroups
     disabled?: boolean
+    searchHandler?: (searchTerm: string, items?: DropdownItemArray | DropdownItemGroups) => void
   }>(),
   { searchable: false, size: 36, disabled: false },
 );
 
-const emit = defineEmits(['update:modelValue', 'search']);
+const emit = defineEmits(['update:modelValue']);
 
 const list = ref();
 const button = ref();
@@ -46,9 +47,9 @@ const model = computed<DropdownItemDefinition | null>({
     </button>
     <div v-if="showList && !disabled" ref="list" class="dropdown-wrapper">
       <DropdownList
+        :search-handler="searchHandler"
         class="dropdown-list" v-bind="{ items, searchable, selected: modelValue, multiple: false }"
         @select="(i) => model = i"
-        @search="(s) => emit('search', s)"
       />
     </div>
   </div>

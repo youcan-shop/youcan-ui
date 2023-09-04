@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue';
+import { computed, ref } from 'vue';
 import type { DropdownItemArray, DropdownItemDefinition, DropdownItemGroups } from './types';
 import DropdownItem from './Internal/DropdownItem.vue';
 
@@ -9,20 +9,52 @@ const props = withDefaults(
     items: DropdownItemArray | DropdownItemGroups
     searchable?: boolean | 'async'
     multiple?: boolean
+    searchHandler?: (searchTerm: string, items?: DropdownItemArray | DropdownItemGroups) => void
   }>(),
   {
     searchable: false,
     multiple: false,
+    searchHandler: (searchTerm: string, items: DropdownItemArray | DropdownItemGroups = {}): DropdownItemArray | DropdownItemGroups => {
+      if (!searchTerm) {
+        return items;
+      }
+
+      if (Array.isArray(items)) {
+        return items.filter(item => item.label.toLowerCase().includes(searchTerm.toLowerCase()) ? item : null);
+      }
+
+      return Object.fromEntries(
+        Object.entries(items)
+          .map(([label, group]) => [
+            label,
+            group.filter((item: DropdownItemDefinition) => item.label.toLowerCase().includes(searchTerm.toLowerCase()) ? item : null),
+          ])
+          .filter(([, group]) => group.length),
+      );
+    },
   },
 );
 
-const emit = defineEmits(['toggle', 'select', 'search']);
+const emit = defineEmits(['toggle', 'select']);
 
-const search = ref<string>('');
+const searchTerm = ref<string>('');
+const search = computed<string>({
+  get: () => searchTerm.value,
+  set: (value: string) => {
+    searchTerm.value = value.trim();
+    props.searchHandler(value, props.items);
+  },
+});
 
-const asyncSearch = ref<string>('');
+const results = computed<DropdownItemArray | DropdownItemGroups>(() => {
+  const data = props.searchHandler(search.value, props.items);
 
-watch(asyncSearch, (value: string) => emit('search', value));
+  if (Array.isArray(data)) {
+    return data;
+  }
+
+  return props.items;
+});
 
 function isSelected(item: DropdownItemDefinition): boolean {
   if (props.selected == null) {
@@ -33,29 +65,6 @@ function isSelected(item: DropdownItemDefinition): boolean {
     ? !!props.selected.find(s => s.label === item.label)
     : props.selected.label === item.label;
 }
-
-function matches(haystack: string, needle: string) {
-  return haystack.toLowerCase().includes(needle.toLowerCase());
-}
-
-const results = computed<DropdownItemArray | DropdownItemGroups>(() => {
-  if (!search.value) {
-    return props.items;
-  }
-
-  if (Array.isArray(props.items)) {
-    return props.items.filter(item => matches(item.label, search.value));
-  }
-
-  return Object.fromEntries(
-    Object.entries(props.items)
-      .map(([label, group]) => [
-        label,
-        group.filter(item => matches(item.label, search.value)),
-      ])
-      .filter(([, group]) => group.length),
-  );
-});
 
 function toggle(item: DropdownItemDefinition, value: boolean): void {
   if (props.multiple) {
@@ -68,16 +77,15 @@ function toggle(item: DropdownItemDefinition, value: boolean): void {
 
 <template>
   <div :class="{ searchable: searchable ? 'searchable' : null }" class="dropdown-list">
-    <div v-if="searchable === 'async'" class="search">
-      <input v-model="asyncSearch" type="text" placeholder="Search..">
-    </div>
-
-    <div v-else-if="searchable" class="search">
+    <div v-if="searchable" class="search">
       <input v-model="search" type="text" placeholder="Search..">
     </div>
 
     <!-- item array -->
     <div v-if="Array.isArray(results)" class="inner">
+      <pre>
+        {{ results }}
+      </pre>
       <DropdownItem
         v-for="item in results" :key="item.value" :checkbox="multiple" :item="item"
         :selected="isSelected(item)" @toggle="(value) => toggle(item, value)"
