@@ -9,7 +9,7 @@ const props = withDefaults(
     size?: 36 | 44
     icon?: string
     placeholder: string
-    searchable?: boolean | 'async'
+    searchable?: boolean
     modelValue: DropdownItemDefinition | null
     items: DropdownItemArray | DropdownItemGroups
     disabled?: boolean
