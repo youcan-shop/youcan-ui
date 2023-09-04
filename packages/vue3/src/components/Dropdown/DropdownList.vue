@@ -7,7 +7,7 @@ const props = withDefaults(
   defineProps<{
     selected: DropdownItemArray | DropdownItemDefinition | null
     items: DropdownItemArray | DropdownItemGroups
-    searchable?: boolean | 'async'
+    searchable?: boolean
     multiple?: boolean
     searchHandler?: (searchTerm: string, items?: DropdownItemArray | DropdownItemGroups) => void
   }>(),
