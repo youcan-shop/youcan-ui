@@ -27,11 +27,14 @@ const slots = useSlots();
     ref="button" class="base-button" :disabled="disabled"
     :class="{ 'rounded-full': roundedFull, [`size-${size}`]: true, [`icon-${iconPosition}`]: true }"
   >
-    <span v-if="slots.icon" class="icon">
-      <slot v-if="!loading" name="icon" />
-
-      <i v-if="loading" class="i-youcan-circle-notch loading-animation" />
+    <span v-if="loading" class="icon">
+      <i class="i-youcan-circle-notch loading-animation" />
     </span>
+
+    <span v-else-if="slots.icon" class="icon">
+      <slot name="icon" />
+    </span>
+
     <span class="text">
       <slot />
     </span>
