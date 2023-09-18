@@ -2,7 +2,6 @@
 import 'uno.css';
 import '../assets/main.css';
 import { ref } from 'vue';
-import { PrimaryButton } from '..';
 import DropDown from '~/components/Dropdown/Dropdown.vue';
 
 const items = [
@@ -15,8 +14,6 @@ const items = [
 ];
 
 const category = ref(null);
-
-const loading = ref(false);
 
 function search(term: string) {
   console.log('soso');
@@ -56,12 +53,5 @@ function search(term: string) {
       placeholder="Select category"
       :search-handler="search"
     />
-
-    <PrimaryButton :loading="loading" :disabled="loading" @click="loading = !loading">
-      <template #icon>
-        <i class="i-youcan-check" />
-      </template>
-      Click me
-    </PrimaryButton>
   </div>
 </template>
