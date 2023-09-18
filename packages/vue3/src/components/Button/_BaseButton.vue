@@ -8,12 +8,14 @@ withDefaults(
     disabled?: boolean
     iconPosition?: ButtonIconPosition
     roundedFull?: boolean
+    loading?: boolean
   }>(),
   {
     size: 'md',
     iconPosition: 'left',
     roundedFull: false,
     disabled: false,
+    loading: false,
   },
 );
 
@@ -22,12 +24,23 @@ const slots = useSlots();
 
 <template>
   <button
-    ref="button" class="base-button" :disabled="disabled"
-    :class="{ 'rounded-full': roundedFull, [`size-${size}`]: true, [`icon-${iconPosition}`]: true }"
+    ref="button"
+    class="base-button"
+    :disabled="disabled"
+    :class="{
+      'rounded-full': roundedFull,
+      [`size-${size}`]: true,
+      [`icon-${iconPosition}`]: true,
+    }"
   >
-    <span v-if="slots.icon" class="icon">
+    <span v-if="loading" class="icon">
+      <i class="i-youcan-circle-notch loader" />
+    </span>
+
+    <span v-else-if="slots.icon" class="icon">
       <slot name="icon" />
     </span>
+
     <span class="text">
       <slot />
     </span>
@@ -50,11 +63,7 @@ $states: hover, focus, active, disabled;
   --shadow: var(--shadow-xs-gray);
   --gap: 8px;
 
-  $properties: background-color,
-    border,
-    shadow,
-    text-color,
-    icon-color;
+  $properties: background-color, border, shadow, text-color, icon-color;
 
   @each $state in $states {
     @each $property in $properties {
@@ -74,6 +83,10 @@ $states: hover, focus, active, disabled;
   background-color: var(--background-color);
   box-shadow: var(--shadow);
   gap: var(--gap);
+
+  .loader {
+    animation: spin 1000ms infinite linear;
+  }
 
   .text {
     display: flex;
@@ -201,4 +214,13 @@ $states: hover, focus, active, disabled;
     }
   }
 }
+
+@keyframes spin {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(359deg);
+    }
+  }
 </style>
