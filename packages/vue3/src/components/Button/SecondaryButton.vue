@@ -8,6 +8,7 @@ defineProps<{
   disabled?: boolean
   iconPosition?: ButtonIconPosition
   roundedFull?: boolean
+  loading?: boolean
 }>();
 
 const slots = useSlots();
@@ -15,7 +16,7 @@ const slots = useSlots();
 
 <template>
   <BaseButton
-    :size="size" :disabled="disabled" :icon-position="iconPosition" :rounded-full="roundedFull"
+    :size="size" :disabled="disabled" :icon-position="iconPosition" :rounded-full="roundedFull" :loading="loading"
     class="secondary"
   >
     <template v-if="slots.icon" #icon>

@@ -24,11 +24,17 @@ const slots = useSlots();
 
 <template>
   <button
-    ref="button" class="base-button" :disabled="disabled"
-    :class="{ 'rounded-full': roundedFull, [`size-${size}`]: true, [`icon-${iconPosition}`]: true }"
+    ref="button"
+    class="base-button"
+    :disabled="disabled"
+    :class="{
+      'rounded-full': roundedFull,
+      [`size-${size}`]: true,
+      [`icon-${iconPosition}`]: true,
+    }"
   >
     <span v-if="loading" class="icon">
-      <i class="i-youcan-circle-notch loading-animation" />
+      <i class="i-youcan-circle-notch loader" />
     </span>
 
     <span v-else-if="slots.icon" class="icon">
@@ -57,11 +63,7 @@ $states: hover, focus, active, disabled;
   --shadow: var(--shadow-xs-gray);
   --gap: 8px;
 
-  $properties: background-color,
-    border,
-    shadow,
-    text-color,
-    icon-color;
+  $properties: background-color, border, shadow, text-color, icon-color;
 
   @each $state in $states {
     @each $property in $properties {
@@ -82,7 +84,7 @@ $states: hover, focus, active, disabled;
   box-shadow: var(--shadow);
   gap: var(--gap);
 
-  .loading-animation {
+  .loader {
     animation: spin 1000ms infinite linear;
   }
 
@@ -104,15 +106,6 @@ $states: hover, focus, active, disabled;
       flex: none;
       width: var(--icon-size);
       height: var(--icon-size);
-    }
-  }
-
-  @keyframes spin {
-    from {
-      transform: rotate(0);
-    }
-    to{
-      transform: rotate(359deg);
     }
   }
 
@@ -221,4 +214,13 @@ $states: hover, focus, active, disabled;
     }
   }
 }
+
+@keyframes spin {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(359deg);
+    }
+  }
 </style>
