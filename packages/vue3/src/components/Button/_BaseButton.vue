@@ -8,12 +8,14 @@ withDefaults(
     disabled?: boolean
     iconPosition?: ButtonIconPosition
     roundedFull?: boolean
+    loading?: boolean
   }>(),
   {
     size: 'md',
     iconPosition: 'left',
     roundedFull: false,
     disabled: false,
+    loading: false,
   },
 );
 
@@ -26,7 +28,9 @@ const slots = useSlots();
     :class="{ 'rounded-full': roundedFull, [`size-${size}`]: true, [`icon-${iconPosition}`]: true }"
   >
     <span v-if="slots.icon" class="icon">
-      <slot name="icon" />
+      <slot v-if="!loading" name="icon" />
+
+      <i v-if="loading" class="i-youcan-circle-notch loading-animation" />
     </span>
     <span class="text">
       <slot />
@@ -75,6 +79,10 @@ $states: hover, focus, active, disabled;
   box-shadow: var(--shadow);
   gap: var(--gap);
 
+  .loading-animation {
+    animation: spin 1000ms infinite linear;
+  }
+
   .text {
     display: flex;
     align-items: center;
@@ -93,6 +101,15 @@ $states: hover, focus, active, disabled;
       flex: none;
       width: var(--icon-size);
       height: var(--icon-size);
+    }
+  }
+
+  @keyframes spin {
+    from {
+      transform: rotate(0);
+    }
+    to{
+      transform: rotate(359deg);
     }
   }
 
