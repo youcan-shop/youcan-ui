@@ -23,8 +23,7 @@ const emit = defineEmits(['update:modelValue']);
 const model = computed({
   get: () => props.modelValue,
   set: (value: string) => {
-    const inputValue = Number(value);
-
+    let inputValue = Number(value);
     if (typeof props.max !== 'undefined' && inputValue > props.max) {
       model.value = String(props.max);
 
@@ -47,7 +46,6 @@ const increment = () => {
   if (props.disabled) {
     return;
   }
-
   model.value = String(Number(model.value) + props.step);
 };
 
@@ -55,9 +53,13 @@ const decrement = () => {
   if (props.disabled) {
     return;
   }
-
   model.value = String(Number(model.value) - props.step);
 };
+
+const onInput = (event: Event) => {
+  const value = parseInt((event.target as HTMLInputElement).value);
+  model.value = String(isNaN(value)?"":value);
+}
 
 onMounted(() => {
   input.value?.addEventListener('beforeinput', (event) => {
@@ -108,7 +110,7 @@ onMounted(() => {
         <i class="i-youcan-minus" />
       </template>
     </TertiaryButtonVue>
-    <input :id="id" ref="input" v-model="model" class="input" tabindex="-1">
+    <input :id="id" ref="input" v-model="model" class="input" tabindex="-1" @input="onInput">
     <TertiaryButtonVue size="xs" icon-position="only" :disabled="disabled" @click="increment">
       <template #icon>
         <i class="i-youcan-plus" />
