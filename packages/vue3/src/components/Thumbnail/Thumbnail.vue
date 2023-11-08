@@ -45,7 +45,7 @@ withDefaults(
   box-shadow: var(--shadow-xs-gray);
 }
 
-.thumbnail.image {
+.thumbnail .image {
   object-fit: v-bind(objectFit);
 }
 
