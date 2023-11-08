@@ -48,3 +48,5 @@ export { default as Draggable } from './Draggable/Draggable.vue';
 export { default as Radio } from './Radio/Radio.vue';
 export { default as RadioGroup } from './Radio/RadioGroup.vue';
 export { default as RadioList } from './RadioList/RadioList.vue';
+export { default as RichText } from './RichText/RichText.vue';
+export { default as Tooltip } from './Tooltip/Tooltip.vue';
