@@ -14,8 +14,8 @@ const model = computed<number>({
 });
 
 const updateRatingModel = (idx: number) => {
-  if (model.value >= idx) {
-    model.value = model.value - idx;
+  if (model.value === idx) {
+    model.value = 0;
 
     return;
   }
