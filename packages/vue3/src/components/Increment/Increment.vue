@@ -72,13 +72,6 @@ onMounted(() => {
     if (isNaN(inputValue) || event.data === ' ') {
       event.preventDefault();
     }
-
-    if (
-      (typeof props.max !== 'undefined' && inputValue > props.max)
-      || (typeof props.min !== 'undefined' && inputValue < props.min)
-    ) {
-      event.preventDefault();
-    }
   });
 
   input.value?.addEventListener('keydown', (event) => {
