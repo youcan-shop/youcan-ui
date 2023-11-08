@@ -13,13 +13,13 @@ const model = computed<number>({
   set: (value: number) => emit('update:modelValue', value),
 });
 
-const updateRatingModel = (idx: number) => {
-  if (model.value === idx) {
+const updateRatingModel = (star: number) => {
+  if (model.value === star) {
     model.value = 0;
 
     return;
   }
-  model.value = idx;
+  model.value = star;
 };
 
 onBeforeMount(() => {
