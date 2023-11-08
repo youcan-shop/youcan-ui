@@ -15,7 +15,7 @@ const model = computed<number>({
 
 const updateRatingModel = (idx: number) => {
   if (model.value >= idx) {
-    model.value =model.value - idx;
+    model.value = model.value - idx;
 
     return;
   }
@@ -41,7 +41,7 @@ onUpdated(() => {
 
 <template>
   <div class="rating">
-    <i v-for="idx in ceil" :key="idx" i-youcan-star class="star" :class="{ active: idx <= model }" @mousedown="handleMouseDown(idx)" />
+    <i v-for="idx in ceil" :key="idx" i-youcan-star class="star" :class="{ active: idx <= model }" @mousedown="updateRatingModel(idx)" />
   </div>
 </template>
 
