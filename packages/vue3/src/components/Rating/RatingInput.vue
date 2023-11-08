@@ -41,7 +41,7 @@ onUpdated(() => {
 
 <template>
   <div class="rating">
-    <i v-for="idx in ceil" :key="idx" i-youcan-star class="star" :class="{ active: idx <= model }" @mousedown="updateRatingModel(idx)" />
+    <i v-for="star in ceil" :key="star" i-youcan-star class="star" :class="{ active: star <= model }" @mousedown="updateRatingModel(star)" />
   </div>
 </template>
 
