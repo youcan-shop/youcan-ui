@@ -13,7 +13,7 @@ const model = computed<number>({
   set: (value: number) => emit('update:modelValue', value),
 });
 
-const handleMouseDown = (idx: number) => {
+const updateRatingModel = (idx: number) => {
   if (model.value >= idx) {
     model.value = idx - 1;
 
