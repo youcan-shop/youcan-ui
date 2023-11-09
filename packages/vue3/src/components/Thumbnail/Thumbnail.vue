@@ -1,14 +1,16 @@
 <script setup lang="ts">
-import type { ThumbnailSize } from './types';
+import type { ObjectFit, ThumbnailSize } from './types';
 
 withDefaults(
   defineProps<{
     size: ThumbnailSize
     src?: string
     alt?: string
+    objectFit: ObjectFit
   }>(),
   {
     size: 'small',
+    objectFit: 'cover',
   },
 );
 </script>
@@ -41,6 +43,10 @@ withDefaults(
   border-radius: 4px;
   background-color: var(--base-white);
   box-shadow: var(--shadow-xs-gray);
+}
+
+.thumbnail .image {
+  object-fit: v-bind(objectFit);
 }
 
 .thumbnail.size-small {

@@ -13,6 +13,15 @@ const model = computed<number>({
   set: (value: number) => emit('update:modelValue', value),
 });
 
+const updateRatingModel = (star: number) => {
+  if (model.value === star) {
+    model.value = 0;
+
+    return;
+  }
+  model.value = star;
+};
+
 onBeforeMount(() => {
   if (props.modelValue > props.ceil) {
     throw new Error(
@@ -32,10 +41,7 @@ onUpdated(() => {
 
 <template>
   <div class="rating">
-    <i
-      v-for="idx in ceil" :key="idx" i-youcan-star class="star" :class="{ active: idx <= model }"
-      @mousedown="() => model = idx"
-    />
+    <i v-for="star in ceil" :key="star" i-youcan-star class="star" :class="{ active: star <= model }" @mousedown="updateRatingModel(star)" />
   </div>
 </template>
 
