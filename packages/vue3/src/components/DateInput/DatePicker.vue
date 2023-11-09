@@ -6,9 +6,12 @@ import Day from './Internal/Day.vue';
 import MonthSwitcher from './Internal/MonthSwitcher.vue';
 import type { DateInputValue } from './types';
 
-const props = defineProps<{
+const props = withDefaults(defineProps<{
   modelValue: DateInputValue
-}>();
+  isSingle: boolean
+}>(), {
+  isSingle: false,
+});
 
 const emit = defineEmits(['update:modelValue']);
 
@@ -16,7 +19,7 @@ const month = ref(new Date());
 const today = computed(() => month.value);
 const model = computed({
   get: () => props.modelValue,
-  set: (value: DateInputValue | null) => emit('update:modelValue', value),
+  set: (value: DateInputValue) => emit('update:modelValue', value),
 });
 
 const days = computed(() => DateUtils.getDaysForDateMonthCycle(today.value));
@@ -24,6 +27,12 @@ const weekDays = DateUtils.weekDays();
 const lockMouseHover = ref(false);
 
 const handleDayClick = (day: DayStatus) => {
+  if (props.isSingle) {
+    model.value = day.date;
+
+    return;
+  }
+
   lockMouseHover.value = !lockMouseHover.value;
 
   if (!model.value?.start || model.value?.end) {
@@ -50,6 +59,9 @@ const handleDayClick = (day: DayStatus) => {
 };
 
 const handleDayHover = (day: DayStatus) => {
+  if (props.isSingle) {
+    return;
+  }
   if (!model.value?.start || !lockMouseHover.value) {
     return;
   }
@@ -69,6 +81,13 @@ const handleDayHover = (day: DayStatus) => {
 };
 
 const getEdge = (day: DayStatus) => {
+  if (props.isSingle) {
+    if (!model.value) {
+      return 'none';
+    }
+
+    return DateUtils.isSameDay(day.date, model.value) ? 'both' : 'none';
+  }
   if (!model.value?.start && !model.value?.end) {
     return day.isToday ? 'both' : 'none';
   }
@@ -98,6 +117,13 @@ const getEdge = (day: DayStatus) => {
 };
 
 const isActive = (day: DayStatus) => {
+  if (props.isSingle) {
+    if (!model.value) {
+      return false;
+    }
+
+    return !!DateUtils.isSameDay(day.date, model.value);
+  }
   if (
     (model.value?.start && DateUtils.isSameDay(day.date, model.value.start))
     || (model.value?.end && DateUtils.isSameDay(day.date, model.value.end))) {
