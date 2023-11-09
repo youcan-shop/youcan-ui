@@ -86,6 +86,7 @@ onClickOutside(colorPicker, () => toggleColorPicker(false));
 
 .color-picker-container {
   position: absolute;
+  z-index: 999999;
   top: 40px;
   left: 0;
 }
