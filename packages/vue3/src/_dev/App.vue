@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import 'uno.css';
+import '../assets/main.css';
 import { ref } from 'vue';
 import { Tag } from '~/components';
 import type { TagItemValue } from '~/components/Tag/types';
