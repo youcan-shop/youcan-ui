@@ -2,11 +2,11 @@
 import 'uno.css';
 import '../assets/main.css';
 import { ref } from 'vue';
-import RatingInput from '~/components/Rating/RatingInput.vue';
+import { Thumbnail } from '~/components';
 
-const value = ref(0);
+const src = ref('');
 </script>
 
 <template>
-  <RatingInput v-model="value" />
+  <Thumbnail :src="src" />
 </template>
