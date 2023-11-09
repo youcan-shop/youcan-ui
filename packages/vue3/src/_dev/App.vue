@@ -2,13 +2,11 @@
 import 'uno.css';
 import '../assets/main.css';
 import { ref } from 'vue';
-import { Increment } from '~/components';
+import RatingInput from '~/components/Rating/RatingInput.vue';
 
-const value = ref('1');
+const value = ref(0);
 </script>
 
 <template>
-  <div>
-    <Increment v-model="value" :step="10" :min="1" :max="200" />
-  </div>
+  <RatingInput v-model="value" />
 </template>
