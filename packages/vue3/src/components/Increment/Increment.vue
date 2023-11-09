@@ -24,7 +24,6 @@ const model = computed({
   get: () => props.modelValue,
   set: (value: string) => {
     const inputValue = Number(value);
-
     if (typeof props.max !== 'undefined' && inputValue > props.max) {
       model.value = String(props.max);
 
@@ -47,7 +46,6 @@ const increment = () => {
   if (props.disabled) {
     return;
   }
-
   model.value = String(Number(model.value) + props.step);
 };
 
@@ -55,8 +53,12 @@ const decrement = () => {
   if (props.disabled) {
     return;
   }
-
   model.value = String(Number(model.value) - props.step);
+};
+
+const handleInput = (event: Event) => {
+  const value = parseInt((event.target as HTMLInputElement).value);
+  model.value = String(isNaN(value) ? 0 : value);
 };
 
 onMounted(() => {
@@ -68,13 +70,6 @@ onMounted(() => {
     const inputValue = Number(event.data);
 
     if (isNaN(inputValue) || event.data === ' ') {
-      event.preventDefault();
-    }
-
-    if (
-      (typeof props.max !== 'undefined' && inputValue > props.max)
-      || (typeof props.min !== 'undefined' && inputValue < props.min)
-    ) {
       event.preventDefault();
     }
   });
@@ -108,7 +103,7 @@ onMounted(() => {
         <i class="i-youcan-minus" />
       </template>
     </TertiaryButtonVue>
-    <input :id="id" ref="input" v-model="model" class="input" tabindex="-1">
+    <input :id="id" ref="input" v-model="model" class="input" tabindex="-1" @input="handleInput">
     <TertiaryButtonVue size="xs" icon-position="only" :disabled="disabled" @click="increment">
       <template #icon>
         <i class="i-youcan-plus" />
