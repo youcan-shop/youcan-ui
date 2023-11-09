@@ -2,56 +2,13 @@
 import 'uno.css';
 import '../assets/main.css';
 import { ref } from 'vue';
-import DropDown from '~/components/Dropdown/Dropdown.vue';
+import { Increment } from '~/components';
 
-const items = [
-  { label: 'Shoes', value: 1 },
-  { label: 'Cosmetics', value: 2 },
-  { label: 'Gym', value: 3 },
-  { label: 'test', value: 4 },
-  { label: 'something', value: 5 },
-  { label: 'hi', value: 6 },
-];
-
-const category = ref(null);
-
-function search(term: string) {
-  console.log('soso');
-  const data = [
-    {
-      label: term,
-      value: 1,
-    },
-  ];
-
-  for (let index = 0; index < term.length; index++) {
-    items.push({
-      label: String(Math.floor(Math.random() * 1000)),
-      value: String(Math.floor(Math.random() * 1000)),
-    });
-  }
-
-  // if we return array here, it will act like the dropdown items, but if we return nothing the dropdown will just use the items prop
-  // return [
-  //   {
-  //     label: term,
-  //     value: 1,
-  //   },
-  // ];
-}
+const value = ref('1');
 </script>
 
 <template>
   <div>
-    <div style="padding: 5rem;background: red;">
-      {{ search }}
-    </div>
-    <DropDown
-      v-model="category"
-      searchable
-      :items="items"
-      placeholder="Select category"
-      :search-handler="search"
-    />
+    <Increment v-model="value" :step="10" :min="1" :max="200" />
   </div>
 </template>
