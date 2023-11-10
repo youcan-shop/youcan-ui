@@ -4,22 +4,33 @@ const emit = defineEmits(['delete']);
 </script>
 
 <template>
-  <div class="file">
-    <div class="status-icon">
-      <i v-if="error" class="icon-error i-youcan-warning-circle" />
-      <i v-else-if="progress" class="icon-loading i-youcan-circle-notch" />
-      <i v-else class="icon-success i-youcan-check-circle" />
+  <div class="file-container">
+    <div class="file">
+      <div class="status-icon">
+        <i v-if="error" class="icon-error i-youcan-warning-circle" />
+        <i v-else-if="progress" class="icon-loading i-youcan-circle-notch" />
+        <i v-else class="icon-success i-youcan-check-circle" />
+      </div>
+      <div class="name">
+        {{ file.name }}
+      </div>
+      <div class="actions">
+        <i class="icon-remove i-youcan-trash" @click="emit('delete', file)" />
+      </div>
     </div>
-    <div class="name">
-      {{ file.name }}
-    </div>
-    <div class="actions">
-      <i class="icon-remove i-youcan-trash" @click="emit('delete', file)" />
+    <div v-if="error" class="error">
+      {{ error }}
     </div>
   </div>
 </template>
 
 <style scoped>
+.file-container {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+}
+
 .file {
   display: flex;
   box-sizing: border-box;
@@ -57,6 +68,11 @@ const emit = defineEmits(['delete']);
 .actions .icon-remove {
   color: var(--red-500);
   cursor: pointer;
+}
+
+.error {
+  color: var(--red-500);
+  font: var(--text-sm-medium);
 }
 
 @keyframes spinner {
