@@ -29,7 +29,7 @@ onMounted(() => {
     </div>
     <div class="actions">
       <TertiaryButton
-        tabindex="0" class="action" size="md" icon-position="only" :rounded-full="true"
+        tabindex="0" class="action toggle-preview" size="md" icon-position="only" :rounded-full="true"
         @click="togglePreview(true)"
       >
         <template #icon>
@@ -82,6 +82,16 @@ onMounted(() => {
   cursor: pointer;
 }
 
+.actions .action.toggle-preview {
+  background-color: rgb(255 255 255);
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+}
+
+.actions .action.toggle-preview:hover {
+  background-color: var(--gray-50);
+}
+
 .file:is(:hover, :focus, :active) .actions {
   gap: 8px;
   display: flex;
@@ -113,7 +123,8 @@ onMounted(() => {
 
 .popup {
   display: grid;
-  position: absolute;
+  position: fixed;
+  z-index: 99999999;
   top: 0;
   left: 0;
   align-items: center;
