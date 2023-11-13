@@ -2,28 +2,34 @@
 import 'uno.css';
 import '../assets/main.css';
 import { ref } from 'vue';
-import { FileInput, UploadedMedia } from '~/components';
-const attachment = ref<File | null>(null);
+import { EditableStatus } from '~/components';
+import type { StatusDefinition } from '~/components/Status/types';
 
-const uploadFile = (file: File[]) => {
-  attachment.value = file[0];
-};
-const deleteFile = () => {
-  attachment.value = null;
-};
+const fruits: StatusDefinition[] = [
+  {
+    color: '#ffdecb',
+    label: 'Peach 🍑',
+    labelColor: 'red',
+    value: 'peach',
+  },
+  {
+    color: '#fffad2',
+    label: 'Banana 🍌',
+    labelColor: 'orange',
+    value: 'banana',
+  },
+  {
+    color: '#cbffd3',
+    label: 'Kiwi 🥝',
+    labelColor: 'green',
+    value: 'kiwi',
+  },
+];
+const favoriteFruit = ref(fruits[0]);
 </script>
 
 <template>
-  <div class="container">
-    <UploadedMedia
-      v-if="attachment"
-      :file="attachment"
-      @delete="deleteFile"
-    />
-    <div class="file-input">
-      <FileInput @input="uploadFile" />
-    </div>
-  </div>
+  <EditableStatus v-model="favoriteFruit" :statuses="fruits" />
 </template>
 
 <style scoped>
