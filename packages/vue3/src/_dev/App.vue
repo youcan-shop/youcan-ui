@@ -2,22 +2,32 @@
 import 'uno.css';
 import '../assets/main.css';
 import { ref } from 'vue';
-import { Tag } from '~/components';
-import type { TagItemValue } from '~/components/Tag/types';
+import { EditableStatus } from '~/components';
+import type { StatusDefinition } from '~/components/Status/types';
 
-const preferredLanguages = ref<TagItemValue[]>([
-  { label: 'Pink', hexColor: '#F49FBC' },
-  { label: 'Lavender', hexColor: '#805D93' },
-  { label: 'Apricot', hexColor: '#FFD3BA' },
-  { label: 'Olive Green', hexColor: '#9EBD6E' },
-  { label: 'Shamrock Green', hexColor: '#169873' },
-]);
+const fruits: StatusDefinition[] = [
+  {
+    color: '#ffdecb',
+    label: 'Peach 🍑',
+    labelColor: 'red',
+    value: 'peach',
+  },
+  {
+    color: '#fffad2',
+    label: 'Banana 🍌',
+    labelColor: 'orange',
+    value: 'banana',
+  },
+  {
+    color: '#cbffd3',
+    label: 'Kiwi 🥝',
+    labelColor: 'green',
+    value: 'kiwi',
+  },
+];
+const favoriteFruit = ref(fruits[0]);
 </script>
 
 <template>
-  <Tag
-    v-model="preferredLanguages"
-    placeholder="Your favorite colors"
-    type="color"
-  />
+  <EditableStatus v-model="favoriteFruit" :statuses="fruits" />
 </template>

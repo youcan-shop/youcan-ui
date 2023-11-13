@@ -28,11 +28,11 @@ const model = computed({
 <template>
   <div class="wrapper">
     <button ref="button" type="button" class="editable-status" @click="() => toggle()">
-      <div class="static-status">
+      <div class="static-status" :style="{ color: model.labelColor }">
         {{ model.label }}
       </div>
 
-      <i class="icon i-youcan-caret-down" />
+      <i class="icon i-youcan-caret-down" :style="{ color: model.labelColor }" />
     </button>
     <div class="status-list-wrapper">
       <div v-show="show" ref="list" class="status-list">
