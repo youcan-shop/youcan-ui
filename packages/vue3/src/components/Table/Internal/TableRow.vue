@@ -111,10 +111,9 @@ const castToTableDataComposable = (value: TableColumnValue['value']) => launder<
       </template>
       <div v-if="column.accessor === 'actions' && actions?.length" class="cell-actions">
         <template v-for="action in rowActions" :key="action.label">
-          <!-- v-if="!action.criteria || action.criteria(data[index])" -->
-          <Tooltip v-if="action.tooltip" :label="action.tooltip" position="top">
+          <Tooltip v-if="action.tooltip && checkActionCriteria(action, isChild && originalRow ? originalRow : data[index])" :label="action.tooltip" position="top">
             <TableButton
-              v-if="checkActionCriteria(action, isChild && originalRow ? originalRow : data[index])" size="xs" :data="data"
+              size="xs" :data="data"
               :icon-name="action.iconName" :label="action.label" :rounded-full="true" icon-position="only"
               v-on="action.events || {}"
             />
