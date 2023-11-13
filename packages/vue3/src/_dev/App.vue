@@ -31,3 +31,22 @@ const favoriteFruit = ref(fruits[0]);
 <template>
   <EditableStatus v-model="favoriteFruit" :statuses="fruits" />
 </template>
+
+<style scoped>
+.container {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 300px;
+  min-height: 140px;
+}
+
+.file-input {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+</style>
