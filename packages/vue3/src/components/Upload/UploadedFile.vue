@@ -28,7 +28,7 @@ const emit = defineEmits(['delete']);
 .file-container {
   display: flex;
   flex-direction: column;
-  row-gap: 10px;
+  row-gap: 4px;
 }
 
 .file {
