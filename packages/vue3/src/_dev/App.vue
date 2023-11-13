@@ -2,22 +2,45 @@
 import 'uno.css';
 import '../assets/main.css';
 import { ref } from 'vue';
-import { Tag } from '~/components';
-import type { TagItemValue } from '~/components/Tag/types';
+import { FileInput, UploadedMedia } from '~/components';
+const attachment = ref<File | null>(null);
 
-const preferredLanguages = ref<TagItemValue[]>([
-  { label: 'Pink', hexColor: '#F49FBC' },
-  { label: 'Lavender', hexColor: '#805D93' },
-  { label: 'Apricot', hexColor: '#FFD3BA' },
-  { label: 'Olive Green', hexColor: '#9EBD6E' },
-  { label: 'Shamrock Green', hexColor: '#169873' },
-]);
+const uploadFile = (file: File[]) => {
+  attachment.value = file[0];
+};
+const deleteFile = () => {
+  attachment.value = null;
+};
 </script>
 
 <template>
-  <Tag
-    v-model="preferredLanguages"
-    placeholder="Your favorite colors"
-    type="color"
-  />
+  <div class="container">
+    <UploadedMedia
+      v-if="attachment"
+      :file="attachment"
+      @delete="deleteFile"
+    />
+    <div class="file-input">
+      <FileInput @input="uploadFile" />
+    </div>
+  </div>
 </template>
+
+<style scoped>
+.container {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 300px;
+  min-height: 140px;
+}
+
+.file-input {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+</style>
