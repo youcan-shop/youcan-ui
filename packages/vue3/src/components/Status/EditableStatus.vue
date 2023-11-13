@@ -28,9 +28,9 @@ const model = computed({
 <template>
   <div class="wrapper">
     <button ref="button" type="button" class="editable-status" @click="() => toggle()">
-      <div class="static-status">
+      <span class="static-status">
         {{ model.label }}
-      </div>
+      </span>
 
       <i class="icon i-youcan-caret-down" />
     </button>
@@ -55,6 +55,7 @@ const model = computed({
   border: none;
   border-radius: 4px;
   background-color: v-bind("model.color");
+  color: v-bind("model.labelColor");
   cursor: pointer;
 }
 
@@ -70,7 +71,6 @@ const model = computed({
 .editable-status .icon {
   width: 12px;
   height: 12px;
-  color: var(--base-white);
 }
 
 .editable-status .static-status {
@@ -79,7 +79,6 @@ const model = computed({
   border-radius: 4px 0 0 4px;
   background: v-bind("model.color");
   box-shadow: var(--shadow-xs-gray);
-  color: var(--base-white);
   font: var(--text-sm-medium);
   text-align: center;
 }
