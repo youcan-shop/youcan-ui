@@ -27,7 +27,7 @@ const model = computed({
 
 <template>
   <div class="wrapper">
-    <button ref="button" type="button" class="editable-status" :style="{ color: model.labelColor }" @click="() => toggle()">
+    <button ref="button" type="button" class="editable-status" @click="() => toggle()">
       <span class="static-status">
         {{ model.label }}
       </span>
@@ -55,6 +55,7 @@ const model = computed({
   border: none;
   border-radius: 4px;
   background-color: v-bind("model.color");
+  color: v-bind("model.labelColor");
   cursor: pointer;
 }
 
