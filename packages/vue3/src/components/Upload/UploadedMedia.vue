@@ -83,7 +83,7 @@ onMounted(() => {
 }
 
 .actions .action.toggle-preview {
-  background-color: rgb(255 255 255);
+  background-color: var(--base-white);
   cursor: pointer;
   backdrop-filter: blur(10px);
 }
@@ -124,7 +124,7 @@ onMounted(() => {
 .popup {
   display: grid;
   position: fixed;
-  z-index: 99999999;
+  z-index: 100;
   top: 0;
   left: 0;
   align-items: center;
