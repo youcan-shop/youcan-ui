@@ -72,7 +72,7 @@ const emit = defineEmits(['delete']);
 
 .error {
   color: var(--red-500);
-  font: var(--text-sm-medium);
+  font: var(--text-sm-regular);
 }
 
 @keyframes spinner {
