@@ -2,23 +2,41 @@
 import 'uno.css';
 import '../assets/main.css';
 import { ref } from 'vue';
-import { MultiselectDropdown } from '~/components';
+import { FileInput, UploadedFile } from '~/components';
 
-const desiredLanguages = ref([]);
+const attachment = ref<File | null>(null);
 
-const languages = [
-  { label: 'Arabic', value: 1 },
-  { label: 'English', value: 2 },
-  { label: 'German', value: 3 },
-];
+const uploadFile = (file: File[]) => {
+  attachment.value = file[0];
+};
+const deleteFile = () => {
+  attachment.value = null;
+};
 </script>
 
 <template>
-  <MultiselectDropdown
-    v-model="desiredLanguages"
-    :searchable="true"
-    :items="languages"
-    label="Desired languages"
-    icon="i-youcan-translate"
-  />
+  <div class="container">
+    <UploadedFile
+      v-if="attachment"
+      :file="attachment"
+      error="selected file is more than 2M"
+      @delete="deleteFile"
+    />
+    <div class="file-input">
+      <FileInput @input="uploadFile" />
+    </div>
+  </div>
 </template>
+
+<style scoped>
+.container {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 300px;
+  min-height: 140px;
+  row-gap: 10px;
+}
+</style>
