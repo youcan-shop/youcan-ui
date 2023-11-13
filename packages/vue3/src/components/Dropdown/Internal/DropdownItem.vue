@@ -19,9 +19,9 @@ const model = computed<boolean>({
   set: (value: boolean) => emit('toggle', value),
 });
 
-function toggle(event: Event, override = !model.value) {
+function toggle(event: Event) {
   event.preventDefault();
-  model.value = override;
+  model.value = !model.value;
 }
 </script>
 
