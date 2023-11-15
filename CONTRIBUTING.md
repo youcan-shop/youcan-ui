@@ -2,59 +2,104 @@
 
 Thank you for your interest in contributing to YouCan UI! We appreciate your time and effort.
 
+## About this repository
+
+This repository is a monorepo, it hosts both the YouCan UI package and the @youcan/eslint-config package.
+
+- We use [pnpm](https://pnpm.io) for development and publication.
+
+> ⚠️ Disclaimer
+>
+> @youcan/eslint-config will seen be in its own separate repository.
+
+## Structure
+
+This repository is structured as follows:
+
+```bash
+packages
+└── core
+    ├── eslint-all
+    ├── eslint-basic
+    ├── eslint-plugin-youcan
+    ├── eslint-typescript
+    ├── eslint-vue
+    ├── icons
+    ├── visuals
+    └── vue3
+        └── src
+            ├── _dev
+            └── assets
+            └── components
+            └── utils
+```
+
 ## How to Contribute
 
 We welcome contributions from everyone. To get started, follow these steps:
 
-1. **Fork the repository:**
-   - Click on the "Fork" button at the top right corner of this page. This will create a copy of the repository in your GitHub account.
+### Fork the repository
 
-2. **Clone the repository:**
-   - Clone the forked repository to your local machine using the following command:
+Click on the "Fork" button at the top right corner of this page. This will create a copy of the repository in your GitHub account.
 
-     ```
-     git clone https://github.com/youcan-shop/youcan-ui
-     ```
+### Clone the repository
 
-3. **Create a branch:**
-   - Create a new branch for your contribution using a descriptive branch name.
+```bash
+git clone https://github.com/<your-username>/youcan-ui
+```
 
-     ```
-     git checkout -b your-branch-name
-     ```
+### Navigate to project directory
 
-4. **Make your changes:**
-   - Make the necessary changes to the codebase.
+```bash
+cd youcan-ui
+```
 
-5. **Test your changes:**
-   - Ensure that your changes work as expected and do not introduce any new issues.
+### Create a branch
 
-6. **Commit your changes:**
-   - Commit your changes with a clear and concise commit message.
+```bash
+git checkout -b your-branch-name
+```
 
-     ```
-     git commit -m "Your descriptive commit message"
-     ```
+### Make your changes
 
-7. **Push your changes:**
-   - Push your changes to your forked repository on GitHub.
+Make the necessary changes to the codebase.
 
-     ```
-     git push origin your-branch-name
-     ```
+### Test your changes
 
-8. **Create a pull request:**
-   - Open a pull request on the original repository. Provide a clear title and description for your pull request.
+Ensure that your changes work as expected and do not introduce any new issues.
 
-9. **Wait for review:**
-   - Your contribution will be reviewed, and any necessary feedback will be provided.
+### Commit your changes
+
+```bash
+git commit -m "Your descriptive commit message"
+```
+
+### Push your changes
+
+```bash
+git push origin your-branch-name
+```
+
+### Create a pull request
+
+Open a pull request on the original repository. Provide a clear title and description for your pull request.
+
+### Wait for review
+
+Your contribution will be reviewed, and any necessary feedback will be provided.
 
 ## Code Style
 
 Please follow our coding style guide when making changes to the code. Consistent coding styles make the codebase more maintainable.
 
+## Requests for new components
+
+If you have a request for a new component, please open an issue on GitHub. We'll be happy to help you out.
+
 ## Reporting Issues
 
 If you encounter any issues or have suggestions for improvements, please open an issue on the GitHub repository.
 
-Thank you for contributing to YouCan UI!
+---
+
+Thank you for contributing to YouCan UI! 🙌
