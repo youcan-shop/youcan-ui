@@ -1,37 +1,48 @@
-## youcan-ui
+# YouCan UI
 
-> YouCan UI Vue 3 library
+Accessible and customizable components that you can copy and paste into your apps. Free. Open Source. **Use this to build your own component library**.
 
-## instalation steps in local machine
+![hero](/banner.jpg)
 
-### requirments
+## Documentation
 
-- pnpm@7.18.2
+Visit <https://developer.youcan.shop/youcan-ui/introduction> to view the documentation.
 
-``` bash
-curl -fsSL https://get.pnpm.io/install.sh | env PNPM_VERSION=7.18.2 sh -
-```
+## Getting started
 
-- node js 18
-
-``` bash
-brew install nvm
-nvm install 18.12.1
-nvm use 18.12.1
-nvm alias default 18.12.1 #to make it default when you open terminal next time
-```
-
-### steps
+### Clone the repo
 
 ```bash
-pnpm i
-pnpm run build
+git clone git@github.com:youcan-shop/youcan-ui.git
+```
+
+### Navigate to project directory
+
+```bash
+cd youcan-ui
+```
+
+### Install dependencies
+
+```bash
+pnpm install
+```
+
+### Run the project
+
+```bash
 pnpm run dev
 ```
 
-after that Storybook should be running in <http://localhost:6006/>
-and youcan-ui server should be running in <http://localhost:3000/>
+Once you run the command you'll have:
 
-## Project structure
+- Storybook running on <http://localhost:6006/>
+- Vue app running on <http://localhost:3000/>
 
-the entry point of the project is: [packages/vue3/src/_dev/App.vue](https://github.com/youcan-shop/youcan-ui/blob/main/packages/vue3/src/_dev/App.vue)
+## Contributing
+
+Please read the [contributing guide](/CONTRIBUTING.md).
+
+## License
+
+Licensed under the [MIT license](/LICENSE.md).
