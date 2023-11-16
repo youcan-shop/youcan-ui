@@ -2,41 +2,39 @@
 import 'uno.css';
 import '../assets/main.css';
 import { ref } from 'vue';
-import { FileInput, UploadedFile } from '~/components';
+import { Dropdown } from '~/components';
+const category = ref(null);
 
-const attachment = ref<File | null>(null);
-
-const uploadFile = (file: File[]) => {
-  attachment.value = file[0];
-};
-const deleteFile = () => {
-  attachment.value = null;
-};
+const items = [
+  { label: 'Shoes', value: 1 },
+  { label: 'Cosmetics', value: 2 },
+  { label: 'Gym', value: 3 },
+];
 </script>
 
 <template>
   <div class="container">
-    <UploadedFile
-      v-if="attachment"
-      :file="attachment"
-      error="selected file is more than 2M"
-      @delete="deleteFile"
+    <Dropdown
+      v-model="category"
+      searchable
+      :items="items"
+      placeholder="Select category"
     />
-    <div class="file-input">
-      <FileInput @input="uploadFile" />
-    </div>
+  </div>
+
+  <div class="container" style="margin-top: calc(100vh - 200px);">
+    <Dropdown
+      v-model="category"
+      searchable
+      :items="items"
+      placeholder="Select category"
+    />
   </div>
 </template>
 
 <style scoped>
 .container {
-  display: flex;
-  position: relative;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 300px;
-  min-height: 140px;
-  row-gap: 10px;
+  max-width: 400px;
+  margin: auto;
 }
 </style>
