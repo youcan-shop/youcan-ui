@@ -1,29 +1,31 @@
 <script setup lang="ts">
 import 'uno.css';
 import '../assets/main.css';
-import { ref } from 'vue';
-import { FileInput, UploadedFile } from '~/components';
+import { PrimaryButton, Tooltip } from '~/components';
 
-const attachment = ref<File | null>(null);
+const randomPosition = () => {
+  const positions = ['left', 'right', 'top', 'bottom'];
 
-const uploadFile = (file: File[]) => {
-  attachment.value = file[0];
+  return positions[Math.floor(Math.random() * 4)];
 };
-const deleteFile = () => {
-  attachment.value = null;
-};
+const positionsArray = Array.from({ length: 300 }, () => randomPosition());
 </script>
 
 <template>
-  <div class="container">
-    <UploadedFile
-      v-if="attachment"
-      :file="attachment"
-      error="selected file is more than 2M"
-      @delete="deleteFile"
-    />
-    <div class="file-input">
-      <FileInput @input="uploadFile" />
+  <div>
+    <div class="container">
+      <Tooltip v-for="(position, index) in positionsArray" :key="index" :position="position" label="here is the Tooltip ? here is the Tooltip">
+        <label style="background: red;">
+          <PrimaryButton>
+            Tooltip {{ position }}
+          </PrimaryButton>
+        </label>
+      </Tooltip>
+      <Tooltip position="left" label="here is the Tooltip ? here is the Tooltip">
+        <label class="label">
+          position is left but we should disable right left when no space to show tooltip
+        </label>
+      </Tooltip>
     </div>
   </div>
 </template>
@@ -32,11 +34,23 @@ const deleteFile = () => {
 .container {
   display: flex;
   position: relative;
-  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: max-content;
+  gap: 60px;
+  max-width: 100%;
+  background-color: var(--gray-50);
+}
+
+.label {
+  display: flex;
   align-items: center;
   justify-content: center;
-  width: 300px;
-  min-height: 140px;
-  row-gap: 10px;
+  width: calc(100vw - 150px);
+  height: 50px;
+  margin-bottom: 20px;
+  background: red;
+  color: var(--base-white);
+  font: var(--text-md-regular);
 }
 </style>
