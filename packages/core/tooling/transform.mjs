@@ -2,7 +2,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { existsSync, truncateSync, writeFileSync } from 'fs';
 import { ensureFileSync } from 'fs-extra';
-import input from './tokens.json' assert { type: 'json' };
+import input from './tokens.js';
 
 const OUTPUT_PATH = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', 'dist', 'tokens.css');
 
@@ -136,4 +136,3 @@ if (existsSync(OUTPUT_PATH)) {
 }
 
 writeFileSync(OUTPUT_PATH, output, { flag: 'w', encoding: 'utf-8' });
-
