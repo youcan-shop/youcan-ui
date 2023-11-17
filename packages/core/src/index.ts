@@ -17,5 +17,3 @@ export * from './color/helpers';
 
 export { default as DateUtils } from './date';
 export * from './date/types';
-// @ts-expect-error idk man :/
-export { default as Tokens } from '../tooling/tokens.js';

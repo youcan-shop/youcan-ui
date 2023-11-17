@@ -2,7 +2,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { existsSync, truncateSync, writeFileSync } from 'fs';
 import { ensureFileSync } from 'fs-extra';
-import input from './tokens.js';
+import input from './tokens.json' assert { type: 'json' };
 
 const OUTPUT_PATH = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', 'dist', 'tokens.css');
 

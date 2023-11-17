@@ -23,6 +23,10 @@
     "./tokens": {
       "require": "./dist/tokens.css",
       "import": "./dist/tokens.css"
+    },
+    "./tokens.json": {
+      "require": "./tooling/tokens.json",
+      "import": "./tooling/tokens.json"
     }
   },
   "main": "./dist/index.cjs",
