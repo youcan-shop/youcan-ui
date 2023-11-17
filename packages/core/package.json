@@ -25,18 +25,17 @@
       "import": "./dist/tokens.css"
     },
     "./tokens.json": {
-      "require": "./tooling/tokens.json",
-      "import": "./tooling/tokens.json"
+      "require": "./dist/tokens.json",
+      "import": "./dist/tokens.json"
     }
   },
   "main": "./dist/index.cjs",
   "types": "./dist/index.d.ts",
   "files": [
-    "dist",
-    "tokens.json"
+    "dist"
   ],
   "scripts": {
-    "build-tokens": "node tooling/transform.mjs",
+    "build-tokens": "node tooling/transform.mjs && cp ./tooling/tokens.json ./dist/tokens.json",
     "build": "unbuild && pnpm build-tokens",
     "release": "pnpm publish --access public"
   },
