@@ -1,7 +1,7 @@
 {
   "name": "@youcan/ui-icons",
   "type": "module",
-  "version": "2.4.7",
+  "version": "2.4.8",
   "description": "YouCan icon set in Iconify JSON format",
   "author": "YouCan <tech@youcan.shop> (https://github.com/youcan-shop/)",
   "license": "MIT",
