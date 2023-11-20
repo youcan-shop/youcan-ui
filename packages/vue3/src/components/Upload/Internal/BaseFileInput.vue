@@ -1,52 +1,65 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { Utils } from '@youcan/ui-core';
 
-const props = withDefaults(defineProps<{ limit?: number }>(), { limit: 1 });
+const props = withDefaults(defineProps<{ modelValue: File[] | undefined; limit?: number }>(), { limit: 1 });
 
-const emit = defineEmits(['dragenter', 'dragleave', 'input', 'drop']);
+const emit = defineEmits(['update:modelValue']);
 
-const facade = ref();
-const input = ref<HTMLInputElement>();
+const idAttr = Utils.uid('input');
 
-function addfiles(files: File[]) {
-  emit('input', files);
-}
-
-function handledrop(e: DragEvent) {
-  const files = Array.from(e.dataTransfer?.files ?? []);
-  addfiles(files);
-}
-
-function handleinput(_e: Event) {
-  const files = Array.from(input.value!.files ?? []);
-  addfiles(files);
-}
-
-function handledragenter(e: DragEvent) {
-  emit('dragenter', e);
-}
-
-function handledragleave(e: DragEvent) {
-  emit('dragleave', e);
-}
-
-function handlekeypress(e: KeyboardEvent) {
-  if ([' ', 'Spacebar', 'Enter'].includes(e.key)) {
-    input.value!.click();
+const handleInput = (event: Event) => {
+  const target = (event.target as HTMLInputElement);
+  let override: File[] = [];
+  const { limit } = props;
+  if (!target.files?.length) {
+    return;
   }
-}
 
-function handleclick(_e: MouseEvent) {
-  input.value!.click();
-}
+  if (props.modelValue && limit > 1) {
+    override = props.modelValue;
+    for (let i = 0; i < target.files.length; i++) {
+      override.push(target.files[i]);
+    }
+  }
+  else {
+    override.push(target.files[0]);
+  }
+  emit('update:modelValue', override);
+  target.value = '';
+};
 </script>
 
 <template>
-  <div
-    class="dropzone" @dragleave.prevent="handledragleave" @dragover.prevent @dragenter.prevent="handledragenter"
-    @drop.prevent="handledrop" @click="handleclick" @keypress="handlekeypress"
-  >
-    <input ref="input" hidden type="file" :multiple="props.limit > 1" @input="handleinput">
-    <slot ref="facade" name="facade" />
-  </div>
+  <label :for="idAttr" class="dropzone">
+    <input
+      :id="idAttr" type="file"
+      :multiple="props.limit > 1"
+      @change="handleInput"
+    >
+    <slot name="facade" />
+  </label>
 </template>
+
+<style scoped lang="scss">
+.dropzone {
+  position: relative;
+
+  input[type="file"] {
+    display: block;
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+  }
+
+  > * {
+    :not(input[type="file"]) {
+      position: relative;
+      z-index: 1;
+    }
+  }
+}
+</style>
