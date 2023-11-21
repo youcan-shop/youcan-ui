@@ -2,7 +2,7 @@
 import 'uno.css';
 import '../assets/main.css';
 import { ref, watch } from 'vue';
-import { FileInput, UploadedFile } from '~/components';
+import { MediaInput, UploadedFile } from '~/components';
 
 const attachments = ref<File[]>([]);
 const disabled = ref(false);
@@ -34,11 +34,7 @@ watch(attachments, () => {
         @delete="deleteFile(attachment)"
       />
     </div>
-    <FileInput v-model="attachments" :limit="limit" :disabled="disabled">
-      <template #label>
-        <span>Upload files</span>
-      </template>
-    </FileInput>
+    <MediaInput v-model="attachments" :limit="limit" :disabled="disabled" />
   </div>
 </template>
 

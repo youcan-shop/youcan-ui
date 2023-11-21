@@ -8,13 +8,13 @@ const props = withDefaults(
     limit?: number
     disabled?: boolean
     label: string
-    sousLabel: string
-    highLightText: string
+    subLabel: string
+    highLightedLabel: string
   }>(),
   {
     limit: 1,
     disabled: false,
-    highLightText: 'Click to upload',
+    highLightedLabel: 'Click to upload',
     label: 'or drag and drop',
   },
 );
@@ -40,10 +40,10 @@ const model = computed({
           <i class="i-youcan-upload-simple" />
         </span>
         <span class="label-text">
-          <span class="label-text-light">{{ highLightText }}</span> <span>{{ label }}</span>
+          <span class="label-text-light">{{ highLightedLabel }}</span> <span>{{ label }}</span>
         </span>
         <span v-if="sousLabel" class="label-sous-text">
-          {{ sousLabel }}
+          {{ subLabel }}
         </span>
       </div>
     </template>
