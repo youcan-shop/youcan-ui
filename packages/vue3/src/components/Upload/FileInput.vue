@@ -27,10 +27,7 @@ const slots = useSlots();
 </script>
 
 <template>
-  <BaseFileInput
-    v-model="model" :limit="limit"
-    :disabled="disabled"
-  >
+  <BaseFileInput v-model="model" :limit="limit" :disabled="disabled">
     <template #facade>
       <div class="label" :class="{ disabled }">
         <slot v-if="slots.label" name="label" />
