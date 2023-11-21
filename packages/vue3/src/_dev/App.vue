@@ -1,42 +1,50 @@
 <script setup lang="ts">
 import 'uno.css';
 import '../assets/main.css';
-import { ref } from 'vue';
-import { FileInput, UploadedFile } from '~/components';
-
-const attachment = ref<File | null>(null);
-
-const uploadFile = (file: File[]) => {
-  attachment.value = file[0];
-};
-const deleteFile = () => {
-  attachment.value = null;
-};
+import { Card, PrimaryButton, TertiaryButton } from '~/components';
 </script>
 
 <template>
   <div class="container">
-    <UploadedFile
-      v-if="attachment"
-      :file="attachment"
-      error="selected file is more than 2M"
-      @delete="deleteFile"
-    />
-    <div class="file-input">
-      <FileInput @input="uploadFile" />
-    </div>
+    <Card>
+      <template #header>
+        <h3>Introducing Themes!</h3>
+      </template>
+      <template #body>
+        <p>
+          Introducing themes, a new way to make yourstore stand out and make it
+          more attractive towards your existing and potential clients.
+        </p>
+      </template>
+      <template #footer>
+        <div class="actions">
+          <PrimaryButton>
+            <span>Get started</span>
+          </PrimaryButton>
+          <TertiaryButton>
+            <span>Later</span>
+          </TertiaryButton>
+        </div>
+      </template>
+    </Card>
   </div>
 </template>
 
 <style scoped>
 .container {
+  width: 400px;
+  margin: auto;
+  margin-top: 60px;
+}
+
+p {
+  margin: 0;
+  font: var(--text-sm-medium);
+}
+
+.actions {
   display: flex;
-  position: relative;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 300px;
-  min-height: 140px;
-  row-gap: 10px;
+  flex-direction: row-reverse;
+  gap: 20px;
 }
 </style>
