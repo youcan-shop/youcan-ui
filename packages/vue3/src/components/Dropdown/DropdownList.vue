@@ -69,7 +69,7 @@ function toggle(item: DropdownItemDefinition, value: boolean): void {
     <div v-if="Array.isArray(results)" class="inner">
       <DropdownItem
         v-for="item in results" :key="item.value" :checkbox="multiple" :item="item"
-        :selected="isSelected(item)" @toggle="(value) => toggle(item, value)"
+        :selected="isSelected(item)" @toggle="(value:boolean) => toggle(item, value)"
       />
     </div>
 
@@ -82,7 +82,7 @@ function toggle(item: DropdownItemDefinition, value: boolean): void {
         <div class="array-list">
           <DropdownItem
             v-for="item in group" :key="item.value" :checkbox="multiple" :selected="isSelected(item)"
-            :item="item" @toggle="(value) => toggle(item, value)"
+            :item="item" @toggle="(value:boolean) => toggle(item, value)"
           />
         </div>
       </div>
@@ -130,6 +130,7 @@ function toggle(item: DropdownItemDefinition, value: boolean): void {
 }
 
 .search input {
+  box-sizing: border-box;
   width: 100%;
   padding: 10px 16px;
   border: none;
