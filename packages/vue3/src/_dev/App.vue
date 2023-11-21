@@ -34,7 +34,11 @@ watch(attachments, () => {
         @delete="deleteFile(attachment)"
       />
     </div>
-    <FileInput v-model="attachments" :limit="limit" :disabled="disabled" />
+    <FileInput v-model="attachments" :limit="limit" :disabled="disabled">
+      <template #label>
+        <span>Upload files</span>
+      </template>
+    </FileInput>
   </div>
 </template>
 

@@ -45,6 +45,8 @@ const slots = useSlots();
 
 <style scoped lang="scss">
 .label {
+  font: var(--text-sm-regular);
+
   i {
     color: var(--brand-500);
   }
@@ -59,7 +61,6 @@ const slots = useSlots();
     gap: 8px;
     display: flex;
     align-items: center;
-    font: var(--text-sm-regular);
   }
 }
 </style>

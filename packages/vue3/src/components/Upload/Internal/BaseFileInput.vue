@@ -102,6 +102,7 @@ const handleInput = (event: Event) => {
   input[type="file"] {
     z-index: 2;
     opacity: 0;
+    cursor: pointer;
   }
 
   &:not(.disabled) {
