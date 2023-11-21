@@ -42,7 +42,7 @@ const model = computed({
         <span class="label-text">
           <span class="label-text-light">{{ highLightedLabel }}</span> <span>{{ label }}</span>
         </span>
-        <span v-if="sousLabel" class="label-sous-text">
+        <span v-if="subLabel" class="label-sub-text">
           {{ subLabel }}
         </span>
       </div>
@@ -79,7 +79,7 @@ const model = computed({
     }
   }
 
-  &-sous-text {
+  &-sub-text {
     color: var(--gray-500);
     font: var(--text-sm-regular);
   }
