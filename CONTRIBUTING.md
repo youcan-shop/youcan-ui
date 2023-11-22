@@ -7,8 +7,9 @@ Thank you for your interest in contributing to YouCan UI! We appreciate your tim
 This repository is a monorepo, it hosts both the YouCan UI package and the @youcan/eslint-config package.
 
 We use:
-- [Node](https://nodejs.org/en) [^20.9.0].
-- [pnpm](https://pnpm.io) [^8.10.0].
+
+- [Node](https://nodejs.org/en): `^20.9.0`.
+- [pnpm](https://pnpm.io): `^8.10.0`.
 
 ---
 
