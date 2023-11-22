@@ -23,7 +23,7 @@ const onConfirm = () => {
   </Modal>
   <div class="container">
     <PrimaryButton @click="showModal = true;">
-      <span>Show Modal {{ showModal }}</span>
+      <span>Show Modal</span>
     </PrimaryButton>
   </div>
 </template>
