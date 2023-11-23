@@ -2,39 +2,41 @@
 import 'uno.css';
 import '../assets/main.css';
 import { ref } from 'vue';
-import { Dropdown } from '~/components';
-const category = ref(null);
+import { PrimaryButton, Toast } from '~/components';
 
-const items = [
-  { label: 'Shoes', value: 1 },
-  { label: 'Cosmetics', value: 2 },
-  { label: 'Gym', value: 3 },
-];
+const show = ref(false);
 </script>
 
 <template>
-  <div class="container">
-    <Dropdown
-      v-model="category"
-      searchable
-      :items="items"
-      placeholder="Select category"
-    />
-  </div>
+  <Toast :show="show" :close-after-duration="3000" position="bottom-right" @close="show = false">
+    <template #title>
+      Profile Updated
+    </template>
+    <template #description>
+      Your profile information has been successfully updated.
+    </template>
+  </Toast>
 
-  <div class="container" style="margin-top: calc(100vh - 200px);">
-    <Dropdown
-      v-model="category"
-      searchable
-      :items="items"
-      placeholder="Select category"
-    />
+  <div class="container">
+    <PrimaryButton @click="show = true;">
+      <span>Show Toast</span>
+    </PrimaryButton>
   </div>
 </template>
 
 <style scoped>
 .container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   max-width: 400px;
+  height: 100vh;
   margin: auto;
+}
+
+p {
+  margin-bottom: 0;
+  color: var(--gray-600);
+  font: var(--text-sm-regular);
 }
 </style>

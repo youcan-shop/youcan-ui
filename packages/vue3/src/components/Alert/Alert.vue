@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useSlots } from 'vue';
+import { computed, onUnmounted, useSlots } from 'vue';
 import type { AlertType } from './types';
 import TertiaryButton from '~/components/Button/TertiaryButton.vue';
 
@@ -18,30 +18,47 @@ const props = withDefaults(
 const emit = defineEmits<{
   (e: 'close'): void
 }>();
+
+const alertVariant = computed(() => {
+  let classList = 'i-youcan-';
+  switch (props.type) {
+    case 'success':
+      classList += 'check-circle';
+      break;
+    case 'info':
+      classList += 'info-1';
+      break;
+    default:
+      classList += 'warning-circle';
+      break;
+  }
+
+  return `${classList} ${props.type}`;
+});
+
 const { title, description } = useSlots();
 
 const handleClose = () => {
   emit('close');
 };
 
+let timeOut: NodeJS.Timeout;
 if (props.closeAfterDuration && typeof props.closeAfterDuration === 'number') {
-  setTimeout(() => {
+  timeOut = setTimeout(() => {
     handleClose();
   }, props.closeAfterDuration);
 }
+
+onUnmounted(() => {
+  clearTimeout(timeOut);
+});
 </script>
 
 <template>
-  <div class="toast-block" :class="[type]">
+  <div class="alert-block" :class="[type]">
     <div class="main">
       <div class="icon-block" :class="[type]">
-        <i
-          class="icon" :class="{
-            'i-youcan-warning-circle warning': type === 'warning',
-            'i-youcan-check-circle success': type === 'success',
-            'i-youcan-info-1 info': type === 'info',
-          }"
-        />
+        <i class="icon" :class="alertVariant" />
       </div>
       <div class="content-container">
         <span v-if="title" class="title" :class="[type]">
@@ -64,13 +81,14 @@ if (props.closeAfterDuration && typeof props.closeAfterDuration === 'number') {
 </template>
 
 <style scoped>
-.toast-block {
+.alert-block {
   --border-color: var(--gray-500);
 
   display: flex;
   position: relative;
   box-sizing: border-box;
-  width: 100%;
+  width: max-content;
+  max-width: 800px;
   margin-bottom: 12px;
   padding: 12px;
   border: 1px solid var(--gray-200);
@@ -82,15 +100,15 @@ if (props.closeAfterDuration && typeof props.closeAfterDuration === 'number') {
   gap: 8px;
 }
 
-.toast-block.warning {
+.alert-block.warning {
   --border-color: var(--yellow-700);
 }
 
-.toast-block.success {
+.alert-block.success {
   --border-color: var(--green-600);
 }
 
-.toast-block.info {
+.alert-block.info {
   --border-color: var(--blue-500);
 }
 
