@@ -8,7 +8,7 @@ const show = ref(false);
 </script>
 
 <template>
-  <Toast :show="show" :close-after-duration="3000" position="bottom-right" @close="show = false">
+  <Toast :show="show" :close-after-duration="3000" position="top-left" @close="show = false">
     <template #title>
       Profile Updated
     </template>
