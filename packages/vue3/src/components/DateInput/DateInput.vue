@@ -8,7 +8,7 @@ import type { DateRangeValue } from './types';
 import SecondaryButton from '~/components/Button/SecondaryButton.vue';
 
 const props = withDefaults(defineProps<{
-  modelValue: DateRangeValue | Date
+  modelValue: DateRangeValue
   disabled?: boolean
   isSingle?: boolean
   placeholder?: string
@@ -21,7 +21,7 @@ const emit = defineEmits(['update:modelValue']);
 
 const model = computed({
   get: () => props.modelValue,
-  set: (value: Date | DateRangeValue) => emit('update:modelValue', value),
+  set: (value: DateRangeValue) => emit('update:modelValue', value),
 });
 
 const isDatePickerVisible = ref(false);
@@ -54,10 +54,6 @@ onClickOutside(datePicker, () => toggleDatePicker(false));
       size="sm" icon-position="right" class="input-trigger" :disabled="disabled" type="button"
       @click="toggleDatePicker()"
     >
-      <!--  <span v-show="model && model.start || model.end">
-        {{ DateUtils.getCalendarDay(model.start, 'Start') }} - {{ DateUtils.getCalendarDay(model.end, 'End') }}
-      </span>
-      <span v-show="!model.start && !model.end">Select date range</span> -->
       <span>{{ getLabel }}</span>
       <template #icon>
         <i class="i-youcan-calendar-blank" />
