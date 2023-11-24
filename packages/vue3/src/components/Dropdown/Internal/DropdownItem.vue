@@ -19,13 +19,14 @@ const model = computed<boolean>({
   set: (value: boolean) => emit('toggle', value),
 });
 
-function toggle(override = !model.value) {
-  model.value = override;
+function toggle(event: Event) {
+  event.preventDefault();
+  model.value = !model.value;
 }
 </script>
 
 <template>
-  <button role="button" class="item" @click="() => toggle()">
+  <button role="button" class="item" @click="(event) => toggle(event)">
     <Checkbox v-if="checkbox" v-model="model" tabindex="-1" class="checkbox" />
     <div v-if="item.image || item.icon" class="preview">
       <Thumbnail v-if="item.image" size="small" :src="item.image" :alt="item.label" class="preview-image" />
