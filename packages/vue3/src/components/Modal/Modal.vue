@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { PrimaryButton, SecondaryButton, TertiaryButton } from '..';
-import Overlay from '../Overlay/Overlay.vue';
+import Overlay from '~/components/Overlay/Overlay.vue';
+import { PrimaryButton, SecondaryButton, TertiaryButton } from '~/components';
 
 withDefaults(defineProps<{
   title?: string
@@ -103,11 +103,11 @@ const closeModal = () => {
 }
 
 .fade-enter-active {
-  animation: fade 0.5s ease-in-out;
+  animation: fade 0.35s ease-in-out;
 }
 
 .fade-leave-active {
-  animation: fade 0.5s reverse ease-in-out;
+  animation: fade 0.35s reverse ease-in-out;
 }
 
 @keyframes fade {
@@ -121,11 +121,11 @@ const closeModal = () => {
 }
 
 .slide-up-enter-active {
-  animation: slide-up 0.5s ease-in-out;
+  animation: slide-up 0.35s ease-in-out;
 }
 
 .slide-up-leave-active {
-  animation: slide-up 0.5s reverse ease-in-out;
+  animation: slide-up 0.35s reverse ease-in-out;
 }
 
 @keyframes slide-up {
