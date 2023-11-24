@@ -9,12 +9,12 @@ const props = withDefaults(
     disabled?: boolean
     label: string
     subLabel: string
-    highLightedLabel: string
+    highlightedLabel: string
   }>(),
   {
     limit: 1,
     disabled: false,
-    highLightedLabel: 'Click to upload',
+    highlightedLabel: 'Click to upload',
     label: 'or drag and drop',
   },
 );
@@ -30,17 +30,14 @@ const model = computed({
 </script>
 
 <template>
-  <BaseFileInput
-    v-model="model" :limit="limit"
-    :disabled="disabled"
-  >
+  <BaseFileInput v-model="model" :limit="limit" :disabled="disabled">
     <template #facade>
       <div class="label" :class="{ disabled }">
         <span class="label-icon">
           <i class="i-youcan-upload-simple" />
         </span>
         <span class="label-text">
-          <span class="label-text-light">{{ highLightedLabel }}</span> <span>{{ label }}</span>
+          <span class="label-text-light">{{ highlightedLabel }}</span> <span>{{ label }}</span>
         </span>
         <span v-if="subLabel" class="label-sub-text">
           {{ subLabel }}
