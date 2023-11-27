@@ -1,68 +1,65 @@
 <script lang="ts" setup>
-import { computed, onMounted, onUnmounted, ref } from 'vue';
-import Thumb from './Internal/Thumb.vue';
+import { computed, onMounted, ref } from 'vue';
+import Tooltip from './Internal/Tooltip.vue';
 
 const props = withDefaults(defineProps<{
-  modelValue?: number
+  modelValue?: string
   min?: number
   max?: number
+  disabled?: boolean
+  prefix?: string
+  suffix?: string
 }>(), {
-  modelValue: 0,
+  modelValue: '0',
   min: 0,
   max: 100,
+  disabled: false,
+  prefix: '',
+  suffix: '',
 });
 
 const emit = defineEmits(['update:modelValue']);
 
-const active = ref(false);
-const slider = ref();
+const position = ref('0%');
 
-const model = computed<number>({
+const model = computed({
   get: () => props.modelValue,
-  set: (value: number) => emit('update:modelValue', value),
+  set: (value: string) => {
+    const { max, min, disabled } = props;
+    if (disabled) {
+      return;
+    }
+    const numberValue = value as unknown as number;
+    const percent = (Math.abs(Math.abs(numberValue) - Math.abs(min)) / Math.abs(Math.abs(max) - Math.abs(min))) * 100;
+    position.value = `${percent > 100 ? 100 : percent}%`;
+    emit('update:modelValue', value);
+  },
 });
+const label = computed(() => {
+  const { prefix, suffix } = props;
 
-const railWidth = computed((): string => {
-  const { max, min } = props;
-  const percent = Math.abs(props.modelValue - min) / Math.abs(max - min);
-
-  return `${percent * 100}%`;
+  return `${prefix}${model.value}${suffix}`;
 });
-
-const handleMouseDown = () => {
-  active.value = true;
-};
-
-const handleMouseUp = () => {
-  active.value = false;
-};
-const handleMouseMove = (e: MouseEvent) => {
-  const offset = slider.value?.getBoundingClientRect();
-  const { max, min } = props;
-  if (active.value && offset) {
-    const pointerX = e.clientX - offset.left;
-    const percent = (pointerX / offset.width);
-    let newValue = percent * (max - min);
-    newValue = newValue > max ? max : newValue < min ? min : newValue;
-    model.value = newValue;
-  }
-};
 onMounted(() => {
-  window.addEventListener('mouseup', handleMouseUp);
-  window.addEventListener('mousemove', handleMouseMove);
-});
-
-onUnmounted(() => {
-  window.removeEventListener('mouseup', handleMouseUp);
-  window.removeEventListener('mousemove', handleMouseMove);
+  const { max, min, modelValue } = props;
+  const convertedValue = modelValue as unknown as number;
+  model.value = `${convertedValue > max ? max : convertedValue < min ? min : modelValue}`;
 });
 </script>
 
 <template>
-  <div ref="slider" class="slider">
-    <div class="rail" />
-    <div class="rail-selected" />
-    <Thumb :position="railWidth" :active="active" @mousedown="handleMouseDown" />
+  <div class="slider-container" :class="{ disabled }">
+    <span class="label">{{ `${prefix}${min}${suffix}` }}</span>
+    <div class="slider" :class="{ disabled }">
+      <input v-model="model" type="range" :min="min" :max="max">
+      <div class="selected-rail">
+        <Tooltip>
+          {{ label }}
+        </Tooltip>
+      </div>
+    </div>
+
+    <span class="label">{{ `${prefix}${max}${suffix}` }}</span>
   </div>
 </template>
 
@@ -70,35 +67,150 @@ onUnmounted(() => {
 .slider {
   display: flex;
   position: relative;
+  flex: 1;
   flex-direction: row;
   align-items: center;
   width: 100%;
   min-height: 20px;
+  column-gap: 8px;
 
-  .rail {
+  &-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    column-gap: 8px;
+
+    .label {
+      color: var(--gray-900);
+      font: var(--text-xs-regular);
+      font-style: italic;
+      user-select: none;
+    }
+
+    &.disabled {
+      * {
+        cursor: not-allowed;
+      }
+
+      .label {
+        color: var(--gray-200);
+      }
+    }
+  }
+
+  &::before {
+    content: "";
+    display: block;
     position: relative;
     z-index: 1;
     width: 100%;
     background-color: var(--gray-200);
   }
 
-  .rail-selected {
+  .selected-rail {
+    display: flex;
     position: absolute;
     z-index: 2;
     left: 0;
-    width: v-bind(railWidth);
+    align-items: center;
+    width: v-bind(position);
+    min-width: 14px;
     background-color: var(--brand-500);
+
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      right: 0;
+      box-sizing: border-box;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+    }
+
+    &::before {
+      z-index: 1;
+      transition: transform 150ms linear;
+      border: 1px solid var(--brand-500);
+      background-color: var(--base-white);
+    }
+
+    &::after {
+      z-index: 2;
+      background-color: var(--brand-500);
+    }
   }
 
-  .rail,
-  .rail-selected {
+  &::before,
+  .selected-rail {
     height: 6px;
     border-radius: 7px;
   }
 
-  &:hover {
-    .rail-selected {
-      background-color: var(--brand-600);
+  &.disabled {
+    * {
+      cursor: not-allowed;
+    }
+
+    .selected-rail {
+      &::before,
+      &::after {
+        border: 0;
+        background-color: var(--gray-200);
+      }
+    }
+  }
+
+  input[type="range"] {
+    position: absolute;
+    z-index: 4;
+    left: 0;
+    width: 100%;
+    margin: 0;
+    opacity: 0;
+
+    &:hover {
+      ~ {
+        .selected-rail {
+          .tooltip {
+            transform: translateX(50%) scale(1);
+            opacity: 1;
+          }
+        }
+      }
+    }
+  }
+
+  &:not(.disabled) {
+    &:hover {
+      &::after {
+        background-color: var(--brand-600);
+      }
+    }
+
+    input[type="range"] {
+      cursor: pointer;
+
+      &:hover {
+        ~ {
+          .selected-rail {
+            background-color: var(--brand-600);
+          }
+        }
+      }
+
+      &:active {
+        ~ {
+          .selected-rail {
+            background-color: var(--brand-400);
+
+            &::before {
+              transform: scale(1.45);
+            }
+          }
+        }
+      }
     }
   }
 }
