@@ -1,56 +1,27 @@
 <script setup lang="ts">
-import 'uno.css';
-import '../assets/main.css';
-import { ref, watch } from 'vue';
-import { MediaInput, UploadedFile } from '~/components';
+import { ref } from 'vue';
+import { DateInput } from '~/components';
+import type { DateRangeValue } from '~/components/DateInput/types';
 
-const attachments = ref<File[]>([]);
-const disabled = ref(false);
-const limit = ref(4);
+const defaultStartDate = new Date();
+const defaultEndDate = new Date();
 
-const checkLimit = () => {
-  disabled.value = attachments.value.length >= limit.value;
-};
+const dateRange = ref<DateRangeValue>({ start: defaultStartDate, end: defaultEndDate });
 
-const deleteFile = (file: File) => {
-  const idx = attachments.value.indexOf(file);
-  if (idx > -1) {
-    attachments.value.splice(idx, 1);
-    checkLimit();
-  }
-};
-watch(attachments, () => {
-  checkLimit();
-});
+const date = ref<Date>(new Date());
 </script>
 
 <template>
-  <div class="container">
-    <div class="files-grid">
-      <UploadedFile
-        v-for="(attachment, index) in attachments"
-        :key="index"
-        :file="attachment"
-        @delete="deleteFile(attachment)"
-      />
-    </div>
-    <MediaInput v-model="attachments" :limit="limit" :disabled="disabled" />
+  <div class="picker-container">
+    <DateInput v-model="date" is-single />
+  </div>
+  <div class="picker-container">
+    <DateInput v-model="dateRange" />
   </div>
 </template>
 
 <style scoped>
-.container {
-  display: flex;
-  flex-direction: column;
-  max-width: 400px;
-  margin: auto;
-  margin-top: 60px;
-  row-gap: 15px;
-}
-
-.files-grid {
-  display: flex;
-  flex-direction: column;
-  row-gap: 10px;
+.picker-container {
+  z-index: 1;
 }
 </style>
