@@ -50,18 +50,6 @@ $states: hover, focus, active, disabled;
   --shadow: var(--shadow-xs-gray);
   --gap: 8px;
 
-  $properties: background-color,
-    border,
-    shadow,
-    text-color,
-    icon-color;
-
-  @each $state in $states {
-    @each $property in $properties {
-      --#{$state}-#{$property}: var(--#{$property});
-    }
-  }
-
   display: flex;
   box-sizing: border-box;
   flex-direction: var(--icon-position);
@@ -73,7 +61,20 @@ $states: hover, focus, active, disabled;
   outline: none;
   background-color: var(--background-color);
   box-shadow: var(--shadow);
+  cursor: pointer;
   gap: var(--gap);
+
+  $properties: background-color,
+    border,
+    shadow,
+    text-color,
+    icon-color;
+
+  @each $state in $states {
+    @each $property in $properties {
+      --#{$state}-#{$property}: var(--#{$property});
+    }
+  }
 
   .text {
     display: flex;

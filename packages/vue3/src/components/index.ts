@@ -20,6 +20,7 @@ export { default as Badge } from './Badge/Badge.vue';
 export { default as Thumbnail } from './Thumbnail/Thumbnail.vue';
 export { default as FileInput } from './Upload/FileInput.vue';
 export { default as UploadedFile } from './Upload/UploadedFile.vue';
+export { default as MediaInput } from './Upload/MediaInput.vue';
 export { default as UploadedMedia } from './Upload/UploadedMedia.vue';
 export { default as Increment } from './Increment/Increment.vue';
 export { default as Tag } from './Tag/Tag.vue';
@@ -27,6 +28,7 @@ export { default as MultiselectDropdown } from './Dropdown/MultiselectDropdown.v
 export { default as StaticStatus } from './Status/StaticStatus.vue';
 export { default as EditableStatus } from './Status/EditableStatus.vue';
 export { default as DatePicker } from './DateInput/DatePicker.vue';
+export { default as DateRangePicker } from './DateInput/DateRangePicker.vue';
 export { default as DateInput } from './DateInput/DateInput.vue';
 export { default as DropdownPrefix } from './Input/prefixes/DropdownPrefix.vue';
 export { default as Percentage } from './Percentage/Percentage.vue';

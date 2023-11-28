@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { useSlots } from 'vue';
-import { Alert } from '..';
-import type { AlertType } from '../Alert/types';
 import type { ToastPosition } from './types';
+import type { AlertType } from '~/components/Alert/types';
+import { Alert } from '~/components';
 
 withDefaults(
   defineProps<{
