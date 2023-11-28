@@ -4,12 +4,12 @@ import '../assets/main.css';
 import { ref } from 'vue';
 import { Slider } from '~/components';
 
-const value = ref('85');
+const value = ref(85);
 </script>
 
 <template>
   <div class="container">
-    <Slider v-model="value" :min="40" :max="2000" suffix="$" disabled />
+    <Slider v-model.number="value" :min="40" :max="2000" suffix="$" />
   </div>
 </template>
 

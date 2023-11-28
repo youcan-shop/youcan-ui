@@ -3,14 +3,14 @@ import { computed, onMounted, ref } from 'vue';
 import Tooltip from './Internal/Tooltip.vue';
 
 const props = withDefaults(defineProps<{
-  modelValue?: string
+  modelValue?: number
   min?: number
   max?: number
   disabled?: boolean
   prefix?: string
   suffix?: string
 }>(), {
-  modelValue: '0',
+  modelValue: 0,
   min: 0,
   max: 100,
   disabled: false,
@@ -24,13 +24,12 @@ const position = ref('0%');
 
 const model = computed({
   get: () => props.modelValue,
-  set: (value: string) => {
+  set: (value: number) => {
     const { max, min, disabled } = props;
     if (disabled) {
       return;
     }
-    const numberValue = value as unknown as number;
-    const percent = (Math.abs(Math.abs(numberValue) - Math.abs(min)) / Math.abs(Math.abs(max) - Math.abs(min))) * 100;
+    const percent = (Math.abs(Math.abs(value) - Math.abs(min)) / Math.abs(Math.abs(max) - Math.abs(min))) * 100;
     position.value = `${percent > 100 ? 100 : percent}%`;
     emit('update:modelValue', value);
   },
@@ -42,8 +41,7 @@ const label = computed(() => {
 });
 onMounted(() => {
   const { max, min, modelValue } = props;
-  const convertedValue = modelValue as unknown as number;
-  model.value = `${convertedValue > max ? max : convertedValue < min ? min : modelValue}`;
+  model.value = modelValue > max ? max : modelValue < min ? min : modelValue;
 });
 </script>
 
