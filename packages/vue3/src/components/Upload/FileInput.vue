@@ -1,94 +1,63 @@
 <script setup lang="ts">
-import { ref, useSlots } from 'vue';
+import { computed, useSlots } from 'vue';
 import BaseFileInput from './Internal/BaseFileInput.vue';
 
-withDefaults(
-  defineProps<{ size?: 'sm' | 'md' | 'lg'; limit?: number }>(),
-  { size: 'md', limit: 1 },
+const props = withDefaults(
+  defineProps<{
+    modelValue: File[]
+    limit?: number
+    disabled?: boolean
+  }>(),
+  {
+    limit: 1,
+    disabled: false,
+  },
 );
 
-const emit = defineEmits(['input']);
+const emit = defineEmits(['update:modelValue']);
+
+const model = computed({
+  get: () => props.modelValue,
+  set: (value: File[]) => {
+    emit('update:modelValue', value);
+  },
+});
+
 const slots = useSlots();
-
-const files = ref<File[]>([]);
-const dragging = ref<boolean>(false);
-
-function handlefiles(files: File[]) {
-  dragging.value = false;
-  emit('input', files);
-}
 </script>
 
 <template>
-  <BaseFileInput
-    v-model="files" :limit="limit" @input="handlefiles" @drop="handlefiles" @dragenter="dragging = true"
-    @dragleave="dragging = false"
-  >
+  <BaseFileInput v-model="model" :limit="limit" :disabled="disabled">
     <template #facade>
-      <div role="button" tabindex="0" class="facade" :class="{ dragging, sm: size === 'sm', lg: size === 'lg' }">
-        <div>
-          <div class="label">
-            <slot v-if="slots.label" name="label" />
-            <div v-else class="default-label-content">
-              <i class="i-youcan-upload-simple" />
-              <div>Browse your computer</div>
-            </div>
-          </div>
+      <div class="label" :class="{ disabled }">
+        <slot v-if="slots.label" name="label" />
+        <div v-else class="default-label-content">
+          <i class="i-youcan-upload-simple" />
+          <div>Browse your computer</div>
         </div>
       </div>
     </template>
   </BaseFileInput>
 </template>
 
-<style scoped>
-.facade {
-  display: grid;
-  box-sizing: border-box;
-  padding: 12px 16px;
-  border: 1px solid var(--gray-200);
-  border-radius: 4px;
-  background-color: var(--gray-50);
-  box-shadow: var(--shadow-xs-gray);
-  place-items: center;
-}
-
-.facade.sm {
-  max-width: 148px;
-  min-height: 148px;
-}
-
-.facade.lg {
-  min-height: 148px;
-}
-
-.facade:hover,
-.facade.dragging {
-  background-color: var(--gray-100);
-}
-
-.facade:active,
-.facade:focus {
-  border: 1px solid var(--brand-500);
-  outline: none;
-  box-shadow: var(--focus-shadow-xs-brand);
-}
-
-.facade.dragging {
-  background: var(--gray-100);
-}
-
-.label i {
-  color: var(--brand-500);
-}
-
-.default-label-content {
-  gap: 8px;
-  display: flex;
-  align-items: center;
+<style scoped lang="scss">
+.label {
   font: var(--text-sm-regular);
-}
 
-.facade.sm .default-label-content {
-  flex-direction: column;
+  i {
+    color: var(--brand-500);
+  }
+
+  &.disabled {
+    i {
+      color: var(--gray-300);
+    }
+  }
+
+  .default-label-content {
+    gap: 8px;
+    display: flex;
+    align-items: center;
+  }
 }
 </style>

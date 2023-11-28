@@ -23,7 +23,16 @@ const emit = defineEmits(['update:modelValue']);
 const list = ref();
 const button = ref();
 const showList = ref(false);
-const toggleList = (override = !showList.value) => showList.value = override;
+const showListInTop = ref(false);
+
+const toggleList = (override = !showList.value) => {
+  list.value.classList.remove('dropdown-top');
+  const offset = list.value.getBoundingClientRect();
+  if (offset) {
+    showListInTop.value = offset.bottom > window.innerHeight;
+  }
+  showList.value = override;
+};
 onClickOutside(list, () => toggleList(false), { ignore: [button] });
 
 const model = computed<DropdownItemDefinition | null>({
@@ -36,7 +45,7 @@ const model = computed<DropdownItemDefinition | null>({
 </script>
 
 <template>
-  <div>
+  <div class="dropdown">
     <button ref="button" type="button" :class="[{ disabled }, `size-${size}`]" class="dropdown-input" @click="() => toggleList()">
       <i v-if="icon" class="icon" :class="icon" />
       <span class="label">
@@ -45,17 +54,40 @@ const model = computed<DropdownItemDefinition | null>({
 
       <i class="chevron i-youcan-carret-down" />
     </button>
-    <div v-if="showList && !disabled" ref="list" class="dropdown-wrapper">
+    <div ref="list" :class="{ 'dropdown-show': showList && !disabled, 'dropdown-top': showListInTop }" class="dropdown-wrapper">
       <DropdownList
         :search-handler="searchHandler"
-        class="dropdown-list" v-bind="{ items, searchable, selected: modelValue, multiple: false }"
-        @select="(i) => model = i"
+        v-bind="{ items, searchable, selected: modelValue, multiple: false }"
+        @select="(item:DropdownItemDefinition) => model = item"
       />
     </div>
   </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
+.dropdown {
+  position: relative;
+}
+
+.dropdown-wrapper {
+  visibility: hidden;
+  position: absolute;
+  z-index: 10;
+  top: calc(100% + 8px);
+  width: 100%;
+  opacity: 0;
+
+  &.dropdown-show {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  &.dropdown-top {
+    top: unset;
+    bottom: calc(100% + 8px);
+  }
+}
+
 .dropdown-input {
   display: flex;
   box-sizing: border-box;
@@ -104,16 +136,5 @@ const model = computed<DropdownItemDefinition | null>({
 
 .dropdown-input .chevron {
   margin-inline-start: auto;
-}
-
-.dropdown-wrapper {
-  position: relative;
-}
-
-.dropdown-list {
-  position: absolute;
-  z-index: 10;
-  top: 8px;
-  width: 100%;
 }
 </style>

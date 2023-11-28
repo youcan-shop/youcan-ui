@@ -136,4 +136,3 @@ if (existsSync(OUTPUT_PATH)) {
 }
 
 writeFileSync(OUTPUT_PATH, output, { flag: 'w', encoding: 'utf-8' });
-

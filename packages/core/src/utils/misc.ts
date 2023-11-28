@@ -13,6 +13,7 @@ export function partition<T>(
     return subject.reduce(
       (acc, val, idx, arr) => {
         acc[predicate(val, idx, arr) ? 0 : 1].push(val);
+
         return acc;
       },
       [[], []] as [T[], T[]],
@@ -45,6 +46,7 @@ function deferred(ms: number) {
 
 export function debounce(closure: Function, ms: number) {
   let t: any = { promise: null, cancel: (_ = undefined) => undefined };
+
   return [
     async (...args: unknown[]) => {
       try {

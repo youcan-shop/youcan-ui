@@ -1,7 +1,7 @@
 {
   "name": "@youcan/ui-core",
   "type": "module",
-  "version": "2.4.5",
+  "version": "2.4.8",
   "description": "",
   "author": "YouCan <tech@youcan.shop> (https://github.com/youcan-shop/)",
   "homepage": "https://github.com/youcan-shop/youcan-ui",
@@ -23,6 +23,10 @@
     "./tokens": {
       "require": "./dist/tokens.css",
       "import": "./dist/tokens.css"
+    },
+    "./tokens.json": {
+      "require": "./dist/tokens.json",
+      "import": "./dist/tokens.json"
     }
   },
   "main": "./dist/index.cjs",
@@ -31,7 +35,7 @@
     "dist"
   ],
   "scripts": {
-    "build-tokens": "node tooling/transform.mjs",
+    "build-tokens": "node tooling/transform.mjs && cp ./tooling/tokens.json ./dist/tokens.json",
     "build": "unbuild && pnpm build-tokens",
     "release": "pnpm publish --access public"
   },
