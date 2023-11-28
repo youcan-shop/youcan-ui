@@ -1,13 +1,45 @@
 <script setup lang="ts">
-defineProps<{
+import { onMounted, onUnmounted, ref } from 'vue';
+import { setTooltipPosition } from './utils';
+
+const props = withDefaults(defineProps<{
   label?: string
   position?: 'left' | 'right' | 'top' | 'bottom'
-}>();
+}>(), {
+  position: 'top',
+});
+
+const tooltipTrigger = ref<HTMLElement >();
+const tooltip = ref<HTMLElement>();
+const tooltipPosition = () => {
+  if (tooltipTrigger.value && tooltip.value) {
+    setTooltipPosition(tooltipTrigger.value, tooltip.value, props.position);
+  }
+};
+
+const handleScroll = () => {
+  if (!tooltipTrigger.value?.classList.contains('tooltip-trigger-hide')) {
+    tooltipTrigger.value?.classList.add('tooltip-trigger-hide');
+  }
+};
+
+const handleMouseEnter = () => {
+  tooltipPosition();
+};
+
+onMounted(() => {
+  tooltipPosition();
+  window.addEventListener('scroll', handleScroll);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', handleScroll);
+});
 </script>
 
 <template>
-  <div v-if="label" class="tooltip" :class="position">
-    <span class="tooltip-trigger">{{ label }}</span>
+  <div v-if="label" ref="tooltip" class="tooltip" :class="position" @mouseenter="handleMouseEnter">
+    <span ref="tooltipTrigger" class="tooltip-trigger">{{ label }}</span>
 
     <slot />
   </div>
@@ -16,83 +48,35 @@ defineProps<{
 
 <style scoped lang="scss">
 .tooltip {
-  position: relative;
   display: inline-block;
+  position: relative;
 
   .tooltip-trigger {
     visibility: hidden;
-    opacity: 0;
-    position: absolute;
-    z-index: 99;
+    position: fixed;
+    z-index: 9999999999;
     width: max-content;
-    max-width: 300px;
+    max-width: 200px;
     padding: 8px 12px;
-    transition: all 0.2s ease-in-out;
+    transition: opacity 0.3s ease-in-out;
+    transition-delay: 0.1s;
     border-radius: 4px;
-    background-color: #000;
+    opacity: 0;
+    background-color: var(--base-black);
     color: var(--base-white);
     font: var(--text-xs-regular);
+
+    &-hide {
+      visibility: hidden !important;
+      opacity: 0 !important;
+    }
   }
 
   &:hover {
     .tooltip-trigger {
       visibility: visible;
+      transition-delay: 0.2s;
       opacity: 1;
-    }
-  }
-
-  &.left {
-    .tooltip-trigger {
-      top: 50%;
-      transform: translate(calc(-100% - 4px), -50%);
-      left: 0;
-    }
-  }
-
-  &.right {
-    .tooltip-trigger {
-      top: 50%;
-      transform: translate(calc(100% + 4px), -50%);
-      right: 0;
-    }
-  }
-
-  &.top {
-    .tooltip-trigger {
-      left: 50%;
-      transform: translate(-50%, calc(-100% - 4px));
-      top: 0;
-    }
-  }
-
-  &.bottom {
-    .tooltip-trigger {
-      left: 50%;
-      transform: translate(-50%, calc(100% + 4px));
-      bottom: 0;
-    }
-  }
-}
-
-[dir="rtl"] {
-  .tooltip {
-    &.left {
-      .tooltip-trigger {
-        top: 50%;
-        transform: translate(calc(100% + 4px), -50%);
-        right: 0;
-      }
-    }
-
-    &.right {
-      .tooltip-trigger {
-        top: unset;
-        right: unset;
-        transform: unset;
-        top: 50%;
-        transform: translate(calc(-100% - 4px), -50%);
-        left: 0;
-      }
     }
   }
 }
