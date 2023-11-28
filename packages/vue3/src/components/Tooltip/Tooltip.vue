@@ -62,7 +62,7 @@ onUnmounted(() => {
     transition-delay: 0.1s;
     border-radius: 4px;
     opacity: 0;
-    background-color: #000;
+    background-color: var(--base-black);
     color: var(--base-white);
     font: var(--text-xs-regular);
 
