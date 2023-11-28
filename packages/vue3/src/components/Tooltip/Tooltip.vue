@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from 'vue';
+import { setTooltipPosition } from './utils';
 
 const props = withDefaults(defineProps<{
   label?: string
@@ -7,46 +8,12 @@ const props = withDefaults(defineProps<{
 }>(), {
   position: 'top',
 });
-const tooltipTrigger = ref<HTMLElement>();
+
+const tooltipTrigger = ref<HTMLElement >();
 const tooltip = ref<HTMLElement>();
-
-const setTooltipPosition = (position = props.position) => {
-  tooltipTrigger.value?.classList.remove('tooltip-trigger-hide');
-  const offset = tooltip.value?.getBoundingClientRect();
-  const triggerHeight = tooltipTrigger.value?.clientHeight || 0; // tooltip trigger height
-  const triggerWidth = tooltipTrigger.value?.clientWidth || 0; // tooltip trigger width
-  const tooltipHeight = tooltip.value?.clientHeight || 0; // tooltip  height
-  const tooltipWidth = tooltip.value?.clientWidth || 0; // tooltip  width
-  const windowWidth = window.innerWidth; // Window  width
-  const windowHeight = window.innerHeight; // Window  width
-  const gap = 6;
-  const disableHorizontal = triggerWidth + tooltipWidth + gap > windowWidth;
-  if (offset) {
-    // set position top as default
-    let centerTooltip = (triggerWidth - tooltipWidth) / 2;
-    let top = offset.top - (triggerHeight + gap);
-    let left = offset.left - centerTooltip;
-
-    left = left < 0 ? gap / 2 : left + triggerWidth > windowWidth ? windowWidth - (triggerWidth + gap / 2) : left;
-
-    const bottom = offset.bottom + triggerHeight + gap;
-    const right = offset.right + triggerWidth + gap;
-
-    if ((position === 'left' || position === 'right') && !disableHorizontal) {
-      centerTooltip = (triggerHeight - tooltipHeight) / 2;
-      top = offset.top - centerTooltip;
-      top = top < 0 ? gap / 2 : top + triggerHeight > windowHeight ? windowHeight - (triggerHeight + gap / 2) : top;
-      left = offset.left - (triggerWidth + gap);
-
-      if ((position === 'right' || left < 0) && right < windowWidth) {
-        left = offset.left + (tooltipWidth + gap);
-      }
-    }
-    else if ((position === 'bottom' || top < 0) && bottom < windowHeight) {
-      top = offset.top + (tooltipHeight + gap);
-    }
-
-    tooltipTrigger.value?.setAttribute('style', `top:${top}px;left:${left}px`);
+const tooltipPosition = () => {
+  if (tooltipTrigger.value && tooltip.value) {
+    setTooltipPosition(tooltipTrigger.value, tooltip.value, props.position);
   }
 };
 
@@ -56,17 +23,22 @@ const handleScroll = () => {
   }
 };
 
+const handleMouseEnter = () => {
+  tooltipPosition();
+};
+
 onMounted(() => {
-  setTooltipPosition();
+  tooltipPosition();
   window.addEventListener('scroll', handleScroll);
 });
+
 onUnmounted(() => {
   window.removeEventListener('scroll', handleScroll);
 });
 </script>
 
 <template>
-  <div v-if="label" ref="tooltip" class="tooltip" :class="position" @mouseenter="setTooltipPosition()">
+  <div v-if="label" ref="tooltip" class="tooltip" :class="position" @mouseenter="handleMouseEnter">
     <span ref="tooltipTrigger" class="tooltip-trigger">{{ label }}</span>
 
     <slot />
