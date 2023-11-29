@@ -132,11 +132,7 @@ export const getAlphabeticalMonth = (date: Date, format: AlphabeticalMonthFormat
  * @param b - The second date to compare.
  */
 export const isSameDay = (a: Date, b: Date): boolean => {
-  if (b instanceof Date) {
-    return a.toDateString() === b.toDateString();
-  }
-
-  return false;
+  return a.toDateString() === b.toDateString();
 };
 
 /**

@@ -28,7 +28,6 @@ export { default as MultiselectDropdown } from './Dropdown/MultiselectDropdown.v
 export { default as StaticStatus } from './Status/StaticStatus.vue';
 export { default as EditableStatus } from './Status/EditableStatus.vue';
 export { default as DatePicker } from './DateInput/DatePicker.vue';
-export { default as DateRangePicker } from './DateInput/DateRangePicker.vue';
 export { default as DateInput } from './DateInput/DateInput.vue';
 export { default as DropdownPrefix } from './Input/prefixes/DropdownPrefix.vue';
 export { default as Percentage } from './Percentage/Percentage.vue';
