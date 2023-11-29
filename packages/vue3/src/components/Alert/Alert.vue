@@ -42,7 +42,7 @@ const handleClose = () => {
   emit('close');
 };
 
-let timeOut: NodeJS.Timeout;
+let timeOut: ReturnType<typeof setTimeout>;
 if (props.closeAfterDuration && typeof props.closeAfterDuration === 'number') {
   timeOut = setTimeout(() => {
     handleClose();

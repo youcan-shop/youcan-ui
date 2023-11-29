@@ -2,27 +2,36 @@
 import 'uno.css';
 import '../assets/main.css';
 import { ref } from 'vue';
-import { Slider } from '~/components';
+import { PrimaryButton, Toast } from '~/components';
 
-const value = ref(85);
+const show = ref(false);
 </script>
 
 <template>
+  <Toast :show="show" :close-after-duration="3000" position="top-left" @close="show = false">
+    <template #title>
+      Profile Updated
+    </template>
+    <template #description>
+      Your profile information has been successfully updated.
+    </template>
+  </Toast>
+
   <div class="container">
-    <Slider v-model.number="value" :min="40" :max="2000" suffix="$" />
+    <PrimaryButton @click="show = true;">
+      <span>Show Toast</span>
+    </PrimaryButton>
   </div>
 </template>
 
 <style scoped>
 .container {
   display: flex;
-  flex-direction: row;
   align-items: center;
   justify-content: center;
   max-width: 400px;
   height: 100vh;
   margin: auto;
-  column-gap: 30px;
 }
 
 p {
