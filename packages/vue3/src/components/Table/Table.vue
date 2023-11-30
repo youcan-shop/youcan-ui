@@ -220,6 +220,7 @@ function selectRow(index: number, data: boolean) {
   align-items: center;
   justify-content: center;
   width: 100%;
+  overflow: auto hidden;
 }
 
 .table {
