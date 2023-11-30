@@ -1,8 +1,9 @@
 <script lang="ts" setup>
+import { onMounted, onUnmounted } from 'vue';
 import Overlay from '~/components/Overlay/Overlay.vue';
 import { PrimaryButton, SecondaryButton, TertiaryButton } from '~/components';
 
-withDefaults(defineProps<{
+const props = withDefaults(defineProps<{
   title?: string
   visible?: boolean
   confirmLabel?: string
@@ -19,6 +20,19 @@ const emit = defineEmits(['update:visible', 'onConfirm']);
 const closeModal = () => {
   emit('update:visible', false);
 };
+const handleKeypress = (event: KeyboardEvent) => {
+  if (props.visible && event.key === 'Escape') {
+    closeModal();
+  }
+};
+
+onMounted(() => {
+  window.addEventListener('keydown', handleKeypress);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('keydown', handleKeypress);
+});
 </script>
 
 <template>
