@@ -1,12 +1,17 @@
 <script setup lang="ts">
-import 'uno.css';
-import '../assets/main.css';
 import { ref } from 'vue';
-import { Increment } from '~/components';
+import { Tag } from '~/components';
+import type { TagItemValue } from '~/components/Tag/types';
 
-const quantity = ref('0');
+const preferredLanguages = ref<TagItemValue[]>([
+  { label: 'JavaScript' },
+]);
 </script>
 
 <template>
-  <Increment v-model="quantity" :max="10" />
+  <Tag
+    v-model="preferredLanguages"
+    placeholder="Your favorite programming languages"
+    :max="3"
+  />
 </template>
