@@ -1,33 +1,42 @@
 <script setup lang="ts">
 import 'uno.css';
 import '../assets/main.css';
-import { ref } from 'vue';
-import { Slider } from '~/components';
+import { Alert } from '~/components';
 
-const value = ref(85);
+const alerts = [
+  {
+    title: 'Info',
+    description: 'Click here to learn more about the exciting enhancements we\'ve made.',
+    type: 'info',
+  },
+  {
+    title: 'Success',
+    description: 'Your profile information has been successfully updated.',
+    type: 'success',
+  },
+  {
+    title: 'Warning',
+    description: 'Please check your internet connection.',
+    type: 'warning',
+  },
+];
 </script>
 
 <template>
   <div class="container">
-    <Slider v-model.number="value" :min="40" :max="2000" suffix="$" />
+    <Alert v-for="alert in alerts" :key="alert.type" :type="alert.type">
+      <template #title>
+        {{ alert.title }}
+      </template>
+      <template #description>
+        {{ alert.description }}
+      </template>
+    </Alert>
   </div>
 </template>
 
 <style scoped>
 .container {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  max-width: 400px;
-  height: 100vh;
-  margin: auto;
-  column-gap: 30px;
-}
-
-p {
-  margin-bottom: 0;
-  color: var(--gray-600);
-  font: var(--text-sm-regular);
+  min-width: 90%;
 }
 </style>
