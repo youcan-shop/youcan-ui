@@ -118,6 +118,7 @@ onMounted(() => {
   box-sizing: border-box;
   align-items: center;
   width: var(--width);
+  max-width: 100%;
   padding: 6px 10px;
   border: var(--border);
   border-radius: 8px;
