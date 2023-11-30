@@ -12,7 +12,6 @@ withDefaults(defineProps<{
 }>(), {
   title: 'Customer address',
   confirmLabel: 'Save',
-  confirmIcon: 'floppy-disk',
   cancelLabel: 'Cancel',
 });
 
@@ -38,8 +37,8 @@ const closeModal = () => {
           </div>
           <div class="footer">
             <PrimaryButton v-if="!cancelOnly" @click="emit('onConfirm')">
-              <template #icon>
-                <i :class="`i-youcan-${confirmIcon}`" />
+              <template v-if="confirmIcon" #icon>
+                <i :class="confirmIcon" />
               </template>
               <span>{{ confirmLabel }}</span>
             </PrimaryButton>
@@ -57,8 +56,8 @@ const closeModal = () => {
 .modal {
   display: flex;
   flex-direction: column;
-  width: calc(100vh - 60px);
-  max-width: 800px;
+  width: 100%;
+  max-width: calc(100vw - 40px);
   overflow: hidden;
   border: 1px solid var(--gray-200);
   border-radius: 8px;
@@ -79,7 +78,7 @@ const closeModal = () => {
   }
 
   .header {
-    padding: 14px 20px;
+    padding: 14px 4px 14px 20px;
     border-bottom: 1px solid var(--gray-100);
 
     .title {
@@ -98,7 +97,7 @@ const closeModal = () => {
   }
 
   .body {
-    padding: 0 20px 20px 30px;
+    padding: 0 20px 30px;
   }
 }
 

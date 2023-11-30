@@ -2,24 +2,28 @@
 import 'uno.css';
 import '../assets/main.css';
 import { ref } from 'vue';
-import { PrimaryButton, Toast } from '~/components';
+import Modal from '~/components/Modal/Modal.vue';
+import { PrimaryButton } from '~/components';
+const showModal = ref(false);
 
-const show = ref(false);
+const onConfirm = () => {
+  /*
+  * your code here
+  */
+};
 </script>
 
 <template>
-  <Toast :show="show" :close-after-duration="3000" position="top-left" @close="show = false">
-    <template #title>
-      Profile Updated
-    </template>
-    <template #description>
-      Your profile information has been successfully updated.
-    </template>
-  </Toast>
-
+  <Modal v-model:visible="showModal" confirm-icon="i-youcan:floppy-disk" @on-confirm="onConfirm">
+    <p>
+      Lorem ipsum dolor sit,
+      Lorem ipsum dolor sit,
+      Lorem ipsum dolor sit,
+    </p>
+  </Modal>
   <div class="container">
-    <PrimaryButton @click="show = true;">
-      <span>Show Toast</span>
+    <PrimaryButton @click="showModal = true;">
+      <span>Show Modal</span>
     </PrimaryButton>
   </div>
 </template>
@@ -29,9 +33,7 @@ const show = ref(false);
   display: flex;
   align-items: center;
   justify-content: center;
-  max-width: 400px;
   height: 100vh;
-  margin: auto;
 }
 
 p {
