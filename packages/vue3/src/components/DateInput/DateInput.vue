@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { onClickOutside } from '@vueuse/core';
 import { computed, ref } from 'vue';
 import { DateUtils } from '@youcan/ui-core';
 import DatePicker from './DatePicker.vue';
@@ -19,14 +18,11 @@ const model = computed({
 });
 
 const isDatePickerVisible = ref(false);
-const datePicker = ref<HTMLDivElement>();
 const toggleDatePicker = (state = !isDatePickerVisible.value) => {
   if (!props.disabled) {
     isDatePickerVisible.value = state;
   }
 };
-
-onClickOutside(datePicker, () => toggleDatePicker(false));
 </script>
 
 <template>
@@ -44,7 +40,7 @@ onClickOutside(datePicker, () => toggleDatePicker(false));
       </template>
     </SecondaryButton>
     <div class="date-picker-container">
-      <DatePicker v-show="isDatePickerVisible" ref="datePicker" v-model="model" />
+      <DatePicker v-show="isDatePickerVisible" v-model="model" @on-click-outside="toggleDatePicker(false)" />
     </div>
   </div>
 </template>
