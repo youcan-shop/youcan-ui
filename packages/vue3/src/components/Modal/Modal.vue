@@ -111,7 +111,8 @@ onUnmounted(() => {
   }
 
   .body {
-    padding: 0 20px 30px;
+    padding: 20px;
+    font: var(--text-md-regular);
   }
 }
 

@@ -37,8 +37,7 @@ const onConfirm = () => {
 }
 
 p {
-  margin-bottom: 0;
+  margin: 0;
   color: var(--gray-600);
-  font: var(--text-sm-regular);
 }
 </style>
