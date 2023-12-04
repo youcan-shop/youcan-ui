@@ -2,15 +2,15 @@
 import type { DayStatus } from '@youcan/ui-core';
 import { DateUtils } from '@youcan/ui-core';
 import { computed, ref } from 'vue';
+import { onClickOutside } from '@vueuse/core';
 import Day from './Internal/Day.vue';
 import MonthSwitcher from './Internal/MonthSwitcher.vue';
 import type { DateInputValue } from './types';
-
 const props = defineProps<{
   modelValue: DateInputValue
 }>();
 
-const emit = defineEmits(['update:modelValue']);
+const emit = defineEmits(['update:modelValue', 'onClickOutside']);
 
 const month = ref(new Date());
 const today = computed(() => month.value);
@@ -19,38 +19,40 @@ const model = computed({
   set: (value: DateInputValue | null) => emit('update:modelValue', value),
 });
 
+const datePicker = ref<HTMLDivElement>();
+
 const days = computed(() => DateUtils.getDaysForDateMonthCycle(today.value));
 const weekDays = DateUtils.weekDays();
 const lockMouseHover = ref(false);
 
 const handleDayClick = (day: DayStatus) => {
   lockMouseHover.value = !lockMouseHover.value;
-
-  if (!model.value?.start || model.value?.end) {
-    if (!lockMouseHover.value) {
-      return;
-    }
-
+  if (!model.value?.start || (model.value?.start && model.value?.end && lockMouseHover.value)) {
     model.value = {
       start: day.date,
       end: undefined,
     };
-
-    return;
   }
+  else if (model.value?.start && (!model.value?.end || !lockMouseHover.value)) {
+    if (DateUtils.biggerThan(model.value.start, day.date)) {
+      const sameDay = DateUtils.isSameDay(model.value.start, day.date);
+      model.value = {
+        start: day.date,
+        end: sameDay ? day.date : undefined,
+      };
+      lockMouseHover.value = !sameDay;
 
-  if (!model.value?.end) {
-    const endIsBiggerThanStartDate = DateUtils.biggerThan(model.value.start, day.date);
-
+      return;
+    }
     model.value = {
-      start: endIsBiggerThanStartDate ? day.date : model.value.start,
-      end: endIsBiggerThanStartDate ? model.value.start : day.date,
+      start: model.value.start,
+      end: day.date,
     };
   }
 };
 
 const handleDayHover = (day: DayStatus) => {
-  if (!model.value?.start || !lockMouseHover.value) {
+  if (!model.value?.start || !lockMouseHover.value || DateUtils.biggerThan(model.value.start, day.date)) {
     return;
   }
 
@@ -59,11 +61,9 @@ const handleDayHover = (day: DayStatus) => {
       return;
     }
 
-    const endIsBiggerThanStartDate = DateUtils.biggerThan(model.value.start, day.date);
-
     model.value = {
-      start: endIsBiggerThanStartDate ? day.date : model.value.start,
-      end: (model.value.end && endIsBiggerThanStartDate) ? model.value.end : (endIsBiggerThanStartDate ? model.value.start : day.date),
+      start: model.value.start,
+      end: day.date,
     };
   }
 };
@@ -110,10 +110,20 @@ const isActive = (day: DayStatus) => {
 
   return DateUtils.isBetween(day.date, model.value.start, model.value.end);
 };
+
+onClickOutside(datePicker, () => {
+  if (lockMouseHover.value && model.value?.start) {
+    model.value = {
+      start: model.value.start,
+      end: undefined,
+    };
+  }
+  emit('onClickOutside');
+});
 </script>
 
 <template>
-  <div class="date-picker">
+  <div ref="datePicker" class="date-picker">
     <MonthSwitcher v-model="month" />
     <div class="days-container">
       <Day

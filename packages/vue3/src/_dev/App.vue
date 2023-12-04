@@ -2,41 +2,23 @@
 import 'uno.css';
 import '../assets/main.css';
 import { ref } from 'vue';
-import { PrimaryButton, Toast } from '~/components';
+import { DateInput } from '~/components';
+import type { DateInputValue } from '~/components/DateInput/types';
 
-const show = ref(false);
+const defaultStartDate = new Date();
+const defaultEndDate = new Date('12/24/2023');
+
+const dateRange = ref<DateInputValue>({ start: defaultStartDate, end: defaultEndDate });
 </script>
 
 <template>
-  <Toast :show="show" :close-after-duration="3000" position="top-left" @close="show = false">
-    <template #title>
-      Profile Updated
-    </template>
-    <template #description>
-      Your profile information has been successfully updated.
-    </template>
-  </Toast>
-
-  <div class="container">
-    <PrimaryButton @click="show = true;">
-      <span>Show Toast</span>
-    </PrimaryButton>
+  <div class="picker-container">
+    <DateInput v-model="dateRange" />
   </div>
 </template>
 
 <style scoped>
-.container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  max-width: 400px;
-  height: 100vh;
-  margin: auto;
-}
-
-p {
-  margin-bottom: 0;
-  color: var(--gray-600);
-  font: var(--text-sm-regular);
+.picker-container {
+  z-index: 1;
 }
 </style>
