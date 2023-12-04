@@ -1,16 +1,27 @@
 ---
-name: Feature Request Template
+name: 🚀 Feature Request
 about: "For feature requests. Please search for existing issues first. Also see CONTRIBUTING."
 
 ---
 
-**Please Describe The Problem To Be Solved**
-(Replace This Text: Please present a concise description of the problem to be addressed by this feature request. Please be clear what parts of the problem are considered to be in-scope and out-of-scope.)
+# Feature Request
 
-**(Optional): Suggest A Solution**
-(Replace This Text: A concise description of your preferred solution. Things to address include:
-* Details of the technical implementation
-* Tradeoffs made in design decisions
-* Caveats and considerations for the future
+## Description
 
-If there are multiple solutions, please present each one separately. Save comparisons for the very end.)
+[Provide a concise description of the feature you are requesting.]
+
+## Use Case
+
+[Explain the use case or scenario where this feature would be beneficial.]
+
+## Priority
+
+[Indicate the priority level for this feature request (e.g., Low, Medium, High).]
+
+## Suggested Solution
+
+[If you have any ideas or suggestions on how this feature could be implemented, share them here. Include any relevant details or considerations.]
+
+## Additional Information
+
+[Any other information you think might be relevant to the feature request.]
