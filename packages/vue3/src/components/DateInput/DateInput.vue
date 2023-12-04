@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, onMounted, onUnmounted, ref } from 'vue';
 import { DateUtils } from '@youcan/ui-core';
 import DatePicker from './DatePicker.vue';
 import type { DateInputValue } from './types';
@@ -23,6 +23,18 @@ const toggleDatePicker = (state = !isDatePickerVisible.value) => {
     isDatePickerVisible.value = state;
   }
 };
+
+const handleKeypress = (event: KeyboardEvent) => {
+  if (isDatePickerVisible.value && event.key === 'Escape') {
+    isDatePickerVisible.value = false;
+  }
+};
+onMounted(() => {
+  window.addEventListener('keydown', handleKeypress);
+});
+onUnmounted(() => {
+  window.removeEventListener('keydown', handleKeypress);
+});
 </script>
 
 <template>
