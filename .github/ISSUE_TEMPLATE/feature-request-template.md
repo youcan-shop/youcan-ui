@@ -1,7 +1,6 @@
 ---
 name: 🚀 Feature Request
-about: "For feature requests. Please search for existing issues first. Also see CONTRIBUTING."
-
+about: "For feature requests. Please search for existing issues first."
 ---
 
 # Feature Request

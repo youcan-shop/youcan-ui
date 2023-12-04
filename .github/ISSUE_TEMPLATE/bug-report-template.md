@@ -1,7 +1,6 @@
 ---
 name: 🐛 Bug Report
 about: "Report an issue in Youcan UI"
-
 ---
 
 ## Issue Summary
