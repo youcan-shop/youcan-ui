@@ -70,8 +70,9 @@ onUnmounted(() => {
 .modal {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 900px;
   max-width: calc(100vw - 40px);
+  max-height: calc(100vh - 40px);
   overflow: hidden;
   border: 1px solid var(--gray-200);
   border-radius: 8px;
@@ -111,7 +112,9 @@ onUnmounted(() => {
   }
 
   .body {
+    flex: 1;
     padding: 20px;
+    overflow-y: auto;
     font: var(--text-md-regular);
   }
 }

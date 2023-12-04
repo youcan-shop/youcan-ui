@@ -19,6 +19,7 @@ const onConfirm = () => {
       Lorem ipsum dolor sit,
       Lorem ipsum dolor sit,
       Lorem ipsum dolor sit,
+      Lorem ipsum dolor sit,
     </p>
   </Modal>
   <div class="container">
