@@ -31,10 +31,10 @@ const toggleDatePicker = (state = !isDatePickerVisible.value) => {
       size="sm" icon-position="right" class="input-trigger" :disabled="disabled" type="button"
       @click="toggleDatePicker()"
     >
-      <span v-show="model.start || model.start">
+      <span v-show="model.start || model.end">
         {{ DateUtils.getCalendarDay(model.start, 'Start') }} - {{ DateUtils.getCalendarDay(model.end, 'End') }}
       </span>
-      <span v-show="!model.start && !model.start">Select date range</span>
+      <span v-show="!model.start && !model.end">Select date range</span>
       <template #icon>
         <i class="i-youcan-calendar-blank" />
       </template>

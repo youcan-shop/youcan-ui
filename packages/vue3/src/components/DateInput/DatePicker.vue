@@ -118,7 +118,6 @@ onClickOutside(datePicker, () => {
       end: undefined,
     };
   }
-  lockMouseHover.value = false;
   emit('onClickOutside');
 });
 </script>
