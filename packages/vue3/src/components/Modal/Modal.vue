@@ -93,7 +93,7 @@ onUnmounted(() => {
   }
 
   .header {
-    padding: 14px 4px 14px 20px;
+    padding: 14px 20px;
     border-bottom: 1px solid var(--gray-100);
 
     .title {
@@ -107,7 +107,7 @@ onUnmounted(() => {
   }
 
   .footer {
-    padding: 12px;
+    padding: 14px 20px;
     border-top: 1px solid var(--gray-100);
   }
 
