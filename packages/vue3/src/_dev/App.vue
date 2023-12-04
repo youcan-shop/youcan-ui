@@ -1,9 +1,14 @@
 <script setup lang="ts">
+import 'uno.css';
+import '../assets/main.css';
 import { ref } from 'vue';
-import { Table } from '~/components';
+import { Alert, Increment, Table, Tag } from '~/components';
 import type { StaticStatusDefinition } from '~/components/Status/types';
 import type { TableActions, TableColumn, TableData } from '~/components/Table/types';
+import type { AlertType } from '~/components/Alert/types';
+import type { TagItemValue } from '~/components/Tag/types';
 
+/* Table */
 const columns: TableColumn[] = [
   { label: 'Domain', accessor: 'domain', sortable: 'desc' },
   { label: 'Status', accessor: 'status', sortable: 'desc' },
@@ -132,20 +137,96 @@ const handleSort = (column: TableColumn) => {
     return 0;
   });
 };
-
 const updateSelectedRows = (data: TableData[]) => {
   selectedRows.value = data;
 };
+/* Table */
+
+/* Alert */
+interface AlertProps {
+  title: string
+  description: string
+  type: AlertType
+}
+const alerts: AlertProps[] = [
+  {
+    title: 'Info',
+    description: 'Click here to learn more about the exciting enhancements we\'ve made.',
+    type: 'info',
+  },
+  {
+    title: 'Success',
+    description: 'Your profile information has been successfully updated.',
+    type: 'success',
+  },
+  {
+    title: 'Warning',
+    description: 'Please check your internet connection.',
+    type: 'warning',
+  },
+];
+
+/* Alert */
+
+/* Increment */
+const quantity = ref('0');
+/* Increment */
+
+/* Tag */
+const preferredLanguages = ref<TagItemValue[]>([
+  { label: 'JavaScript' },
+]);
+/* Tag */
 </script>
 
 <template>
-  <Table
-    :columns="columns"
-    :data="data"
-    :actions="actions"
-    :selectable="true"
-    :selected-rows="selectedRows"
-    @sort="handleSort"
-    @update:selected-rows="updateSelectedRows"
-  />
+  <div class="container">
+    <div>
+      <Table
+        :columns="columns"
+        :data="data"
+        :actions="actions"
+        :selectable="true"
+        :selected-rows="selectedRows"
+        @sort="handleSort"
+        @update:selected-rows="updateSelectedRows"
+      />
+    </div>
+
+    <div>
+      <Alert v-for="alert in alerts" :key="alert.type" :type="alert.type">
+        <template #title>
+          {{ alert.title }}
+        </template>
+        <template #description>
+          {{ alert.description }}
+        </template>
+      </Alert>
+    </div>
+
+    <div>
+      <Increment v-model="quantity" :max="100" />
+    </div>
+
+    <div>
+      <Tag
+        v-model="preferredLanguages"
+        placeholder="Your favorite programming languages"
+        :max="3"
+      />
+    </div>
+  </div>
 </template>
+
+<style scoped>
+.container {
+  max-width: 1024px;
+  margin: auto;
+}
+
+.container > div {
+  width: 100%;
+  padding: 30px 0;
+  border-top: 1px solid var(--gray-100);
+}
+</style>
