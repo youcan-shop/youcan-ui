@@ -2,23 +2,43 @@
 import 'uno.css';
 import '../assets/main.css';
 import { ref } from 'vue';
-import { DateInput } from '~/components';
-import type { DateInputValue } from '~/components/DateInput/types';
+import Modal from '~/components/Modal/Modal.vue';
+import { PrimaryButton } from '~/components';
+const showModal = ref(false);
 
-const defaultStartDate = new Date();
-const defaultEndDate = new Date('12/24/2023');
-
-const dateRange = ref<DateInputValue>({ start: defaultStartDate, end: defaultEndDate });
+const onConfirm = () => {
+  /*
+  * your code here
+  */
+};
 </script>
 
 <template>
-  <div class="picker-container">
-    <DateInput v-model="dateRange" />
+  <Modal v-model:visible="showModal" confirm-icon="i-youcan:floppy-disk" @on-confirm="onConfirm">
+    <p>
+      Lorem ipsum dolor sit,
+      Lorem ipsum dolor sit,
+      Lorem ipsum dolor sit,
+      Lorem ipsum dolor sit,
+    </p>
+  </Modal>
+  <div class="container">
+    <PrimaryButton @click="showModal = true;">
+      <span>Show Modal</span>
+    </PrimaryButton>
   </div>
 </template>
 
 <style scoped>
-.picker-container {
-  z-index: 1;
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+p {
+  margin: 0;
+  color: var(--gray-600);
 }
 </style>
