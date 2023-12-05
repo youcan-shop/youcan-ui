@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { onClickOutside } from '@vueuse/core';
-import { computed, ref } from 'vue';
+import { computed, onMounted, onUnmounted, ref } from 'vue';
 import { DateUtils } from '@youcan/ui-core';
 import DatePicker from './DatePicker.vue';
 import type { DateInputValue } from './types';
@@ -19,14 +18,23 @@ const model = computed({
 });
 
 const isDatePickerVisible = ref(false);
-const datePicker = ref<HTMLDivElement>();
 const toggleDatePicker = (state = !isDatePickerVisible.value) => {
   if (!props.disabled) {
     isDatePickerVisible.value = state;
   }
 };
 
-onClickOutside(datePicker, () => toggleDatePicker(false));
+const handleKeypress = (event: KeyboardEvent) => {
+  if (isDatePickerVisible.value && event.key === 'Escape') {
+    isDatePickerVisible.value = false;
+  }
+};
+onMounted(() => {
+  window.addEventListener('keydown', handleKeypress);
+});
+onUnmounted(() => {
+  window.removeEventListener('keydown', handleKeypress);
+});
 </script>
 
 <template>
@@ -35,16 +43,16 @@ onClickOutside(datePicker, () => toggleDatePicker(false));
       size="sm" icon-position="right" class="input-trigger" :disabled="disabled" type="button"
       @click="toggleDatePicker()"
     >
-      <span v-show="model.start || model.start">
+      <span v-show="model.start || model.end">
         {{ DateUtils.getCalendarDay(model.start, 'Start') }} - {{ DateUtils.getCalendarDay(model.end, 'End') }}
       </span>
-      <span v-show="!model.start && !model.start">Select date range</span>
+      <span v-show="!model.start && !model.end">Select date range</span>
       <template #icon>
         <i class="i-youcan-calendar-blank" />
       </template>
     </SecondaryButton>
     <div class="date-picker-container">
-      <DatePicker v-show="isDatePickerVisible" ref="datePicker" v-model="model" />
+      <DatePicker v-show="isDatePickerVisible" v-model="model" @on-click-outside="toggleDatePicker(false)" />
     </div>
   </div>
 </template>
