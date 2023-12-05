@@ -48,7 +48,8 @@ onMounted(() => {
     </div>
 
     <Teleport v-if="previewing" to="body">
-      <div class="popup" @click="() => togglePreview(false)">
+      <div class="popup">
+        <i class="i-youcan:x" @click="() => togglePreview(false)" />
         <img :src="dataUrl ?? undefined" :alt="file.name">
       </div>
     </Teleport>
@@ -137,6 +138,16 @@ onMounted(() => {
   max-width: 100vw;
   max-height: 90vh;
   margin: auto;
+}
+
+.popup i {
+  position: absolute;
+  top: 5%;
+  right: 5%;
+}
+
+.popup i:hover {
+  color: var(--base-white);
 }
 
 @keyframes spinner {

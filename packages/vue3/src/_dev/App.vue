@@ -1,26 +1,36 @@
 <script setup lang="ts">
 import 'uno.css';
 import '../assets/main.css';
-import { ref } from 'vue';
-import { PrimaryButton, Toast } from '~/components';
+import { ref, watch } from 'vue';
+import { MediaInput, UploadedMedia } from '~/components';
 
-const show = ref(false);
+const attachments = ref<File[]>([]);
+const disabled = ref(false);
+const limit = ref(4);
+
+const checkLimit = () => {
+  disabled.value = attachments.value.length >= limit.value;
+};
+
+const deleteFile = (file: File) => {
+  const idx = attachments.value.indexOf(file);
+  if (idx > -1) {
+    attachments.value.splice(idx, 1);
+    checkLimit();
+  }
+};
+watch(attachments, () => {
+  checkLimit();
+});
 </script>
 
 <template>
-  <Toast :show="show" :close-after-duration="3000" position="top-left" @close="show = false">
-    <template #title>
-      Profile Updated
-    </template>
-    <template #description>
-      Your profile information has been successfully updated.
-    </template>
-  </Toast>
-
   <div class="container">
-    <PrimaryButton @click="show = true;">
-      <span>Show Toast</span>
-    </PrimaryButton>
+    <div class="files-grid">
+      <UploadedMedia v-for="(attachment, index) in attachments" :key="index" :file="attachment"
+        @delete="deleteFile(attachment)" />
+    </div>
+    <MediaInput v-model="attachments" :limit="limit" :disabled="disabled" />
   </div>
 </template>
 
@@ -34,9 +44,9 @@ const show = ref(false);
   margin: auto;
 }
 
-p {
-  margin-bottom: 0;
-  color: var(--gray-600);
-  font: var(--text-sm-regular);
+.files-grid {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
 }
 </style>
