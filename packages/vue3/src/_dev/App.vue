@@ -2,30 +2,36 @@
 import 'uno.css';
 import '../assets/main.css';
 import { ref } from 'vue';
-import Modal from '~/components/Modal/Modal.vue';
-import { PrimaryButton } from '~/components';
-const showModal = ref(false);
-
-const onConfirm = () => {
-  /*
-  * your code here
-  */
-};
+import { Popover, PrimaryButton, TertiaryButton } from '~/components';
+const show = ref(false);
 </script>
 
 <template>
-  <Modal v-model:visible="showModal" confirm-icon="i-youcan:floppy-disk" @on-confirm="onConfirm">
-    <p>
-      Lorem ipsum dolor sit,
-      Lorem ipsum dolor sit,
-      Lorem ipsum dolor sit,
-      Lorem ipsum dolor sit,
-    </p>
-  </Modal>
   <div class="container">
-    <PrimaryButton @click="showModal = true;">
-      <span>Show Modal</span>
-    </PrimaryButton>
+    <Popover :show="show" position="right" @click-outside="show = false">
+      <template #title>
+        <span>Introducing Themes!</span>
+      </template>
+      <template #description>
+        <p>
+          Introducing themes, a new way to make your store stand out and make it more
+          attractive towards your existing and potential clients.
+        </p>
+      </template>
+      <template #footer>
+        <div class="row">
+          <TertiaryButton form="export-orders">
+            Later
+          </TertiaryButton>
+          <PrimaryButton form="export-orders">
+            Get started
+          </PrimaryButton>
+        </div>
+      </template>
+      <PrimaryButton @click="show = !show;">
+        <span>Show Popover</span>
+      </PrimaryButton>
+    </Popover>
   </div>
 </template>
 
@@ -37,8 +43,13 @@ const onConfirm = () => {
   height: 100vh;
 }
 
+.row {
+  display: flex;
+  flex-direction: row;
+  column-gap: 16px;
+}
+
 p {
   margin: 0;
-  color: var(--gray-600);
 }
 </style>
