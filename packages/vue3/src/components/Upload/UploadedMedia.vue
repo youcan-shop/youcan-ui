@@ -49,7 +49,12 @@ onMounted(() => {
 
     <Teleport v-if="previewing" to="body">
       <div class="popup">
-        <i class="i-youcan:x" @click="() => togglePreview(false)" />
+        <TertiaryButton tabindex="0" class="action" size="md" icon-position="only" :rounded-full="true"
+          @click="togglePreview(false)">
+          <template #icon>
+            <i class="i-youcan:x" />
+          </template>
+        </TertiaryButton>
         <img :src="dataUrl ?? undefined" :alt="file.name">
       </div>
     </Teleport>
@@ -140,14 +145,15 @@ onMounted(() => {
   margin: auto;
 }
 
-.popup i {
+.popup .action {
   position: absolute;
+  background-color: var(--base-white);
   top: 5%;
   right: 5%;
 }
 
-.popup i:hover {
-  color: var(--base-white);
+.popup .action:hover {
+  background-color: var(--gray-50);
 }
 
 @keyframes spinner {

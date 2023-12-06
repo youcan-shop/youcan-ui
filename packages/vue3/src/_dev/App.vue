@@ -13,11 +13,7 @@ const checkLimit = () => {
 };
 
 const deleteFile = (file: File) => {
-  const idx = attachments.value.indexOf(file);
-  if (idx > -1) {
-    attachments.value.splice(idx, 1);
-    checkLimit();
-  }
+  attachments.value = attachments.value.filter(f => f.name !== file.name)
 };
 watch(attachments, () => {
   checkLimit();
@@ -27,7 +23,7 @@ watch(attachments, () => {
 <template>
   <div class="container">
     <div class="files-grid">
-      <UploadedMedia v-for="(attachment, index) in attachments" :key="index" :file="attachment"
+      <UploadedMedia v-for="(attachment) in attachments" :key="attachment.name" :file="attachment"
         @delete="deleteFile(attachment)" />
     </div>
     <MediaInput v-model="attachments" :limit="limit" :disabled="disabled" />
