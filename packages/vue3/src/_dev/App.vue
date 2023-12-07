@@ -2,25 +2,16 @@
 import 'uno.css';
 import '../assets/main.css';
 import { ref } from 'vue';
-import { PrimaryButton, Toast } from '~/components';
+import { ColorInput, TextArea } from '~/components';
 
-const show = ref(false);
+const comment = ref('');
+const color = ref('');
 </script>
 
 <template>
-  <Toast :show="show" :close-after-duration="3000" position="top-left" @close="show = false">
-    <template #title>
-      Profile Updated
-    </template>
-    <template #description>
-      Your profile information has been successfully updated.
-    </template>
-  </Toast>
-
   <div class="container">
-    <PrimaryButton @click="show = true;">
-      <span>Show Toast</span>
-    </PrimaryButton>
+    <TextArea v-model="comment" placeholder="Leave your comment" />
+    <ColorInput v-model="color" :preserve-transparency="false" />
   </div>
 </template>
 
