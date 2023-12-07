@@ -1,9 +1,8 @@
 <script lang="ts" setup>
-import { onMounted, onUnmounted } from 'vue';
 import Overlay from '~/components/Overlay/Overlay.vue';
 import { PrimaryButton, SecondaryButton, TertiaryButton } from '~/components';
 
-const props = withDefaults(defineProps<{
+withDefaults(defineProps<{
   title?: string
   visible?: boolean
   confirmLabel?: string
@@ -13,6 +12,7 @@ const props = withDefaults(defineProps<{
 }>(), {
   title: 'Customer address',
   confirmLabel: 'Save',
+  confirmIcon: 'floppy-disk',
   cancelLabel: 'Cancel',
 });
 
@@ -20,19 +20,6 @@ const emit = defineEmits(['update:visible', 'onConfirm']);
 const closeModal = () => {
   emit('update:visible', false);
 };
-const handleKeypress = (event: KeyboardEvent) => {
-  if (props.visible && event.key === 'Escape') {
-    closeModal();
-  }
-};
-
-onMounted(() => {
-  window.addEventListener('keydown', handleKeypress);
-});
-
-onUnmounted(() => {
-  window.removeEventListener('keydown', handleKeypress);
-});
 </script>
 
 <template>
@@ -51,8 +38,8 @@ onUnmounted(() => {
           </div>
           <div class="footer">
             <PrimaryButton v-if="!cancelOnly" @click="emit('onConfirm')">
-              <template v-if="confirmIcon" #icon>
-                <i :class="confirmIcon" />
+              <template #icon>
+                <i :class="`i-youcan-${confirmIcon}`" />
               </template>
               <span>{{ confirmLabel }}</span>
             </PrimaryButton>
@@ -70,9 +57,8 @@ onUnmounted(() => {
 .modal {
   display: flex;
   flex-direction: column;
-  width: 900px;
-  max-width: calc(100vw - 40px);
-  max-height: calc(100vh - 40px);
+  width: calc(100vh - 60px);
+  max-width: 800px;
   overflow: hidden;
   border: 1px solid var(--gray-200);
   border-radius: 8px;
@@ -107,15 +93,12 @@ onUnmounted(() => {
   }
 
   .footer {
-    padding: 14px 20px;
+    padding: 12px;
     border-top: 1px solid var(--gray-100);
   }
 
   .body {
-    flex: 1;
-    padding: 20px;
-    overflow-y: auto;
-    font: var(--text-md-regular);
+    padding: 0 20px 20px 30px;
   }
 }
 
