@@ -2,16 +2,30 @@
 import 'uno.css';
 import '../assets/main.css';
 import { ref } from 'vue';
-import { ColorInput, TextArea } from '~/components';
+import Modal from '~/components/Modal/Modal.vue';
+import { PrimaryButton } from '~/components';
+const showModal = ref(false);
 
-const comment = ref('');
-const color = ref('');
+const onConfirm = () => {
+  /*
+  * your code here
+  */
+};
 </script>
 
 <template>
+  <Modal v-model:visible="showModal" confirm-icon="i-youcan:floppy-disk" @on-confirm="onConfirm">
+    <p>
+      Lorem ipsum dolor sit,
+      Lorem ipsum dolor sit,
+      Lorem ipsum dolor sit,
+      Lorem ipsum dolor sit,
+    </p>
+  </Modal>
   <div class="container">
-    <TextArea v-model="comment" placeholder="Leave your comment" />
-    <ColorInput v-model="color" :preserve-transparency="false" />
+    <PrimaryButton @click="showModal = true;">
+      <span>Show Modal</span>
+    </PrimaryButton>
   </div>
 </template>
 
@@ -20,14 +34,11 @@ const color = ref('');
   display: flex;
   align-items: center;
   justify-content: center;
-  max-width: 400px;
   height: 100vh;
-  margin: auto;
 }
 
 p {
-  margin-bottom: 0;
+  margin: 0;
   color: var(--gray-600);
-  font: var(--text-sm-regular);
 }
 </style>
