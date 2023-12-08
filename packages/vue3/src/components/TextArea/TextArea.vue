@@ -41,7 +41,7 @@ const model = computed({
   border: 1px solid var(--gray-300);
 }
 
-.wrapper.enabled:has(.textarea:focus) {
+.wrapper.enabled .textarea:focus {
   border: 1px solid var(--brand-500);
   box-shadow: var(--focus-shadow-xs-brand);
 }
@@ -54,7 +54,7 @@ const model = computed({
   border: 1px solid var(--red-500);
 }
 
-.wrapper.enabled.error:has(.textarea:focus) {
+.wrapper.enabled.error .textarea:focus {
   box-shadow: var(--focus-shadow-xs-red);
 }
 
@@ -67,6 +67,7 @@ const model = computed({
   background-color: transparent;
   font: var(--text-sm-regular);
   resize: none;
+  border-radius: 8px;
 }
 
 .textarea:placeholder {
