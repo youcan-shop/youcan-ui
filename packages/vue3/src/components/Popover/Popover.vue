@@ -59,6 +59,7 @@ onClickOutside(popover, () => {
 <style scoped lang="scss">
 $margin: 24px;
 $caret-size: 22px;
+$caret-border: 1px solid var(--gray-300);
 
 .popover {
   position: relative;
@@ -79,9 +80,9 @@ $caret-size: 22px;
       position: absolute;
       width: $caret-size;
       height: $caret-size;
-      border-top: 1px solid var(--gray-200);
-      border-right: 1px solid var(--gray-200);
-      border-radius: 2px;
+      border-top: $caret-border;
+      border-right: $caret-border;
+      border-top-right-radius: 2px;
       background-color: var(--base-white);
     }
 
