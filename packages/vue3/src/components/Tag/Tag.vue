@@ -99,6 +99,7 @@ onMounted(() => {
   flex-wrap: wrap;
   align-items: center;
   width: var(--width);
+  max-width: 100%;
   padding: 6px;
   border: var(--border);
   border-radius: 8px;
