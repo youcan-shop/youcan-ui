@@ -3,13 +3,7 @@ import { computed } from 'vue';
 import NavigationButton from './Internal/NavigationButton.vue';
 import SecondaryButton from '~/components/Button/SecondaryButton.vue';
 
-const {
-  count,
-  total,
-  current,
-  size,
-  hidePerPage,
-} = withDefaults(defineProps<{
+const props = withDefaults(defineProps<{
   count: number
   total: number
   current: number
@@ -26,39 +20,39 @@ const emit = defineEmits<{
 const handlePaginationButtons = computed(() => {
   const paginationButtons = [];
 
-  if (size <= 3) {
+  if (props.size <= 3) {
     for (let i = 1; i <= size; i++) {
       paginationButtons.push(i);
     }
   }
-  else if (current === 1) {
-    paginationButtons.push(1, 2, 3, '...', size);
+  else if (props.current === 1) {
+    paginationButtons.push(1, 2, 3, '...', props.size);
   }
-  else if (current === 2) {
-    paginationButtons.push(1, 2, 3, '...', size);
+  else if (props.current === 2) {
+    paginationButtons.push(1, 2, 3, '...', props.size);
   }
-  else if (current === size) {
-    paginationButtons.push(1, '...', size - 2, size - 1, size);
+  else if (props.current === props.size) {
+    paginationButtons.push(1, '...', props.size - 2, props.size - 1, props.size);
   }
-  else if (current === size - 1) {
-    paginationButtons.push(1, '...', size - 2, size - 1, size);
+  else if (props.current === props.size - 1) {
+    paginationButtons.push(1, '...', props.size - 2, props.size - 1, props.size);
   }
   else {
-    paginationButtons.push(1, '...', current - 1, current, current + 1, '...', size);
+    paginationButtons.push(1, '...', props.current - 1, props.current, props.current + 1, '...', props.size);
   }
 
   return paginationButtons;
 });
 
 function updateCurrentPage(index: number) {
-  if (index === current) {
+  if (index === props.current) {
     return;
   }
 
   emit('update:current', index);
 }
 
-const barJustifyContentStyle = hidePerPage ? 'center' : 'space-between';
+const barJustifyContentStyle = props.hidePerPage ? 'center' : 'space-between';
 </script>
 
 <template>
