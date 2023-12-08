@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 import 'uno.css';
 import '../assets/main.css';
-import { ref } from 'vue';
 import { Alert, Increment, Table, Tag } from '~/components';
 import type { StaticStatusDefinition } from '~/components/Status/types';
 import type { TableActions, TableColumn, TableData } from '~/components/Table/types';
