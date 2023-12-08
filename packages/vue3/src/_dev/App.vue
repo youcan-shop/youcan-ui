@@ -8,14 +8,18 @@ const show = ref(false);
 
 <template>
   <div class="container">
-    <Popover :show="show" position="right" @click-outside="show = false">
+    <Popover
+      :show="show"
+      img-src="https://cdn-img1.imgworlds.com/assets/a5366382-0c26-4726-9873-45d69d24f819.jpg"
+      position="right" object-fit="contain"
+      @click-outside="show = false"
+    >
       <template #title>
         <span>Introducing Themes!</span>
       </template>
       <template #description>
         <p>
           Introducing themes, a new way to make your store stand out and make it more
-          attractive towards your existing and potential clients.
         </p>
       </template>
       <template #footer>

@@ -1,24 +1,21 @@
 <script lang="ts" setup>
 import { onClickOutside } from '@vueuse/core';
 import { ref, useSlots } from 'vue';
-
+import type { ObjectFit } from './types';
 const props = withDefaults(defineProps<{
   position?: 'left' | 'right' | 'top' | 'bottom'
   show?: boolean
+  imgSrc?: string
+  objectFit?: ObjectFit
 }>(), {
   position: 'left',
+  objectFit: 'cover',
 });
 const emit = defineEmits(['clickOutside']);
 
 const popover = ref();
 
 const slots = useSlots();
-
-const bodySlots: string[] = ['title', 'description', 'body'];
-
-const isBodySlot = (slot: string): boolean => {
-  return !!bodySlots.find(el => el === slot);
-};
 
 const transitionName = () => {
   switch (props.position) {
@@ -41,11 +38,15 @@ onClickOutside(popover, () => {
     <Transition :name="transitionName()">
       <div v-if="show" class="popover-trigger" :class="position">
         <div class="content">
-          <template v-for="(slot, index) of Object.keys(slots)" :key="index">
-            <span v-if="isBodySlot(slot)" :class="slot">
-              <slot :name="slot" />
-            </span>
-          </template>
+          <div v-if="imgSrc" class="image">
+            <img :src="imgSrc">
+          </div>
+          <div v-if="slots.title" class="title">
+            <slot name="title" />
+          </div>
+          <div v-if="slots.description" class="description">
+            <slot name="description" />
+          </div>
         </div>
         <div v-if="slots.footer" class="footer">
           <slot name="footer" />
@@ -97,6 +98,20 @@ $caret-border: 1px solid var(--gray-300);
       row-gap: 6px;
       padding: 24px;
       font: var(--text-sm-regular);
+
+      .image {
+        width: 100%;
+        height: 220px;
+        margin-bottom: 14px;
+        overflow: hidden;
+        border-radius: 8px;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: v-bind(objectFit);
+        }
+      }
     }
 
     .title {
