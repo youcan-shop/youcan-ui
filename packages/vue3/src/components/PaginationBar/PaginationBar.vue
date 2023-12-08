@@ -58,7 +58,7 @@ function updateCurrentPage(index: number) {
   emit('update:current', index);
 }
 
-const barJustificationStyle = hidePerPage ? 'center' : 'space-between';
+const barJustifyContentStyle = hidePerPage ? 'center' : 'space-between';
 </script>
 
 <template>
@@ -84,7 +84,7 @@ const barJustificationStyle = hidePerPage ? 'center' : 'space-between';
   display: flex;
   box-sizing: border-box;
   align-items: center;
-  justify-content: v-bind(barJustificationStyle);
+  justify-content: v-bind(barJustifyContentStyle);
   height: 60px;
   padding: 0 20px;
   background-color: var(--base-white);
