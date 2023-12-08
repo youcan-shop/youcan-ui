@@ -3,12 +3,21 @@ import { computed } from 'vue';
 import NavigationButton from './Internal/NavigationButton.vue';
 import SecondaryButton from '~/components/Button/SecondaryButton.vue';
 
-const props = defineProps<{
+const {
+  count,
+  total,
+  current,
+  size,
+  hidePerPage,
+} = withDefaults(defineProps<{
   count: number
   total: number
   current: number
   size: number
-}>();
+  hidePerPage: boolean
+}>(), {
+  hidePerPage: false,
+});
 
 const emit = defineEmits<{
   (event: 'update:current', value: number): void
@@ -17,42 +26,44 @@ const emit = defineEmits<{
 const handlePaginationButtons = computed(() => {
   const paginationButtons = [];
 
-  if (props.size <= 3) {
-    for (let i = 1; i <= props.size; i++) {
+  if (size <= 3) {
+    for (let i = 1; i <= size; i++) {
       paginationButtons.push(i);
     }
   }
-  else if (props.current === 1) {
-    paginationButtons.push(1, 2, 3, '...', props.size);
+  else if (current === 1) {
+    paginationButtons.push(1, 2, 3, '...', size);
   }
-  else if (props.current === 2) {
-    paginationButtons.push(1, 2, 3, '...', props.size);
+  else if (current === 2) {
+    paginationButtons.push(1, 2, 3, '...', size);
   }
-  else if (props.current === props.size) {
-    paginationButtons.push(1, '...', props.size - 2, props.size - 1, props.size);
+  else if (current === size) {
+    paginationButtons.push(1, '...', size - 2, size - 1, size);
   }
-  else if (props.current === props.size - 1) {
-    paginationButtons.push(1, '...', props.size - 2, props.size - 1, props.size);
+  else if (current === size - 1) {
+    paginationButtons.push(1, '...', size - 2, size - 1, size);
   }
   else {
-    paginationButtons.push(1, '...', props.current - 1, props.current, props.current + 1, '...', props.size);
+    paginationButtons.push(1, '...', current - 1, current, current + 1, '...', size);
   }
 
   return paginationButtons;
 });
 
 function updateCurrentPage(index: number) {
-  if (index === props.current) {
+  if (index === current) {
     return;
   }
 
   emit('update:current', index);
 }
+
+const barJustificationStyle = hidePerPage ? 'center' : 'space-between';
 </script>
 
 <template>
   <div class="pagination-bar">
-    <span class="text">Showing {{ count }} of {{ total }} results</span>
+    <span v-if="!hidePerPage" class="text">Showing {{ count }} of {{ total }} results</span>
     <div class="navigation">
       <SecondaryButton size="sm" :disabled="current === 1" @click="updateCurrentPage(current - 1)">
         Previous
@@ -73,7 +84,7 @@ function updateCurrentPage(index: number) {
   display: flex;
   box-sizing: border-box;
   align-items: center;
-  justify-content: space-between;
+  justify-content: v-bind(barJustificationStyle);
   height: 60px;
   padding: 0 20px;
   background-color: var(--base-white);
