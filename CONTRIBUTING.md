@@ -47,6 +47,9 @@ We welcome contributions from everyone. To get started, follow these steps:
 
 ### Fork the repository
 
+> [!NOTE]
+> If you are a member of YouCan UI's core team then you can skip this step and clone the repo directly
+
 Click on the "Fork" button at the top right corner of this page. This will create a copy of the repository in your GitHub account.
 
 ### Clone the repository
