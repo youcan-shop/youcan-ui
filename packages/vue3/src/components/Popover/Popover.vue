@@ -71,6 +71,7 @@ $caret-border: 1px solid var(--gray-300);
     flex-direction: column;
     width: 400px;
     max-width: calc(100vw - 40px);
+    min-height: 70px;
     border: 1px solid var(--gray-200);
     border-radius: 8px;
     background-color: var(--base-white);
