@@ -3,13 +3,13 @@ import { ref } from 'vue';
 import { Checkbox, Thumbnail } from '~/components';
 
 const { isChecked } = withDefaults(defineProps<{
-  price: string
-  stock: string
-  name: string
-  thumbnailUrl: string
-  isChecked: boolean
-  showStock: boolean
-  showThumbnail: boolean
+  price?: string
+  stock?: string
+  name?: string
+  thumbnailUrl?: string
+  isChecked?: boolean
+  showStock?: boolean
+  showThumbnail?: boolean
 }>(), { price: '$14.99', stock: '1 in stock', name: 'Apple MacBook Pro 14', showStock: false, showThumbnail: true });
 
 const checked = ref(isChecked);
