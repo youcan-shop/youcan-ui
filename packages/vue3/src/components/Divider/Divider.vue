@@ -14,20 +14,20 @@ withDefaults(
 </script>
 
 <template>
-  <div :class="{ [orientation]: true, [borderStyle]: true }" />
+  <div :class="[orientation, borderStyle]" />
 </template>
 
 <style scoped lang="scss">
 .horizontal {
-  border-width: 0.5px;
-  border-color: var(--gray-400);
-  width: 90%;
+  width: 100%;
+  border-width: 1px;
+  border-color: var(--gray-300);
 }
 
 .vertical {
+  height: 100%;
   border-width: 1px;
-  border-color: var(--gray-400);
-  height: 90%;
+  border-color: var(--gray-300);
 }
 
 .solid {
