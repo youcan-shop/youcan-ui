@@ -1,49 +1,64 @@
 <script setup lang="ts">
-import type { SpinnerType } from './types';
-
-defineProps<{ spinner: SpinnerType }>();
+withDefaults(
+  defineProps<{
+    label?: string
+    size?: string
+    color?: string
+    labelColor?: string
+    labelFontSize?: string
+  }>(),
+  {
+    color: 'var(--brand-300)',
+    size: '80px',
+    label: 'Loading',
+    labelColor: 'var(--brand-500)',
+    labelFontSize: 'md',
+  },
+);
 </script>
 
 <template>
   <div class="container">
     <div class="spinner" />
     <p class="label">
-      {{ spinner.label }}
+      {{ label }}
     </p>
   </div>
 </template>
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
 .container {
   display: flex;
   flex-direction: column;
 }
+
 .label {
-  font: v-bind(
-    "`var(--text-${spinner.labelFontSize}-regular)` || 'var(--text-md-regular)'"
-  );
-  color: v-bind("spinner.labelColor || 'var(--brand-600)'");
+  color: v-bind("labelColor");
+  font: v-bind("`var(--text-${labelFontSize}-regular)`");
 }
+
 .spinner {
-  width: v-bind("spinner.size || '50px'");
-  aspect-ratio: 1;
-  border-radius: 50%;
-  border: 8px solid #0000;
-  border-right-color: v-bind("spinner.color || 'var(--brand-600)'");
   position: relative;
+  width: v-bind("size");
   animation: s4 1s infinite linear;
+  border: 8px solid #0000;
+  border-radius: 50%;
+  border-right-color: v-bind("color");
+  aspect-ratio: 1;
 }
-.spinner:before,
-.spinner:after {
+
+.spinner::before,
+.spinner::after {
   content: "";
   position: absolute;
-  inset: -8px;
-  border-radius: 50%;
-  border: inherit;
   animation: inherit;
   animation-duration: 2s;
+  border: inherit;
+  border-radius: 50%;
+  inset: -8px;
 }
-.spinner:after {
+
+.spinner::after {
   animation-duration: 4s;
 }
 

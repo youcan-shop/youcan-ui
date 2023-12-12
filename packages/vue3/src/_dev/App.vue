@@ -2,20 +2,18 @@
 import 'uno.css';
 import '../assets/main.css';
 import { Spinner } from '~/components';
-import type { SpinnerType } from '~/components/Spinner/types';
-
-const spinner: SpinnerType = {
-  color: 'var(--blue-300)',
-  size: '80px',
-  label: 'YouCan',
-  labelColor: 'var(--blue-500)',
-  labelFontSize: 'xs',
-};
 </script>
 
 <template>
   <div class="container">
-    <Spinner :spinner="spinner" />
+    <Spinner
+      color="var(--blue-300)"
+      size="80px"
+      label="YouCan"
+      label-color="var(--blue-500)"
+      label-font-size="xs"
+    />
+    <Spinner />
   </div>
 </template>
 
