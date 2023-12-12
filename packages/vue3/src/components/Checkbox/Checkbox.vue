@@ -44,6 +44,7 @@ label {
 
 .label {
   display: inline-block;
+  flex: 1;
   font: var(--text-sm-regular);
 }
 
