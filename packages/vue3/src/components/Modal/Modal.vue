@@ -119,22 +119,4 @@ const closeModal = () => {
     opacity: 1;
   }
 }
-
-.slide-up-enter-active {
-  animation: slide-up 0.35s ease-in-out;
-}
-
-.slide-up-leave-active {
-  animation: slide-up 0.35s reverse ease-in-out;
-}
-
-@keyframes slide-up {
-  0% {
-    transform: translateY(16px);
-  }
-
-  100% {
-    transform: translateY(0%);
-  }
-}
 </style>

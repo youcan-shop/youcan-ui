@@ -1,22 +1,30 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { Checkbox, Thumbnail } from '~/components';
+import type { Resource } from '~/components/ResourcePicker/types';
 
-const { isChecked } = withDefaults(defineProps<{
-  price?: string
-  stock?: string
-  name?: string
-  thumbnailUrl?: string
-  isChecked?: boolean
-  showStock?: boolean
-  showThumbnail?: boolean
-}>(), { price: '$14.99', stock: '1 in stock', name: 'Apple MacBook Pro 14', showStock: false, showThumbnail: true });
+const props = withDefaults(defineProps<Resource>(), {
+  price: '$14.99',
+  stock: 1,
+  stockLabel: 'in stock',
+  name: 'Apple MacBook Pro 14',
+  showStock: false,
+  showThumbnail: true,
+  isChecked: false,
+});
 
-const checked = ref(isChecked);
+const emit = defineEmits(['change']);
+
+const checked = ref(props.isChecked);
+
+function handleCheck() {
+  const clickedResource = { ...props, isChecked: checked.value };
+  emit('change', clickedResource);
+}
 </script>
 
 <template>
-  <Checkbox v-model="checked" class="container" :class="!showThumbnail ? 'variant' : ''">
+  <Checkbox v-model="checked" class="container" :class="!showThumbnail && 'variant'" @change.stop="handleCheck">
     <template #label>
       <div class="content">
         <div class="info">
@@ -26,7 +34,7 @@ const checked = ref(isChecked);
           </p>
         </div>
         <div class="inventory-price">
-          <span v-if="showStock" class="stock">{{ stock }}</span>
+          <span v-if="showStock" class="stock">{{ stock }} {{ stockLabel }}</span>
           <p class="price">
             {{ price }}
           </p>
