@@ -20,7 +20,7 @@ withDefaults(
 <template>
   <div class="container">
     <div class="spinner" />
-    <p class="label">
+    <p v-if="label" class="label">
       {{ label }}
     </p>
   </div>
