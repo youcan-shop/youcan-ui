@@ -9,19 +9,29 @@ const props = withDefaults(defineProps<{
   current: number
   size: number
   hidePerPage: boolean
+  previousLabel?: string
+  nextLabel?: string
+  perPageLabel: string
 }>(), {
   hidePerPage: false,
+  previousLabel: 'Previous',
+  nextLabel: 'Next',
+  perPageLabel: 'Showing :count of :total results',
 });
 
 const emit = defineEmits<{
   (event: 'update:current', value: number): void
 }>();
 
+const formattedPerPageLabel = computed(() => {
+  return props.perPageLabel.replace(':count', `${props.count}`).replace(':total', `${props.total}`);
+});
+
 const handlePaginationButtons = computed(() => {
   const paginationButtons = [];
 
   if (props.size <= 3) {
-    for (let i = 1; i <= size; i++) {
+    for (let i = 1; i <= props.size; i++) {
       paginationButtons.push(i);
     }
   }
@@ -57,17 +67,17 @@ const barJustifyContentStyle = props.hidePerPage ? 'center' : 'space-between';
 
 <template>
   <div class="pagination-bar">
-    <span v-if="!hidePerPage" class="text">Showing {{ count }} of {{ total }} results</span>
+    <span v-if="!hidePerPage" class="text">{{ formattedPerPageLabel }}</span>
     <div class="navigation">
       <SecondaryButton size="sm" :disabled="current === 1" @click="updateCurrentPage(current - 1)">
-        Previous
+        {{ previousLabel }}
       </SecondaryButton>
       <NavigationButton
         v-for="index in handlePaginationButtons" :key="index" :current="current" :index="index"
         @click="updateCurrentPage(index as number)"
       />
       <SecondaryButton size="sm" :disabled="current === size" @click="updateCurrentPage(current + 1)">
-        Next
+        {{ nextLabel }}
       </SecondaryButton>
     </div>
   </div>

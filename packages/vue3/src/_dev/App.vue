@@ -18,11 +18,12 @@ function handlePaginationNavigation(pageNumber: number) {
 
 <template>
   <PaginationBar
-    :hide-per-page="true"
+    :hide-per-page="false"
     :current="currentPage"
     :size="TOTAL_PAGES"
     :count="PER_PAGE"
     :total="TOTAL"
+    per-page-label="Showing :count of :total results"
     @update:current="handlePaginationNavigation"
   />
 </template>
