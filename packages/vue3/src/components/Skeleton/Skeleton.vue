@@ -7,14 +7,14 @@ withDefaults(
     lines?: number
   }>(),
   {
-    type: 'content',
+    type: 'text',
     lines: 5,
   },
 );
 </script>
 
 <template>
-  <div v-if="type === 'content'" class="content">
+  <div v-if="type === 'text'" class="content">
     <div v-for="index in lines" :key="index" class="pulse">
       <div class="line" :class="{ 'last-line': index === lines }" />
     </div>
@@ -34,6 +34,7 @@ withDefaults(
   align-items: center;
   justify-content: center;
   width: 100%;
+  height: 100%;
   min-height: 300px;
   border-radius: 20px;
   background-color: var(--gray-200);

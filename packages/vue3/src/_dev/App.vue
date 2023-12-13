@@ -9,7 +9,7 @@ const lines = ref(10);
 
 <template>
   <div class="container">
-    <Skeleton type="content" :lines="lines" />
+    <Skeleton type="text" :lines="lines" />
     <Skeleton type="media" />
   </div>
 </template>
