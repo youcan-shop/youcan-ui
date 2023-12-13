@@ -7,7 +7,7 @@ import { code } from '~/components/CodePreview/code';
 
 <template>
   <div class="container">
-    <CodePreview :code="code" line-numbers lang="markup" />
+    <CodePreview :code="code" line-numbers language="markup" />
   </div>
 </template>
 

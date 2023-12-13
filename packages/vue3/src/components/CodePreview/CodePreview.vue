@@ -10,11 +10,11 @@ import type { Language } from './types';
 
 const props = withDefaults(defineProps<{
   code?: string
-  lang?: Language
+  language?: Language
   lineNumbers?: boolean
 }>(), {
   code: '',
-  lang: 'markup',
+  language: 'markup',
 });
 
 const codeRef = ref();
@@ -29,7 +29,7 @@ onMounted(() => {
 
 <template>
   <div>
-    <pre :class="[`language-${props.lang}`, { 'line-numbers': props.lineNumbers }]">
+    <pre :class="[`language-${props.language}`, { 'line-numbers': props.lineNumbers }]">
       <code ref="codeRef">{{ code }}</code>
     </pre>
   </div>
