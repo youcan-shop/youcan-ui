@@ -1,12 +1,16 @@
 <script setup lang="ts">
 import 'uno.css';
 import '../assets/main.css';
+import { ref } from 'vue';
 import { Skeleton } from '~/components';
+
+const lines = ref(10);
 </script>
 
 <template>
   <div class="container">
-    <Skeleton type="content" width="80%" height="40%" />
+    <Skeleton type="content" :lines="lines" />
+    <Skeleton type="media" />
   </div>
 </template>
 

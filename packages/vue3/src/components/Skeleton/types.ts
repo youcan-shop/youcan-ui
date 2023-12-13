@@ -1,1 +1,1 @@
-export type SkeletonType = 'content' | 'media' | 'table';
+export type SkeletonType = 'content' | 'media';
