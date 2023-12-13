@@ -57,7 +57,6 @@ withDefaults(
 .line {
   height: 1.2vh;
   border-bottom: 1px solid var(--gray-300);
-  border-radius: 20px;
   background-color: var(--gray-300);
 
   &.last-line {
