@@ -1,19 +1,11 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import Resource from './Internal/Resource.vue';
-import type { Resource as ResourceType } from './types.ts';
+import type { PickerProps, Resource as ResourceType } from './types.ts';
 import Overlay from '~/components/Overlay/Overlay.vue';
-import { PrimaryButton, SecondaryButton, TertiaryButton } from '~/components';
+import { Input, PrimaryButton, SecondaryButton, TertiaryButton } from '~/components';
 
-withDefaults(defineProps<{
-  visible: boolean
-  title?: string
-  resources?: ResourceType[]
-  selectionLabel?: string
-  stockLabel?: string
-  confirmLabel?: string
-  cancelLabel?: string
-}>(), {
+const props = withDefaults(defineProps<PickerProps>(), {
   visible: false,
   title: 'Choose resource',
   selectionLabel: 'resources selected',
@@ -21,32 +13,35 @@ withDefaults(defineProps<{
   cancelLabel: 'Cancel',
 });
 
-const emit = defineEmits(['update:visible', 'confirm']);
+const emit = defineEmits(['update:visible', 'confirm', 'update:selectedResources', 'search']);
 
-const selectedResource = ref<any[]>([]); // TODO: i know i know i will change this i promise
+const selectedResource = ref<ResourceType[]>(props.selectedResources || []);
+const term = ref('');
 
 const closePicker = () => {
   emit('update:visible', false);
 };
 
 const add = () => {
-  // Emit selected resources
-  emit('confirm');
+  emit('confirm', selectedResource);
 };
 
-function handleChange(resource: ResourceType) {
-  // Check the clicked resource:
+const handleChange = (resource: ResourceType) => {
   if (resource.isChecked) {
-    selectedResource.value.push(selectedResource);
-    console.log('Adding');
+    selectedResource.value.push(resource);
+    emit('update:selectedResources', [...selectedResource.value]);
   }
   else {
-    console.log('Removing');
+    selectedResource.value = selectedResource.value.filter(res => resource.id !== res.id);
+    emit('update:selectedResources', [...selectedResource.value]);
   }
-  // isChecked ?
-  // Yes -> Push to selectedResource
-  // No -> Remove from selectedResources
-}
+};
+
+const handleSearch = (e: Event) => {
+  const { target } = e;
+  const term = (target as HTMLButtonElement).value;
+  emit('search', term);
+};
 </script>
 
 <template>
@@ -60,9 +55,13 @@ function handleChange(resource: ResourceType) {
               <i class="i-youcan-x" />
             </TertiaryButton>
           </div>
+          <div class="search">
+            <Input v-model="term" placeholder="Search" @input.stop="handleSearch" />
+          </div>
           <ul class="list">
-            <li v-for="resource in resources" :key="resource.name" class="resource">
+            <li v-for="resource in resources" :key="resource.id" class="resource">
               <Resource
+                :id="resource.id"
                 :name="resource.name"
                 :stock="resource.stock"
                 :price="resource.price"
@@ -74,7 +73,7 @@ function handleChange(resource: ResourceType) {
             </li>
           </ul>
           <div class="footer">
-            <span class="selection">0 {{ selectionLabel }}</span>
+            <span class="selection">{{ selectedResources?.length }} {{ selectionLabel }}</span>
             <div class="actions">
               <SecondaryButton @click="closePicker">
                 <span>{{ cancelLabel }}</span>
@@ -92,6 +91,8 @@ function handleChange(resource: ResourceType) {
 
 <style scoped>
 .picker {
+  --border: 1px solid var(--gray-100);
+
   width: 620px;
   border-radius: 5px;
   background-color: white;
@@ -101,7 +102,7 @@ function handleChange(resource: ResourceType) {
 
 .header {
   padding: 8px 16px;
-  border-bottom: 1px solid var(--gray-100);
+  border-bottom: var(--border);
 }
 
 .header,
@@ -109,6 +110,12 @@ function handleChange(resource: ResourceType) {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.search {
+  padding: 16px;
+  border-bottom: var(--border);
+  background-color: var(--gray-50);
 }
 
 .footer {
@@ -147,7 +154,7 @@ function handleChange(resource: ResourceType) {
 }
 
 .list li.resource {
-  border-bottom: 1px solid var(--gray-100);
+  border-bottom: var(--border);
 }
 
 ul.list li.resource:hover {

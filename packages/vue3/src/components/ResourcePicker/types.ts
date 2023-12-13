@@ -1,4 +1,5 @@
 export interface Resource {
+  id: number | string
   price?: string
   stock?: number
   name?: string
@@ -7,4 +8,15 @@ export interface Resource {
   showStock?: boolean
   showThumbnail?: boolean
   stockLabel?: string
+}
+
+export interface PickerProps {
+  visible: boolean
+  title?: string
+  resources?: Resource[]
+  selectedResources?: Resource[]
+  selectionLabel?: string
+  stockLabel?: string
+  confirmLabel?: string
+  cancelLabel?: string
 }
