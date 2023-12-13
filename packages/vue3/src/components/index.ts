@@ -55,3 +55,4 @@ export { default as Tooltip } from './Tooltip/Tooltip.vue';
 export { default as Slider } from './Slider/Slider.vue';
 export { default as Modal } from './Modal/Modal.vue';
 export { default as Divider } from './Divider/Divider.vue';
+export { default as Skeleton } from './Skeleton/Skeleton.vue';
