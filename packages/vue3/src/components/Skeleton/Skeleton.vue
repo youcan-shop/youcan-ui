@@ -36,7 +36,7 @@ withDefaults(
   width: 100%;
   height: 100%;
   min-height: 300px;
-  border-radius: 20px;
+  border-radius: 6px;
   background-color: var(--gray-200);
 }
 
