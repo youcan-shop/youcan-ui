@@ -21,13 +21,13 @@ withDefaults(
 .horizontal {
   width: 100%;
   border-width: 1px;
-  border-color: var(--gray-300);
+  border-color: var(--gray-100);
 }
 
 .vertical {
   height: 100%;
   border-width: 1px;
-  border-color: var(--gray-300);
+  border-color: var(--gray-100);
 }
 
 .solid {
