@@ -10,7 +10,8 @@ const show = ref(false);
   <div class="container">
     <Popover
       :show="show"
-      position="right" object-fit="contain"
+      position="right"
+      object-fit="contain"
       @click-outside="show = false"
     >
       <PrimaryButton @click="show = !show;">
@@ -26,15 +27,5 @@ const show = ref(false);
   align-items: center;
   justify-content: center;
   height: 100vh;
-}
-
-.row {
-  display: flex;
-  flex-direction: row;
-  column-gap: 16px;
-}
-
-p {
-  margin: 0;
 }
 </style>
