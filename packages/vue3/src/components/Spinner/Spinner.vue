@@ -9,7 +9,7 @@ withDefaults(
   }>(),
   {
     color: 'var(--brand-300)',
-    size: '80px',
+    size: '40px',
     label: 'Loading',
     labelColor: 'var(--brand-500)',
     labelFontSize: 'md',
@@ -41,25 +41,10 @@ withDefaults(
   position: relative;
   width: v-bind("size");
   animation: s4 1s infinite linear;
-  border: 8px solid #0000;
+  border: medium solid v-bind("color");
   border-radius: 50%;
-  border-right-color: v-bind("color");
+  border-right-color: transparent;
   aspect-ratio: 1;
-}
-
-.spinner::before,
-.spinner::after {
-  content: "";
-  position: absolute;
-  animation: inherit;
-  animation-duration: 2s;
-  border: inherit;
-  border-radius: 50%;
-  inset: -8px;
-}
-
-.spinner::after {
-  animation-duration: 4s;
 }
 
 @keyframes s4 {

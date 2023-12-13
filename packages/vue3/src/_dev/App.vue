@@ -8,7 +8,7 @@ import { Spinner } from '~/components';
   <div class="container">
     <Spinner
       color="var(--blue-300)"
-      size="80px"
+      size="10px"
       label="YouCan"
       label-color="var(--blue-500)"
       label-font-size="xs"
