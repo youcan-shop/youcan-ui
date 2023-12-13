@@ -14,6 +14,14 @@ const MOCK_RESOURCES: Resource[] = [
     stock: 99,
   },
   {
+    id: 33,
+    thumbnailUrl: '',
+    name: 'Apple MacBook Pro M3 Max',
+    price: '$10.99',
+    stock: 99,
+    variantFor: 1,
+  },
+  {
     id: 2,
     thumbnailUrl: '',
     name: 'Apple iMac',

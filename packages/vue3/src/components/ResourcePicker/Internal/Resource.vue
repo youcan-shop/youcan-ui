@@ -87,4 +87,8 @@ function handleCheck() {
 .inventory-price .stock {
   color: var(--gray-400);
 }
+
+input:indeterminate + label {
+  background: lime;
+}
 </style>

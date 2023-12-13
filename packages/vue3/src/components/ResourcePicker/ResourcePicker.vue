@@ -68,6 +68,7 @@ const handleSearch = (e: Event) => {
                 :thumbnail-url="resource.thumbnailUrl"
                 show-stock
                 :stock-label="stockLabel"
+                :show-thumbnail="resource.variantFor ? false : true"
                 @change="handleChange"
               />
             </li>

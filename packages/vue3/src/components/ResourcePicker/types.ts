@@ -8,6 +8,7 @@ export interface Resource {
   showStock?: boolean
   showThumbnail?: boolean
   stockLabel?: string
+  variantFor?: number | string | null
 }
 
 export interface PickerProps {
