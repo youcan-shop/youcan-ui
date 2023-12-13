@@ -31,13 +31,10 @@ function handlePaginationNavigation(pageNumber: number) {
 <style scoped>
 .container {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
-}
-
-p {
-  margin: 0;
-  color: var(--gray-600);
+  height: 90vh;
+  margin: auto;
 }
 </style>

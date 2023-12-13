@@ -88,7 +88,7 @@ onUnmounted(() => {
   position: relative;
   box-sizing: border-box;
   width: max-content;
-  max-width: 800px;
+  max-width: 100%;
   margin-bottom: 12px;
   padding: 12px;
   border: 1px solid var(--gray-200);

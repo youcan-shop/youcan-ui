@@ -218,8 +218,9 @@ function selectRow(index: number, data: boolean) {
   display: flex;
   box-sizing: border-box;
   align-items: center;
-  justify-content: center;
+  justify-content: start;
   width: 100%;
+  overflow: auto hidden;
 }
 
 .table {
