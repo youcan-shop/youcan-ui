@@ -3,7 +3,7 @@ import { ref } from 'vue';
 import Resource from './Internal/Resource.vue';
 import type { PickerProps, Resource as ResourceType } from './types.ts';
 import Overlay from '~/components/Overlay/Overlay.vue';
-import { Input, PrimaryButton, SecondaryButton, TertiaryButton } from '~/components';
+import { Input, PrimaryButton, SecondaryButton, Spinner, TertiaryButton } from '~/components';
 
 const props = withDefaults(defineProps<PickerProps>(), {
   visible: false,
@@ -11,6 +11,7 @@ const props = withDefaults(defineProps<PickerProps>(), {
   selectionLabel: 'resources selected',
   confirmLabel: 'Add',
   cancelLabel: 'Cancel',
+  isLoading: true,
 });
 
 const emit = defineEmits(['update:visible', 'confirm', 'update:selectedResources', 'search']);
@@ -58,7 +59,10 @@ const handleSearch = (e: Event) => {
           <div class="search">
             <Input v-model="term" placeholder="Search" @input.stop="handleSearch" @keyup.enter.stop="handleSearch" />
           </div>
-          <ul class="list">
+          <div v-if="isLoading" class="loading">
+            <Spinner label="" />
+          </div>
+          <ul v-else class="list">
             <li v-for="resource in resources" :key="resource.id" class="resource">
               <Resource
                 :id="resource.id"
@@ -79,7 +83,7 @@ const handleSearch = (e: Event) => {
               <SecondaryButton @click="closePicker">
                 <span>{{ cancelLabel }}</span>
               </SecondaryButton>
-              <PrimaryButton @click="add">
+              <PrimaryButton :disabled="isLoading" @click="add">
                 <span>{{ confirmLabel }}</span>
               </PrimaryButton>
             </div>
@@ -133,6 +137,13 @@ const handleSearch = (e: Event) => {
   align-items: center;
   justify-content: center;
   gap: 16px;
+}
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
 }
 
 .list {

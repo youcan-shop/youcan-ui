@@ -20,4 +20,5 @@ export interface PickerProps {
   stockLabel?: string
   confirmLabel?: string
   cancelLabel?: string
+  isLoading?: boolean
 }

@@ -44,12 +44,12 @@ const MOCK_RESOURCES: Resource[] = [
   },
 ];
 
-const showModal = ref(false);
+const showPicker = ref(false);
 const selectedResources = ref<Resource[]>([]);
 
 const onConfirm = () => {
   alert('Hi');
-  showModal.value = false;
+  showPicker.value = false;
 };
 
 const onSearch = (term: string) => {
@@ -64,14 +64,15 @@ watch(selectedResources, () => {
 <template>
   <div class="container">
     <ResourcePicker
-      v-model:visible="showModal"
+      v-model:visible="showPicker"
       v-model:selected-resources="selectedResources"
       :resources="MOCK_RESOURCES"
       stock-label="in stock"
+      :is-loading="false"
       @confirm="onConfirm"
       @search="onSearch"
     />
-    <PrimaryButton @click="showModal = true;">
+    <PrimaryButton @click="showPicker = true;">
       <span>Open Picker</span>
     </PrimaryButton>
   </div>
