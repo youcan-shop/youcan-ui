@@ -14,7 +14,7 @@ const props = withDefaults(defineProps<PickerProps>(), {
   isLoading: true,
 });
 
-const emit = defineEmits(['update:visible', 'confirm', 'update:selectedResources', 'search']);
+const emit = defineEmits(['update:visible', 'confirm', 'search']);
 
 const selectedResource = ref<ResourceType[]>(props.selectedResources || []);
 const term = ref('');
@@ -24,17 +24,15 @@ const closePicker = () => {
 };
 
 const add = () => {
-  emit('confirm', selectedResource);
+  emit('confirm', selectedResource.value);
 };
 
 const handleChange = (resource: ResourceType) => {
   if (resource.isChecked) {
     selectedResource.value.push(resource);
-    emit('update:selectedResources', [...selectedResource.value]);
   }
   else {
     selectedResource.value = selectedResource.value.filter(res => resource.id !== res.id);
-    emit('update:selectedResources', [...selectedResource.value]);
   }
 };
 

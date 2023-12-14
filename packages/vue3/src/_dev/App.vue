@@ -47,8 +47,9 @@ const MOCK_RESOURCES: Resource[] = [
 const showPicker = ref(false);
 const selectedResources = ref<Resource[]>([]);
 
-const onConfirm = () => {
-  alert('Hi');
+const onConfirm = (resources: Resource[]) => {
+  console.log(resources);
+
   showPicker.value = false;
 };
 
