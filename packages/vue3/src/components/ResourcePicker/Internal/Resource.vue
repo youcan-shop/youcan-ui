@@ -1,11 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { Checkbox, Thumbnail } from '~/components';
-import type { Resource } from '~/components/ResourcePicker/types';
+import type { ResourceProps } from '~/components/ResourcePicker/types';
 
-const props = withDefaults(defineProps<Resource>(), {
-  price: '$14.99',
-  stock: 1,
+const props = withDefaults(defineProps<ResourceProps>(), {
   stockLabel: 'in stock',
   name: 'Apple MacBook Pro 14',
   showStock: false,
@@ -18,8 +16,9 @@ const emit = defineEmits(['change']);
 const checked = ref(props.isChecked);
 
 function handleCheck() {
-  const clickedResource = { ...props, isChecked: checked.value };
-  emit('change', clickedResource);
+  const clickedResource = { ...props.resource };
+
+  emit('change', clickedResource, checked.value);
 }
 </script>
 
@@ -28,15 +27,15 @@ function handleCheck() {
     <template #label>
       <div class="content">
         <div class="info">
-          <Thumbnail v-if="showThumbnail" :src="thumbnailUrl" />
+          <Thumbnail v-if="showThumbnail" :src="resource.thumbnailUrl" />
           <p class="name">
-            {{ name }}
+            {{ resource.name }}
           </p>
         </div>
         <div class="inventory-price">
-          <span v-if="showStock" class="stock">{{ stock }} {{ stockLabel }}</span>
+          <span v-if="showStock" class="stock">{{ resource.stock }} {{ stockLabel }}</span>
           <p class="price">
-            {{ price }}
+            {{ resource.price }}
           </p>
         </div>
       </div>
@@ -49,8 +48,14 @@ function handleCheck() {
   display: flex;
   justify-content: start;
   padding: 0 16px;
+  transition: background-color 0.3s;
+  border-bottom: var(--border);
   cursor: pointer;
   gap: 8px;
+}
+
+.container:hover {
+  background-color: var(--gray-50);
 }
 
 .variant {

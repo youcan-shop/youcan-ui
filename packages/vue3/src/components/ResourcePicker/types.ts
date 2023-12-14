@@ -1,14 +1,25 @@
-export interface Resource {
-  id: number | string
+interface BaseResource {
+  id?: number | string
   price?: string
   stock?: number
   name?: string
   thumbnailUrl?: string
+}
+
+interface Variant extends BaseResource {
+  productId: number | string
+}
+
+export interface Resource extends BaseResource {
+  variants?: Variant[]
+}
+
+export interface ResourceProps {
+  resource: Resource
   isChecked?: boolean
   showStock?: boolean
   showThumbnail?: boolean
   stockLabel?: string
-  variantFor?: number | string | null
 }
 
 export interface PickerProps {

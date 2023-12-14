@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import Resource from './Internal/Resource.vue';
-import type { PickerProps, Resource as ResourceType } from './types';
+import ResourceItem from './Internal/Resource.vue';
+import type { PickerProps, Resource } from './types';
 import Overlay from '~/components/Overlay/Overlay.vue';
 import { Input, PrimaryButton, SecondaryButton, Spinner, TertiaryButton } from '~/components';
 
@@ -17,7 +17,7 @@ withDefaults(defineProps<PickerProps>(), {
 
 const emit = defineEmits(['update:visible', 'confirm', 'search']);
 
-const selectedResources = ref<ResourceType[]>([]);
+const selectedResources = ref<Resource[]>([]);
 const term = ref('');
 
 const closePicker = () => {
@@ -28,8 +28,8 @@ const add = () => {
   emit('confirm', selectedResources.value);
 };
 
-const handleChange = (resource: ResourceType) => {
-  if (resource.isChecked) {
+const handleChange = (resource: Resource, checked: boolean) => {
+  if (checked) {
     selectedResources.value.push(resource);
   }
   else {
@@ -40,7 +40,7 @@ const handleChange = (resource: ResourceType) => {
 const handleSearch = (e: Event) => {
   const { target } = e;
   const term = (target as HTMLButtonElement).value;
-  emit('search', term);
+  emit('search', term.trim());
 };
 </script>
 
@@ -63,17 +63,25 @@ const handleSearch = (e: Event) => {
           </div>
           <ul v-else-if="resources?.length !== undefined && resources.length > 0" class="list">
             <li v-for="resource in resources" :key="resource.id" class="resource">
-              <Resource
-                :id="resource.id"
-                :name="resource.name"
-                :stock="resource.stock"
-                :price="resource.price"
+              <ResourceItem
+                :resource="resource"
                 :thumbnail-url="resource.thumbnailUrl"
                 show-stock
                 :stock-label="stockLabel"
-                :show-thumbnail="resource.variantFor ? false : true"
                 @change="handleChange"
               />
+              <ul v-if="resource.variants !== undefined && resource.variants?.length > 0">
+                <li v-for="variant in resource.variants" :key="variant.id">
+                  <ResourceItem
+                    :resource="variant"
+                    :thumbnail-url="variant.thumbnailUrl"
+                    show-stock
+                    :stock-label="stockLabel"
+                    :show-thumbnail="false"
+                    @change="handleChange"
+                  />
+                </li>
+              </ul>
             </li>
           </ul>
           <span v-else class="empty-state">{{ emptyStateLabel }}</span>
@@ -163,15 +171,6 @@ const handleSearch = (e: Event) => {
   background: linear-gradient(#fff0, var(--base-white));
 }
 
-.list li.resource {
-  border-bottom: var(--border);
-}
-
-ul.list li.resource:hover {
-  transition: all 0.3s;
-  background-color: var(--gray-50);
-}
-
 .empty-state {
   display: block;
   padding: 16px 24px;
@@ -180,16 +179,8 @@ ul.list li.resource:hover {
 }
 
 .container ul li > ul {
-  padding-inline-start: 40px;
+  padding: 0;
   list-style: none;
-}
-
-.slide-up-enter-active {
-  animation: slide-up 0.35s ease-in-out;
-}
-
-.slide-up-leave-active {
-  animation: slide-up 0.35s reverse ease-in-out;
 }
 
 .fade-enter-active {
