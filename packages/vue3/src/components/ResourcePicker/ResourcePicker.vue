@@ -5,7 +5,7 @@ import type { PickerProps, Resource as ResourceType } from './types';
 import Overlay from '~/components/Overlay/Overlay.vue';
 import { Input, PrimaryButton, SecondaryButton, Spinner, TertiaryButton } from '~/components';
 
-const props = withDefaults(defineProps<PickerProps>(), {
+withDefaults(defineProps<PickerProps>(), {
   visible: false,
   title: 'Choose resource',
   selectionLabel: 'resources selected',

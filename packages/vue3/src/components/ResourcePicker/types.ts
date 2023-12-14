@@ -15,7 +15,6 @@ export interface PickerProps {
   visible: boolean
   title?: string
   resources?: Resource[]
-  selectedResources?: Resource[]
   selectionLabel?: string
   stockLabel?: string
   confirmLabel?: string

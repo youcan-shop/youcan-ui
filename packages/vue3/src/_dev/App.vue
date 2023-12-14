@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import 'uno.css';
 import '~/assets/main.css';
-import { ref, watch } from 'vue';
+import { ref } from 'vue';
 import { PrimaryButton, ResourcePicker } from '~/components';
 import type { Resource } from '~/components/ResourcePicker/types';
 
@@ -35,32 +35,24 @@ const MOCK_RESOURCES: Resource[] = [
     price: '$10.99',
     stock: 99,
   },
-
 ];
 
 const showPicker = ref(false);
-const selectedResources = ref<Resource[]>([]);
 
 const onConfirm = (resources: Resource[]) => {
   console.log(resources);
-
   showPicker.value = false;
 };
 
 const onSearch = (term: string) => {
   console.log('Search term:', term);
 };
-
-watch(selectedResources, () => {
-  console.log('app', selectedResources.value);
-});
 </script>
 
 <template>
   <div class="container">
     <ResourcePicker
       v-model:visible="showPicker"
-      v-model:selected-resources="selectedResources"
       :resources="MOCK_RESOURCES"
       stock-label="in stock"
       :is-loading="false"
