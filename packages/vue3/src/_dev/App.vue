@@ -1,16 +1,19 @@
 <script setup lang="ts">
 import 'uno.css';
 import '../assets/main.css';
-import { ref } from 'vue';
-import { Skeleton } from '~/components';
-
-const lines = ref(10);
+import { Spinner } from '~/components';
 </script>
 
 <template>
   <div class="container">
-    <Skeleton type="text" :lines="lines" />
-    <Skeleton type="media" />
+    <Spinner
+      color="var(--blue-300)"
+      size="10px"
+      label="YouCan"
+      label-color="var(--blue-500)"
+      label-font-size="xs"
+    />
+    <Spinner />
   </div>
 </template>
 
@@ -19,7 +22,7 @@ const lines = ref(10);
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 90vh;
+  height: 100vh;
   margin: auto;
 }
 </style>
