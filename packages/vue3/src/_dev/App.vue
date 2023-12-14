@@ -19,6 +19,7 @@ const MOCK_RESOURCES: Resource[] = [
         name: 'Apple MacBook Pro M3 Max',
         price: '$10.99',
         stock: 99,
+        productId: 1,
       },
     ],
   },
@@ -67,7 +68,7 @@ const onSearch = (term: string) => {
         <span>Open Picker</span>
       </PrimaryButton>
     </div>
-    <div class="picker">
+    <!-- <div class="picker">
       <ResourcePicker
         v-model:visible="showLoadingPicker"
         :is-loading="true"
@@ -85,7 +86,7 @@ const onSearch = (term: string) => {
       <PrimaryButton @click="showEmptyPicker = true;">
         <span>Open Empty Picker</span>
       </PrimaryButton>
-    </div>
+    </div> -->
   </div>
 </template>
 

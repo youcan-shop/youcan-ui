@@ -6,7 +6,7 @@ interface BaseResource {
   thumbnailUrl?: string
 }
 
-interface Variant extends BaseResource {
+export interface Variant extends BaseResource {
   productId: number | string
 }
 

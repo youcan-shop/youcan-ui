@@ -2,6 +2,7 @@
 import { ref } from 'vue';
 import ResourceItem from './Internal/Resource.vue';
 import type { PickerProps, Resource } from './types';
+import { isEmptyArray } from './utils';
 import Overlay from '~/components/Overlay/Overlay.vue';
 import { Input, PrimaryButton, SecondaryButton, Spinner, TertiaryButton } from '~/components';
 
@@ -24,11 +25,11 @@ const closePicker = () => {
   emit('update:visible', false);
 };
 
-const add = () => {
+const handleAdd = () => {
   emit('confirm', selectedResources.value);
 };
 
-const handleChange = (resource: Resource, checked: boolean) => {
+const handleCheck = (resource: Resource, checked: boolean) => {
   if (checked) {
     selectedResources.value.push(resource);
   }
@@ -61,16 +62,16 @@ const handleSearch = (e: Event) => {
           <div v-if="isLoading" class="loading">
             <Spinner label="" />
           </div>
-          <ul v-else-if="resources?.length !== undefined && resources.length > 0" class="list">
+          <ul v-else-if="!isEmptyArray(resources)" class="list">
             <li v-for="resource in resources" :key="resource.id" class="resource">
               <ResourceItem
                 :resource="resource"
                 :thumbnail-url="resource.thumbnailUrl"
                 show-stock
                 :stock-label="stockLabel"
-                @change="handleChange"
+                @change="handleCheck"
               />
-              <ul v-if="resource.variants !== undefined && resource.variants?.length > 0">
+              <ul v-if="!isEmptyArray(resource.variants)">
                 <li v-for="variant in resource.variants" :key="variant.id">
                   <ResourceItem
                     :resource="variant"
@@ -78,7 +79,7 @@ const handleSearch = (e: Event) => {
                     show-stock
                     :stock-label="stockLabel"
                     :show-thumbnail="false"
-                    @change="handleChange"
+                    @change="handleCheck"
                   />
                 </li>
               </ul>
@@ -91,7 +92,7 @@ const handleSearch = (e: Event) => {
               <SecondaryButton @click="closePicker">
                 <span>{{ cancelLabel }}</span>
               </SecondaryButton>
-              <PrimaryButton :disabled="isLoading || resources?.length === undefined || resources.length <= 0" @click="add">
+              <PrimaryButton :disabled="isLoading || resources?.length === undefined || resources.length <= 0" @click="handleAdd">
                 <span>{{ confirmLabel }}</span>
               </PrimaryButton>
             </div>
@@ -108,7 +109,7 @@ const handleSearch = (e: Event) => {
 
   width: 620px;
   border-radius: 5px;
-  background-color: white;
+  background-color: var(--base-white);
 }
 
 .header {
