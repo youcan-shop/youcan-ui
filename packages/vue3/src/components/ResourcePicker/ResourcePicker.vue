@@ -56,7 +56,7 @@ const handleSearch = (e: Event) => {
             </TertiaryButton>
           </div>
           <div class="search">
-            <Input v-model="term" placeholder="Search" @input.stop="handleSearch" />
+            <Input v-model="term" placeholder="Search" @input.stop="handleSearch" @keyup.enter.stop="handleSearch" />
           </div>
           <ul class="list">
             <li v-for="resource in resources" :key="resource.id" class="resource">
@@ -151,7 +151,7 @@ const handleSearch = (e: Event) => {
   bottom: 0;
   width: 100%;
   height: 80px;
-  background: linear-gradient(#fff0, #fff);
+  background: linear-gradient(#fff0, var(--base-white));
 }
 
 .list li.resource {
