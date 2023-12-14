@@ -12,6 +12,7 @@ withDefaults(defineProps<PickerProps>(), {
   confirmLabel: 'Add',
   cancelLabel: 'Cancel',
   isLoading: true,
+  emptyStateLabel: 'No resources available',
 });
 
 const emit = defineEmits(['update:visible', 'confirm', 'search']);
@@ -60,7 +61,7 @@ const handleSearch = (e: Event) => {
           <div v-if="isLoading" class="loading">
             <Spinner label="" />
           </div>
-          <ul v-else class="list">
+          <ul v-else-if="resources?.length !== undefined && resources.length > 0" class="list">
             <li v-for="resource in resources" :key="resource.id" class="resource">
               <Resource
                 :id="resource.id"
@@ -75,13 +76,14 @@ const handleSearch = (e: Event) => {
               />
             </li>
           </ul>
+          <span v-else class="empty-state">{{ emptyStateLabel }}</span>
           <div class="footer">
             <span class="selection">{{ selectedResources?.length }} {{ selectionLabel }}</span>
             <div class="actions">
               <SecondaryButton @click="closePicker">
                 <span>{{ cancelLabel }}</span>
               </SecondaryButton>
-              <PrimaryButton :disabled="isLoading" @click="add">
+              <PrimaryButton :disabled="isLoading || resources?.length === undefined || resources.length <= 0" @click="add">
                 <span>{{ confirmLabel }}</span>
               </PrimaryButton>
             </div>
@@ -99,8 +101,6 @@ const handleSearch = (e: Event) => {
   width: 620px;
   border-radius: 5px;
   background-color: white;
-  /* stylelint-disable-next-line font-family-no-missing-generic-family-keyword */
-  font-family: "Mona Sans";
 }
 
 .header {
@@ -170,6 +170,13 @@ const handleSearch = (e: Event) => {
 ul.list li.resource:hover {
   transition: all 0.3s;
   background-color: var(--gray-50);
+}
+
+.empty-state {
+  display: block;
+  padding: 16px 24px;
+  color: var(--gray-400);
+  text-align: center;
 }
 
 .container ul li > ul {

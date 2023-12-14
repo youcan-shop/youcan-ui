@@ -38,6 +38,8 @@ const MOCK_RESOURCES: Resource[] = [
 ];
 
 const showPicker = ref(false);
+const showLoadingPicker = ref(false);
+const showEmptyPicker = ref(false);
 
 const onConfirm = (resources: Resource[]) => {
   console.log(resources);
@@ -51,27 +53,52 @@ const onSearch = (term: string) => {
 
 <template>
   <div class="container">
-    <ResourcePicker
-      v-model:visible="showPicker"
-      :resources="MOCK_RESOURCES"
-      stock-label="in stock"
-      :is-loading="false"
-      @confirm="onConfirm"
-      @search="onSearch"
-    />
-    <PrimaryButton @click="showPicker = true;">
-      <span>Open Picker</span>
-    </PrimaryButton>
+    <div class="picker">
+      <ResourcePicker
+        v-model:visible="showPicker"
+        :resources="MOCK_RESOURCES"
+        stock-label="in stock"
+        :is-loading="false"
+        @confirm="onConfirm"
+        @search="onSearch"
+      />
+      <PrimaryButton @click="showPicker = true;">
+        <span>Open Picker</span>
+      </PrimaryButton>
+    </div>
+    <div class="picker">
+      <ResourcePicker
+        v-model:visible="showLoadingPicker"
+        :is-loading="true"
+      />
+      <PrimaryButton @click="showLoadingPicker = true;">
+        <span>Open Loading Picker</span>
+      </PrimaryButton>
+    </div>
+    <div class="picker">
+      <ResourcePicker
+        v-model:visible="showEmptyPicker"
+        :resources="[]"
+        :is-loading="false"
+      />
+      <PrimaryButton @click="showEmptyPicker = true;">
+        <span>Open Empty Picker</span>
+      </PrimaryButton>
+    </div>
   </div>
 </template>
 
 <style scoped>
 .container {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 100vw;
   height: 100vh;
   margin: 0 auto;
+  gap: 32px;
+  /* stylelint-disable-next-line font-family-no-missing-generic-family-keyword */
+  font-family: "Mona Sans";
 }
 </style>
