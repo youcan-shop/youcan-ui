@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import Resource from './Internal/Resource.vue';
-import type { PickerProps, Resource as ResourceType } from './types.ts';
+import type { PickerProps, Resource as ResourceType } from './types';
 import Overlay from '~/components/Overlay/Overlay.vue';
 import { Input, PrimaryButton, SecondaryButton, Spinner, TertiaryButton } from '~/components';
 
@@ -16,7 +16,7 @@ const props = withDefaults(defineProps<PickerProps>(), {
 
 const emit = defineEmits(['update:visible', 'confirm', 'search']);
 
-const selectedResource = ref<ResourceType[]>(props.selectedResources || []);
+const selectedResources = ref<ResourceType[]>([]);
 const term = ref('');
 
 const closePicker = () => {
@@ -24,15 +24,15 @@ const closePicker = () => {
 };
 
 const add = () => {
-  emit('confirm', selectedResource.value);
+  emit('confirm', selectedResources.value);
 };
 
 const handleChange = (resource: ResourceType) => {
   if (resource.isChecked) {
-    selectedResource.value.push(resource);
+    selectedResources.value.push(resource);
   }
   else {
-    selectedResource.value = selectedResource.value.filter(res => resource.id !== res.id);
+    selectedResources.value = selectedResources.value.filter(res => resource.id !== res.id);
   }
 };
 

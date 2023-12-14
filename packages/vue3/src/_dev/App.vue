@@ -35,13 +35,7 @@ const MOCK_RESOURCES: Resource[] = [
     price: '$10.99',
     stock: 99,
   },
-  {
-    id: 3,
-    thumbnailUrl: '',
-    name: 'Apple Watch',
-    price: '$10.99',
-    stock: 99,
-  },
+
 ];
 
 const showPicker = ref(false);
