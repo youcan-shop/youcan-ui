@@ -85,60 +85,58 @@ const handleSearch = (e: Event) => {
 <template>
   <Transition name="fade">
     <Overlay v-show="visible">
-      <Transition name="slide-up">
-        <div class="picker">
-          <div class="header">
-            <span>{{ title }}</span>
-            <TertiaryButton @click="closePicker">
-              <i class="i-youcan-x" />
-            </TertiaryButton>
-          </div>
-          <div class="search">
-            <Input v-model="term" placeholder="Search" @input.stop="handleSearch" @keyup.enter.stop="handleSearch" />
-          </div>
-          <div v-if="isLoading" class="loading">
-            <Spinner label="" />
-          </div>
-          <ul v-else-if="!isEmptyArray(resources)" class="list">
-            <li v-for="resource in resources" :key="resource.id" class="resource">
-              <ResourceItem
-                v-model="resource.isChecked"
-                :resource="resource"
-                :thumbnail-url="resource.thumbnailUrl"
-                show-stock
-                :stock-label="stockLabel"
-                :indeterminate="resource.isIndeterminate"
-                @change="handleClick"
-              />
-              <ul v-if="resource.variants">
-                <li v-for="(variant, index) in resource.variants" :key="variant.id">
-                  <ResourceItem
-                    v-model="resource.variants[index].isChecked"
-                    :resource="variant"
-                    :thumbnail-url="variant.thumbnailUrl"
-                    show-stock
-                    :stock-label="stockLabel"
-                    :show-thumbnail="false"
-                    @change="handleClick($event, variant, resource)"
-                  />
-                </li>
-              </ul>
-            </li>
-          </ul>
-          <span v-else class="empty-state">{{ emptyStateLabel }}</span>
-          <div class="footer">
-            <span class="selection">{{ selectedResources?.length }} {{ selectionLabel }}</span>
-            <div class="actions">
-              <SecondaryButton @click="closePicker">
-                <span>{{ cancelLabel }}</span>
-              </SecondaryButton>
-              <PrimaryButton :disabled="isLoading || isEmptyArray(resources)" @click="handleAdd">
-                <span>{{ confirmLabel }}</span>
-              </PrimaryButton>
-            </div>
+      <div class="picker">
+        <div class="header">
+          <span>{{ title }}</span>
+          <TertiaryButton @click="closePicker">
+            <i class="i-youcan-x" />
+          </TertiaryButton>
+        </div>
+        <div class="search">
+          <Input v-model="term" placeholder="Search" @input.stop="handleSearch" @keyup.enter.stop="handleSearch" />
+        </div>
+        <div v-if="isLoading" class="loading">
+          <Spinner label="" />
+        </div>
+        <ul v-else-if="!isEmptyArray(resources)" class="list">
+          <li v-for="resource in resources" :key="resource.id" class="resource">
+            <ResourceItem
+              v-model="resource.isChecked"
+              :resource="resource"
+              :thumbnail-url="resource.thumbnailUrl"
+              show-stock
+              :stock-label="stockLabel"
+              :indeterminate="resource.isIndeterminate"
+              @change="handleClick"
+            />
+            <ul v-if="resource.variants">
+              <li v-for="(variant, index) in resource.variants" :key="variant.id">
+                <ResourceItem
+                  v-model="resource.variants[index].isChecked"
+                  :resource="variant"
+                  :thumbnail-url="variant.thumbnailUrl"
+                  show-stock
+                  :stock-label="stockLabel"
+                  :show-thumbnail="false"
+                  @change="handleClick($event, variant, resource)"
+                />
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <span v-else class="empty-state">{{ emptyStateLabel }}</span>
+        <div class="footer">
+          <span class="selection">{{ selectedResources?.length }} {{ selectionLabel }}</span>
+          <div class="actions">
+            <SecondaryButton @click="closePicker">
+              <span>{{ cancelLabel }}</span>
+            </SecondaryButton>
+            <PrimaryButton :disabled="isLoading || isEmptyArray(resources)" @click="handleAdd">
+              <span>{{ confirmLabel }}</span>
+            </PrimaryButton>
           </div>
         </div>
-      </Transition>
+      </div>
     </Overlay>
   </Transition>
 </template>
@@ -224,31 +222,13 @@ const handleSearch = (e: Event) => {
   list-style: none;
 }
 
-.fade-enter-active {
-  animation: fade 0.35s ease-in-out;
-}
-
+.fade-enter-active,
 .fade-leave-active {
-  animation: fade 0.35s reverse ease-in-out;
+  transition: opacity 0.35s ease;
 }
 
-@keyframes fade {
-  0% {
-    opacity: 0;
-  }
-
-  100% {
-    opacity: 1;
-  }
-}
-
-@keyframes slide-up {
-  0% {
-    transform: translateY(16px);
-  }
-
-  100% {
-    transform: translateY(0%);
-  }
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>
