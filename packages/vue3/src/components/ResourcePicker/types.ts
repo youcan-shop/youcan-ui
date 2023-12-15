@@ -5,11 +5,10 @@ interface BaseResource {
   name?: string
   thumbnailUrl?: string
   isChecked: boolean
+  isIndeterminate?: boolean
 }
 
-export interface Variant extends BaseResource {
-  productId: number | string
-}
+export interface Variant extends BaseResource {}
 
 export interface Resource extends BaseResource {
   variants?: Variant[]
@@ -22,6 +21,7 @@ export interface ResourceProps {
   showThumbnail?: boolean
   stockLabel?: string
   modelValue: boolean
+  indeterminate?: boolean
 }
 
 export interface PickerProps {

@@ -17,10 +17,17 @@ const MOCK_RESOURCES: Resource[] = [
       {
         id: 33,
         thumbnailUrl: '',
-        name: 'Apple MacBook Pro M3 Max',
+        name: 'Apple MacBook Pro 16 M3 Max',
         price: '$10.99',
         stock: 99,
-        productId: 1,
+        isChecked: false,
+      },
+      {
+        id: 21,
+        thumbnailUrl: '',
+        name: 'Apple MacBook Pro 14 M3 Pro',
+        price: '$10.99',
+        stock: 99,
         isChecked: false,
       },
     ],
@@ -46,9 +53,10 @@ const MOCK_RESOURCES: Resource[] = [
 const showPicker = ref(false);
 const showLoadingPicker = ref(false);
 const showEmptyPicker = ref(false);
+const selectedResources = ref<Resource[]>([]);
 
 const onConfirm = (resources: Resource[]) => {
-  console.log(resources);
+  selectedResources.value = resources;
   showPicker.value = false;
 };
 
@@ -72,7 +80,7 @@ const onSearch = (term: string) => {
         <span>Open Picker</span>
       </PrimaryButton>
     </div>
-    <!-- <div class="picker">
+    <div class="picker">
       <ResourcePicker
         v-model:visible="showLoadingPicker"
         :is-loading="true"
@@ -90,7 +98,11 @@ const onSearch = (term: string) => {
       <PrimaryButton @click="showEmptyPicker = true;">
         <span>Open Empty Picker</span>
       </PrimaryButton>
-    </div> -->
+    </div>
+    <div class="selection-container">
+      <p>Selected Resources:</p>
+      <pre>{{ selectedResources }}</pre>
+    </div>
   </div>
 </template>
 
@@ -106,5 +118,16 @@ const onSearch = (term: string) => {
   gap: 32px;
   /* stylelint-disable-next-line font-family-no-missing-generic-family-keyword */
   font-family: "Mona Sans";
+}
+
+.selection-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 400px;
+  padding: 32px;
+  border: 1px solid var(--gray-200);
+  border-radius: 8px;
 }
 </style>

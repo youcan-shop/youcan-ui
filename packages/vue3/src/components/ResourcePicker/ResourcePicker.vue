@@ -19,19 +19,60 @@ const props = withDefaults(defineProps<PickerProps>(), {
 const emit = defineEmits(['update:visible', 'confirm', 'search']);
 
 const resources = ref(props.resources);
-
 const term = ref('');
+
+const selectedResources = computed(() => {
+  const selectedResources = resources.value?.filter(res => res.isChecked || res.isIndeterminate);
+
+  const selectedResourcesWithVariants = selectedResources?.map((r) => {
+    if (r.variants) {
+      return {
+        ...r,
+        variants: r.variants.filter(v => v.isChecked),
+      };
+    }
+
+    return { ...r };
+  });
+
+  return selectedResourcesWithVariants;
+});
 
 const closePicker = () => {
   emit('update:visible', false);
 };
 
 const handleAdd = () => {
-  emit('confirm', resources.value);
+  emit('confirm', selectedResources.value);
 };
 
-const handleClick = (_: Event, __: Resource) => {
-  console.log('clicked');
+const handleClick = (_: Event, resource: Resource, parent: Resource) => {
+  if (parent) { // clicked resource is a variant/child
+    const areAllVariantsSelected = parent?.variants?.every(variant => variant.isChecked);
+    if (areAllVariantsSelected) {
+      parent.isChecked = areAllVariantsSelected;
+      parent.isIndeterminate = false;
+    }
+    else {
+      const areSomeVariantsSelected = parent?.variants?.some(variant => variant.isChecked);
+      if (areSomeVariantsSelected) {
+        parent.isChecked = true;
+        parent.isIndeterminate = true;
+      }
+      else { // no variant/child is checked
+        parent.isChecked = false;
+        parent.isIndeterminate = false;
+      }
+    }
+  }
+  else { // clicked resource is a product (without variants/children)
+    if (resource.variants) {
+      resource.isIndeterminate = false;
+      resource.variants.forEach((v) => {
+        v.isChecked = resource.isChecked;
+      });
+    }
+  }
 };
 
 const handleSearch = (e: Event) => {
@@ -39,10 +80,6 @@ const handleSearch = (e: Event) => {
   const term = (target as HTMLButtonElement).value;
   emit('search', term.trim());
 };
-
-const totalSelectedResources = computed(() => {
-  return resources.value?.filter(res => res.isChecked);
-});
 </script>
 
 <template>
@@ -70,11 +107,11 @@ const totalSelectedResources = computed(() => {
                 :thumbnail-url="resource.thumbnailUrl"
                 show-stock
                 :stock-label="stockLabel"
+                :indeterminate="resource.isIndeterminate"
                 @change="handleClick"
               />
-              <ul v-if="!isEmptyArray(resource.variants)">
+              <ul v-if="resource.variants">
                 <li v-for="(variant, index) in resource.variants" :key="variant.id">
-                  <!-- TODO: Fix v-model TS error -->
                   <ResourceItem
                     v-model="resource.variants[index].isChecked"
                     :resource="variant"
@@ -82,7 +119,7 @@ const totalSelectedResources = computed(() => {
                     show-stock
                     :stock-label="stockLabel"
                     :show-thumbnail="false"
-                    @change="handleClick"
+                    @change="handleClick($event, variant, resource)"
                   />
                 </li>
               </ul>
@@ -90,12 +127,12 @@ const totalSelectedResources = computed(() => {
           </ul>
           <span v-else class="empty-state">{{ emptyStateLabel }}</span>
           <div class="footer">
-            <span class="selection">{{ totalSelectedResources?.length }} {{ selectionLabel }}</span>
+            <span class="selection">{{ selectedResources?.length }} {{ selectionLabel }}</span>
             <div class="actions">
               <SecondaryButton @click="closePicker">
                 <span>{{ cancelLabel }}</span>
               </SecondaryButton>
-              <PrimaryButton :disabled="isLoading || resources?.length === undefined || resources.length <= 0" @click="handleAdd">
+              <PrimaryButton :disabled="isLoading || isEmptyArray(resources)" @click="handleAdd">
                 <span>{{ confirmLabel }}</span>
               </PrimaryButton>
             </div>
