@@ -1,29 +1,32 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { computed } from 'vue';
+
 import { Checkbox, Thumbnail } from '~/components';
-import type { ResourceProps } from '~/components/ResourcePicker/types';
+import type { Resource, ResourceProps } from '~/components/ResourcePicker/types';
 
 const props = withDefaults(defineProps<ResourceProps>(), {
-  stockLabel: 'in stock',
-  name: 'Apple MacBook Pro 14',
+  stockLabel: 'Stock',
+  name: 'Name',
   showStock: false,
   showThumbnail: true,
-  isChecked: false,
 });
 
-const emit = defineEmits(['change']);
+const emit = defineEmits(['change', 'update:model-value']);
 
-const checked = ref(props.isChecked);
+const model = computed({
+  get: () => props.modelValue,
+  set: (value: boolean) => emit('update:model-value', value),
+});
 
-function handleCheck() {
-  const clickedResource = { ...props.resource };
-
-  emit('change', clickedResource, checked.value);
+function handleCheck(e: Event) {
+  const { isChecked, id, name, price, stock, thumbnailUrl, variants } = props.resource;
+  const res: Resource = { isChecked, id, name, price, stock, thumbnailUrl, variants };
+  emit('change', e, res);
 }
 </script>
 
 <template>
-  <Checkbox v-model="checked" class="container" :class="!showThumbnail && 'variant'" @change.stop="handleCheck">
+  <Checkbox v-model="model" class="container" :class="!showThumbnail && 'variant'" @change.stop="handleCheck">
     <template #label>
       <div class="content">
         <div class="info">

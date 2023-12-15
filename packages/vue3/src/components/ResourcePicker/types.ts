@@ -4,6 +4,7 @@ interface BaseResource {
   stock?: number
   name?: string
   thumbnailUrl?: string
+  isChecked: boolean
 }
 
 export interface Variant extends BaseResource {
@@ -20,6 +21,7 @@ export interface ResourceProps {
   showStock?: boolean
   showThumbnail?: boolean
   stockLabel?: string
+  modelValue: boolean
 }
 
 export interface PickerProps {

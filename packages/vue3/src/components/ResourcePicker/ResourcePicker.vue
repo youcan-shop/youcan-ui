@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import ResourceItem from './Internal/Resource.vue';
 import type { PickerProps, Resource } from './types';
 import { isEmptyArray } from './utils';
 import Overlay from '~/components/Overlay/Overlay.vue';
 import { Input, PrimaryButton, SecondaryButton, Spinner, TertiaryButton } from '~/components';
 
-withDefaults(defineProps<PickerProps>(), {
+const props = withDefaults(defineProps<PickerProps>(), {
   visible: false,
   title: 'Choose resource',
   selectionLabel: 'resources selected',
@@ -18,7 +18,8 @@ withDefaults(defineProps<PickerProps>(), {
 
 const emit = defineEmits(['update:visible', 'confirm', 'search']);
 
-const selectedResources = ref<Resource[]>([]);
+const resources = ref(props.resources);
+
 const term = ref('');
 
 const closePicker = () => {
@@ -26,16 +27,11 @@ const closePicker = () => {
 };
 
 const handleAdd = () => {
-  emit('confirm', selectedResources.value);
+  emit('confirm', resources.value);
 };
 
-const handleCheck = (resource: Resource, checked: boolean) => {
-  if (checked) {
-    selectedResources.value.push(resource);
-  }
-  else {
-    selectedResources.value = selectedResources.value.filter(res => resource.id !== res.id);
-  }
+const handleClick = (_: Event, __: Resource) => {
+  console.log('clicked');
 };
 
 const handleSearch = (e: Event) => {
@@ -43,6 +39,10 @@ const handleSearch = (e: Event) => {
   const term = (target as HTMLButtonElement).value;
   emit('search', term.trim());
 };
+
+const totalSelectedResources = computed(() => {
+  return resources.value?.filter(res => res.isChecked);
+});
 </script>
 
 <template>
@@ -65,21 +65,24 @@ const handleSearch = (e: Event) => {
           <ul v-else-if="!isEmptyArray(resources)" class="list">
             <li v-for="resource in resources" :key="resource.id" class="resource">
               <ResourceItem
+                v-model="resource.isChecked"
                 :resource="resource"
                 :thumbnail-url="resource.thumbnailUrl"
                 show-stock
                 :stock-label="stockLabel"
-                @change="handleCheck"
+                @change="handleClick"
               />
               <ul v-if="!isEmptyArray(resource.variants)">
-                <li v-for="variant in resource.variants" :key="variant.id">
+                <li v-for="(variant, index) in resource.variants" :key="variant.id">
+                  <!-- TODO: Fix v-model TS error -->
                   <ResourceItem
+                    v-model="resource.variants[index].isChecked"
                     :resource="variant"
                     :thumbnail-url="variant.thumbnailUrl"
                     show-stock
                     :stock-label="stockLabel"
                     :show-thumbnail="false"
-                    @change="handleCheck"
+                    @change="handleClick"
                   />
                 </li>
               </ul>
@@ -87,7 +90,7 @@ const handleSearch = (e: Event) => {
           </ul>
           <span v-else class="empty-state">{{ emptyStateLabel }}</span>
           <div class="footer">
-            <span class="selection">{{ selectedResources?.length }} {{ selectionLabel }}</span>
+            <span class="selection">{{ totalSelectedResources?.length }} {{ selectionLabel }}</span>
             <div class="actions">
               <SecondaryButton @click="closePicker">
                 <span>{{ cancelLabel }}</span>

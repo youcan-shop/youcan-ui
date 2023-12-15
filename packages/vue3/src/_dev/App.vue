@@ -12,6 +12,7 @@ const MOCK_RESOURCES: Resource[] = [
     name: 'Apple MacBook Pro',
     price: '$10.99',
     stock: 99,
+    isChecked: false,
     variants: [
       {
         id: 33,
@@ -20,6 +21,7 @@ const MOCK_RESOURCES: Resource[] = [
         price: '$10.99',
         stock: 99,
         productId: 1,
+        isChecked: false,
       },
     ],
   },
@@ -29,6 +31,7 @@ const MOCK_RESOURCES: Resource[] = [
     name: 'Apple iMac',
     price: '$10.99',
     stock: 99,
+    isChecked: false,
   },
   {
     id: 3,
@@ -36,6 +39,7 @@ const MOCK_RESOURCES: Resource[] = [
     name: 'Apple Watch',
     price: '$10.99',
     stock: 99,
+    isChecked: false,
   },
 ];
 
