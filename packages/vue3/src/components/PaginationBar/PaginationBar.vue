@@ -3,16 +3,29 @@ import { computed } from 'vue';
 import NavigationButton from './Internal/NavigationButton.vue';
 import SecondaryButton from '~/components/Button/SecondaryButton.vue';
 
-const props = defineProps<{
+const props = withDefaults(defineProps<{
   count: number
   total: number
   current: number
   size: number
-}>();
+  hidePerPage: boolean
+  previousLabel?: string
+  nextLabel?: string
+  perPageLabel: string
+}>(), {
+  hidePerPage: false,
+  previousLabel: 'Previous',
+  nextLabel: 'Next',
+  perPageLabel: 'Showing :count of :total results',
+});
 
 const emit = defineEmits<{
   (event: 'update:current', value: number): void
 }>();
+
+const formattedPerPageLabel = computed(() => {
+  return props.perPageLabel.replace(':count', `${props.count}`).replace(':total', `${props.total}`);
+});
 
 const handlePaginationButtons = computed(() => {
   const paginationButtons = [];
@@ -48,21 +61,23 @@ function updateCurrentPage(index: number) {
 
   emit('update:current', index);
 }
+
+const barJustifyContentStyle = props.hidePerPage ? 'center' : 'space-between';
 </script>
 
 <template>
   <div class="pagination-bar">
-    <span class="text">Showing {{ count }} of {{ total }} results</span>
+    <span v-if="!hidePerPage" class="text">{{ formattedPerPageLabel }}</span>
     <div class="navigation">
       <SecondaryButton size="sm" :disabled="current === 1" @click="updateCurrentPage(current - 1)">
-        Previous
+        {{ previousLabel }}
       </SecondaryButton>
       <NavigationButton
         v-for="index in handlePaginationButtons" :key="index" :current="current" :index="index"
         @click="updateCurrentPage(index as number)"
       />
       <SecondaryButton size="sm" :disabled="current === size" @click="updateCurrentPage(current + 1)">
-        Next
+        {{ nextLabel }}
       </SecondaryButton>
     </div>
   </div>
@@ -73,7 +88,7 @@ function updateCurrentPage(index: number) {
   display: flex;
   box-sizing: border-box;
   align-items: center;
-  justify-content: space-between;
+  justify-content: v-bind(barJustifyContentStyle);
   height: 60px;
   padding: 0 20px;
   background-color: var(--base-white);
