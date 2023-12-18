@@ -1,28 +1,18 @@
 <script setup lang="ts">
 import 'uno.css';
 import '../assets/main.css';
-import { Spinner } from '~/components';
+import { Code } from '~/components';
 </script>
 
 <template>
   <div class="container">
-    <Spinner
-      color="var(--blue-300)"
-      size="10px"
-      label="YouCan"
-      label-color="var(--blue-500)"
-      label-font-size="xs"
-    />
-    <Spinner />
+    <Code language="ts" />
   </div>
 </template>
 
 <style scoped>
 .container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
+  max-width: 1024px;
   margin: auto;
 }
 </style>
