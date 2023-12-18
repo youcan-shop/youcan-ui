@@ -62,14 +62,8 @@ const handleInput = (event: Event) => {
 };
 
 onMounted(() => {
-  input.value?.addEventListener('beforeinput', (event) => {
-    if (event.data === '-') {
-      return;
-    }
-
-    const inputValue = Number(event.data);
-
-    if (isNaN(inputValue) || event.data === ' ') {
+  input.value?.addEventListener('keypress', (event) => {
+    if ((props.max && Number(model.value) >= props.max) || (props.min && Number(model.value) <= props.min)) {
       event.preventDefault();
     }
   });
@@ -124,6 +118,7 @@ onMounted(() => {
   box-sizing: border-box;
   align-items: center;
   width: var(--width);
+  max-width: 100%;
   padding: 6px 10px;
   border: var(--border);
   border-radius: 8px;

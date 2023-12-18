@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onClickOutside, useFocus } from '@vueuse/core';
+import { onClickOutside } from '@vueuse/core';
 import { computed, onMounted, ref, useAttrs } from 'vue';
 import { createPopper } from '@popperjs/core';
 import ColorPicker from './ColorPicker.vue';
@@ -19,8 +19,6 @@ const emit = defineEmits(['update:modelValue']);
 
 const attrs = useAttrs();
 const wrapper = ref<HTMLDivElement>();
-
-const { focused } = useFocus(wrapper);
 
 const picker = ref();
 const show = ref(false);
@@ -60,7 +58,7 @@ onMounted(() => {
 <template>
   <div class="color-input">
     <div
-      ref="wrapper" tabindex="0" :class="{ enabled: !attrs.disabled, focused }" class="wrapper" v-bind="$attrs"
+      ref="wrapper" tabindex="0" :class="{ enabled: !attrs.disabled }" class="wrapper" v-bind="$attrs"
       @click="() => toggle()"
     >
       <Backdrop class="preview" :width="40" :height="32" :color="model" />
@@ -98,7 +96,7 @@ onMounted(() => {
   border: 1px solid var(--gray-300);
 }
 
-.wrapper.enabled.focused {
+.wrapper.enabled:focus {
   border: 1px solid var(--brand-500);
   box-shadow: var(--focus-shadow-xs-brand);
 }
@@ -107,7 +105,7 @@ onMounted(() => {
   background-color: var(--gray-50);
 }
 
-.wrapper.enabled.error.focused {
+.wrapper.enabled.error:focus {
   box-shadow: var(--focus-shadow-xs-red);
 }
 
