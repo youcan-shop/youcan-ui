@@ -24,7 +24,15 @@ const term = ref('');
 const selectedResources = computed(() => {
   const selectedResources = resources.value?.filter(res => res.isChecked || res.isIndeterminate);
 
-  const selectedResourcesWithVariants = selectedResources?.map((r) => {
+  return selectedResources;
+});
+
+const closePicker = () => {
+  emit('update:visible', false);
+};
+
+const handleAdd = () => {
+  const selectedResourcesWithVariants = selectedResources.value?.map((r) => {
     if (r.variants) {
       return {
         ...r,
@@ -35,19 +43,13 @@ const selectedResources = computed(() => {
     return { ...r };
   });
 
-  return selectedResourcesWithVariants;
-});
-
-const closePicker = () => {
-  emit('update:visible', false);
-};
-
-const handleAdd = () => {
-  emit('confirm', selectedResources.value);
+  emit('confirm', selectedResourcesWithVariants);
 };
 
 const handleClick = (_: Event, resource: Resource, parent: Resource) => {
   if (parent) { // clicked resource is a variant/child
+    console.log('Clicked on child');
+
     const areAllVariantsSelected = parent?.variants?.every(variant => variant.isChecked);
     if (areAllVariantsSelected) {
       parent.isChecked = areAllVariantsSelected;
@@ -61,9 +63,14 @@ const handleClick = (_: Event, resource: Resource, parent: Resource) => {
   }
   else { // clicked resource is a product
     if (resource.variants) {
-      resource.isIndeterminate = false;
-      resource.variants.forEach((v) => {
-        v.isChecked = resource.isChecked;
+      resources.value?.forEach((r) => {
+        if (r.id === resource.id) {
+          r.isChecked = resource.isChecked;
+          r.isIndeterminate = resource.isIndeterminate;
+          r.variants?.forEach((v) => {
+            v.isChecked = resource.isChecked;
+          });
+        }
       });
     }
   }
