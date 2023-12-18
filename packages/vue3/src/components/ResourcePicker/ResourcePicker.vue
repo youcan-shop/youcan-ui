@@ -48,8 +48,6 @@ const handleAdd = () => {
 
 const handleClick = (_: Event, resource: Resource, parent: Resource) => {
   if (parent) { // clicked resource is a variant/child
-    console.log('Clicked on child');
-
     const areAllVariantsSelected = parent?.variants?.every(variant => variant.isChecked);
     if (areAllVariantsSelected) {
       parent.isChecked = areAllVariantsSelected;
