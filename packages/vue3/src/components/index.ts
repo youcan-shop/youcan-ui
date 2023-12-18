@@ -55,6 +55,8 @@ export { default as Tooltip } from './Tooltip/Tooltip.vue';
 export { default as Slider } from './Slider/Slider.vue';
 export { default as Modal } from './Modal/Modal.vue';
 export { default as ResourcePicker } from './ResourcePicker/ResourcePicker.vue';
+export { default as Popover } from './Popover/Popover.vue';
+export { default as Code } from './Code/Code.vue';
 export { default as Divider } from './Divider/Divider.vue';
 export { default as Skeleton } from './Skeleton/Skeleton.vue';
 export { default as Spinner } from './Spinner/Spinner.vue';
