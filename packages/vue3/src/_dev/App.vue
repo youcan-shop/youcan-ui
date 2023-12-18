@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import 'uno.css';
 import '../assets/main.css';
-import { CodePreview } from '..';
-import { code } from '~/components/CodePreview/code';
+import { Code } from '~/components';
 </script>
 
 <template>
   <div class="container">
-    <CodePreview :code="code" line-numbers language="markup" />
+    <Code language="ts" />
   </div>
 </template>
 

@@ -7,16 +7,6 @@ settings:
 importers:
 
   .:
-    dependencies:
-      '@types/prismjs':
-        specifier: ^1.26.3
-        version: 1.26.3
-      prismjs:
-        specifier: ^1.29.0
-        version: 1.29.0
-      vue3-prism:
-        specifier: ^0.1.4
-        version: 0.1.4
     devDependencies:
       '@youcan/eslint-config':
         specifier: '*'
@@ -311,6 +301,12 @@ importers:
       '@tiptap/vue-3':
         specifier: 2.0.0-beta.210
         version: 2.0.0-beta.210(@tiptap/core@2.0.0-beta.215)(@tiptap/pm@2.0.0-beta.210)(vue@3.2.45)
+      '@types/prismjs':
+        specifier: ^1.26.3
+        version: 1.26.3
+      prismjs:
+        specifier: ^1.29.0
+        version: 1.29.0
       vue-slicksort:
         specifier: ^2.0.5
         version: 2.0.5(vue@3.2.45)
@@ -5229,10 +5225,6 @@ packages:
       '@vue/compiler-dom': 3.2.45
       '@vue/shared': 3.2.45
 
-  /@vue/devtools-api@6.5.1:
-    resolution: {integrity: sha512-+KpckaAQyfbvshdDW5xQylLni1asvNSGme1JFs8I1+/H5pHEhqUKMEQD/qn3Nx5+/nycBq11qAEi8lk+LXI2dA==}
-    dev: false
-
   /@vue/reactivity-transform@3.2.45:
     resolution: {integrity: sha512-BHVmzYAvM7vcU5WmuYqXpwaBHjsS8T63jlKGWVtHxAHIoMIlmaMyurUSEs1Zcg46M4AYT5MtB1U274/2aNzjJQ==}
     dependencies:
@@ -6233,6 +6225,7 @@ packages:
   /core-js@3.27.0:
     resolution: {integrity: sha512-wY6cKosevs430KRkHUIsvepDXHGjlXOZO3hYXNyqpD6JvB0X28aXyv0t1Y1vZMwE7SoKmtfa6IASHCPN52FwBQ==}
     requiresBuild: true
+    dev: true
 
   /core-util-is@1.0.3:
     resolution: {integrity: sha512-ZQBvi1DcpJ4GDqanjucZ2Hj3wEO5pZDS89BWbkcrvdxksJorwUDDZamX9ldFkp9aw2lmBDLgkObEA4DWNJ9FYQ==}
@@ -12501,15 +12494,6 @@ packages:
       vue: 3.2.45
     dev: true
 
-  /vue-router@4.2.5(vue@3.2.45):
-    resolution: {integrity: sha512-DIUpKcyg4+PTQKfFPX88UWhlagBEBEfJ5A8XDXRJLUnZOvcpMF8o/dnL90vpVkGaPbjvXazV/rC1qBKrZlFugw==}
-    peerDependencies:
-      vue: ^3.2.0
-    dependencies:
-      '@vue/devtools-api': 6.5.1
-      vue: 3.2.45
-    dev: false
-
   /vue-slicksort@2.0.5(vue@3.2.45):
     resolution: {integrity: sha512-fXz1YrNjhUbJK7o0tMk27mIr4pMAZYLSYvtmLazCtfpvz+zafPCn34ILDL8B7hT7WLVZKreYs6JVe5VWymqmzA==}
     peerDependencies:
@@ -12536,16 +12520,6 @@ packages:
       typescript: 4.8.2
     dev: true
 
-  /vue3-prism@0.1.4:
-    resolution: {integrity: sha512-L/FkkoOA0cMVRMyLHmJp8c3Gon9+dVN2Q4W5axw8c4mJz6+DjFvF8TEiQC33eEIyaxmgbqjAvWtOn0HhCnbB+w==}
-    dependencies:
-      core-js: 3.27.0
-      prismjs: 1.29.0
-      vue: 3.2.45
-      vue-router: 4.2.5(vue@3.2.45)
-      vuex: 4.1.0(vue@3.2.45)
-    dev: false
-
   /vue@3.2.45:
     resolution: {integrity: sha512-9Nx/Mg2b2xWlXykmCwiTUCWHbWIj53bnkizBxKai1g61f2Xit700A1ljowpTIM11e3uipOeiPcSqnmBg6gyiaA==}
     dependencies:
@@ -12554,15 +12528,6 @@ packages:
       '@vue/runtime-dom': 3.2.45
       '@vue/server-renderer': 3.2.45(vue@3.2.45)
       '@vue/shared': 3.2.45
-
-  /vuex@4.1.0(vue@3.2.45):
-    resolution: {integrity: sha512-hmV6UerDrPcgbSy9ORAtNXDr9M4wlNP4pEFKye4ujJF8oqgFFuxDCdOLS3eNoRTtq5O3hoBDh9Doj1bQMYHRbQ==}
-    peerDependencies:
-      vue: ^3.2.0
-    dependencies:
-      '@vue/devtools-api': 6.5.1
-      vue: 3.2.45
-    dev: false
 
   /w3c-keyname@2.2.6:
     resolution: {integrity: sha512-f+fciywl1SJEniZHD6H+kUO8gOnwIr7f4ijKA6+ZvJFjeGi1r4PDLl53Ayud9O/rk64RqgoQine0feoeOU0kXg==}
