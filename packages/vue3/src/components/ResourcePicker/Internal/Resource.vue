@@ -26,7 +26,7 @@ function handleCheck(e: Event) {
 </script>
 
 <template>
-  <Checkbox v-model="model" class="container" :class="!showThumbnail && 'variant'" @change.stop="handleCheck">
+  <Checkbox v-model="model" class="container" :class="!showThumbnail && 'variant'" :indeterminate="$props.indeterminate" @change.stop="handleCheck">
     <template #label>
       <div class="content">
         <div class="info">
@@ -94,9 +94,5 @@ function handleCheck(e: Event) {
 
 .inventory-price .stock {
   color: var(--gray-400);
-}
-
-input:indeterminate + label {
-  background: lime;
 }
 </style>

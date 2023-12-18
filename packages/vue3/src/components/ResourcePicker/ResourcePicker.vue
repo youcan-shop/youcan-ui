@@ -55,14 +55,8 @@ const handleClick = (_: Event, resource: Resource, parent: Resource) => {
     }
     else {
       const areSomeVariantsSelected = parent?.variants?.some(variant => variant.isChecked);
-      if (areSomeVariantsSelected) {
-        parent.isChecked = true;
-        parent.isIndeterminate = true;
-      }
-      else { // no variant/child is checked
-        parent.isChecked = false;
-        parent.isIndeterminate = false;
-      }
+      parent.isChecked = areSomeVariantsSelected as boolean;
+      parent.isIndeterminate = areSomeVariantsSelected;
     }
   }
   else { // clicked resource is a product (without variants/children)
@@ -78,7 +72,7 @@ const handleClick = (_: Event, resource: Resource, parent: Resource) => {
 const handleSearch = (e: Event) => {
   const { target } = e;
   const term = (target as HTMLButtonElement).value;
-  emit('search', term.trim());
+  emit('search', term);
 };
 </script>
 
@@ -93,7 +87,7 @@ const handleSearch = (e: Event) => {
           </TertiaryButton>
         </div>
         <div class="search">
-          <Input v-model="term" placeholder="Search" @input.stop="handleSearch" @keyup.enter.stop="handleSearch" />
+          <Input v-model.trim="term" placeholder="Search" @input.stop="handleSearch" @keyup.enter.stop="handleSearch" />
         </div>
         <div v-if="isLoading" class="loading">
           <Spinner label="" />
