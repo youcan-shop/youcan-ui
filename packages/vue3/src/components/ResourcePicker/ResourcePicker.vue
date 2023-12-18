@@ -59,7 +59,7 @@ const handleClick = (_: Event, resource: Resource, parent: Resource) => {
       parent.isIndeterminate = areSomeVariantsSelected;
     }
   }
-  else { // clicked resource is a product (without variants/children)
+  else { // clicked resource is a product
     if (resource.variants) {
       resource.isIndeterminate = false;
       resource.variants.forEach((v) => {
