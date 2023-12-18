@@ -1,18 +1,31 @@
 <script setup lang="ts">
 import 'uno.css';
 import '../assets/main.css';
-import { Code } from '~/components';
+import { ref } from 'vue';
+import { Popover, PrimaryButton } from '~/components';
+const show = ref(false);
 </script>
 
 <template>
   <div class="container">
-    <Code language="ts" />
+    <Popover
+      :show="show"
+      position="right"
+      object-fit="contain"
+      @click-outside="show = false"
+    >
+      <PrimaryButton @click="show = !show;">
+        <span>Show Popover</span>
+      </PrimaryButton>
+    </Popover>
   </div>
 </template>
 
 <style scoped>
 .container {
-  max-width: 1024px;
-  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
 }
 </style>
