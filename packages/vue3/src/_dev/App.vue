@@ -2,30 +2,28 @@
 import 'uno.css';
 import '../assets/main.css';
 import { ref } from 'vue';
-import { Popover, PrimaryButton } from '~/components';
-const show = ref(false);
+import { RichText } from '~/components';
+const content = ref('');
+
+async function uploadImage(file: File): Promise<string> {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve('https://placeholder.com/assets/images/150x150-2-500x500.png');
+    }, 2000);
+  });
+}
 </script>
 
 <template>
   <div class="container">
-    <Popover
-      :show="show"
-      position="right"
-      object-fit="contain"
-      @click-outside="show = false"
-    >
-      <PrimaryButton @click="show = !show;">
-        <span>Show Popover</span>
-      </PrimaryButton>
-    </Popover>
+    <RichText v-model="content" :upload-image-handler="uploadImage" />
   </div>
 </template>
 
 <style scoped>
 .container {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
+  height: 90vh;
+  margin: 20px;
 }
 </style>

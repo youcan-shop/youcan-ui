@@ -1,9 +1,8 @@
 <script setup lang="ts">
+import { onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import { EditorContent, useEditor } from '@tiptap/vue-3';
 import StarterKit from '@tiptap/starter-kit';
-import { onBeforeUnmount, watch } from 'vue';
 import Underline from '@tiptap/extension-underline';
-import HorizontalRule from '@tiptap/extension-horizontal-rule';
 import TextAlign from '@tiptap/extension-text-align';
 import Highlight from '@tiptap/extension-highlight';
 import Color from '@tiptap/extension-color';
@@ -16,22 +15,27 @@ import Link from '@tiptap/extension-link';
 import TertiaryButton from '../Button/TertiaryButton.vue';
 import { Dropdown } from '..';
 import SecondaryButton from '../Button/SecondaryButton.vue';
+import Tooltip from '../Tooltip/Tooltip.vue';
 import InsertTable from './internal/Table.vue';
 import { TextStyleExtended } from './extensions/textstyle';
-import Colors from './internal/Color.vue';
+import Colors from './internal/Colors/Color.vue';
 import handleDropEvent from './handleDrop';
 import Iframe from './extensions/iframe';
-import EmojiPicker from './internal/Emojipicker.vue';
-import Tooltip from './internal/Tooltip.vue';
+import EmojiPicker from './internal/Emojis/EmojiPicker.vue';
+import CharacterPicker from './internal/SpecialCharacters/CharacterPicker.vue';
 import toolbar from './toolbar';
+import Indent from './extensions/indent';
 
-const props = withDefaults(defineProps<{
-  modelValue: string
-  dir?: string
-  uploadImageHandler: (file: File) => Promise<string | null>
-}>(), {
-  dir: 'ltr',
-});
+const props = withDefaults(
+  defineProps<{
+    modelValue: string
+    dir?: string
+    uploadImageHandler: (file: File) => Promise<string | null>
+  }>(),
+  {
+    dir: 'ltr',
+  },
+);
 
 const emit = defineEmits(['update:modelValue']);
 
@@ -42,12 +46,12 @@ const editor = useEditor({
     emit('update:modelValue', html);
   },
   editorProps: {
-    handleDrop: (view, event, slice, moved) => handleDropEvent(view, event, slice, moved, props.uploadImageHandler),
+    handleDrop: (view, event, slice, moved) =>
+      handleDropEvent(view, event, slice, moved, props.uploadImageHandler),
   },
   extensions: [
     StarterKit,
     Underline,
-    HorizontalRule,
     TextStyleExtended,
     TextAlign.configure({
       types: ['heading', 'paragraph'],
@@ -71,6 +75,7 @@ const editor = useEditor({
       openOnClick: false,
     }),
     Iframe,
+    Indent,
   ],
 });
 
@@ -80,11 +85,19 @@ onBeforeUnmount(() => {
 
 function insertTable(data: Record<string, string>) {
   const { rows, cols } = data;
-  editor.value?.chain().focus().insertTable({ rows: Number(rows), cols: Number(cols), withHeaderRow: true }).run();
+  editor.value
+    ?.chain()
+    .focus()
+    .insertTable({ rows: Number(rows), cols: Number(cols), withHeaderRow: true })
+    .run();
 }
 
 function insertEmoji(emoji: string) {
   editor.value?.commands.insertContent(emoji);
+}
+
+function insertCharacter(character: string) {
+  editor.value?.commands.insertContent(character);
 }
 
 const _toolbar = toolbar(editor);
@@ -99,35 +112,98 @@ watch(_toolbar.textAlign, (newValue) => {
   editor.value?.chain().focus().setTextAlign(newValue.model.value).run();
 });
 
+// Update heading
+watch(_toolbar.heading, (newValue) => {
+  editor.value?.chain().focus().toggleHeading(newValue.model.value).run();
+});
+
 // highlight color
 watch(_toolbar.highlight, (newValue) => {
-  editor.value?.chain().focus().toggleHighlight({ color: newValue.model.toLowerCase() }).run();
+  editor.value
+    ?.chain()
+    .focus()
+    .toggleHighlight({ color: newValue.model.toLowerCase() })
+    .run();
 });
 
 // text color
 watch(_toolbar.color, (newValue) => {
   editor.value?.commands.setColor(newValue.model.toLowerCase());
 });
+const isFullScreen = ref(false);
+
+const toggleFullScreen = () => {
+  const element = document.documentElement;
+  const requestFullScreen = element.requestFullscreen || element.mozRequestFullScreen || element.webkitRequestFullscreen || element.msRequestFullscreen;
+  const exitFullScreen = document.exitFullscreen || document.mozCancelFullScreen || document.webkitExitFullscreen || document.msExitFullscreen;
+
+  (isFullScreen.value ? exitFullScreen : requestFullScreen)?.call(isFullScreen.value ? document : element);
+  isFullScreen.value = !isFullScreen.value;
+};
+
+const handleFullScreenChange = () => {
+  isFullScreen.value = !!(document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement || document.msFullscreenElement);
+};
+
+onMounted(() => {
+  ['fullscreenchange', 'mozfullscreenchange', 'webkitfullscreenchange', 'msfullscreenchange'].forEach((event) => {
+    document.addEventListener(event, handleFullScreenChange);
+  });
+});
 </script>
 
 <template>
-  <div class="rich-text-editor">
+  <div :class="{ 'full-screen': isFullScreen }" class="rich-text-editor">
     <div class="tool-bar">
-      <div v-for="(el, i) in Object.values(_toolbar)" :key="i">
+      <TertiaryButton icon-position="only" size="sm" @click="toggleFullScreen">
+        <template #icon>
+          <i class="i-youcan:corners-out" />
+        </template>
+      </TertiaryButton>
+      <div class="divider" />
+      <div v-for="(el, i) in Object.values(_toolbar)" :key="i" class="element">
         <Tooltip :label="el.tooltip">
-          <TertiaryButton v-if="el.type === 'TertiaryButton'" icon-position="only" size="sm" @click="el.action()">
+          <TertiaryButton
+            v-if="el.type === 'TertiaryButton'"
+            icon-position="only"
+            size="sm"
+            @click="el.action()"
+          >
             <template #icon>
               <i :class="`${el.icon}`" />
             </template>
           </TertiaryButton>
-          <Dropdown v-if="el.type === 'Dropdown'" v-model="el.model" :items="el.items" placeholder="" />
+          <Dropdown
+            v-if="el.type === 'Dropdown'"
+            v-model="el.model"
+            :items="el.items"
+            placeholder=""
+          />
           <Colors v-if="el.type === 'Colors'" v-model="el.model" :icon="el.icon" />
-          <InsertTable v-if="el.type === 'table'" v-model="el.model" @insert="insertTable" />
-          <SecondaryButton v-if="el.type === 'SecondaryButton'" size="sm" @click="el.action()">
+          <InsertTable
+            v-if="el.type === 'table'"
+            v-model="el.model"
+            @insert="insertTable"
+          />
+          <SecondaryButton
+            v-if="el.type === 'SecondaryButton'"
+            size="sm"
+            @click="el.action()"
+          >
             {{ el.label }}
           </SecondaryButton>
-          <EmojiPicker v-if="el.type === 'EmojiPicker'" :icon="el.icon" @select="insertEmoji" />
+          <EmojiPicker
+            v-if="el.type === 'EmojiPicker'"
+            :icon="el.icon"
+            @select="insertEmoji"
+          />
+          <CharacterPicker
+            v-if="el.type === 'CharacterPicker'"
+            :icon="el.icon"
+            @select="insertCharacter"
+          />
         </Tooltip>
+        <div v-if="el.divider === true" class="divider" />
       </div>
     </div>
     <EditorContent class="editor-content" :editor="editor" :style="{ direction: dir }" />
@@ -136,7 +212,10 @@ watch(_toolbar.color, (newValue) => {
 
 <style lang="scss">
 .rich-text-editor {
+  display: flex;
   box-sizing: border-box;
+  flex: 1;
+  flex-direction: column;
   overflow: hidden;
   border: 1px solid var(--gray-200);
   border-radius: 8px;
@@ -161,16 +240,17 @@ watch(_toolbar.color, (newValue) => {
 
 .editor-content {
   padding: 10px;
+  overflow-y: auto;
 }
 
 .rich-text-editor .tool-bar {
-  display: flex;
   width: 100%;
   padding: 8px;
   gap: 8px;
 }
 
-.ProseMirror { /* stylelint-disable-line */
+.ProseMirror {
+  /* stylelint-disable-line */
   min-height: 173px;
   max-height: 100%;
   overflow-y: auto;
@@ -203,7 +283,8 @@ watch(_toolbar.color, (newValue) => {
       text-align: left;
     }
 
-    .selectedCell::after { /* stylelint-disable-line */
+    .selectedCell::after {
+      /* stylelint-disable-line */
       content: "";
       position: absolute;
       z-index: 2;
@@ -231,12 +312,49 @@ watch(_toolbar.color, (newValue) => {
   }
 }
 
-.tableWrapper { /* stylelint-disable-line */
+.tableWrapper {
+  /* stylelint-disable-line */
   padding: 1rem 0;
   overflow-x: auto;
 }
 
 .resize-cursor {
   cursor: ew-resize;
+}
+
+pre {
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  background: var(--base-black);
+  color: var(--base-white);
+  font-family: JetBrainsMono, monospace;
+
+  code {
+    padding: 0;
+    background: none;
+    color: inherit;
+    font-size: 0.8rem;
+  }
+}
+
+.full-screen {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
+.divider {
+  width: 1px;
+  background-color: var(--gray-200);
+  height: 35px;
+}
+
+.element {
+  display: flex;
+  gap: 8px;
 }
 </style>

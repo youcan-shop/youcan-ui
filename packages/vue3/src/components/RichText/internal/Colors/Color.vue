@@ -1,21 +1,23 @@
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue';
+import { computed, ref } from 'vue';
 import { onClickOutside } from '@vueuse/core';
 import { swatches as _swatches } from './swatches';
 import { TertiaryButton } from '~/components';
 import ColorInput from '~/components/Color/ColorInput.vue';
 
-const props = withDefaults(defineProps<{
-  modelValue: string
-  icon: string
-  swatches?: string[]
-}>(), {
-  swatches: () => _swatches,
-});
+const props = withDefaults(
+  defineProps<{
+    modelValue: string
+    icon: string
+    swatches?: string[]
+  }>(),
+  {
+    swatches: () => _swatches,
+  },
+);
 
 const emit = defineEmits(['update:modelValue']);
 
-const custom = ref('');
 const dropdownRef = ref();
 const showDropdown = ref(false);
 
@@ -23,7 +25,6 @@ const model = computed({
   get: () => props.modelValue,
   set: (value) => {
     emit('update:modelValue', value);
-    custom.value = value;
   },
 });
 
@@ -31,14 +32,10 @@ const setColor = (hex: string) => {
   model.value = hex;
 };
 
-const toggleDropdown = (show = !showDropdown.value) => showDropdown.value = show;
+const toggleDropdown = (show = !showDropdown.value) => (showDropdown.value = show);
 
 onClickOutside(dropdownRef, () => {
   toggleDropdown(false);
-});
-
-watch(custom, (value: string) => {
-  model.value = value;
 });
 </script>
 
@@ -46,16 +43,20 @@ watch(custom, (value: string) => {
   <div class="input-color">
     <TertiaryButton size="sm" icon-position="only" @click="toggleDropdown()">
       <template #icon>
-        <i
-          :class="icon"
-        />
+        <i :class="icon" />
       </template>
     </TertiaryButton>
     <div v-show="showDropdown" ref="dropdownRef" class="colors-dropdown">
       <ul class="swatches">
-        <li v-for="(color, i) in swatches" :key="i" class="swatch" :style="{ backgroundColor: color }" @click="setColor(color)" />
+        <li
+          v-for="(color, i) in swatches"
+          :key="i"
+          class="swatch"
+          :style="{ backgroundColor: color }"
+          @click="setColor(color)"
+        />
       </ul>
-      <ColorInput v-model="custom" placeholder="hex color" />
+      <ColorInput v-model="model" placeholder="hex color" />
     </div>
   </div>
 </template>

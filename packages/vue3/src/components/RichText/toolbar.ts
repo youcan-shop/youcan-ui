@@ -12,6 +12,7 @@ const fontSizes: DropdownItemArray = (() => {
       _items.push({ label: String(i), value: i });
     }
   }
+
   return _items;
 })();
 
@@ -20,6 +21,13 @@ const textAlignment = [
   { icon: 'i-youcan-text-align-center', label: 'center', value: 'center' },
   { icon: 'i-youcan-text-align-right', label: 'right', value: 'right' },
   { icon: 'i-youcan-text-align-justify', label: 'justify', value: 'justify' },
+];
+
+const HeadingLevels = [
+  { label: 'Heading 1', value: { level: 1 } },
+  { label: 'Heading 2', value: { level: 2 } },
+  { label: 'Heading 3', value: { level: 3 } },
+  { label: 'Normal', value: { level: 4 } },
 ];
 
 export default function (editor: ShallowRef<Editor | undefined>): Record<string, Record<string, any>> {
@@ -57,14 +65,21 @@ export default function (editor: ShallowRef<Editor | undefined>): Record<string,
     highlight: {
       tooltip: 'Background color',
       type: 'Colors',
-      model: '#000000',
+      model: '#00FFFFFF',
       icon: 'i-youcan-paint-bucket',
+      divider: true,
     },
     fontSize: {
       tooltip: 'Font size',
       type: 'Dropdown',
       items: fontSizes,
       model: fontSizes[0],
+    },
+    heading: {
+      tooltip: 'Paragraph format',
+      type: 'Dropdown',
+      items: HeadingLevels,
+      model: HeadingLevels[3],
     },
     textAlign: {
       tooltip: 'Text alignment',
@@ -81,7 +96,8 @@ export default function (editor: ShallowRef<Editor | undefined>): Record<string,
     ul: {
       tooltip: 'Unordered list',
       type: 'TertiaryButton',
-      icon: 'i-youcan-list-numbers',
+      icon: 'i-youcan-list-bullets',
+      divider: true,
       action: () => editor.value?.chain().focus().toggleBulletList().run(),
     },
     undo: {
@@ -94,7 +110,21 @@ export default function (editor: ShallowRef<Editor | undefined>): Record<string,
       tooltip: 'Redo',
       type: 'TertiaryButton',
       icon: 'i-youcan-arrow-bend-up-right',
+      divider: true,
       action: () => editor.value?.chain().focus().redo().run(),
+    },
+    indent: {
+      tooltip: 'Indent',
+      type: 'TertiaryButton',
+      icon: 'i-youcan:text-indent',
+      action: () => editor.value?.commands.indent(),
+    },
+    outdent: {
+      tooltip: 'Indent',
+      type: 'TertiaryButton',
+      icon: 'i-youcan:text-outdent',
+      divider: true,
+      action: () => editor.value?.commands.outdent(),
     },
     emoji: {
       tooltip: 'Insert emojis',
@@ -118,6 +148,11 @@ export default function (editor: ShallowRef<Editor | undefined>): Record<string,
         editor?.value!.chain().focus().extendMarkRange('link').setLink({ href: url }).run();
       },
     },
+    character: {
+      tooltip: 'Special characters',
+      type: 'CharacterPicker',
+      icon: 'i-youcan:currency-cny',
+    },
     hr: {
       tooltip: 'Insert divider',
       type: 'TertiaryButton',
@@ -128,12 +163,6 @@ export default function (editor: ShallowRef<Editor | undefined>): Record<string,
       tooltip: 'Insert table',
       type: 'table',
       model: { rows: '2', cols: '2' },
-    },
-    code: {
-      tooltip: 'Code',
-      type: 'TertiaryButton',
-      icon: 'i-youcan-code',
-      action: () => editor.value?.chain().focus().toggleCodeBlock().run(),
     },
     image: {
       tooltip: 'Insert image',
@@ -150,6 +179,7 @@ export default function (editor: ShallowRef<Editor | undefined>): Record<string,
       tooltip: 'Embed video',
       type: 'TertiaryButton',
       icon: 'i-youcan-video-camera',
+      divider: true,
       action: () => {
         const url = window.prompt('URL');
 
@@ -157,6 +187,13 @@ export default function (editor: ShallowRef<Editor | undefined>): Record<string,
           editor.value?.chain().focus().setIframe({ src: url }).run();
         }
       },
+    },
+    code: {
+      tooltip: 'Code',
+      type: 'TertiaryButton',
+      icon: 'i-youcan-code',
+      divider: true,
+      action: () => editor.value?.chain().focus().toggleCodeBlock().run(),
     },
     clear: {
       tooltip: 'Clear formatting',
