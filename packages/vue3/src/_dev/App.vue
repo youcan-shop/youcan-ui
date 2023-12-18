@@ -2,22 +2,34 @@
 import 'uno.css';
 import '../assets/main.css';
 import { ref } from 'vue';
-import { Popover, PrimaryButton } from '~/components';
-const show = ref(false);
+import { RadioGroup } from '~/components';
+import type { RadioData } from '~/components/Radio/types';
+
+const languages = ref<RadioData[]>([
+  {
+    label: 'JavaScript',
+    value: 'js',
+  },
+  {
+    label: 'PHP',
+    value: 'php',
+  },
+  {
+    label: 'Python',
+    value: 'python',
+  },
+]);
+// @ts-expect-error the v-model expects a RadioData but sets a string when value is changed.
+const preferredLanguage = ref<RadioData>(languages.value[0].value);
 </script>
 
 <template>
   <div class="container">
-    <Popover
-      :show="show"
-      position="right"
-      object-fit="contain"
-      @click-outside="show = false"
-    >
-      <PrimaryButton @click="show = !show;">
-        <span>Show Popover</span>
-      </PrimaryButton>
-    </Popover>
+    <RadioGroup
+      v-model="preferredLanguage"
+      name="languages"
+      :items="languages"
+    />
   </div>
 </template>
 
@@ -26,6 +38,6 @@ const show = ref(false);
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  margin: 20px;
 }
 </style>
