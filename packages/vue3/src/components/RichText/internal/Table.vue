@@ -6,8 +6,8 @@ import Input from '~/components/Input/Input.vue';
 
 const emit = defineEmits(['insert']);
 
-const rows = ref();
-const cols = ref();
+const rows = ref('');
+const cols = ref('');
 
 const dropdownRef = ref();
 const showDropdown = ref(false);
