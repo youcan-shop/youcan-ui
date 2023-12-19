@@ -16,7 +16,7 @@ defineProps<{ label: string; active?: boolean }>();
   background-color: transparent;
   color: var(--gray-400);
   font: var(--text-sm-regular);
-  text-align: left;
+  text-align: start;
   cursor: pointer;
 }
 

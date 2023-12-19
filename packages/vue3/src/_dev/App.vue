@@ -1,43 +1,57 @@
 <script setup lang="ts">
 import 'uno.css';
 import '../assets/main.css';
-import { ref } from 'vue';
-import { RadioGroup } from '~/components';
-import type { RadioData } from '~/components/Radio/types';
+import { Sidebar, SidebarItem, SidebarSubitem } from '~/components';
 
-const languages = ref<RadioData[]>([
+const items = [
   {
-    label: 'JavaScript',
-    value: 'js',
+    label: 'Products',
+    active: true,
+    icon: 'i-youcan-tag',
+    children: [
+      { label: 'All Products' },
+      { label: 'Categories' },
+    ],
   },
   {
-    label: 'PHP',
-    value: 'php',
+    label: 'Insights',
+    active: false,
+    icon: 'i-youcan-chart-line',
   },
-  {
-    label: 'Python',
-    value: 'python',
-  },
-]);
-// @ts-expect-error the v-model expects a RadioData but sets a string when value is changed.
-const preferredLanguage = ref<RadioData>(languages.value[0].value);
+];
 </script>
 
 <template>
   <div class="container">
-    <RadioGroup
-      v-model="preferredLanguage"
-      name="languages"
-      :items="languages"
-    />
+    <Sidebar>
+      <template #header>
+        <p>Awesome App</p>
+      </template>
+      <template #items>
+        <SidebarItem
+          v-for="item in items"
+          :key="item.label"
+          :label="item.label"
+          :active="item.active"
+          :icon="item.icon"
+        >
+          <template v-if="item.children">
+            <SidebarSubitem
+              v-for="subItem in item.children" :key="subItem.label"
+              :label="subItem.label"
+            />
+          </template>
+        </SidebarItem>
+      </template>
+      <template #lower-items>
+        <SidebarItem icon="i-youcan-gear" label="Settings" />
+      </template>
+    </Sidebar>
   </div>
 </template>
 
 <style scoped>
 .container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 20px;
+  direction: ltr;
 }
 </style>
