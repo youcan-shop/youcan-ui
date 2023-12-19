@@ -1,25 +1,20 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { ref } from 'vue';
 
-const { saveState } = withDefaults(defineProps<{
-  saveState?: boolean
+const props = withDefaults(defineProps<{
+  collapsed?: boolean
 }>(), {
-  saveState: true,
+  collapsed: false,
 });
 
-const localStorageKey = 'sidebar-collapsed';
-const isCollapsed = localStorage.getItem(localStorageKey) === 'true';
+const emit = defineEmits(['collapse']);
 
-const collapsed = ref(saveState && isCollapsed);
+const collapsed = ref(props.collapsed);
+
 const toggle = (override = !collapsed.value) => {
   collapsed.value = override;
+  emit('collapse', override);
 };
-
-watch(collapsed, (v) => {
-  if (saveState) {
-    localStorage.setItem(localStorageKey, String(v));
-  }
-});
 </script>
 
 <template>

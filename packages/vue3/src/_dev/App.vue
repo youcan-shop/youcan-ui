@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 import 'uno.css';
 import '../assets/main.css';
 import { Sidebar, SidebarItem, SidebarSubitem } from '~/components';
@@ -19,11 +20,22 @@ const items = [
     icon: 'i-youcan-chart-line',
   },
 ];
+
+const localStorageKey = 'sidebar-collapsed';
+
+const isCollapsed = localStorage.getItem(localStorageKey) === 'true';
+
+const sideBarCollapsed = ref(isCollapsed);
+
+const handleCollapse = (collapsed: boolean) => {
+  sideBarCollapsed.value = collapsed;
+  localStorage.setItem(localStorageKey, String(collapsed));
+};
 </script>
 
 <template>
   <div class="container">
-    <Sidebar>
+    <Sidebar :collapsed="sideBarCollapsed" @collapse="handleCollapse">
       <template #header>
         <p>Awesome App</p>
       </template>
