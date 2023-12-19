@@ -1,8 +1,17 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 
-const collapsed = ref(false);
-const toggle = (override = !collapsed.value) => collapsed.value = override;
+const localStorageKey = 'sidebar-collapsed';
+const isCollapsed = localStorage.getItem(localStorageKey) === 'true';
+
+const collapsed = ref(isCollapsed);
+const toggle = (override = !collapsed.value) => {
+  collapsed.value = override;
+};
+
+watch(collapsed, (v) => {
+  localStorage.setItem(localStorageKey, String(v));
+});
 </script>
 
 <template>
