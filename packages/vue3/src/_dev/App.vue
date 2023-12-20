@@ -64,6 +64,6 @@ const handleCollapse = (collapsed: boolean) => {
 
 <style scoped>
 .container {
-  direction: ltr;
+  /* direction: rtl; */
 }
 </style>
