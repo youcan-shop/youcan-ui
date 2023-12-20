@@ -190,6 +190,14 @@ html[dir="rtl"] {
       .subitem-text {
         transform: translateX(-100%);
       }
+
+      .sidebar-subitem {
+        &::before {
+          right: 25px;
+          left: unset;
+          transform: translateX(50%);
+        }
+      }
     }
   }
 }
