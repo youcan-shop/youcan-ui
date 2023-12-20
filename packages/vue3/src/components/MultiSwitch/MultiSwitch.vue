@@ -21,11 +21,20 @@ const setActiveOption = (id: number) => {
 .list {
   display: flex;
   align-items: flex-start;
+  justify-content: center;
   height: 36px;
   padding: 4px;
   border: 1px solid var(--gray-200, #e3e8ef);
   border-radius: 4px;
   background: var(--gray-50, #f8fafc);
   gap: 4px;
+}
+
+@media screen and (width < 768px) {
+  .list {
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+  }
 }
 </style>

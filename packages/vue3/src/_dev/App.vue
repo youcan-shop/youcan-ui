@@ -31,49 +31,46 @@ const OPTIONS: SwitchButtonDefinition[] = [
     icon: 'i-youcan:credit-card',
     value: 'option 3',
   },
+  {
+    label: 'Console',
+    icon: 'i-youcan:device-mobile',
+    value: 'option 4',
+  },
+  {
+    label: 'VR',
+    icon: 'i-youcan:desktop',
+    value: 'option 5',
+  },
+  {
+    label: 'TV',
+    icon: 'i-youcan:credit-card',
+    value: 'option 6',
+  },
 ];
 </script>
 
 <template>
   <div class="container">
-    <ul>
-      <MultiSwitch @option-change="handleOptionChange">
-        <SwitchButton
-          v-for="(option, index) in OPTIONS"
-          :key="option.label"
-          :model-value="option.value"
-          :label="option.label"
-          :icon="option.icon"
-          :active="activeOption === index"
-          :disabled="false"
-          @click="setActiveOption(index)"
-        />
-      </MultiSwitch>
-    </ul>
-    <ul>
-      <MultiSwitch>
-        <SwitchButton
-          label="label1"
-          :active="activeOption === 0"
-          @click="setActiveOption(0)"
-        />
-        <SwitchButton
-          label="label2"
-          :active="activeOption === 1"
-          @click="setActiveOption(1)"
-        />
-      </MultiSwitch>
-    </ul>
-
-    <div class="selected-option">
-      <p>selected option :</p>{{ OPTIONS[activeOption].value }}
-    </div>
+    <MultiSwitch @option-change="handleOptionChange">
+      <SwitchButton
+        v-for="(option, index) in OPTIONS"
+        :key="option.label"
+        :model-value="option.value"
+        :label="option.label"
+        :icon="option.icon"
+        :active="activeOption === index"
+        :disabled="false"
+        @click="setActiveOption(index)"
+      />
+    </MultiSwitch>
+    <p>{{ OPTIONS[activeOption].value }}</p>
   </div>
 </template>
 
 <style scoped>
 .container {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   margin: 20px;

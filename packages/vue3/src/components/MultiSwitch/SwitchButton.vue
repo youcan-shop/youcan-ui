@@ -99,4 +99,11 @@ i {
 .option.disabled {
   pointer-events: none;
 }
+
+@media screen and (width < 768px) {
+  .option {
+    width: 100%;
+    height: 44px;
+  }
+}
 </style>
