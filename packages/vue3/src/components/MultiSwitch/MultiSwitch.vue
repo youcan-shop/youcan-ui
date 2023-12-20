@@ -1,19 +1,19 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
-const emit = defineEmits(['update:selectedTab']);
+const emit = defineEmits(['update:selectedOption']);
 
-const activeTab = ref(0);
+const activeOption = ref(0);
 
-const setActiveTab = (id: number) => {
-  activeTab.value = id;
-  emit('update:selectedTab', id);
+const setActiveOption = (id: number) => {
+  activeOption.value = id;
+  emit('update:selectedOption', id);
 };
 </script>
 
 <template>
   <div class="list">
-    <slot :set-active-tab="setActiveTab" />
+    <slot :set-active-option="setActiveOption" />
   </div>
 </template>
 

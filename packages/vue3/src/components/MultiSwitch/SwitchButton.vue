@@ -21,7 +21,7 @@ const handleClick = () => {
 <template>
   <button
     :disabled="disabled || active"
-    class="tab"
+    class="option"
     :class="{ active, disabled }"
     @click="handleClick"
   >
@@ -48,7 +48,7 @@ i {
   color: var(--gray-500);
 }
 
-.tab {
+.option {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -58,49 +58,45 @@ i {
   border: 1px solid transparent;
 }
 
-.tab .label {
+.option .label {
   border-radius: 4px;
   color: var(--gray-700);
   font: var(--text-md-regular);
 }
 
-.tab:hover .label {
+.option:hover .label {
   color: var(--gray-900);
 }
 
-.tab.active {
+.option.active {
   border: 1px solid var(--gray-200, #e3e8ef);
   border-radius: 4px;
   background: var(--base-white, #fff);
   box-shadow: 0 1px 2px 0 rgb(18 25 38 / 5%);
-}
-
-.tab.active i {
-  color: var(--brand-500);
-}
-
-.tab.error .label {
-  color: var(--red-500);
-}
-
-.tab.disabled .label {
-  color: var(--gray-300);
-}
-
-.tab.active {
-  /* border-bottom: 2px solid var(--brand-500); */
   cursor: default;
 }
 
-.tab.error:hover .label {
+.option.active i {
+  color: var(--brand-500);
+}
+
+.option.error .label {
+  color: var(--red-500);
+}
+
+.option.disabled .label {
+  color: var(--gray-300);
+}
+
+.option.error:hover .label {
   color: var(--red-600);
 }
 
-.tab.error.active {
+.option.error.active {
   border-bottom: 1px solid var(--red-500);
 }
 
-.tab.disabled {
+.option.disabled {
   pointer-events: none;
 }
 </style>

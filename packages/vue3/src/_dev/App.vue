@@ -5,31 +5,31 @@ import { ref } from 'vue';
 import { MultiSwitch, SwitchButton } from '~/components';
 import type { SwitchButtonDefinition } from '~/components/MultiSwitch/types';
 
-const activeTab = ref(0);
+const activeOption = ref(0);
 
-const handleTabChange = (value: number) => {
-  activeTab.value = value;
+const handleOptionChange = (value: number) => {
+  activeOption.value = value;
 };
 
-function setActiveTab(id: number) {
-  activeTab.value = id;
+function setActiveOption(id: number) {
+  activeOption.value = id;
 }
 
-const TABS: SwitchButtonDefinition[] = [
+const OPTIONS: SwitchButtonDefinition[] = [
   {
     label: 'Mobile',
     icon: 'i-youcan:device-mobile',
-    value: 'tab1',
+    value: 'option 1',
   },
   {
     label: 'Desktop',
     icon: 'i-youcan:desktop',
-    value: 'tab2',
+    value: 'option 2',
   },
   {
     label: 'Tablet',
     icon: 'i-youcan:credit-card',
-    value: 'tab3',
+    value: 'option 3',
   },
 ];
 </script>
@@ -37,16 +37,16 @@ const TABS: SwitchButtonDefinition[] = [
 <template>
   <div class="container">
     <ul>
-      <MultiSwitch @tab-change="handleTabChange">
+      <MultiSwitch @option-change="handleOptionChange">
         <SwitchButton
-          v-for="(tab, index) in TABS"
-          :key="tab.label"
-          :model-value="tab.value"
-          :label="tab.label"
-          :icon="tab.icon"
-          :active="activeTab === index"
+          v-for="(option, index) in OPTIONS"
+          :key="option.label"
+          :model-value="option.value"
+          :label="option.label"
+          :icon="option.icon"
+          :active="activeOption === index"
           :disabled="false"
-          @click="setActiveTab(index)"
+          @click="setActiveOption(index)"
         />
       </MultiSwitch>
     </ul>
@@ -54,21 +54,19 @@ const TABS: SwitchButtonDefinition[] = [
       <MultiSwitch>
         <SwitchButton
           label="label1"
-          icon="tab.icon"
-          :active="activeTab === 0"
-          @click="setActiveTab(0)"
+          :active="activeOption === 0"
+          @click="setActiveOption(0)"
         />
         <SwitchButton
           label="label2"
-          icon="tab.icon"
-          :active="activeTab === 1"
-          @click="setActiveTab(1)"
+          :active="activeOption === 1"
+          @click="setActiveOption(1)"
         />
       </MultiSwitch>
     </ul>
 
-    <div class="selected-value">
-      <p>selected value :</p>{{ TABS[activeTab].value }}
+    <div class="selected-option">
+      <p>selected option :</p>{{ OPTIONS[activeOption].value }}
     </div>
   </div>
 </template>
@@ -81,7 +79,7 @@ const TABS: SwitchButtonDefinition[] = [
   margin: 20px;
 }
 
-.selected-value {
+.selected-option {
   margin: 10%;
 }
 </style>
