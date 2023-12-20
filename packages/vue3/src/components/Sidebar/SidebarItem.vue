@@ -108,11 +108,11 @@ onMounted(() => {
 }
 
 .toggle-enter-active {
-  animation: toggle 0.25s linear;
+  animation: toggle 0.15s linear;
 }
 
 .toggle-leave-active {
-  animation: toggle 0.25s reverse linear;
+  animation: toggle 0.15s reverse linear;
 }
 
 @keyframes toggle {
@@ -124,6 +124,14 @@ onMounted(() => {
   100% {
     max-height: calc(v-bind(children) * 40px);
     opacity: 1;
+  }
+}
+</style>
+
+<style lang="scss">
+html[dir="rtl"] {
+  .sidebar-item.active {
+    box-shadow: inset -2px 0 0 0 var(--base-white);
   }
 }
 </style>
