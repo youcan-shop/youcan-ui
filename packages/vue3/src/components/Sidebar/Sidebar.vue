@@ -129,13 +129,15 @@ const toggle = (override = !collapsed.value) => {
       &::before {
         content: "";
         position: absolute;
-        left: 24px;
+        left: 25px;
         width: 5px;
         height: 5px;
+        transform: translateX(-50%);
         transition: opacity 0.2s ease-in-out;
+        border: 1px solid var(--gray-400);
         border-radius: 50%;
         opacity: 1;
-        background-color: var(--base-white);
+        background-color: var(--gray-700);
       }
     }
 
