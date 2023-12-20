@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, useSlots } from 'vue';
+import { onMounted, ref } from 'vue';
 
 const props = defineProps<{
   icon: string
@@ -7,21 +7,21 @@ const props = defineProps<{
   count?: number
   active?: boolean
 }>();
-const slots = useSlots();
+
+const children = ref(1);
+const subitems = ref();
 
 const expanded = ref(!!props.active);
-const toggle = (override = !expanded.value) => expanded.value = override;
+const toggle = () => expanded.value = !expanded.value;
 
-const hasChildren = computed(() => {
-  return slots.default
-    && slots.default().length > 0
-    && slots.default().filter((s: any) => typeof s.children === 'object' && s.children.length > 0).length > 0;
+onMounted(() => {
+  children.value = subitems.value ? subitems.value.children.length : 0;
 });
 </script>
 
 <template>
   <div>
-    <button :class="{ active }" class="sidebar-item" @click="() => hasChildren && toggle()">
+    <button :class="{ active }" class="sidebar-item" @click="() => children && toggle()">
       <div class="item-icon">
         <i class="icon" :class="icon" />
       </div>
@@ -30,13 +30,15 @@ const hasChildren = computed(() => {
         {{ label }}
       </div>
 
-      <div v-if="hasChildren" class="expand-icon">
+      <div v-if="children" class="expand-icon" :class="{ rotate: expanded }">
         <i class="icon i-youcan-caret-down" />
       </div>
     </button>
-    <div v-if="hasChildren && expanded" class="subitems">
-      <slot />
-    </div>
+    <Transition name="toggle">
+      <div v-if="children && expanded" ref="subitems" class="subitems">
+        <slot />
+      </div>
+    </Transition>
   </div>
 </template>
 
@@ -68,6 +70,13 @@ const hasChildren = computed(() => {
 
 .sidebar-item.active {
   background-color: var(--gray-700);
+}
+
+[dir="rtl"] .sidebar-item.active {
+  box-shadow: inset -2px 0 0 0 var(--base-white);
+}
+
+[dir="ltr"] .sidebar-item.active {
   box-shadow: inset 2px 0 0 0 var(--base-white);
 }
 
@@ -90,9 +99,46 @@ const hasChildren = computed(() => {
 .subitems {
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
 .expand-icon {
   margin-inline-start: auto;
+}
+
+.expand-icon i {
+  transition: all 200ms ease-in-out;
+}
+
+.expand-icon.rotate i {
+  transform: rotate(180deg);
+}
+
+.toggle-enter-active {
+  animation: toggle 0.15s linear;
+}
+
+.toggle-leave-active {
+  animation: toggle 0.15s reverse linear;
+}
+
+@keyframes toggle {
+  0% {
+    max-height: 0;
+    opacity: 0;
+  }
+
+  100% {
+    max-height: calc(v-bind(children) * 40px);
+    opacity: 1;
+  }
+}
+</style>
+
+<style lang="scss">
+html[dir="rtl"] {
+  .sidebar-item.active {
+    box-shadow: inset -2px 0 0 0 var(--base-white);
+  }
 }
 </style>
