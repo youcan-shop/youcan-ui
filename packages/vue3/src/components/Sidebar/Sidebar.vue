@@ -185,6 +185,14 @@ const toggle = (override = !collapsed.value) => {
 <style lang="scss">
 html[dir="rtl"] {
   .sidebar {
+    .sidebar-header {
+      .item-icon {
+        i {
+          transform: rotate(90deg);
+        }
+      }
+    }
+
     &.collapsed {
       .item-label,
       .subitem-text {
@@ -196,6 +204,14 @@ html[dir="rtl"] {
           right: 25px;
           left: unset;
           transform: translateX(50%);
+        }
+      }
+
+      .sidebar-header {
+        .item-icon {
+          i {
+            transform: rotate(-90deg);
+          }
         }
       }
     }
