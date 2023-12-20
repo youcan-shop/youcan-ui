@@ -55,6 +55,7 @@ i {
   height: 100%;
   padding: 0 8px;
   gap: 4px;
+  border: 1px solid transparent;
 }
 
 .tab .label {
