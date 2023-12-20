@@ -181,3 +181,16 @@ const toggle = (override = !collapsed.value) => {
   }
 }
 </style>
+
+<style lang="scss">
+html[dir="rtl"] {
+  .sidebar {
+    &.collapsed {
+      .item-label,
+      .subitem-text {
+        transform: translateX(-100%);
+      }
+    }
+  }
+}
+</style>
