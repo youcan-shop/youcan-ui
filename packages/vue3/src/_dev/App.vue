@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 import 'uno.css';
 import '../assets/main.css';
-import { ref } from 'vue';
 import { MultiSwitch, SwitchButton } from '~/components';
 import type { SwitchButtonDefinition } from '~/components/MultiSwitch/types';
 
