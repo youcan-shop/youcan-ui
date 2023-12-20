@@ -70,6 +70,13 @@ onMounted(() => {
 
 .sidebar-item.active {
   background-color: var(--gray-700);
+}
+
+[dir="rtl"] .sidebar-item.active {
+  box-shadow: inset -2px 0 0 0 var(--base-white);
+}
+
+[dir="ltr"] .sidebar-item.active {
   box-shadow: inset 2px 0 0 0 var(--base-white);
 }
 
