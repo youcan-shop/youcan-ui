@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onBeforeUnmount, onMounted, ref, watch } from 'vue';
-import { EditorContent, useEditor } from '@tiptap/vue-3';
+import { EditorContent, VueNodeViewRenderer, useEditor } from '@tiptap/vue-3';
 import StarterKit from '@tiptap/starter-kit';
 import Underline from '@tiptap/extension-underline';
 import TextAlign from '@tiptap/extension-text-align';
@@ -12,10 +12,14 @@ import TableHeader from '@tiptap/extension-table-header';
 import TableRow from '@tiptap/extension-table-row';
 import Image from '@tiptap/extension-image';
 import Link from '@tiptap/extension-link';
+import Youtube from '@tiptap/extension-youtube';
+import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight';
+import { common, createLowlight } from 'lowlight';
 import TertiaryButton from '../Button/TertiaryButton.vue';
 import { Dropdown } from '..';
 import SecondaryButton from '../Button/SecondaryButton.vue';
 import Tooltip from '../Tooltip/Tooltip.vue';
+import CodeBlock from './internal/CodeBlock.vue';
 import InsertTable from './internal/Table.vue';
 import { TextStyleExtended } from './extensions/textstyle';
 import Colors from './internal/Colors/Color.vue';
@@ -36,21 +40,23 @@ const props = withDefaults(
     dir: 'ltr',
   },
 );
-
 const emit = defineEmits(['update:modelValue']);
+const lowlight = createLowlight(common);
 
 const editor = useEditor({
   content: props.modelValue,
-  onUpdate: ({ editor }) => {
+  onUpdate: ({ editor }: any) => {
     const html = editor.getHTML();
     emit('update:modelValue', html);
   },
   editorProps: {
-    handleDrop: (view, event, slice, moved) =>
+    handleDrop: (view: any, event: any, slice: any, moved: any) =>
       handleDropEvent(view, event, slice, moved, props.uploadImageHandler),
   },
   extensions: [
-    StarterKit,
+    StarterKit.configure({
+      codeBlock: false,
+    }),
     Underline,
     TextStyleExtended,
     TextAlign.configure({
@@ -76,6 +82,14 @@ const editor = useEditor({
     }),
     Iframe,
     Indent,
+    Youtube.configure({
+      controls: false,
+    }),
+    CodeBlockLowlight.extend({
+      addNodeView() {
+        return VueNodeViewRenderer(CodeBlock);
+      },
+    }).configure({ lowlight }),
   ],
 });
 
@@ -90,6 +104,23 @@ function insertTable(data: Record<string, string>) {
     .focus()
     .insertTable({ rows: Number(rows), cols: Number(cols), withHeaderRow: true })
     .run();
+}
+
+function insertRow(position: string) {
+  const chain = editor.value?.chain().focus();
+
+  if (chain) {
+    position === 'before' ? chain.addRowBefore() : chain.addRowAfter();
+    chain.run();
+  }
+}
+function insertColumn(position: string) {
+  const chain = editor.value?.chain().focus();
+
+  if (chain) {
+    position === 'before' ? chain.addColumnBefore() : chain.addColumnAfter();
+    chain.run();
+  }
 }
 
 function insertEmoji(emoji: string) {
@@ -155,14 +186,16 @@ onMounted(() => {
 <template>
   <div :class="{ 'full-screen': isFullScreen }" class="rich-text-editor">
     <div class="tool-bar">
-      <TertiaryButton icon-position="only" size="sm" @click="toggleFullScreen">
-        <template #icon>
-          <i class="i-youcan:corners-out" />
-        </template>
-      </TertiaryButton>
+      <Tooltip label="Fullscreen" position="right">
+        <TertiaryButton icon-position="only" size="sm" @click="toggleFullScreen">
+          <template #icon>
+            <i class="i-youcan:corners-out" />
+          </template>
+        </TertiaryButton>
+      </Tooltip>
       <div class="divider" />
       <div v-for="(el, i) in Object.values(_toolbar)" :key="i" class="element">
-        <Tooltip :label="el.tooltip">
+        <Tooltip :label="el.tooltip" position="right">
           <TertiaryButton
             v-if="el.type === 'TertiaryButton'"
             icon-position="only"
@@ -184,6 +217,8 @@ onMounted(() => {
             v-if="el.type === 'table'"
             v-model="el.model"
             @insert="insertTable"
+            @insert-row="insertRow"
+            @insert-column="insertColumn"
           />
           <SecondaryButton
             v-if="el.type === 'SecondaryButton'"
@@ -239,8 +274,10 @@ onMounted(() => {
 }
 
 .editor-content {
+  height: 100%;
   padding: 10px;
   overflow-y: auto;
+  font: var(--text-md-regular);
 }
 
 .rich-text-editor .tool-bar {
@@ -251,8 +288,7 @@ onMounted(() => {
 
 .ProseMirror {
   /* stylelint-disable-line */
-  min-height: 173px;
-  max-height: 100%;
+  height: 100%;
   overflow-y: auto;
   outline: none;
 
@@ -335,6 +371,57 @@ pre {
     color: inherit;
     font-size: 0.8rem;
   }
+
+  .hljs-comment,
+  .hljs-quote {
+    color: #616161;
+  }
+
+  .hljs-variable,
+  .hljs-template-variable,
+  .hljs-attribute,
+  .hljs-tag,
+  .hljs-regexp,
+  .hljs-link,
+  .hljs-name,
+  .hljs-selector-id,
+  .hljs-selector-class {
+    color: #f98181;
+  }
+
+  .hljs-number,
+  .hljs-meta,
+  .hljs-built_in,
+  .hljs-builtin-name,
+  .hljs-literal,
+  .hljs-type,
+  .hljs-params {
+    color: #fbbc88;
+  }
+
+  .hljs-string,
+  .hljs-symbol,
+  .hljs-bullet {
+    color: #b9f18d;
+  }
+
+  .hljs-title,
+  .hljs-section {
+    color: #faf594;
+  }
+
+  .hljs-keyword,
+  .hljs-selector-tag {
+    color: #70cff8;
+  }
+
+  .hljs-emphasis {
+    font-style: italic;
+  }
+
+  .hljs-strong {
+    font-weight: 700;
+  }
 }
 
 .full-screen {
@@ -349,8 +436,8 @@ pre {
 
 .divider {
   width: 1px;
-  background-color: var(--gray-200);
   height: 35px;
+  background-color: var(--gray-200);
 }
 
 .element {

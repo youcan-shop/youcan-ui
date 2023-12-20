@@ -148,11 +148,6 @@ export default function (editor: ShallowRef<Editor | undefined>): Record<string,
         editor?.value!.chain().focus().extendMarkRange('link').setLink({ href: url }).run();
       },
     },
-    character: {
-      tooltip: 'Special characters',
-      type: 'CharacterPicker',
-      icon: 'i-youcan:currency-cny',
-    },
     hr: {
       tooltip: 'Insert divider',
       type: 'TertiaryButton',
@@ -176,15 +171,17 @@ export default function (editor: ShallowRef<Editor | undefined>): Record<string,
       },
     },
     embed: {
-      tooltip: 'Embed video',
+      tooltip: 'Youtube video only',
       type: 'TertiaryButton',
       icon: 'i-youcan-video-camera',
       divider: true,
       action: () => {
-        const url = window.prompt('URL');
+        const url = window.prompt('Enter Youtube URL');
 
         if (url) {
-          editor.value?.chain().focus().setIframe({ src: url }).run();
+          editor.value?.commands.setYoutubeVideo({
+            src: url,
+          });
         }
       },
     },
