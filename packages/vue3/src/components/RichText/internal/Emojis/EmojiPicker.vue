@@ -64,7 +64,7 @@ onClickOutside(dropdownRef, () => {
 .emojis-dropdown {
   position: absolute;
   z-index: 999999;
-  width: 200px;
+  width: 250px;
   height: 200px;
   margin-top: 10px;
   padding: 12px;

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { onClickOutside } from '@vueuse/core';
-import { Input, PrimaryButton, Tab, TabsBar, TertiaryButton } from '~/components';
+import { Input, MultiSwitch, PrimaryButton, SecondaryButton, SwitchButton, TertiaryButton } from '~/components';
 
 const emit = defineEmits(['insert', 'insertRow', 'insertColumn']);
 
@@ -26,11 +26,24 @@ onClickOutside(dropdownRef, () => {
   toggleDropdown(false);
 });
 
-const activeTab = ref(0);
-
-function setActiveTab(id: number) {
-  activeTab.value = id;
+const activeOption = ref(0);
+const handleOptionChange = (value: number) => {
+  activeOption.value = value;
+};
+function setActiveOption(id: number) {
+  activeOption.value = id;
 }
+const OPTIONS: SwitchButtonDefinition[] = [
+  {
+    label: 'New',
+    icon: 'i-youcan:plus',
+    value: '0',
+  },
+  {
+    label: 'Edit',
+    icon: 'i-youcan:pencil-simple',
+    value: '1',
+  }];
 </script>
 
 <template>
@@ -43,23 +56,23 @@ function setActiveTab(id: number) {
       </template>
     </TertiaryButton>
     <div v-show="showDropdown" ref="dropdownRef" class="table-dropdown">
-      <ul class="tab-list">
-        <TabsBar>
-          <Tab
-            label="New"
-            :active="activeTab === 0"
-            @click="setActiveTab(0)"
+      <div class="tabs">
+        <MultiSwitch @option-change="handleOptionChange">
+          <SwitchButton
+            v-for="(option, index) in OPTIONS"
+            :key="option.label"
+            :model-value="option.value"
+            :label="option.label"
+            :icon="option.icon"
+            :active="activeOption === index"
+            :disabled="false"
+            @click="setActiveOption(index)"
           />
-          <Tab
-            label="Edit"
-            :active="activeTab === 1"
-            @click="setActiveTab(1)"
-          />
-        </TabsBar>
-      </ul>
+        </MultiSwitch>
+      </div>
       <div class="tab-panels">
         <div
-          v-show="activeTab === 0"
+          v-show="activeOption === 0"
           class="panel"
         >
           <Input v-model="rows" type="number" placeholder="rows" />
@@ -72,30 +85,30 @@ function setActiveTab(id: number) {
           </PrimaryButton>
         </div>
         <div
-          v-show="activeTab === 1"
+          v-show="activeOption === 1"
           class="panel"
         >
           <p class="panel-label">
             Row
           </p>
           <div class="button-block">
-            <PrimaryButton @click="insertRow('before')">
+            <SecondaryButton @click="insertRow('before')">
               Add Before
-            </PrimaryButton>
-            <PrimaryButton @click="insertRow('after')">
+            </SecondaryButton>
+            <SecondaryButton @click="insertRow('after')">
               Add After
-            </PrimaryButton>
+            </SecondaryButton>
           </div>
           <p class="panel-label">
             Column
           </p>
           <div class="button-block">
-            <PrimaryButton @click="insertColumn('before')">
+            <SecondaryButton @click="insertColumn('before')">
               Add Before
-            </PrimaryButton>
-            <PrimaryButton @click="insertColumn('after')">
+            </SecondaryButton>
+            <SecondaryButton @click="insertColumn('after')">
               Add After
-            </PrimaryButton>
+            </SecondaryButton>
           </div>
         </div>
       </div>
@@ -110,18 +123,22 @@ function setActiveTab(id: number) {
 
 .table-dropdown {
   display: flex;
-  position: absolute;
+  position: fixed;
   z-index: 999999;
   flex-direction: column;
   width: 250px;
   margin-top: 10px;
-  padding: 0 12px 12px;
+  padding: 12px;
   border: 1px solid var(--gray-200);
   border-radius: 4px;
   background-color: var(--base-white);
   box-shadow: var(--shadow-xs-gray);
   color: var(--gray-500);
   gap: 20px;
+}
+
+.tabs .list {
+  width: auto;
 }
 
 .tab-list {
@@ -153,6 +170,10 @@ function setActiveTab(id: number) {
 .panel-label {
   margin: 0;
   font: var(--text-sm-bold);
+}
+
+.panel .primary {
+  margin-top: 7px;
 }
 
 .button-block {

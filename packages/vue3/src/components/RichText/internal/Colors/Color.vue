@@ -67,9 +67,9 @@ onClickOutside(dropdownRef, () => {
 }
 
 .colors-dropdown {
-  position: absolute;
+  position: fixed;
   z-index: 999999;
-  width: 200px;
+  width: 250px;
   margin-top: 10px;
   padding: 12px;
   border: 1px solid var(--gray-200);
