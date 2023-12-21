@@ -1,0 +1,41 @@
+<script setup lang="ts">
+import { ref } from 'vue';
+
+const emit = defineEmits(['update:selectedOption']);
+
+const activeOption = ref(0);
+
+const setActiveOption = (id: number) => {
+  activeOption.value = id;
+  emit('update:selectedOption', id);
+};
+</script>
+
+<template>
+  <div class="list">
+    <slot :set-active-option="setActiveOption" />
+  </div>
+</template>
+
+<style scoped>
+.list {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  width: 100%;
+  height: 36px;
+  padding: 4px;
+  border: 1px solid var(--gray-200);
+  border-radius: 4px;
+  background: var(--gray-50);
+  gap: 4px;
+}
+
+@media screen and (width < 768px) {
+  .list {
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+  }
+}
+</style>

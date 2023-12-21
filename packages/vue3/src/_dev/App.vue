@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 import 'uno.css';
 import '../assets/main.css';
-import { ref } from 'vue';
 import { RichText } from '~/components';
 const content = ref('');
 
@@ -25,5 +25,9 @@ async function uploadImage(file: File): Promise<string> {
   display: flex;
   height: 90vh;
   margin: 20px;
+}
+
+.selected-option {
+  margin: 10%;
 }
 </style>
