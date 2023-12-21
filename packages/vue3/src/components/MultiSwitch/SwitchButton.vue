@@ -52,6 +52,7 @@ i {
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100%;
   height: 100%;
   padding: 0 8px;
   gap: 4px;
@@ -69,9 +70,9 @@ i {
 }
 
 .option.active {
-  border: 1px solid var(--gray-200, #e3e8ef);
+  border: 1px solid var(--gray-200);
   border-radius: 4px;
-  background: var(--base-white, #fff);
+  background: var(--base-white);
   box-shadow: 0 1px 2px 0 rgb(18 25 38 / 5%);
   cursor: default;
 }

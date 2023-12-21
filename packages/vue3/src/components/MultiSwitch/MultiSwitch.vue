@@ -22,11 +22,12 @@ const setActiveOption = (id: number) => {
   display: flex;
   align-items: flex-start;
   justify-content: center;
+  width: 100%;
   height: 36px;
   padding: 4px;
-  border: 1px solid var(--gray-200, #e3e8ef);
+  border: 1px solid var(--gray-200);
   border-radius: 4px;
-  background: var(--gray-50, #f8fafc);
+  background: var(--gray-50);
   gap: 4px;
 }
 
