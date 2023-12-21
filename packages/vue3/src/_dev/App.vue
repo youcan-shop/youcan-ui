@@ -2,68 +2,81 @@
 import { ref } from 'vue';
 import 'uno.css';
 import '../assets/main.css';
-import { Sidebar, SidebarItem, SidebarSubitem } from '~/components';
+import { MultiSwitch, SwitchButton } from '~/components';
+import type { SwitchButtonDefinition } from '~/components/MultiSwitch/types';
 
-const items = [
+const activeOption = ref(0);
+
+const handleOptionChange = (value: number) => {
+  activeOption.value = value;
+};
+
+function setActiveOption(id: number) {
+  activeOption.value = id;
+}
+
+const OPTIONS: SwitchButtonDefinition[] = [
   {
-    label: 'Products',
-    active: true,
-    icon: 'i-youcan-tag',
-    children: [
-      { label: 'All Products' },
-      { label: 'Categories' },
-    ],
+    label: 'Mobile',
+    icon: 'i-youcan:device-mobile',
+    value: 'option 1',
   },
   {
-    label: 'Insights',
-    active: false,
-    icon: 'i-youcan-chart-line',
+    label: 'Desktop',
+    icon: 'i-youcan:desktop',
+    value: 'option 2',
+  },
+  {
+    label: 'Tablet',
+    icon: 'i-youcan:credit-card',
+    value: 'option 3',
+  },
+  {
+    label: 'Console',
+    icon: 'i-youcan:device-mobile',
+    value: 'option 4',
+  },
+  {
+    label: 'VR',
+    icon: 'i-youcan:desktop',
+    value: 'option 5',
+  },
+  {
+    label: 'TV',
+    icon: 'i-youcan:credit-card',
+    value: 'option 6',
   },
 ];
-
-const localStorageKey = 'sidebar-collapsed';
-
-const isCollapsed = localStorage.getItem(localStorageKey) === 'true';
-
-const sideBarCollapsed = ref(isCollapsed);
-
-const handleCollapse = (collapsed: boolean) => {
-  sideBarCollapsed.value = collapsed;
-  localStorage.setItem(localStorageKey, String(collapsed));
-};
 </script>
 
 <template>
   <div class="container">
-    <Sidebar :collapsed="sideBarCollapsed" @collapse="handleCollapse">
-      <template #header>
-        <p>Awesome App</p>
-      </template>
-      <template #items>
-        <SidebarItem
-          v-for="item in items"
-          :key="item.label"
-          :label="item.label"
-          :active="item.active"
-          :icon="item.icon"
-        >
-          <template v-if="item.children">
-            <SidebarSubitem
-              v-for="subItem in item.children" :key="subItem.label"
-              :label="subItem.label"
-            />
-          </template>
-        </SidebarItem>
-      </template>
-      <template #lower-items>
-        <SidebarItem icon="i-youcan-gear" label="Settings" />
-      </template>
-    </Sidebar>
+    <MultiSwitch @option-change="handleOptionChange">
+      <SwitchButton
+        v-for="(option, index) in OPTIONS"
+        :key="option.label"
+        :model-value="option.value"
+        :label="option.label"
+        :icon="option.icon"
+        :active="activeOption === index"
+        :disabled="false"
+        @click="setActiveOption(index)"
+      />
+    </MultiSwitch>
+    <p>{{ OPTIONS[activeOption].value }}</p>
   </div>
 </template>
 
 <style scoped>
 .container {
-  /* direction: rtl; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 20px;
+}
+
+.selected-option {
+  margin: 10%;
 }
 </style>
