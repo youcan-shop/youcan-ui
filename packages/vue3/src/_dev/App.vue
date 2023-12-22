@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import 'uno.css';
 import '../assets/main.css';
+import { ref } from 'vue';
 import { RichText } from '~/components';
 const content = ref('');
 
