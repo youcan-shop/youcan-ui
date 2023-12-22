@@ -24,9 +24,9 @@ import InsertTable from './internal/Table.vue';
 import { TextStyleExtended } from './extensions/textstyle';
 import Colors from './internal/Colors/Color.vue';
 import handleDropEvent from './handleDrop';
-import Iframe from './extensions/iframe';
 import toolbar from './toolbar';
 import Indent from './extensions/indent';
+import iframe from './extensions/Iframe';
 
 const props = withDefaults(
   defineProps<{
@@ -78,7 +78,7 @@ const editor = useEditor({
     Link.configure({
       openOnClick: false,
     }),
-    Iframe,
+    iframe,
     Indent,
     Youtube.configure({
       controls: false,

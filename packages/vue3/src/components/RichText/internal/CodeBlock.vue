@@ -1,36 +1,27 @@
-<script>
+<script setup lang="ts">
+import { computed, onMounted, ref } from 'vue';
 import { NodeViewContent, NodeViewWrapper, nodeViewProps } from '@tiptap/vue-3';
 
-export default {
-  components: {
-    NodeViewWrapper,
-    NodeViewContent,
-  },
+const props = defineProps(nodeViewProps);
 
-  props: nodeViewProps,
-
-  data() {
-    return {
-      languages: this.extension.options.lowlight.listLanguages(),
-    };
+const languages = ref([]);
+const selectedLanguage = computed({
+  get() {
+    return props.node.attrs.language;
   },
-
-  computed: {
-    selectedLanguage: {
-      get() {
-        return this.node.attrs.language;
-      },
-      set(language) {
-        this.updateAttributes({ language });
-      },
-    },
+  set(language) {
+    props.updateAttributes({ language });
   },
-};
+});
+
+onMounted(() => {
+  languages.value = props.extension.options.lowlight.listLanguages();
+});
 </script>
 
 <template>
   <NodeViewWrapper class="code-block">
-    <select v-model="selectedLanguage" contenteditable="false" class="select-dropdown">
+    <select v-model="selectedLanguage" class="select-dropdown">
       <option :value="null">
         auto
       </option>
