@@ -67,7 +67,7 @@ onClickOutside(dropdownRef, () => {
 }
 
 .colors-dropdown {
-  position: fixed;
+  position: absolute;
   z-index: 999999;
   width: 250px;
   margin-top: 10px;
@@ -96,5 +96,13 @@ onClickOutside(dropdownRef, () => {
   height: 30px;
   border-radius: 4px;
   cursor: pointer;
+}
+
+@media screen and (width < 768px) {
+  .colors-dropdown {
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+  }
 }
 </style>

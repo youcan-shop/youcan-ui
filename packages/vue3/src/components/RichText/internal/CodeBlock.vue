@@ -52,7 +52,7 @@ export default {
 
 .select-dropdown {
   position: absolute;
-  z-index: 999999;
+  z-index: 10;
   top: 0.5rem;
   right: 0.5rem;
   width: 100px;

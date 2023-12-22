@@ -258,11 +258,11 @@ onMounted(() => {
 
 .tool-bar {
   display: flex;
+  position: relative;
+  flex-wrap: wrap;
   align-items: center;
   border: 1px solid var(--gray-200);
   justify-self: center;
-  overflow-x: auto;
-  overflow-y: hidden;
 }
 
 /* Change Icon color */

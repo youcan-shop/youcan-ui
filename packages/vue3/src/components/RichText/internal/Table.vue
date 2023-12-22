@@ -2,6 +2,7 @@
 import { ref } from 'vue';
 import { onClickOutside } from '@vueuse/core';
 import { Input, MultiSwitch, PrimaryButton, SecondaryButton, SwitchButton, TertiaryButton } from '~/components';
+import type { SwitchButtonDefinition } from '~/components/MultiSwitch/types';
 
 const emit = defineEmits(['insert', 'insertRow', 'insertColumn']);
 
@@ -123,8 +124,8 @@ const OPTIONS: SwitchButtonDefinition[] = [
 
 .table-dropdown {
   display: flex;
-  position: fixed;
-  z-index: 999999;
+  position: absolute;
+  z-index: 10;
   flex-direction: column;
   width: 250px;
   margin-top: 10px;
@@ -185,5 +186,13 @@ const OPTIONS: SwitchButtonDefinition[] = [
 
 .button-block button {
   width: 100%;
+}
+
+@media screen and (width < 768px) {
+  .table-dropdown {
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+  }
 }
 </style>

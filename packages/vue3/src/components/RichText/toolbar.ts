@@ -126,11 +126,6 @@ export default function (editor: ShallowRef<Editor | undefined>): Record<string,
       divider: true,
       action: () => editor.value?.commands.outdent(),
     },
-    emoji: {
-      tooltip: 'Insert emojis',
-      type: 'EmojiPicker',
-      icon: 'i-youcan-smiley-sticker',
-    },
     link: {
       tooltip: 'Insert link',
       type: 'TertiaryButton',
@@ -154,11 +149,6 @@ export default function (editor: ShallowRef<Editor | undefined>): Record<string,
       icon: 'i-youcan-minus',
       action: () => editor.value?.chain().focus().setHorizontalRule().run(),
     },
-    table: {
-      tooltip: 'Insert table',
-      type: 'table',
-      model: { rows: '2', cols: '2' },
-    },
     image: {
       tooltip: 'Insert image',
       type: 'TertiaryButton',
@@ -174,7 +164,6 @@ export default function (editor: ShallowRef<Editor | undefined>): Record<string,
       tooltip: 'Youtube video only',
       type: 'TertiaryButton',
       icon: 'i-youcan-video-camera',
-      divider: true,
       action: () => {
         const url = window.prompt('Enter Youtube URL');
 
@@ -184,6 +173,17 @@ export default function (editor: ShallowRef<Editor | undefined>): Record<string,
           });
         }
       },
+    },
+    emoji: {
+      tooltip: 'Insert emojis',
+      type: 'EmojiPicker',
+      icon: 'i-youcan-smiley-sticker',
+    },
+    table: {
+      tooltip: 'Insert table',
+      type: 'table',
+      divider: true,
+      model: { rows: '2', cols: '2' },
     },
     code: {
       tooltip: 'Code',
