@@ -28,6 +28,9 @@ const alertVariant = computed(() => {
     case 'info':
       classList += 'info-1';
       break;
+    case 'error':
+      classList += 'warning-circle';
+      break;
     default:
       classList += 'warning-circle';
       break;
@@ -82,7 +85,7 @@ onUnmounted(() => {
 
 <style scoped>
 .alert-block {
-  --border-color: var(--gray-500);
+  --border-left-color: var(--orange-500);
 
   display: flex;
   position: relative;
@@ -91,25 +94,36 @@ onUnmounted(() => {
   max-width: 100%;
   margin-bottom: 12px;
   padding: 12px;
-  border: 1px solid var(--gray-200);
-  border-left: 4px solid var(--border-color);
-  border-width: 0 0 0 1px;
+  overflow: hidden;
+  border-width: 1px 1px 1px 0;
+  border-style: solid;
   border-radius: 4px;
+  border-color: var(--gray-200);
   background-color: var(--base-white);
   box-shadow: var(--shadow-xs-gray);
   gap: 8px;
 }
 
-.alert-block.warning {
-  --border-color: var(--yellow-700);
+.alert-block::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background-color: var(--border-left-color);
 }
 
 .alert-block.success {
-  --border-color: var(--green-600);
+  --border-left-color: var(--green-600);
 }
 
 .alert-block.info {
-  --border-color: var(--blue-500);
+  --border-left-color: var(--blue-500);
+}
+
+.alert-block.error {
+  --border-left-color: var(--red-500);
 }
 
 .content-container {
@@ -131,10 +145,7 @@ onUnmounted(() => {
 .icon {
   width: 18px;
   height: 18px;
-}
-
-.icon.warning {
-  color: var(--yellow-700);
+  color: var(--orange-500);
 }
 
 .icon.success {
@@ -143,6 +154,10 @@ onUnmounted(() => {
 
 .icon.info {
   color: var(--blue-500);
+}
+
+.icon.error {
+  color: var(--red-500);
 }
 
 .close-button {
@@ -170,7 +185,11 @@ onUnmounted(() => {
   color: var(--blue-500);
 }
 
+.title.error {
+  color: var(--red-500);
+}
+
 .title.warning {
-  color: var(--yellow-700);
+  color: var(--orange-500);
 }
 </style>
