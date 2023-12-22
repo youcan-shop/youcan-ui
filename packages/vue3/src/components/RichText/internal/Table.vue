@@ -6,6 +6,9 @@ import type { SwitchButtonDefinition } from '~/components/MultiSwitch/types';
 
 const emit = defineEmits(['insert', 'insertRow', 'insertColumn']);
 
+const MAX_COLS = 20;
+const MAX_ROWS = 100;
+
 const rows = ref('');
 const cols = ref('');
 
@@ -76,8 +79,8 @@ const OPTIONS: SwitchButtonDefinition[] = [
           v-show="activeOption === 0"
           class="panel"
         >
-          <Input v-model="rows" type="number" placeholder="rows" />
-          <Input v-model="cols" type="number" placeholder="columns" />
+          <Input v-model="rows" :max="MAX_ROWS" type="number" placeholder="rows" />
+          <Input v-model="cols" :max="MAX_COLS" type="number" placeholder="columns" />
           <PrimaryButton @click="setModel()">
             <template #icon>
               <i class="i-youcan-plus" />

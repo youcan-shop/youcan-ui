@@ -17,10 +17,10 @@ const fontSizes: DropdownItemArray = (() => {
 })();
 
 const textAlignment = [
-  { icon: 'i-youcan-text-align-left', label: 'left', value: 'left' },
-  { icon: 'i-youcan-text-align-center', label: 'center', value: 'center' },
-  { icon: 'i-youcan-text-align-right', label: 'right', value: 'right' },
-  { icon: 'i-youcan-text-align-justify', label: 'justify', value: 'justify' },
+  { icon: 'i-youcan-text-align-left', label: 'Left', value: 'left' },
+  { icon: 'i-youcan-text-align-center', label: 'Center', value: 'center' },
+  { icon: 'i-youcan-text-align-right', label: 'Right', value: 'right' },
+  { icon: 'i-youcan-text-align-justify', label: 'Justify', value: 'justify' },
 ];
 
 const HeadingLevels = [
@@ -55,6 +55,25 @@ export default function (editor: ShallowRef<Editor | undefined>): Record<string,
       type: 'TertiaryButton',
       icon: 'i-youcan-text-strikethrough',
       action: () => editor.value?.chain().focus().toggleStrike().run(),
+    },
+    link: {
+      tooltip: 'Insert link',
+      type: 'TertiaryButton',
+      icon: 'i-youcan-link-simple',
+      action: () => {
+        const previousUrl = editor?.value?.getAttributes('link').href;
+        const url = window.prompt('URL', previousUrl);
+
+        if (url === null) {
+          return;
+        }
+
+        if (url === '') {
+          return editor?.value!.chain().focus().extendMarkRange('link').unsetLink().run();
+        }
+
+        editor?.value!.chain().focus().extendMarkRange('link').setLink({ href: url }).run();
+      },
     },
     color: {
       tooltip: 'Text color',
@@ -126,22 +145,11 @@ export default function (editor: ShallowRef<Editor | undefined>): Record<string,
       divider: true,
       action: () => editor.value?.commands.outdent(),
     },
-    link: {
-      tooltip: 'Insert link',
-      type: 'TertiaryButton',
-      icon: 'i-youcan-link-simple',
-      action: () => {
-        const previousUrl = editor?.value?.getAttributes('link').href;
-        const url = window.prompt('URL', previousUrl);
-
-        if (url === null) { return; }
-
-        if (url === '') {
-          return editor?.value!.chain().focus().extendMarkRange('link').unsetLink().run();
-        }
-
-        editor?.value!.chain().focus().extendMarkRange('link').setLink({ href: url }).run();
-      },
+    table: {
+      tooltip: 'Insert table',
+      type: 'table',
+      divider: true,
+      model: { rows: '2', cols: '2' },
     },
     hr: {
       tooltip: 'Insert divider',
@@ -173,17 +181,6 @@ export default function (editor: ShallowRef<Editor | undefined>): Record<string,
           });
         }
       },
-    },
-    emoji: {
-      tooltip: 'Insert emojis',
-      type: 'EmojiPicker',
-      icon: 'i-youcan-smiley-sticker',
-    },
-    table: {
-      tooltip: 'Insert table',
-      type: 'table',
-      divider: true,
-      model: { rows: '2', cols: '2' },
     },
     code: {
       tooltip: 'Code',

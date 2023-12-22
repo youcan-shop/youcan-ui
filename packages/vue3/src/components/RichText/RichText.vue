@@ -25,8 +25,6 @@ import { TextStyleExtended } from './extensions/textstyle';
 import Colors from './internal/Colors/Color.vue';
 import handleDropEvent from './handleDrop';
 import Iframe from './extensions/iframe';
-import EmojiPicker from './internal/Emojis/EmojiPicker.vue';
-import CharacterPicker from './internal/SpecialCharacters/CharacterPicker.vue';
 import toolbar from './toolbar';
 import Indent from './extensions/indent';
 
@@ -123,14 +121,6 @@ function insertColumn(position: string) {
   }
 }
 
-function insertEmoji(emoji: string) {
-  editor.value?.commands.insertContent(emoji);
-}
-
-function insertCharacter(character: string) {
-  editor.value?.commands.insertContent(character);
-}
-
 const _toolbar = toolbar(editor);
 
 // Update text size
@@ -165,15 +155,15 @@ const isFullScreen = ref(false);
 
 const toggleFullScreen = () => {
   const element = document.documentElement;
-  const requestFullScreen = element.requestFullscreen || element.mozRequestFullScreen || element.webkitRequestFullscreen || element.msRequestFullscreen;
-  const exitFullScreen = document.exitFullscreen || document.mozCancelFullScreen || document.webkitExitFullscreen || document.msExitFullscreen;
+  const requestFullScreen = element.requestFullscreen;
+  const exitFullScreen = document.exitFullscreen;
 
   (isFullScreen.value ? exitFullScreen : requestFullScreen)?.call(isFullScreen.value ? document : element);
   isFullScreen.value = !isFullScreen.value;
 };
 
 const handleFullScreenChange = () => {
-  isFullScreen.value = !!(document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement || document.msFullscreenElement);
+  isFullScreen.value = !!(document.fullscreenElement);
 };
 
 onMounted(() => {
@@ -227,16 +217,6 @@ onMounted(() => {
           >
             {{ el.label }}
           </SecondaryButton>
-          <EmojiPicker
-            v-if="el.type === 'EmojiPicker'"
-            :icon="el.icon"
-            @select="insertEmoji"
-          />
-          <CharacterPicker
-            v-if="el.type === 'CharacterPicker'"
-            :icon="el.icon"
-            @select="insertCharacter"
-          />
         </Tooltip>
         <div v-if="el.divider === true" class="divider" />
       </div>
@@ -286,6 +266,7 @@ onMounted(() => {
   gap: 8px;
 }
 
+/* stylelint-disable-next-line selector-class-pattern */
 .ProseMirror {
   /* stylelint-disable-line */
   height: 100%;
@@ -319,6 +300,7 @@ onMounted(() => {
       text-align: left;
     }
 
+    /* stylelint-disable-next-line selector-class-pattern */
     .selectedCell::after {
       /* stylelint-disable-line */
       content: "";
@@ -348,6 +330,7 @@ onMounted(() => {
   }
 }
 
+/* stylelint-disable-next-line selector-class-pattern */
 .tableWrapper {
   /* stylelint-disable-line */
   padding: 1rem 0;
@@ -389,9 +372,10 @@ pre {
     color: #f98181;
   }
 
+  /* stylelint-disable-next-line selector-class-pattern */
+  .hljs-built_in,
   .hljs-number,
   .hljs-meta,
-  .hljs-built_in,
   .hljs-builtin-name,
   .hljs-literal,
   .hljs-type,
