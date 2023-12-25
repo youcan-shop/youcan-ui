@@ -60,3 +60,5 @@ export { default as Code } from './Code/Code.vue';
 export { default as Divider } from './Divider/Divider.vue';
 export { default as Skeleton } from './Skeleton/Skeleton.vue';
 export { default as Spinner } from './Spinner/Spinner.vue';
+export { default as MultiSwitch } from './MultiSwitch/MultiSwitch.vue';
+export { default as SwitchButton } from './MultiSwitch/SwitchButton.vue';
