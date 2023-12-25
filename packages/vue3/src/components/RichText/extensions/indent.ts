@@ -170,7 +170,7 @@ export const Indent = Extension.create<IndentOptions>({
       },
     };
   },
-
+  // @ts-expect-error addKeyboardShortcuts should accept this
   addKeyboardShortcuts() {
     return {
       'Tab': () => this.editor.commands.indent(),
