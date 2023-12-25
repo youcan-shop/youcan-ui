@@ -67,6 +67,7 @@
     "@tiptap/pm": "2.1.13",
     "@tiptap/starter-kit": "2.1.13",
     "@tiptap/vue-3": "2.1.13",
+    "@types/prismjs": "^1.26.3",
     "lowlight": "^3.1.0",
     "prismjs": "^1.29.0",
     "vue-slicksort": "^2.0.5"
