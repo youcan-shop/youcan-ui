@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { Checkbox, Thumbnail } from '~/components';
-import type { Resource, ResourceProps } from '~/components/ResourcePicker/types';
+import type { ResourceProps } from '~/components/ResourcePicker/types';
 
 const props = withDefaults(defineProps<ResourceProps>(), {
   stockLabel: 'Stock',
@@ -17,13 +17,12 @@ const model = computed({
 });
 
 function handleCheck(e: Event) {
-  const res: Resource = { ...props.resource };
-  emit('change', e, res);
+  emit('change', e, props.resource);
 }
 </script>
 
 <template>
-  <Checkbox v-model="model" class="container" :class="!showThumbnail && 'variant'" :indeterminate="$props.indeterminate" @change.stop="handleCheck">
+  <Checkbox v-model="model" class="container" :class="!showThumbnail && 'variant'" :indeterminate="indeterminate" @change.stop="handleCheck">
     <template #label>
       <div class="content">
         <div class="info">

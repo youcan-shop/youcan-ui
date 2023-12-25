@@ -62,6 +62,8 @@ const handleClick = (_: Event, resource: Resource, parent: Resource) => {
   }
 
   if (resource.variants) {
+    console.log('Clicked on parent');
+
     resources.value?.forEach((parentResource) => {
       if (parentResource.id !== resource.id) {
         return;
