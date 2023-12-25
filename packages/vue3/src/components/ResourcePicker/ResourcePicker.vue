@@ -62,15 +62,13 @@ const handleClick = (_: Event, resource: Resource, parent: Resource) => {
   }
 
   if (resource.variants) {
-    console.log('Clicked on parent');
+    resource.isIndeterminate = false;
 
     resources.value?.forEach((parentResource) => {
       if (parentResource.id !== resource.id) {
         return;
       }
-
       parentResource.isChecked = resource.isChecked;
-      parentResource.isIndeterminate = resource.isIndeterminate;
       parentResource.variants?.forEach((variant) => {
         variant.isChecked = resource.isChecked;
       });
