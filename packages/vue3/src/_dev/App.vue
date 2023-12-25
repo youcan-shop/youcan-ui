@@ -113,11 +113,12 @@ const onSearch = (term: string) => {
   align-items: center;
   justify-content: center;
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   margin: 0 auto;
-  gap: 32px;
+  padding: 32px 0;
   /* stylelint-disable-next-line font-family-no-missing-generic-family-keyword */
   font-family: "Mona Sans";
+  gap: 32px;
 }
 
 .selection-container {

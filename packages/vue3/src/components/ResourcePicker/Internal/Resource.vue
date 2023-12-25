@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-
 import { Checkbox, Thumbnail } from '~/components';
 import type { Resource, ResourceProps } from '~/components/ResourcePicker/types';
 
@@ -10,7 +9,6 @@ const props = withDefaults(defineProps<ResourceProps>(), {
   showStock: false,
   showThumbnail: true,
 });
-
 const emit = defineEmits(['change', 'update:model-value']);
 
 const model = computed({
@@ -19,8 +17,7 @@ const model = computed({
 });
 
 function handleCheck(e: Event) {
-  const { isChecked, id, name, price, stock, thumbnailUrl, variants } = props.resource;
-  const res: Resource = { isChecked, id, name, price, stock, thumbnailUrl, variants };
+  const res: Resource = { ...props.resource };
   emit('change', e, res);
 }
 </script>

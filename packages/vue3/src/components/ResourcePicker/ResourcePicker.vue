@@ -15,7 +15,6 @@ const props = withDefaults(defineProps<PickerProps>(), {
   isLoading: true,
   emptyStateLabel: 'No resources available',
 });
-
 const emit = defineEmits(['update:visible', 'confirm', 'search']);
 
 const resources = ref(props.resources);
@@ -32,15 +31,15 @@ const closePicker = () => {
 };
 
 const handleAdd = () => {
-  const selectedResourcesWithVariants = selectedResources.value?.map((r) => {
-    if (r.variants) {
+  const selectedResourcesWithVariants = selectedResources.value?.map((resource) => {
+    if (resource.variants) {
       return {
-        ...r,
-        variants: r.variants.filter(v => v.isChecked),
+        ...resource,
+        variants: resource.variants.filter(variant => variant.isChecked),
       };
     }
 
-    return { ...r };
+    return { ...resource };
   });
 
   emit('confirm', selectedResourcesWithVariants);
@@ -58,25 +57,29 @@ const handleClick = (_: Event, resource: Resource, parent: Resource) => {
       parent.isChecked = areSomeVariantsSelected as boolean;
       parent.isIndeterminate = areSomeVariantsSelected;
     }
+
+    return;
   }
-  else { // clicked resource is a product
-    if (resource.variants) {
-      resources.value?.forEach((r) => {
-        if (r.id === resource.id) {
-          r.isChecked = resource.isChecked;
-          r.isIndeterminate = resource.isIndeterminate;
-          r.variants?.forEach((v) => {
-            v.isChecked = resource.isChecked;
-          });
-        }
+
+  if (resource.variants) {
+    resources.value?.forEach((parentResource) => {
+      if (parentResource.id !== resource.id) {
+        return;
+      }
+
+      parentResource.isChecked = resource.isChecked;
+      parentResource.isIndeterminate = resource.isIndeterminate;
+      parentResource.variants?.forEach((variant) => {
+        variant.isChecked = resource.isChecked;
       });
-    }
+    });
   }
 };
 
 const handleSearch = (e: Event) => {
   const { target } = e;
   const term = (target as HTMLButtonElement).value;
+
   emit('search', term);
 };
 </script>
