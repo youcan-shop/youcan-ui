@@ -1,42 +1,42 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue';
-import { NodeViewContent, NodeViewWrapper, nodeViewProps } from '@tiptap/vue-3';
+import type { NodeViewProps } from '@tiptap/vue-3';
+import { NodeViewContent, NodeViewWrapper } from '@tiptap/vue-3';
 
-const props = defineProps(nodeViewProps);
+import { ref, watch } from 'vue';
+import { Dropdown } from '~/components';
+import type { DropdownItemArray } from '~/components/Dropdown/types';
 
-const languages = ref([]);
-const selectedLanguage = computed({
-  get() {
-    return props.node.attrs.language;
-  },
-  set(language) {
-    props.updateAttributes({ language });
-  },
+const props = defineProps<NodeViewProps>();
+
+const selectedLanguage = ref({ label: props.node.attrs.language, value: props.node.attrs.language });
+
+watch(selectedLanguage, () => {
+  props.updateAttributes({ language: selectedLanguage.value.value });
 });
 
-onMounted(() => {
-  languages.value = props.extension.options.lowlight.listLanguages();
-});
+const _languages = props?.extension?.options.lowlight.listLanguages();
+
+const languages: DropdownItemArray = _languages.map((lang: string) => ({
+  label: lang,
+  value: lang,
+}));
 </script>
 
 <template>
   <NodeViewWrapper class="code-block">
-    <select v-model="selectedLanguage" class="select-dropdown">
-      <option :value="null">
-        auto
-      </option>
-      <option disabled>
-        —
-      </option>
-      <option v-for="(language, index) in languages" :key="index" :value="language">
-        {{ language }}
-      </option>
-    </select>
+    <div class="select-dropdown">
+      <Dropdown
+        v-model="selectedLanguage"
+        searchable
+        :items="languages"
+        placeholder="Language"
+      />
+    </div>
     <pre><code><NodeViewContent /></code></pre>
   </NodeViewWrapper>
 </template>
 
-  <style lang="scss">
+<style lang="scss">
 .code-block {
   position: relative;
 }
@@ -46,11 +46,18 @@ onMounted(() => {
   z-index: 10;
   top: 0.5rem;
   right: 0.5rem;
-  width: 100px;
-  height: 30px;
+  width: 140px;
   border: 1px solid var(--gray-200);
   border-radius: 4px;
   background-color: var(--base-white);
   box-shadow: var(--shadow-xs-gray);
 }
-  </style>
+
+.code-block pre {
+  min-height: 34px;
+}
+
+.searchable.dropdown-list .inner button {
+  text-transform: capitalize;
+}
+</style>
