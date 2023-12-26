@@ -1,49 +1,45 @@
 <script setup lang="ts">
 import 'uno.css';
 import '~/assets/main.css';
-import { ref, watch } from 'vue';
+import { ref } from 'vue';
 import { MultiSwitch } from '~/components';
 import type { SwitchButtonOption } from '~/components/MultiSwitch/types';
 
 const OPTIONS: SwitchButtonOption[] = [
   {
     label: 'Mobile',
-    icon: 'i-youcan:device-mobile',
     value: 1,
+    icon: 'i-youcan:device-mobile',
   },
   {
     label: 'Desktop',
-    icon: 'i-youcan:desktop',
     value: 2,
+    icon: 'i-youcan:desktop',
   },
   {
     label: 'Tablet',
-    icon: 'i-youcan:credit-card',
     value: 3,
+    icon: 'i-youcan:credit-card',
   },
   {
     label: 'Console',
-    icon: 'i-youcan:device-mobile',
     value: 4,
+    icon: 'i-youcan:device-mobile',
   },
   {
     label: 'VR',
-    icon: 'i-youcan:desktop',
     value: 5,
+    icon: 'i-youcan:desktop',
     disabled: true,
   },
   {
     label: 'TV',
-    icon: 'i-youcan:credit-card',
     value: 6,
+    icon: 'i-youcan:credit-card',
   },
 ];
 
 const activeOption = ref<SwitchButtonOption>(OPTIONS[0]);
-
-watch(activeOption, () => {
-  console.log(activeOption.value.label);
-});
 </script>
 
 <template>
@@ -59,10 +55,8 @@ watch(activeOption, () => {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100vw;
-  min-height: 100vh;
   margin: 0 auto;
-  padding: 32px 0;
+  padding: 32px;
   /* stylelint-disable-next-line font-family-no-missing-generic-family-keyword */
   font-family: "Mona Sans";
   gap: 32px;
