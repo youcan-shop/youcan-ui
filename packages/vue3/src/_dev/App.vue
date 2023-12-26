@@ -1,108 +1,55 @@
 <script setup lang="ts">
 import 'uno.css';
 import '~/assets/main.css';
-import { ref } from 'vue';
-import { PrimaryButton, ResourcePicker } from '~/components';
-import type { Resource } from '~/components/ResourcePicker/types';
+import { ref, watch } from 'vue';
+import { MultiSwitch } from '~/components';
+import type { SwitchButtonOption } from '~/components/MultiSwitch/types';
 
-const MOCK_RESOURCES: Resource[] = [
+const OPTIONS: SwitchButtonOption[] = [
   {
-    id: 1,
-    thumbnailUrl: '',
-    name: 'Apple MacBook Pro',
-    price: '$10.99',
-    stock: 99,
-    isChecked: false,
-    variants: [
-      {
-        id: 33,
-        thumbnailUrl: '',
-        name: 'Apple MacBook Pro 16 M3 Max',
-        price: '$10.99',
-        stock: 99,
-        isChecked: false,
-      },
-      {
-        id: 21,
-        thumbnailUrl: '',
-        name: 'Apple MacBook Pro 14 M3 Pro',
-        price: '$10.99',
-        stock: 99,
-        isChecked: false,
-      },
-    ],
+    label: 'Mobile',
+    icon: 'i-youcan:device-mobile',
+    value: 1,
   },
   {
-    id: 2,
-    thumbnailUrl: '',
-    name: 'Apple iMac',
-    price: '$10.99',
-    stock: 99,
-    isChecked: false,
+    label: 'Desktop',
+    icon: 'i-youcan:desktop',
+    value: 2,
   },
   {
-    id: 3,
-    thumbnailUrl: '',
-    name: 'Apple Watch',
-    price: '$10.99',
-    stock: 99,
-    isChecked: false,
+    label: 'Tablet',
+    icon: 'i-youcan:credit-card',
+    value: 3,
+  },
+  {
+    label: 'Console',
+    icon: 'i-youcan:device-mobile',
+    value: 4,
+  },
+  {
+    label: 'VR',
+    icon: 'i-youcan:desktop',
+    value: 5,
+    disabled: true,
+  },
+  {
+    label: 'TV',
+    icon: 'i-youcan:credit-card',
+    value: 6,
   },
 ];
 
-const showPicker = ref(false);
-const showLoadingPicker = ref(false);
-const showEmptyPicker = ref(false);
-const selectedResources = ref<Resource[]>([]);
+const activeOption = ref<SwitchButtonOption>(OPTIONS[0]);
 
-const onConfirm = (resources: Resource[]) => {
-  selectedResources.value = resources;
-  showPicker.value = false;
-};
-
-const onSearch = (term: string) => {
-  console.log('Search term:', term);
-};
+watch(activeOption, () => {
+  console.log(activeOption.value.label);
+});
 </script>
 
 <template>
   <div class="container">
-    <div class="picker">
-      <ResourcePicker
-        v-model:visible="showPicker"
-        :resources="MOCK_RESOURCES"
-        stock-label="in stock"
-        :is-loading="false"
-        @confirm="onConfirm"
-        @search="onSearch"
-      />
-      <PrimaryButton @click="showPicker = true;">
-        <span>Open Picker</span>
-      </PrimaryButton>
-    </div>
-    <div class="picker">
-      <ResourcePicker
-        v-model:visible="showLoadingPicker"
-        :is-loading="true"
-      />
-      <PrimaryButton @click="showLoadingPicker = true;">
-        <span>Open Loading Picker</span>
-      </PrimaryButton>
-    </div>
-    <div class="picker">
-      <ResourcePicker
-        v-model:visible="showEmptyPicker"
-        :resources="[]"
-        :is-loading="false"
-      />
-      <PrimaryButton @click="showEmptyPicker = true;">
-        <span>Open Empty Picker</span>
-      </PrimaryButton>
-    </div>
-    <div class="selection-container">
-      <p>Selected Resources:</p>
-      <pre>{{ selectedResources }}</pre>
-    </div>
+    <MultiSwitch v-model:selected-option="activeOption" :options="OPTIONS" />
+    <p>{{ activeOption.value }} : {{ activeOption.label }}</p>
   </div>
 </template>
 
