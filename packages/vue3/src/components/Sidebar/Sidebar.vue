@@ -21,7 +21,7 @@ const toggle = (override = !collapsed.value) => {
   <aside class="sidebar" :class="{ collapsed }">
     <div class="sidebar-header">
       <button class="item-icon" @click="() => toggle()">
-        <i class="i-youcan:arrow-line-down" />
+        <i class="i-youcan:list" />
       </button>
       <div class="item-label">
         <slot name="header" />
@@ -53,7 +53,7 @@ const toggle = (override = !collapsed.value) => {
   background-color: var(--gray-800);
 
   i {
-    color: var(--gray-400);
+    color: var(--gray-200);
   }
 
   &-header {
@@ -80,7 +80,6 @@ const toggle = (override = !collapsed.value) => {
       cursor: pointer;
 
       i {
-        transform: rotate(-90deg);
         transition: transform 0.25s ease-in-out;
       }
     }
@@ -174,7 +173,7 @@ const toggle = (override = !collapsed.value) => {
     .sidebar-header {
       .item-icon {
         i {
-          transform: rotate(90deg);
+          color: var(--gray-500);
         }
       }
     }
@@ -185,14 +184,6 @@ const toggle = (override = !collapsed.value) => {
 <style lang="scss">
 html[dir="rtl"] {
   .sidebar {
-    .sidebar-header {
-      .item-icon {
-        i {
-          transform: rotate(90deg);
-        }
-      }
-    }
-
     &.collapsed {
       .item-label,
       .subitem-text {
@@ -204,14 +195,6 @@ html[dir="rtl"] {
           right: 25px;
           left: unset;
           transform: translateX(50%);
-        }
-      }
-
-      .sidebar-header {
-        .item-icon {
-          i {
-            transform: rotate(-90deg);
-          }
         }
       }
     }
