@@ -36,22 +36,18 @@ onClickOutside(popover, () => {
   emit('update:show', false);
 });
 
-const handleClick = () => {
-  setPopoverPosition();
-};
-
-const checkPosition = () => {
+const handleScroll = () => {
   emit('update:show', false);
 };
 
 onMounted(() => {
-  window.addEventListener('scroll', checkPosition);
-  window.addEventListener('resize', checkPosition);
+  window.addEventListener('scroll', handleScroll);
+  window.addEventListener('resize', setPopoverPosition);
 });
 
 onUnmounted(() => {
-  window.removeEventListener('scroll', checkPosition);
-  window.removeEventListener('resize', checkPosition);
+  window.removeEventListener('scroll', handleScroll);
+  window.removeEventListener('resize', setPopoverPosition);
 });
 </script>
 
@@ -75,7 +71,7 @@ onUnmounted(() => {
         </div>
       </div>
     </Transition>
-    <div ref="element" @click="handleClick">
+    <div ref="element" @click="setPopoverPosition();">
       <slot />
     </div>
   </div>
