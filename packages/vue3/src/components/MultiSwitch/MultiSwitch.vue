@@ -1,19 +1,32 @@
 <script setup lang="ts">
 import { ref } from 'vue';
+import type { SwitchButtonOption } from './types';
+import SwitchButton from './SwitchButton.vue';
+
+const props = defineProps<{
+  options: SwitchButtonOption[]
+  selectedOption: SwitchButtonOption
+}>();
 
 const emit = defineEmits(['update:selectedOption']);
 
-const activeOption = ref(0);
+const activeOption = ref<SwitchButtonOption>(props.selectedOption);
 
-const setActiveOption = (id: number) => {
-  activeOption.value = id;
-  emit('update:selectedOption', id);
+const setActiveOption = (option: SwitchButtonOption) => {
+  activeOption.value = option;
+  emit('update:selectedOption', option);
 };
 </script>
 
 <template>
   <div class="list">
-    <slot :set-active-option="setActiveOption" />
+    <SwitchButton
+      v-for="(option) in options"
+      :key="option.value"
+      :option="option"
+      :active="activeOption?.value === option.value"
+      @click="setActiveOption(option)"
+    />
   </div>
 </template>
 
