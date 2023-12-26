@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import 'uno.css';
-import '../assets/main.css';
+import '~/assets/main.css';
 import { ref } from 'vue';
 import { Popover, PrimaryButton } from '~/components';
 const show = ref(false);

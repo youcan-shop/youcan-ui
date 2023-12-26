@@ -40,16 +40,18 @@ const handleClick = () => {
   setPopoverPosition();
 };
 
-const handleScroll = () => {
+const checkPosition = () => {
   emit('update:show', false);
 };
 
 onMounted(() => {
-  window.addEventListener('scroll', handleScroll);
+  window.addEventListener('scroll', checkPosition);
+  window.addEventListener('resize', checkPosition);
 });
 
 onUnmounted(() => {
-  window.removeEventListener('scroll', handleScroll);
+  window.removeEventListener('scroll', checkPosition);
+  window.removeEventListener('resize', checkPosition);
 });
 </script>
 
