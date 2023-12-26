@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import { onClickOutside } from '@vueuse/core';
 import { onMounted, onUnmounted, ref, useSlots } from 'vue';
-import { setPosition } from '../Tooltip/utils';
 import type { ObjectFit } from './types';
+import { setPosition } from '~/components/Tooltip/utils';
 const props = withDefaults(defineProps<{
   position?: 'left' | 'right' | 'top' | 'bottom'
   show?: boolean
