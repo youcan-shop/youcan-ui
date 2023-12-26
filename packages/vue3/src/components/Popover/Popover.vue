@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { onClickOutside } from '@vueuse/core';
-import { ref, useSlots } from 'vue';
+import { onMounted, onUnmounted, ref, useSlots } from 'vue';
+import { setPosition } from '../Tooltip/utils';
 import type { ObjectFit } from './types';
 const props = withDefaults(defineProps<{
   position?: 'left' | 'right' | 'top' | 'bottom'
@@ -11,32 +12,51 @@ const props = withDefaults(defineProps<{
   position: 'left',
   objectFit: 'cover',
 });
-const emit = defineEmits(['clickOutside']);
+const emit = defineEmits(['update:show']);
 
 const popover = ref();
+const element = ref();
+const popoverTrigger = ref();
+const top = ref('0px');
+const left = ref('0px');
+const currentPosition = ref('');
 
 const slots = useSlots();
 
-const transitionName = () => {
-  switch (props.position) {
-    case 'left':
-    case 'right':
-      return 'fade-hr';
-
-    default:
-      return 'fade-vr';
+const setPopoverPosition = () => {
+  if (popoverTrigger.value && element.value) {
+    const position = setPosition(popoverTrigger.value, element.value, props.position, 22);
+    top.value = `${position.top}px`;
+    left.value = `${position.left}px`;
+    currentPosition.value = position.currentPosition;
   }
 };
 
 onClickOutside(popover, () => {
-  emit('clickOutside');
+  emit('update:show', false);
+});
+
+const handleClick = () => {
+  setPopoverPosition();
+};
+
+const handleScroll = () => {
+  emit('update:show', false);
+};
+
+onMounted(() => {
+  window.addEventListener('scroll', handleScroll);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', handleScroll);
 });
 </script>
 
 <template>
   <div ref="popover" class="popover">
-    <Transition :name="transitionName()">
-      <div v-if="show" class="popover-trigger" :class="position">
+    <Transition name="fade">
+      <div v-if="show" ref="popoverTrigger" class="popover-trigger" :class="[currentPosition, { 'has-footer': slots.footer }]">
         <div class="content">
           <div v-if="imgSrc" class="image">
             <img :src="imgSrc">
@@ -53,7 +73,9 @@ onClickOutside(popover, () => {
         </div>
       </div>
     </Transition>
-    <slot />
+    <div ref="element" @click="handleClick">
+      <slot />
+    </div>
   </div>
 </template>
 
@@ -67,7 +89,10 @@ $caret-border: 1px solid var(--gray-300);
 
   &-trigger {
     display: flex;
-    position: absolute;
+    position: fixed;
+    z-index: 9999999999;
+    top: v-bind(top);
+    left: v-bind(left);
     flex-direction: column;
     width: 400px;
     max-width: calc(100vw - 40px);
@@ -138,16 +163,12 @@ $caret-border: 1px solid var(--gray-300);
 
     &.left,
     &.right {
-      top: -12px;
-
       &::after {
-        top: 24px;
+        top: calc(50% - calc($caret-size / 2));
       }
     }
 
     &.left {
-      right: calc(100% + $margin);
-
       &::after {
         left: calc(100% - calc($caret-size / 2));
         transform: rotate(45deg);
@@ -155,8 +176,6 @@ $caret-border: 1px solid var(--gray-300);
     }
 
     &.right {
-      left: calc(100% + $margin);
-
       &::after {
         right: calc(100% - calc($caret-size / 2));
         transform: rotate(-135deg);
@@ -165,27 +184,25 @@ $caret-border: 1px solid var(--gray-300);
 
     &.top,
     &.bottom {
-      left: 50%;
-      transform: translateX(-50%);
-
       &::after {
         left: calc(50% - calc($caret-size / 2));
       }
     }
 
     &.top {
-      bottom: calc(100% + $margin);
-
       &::after {
         top: calc(100% - calc($caret-size / 2));
         transform: rotate(135deg);
-        background-color: var(--gray-50);
+      }
+
+      &.has-footer {
+        &::after {
+          background-color: var(--gray-50);
+        }
       }
     }
 
     &.bottom {
-      top: calc(100% + $margin);
-
       &::after {
         bottom: calc(100% - calc($caret-size / 2));
         transform: rotate(-45deg);
@@ -194,15 +211,15 @@ $caret-border: 1px solid var(--gray-300);
   }
 }
 
-.fade-hr-enter-active {
-  animation: fade-hr 0.25s ease-in-out;
+.fade-enter-active {
+  animation: fade 0.25s ease-in-out;
 }
 
-.fade-hr-leave-active {
-  animation: fade-hr 0.25s reverse ease-in-out;
+.fade-leave-active {
+  animation: fade 0.25s reverse ease-in-out;
 }
 
-@keyframes fade-hr {
+@keyframes fade {
   0% {
     transform: scale(0.98);
     opacity: 0;
@@ -210,25 +227,6 @@ $caret-border: 1px solid var(--gray-300);
 
   100% {
     transform: scale(1);
-    opacity: 1;
-  }
-}
-
-.fade-vr-enter-active {
-  animation: fade-vr 0.25s ease-in-out;
-}
-
-.fade-vr-leave-active {
-  animation: fade-vr 0.25s reverse ease-in-out;
-}
-
-@keyframes fade-vr {
-  0% {
-    transform: scale(0.98) translateX(-50%);
-    opacity: 0;
-  }
-
-  100% {
     opacity: 1;
   }
 }
