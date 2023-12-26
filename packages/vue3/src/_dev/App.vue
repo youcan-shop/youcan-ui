@@ -2,38 +2,63 @@
 import 'uno.css';
 import '~/assets/main.css';
 import { ref } from 'vue';
-import { Popover, PrimaryButton } from '~/components';
-const show = ref(false);
+import { Sidebar, SidebarItem, SidebarSubitem } from '~/components';
+const items = [
+  {
+    label: 'Products',
+    active: true,
+    icon: 'i-youcan-tag',
+    children: [
+      { label: 'All Products' },
+      { label: 'Categories' },
+    ],
+  },
+  {
+    label: 'Insights',
+    active: false,
+    icon: 'i-youcan-chart-line',
+  },
+];
+const localStorageKey = 'sidebar-collapsed';
+const isCollapsed = localStorage.getItem(localStorageKey) === 'true';
+const sideBarCollapsed = ref(isCollapsed);
+const handleCollapse = (collapsed: boolean) => {
+  sideBarCollapsed.value = collapsed;
+  localStorage.setItem(localStorageKey, String(collapsed));
+};
 </script>
 
 <template>
   <div class="container">
-    <Popover
-      v-model:show="show"
-      position="right"
-      object-fit="contain"
-    >
-      <template #title>
-        Introducing Themes!
+    <Sidebar :collapsed="sideBarCollapsed" @collapse="handleCollapse">
+      <template #header>
+        <p>Awesome App</p>
       </template>
-      <template #description>
-        <p>
-          Introducing themes, a new way to make yourstore stand out and make it
-          more attractive towards your existing and potential clients.
-        </p>
+      <template #items>
+        <SidebarItem
+          v-for="item in items"
+          :key="item.label"
+          :label="item.label"
+          :active="item.active"
+          :icon="item.icon"
+        >
+          <template v-if="item.children">
+            <SidebarSubitem
+              v-for="subItem in item.children" :key="subItem.label"
+              :label="subItem.label"
+            />
+          </template>
+        </SidebarItem>
       </template>
-      <PrimaryButton @click="show = !show;">
-        <span>Show Popover</span>
-      </PrimaryButton>
-    </Popover>
+      <template #lower-items>
+        <SidebarItem icon="i-youcan-gear" label="Settings" />
+      </template>
+    </Sidebar>
   </div>
 </template>
 
 <style scoped>
 .container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
+  /* direction: rtl; */
 }
 </style>
