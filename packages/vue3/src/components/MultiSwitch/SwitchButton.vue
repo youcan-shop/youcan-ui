@@ -1,34 +1,30 @@
 <script setup lang="ts">
 import { defineEmits, defineProps } from 'vue';
+import type { SwitchButtonOption } from './types';
 
 const props = defineProps<{
-  modelValue?: string
-  label: string
-  icon?: string
   active?: boolean
-  disabled?: boolean
+  option: SwitchButtonOption
 }>();
 
-const emit = defineEmits(['update:modelValue']);
+const emit = defineEmits(['click']);
 
 const handleClick = () => {
-  if (!props.disabled) {
-    emit('update:modelValue', props.modelValue);
-  }
+  emit('click', props.option);
 };
 </script>
 
 <template>
   <button
-    :disabled="disabled || active"
     class="option"
-    :class="{ active, disabled }"
+    :class="{ active, disabled: option.disabled }"
+    :disabled="option.disabled || active"
     @click="handleClick"
   >
-    <i v-if="icon" :class="icon" />
-    <div v-if="label" class="label">
-      {{ props.label }}
-    </div>
+    <i v-if="option.icon" :class="option.icon" />
+    <span v-if="option.label" class="label">
+      {{ props.option.label }}
+    </span>
   </button>
 </template>
 
@@ -85,7 +81,8 @@ i {
   color: var(--red-500);
 }
 
-.option.disabled .label {
+.option.disabled .label,
+.option.disabled:not(.active) i {
   color: var(--gray-300);
 }
 

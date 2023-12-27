@@ -15,6 +15,14 @@ async function uploadImage(file: File): Promise<string> {
 </script>
 
 <template>
+  <Modal v-model:visible="showModal" confirm-icon="i-youcan:floppy-disk" @on-confirm="onConfirm">
+    <p>
+      Lorem ipsum dolor sit,
+      Lorem ipsum dolor sit,
+      Lorem ipsum dolor sit,
+      Lorem ipsum dolor sit,
+    </p>
+  </Modal>
   <div class="container">
     <RichText v-model="content" :upload-image-handler="uploadImage" />
   </div>
