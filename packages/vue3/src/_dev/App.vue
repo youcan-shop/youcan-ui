@@ -2,43 +2,79 @@
 import 'uno.css';
 import '../assets/main.css';
 import { ref } from 'vue';
-import Modal from '~/components/Modal/Modal.vue';
-import { PrimaryButton } from '~/components';
-const showModal = ref(false);
+import type { StaticStatusDefinition } from '~/components/Status/types';
+import { Dropdown, StaticStatus } from '~/components';
+const category = ref(null);
 
-const onConfirm = () => {
-  /*
-  * your code here
-  */
+const nameList = [
+  'Time', 'Past', 'Future', 'Dev',
+  'Fly', 'Flying', 'Soar', 'Soaring', 'Power', 'Falling',
+  'Fall', 'Jump', 'Cliff', 'Mountain', 'Rend', 'Red', 'Blue',
+  'Green', 'Yellow', 'Gold', 'Demon'];
+
+const fruits: StaticStatusDefinition[] = [
+  {
+    color: '#ffdecb',
+    label: '',
+    labelColor: '#35192b',
+  },
+  {
+    color: '#fffad2',
+    label: '',
+    labelColor: '#555022',
+  },
+  {
+    color: '#cbffd3',
+    label: '',
+    labelColor: '#2c4730',
+  },
+  {
+    color: '#EEAAAA',
+    label: '',
+    labelColor: '#7B1919',
+  },
+];
+
+const getStatus = (text: string): StaticStatusDefinition => {
+  const status = fruits[Math.floor(Math.random() * (fruits.length))];
+  status.label = text;
+
+  return status;
 };
+const items = Array.from({ length: 100 }, () => {
+  return {
+    label: nameList[Math.floor(Math.random() * (nameList.length - 1))],
+    value: Math.floor(Math.random() * 10000000),
+  };
+});
 </script>
 
 <template>
-  <Modal v-model:visible="showModal" confirm-icon="i-youcan:floppy-disk" @on-confirm="onConfirm">
-    <p>
-      Lorem ipsum dolor sit,
-      Lorem ipsum dolor sit,
-      Lorem ipsum dolor sit,
-      Lorem ipsum dolor sit,
-    </p>
-  </Modal>
-  <div class="container">
-    <PrimaryButton @click="showModal = true;">
-      <span>Show Modal</span>
-    </PrimaryButton>
+  <div class="dropdown-container">
+    <Dropdown
+      v-model="category"
+      searchable
+      :items="items"
+      placeholder="Select category"
+    >
+      <template #accessory="item">
+        <div class="status">
+          <StaticStatus :status="getStatus(item.label)" />
+        </div>
+      </template>
+    </Dropdown>
   </div>
 </template>
 
 <style scoped>
-.container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
+.dropdown-container {
+  width: 300px;
+  margin: 60px auto;
 }
 
-p {
-  margin: 0;
-  color: var(--gray-600);
+.status {
+  display: flex;
+  flex: 1;
+  justify-content: end;
 }
 </style>

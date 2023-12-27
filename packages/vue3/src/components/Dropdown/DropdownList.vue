@@ -70,7 +70,9 @@ function toggle(item: DropdownItemDefinition, value: boolean): void {
       <DropdownItem
         v-for="item in results" :key="item.value" :checkbox="multiple" :item="item"
         :selected="isSelected(item)" @toggle="(value:boolean) => toggle(item, value)"
-      />
+      >
+        <slot name="accessory" v-bind="item" />
+      </DropdownItem>
     </div>
 
     <!-- categorized items -->
@@ -83,7 +85,9 @@ function toggle(item: DropdownItemDefinition, value: boolean): void {
           <DropdownItem
             v-for="item in group" :key="item.value" :checkbox="multiple" :selected="isSelected(item)"
             :item="item" @toggle="(value:boolean) => toggle(item, value)"
-          />
+          >
+            <slot name="accessory" v-bind="item" />
+          </DropdownItem>
         </div>
       </div>
     </div>
