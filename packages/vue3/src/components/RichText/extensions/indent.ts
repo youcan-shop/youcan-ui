@@ -1,8 +1,7 @@
 /* eslint-disable max-statements-per-line */
-import type { Command } from '@tiptap/core';
 import { Extension } from '@tiptap/core';
-import type { Node } from '@tiptap/pm/model';
-import type { Transaction } from '@tiptap/pm/state';
+import type { Attrs, Mark, Node, NodeType } from '@tiptap/pm/model';
+import type { EditorState, Transaction } from '@tiptap/pm/state';
 import { AllSelection, TextSelection } from '@tiptap/pm/state';
 
 interface IndentOptions {
@@ -12,12 +11,24 @@ interface IndentOptions {
 }
 
 declare module '@tiptap/core' {
+  interface ExtendedCommandProps {
+    tr: ExtendedTransaction
+    state: EditorState
+    dispatch: ((args?: any) => any) | undefined
+  }
+  type ExtendedCommand = (props: ExtendedCommandProps) => boolean;
   interface Commands {
     indent: {
-      indent: () => Command
-      outdent: () => Command
+      indent: () => ExtendedCommand
+      outdent: () => ExtendedCommand
     }
   }
+}
+interface ExtendedTransaction extends Transaction {
+  doc: Node
+  setNodeMarkup: (pos: number, type: NodeType, attrs?: Attrs, marks?: readonly Mark[]) => ExtendedTransaction
+  docChanged: boolean
+
 }
 
 export function clamp(val: number, min: number, max: number): number {
@@ -57,7 +68,7 @@ export function isListNode(node: Node): boolean {
         || isTodoListNode(node);
 }
 
-function setNodeIndentMarkup(tr: Transaction, pos: number, delta: number): Transaction {
+function setNodeIndentMarkup(tr: ExtendedTransaction, pos: number, delta: number): ExtendedTransaction {
   if (!tr.doc) { return tr; }
 
   const node = tr.doc.nodeAt(pos);
@@ -82,7 +93,7 @@ function setNodeIndentMarkup(tr: Transaction, pos: number, delta: number): Trans
   return tr.setNodeMarkup(pos, node.type, nodeAttrs, node.marks);
 }
 
-function updateIndentLevel(tr: Transaction, delta: number): Transaction {
+function updateIndentLevel(tr: ExtendedTransaction, delta: number): ExtendedTransaction {
   const { doc, selection } = tr;
 
   if (!doc || !selection) { return tr; }
@@ -93,7 +104,7 @@ function updateIndentLevel(tr: Transaction, delta: number): Transaction {
 
   const { from, to } = selection;
 
-  doc.nodesBetween(from, to, (node, pos) => {
+  doc.nodesBetween(from, to, (node: Node, pos: number) => {
     const nodeType = node.type;
 
     if (nodeType.name === 'paragraph' || nodeType.name === 'heading') {

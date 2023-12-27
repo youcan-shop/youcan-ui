@@ -5,6 +5,62 @@ import type { ShallowRef } from 'vue';
 import { reactive } from 'vue';
 import type { DropdownItemArray } from '../Dropdown/types';
 
+declare module '@tiptap/core' {
+  interface Commands<ReturnType> {
+    Bold: {
+      toggleBold: () => ReturnType
+    }
+    link: {
+      unsetLink: () => ReturnType
+      setLink: (attributes: {
+        href: string
+        target?: string | null
+        rel?: string | null
+        class?: string | null
+      }) => ReturnType
+    }
+    Italic: {
+      toggleItalic: () => ReturnType
+    }
+    Underline: {
+      setUnderline: () => ReturnType
+    }
+    Strike: {
+      toggleStrike: () => ReturnType
+    }
+    OrderedList: {
+      toggleOrderedList: () => ReturnType
+    }
+    BulletList: {
+      toggleBulletList: () => ReturnType
+    }
+    history: {
+      undo: () => ReturnType
+      redo: () => ReturnType
+    }
+    horizontalRule: {
+      setHorizontalRule: () => ReturnType
+    }
+    image: {
+      setImage: (options: {
+        src: string
+        alt?: string
+        title?: string
+      }) => ReturnType
+    }
+    codeBlock: {
+      toggleCodeBlock: (attributes?: {
+        language: string
+      }) => ReturnType
+    }
+    embded: {
+      setYoutubeVideo: (options: {
+        src: string
+      }) => ReturnType
+    }
+  }
+}
+
 const fontSizes: DropdownItemArray = (() => {
   const _items = [];
   for (let i = 8; i < 100; i++) {
@@ -62,6 +118,7 @@ export default function (editor: ShallowRef<Editor | undefined>): Record<string,
       icon: 'i-youcan-link-simple',
       action: () => {
         const previousUrl = editor?.value?.getAttributes('link').href;
+        // eslint-disable-next-line no-alert
         const url = window.prompt('URL', previousUrl);
 
         if (url === null) {
@@ -162,6 +219,7 @@ export default function (editor: ShallowRef<Editor | undefined>): Record<string,
       type: 'TertiaryButton',
       icon: 'i-youcan-image',
       action: () => {
+        // eslint-disable-next-line no-alert
         const url = window.prompt('URL');
         if (url) {
           editor.value?.chain().focus().setImage({ src: url }).run();
@@ -173,10 +231,11 @@ export default function (editor: ShallowRef<Editor | undefined>): Record<string,
       type: 'TertiaryButton',
       icon: 'i-youcan-video-camera',
       action: () => {
+        // eslint-disable-next-line no-alert
         const url = window.prompt('Enter Youtube URL');
 
         if (url) {
-          editor.value?.commands.setYoutubeVideo({
+          editor.value?.chain().focus().setYoutubeVideo({
             src: url,
           });
         }
