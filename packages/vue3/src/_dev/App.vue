@@ -1,64 +1,44 @@
 <script setup lang="ts">
 import 'uno.css';
-import '~/assets/main.css';
+import '../assets/main.css';
 import { ref } from 'vue';
-import { Sidebar, SidebarItem, SidebarSubitem } from '~/components';
-const items = [
-  {
-    label: 'Products',
-    active: true,
-    icon: 'i-youcan-tag',
-    children: [
-      { label: 'All Products' },
-      { label: 'Categories' },
-    ],
-  },
-  {
-    label: 'Insights',
-    active: false,
-    icon: 'i-youcan-chart-line',
-  },
-];
-const localStorageKey = 'sidebar-collapsed';
-const isCollapsed = localStorage.getItem(localStorageKey) === 'true';
-const sideBarCollapsed = ref(isCollapsed);
-const handleCollapse = (collapsed: boolean) => {
-  sideBarCollapsed.value = collapsed;
-  localStorage.setItem(localStorageKey, String(collapsed));
+import Modal from '~/components/Modal/Modal.vue';
+import { PrimaryButton } from '~/components';
+const showModal = ref(false);
+
+const onConfirm = () => {
+  /*
+  * your code here
+  */
 };
 </script>
 
 <template>
+  <Modal v-model:visible="showModal" confirm-icon="i-youcan:floppy-disk" @on-confirm="onConfirm">
+    <p>
+      Lorem ipsum dolor sit,
+      Lorem ipsum dolor sit,
+      Lorem ipsum dolor sit,
+      Lorem ipsum dolor sit,
+    </p>
+  </Modal>
   <div class="container">
-    <Sidebar :collapsed="sideBarCollapsed" @collapse="handleCollapse">
-      <template #header>
-        <p>Awesome App</p>
-      </template>
-      <template #items>
-        <SidebarItem
-          v-for="item in items"
-          :key="item.label"
-          :label="item.label"
-          :active="item.active"
-          :icon="item.icon"
-        >
-          <template v-if="item.children">
-            <SidebarSubitem
-              v-for="subItem in item.children" :key="subItem.label"
-              :label="subItem.label"
-            />
-          </template>
-        </SidebarItem>
-      </template>
-      <template #lower-items>
-        <SidebarItem icon="i-youcan-gear" label="Settings" />
-      </template>
-    </Sidebar>
+    <PrimaryButton @click="showModal = true;">
+      <span>Show Modal</span>
+    </PrimaryButton>
   </div>
 </template>
 
 <style scoped>
 .container {
-  /* direction: rtl; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+p {
+  margin: 0;
+  color: var(--gray-600);
 }
 </style>
