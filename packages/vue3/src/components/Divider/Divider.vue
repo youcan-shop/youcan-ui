@@ -20,12 +20,16 @@ withDefaults(
 <style scoped lang="scss">
 .horizontal {
   width: 100%;
+  margin-top: 16px;
+  margin-bottom: 16px;
   border-width: 1px;
   border-color: var(--gray-100);
 }
 
 .vertical {
   height: 100%;
+  margin-left: 16px;
+  margin-right: 16px;
   border-width: 1px;
   border-color: var(--gray-100);
 }
