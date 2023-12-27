@@ -1,33 +1,45 @@
 <script setup lang="ts">
-import type { Orientation, Style } from './types';
+import type { Orientation, Style, Width } from './types';
 
 withDefaults(
   defineProps<{
     orientation?: Orientation
     borderStyle?: Style
+    width?: Width
   }>(),
   {
     orientation: 'horizontal',
     borderStyle: 'solid',
+    width: 'regular',
   },
 );
 </script>
 
 <template>
-  <div :class="[orientation, borderStyle]" />
+  <div :class="[orientation, borderStyle, width]" />
 </template>
 
 <style scoped lang="scss">
 .horizontal {
   width: 100%;
-  border-width: 1px;
   border-color: var(--gray-100);
 }
 
 .vertical {
   height: 100%;
-  border-width: 1px;
   border-color: var(--gray-100);
+}
+
+.light {
+  border-width: 1px;
+}
+
+.regular {
+  border-width: 2px;
+}
+
+.thick {
+  border-width: 4px;
 }
 
 .solid {
