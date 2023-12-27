@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, nextTick, ref, watch } from 'vue';
 import type { DropdownItemArray, DropdownItemDefinition, DropdownItemGroups } from './types';
 import DropdownItem from './Internal/DropdownItem.vue';
 import { searchHandler } from './helpers';
@@ -10,6 +10,7 @@ const props = withDefaults(
     items: DropdownItemArray | DropdownItemGroups
     searchable?: boolean
     multiple?: boolean
+    show?: boolean
     searchHandler?: (searchTerm: string, items?: DropdownItemArray | DropdownItemGroups) => void
   }>(),
   {
@@ -22,6 +23,7 @@ const props = withDefaults(
 const emit = defineEmits(['toggle', 'select']);
 
 const searchTerm = ref<string>('');
+const searchInput = ref();
 const search = computed<string>({
   get: () => searchTerm.value,
   set: (value: string) => {
@@ -54,15 +56,22 @@ function toggle(item: DropdownItemDefinition, value: boolean): void {
   if (props.multiple) {
     return emit('toggle', item, value);
   }
-
   value && emit('select', item);
 }
+
+watch(() => props.show, (newValue) => {
+  if (newValue && searchInput.value) {
+    nextTick(() => {
+      searchInput.value.focus();
+    });
+  }
+});
 </script>
 
 <template>
   <div :class="{ searchable }" class="dropdown-list">
     <div v-if="searchable" class="search">
-      <input v-model="search" type="text" placeholder="Search..">
+      <input ref="searchInput" v-model="search" type="text" placeholder="Search..">
     </div>
 
     <!-- item array -->

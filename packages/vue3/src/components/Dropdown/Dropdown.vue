@@ -60,6 +60,7 @@ const model = computed<DropdownItemDefinition | null>({
       <DropdownList
         :search-handler="searchHandler"
         v-bind="{ items, searchable, selected: modelValue, multiple: false }"
+        :show="showList"
         @select="(item:DropdownItemDefinition) => model = item"
       >
         <template v-if="slots.accessory" #accessory="item">
