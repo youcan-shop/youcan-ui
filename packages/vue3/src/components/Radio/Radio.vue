@@ -41,6 +41,7 @@ const id = Utils.uid('radio_');
 .label {
   color: var(--gray-900);
   font: var(--text-sm-regular);
+  cursor: pointer;
 }
 
 .trigger {
@@ -52,6 +53,7 @@ const id = Utils.uid('radio_');
   border-radius: 50%;
   background-color: var(--base-white);
   appearance: none;
+  cursor: pointer;
 }
 
 .trigger:hover {

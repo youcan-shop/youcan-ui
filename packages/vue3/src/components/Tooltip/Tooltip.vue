@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from 'vue';
-import { setTooltipPosition } from './utils';
+import { setPosition } from './utils';
 
 const props = withDefaults(defineProps<{
   label?: string
@@ -13,7 +13,8 @@ const tooltipTrigger = ref<HTMLElement >();
 const tooltip = ref<HTMLElement>();
 const tooltipPosition = () => {
   if (tooltipTrigger.value && tooltip.value) {
-    setTooltipPosition(tooltipTrigger.value, tooltip.value, props.position);
+    const { left, top } = setPosition(tooltipTrigger.value, tooltip.value, props.position);
+    tooltipTrigger.value?.setAttribute('style', `top:${top}px;left:${left}px`);
   }
 };
 
@@ -24,10 +25,12 @@ const handleScroll = () => {
 };
 
 const handleMouseEnter = () => {
+  tooltipTrigger.value?.classList.remove('tooltip-trigger-hide');
   tooltipPosition();
 };
 
 onMounted(() => {
+  tooltipTrigger.value?.classList.remove('tooltip-trigger-hide');
   tooltipPosition();
   window.addEventListener('scroll', handleScroll);
 });
