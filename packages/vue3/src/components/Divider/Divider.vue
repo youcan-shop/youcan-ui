@@ -19,12 +19,14 @@ withDefaults(
 
 <style scoped lang="scss">
 .horizontal {
+  max-height: 0;
   width: 100%;
   border-width: 1px;
   border-color: var(--gray-100);
 }
 
 .vertical {
+  max-width: 0;
   height: 100%;
   border-width: 1px;
   border-color: var(--gray-100);
