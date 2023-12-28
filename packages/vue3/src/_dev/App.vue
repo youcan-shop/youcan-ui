@@ -34,7 +34,7 @@ watch(attachments, () => {
         @delete="deleteFile(attachment)"
       />
     </div>
-    <MediaInput v-model="attachments" :limit="limit" :disabled="disabled" />
+    <MediaInput v-model="attachments" label="test" :limit="limit" :disabled="disabled" sub-label="test" highlighted-label="test 2" />
   </div>
 </template>
 
@@ -43,10 +43,11 @@ watch(attachments, () => {
   display: flex;
   position: relative;
   flex-direction: column;
+  position: relative;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 300px;
-  margin: 50px;
   min-height: 140px;
 }
 
