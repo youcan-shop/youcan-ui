@@ -10,7 +10,6 @@ withDefaults(
     roundedFull?: boolean
   }>(),
   {
-    type: 'button',
     size: 'md',
     iconPosition: 'left',
     roundedFull: false,
