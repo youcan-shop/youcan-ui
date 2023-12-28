@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, onMounted, onUnmounted, ref } from 'vue';
 import ResourceItem from './Internal/Resource.vue';
 import type { PickerProps, Resource } from './types';
 import { isEmptyArray } from './utils';
@@ -14,6 +14,7 @@ const props = withDefaults(defineProps<PickerProps>(), {
   cancelLabel: 'Cancel',
   isLoading: true,
   emptyStateLabel: 'No resources available',
+  resources: [],
 });
 const emit = defineEmits(['update:visible', 'confirm', 'search']);
 
@@ -82,6 +83,20 @@ const handleSearch = (e: Event) => {
 
   emit('search', term);
 };
+
+const handleKeypress = (event: KeyboardEvent) => {
+  if (props.visible && event.key === 'Escape') {
+    closePicker();
+  }
+};
+
+onMounted(() => {
+  window.addEventListener('keydown', handleKeypress);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('keydown', handleKeypress);
+});
 </script>
 
 <template>
@@ -98,7 +113,7 @@ const handleSearch = (e: Event) => {
           <Input v-model.trim="term" placeholder="Search" @input.stop="handleSearch" @keyup.enter.stop="handleSearch" />
         </div>
         <div v-if="isLoading" class="loading">
-          <Spinner label="" />
+          <Spinner v-if="isLoading" label="" />
         </div>
         <ul v-else-if="!isEmptyArray(resources)" class="list">
           <li v-for="resource in resources" :key="resource.id" class="resource">
