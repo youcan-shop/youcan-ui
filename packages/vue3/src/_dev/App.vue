@@ -43,6 +43,8 @@ watch(attachments, () => {
   display: flex;
   position: relative;
   flex-direction: column;
+  position: relative;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 300px;
