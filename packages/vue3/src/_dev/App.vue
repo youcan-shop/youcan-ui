@@ -9,8 +9,6 @@ const MOCK_RESOURCES: Resource[] = [
     id: 1,
     thumbnailUrl: '',
     name: 'Apple MacBook Pro',
-    price: '$10.99',
-    stock: 99,
     isChecked: false,
     variants: [
       {
@@ -25,7 +23,6 @@ const MOCK_RESOURCES: Resource[] = [
         id: 21,
         thumbnailUrl: '',
         name: 'Apple MacBook Pro 14 M3 Pro',
-        price: '$10.99',
         stock: 99,
         isChecked: false,
       },
