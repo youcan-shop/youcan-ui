@@ -8,7 +8,7 @@ const props = withDefaults(
     limit?: number
     disabled?: boolean
     label: string
-    subLabel: string
+    subLabel?: string
     highlightedLabel: string
   }>(),
   {
