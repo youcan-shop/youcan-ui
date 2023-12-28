@@ -48,8 +48,8 @@ function isSelected(item: DropdownItemDefinition): boolean {
   }
 
   return Array.isArray(props.selected)
-    ? !!props.selected.find(s => s.label === item.label)
-    : props.selected.label === item.label;
+    ? !!props.selected.find(s => s.value === item.value)
+    : props.selected.value === item.value;
 }
 
 function toggle(item: DropdownItemDefinition, value: boolean): void {
@@ -74,35 +74,37 @@ watch(() => props.show, (newValue) => {
       <input ref="searchInput" v-model="search" type="text" placeholder="Search..">
     </div>
 
-    <!-- item array -->
-    <div v-if="Array.isArray(results)" class="inner">
-      <DropdownItem
-        v-for="item in results" :key="item.value" :checkbox="multiple" :item="item"
-        :selected="isSelected(item)" @toggle="(value:boolean) => toggle(item, value)"
-      >
-        <slot name="accessory" v-bind="item" />
-      </DropdownItem>
-    </div>
+    <div class="inner">
+      <!-- item array -->
+      <template v-if="Array.isArray(results)">
+        <DropdownItem
+          v-for="item in results" :key="item.value" :checkbox="multiple" :item="item"
+          :selected="isSelected(item)" @toggle="(value:boolean) => toggle(item, value)"
+        >
+          <slot name="accessory" v-bind="item" />
+        </DropdownItem>
+      </template>
 
-    <!-- categorized items -->
-    <div v-else-if="Object.entries(results).length" class="inner">
-      <div v-for="[label, group] in Object.entries(results)" :key="label">
-        <div class="title">
-          {{ label }}
+      <!-- categorized items -->
+      <template v-else-if="Object.entries(results).length">
+        <div v-for="[label, group] in Object.entries(results)" :key="label">
+          <div class="title">
+            {{ label }}
+          </div>
+          <div class="array-list">
+            <DropdownItem
+              v-for="item in group" :key="item.value" :checkbox="multiple" :selected="isSelected(item)"
+              :item="item" @toggle="(value:boolean) => toggle(item, value)"
+            >
+              <slot name="accessory" v-bind="item" />
+            </DropdownItem>
+          </div>
         </div>
-        <div class="array-list">
-          <DropdownItem
-            v-for="item in group" :key="item.value" :checkbox="multiple" :selected="isSelected(item)"
-            :item="item" @toggle="(value:boolean) => toggle(item, value)"
-          >
-            <slot name="accessory" v-bind="item" />
-          </DropdownItem>
-        </div>
+      </template>
+
+      <div v-else class="no-results">
+        No results were found
       </div>
-    </div>
-
-    <div v-else class="no-results">
-      No results were found
     </div>
   </div>
 </template>
@@ -126,8 +128,28 @@ watch(() => props.show, (newValue) => {
   overflow-x: hidden;
   overflow-y: auto;
   border-radius: 8px;
+  box-shadow: var(--shadow-md-gray);
   text-overflow: ellipsis;
   white-space: nowrap;
+  scrollbar-width: thin;
+  scrollbar-color: var(--brand-500) transparent;
+
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 2px;
+    background-color: var(--brand-500);
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: var(--brand-500);
+  }
 }
 
 .dropdown-list.searchable {
@@ -147,7 +169,7 @@ watch(() => props.show, (newValue) => {
   width: 100%;
   padding: 10px 16px;
   border: none;
-  border-bottom: 1px solid var(--brand-500);
+  border-bottom: 1px solid var(--gray-200);
   outline: none;
   font: var(--text-sm-regular);
 }
