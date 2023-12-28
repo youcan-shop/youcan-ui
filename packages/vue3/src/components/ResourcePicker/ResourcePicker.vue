@@ -113,7 +113,7 @@ onUnmounted(() => {
           <Input v-model.trim="term" placeholder="Search" @input.stop="handleSearch" @keyup.enter.stop="handleSearch" />
         </div>
         <div v-if="isLoading" class="loading">
-          <Spinner v-if="isLoading" label="" />
+          <Spinner label="" />
         </div>
         <ul v-else-if="!isEmptyArray(resources)" class="list">
           <li v-for="resource in resources" :key="resource.id" class="resource">
