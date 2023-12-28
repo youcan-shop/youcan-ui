@@ -1,44 +1,58 @@
 <script setup lang="ts">
 import 'uno.css';
 import '../assets/main.css';
-import { ref } from 'vue';
-import Modal from '~/components/Modal/Modal.vue';
-import { PrimaryButton } from '~/components';
-const showModal = ref(false);
+import { ref, watch } from 'vue';
+import { MediaInput, UploadedMedia } from '~/components';
 
-const onConfirm = () => {
-  /*
-  * your code here
-  */
+const attachments = ref<File[]>([]);
+const disabled = ref(false);
+const limit = 4;
+
+const checkLimit = () => {
+  disabled.value = attachments.value.length >= limit;
 };
+
+const deleteFile = (file: File) => {
+  const idx = attachments.value.indexOf(file);
+  if (idx > -1) {
+    attachments.value.splice(idx, 1);
+    checkLimit();
+  }
+};
+watch(attachments, () => {
+  checkLimit();
+});
 </script>
 
 <template>
-  <Modal v-model:visible="showModal" confirm-icon="i-youcan:floppy-disk" @on-confirm="onConfirm">
-    <p>
-      Lorem ipsum dolor sit,
-      Lorem ipsum dolor sit,
-      Lorem ipsum dolor sit,
-      Lorem ipsum dolor sit,
-    </p>
-  </Modal>
   <div class="container">
-    <PrimaryButton @click="showModal = true;">
-      <span>Show Modal</span>
-    </PrimaryButton>
+    <div class="files-grid">
+      <UploadedMedia
+        v-for="(attachment, index) in attachments"
+        :key="index"
+        :file="attachment"
+        @delete="deleteFile(attachment)"
+      />
+    </div>
+    <MediaInput v-model="attachments" label="test" :limit="limit" :disabled="disabled" sub-label="test" highlighted-label="test 2" />
   </div>
 </template>
 
 <style scoped>
 .container {
   display: flex;
+  position: relative;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  width: 300px;
+  min-height: 140px;
 }
 
-p {
-  margin: 0;
-  color: var(--gray-600);
+.file-grid {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
 }
 </style>
