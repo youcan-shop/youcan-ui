@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import 'uno.css';
 import '../assets/main.css';
-import { ref } from 'vue';
-import { Table } from '~/components';
+import { computed, ref } from 'vue';
+import { PaginationBar, Table } from '~/components';
 import type { StaticStatusDefinition } from '~/components/Status/types';
 import type { TableActions, TableColumn, TableData } from '~/components/Table/types';
 
@@ -138,6 +138,22 @@ const handleSort = (column: TableColumn) => {
 const updateSelectedRows = (data: TableData[]) => {
   selectedRows.value = data;
 };
+
+const TOTAL = 50;
+const PER_PAGE = 5;
+const TOTAL_PAGES = Math.ceil(TOTAL / PER_PAGE);
+
+const currentPage = ref(2);
+
+const count = computed(() => {
+  const page = currentPage.value - 1;
+
+  return `${(PER_PAGE * page) + 1} - ${(PER_PAGE * page) + PER_PAGE}`;
+});
+
+function handlePaginationNavigation(pageNumber: number) {
+  currentPage.value = pageNumber;
+}
 </script>
 
 <template>
@@ -156,6 +172,13 @@ const updateSelectedRows = (data: TableData[]) => {
         <div> {{ row.row.domain.value }} | {{ row.row.branch.value }}</div>
       </template>
     </Table>
+    <PaginationBar
+      :current="currentPage"
+      :size="TOTAL_PAGES"
+      :count="count"
+      :total="TOTAL"
+      @update:current="handlePaginationNavigation"
+    />
   </div>
 </template>
 
