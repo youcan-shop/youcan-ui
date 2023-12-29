@@ -146,6 +146,7 @@ const updateSelectedRows = (data: TableData[]) => {
       :columns="columns"
       :data="data"
       :actions="actions"
+      actions-text="My actions"
       :selectable="true"
       :selected-rows="selectedRows"
       @sort="handleSort"

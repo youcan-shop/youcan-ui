@@ -5,13 +5,16 @@ import TableRow from './Internal/TableRow.vue';
 import type { TableActions, TableColumn, TableColumnValue, TableColumnValues, TableData, TableDataComposable, TableDataRow, TableInternalData } from './types';
 import Checkbox from '~/components/Checkbox/Checkbox.vue';
 
-const props = defineProps<{
+const props = withDefaults(defineProps<{
   columns: TableColumn[]
   data: TableData[]
   actions?: TableActions[]
   selectable?: boolean
   selectedRows?: TableData[]
-}>();
+  actionsText?: string
+}>(), {
+  actionsText: 'Actions',
+});
 
 const emit = defineEmits<{
   (event: 'sort', column: TableColumn, index: number): void
@@ -32,7 +35,7 @@ const tableColumns = computed(() => {
   ];
 
   if (props.actions && props.actions.length > 0) {
-    columns.push({ accessor: 'actions', label: 'Actions' });
+    columns.push({ accessor: 'actions', label: props.actionsText });
   }
 
   return columns.filter(column => column !== null) as TableColumn[];
