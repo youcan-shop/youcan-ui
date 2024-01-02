@@ -19,8 +19,8 @@ withDefaults(
 
 <style scoped lang="scss">
 .horizontal {
-  max-height: 0;
   width: 100%;
+  max-height: 0;
   border-width: 1px;
   border-color: var(--gray-100);
 }
