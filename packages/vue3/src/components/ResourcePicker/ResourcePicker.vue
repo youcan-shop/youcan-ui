@@ -25,11 +25,17 @@ const selectedResources = computed(() => {
   return selectedResources;
 });
 
+const shouldDisabledAddButton = computed(() => {
+  return props.isLoading || isEmptyArray(props.resources) || isEmptyArray(selectedResources.value);
+});
+
 const closePicker = () => {
+  term.value = '';
   emit('update:visible', false);
 };
 
 const handleAdd = () => {
+  term.value = '';
   const selectedResourcesWithVariants = selectedResources.value?.map((resource) => {
     if (resource.variants) {
       return {
@@ -146,7 +152,7 @@ onUnmounted(() => {
             <SecondaryButton @click="closePicker">
               <span>{{ cancelLabel }}</span>
             </SecondaryButton>
-            <PrimaryButton :disabled="isLoading || isEmptyArray(resources)" @click="handleAdd">
+            <PrimaryButton :disabled="shouldDisabledAddButton" @click="handleAdd">
               <span>{{ confirmLabel }}</span>
             </PrimaryButton>
           </div>
