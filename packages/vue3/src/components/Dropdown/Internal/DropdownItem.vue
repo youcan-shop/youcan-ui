@@ -35,6 +35,7 @@ function toggle(event: Event) {
     <div class="label">
       {{ item.label }}
     </div>
+    <slot />
   </button>
 </template>
 

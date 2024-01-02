@@ -13,7 +13,6 @@ import { Divider } from '~/components';
 <style scoped>
 .container {
   display: flex;
-  justify-content: center;
   width: 500px;
   height: 300px;
   margin: 20px;

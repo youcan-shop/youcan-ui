@@ -30,7 +30,7 @@ onMounted(() => {
     <div class="actions">
       <TertiaryButton
         tabindex="0" class="action toggle-preview" size="md" icon-position="only" :rounded-full="true"
-        @click="togglePreview(true)"
+        type="button" @click="togglePreview(true)"
       >
         <template #icon>
           <i class="i-youcan-eye" />
@@ -38,7 +38,7 @@ onMounted(() => {
       </TertiaryButton>
 
       <PrimaryDestructiveButton
-        tabindex="0" class="action" size="md" icon-position="only" :rounded-full="true"
+        tabindex="0" class="action" size="md" icon-position="only" :rounded-full="true" type="button"
         @click="emit('delete', file)"
       >
         <template #icon>
@@ -49,8 +49,10 @@ onMounted(() => {
 
     <Teleport v-if="previewing" to="body">
       <div class="popup">
-        <TertiaryButton tabindex="0" class="action" size="md" icon-position="only" :rounded-full="true"
-          @click="togglePreview(false)">
+        <TertiaryButton
+          tabindex="0" class="action" size="md" icon-position="only" :rounded-full="true"
+          type="button" @click="togglePreview(false)"
+        >
           <template #icon>
             <i class="i-youcan:x" />
           </template>
