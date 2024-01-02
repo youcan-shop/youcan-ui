@@ -4,7 +4,7 @@ import { Divider } from '~/components';
 
 <template>
   <div class="container">
-    <Divider width="light" />
+    <Divider thickness="light" />
   </div>
 </template>
 

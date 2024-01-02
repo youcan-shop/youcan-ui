@@ -1,22 +1,22 @@
 <script setup lang="ts">
-import type { Orientation, Style, Width } from './types';
+import type { Orientation, Style, Thickness } from './types';
 
 withDefaults(
   defineProps<{
     orientation?: Orientation
     borderStyle?: Style
-    width?: Width
+    thickness?: Thickness
   }>(),
   {
     orientation: 'horizontal',
     borderStyle: 'solid',
-    width: 'regular',
+    thickness: 'regular',
   },
 );
 </script>
 
 <template>
-  <div :class="[orientation, borderStyle, width]" />
+  <div :class="[orientation, borderStyle, thickness]" />
 </template>
 
 <style scoped lang="scss">
