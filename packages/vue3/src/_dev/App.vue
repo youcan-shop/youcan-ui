@@ -6,7 +6,7 @@ import { Divider } from '~/components';
 
 <template>
   <div class="container">
-    <Divider thickness="light" />
+    <Divider orientation="vertical" />
   </div>
 </template>
 

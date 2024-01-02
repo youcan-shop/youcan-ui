@@ -14,6 +14,7 @@ const props = withDefaults(defineProps<PickerProps>(), {
   cancelLabel: 'Cancel',
   isLoading: true,
   emptyStateLabel: 'No resources available',
+  searchPlaceholder: 'Search',
 });
 const emit = defineEmits(['update:visible', 'confirm', 'search']);
 
@@ -114,7 +115,7 @@ onUnmounted(() => {
           </TertiaryButton>
         </div>
         <div class="search">
-          <Input v-model.trim="term" placeholder="Search" @input.stop="handleSearch" @keyup.enter.stop="handleSearch" />
+          <Input v-model.trim="term" :placeholder="searchPlaceholder" @input.stop="handleSearch" @keyup.enter.stop="handleSearch" />
         </div>
         <div v-if="isLoading" class="loading">
           <Spinner label="" />
