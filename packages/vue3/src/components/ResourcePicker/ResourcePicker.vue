@@ -30,10 +30,12 @@ const shouldDisabledAddButton = computed(() => {
 });
 
 const closePicker = () => {
+  term.value = '';
   emit('update:visible', false);
 };
 
 const handleAdd = () => {
+  term.value = '';
   const selectedResourcesWithVariants = selectedResources.value?.map((resource) => {
     if (resource.variants) {
       return {
