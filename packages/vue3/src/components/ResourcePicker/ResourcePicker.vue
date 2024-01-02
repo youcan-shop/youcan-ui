@@ -25,7 +25,7 @@ const selectedResources = computed(() => {
   return selectedResources;
 });
 
-const canAddResources = computed(() => {
+const shouldDisabledAddButton = computed(() => {
   return props.isLoading || isEmptyArray(props.resources) || isEmptyArray(selectedResources.value);
 });
 
@@ -150,7 +150,7 @@ onUnmounted(() => {
             <SecondaryButton @click="closePicker">
               <span>{{ cancelLabel }}</span>
             </SecondaryButton>
-            <PrimaryButton :disabled="canAddResources" @click="handleAdd">
+            <PrimaryButton :disabled="shouldDisabledAddButton" @click="handleAdd">
               <span>{{ confirmLabel }}</span>
             </PrimaryButton>
           </div>
