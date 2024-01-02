@@ -34,4 +34,5 @@ export interface PickerProps {
   cancelLabel?: string
   isLoading?: boolean
   emptyStateLabel?: string
+  searchPlaceholder?: string
 }
