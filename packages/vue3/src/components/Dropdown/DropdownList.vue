@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, nextTick, ref, watch } from 'vue';
 import type { DropdownItemArray, DropdownItemDefinition, DropdownItemGroups } from './types';
 import DropdownItem from './Internal/DropdownItem.vue';
 import { searchHandler } from './helpers';
@@ -10,6 +10,7 @@ const props = withDefaults(
     items: DropdownItemArray | DropdownItemGroups
     searchable?: boolean
     multiple?: boolean
+    show?: boolean
     searchHandler?: (searchTerm: string, items?: DropdownItemArray | DropdownItemGroups) => void
   }>(),
   {
@@ -22,6 +23,7 @@ const props = withDefaults(
 const emit = defineEmits(['toggle', 'select']);
 
 const searchTerm = ref<string>('');
+const searchInput = ref();
 const search = computed<string>({
   get: () => searchTerm.value,
   set: (value: string) => {
@@ -46,50 +48,63 @@ function isSelected(item: DropdownItemDefinition): boolean {
   }
 
   return Array.isArray(props.selected)
-    ? !!props.selected.find(s => s.label === item.label)
-    : props.selected.label === item.label;
+    ? !!props.selected.find(s => s.value === item.value)
+    : props.selected.value === item.value;
 }
 
 function toggle(item: DropdownItemDefinition, value: boolean): void {
   if (props.multiple) {
     return emit('toggle', item, value);
   }
-
   value && emit('select', item);
 }
+
+watch(() => props.show, (newValue) => {
+  if (newValue && searchInput.value) {
+    nextTick(() => {
+      searchInput.value.focus();
+    });
+  }
+});
 </script>
 
 <template>
   <div :class="{ searchable }" class="dropdown-list">
     <div v-if="searchable" class="search">
-      <input v-model="search" type="text" placeholder="Search..">
+      <input ref="searchInput" v-model="search" type="text" placeholder="Search..">
     </div>
 
-    <!-- item array -->
-    <div v-if="Array.isArray(results)" class="inner">
-      <DropdownItem
-        v-for="item in results" :key="item.value" :checkbox="multiple" :item="item"
-        :selected="isSelected(item)" @toggle="(value:boolean) => toggle(item, value)"
-      />
-    </div>
+    <div class="inner">
+      <!-- item array -->
+      <template v-if="Array.isArray(results)">
+        <DropdownItem
+          v-for="item in results" :key="item.value" :checkbox="multiple" :item="item"
+          :selected="isSelected(item)" @toggle="(value:boolean) => toggle(item, value)"
+        >
+          <slot name="accessory" v-bind="item" />
+        </DropdownItem>
+      </template>
 
-    <!-- categorized items -->
-    <div v-else-if="Object.entries(results).length" class="inner">
-      <div v-for="[label, group] in Object.entries(results)" :key="label">
-        <div class="title">
-          {{ label }}
+      <!-- categorized items -->
+      <template v-else-if="Object.entries(results).length">
+        <div v-for="[label, group] in Object.entries(results)" :key="label">
+          <div class="title">
+            {{ label }}
+          </div>
+          <div class="array-list">
+            <DropdownItem
+              v-for="item in group" :key="item.value" :checkbox="multiple" :selected="isSelected(item)"
+              :item="item" @toggle="(value:boolean) => toggle(item, value)"
+            >
+              <slot name="accessory" v-bind="item" />
+            </DropdownItem>
+          </div>
         </div>
-        <div class="array-list">
-          <DropdownItem
-            v-for="item in group" :key="item.value" :checkbox="multiple" :selected="isSelected(item)"
-            :item="item" @toggle="(value:boolean) => toggle(item, value)"
-          />
-        </div>
+      </template>
+
+      <div v-else class="no-results">
+        No results were found
       </div>
-    </div>
-
-    <div v-else class="no-results">
-      No results were found
     </div>
   </div>
 </template>
@@ -113,8 +128,28 @@ function toggle(item: DropdownItemDefinition, value: boolean): void {
   overflow-x: hidden;
   overflow-y: auto;
   border-radius: 8px;
+  box-shadow: var(--shadow-md-gray);
   text-overflow: ellipsis;
   white-space: nowrap;
+  scrollbar-width: thin;
+  scrollbar-color: var(--brand-500) transparent;
+
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 2px;
+    background-color: var(--brand-500);
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: var(--brand-500);
+  }
 }
 
 .dropdown-list.searchable {
@@ -134,7 +169,7 @@ function toggle(item: DropdownItemDefinition, value: boolean): void {
   width: 100%;
   padding: 10px 16px;
   border: none;
-  border-bottom: 1px solid var(--brand-500);
+  border-bottom: 1px solid var(--gray-200);
   outline: none;
   font: var(--text-sm-regular);
 }

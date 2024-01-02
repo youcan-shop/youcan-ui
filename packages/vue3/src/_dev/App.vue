@@ -9,15 +9,17 @@ import { Divider } from '~/components';
 </template>
 
 <style scoped>
-.container {
+.dropdown-container {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
+  flex-direction: column;
+  width: 300px;
+  margin: 60px auto;
+  row-gap: 60px;
 }
 
-p {
-  margin: 0;
-  color: var(--gray-600);
+.status {
+  display: flex;
+  flex: 1;
+  justify-content: end;
 }
 </style>

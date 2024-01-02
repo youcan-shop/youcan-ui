@@ -4,14 +4,14 @@ import NavigationButton from './Internal/NavigationButton.vue';
 import SecondaryButton from '~/components/Button/SecondaryButton.vue';
 
 const props = withDefaults(defineProps<{
-  count: number
+  count: number | string
   total: number
   current: number
   size: number
-  hidePerPage: boolean
+  hidePerPage?: boolean
   previousLabel?: string
   nextLabel?: string
-  perPageLabel: string
+  perPageLabel?: string
 }>(), {
   hidePerPage: false,
   previousLabel: 'Previous',
@@ -23,8 +23,15 @@ const emit = defineEmits<{
   (event: 'update:current', value: number): void
 }>();
 
+const variables: Array<string> = ['count', 'total'];
+
 const formattedPerPageLabel = computed(() => {
-  return props.perPageLabel.replace(':count', `${props.count}`).replace(':total', `${props.total}`);
+  let text = props.perPageLabel;
+  for (const variable of variables) {
+    text = text.replace(`:${variable}`, `${props[variable as keyof typeof props]}`);
+  }
+
+  return text;
 });
 
 const handlePaginationButtons = computed(() => {

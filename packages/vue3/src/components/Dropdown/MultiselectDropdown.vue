@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, useSlots } from 'vue';
 import { Utils } from '@youcan/ui-core';
 import { onClickOutside } from '@vueuse/core';
 import { Badge } from '..';
@@ -18,6 +18,8 @@ const props = withDefaults(
 );
 
 const emit = defineEmits(['update:modelValue']);
+
+const slots = useSlots();
 
 const list = ref();
 const button = ref();
@@ -59,7 +61,11 @@ function toggle(item: DropdownItemDefinition, value: boolean): void {
       <DropdownList
         class="dropdown-list" v-bind="{ items, selected: modelValue, searchable, multiple: true }"
         @toggle="toggle"
-      />
+      >
+        <template v-if="slots.accessory" #accessory="item">
+          <slot name="accessory" v-bind="item" />
+        </template>
+      </DropdownList>
     </div>
   </div>
 </template>
