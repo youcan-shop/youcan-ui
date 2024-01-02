@@ -14,15 +14,13 @@ const props = withDefaults(defineProps<PickerProps>(), {
   cancelLabel: 'Cancel',
   isLoading: true,
   emptyStateLabel: 'No resources available',
-  resources: [],
 });
 const emit = defineEmits(['update:visible', 'confirm', 'search']);
 
-const resources = ref(props.resources);
 const term = ref('');
 
 const selectedResources = computed(() => {
-  const selectedResources = resources.value?.filter(res => res.isChecked || res.isIndeterminate);
+  const selectedResources = props.resources?.filter(res => res.isChecked || res.isIndeterminate);
 
   return selectedResources;
 });
@@ -65,7 +63,7 @@ const handleClick = (_: Event, resource: Resource, parent: Resource) => {
   if (resource.variants) {
     resource.isIndeterminate = false;
 
-    resources.value?.forEach((parentResource) => {
+    props.resources?.forEach((parentResource) => {
       if (parentResource.id !== resource.id) {
         return;
       }
