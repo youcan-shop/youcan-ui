@@ -23,12 +23,16 @@ withDefaults(
 .horizontal {
   width: 100%;
   max-height: 0;
+  margin-top: 16px;
+  margin-bottom: 16px;
   border-color: var(--gray-100);
 }
 
 .vertical {
   max-width: 0;
   height: 100%;
+  margin-right: 16px;
+  margin-left: 16px;
   border-color: var(--gray-100);
 }
 
