@@ -18,6 +18,9 @@
       ],
       "dev/*": [
         "src/dev/*"
+      ],
+      "@tiptap/core": [
+        "node_modules/@tiptap/core/src/index"
       ]
     }
   },

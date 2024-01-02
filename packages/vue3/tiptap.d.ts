@@ -1,0 +1,1 @@
+declare module '@tiptap/vue-3'
