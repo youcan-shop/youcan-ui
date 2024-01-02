@@ -28,8 +28,8 @@ withDefaults(
 
 .vertical {
   height: 100%;
-  margin-left: 16px;
   margin-right: 16px;
+  margin-left: 16px;
   border-width: 1px;
   border-color: var(--gray-100);
 }
