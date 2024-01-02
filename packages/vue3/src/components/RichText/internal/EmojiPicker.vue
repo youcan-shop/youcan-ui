@@ -30,7 +30,7 @@ const setEmoji = (emoji: string) => {
   model.value = emoji;
 };
 
-const toggleDropdown = (show = !showDropdown.value) => (showDropdown.value = show);
+const toggleDropdown = (show = !showDropdown.value) => showDropdown.value = show;
 
 onClickOutside(dropdownRef, () => {
   toggleDropdown(false);
@@ -41,17 +41,14 @@ onClickOutside(dropdownRef, () => {
   <div class="input-emoji">
     <TertiaryButton size="sm" icon-position="only" @click="toggleDropdown()">
       <template #icon>
-        <i :class="icon" />
+        <i
+          :class="icon"
+        />
       </template>
     </TertiaryButton>
     <div v-show="showDropdown" ref="dropdownRef" class="emojis-dropdown">
       <ul class="emojis">
-        <li
-          v-for="(emoji, i) in emojis"
-          :key="i"
-          class="emoji"
-          @click="setEmoji(emoji)"
-        >
+        <li v-for="(emoji, i) in emojis" :key="i" class="emoji" @click="setEmoji(emoji)">
           {{ emoji }}
         </li>
       </ul>
@@ -66,8 +63,8 @@ onClickOutside(dropdownRef, () => {
 
 .emojis-dropdown {
   position: absolute;
-  z-index: 10;
-  width: 250px;
+  z-index: 999999;
+  width: 200px;
   height: 200px;
   margin-top: 10px;
   padding: 12px;
@@ -96,13 +93,5 @@ onClickOutside(dropdownRef, () => {
 .emojis .emoji {
   font-size: 18px;
   cursor: pointer;
-}
-
-@media screen and (width < 768px) {
-  .emojis-dropdown {
-    position: fixed;
-    left: 50%;
-    transform: translateX(-50%);
-  }
 }
 </style>

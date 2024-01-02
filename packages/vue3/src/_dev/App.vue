@@ -1,33 +1,20 @@
 <script setup lang="ts">
 import 'uno.css';
 import '../assets/main.css';
-import { ref } from 'vue';
-import { RichText } from '~/components';
-const content = ref('');
-
-async function uploadImage(file: File): Promise<string> {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve('https://placeholder.com/assets/images/150x150-2-500x500.png');
-    }, 2000);
-  });
-}
+import { Divider } from '~/components';
 </script>
 
 <template>
   <div class="container">
-    <RichText v-model="content" :upload-image-handler="uploadImage" />
+    <Divider orientation="vertical" />
   </div>
 </template>
 
 <style scoped>
 .container {
   display: flex;
-  height: 90vh;
+  width: 500px;
+  height: 300px;
   margin: 20px;
-}
-
-.selected-option {
-  margin: 10%;
 }
 </style>

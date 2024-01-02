@@ -23,19 +23,15 @@ export default function (view: EditorView, event: DragEvent, slice: unknown, mov
       }
       else {
         const src = await uploadImage(file);
-        if (src) {
-          const { schema } = view.state;
-          const coordinates = view.posAtCoords({ left: event.clientX, top: event.clientY })!;
-          const node = schema.nodes.image.create({ src });
-          const transaction = view.state.tr.insert(coordinates.pos, node);
+        if (!src) { return alert('failed to update the image'); }
 
-          return view.dispatch(transaction);
-        }
-
-        return alert('failed to update the image');
+        const { schema } = view.state;
+        const coordinates = view.posAtCoords({ left: event.clientX, top: event.clientY })!;
+        const node = schema.nodes.image.create({ src });
+        const transaction = view.state.tr.insert(coordinates.pos, node);
+        return view.dispatch(transaction);
       }
     };
-
     return true;
   }
 
