@@ -14,6 +14,7 @@ const props = withDefaults(defineProps<PickerProps>(), {
   cancelLabel: 'Cancel',
   isLoading: true,
   emptyStateLabel: 'No resources available',
+  searchPlaceholder: 'Search',
 });
 const emit = defineEmits(['update:visible', 'confirm', 'search']);
 
@@ -25,11 +26,17 @@ const selectedResources = computed(() => {
   return selectedResources;
 });
 
+const shouldDisabledAddButton = computed(() => {
+  return props.isLoading || isEmptyArray(props.resources) || isEmptyArray(selectedResources.value);
+});
+
 const closePicker = () => {
+  term.value = '';
   emit('update:visible', false);
 };
 
 const handleAdd = () => {
+  term.value = '';
   const selectedResourcesWithVariants = selectedResources.value?.map((resource) => {
     if (resource.variants) {
       return {
@@ -108,7 +115,7 @@ onUnmounted(() => {
           </TertiaryButton>
         </div>
         <div class="search">
-          <Input v-model.trim="term" placeholder="Search" @input.stop="handleSearch" @keyup.enter.stop="handleSearch" />
+          <Input v-model.trim="term" :placeholder="searchPlaceholder" @input.stop="handleSearch" @keyup.enter.stop="handleSearch" />
         </div>
         <div v-if="isLoading" class="loading">
           <Spinner label="" />
@@ -146,7 +153,7 @@ onUnmounted(() => {
             <SecondaryButton @click="closePicker">
               <span>{{ cancelLabel }}</span>
             </SecondaryButton>
-            <PrimaryButton :disabled="isLoading || isEmptyArray(resources)" @click="handleAdd">
+            <PrimaryButton :disabled="shouldDisabledAddButton" @click="handleAdd">
               <span>{{ confirmLabel }}</span>
             </PrimaryButton>
           </div>

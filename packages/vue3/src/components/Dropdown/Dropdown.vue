@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, ref, useSlots } from 'vue';
 import { onClickOutside } from '@vueuse/core';
 import type { DropdownItemArray, DropdownItemDefinition, DropdownItemGroups } from './types';
 import DropdownList from './DropdownList.vue';
@@ -19,6 +19,8 @@ const props = withDefaults(
 );
 
 const emit = defineEmits(['update:modelValue']);
+
+const slots = useSlots();
 
 const list = ref();
 const button = ref();
@@ -58,8 +60,13 @@ const model = computed<DropdownItemDefinition | null>({
       <DropdownList
         :search-handler="searchHandler"
         v-bind="{ items, searchable, selected: modelValue, multiple: false }"
+        :show="showList"
         @select="(item:DropdownItemDefinition) => model = item"
-      />
+      >
+        <template v-if="slots.accessory" #accessory="item">
+          <slot name="accessory" v-bind="item" />
+        </template>
+      </DropdownList>
     </div>
   </div>
 </template>
