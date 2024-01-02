@@ -18,3 +18,6 @@ export type DropdownItemDefinition<T = any> = DropdownItemWithIcon<T> | Dropdown
 export type DropdownItemArray<T = any> = DropdownItemDefinition<T>[];
 
 export type DropdownItemGroups<T = any> = Record<string, DropdownItemArray<T>>;
+
+export type { DropdownItemWithIcon };
+export type { DropdownItemWithImage };
