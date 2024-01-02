@@ -1,60 +1,106 @@
 <script setup lang="ts">
 import 'uno.css';
 import '../assets/main.css';
-import { ref, watch } from 'vue';
-import { MediaInput, UploadedMedia } from '~/components';
+import { ref } from 'vue';
+import { PrimaryButton, ResourcePicker } from '~/components';
+import type { Resource } from '~/components/ResourcePicker/types';
 
-const attachments = ref<File[]>([]);
-const disabled = ref(false);
-const limit = 4;
+const MOCK_RESOURCES: Resource[] = [
+  {
+    id: 1,
+    thumbnailUrl: '',
+    name: 'Apple MacBook Pro',
+    price: '$2,499.00',
+    stock: 7,
+    isChecked: false,
+    variants: [
+      {
+        id: 33,
+        thumbnailUrl: '',
+        name: 'Apple MacBook Pro 16 M3 Max',
+        price: '$3,499.00',
+        stock: 3,
+        isChecked: false,
+      },
+      {
+        id: 21,
+        thumbnailUrl: '',
+        name: 'Apple MacBook Pro 14 M3 Pro',
+        price: '$2,499.00',
+        stock: 4,
+        isChecked: false,
+      },
+    ],
+  },
+  {
+    id: 2,
+    thumbnailUrl: '',
+    name: 'Apple iMac',
+    price: '$1,499.00',
+    stock: 2,
+    isChecked: false,
+  },
+];
 
-const checkLimit = () => {
-  disabled.value = attachments.value.length >= limit;
+const showPicker = ref(false);
+const selectedResources = ref<Resource[]>([]);
+const resources = ref<Resource[]>([]);
+const isLoading = ref(true);
+
+const onConfirm = (selectedRes: Resource[]) => {
+  selectedResources.value = selectedRes;
+  showPicker.value = false;
+  isLoading.value = true;
+
+  const emptyResources: Resource[] = [];
+  resources.value = emptyResources;
 };
 
-const deleteFile = (file: File) => {
-  const idx = attachments.value.indexOf(file);
-  if (idx > -1) {
-    attachments.value.splice(idx, 1);
-    checkLimit();
-  }
+const fetchResources = async () => {
+  showPicker.value = true;
+  setTimeout(() => {
+    resources.value = MOCK_RESOURCES;
+    isLoading.value = false;
+  }, 2000);
 };
-watch(attachments, () => {
-  checkLimit();
-});
 </script>
 
 <template>
-  <div class="container">
-    <div class="files-grid">
-      <UploadedMedia
-        v-for="(attachment, index) in attachments"
-        :key="index"
-        :file="attachment"
-        @delete="deleteFile(attachment)"
-      />
+  <div className="container">
+    <ResourcePicker
+      v-model:visible="showPicker"
+      :resources="resources"
+      stock-label="in stock"
+      :is-loading="isLoading"
+      @confirm="onConfirm"
+    />
+    <PrimaryButton @click="fetchResources">
+      <span>Open Picker</span>
+    </PrimaryButton>
+    <div v-if="selectedResources.length > 0" class="selection">
+      <pre>{{ selectedResources }}</pre>
     </div>
-    <MediaInput v-model="attachments" label="test" :limit="limit" :disabled="disabled" sub-label="test" highlighted-label="test 2" />
   </div>
 </template>
 
 <style scoped>
 .container {
   display: flex;
-  position: relative;
-  flex-direction: column;
-  position: relative;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 300px;
-  min-height: 140px;
+  max-width: 300px;
+  gap: 16px;
 }
 
-.file-grid {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  left: 0;
+.selection {
+  padding: 16px;
+  border: 1px solid var(--gray-200);
+  border-radius: 8px;
+  background-color: var(--vp-c-bg);
+}
+
+:is(.dark) .selection {
+  border-color: var(--gray-700);
 }
 </style>
