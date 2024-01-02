@@ -202,12 +202,6 @@ export default function (editor: ShallowRef<Editor | undefined>): Record<string,
       divider: true,
       action: () => editor.value?.commands.outdent(),
     },
-    table: {
-      tooltip: 'Insert table',
-      type: 'table',
-      divider: true,
-      model: { rows: '2', cols: '2' },
-    },
     hr: {
       tooltip: 'Insert divider',
       type: 'TertiaryButton',

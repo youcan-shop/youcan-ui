@@ -1,8 +1,14 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { onClickOutside } from '@vueuse/core';
-import { Input, MultiSwitch, PrimaryButton, SecondaryButton, SwitchButton, TertiaryButton } from '~/components';
-import type { SwitchButtonDefinition } from '~/components/MultiSwitch/types';
+import {
+  Input,
+  MultiSwitch,
+  PrimaryButton,
+  SecondaryButton,
+  TertiaryButton,
+} from '~/components';
+import type { SwitchButtonOption } from '~/components/MultiSwitch/types';
 
 const emit = defineEmits(['insert', 'insertRow', 'insertColumn']);
 
@@ -24,61 +30,41 @@ const insertRow = (position: string) => {
 const insertColumn = (position: string) => {
   emit('insertColumn', position);
 };
-const toggleDropdown = (show = !showDropdown.value) => showDropdown.value = show;
+const toggleDropdown = (show = !showDropdown.value) => (showDropdown.value = show);
 
 onClickOutside(dropdownRef, () => {
   toggleDropdown(false);
 });
 
-const activeOption = ref(0);
-const handleOptionChange = (value: number) => {
-  activeOption.value = value;
-};
-function setActiveOption(id: number) {
-  activeOption.value = id;
-}
-const OPTIONS: SwitchButtonDefinition[] = [
+const OPTIONS: SwitchButtonOption[] = [
   {
     label: 'New',
-    icon: 'i-youcan:plus',
     value: '0',
+    icon: 'i-youcan:plus',
   },
   {
     label: 'Edit',
-    icon: 'i-youcan:pencil-simple',
     value: '1',
-  }];
+    icon: 'i-youcan:pencil-simple',
+  },
+];
+
+const activeOption = ref<SwitchButtonOption>(OPTIONS[0]);
 </script>
 
 <template>
   <div class="input-table">
     <TertiaryButton size="sm" icon-position="only" @click="toggleDropdown()">
       <template #icon>
-        <i
-          class="i-youcan-table"
-        />
+        <i class="i-youcan-table" />
       </template>
     </TertiaryButton>
     <div v-show="showDropdown" ref="dropdownRef" class="table-dropdown">
       <div class="tabs">
-        <MultiSwitch @option-change="handleOptionChange">
-          <SwitchButton
-            v-for="(option, index) in OPTIONS"
-            :key="option.label"
-            :model-value="option.value"
-            :label="option.label"
-            :icon="option.icon"
-            :active="activeOption === index"
-            :disabled="false"
-            @click="setActiveOption(index)"
-          />
-        </MultiSwitch>
+        <MultiSwitch v-model:selected-option="activeOption" :options="OPTIONS" />
       </div>
       <div class="tab-panels">
-        <div
-          v-show="activeOption === 0"
-          class="panel"
-        >
+        <div v-show="activeOption.value === '0'" class="panel">
           <Input v-model="rows" :max="MAX_ROWS" type="number" placeholder="rows" />
           <Input v-model="cols" :max="MAX_COLS" type="number" placeholder="columns" />
           <PrimaryButton @click="setModel()">
@@ -88,10 +74,7 @@ const OPTIONS: SwitchButtonDefinition[] = [
             Insert table
           </PrimaryButton>
         </div>
-        <div
-          v-show="activeOption === 1"
-          class="panel"
-        >
+        <div v-show="activeOption.value === '1'" class="panel">
           <p class="panel-label">
             Row
           </p>
