@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, onMounted, onUnmounted, ref } from 'vue';
 import ResourceItem from './Internal/Resource.vue';
 import type { PickerProps, Resource } from './types';
 import { isEmptyArray } from './utils';
@@ -17,11 +17,10 @@ const props = withDefaults(defineProps<PickerProps>(), {
 });
 const emit = defineEmits(['update:visible', 'confirm', 'search']);
 
-const resources = ref(props.resources);
 const term = ref('');
 
 const selectedResources = computed(() => {
-  const selectedResources = resources.value?.filter(res => res.isChecked || res.isIndeterminate);
+  const selectedResources = props.resources?.filter(res => res.isChecked || res.isIndeterminate);
 
   return selectedResources;
 });
@@ -64,7 +63,7 @@ const handleClick = (_: Event, resource: Resource, parent: Resource) => {
   if (resource.variants) {
     resource.isIndeterminate = false;
 
-    resources.value?.forEach((parentResource) => {
+    props.resources?.forEach((parentResource) => {
       if (parentResource.id !== resource.id) {
         return;
       }
@@ -82,6 +81,20 @@ const handleSearch = (e: Event) => {
 
   emit('search', term);
 };
+
+const handleKeypress = (event: KeyboardEvent) => {
+  if (props.visible && event.key === 'Escape') {
+    closePicker();
+  }
+};
+
+onMounted(() => {
+  window.addEventListener('keydown', handleKeypress);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('keydown', handleKeypress);
+});
 </script>
 
 <template>
