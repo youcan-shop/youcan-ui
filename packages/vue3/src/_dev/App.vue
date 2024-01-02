@@ -6,16 +6,22 @@ import { Divider } from '~/components';
 
 <template>
   <div class="container">
-    <Divider />
+    <Divider thickness="light" />
   </div>
 </template>
 
 <style scoped>
-.container {
+.dropdown-container {
   display: flex;
-  justify-content: center;
-  width: 500px;
-  height: 300px;
-  margin: 20px;
+  flex-direction: column;
+  width: 300px;
+  margin: 60px auto;
+  row-gap: 60px;
+}
+
+.status {
+  display: flex;
+  flex: 1;
+  justify-content: end;
 }
 </style>

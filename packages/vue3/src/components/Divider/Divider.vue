@@ -1,20 +1,22 @@
 <script setup lang="ts">
-import type { Orientation, Style } from './types';
+import type { Orientation, Style, Thickness } from './types';
 
 withDefaults(
   defineProps<{
     orientation?: Orientation
     borderStyle?: Style
+    thickness?: Thickness
   }>(),
   {
     orientation: 'horizontal',
     borderStyle: 'solid',
+    thickness: 'regular',
   },
 );
 </script>
 
 <template>
-  <div :class="[orientation, borderStyle]" />
+  <div :class="[orientation, borderStyle, thickness]" />
 </template>
 
 <style scoped lang="scss">
@@ -22,7 +24,6 @@ withDefaults(
   width: 100%;
   margin-top: 16px;
   margin-bottom: 16px;
-  border-width: 1px;
   border-color: var(--gray-100);
 }
 
@@ -30,8 +31,19 @@ withDefaults(
   height: 100%;
   margin-right: 16px;
   margin-left: 16px;
-  border-width: 1px;
   border-color: var(--gray-100);
+}
+
+.light {
+  border-width: 1px;
+}
+
+.regular {
+  border-width: 2px;
+}
+
+.thick {
+  border-width: 4px;
 }
 
 .solid {

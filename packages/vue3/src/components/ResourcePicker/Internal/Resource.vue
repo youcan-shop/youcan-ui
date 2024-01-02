@@ -32,8 +32,8 @@ function handleCheck(e: Event) {
           </p>
         </div>
         <div class="inventory-price">
-          <span v-if="showStock" class="stock">{{ resource.stock }} {{ stockLabel }}</span>
-          <p class="price">
+          <span v-if="showStock && resource.stock" class="stock">{{ resource.stock }} {{ stockLabel }}</span>
+          <p v-if="resource.price" class="price">
             {{ resource.price }}
           </p>
         </div>
