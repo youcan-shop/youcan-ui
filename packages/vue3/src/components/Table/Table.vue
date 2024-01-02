@@ -5,13 +5,16 @@ import TableRow from './Internal/TableRow.vue';
 import type { TableActions, TableColumn, TableColumnValue, TableColumnValues, TableData, TableDataComposable, TableDataRow, TableInternalData } from './types';
 import Checkbox from '~/components/Checkbox/Checkbox.vue';
 
-const props = defineProps<{
+const props = withDefaults(defineProps<{
   columns: TableColumn[]
   data: TableData[]
   actions?: TableActions[]
   selectable?: boolean
   selectedRows?: TableData[]
-}>();
+  actionsText?: string
+}>(), {
+  actionsText: 'Actions',
+});
 
 const emit = defineEmits<{
   (event: 'sort', column: TableColumn, index: number): void
@@ -32,7 +35,7 @@ const tableColumns = computed(() => {
   ];
 
   if (props.actions && props.actions.length > 0) {
-    columns.push({ accessor: 'actions', label: 'Actions' });
+    columns.push({ accessor: 'actions', label: props.actionsText });
   }
 
   return columns.filter(column => column !== null) as TableColumn[];
@@ -75,7 +78,16 @@ const rows = computed(
   }).filter(row => row !== null),
 );
 
-const emitSort = (column: TableColumn, index: number) => emit('sort', column, index);
+const sortable = (column: TableColumn) => {
+  return column.sortable && column.sortable !== 'none';
+};
+
+const emitSort = (column: TableColumn, index: number) => {
+  if (sortable(column) === false) {
+    return false;
+  }
+  emit('sort', column, index);
+};
 
 function mapRowsToTableData(records: TableInternalData[]): TableData[] {
   return props.data.map(({ row, children }: TableData, index: number) => {
@@ -189,12 +201,10 @@ function selectRow(index: number, data: boolean) {
             <span />
           </template>
           <template v-else>
-            <span class="text">{{ column.label }}</span>
-            <i
-              v-if="column.sortable && column.sortable !== 'none'" class="i-youcan-caret-down sort-icon"
-              :style="{ transform: column.sortable === 'asc' ? 'rotate(180deg)' : '' }" tabindex="1"
-              @click="emitSort(column, index)"
-            />
+            <span class="text" :class="{ 'text-sortable': sortable(column) }" @click="emitSort(column, index)">
+              {{ column.label }}
+              <i v-if="sortable(column)" class="i-youcan-caret-down" tabindex="1" :class="column.sortable" />
+            </span>
           </template>
         </th>
       </thead>
@@ -246,13 +256,22 @@ function selectRow(index: number, data: boolean) {
   font: var(--text-sm-medium);
 }
 
-.table-head .head-column .sort-icon {
-  display: inline-block;
+.table-head .head-column .text.text-sortable {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  gap: 8px;
+}
+
+.table-head .head-column .text.text-sortable i[tabindex="1"] {
   width: 12px;
   height: 12px;
-  margin-inline-start: 8px;
+  transition: transform 150ms linear;
   color: var(--gray-500);
-  cursor: pointer;
+}
+
+.table-head .head-column .text.text-sortable i[tabindex="1"].asc {
+  transform: rotate(180deg);
 }
 
 .table-head .head-column * {
