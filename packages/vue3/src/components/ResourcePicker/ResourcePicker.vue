@@ -25,6 +25,10 @@ const selectedResources = computed(() => {
   return selectedResources;
 });
 
+const canAddResources = computed(() => {
+  return props.isLoading || isEmptyArray(props.resources) || isEmptyArray(selectedResources.value);
+});
+
 const closePicker = () => {
   emit('update:visible', false);
 };
@@ -146,7 +150,7 @@ onUnmounted(() => {
             <SecondaryButton @click="closePicker">
               <span>{{ cancelLabel }}</span>
             </SecondaryButton>
-            <PrimaryButton :disabled="isLoading || isEmptyArray(resources)" @click="handleAdd">
+            <PrimaryButton :disabled="canAddResources" @click="handleAdd">
               <span>{{ confirmLabel }}</span>
             </PrimaryButton>
           </div>
