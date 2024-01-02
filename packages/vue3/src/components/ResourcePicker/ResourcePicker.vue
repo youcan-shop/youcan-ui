@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, onMounted, onUnmounted, ref } from 'vue';
 import ResourceItem from './Internal/Resource.vue';
 import type { PickerProps, Resource } from './types';
 import { isEmptyArray } from './utils';
@@ -81,6 +81,20 @@ const handleSearch = (e: Event) => {
 
   emit('search', term);
 };
+
+const handleKeypress = (event: KeyboardEvent) => {
+  if (props.visible && event.key === 'Escape') {
+    closePicker();
+  }
+};
+
+onMounted(() => {
+  window.addEventListener('keydown', handleKeypress);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('keydown', handleKeypress);
+});
 </script>
 
 <template>
