@@ -22,10 +22,12 @@ withDefaults(
 <style scoped lang="scss">
 .horizontal {
   width: 100%;
+  max-height: 0;
   border-color: var(--gray-100);
 }
 
 .vertical {
+  max-width: 0;
   height: 100%;
   border-color: var(--gray-100);
 }

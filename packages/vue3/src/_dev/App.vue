@@ -1,25 +1,20 @@
 <script setup lang="ts">
+import 'uno.css';
+import '../assets/main.css';
 import { Divider } from '~/components';
 </script>
 
 <template>
   <div class="container">
-    <Divider thickness="light" />
+    <Divider orientation="vertical" />
   </div>
 </template>
 
 <style scoped>
-.dropdown-container {
+.container {
   display: flex;
-  flex-direction: column;
-  width: 300px;
-  margin: 60px auto;
-  row-gap: 60px;
-}
-
-.status {
-  display: flex;
-  flex: 1;
-  justify-content: end;
+  width: 500px;
+  height: 300px;
+  margin: 20px;
 }
 </style>
