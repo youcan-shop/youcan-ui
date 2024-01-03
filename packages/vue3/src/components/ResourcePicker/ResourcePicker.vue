@@ -232,6 +232,7 @@ onUnmounted(() => {
   width: 100%;
   height: 80px;
   background: linear-gradient(#fff0, var(--base-white));
+  pointer-events: none;
 }
 
 .empty-state {
