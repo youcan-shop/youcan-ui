@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted, ref } from 'vue';
+import { computed, onMounted, onUnmounted, ref, toRaw } from 'vue';
 import ResourceItem from './Internal/Resource.vue';
 import type { PickerProps, Resource } from './types';
 import { isEmptyArray } from './utils';
@@ -41,11 +41,13 @@ const handleAdd = () => {
     if (resource.variants) {
       return {
         ...resource,
-        variants: resource.variants.filter(variant => variant.isChecked),
+        variants: resource.variants
+          .filter(proxyVariant => proxyVariant.isChecked)
+          .map(variant => toRaw<Resource>(variant)),
       };
     }
 
-    return { ...resource };
+    return toRaw(resource);
   });
 
   emit('confirm', selectedResourcesWithVariants);
@@ -230,6 +232,7 @@ onUnmounted(() => {
   width: 100%;
   height: 80px;
   background: linear-gradient(#fff0, var(--base-white));
+  pointer-events: none;
 }
 
 .empty-state {
