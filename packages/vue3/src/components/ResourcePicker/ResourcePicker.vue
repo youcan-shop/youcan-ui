@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted, ref } from 'vue';
+import { computed, onMounted, onUnmounted, ref, toRaw } from 'vue';
 import ResourceItem from './Internal/Resource.vue';
 import type { PickerProps, Resource } from './types';
 import { isEmptyArray } from './utils';
@@ -43,11 +43,11 @@ const handleAdd = () => {
         ...resource,
         variants: resource.variants
           .filter(proxyVariant => proxyVariant.isChecked)
-          .map(variant => ({ ...variant })), // This converts variants from proxy to a POJO - Plain Old JavaScript Object
+          .map(variant => toRaw<Resource>(variant)),
       };
     }
 
-    return { ...resource };
+    return toRaw(resource);
   });
 
   emit('confirm', selectedResourcesWithVariants);
