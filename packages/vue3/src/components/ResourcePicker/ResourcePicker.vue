@@ -41,7 +41,9 @@ const handleAdd = () => {
     if (resource.variants) {
       return {
         ...resource,
-        variants: resource.variants.filter(variant => variant.isChecked),
+        variants: resource.variants
+          .filter(proxyVariant => proxyVariant.isChecked)
+          .map(variant => ({ ...variant })), // This converts variants from proxy to a POJO - Plain Old JavaScript Object
       };
     }
 
