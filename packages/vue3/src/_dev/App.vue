@@ -1,106 +1,108 @@
 <script setup lang="ts">
 import 'uno.css';
 import '../assets/main.css';
-import { ref } from 'vue';
-import { PrimaryButton, ResourcePicker } from '~/components';
-import type { Resource } from '~/components/ResourcePicker/types';
+import { onMounted, ref } from 'vue';
+import type { StaticStatusDefinition } from '~/components/Status/types';
+import { Dropdown, StaticStatus } from '~/components';
 
-const MOCK_RESOURCES: Resource[] = [
+const category = ref(null);
+const items = ref<any[]>([]);
+const loading = ref(false);
+
+const nameList = [
+  'Time', 'Past', 'Future', 'Dev',
+  'Fly', 'Flying', 'Soar', 'Soaring', 'Power', 'Falling',
+  'Fall', 'Jump', 'Cliff', 'Mountain', 'Rend', 'Red', 'Blue',
+  'Green', 'Yellow', 'Gold', 'Demon'];
+
+const fruits: StaticStatusDefinition[] = [
   {
-    id: 1,
-    thumbnailUrl: '',
-    name: 'Apple MacBook Pro',
-    price: '$2,499.00',
-    stock: 7,
-    isChecked: false,
-    variants: [
-      {
-        id: 33,
-        thumbnailUrl: '',
-        name: 'Apple MacBook Pro 16 M3 Max',
-        price: '$3,499.00',
-        stock: 3,
-        isChecked: false,
-      },
-      {
-        id: 21,
-        thumbnailUrl: '',
-        name: 'Apple MacBook Pro 14 M3 Pro',
-        price: '$2,499.00',
-        stock: 4,
-        isChecked: false,
-      },
-    ],
+    color: '#ffdecb',
+    label: '',
+    labelColor: '#35192b',
   },
   {
-    id: 2,
-    thumbnailUrl: '',
-    name: 'Apple iMac',
-    price: '$1,499.00',
-    stock: 2,
-    isChecked: false,
+    color: '#fffad2',
+    label: '',
+    labelColor: '#555022',
+  },
+  {
+    color: '#cbffd3',
+    label: '',
+    labelColor: '#2c4730',
+  },
+  {
+    color: '#EEAAAA',
+    label: '',
+    labelColor: '#7B1919',
   },
 ];
 
-const resources = ref<Resource[]>();
+const getStatus = (text: string): StaticStatusDefinition => {
+  const status = fruits[Math.floor(Math.random() * (fruits.length))];
+  status.label = text;
 
-const showPicker = ref(false);
-const isLoading = ref(true);
-const selectedResources = ref<Resource[]>([]);
-
-const onConfirm = (resources: Resource[]) => {
-  console.log(resources);
-
-  selectedResources.value = resources;
-  showPicker.value = false;
+  return status;
 };
 
-function openPicker() {
-  isLoading.value = true;
-  showPicker.value = true;
+const getItems = () => {
+  loading.value = true;
   setTimeout(() => {
-    resources.value = MOCK_RESOURCES;
-    isLoading.value = false;
-  }, 400);
-}
+    const List = Array.from({ length: 10 }, () => {
+      return {
+        label: nameList[Math.floor(Math.random() * (nameList.length - 1))],
+        value: Math.floor(Math.random() * 10000000),
+      };
+    });
+    for (const item of List) {
+      items.value.push(item);
+    }
+    loading.value = false;
+  }, 2000);
+};
+
+const endOfScroll = () => {
+  if (loading.value === false) {
+    getItems();
+  }
+};
+
+onMounted(() => {
+  getItems();
+});
 </script>
 
 <template>
-  <div className="container">
-    <ResourcePicker
-      v-model:visible="showPicker"
-      :resources="resources"
-      stock-label="in stock"
-      :is-loading="isLoading"
-      @confirm="onConfirm"
-    />
-    <PrimaryButton @click="openPicker">
-      <span>Open Picker</span>
-    </PrimaryButton>
-    <div v-if="selectedResources.length > 0" class="selection">
-      <pre>{{ selectedResources }}</pre>
-    </div>
+  <div class="dropdown-container">
+    <Dropdown
+      v-model="category"
+      searchable
+      :items="items"
+      placeholder="Select category"
+      :loading="loading"
+      @end-of-scroll="endOfScroll"
+    >
+      <template #accessory="item">
+        <div class="status">
+          <StaticStatus :status="getStatus(item.label)" />
+        </div>
+      </template>
+    </Dropdown>
   </div>
 </template>
 
 <style scoped>
-.container {
+.dropdown-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  max-width: 300px;
-  gap: 16px;
+  width: 300px;
+  margin: 60px auto;
+  row-gap: 60px;
 }
 
-.selection {
-  padding: 16px;
-  border: 1px solid var(--gray-200);
-  border-radius: 8px;
-  background-color: var(--vp-c-bg);
-}
-
-:is(.dark) .selection {
-  border-color: var(--gray-700);
+.status {
+  display: flex;
+  flex: 1;
+  justify-content: end;
 }
 </style>

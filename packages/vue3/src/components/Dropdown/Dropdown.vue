@@ -13,12 +13,13 @@ const props = withDefaults(
     modelValue: DropdownItemDefinition | null
     items: DropdownItemArray | DropdownItemGroups
     disabled?: boolean
+    loading?: boolean
     searchHandler?: (searchTerm: string, items?: DropdownItemArray | DropdownItemGroups) => void
   }>(),
   { searchable: false, size: 36, disabled: false },
 );
 
-const emit = defineEmits(['update:modelValue']);
+const emit = defineEmits(['update:modelValue', 'endOfScroll']);
 
 const slots = useSlots();
 
@@ -61,6 +62,8 @@ const model = computed<DropdownItemDefinition | null>({
         :search-handler="searchHandler"
         v-bind="{ items, searchable, selected: modelValue, multiple: false }"
         :show="showList"
+        :loading="loading"
+        @end-of-scroll="() => emit('endOfScroll')"
         @select="(item:DropdownItemDefinition) => model = item"
       >
         <template v-if="slots.accessory" #accessory="item">
