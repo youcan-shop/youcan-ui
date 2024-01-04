@@ -1,95 +1,27 @@
 <script setup lang="ts">
 import 'uno.css';
 import '../assets/main.css';
-import { ref } from 'vue';
-import { PrimaryButton, ResourcePicker } from '~/components';
-import type { Resource } from '~/components/ResourcePicker/types';
-
-const MOCK_RESOURCES: Resource[] = [
-  {
-    id: 1,
-    thumbnailUrl: '',
-    name: 'Apple MacBook Pro',
-    price: '$2,499.00',
-    stock: 7,
-    isChecked: false,
-    variants: [
-      {
-        id: 33,
-        thumbnailUrl: '',
-        name: 'Apple MacBook Pro 16 M3 Max',
-        price: '$3,499.00',
-        stock: 3,
-        isChecked: false,
-      },
-      {
-        id: 21,
-        thumbnailUrl: '',
-        name: 'Apple MacBook Pro 14 M3 Pro',
-        price: '$2,499.00',
-        stock: 4,
-        isChecked: false,
-      },
-    ],
-  },
-  {
-    id: 2,
-    thumbnailUrl: '',
-    name: 'Apple iMac',
-    price: '$1,499.00',
-    stock: 2,
-    isChecked: false,
-  },
-];
-
-const resources = ref<Resource[]>();
-
-const showPicker = ref(false);
-const isLoading = ref(true);
-const selectedResources = ref<Resource[]>([]);
-
-const onConfirm = (resources: Resource[]) => {
-  console.log(resources);
-
-  selectedResources.value = resources;
-  showPicker.value = false;
-};
-
-function openPicker() {
-  isLoading.value = true;
-  showPicker.value = true;
-  setTimeout(() => {
-    resources.value = MOCK_RESOURCES;
-    isLoading.value = false;
-  }, 400);
-}
 </script>
 
 <template>
   <div className="container">
-    <ResourcePicker
-      v-model:visible="showPicker"
-      :resources="resources"
-      stock-label="in stock"
-      :is-loading="isLoading"
-      @confirm="onConfirm"
-    />
-    <PrimaryButton @click="openPicker">
-      <span>Open Picker</span>
-    </PrimaryButton>
-    <div v-if="selectedResources.length > 0" class="selection">
-      <pre>{{ selectedResources }}</pre>
-    </div>
+    <i class="i-youcan:truck" />
+    <i class="i-youcan:chat" />
+    <i class="i-youcan:arrow-u-right-down" />
+    <i class="i-youcan:plugs-connected" />
+    <i class="i-youcan:plugs" />
+    <i class="i-youcan:rocket-launch" />
+    <i class="i-youcan:arrows-out-simple" />
   </div>
 </template>
 
 <style scoped>
 .container {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
-  max-width: 300px;
+  margin: 10%;
   gap: 16px;
 }
 
