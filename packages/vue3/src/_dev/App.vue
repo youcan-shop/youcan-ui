@@ -1,38 +1,108 @@
 <script setup lang="ts">
 import 'uno.css';
 import '../assets/main.css';
+import { onMounted, ref } from 'vue';
+import type { StaticStatusDefinition } from '~/components/Status/types';
+import { Dropdown, StaticStatus } from '~/components';
+
+const category = ref(null);
+const items = ref<any[]>([]);
+const loading = ref(false);
+
+const nameList = [
+  'Time', 'Past', 'Future', 'Dev',
+  'Fly', 'Flying', 'Soar', 'Soaring', 'Power', 'Falling',
+  'Fall', 'Jump', 'Cliff', 'Mountain', 'Rend', 'Red', 'Blue',
+  'Green', 'Yellow', 'Gold', 'Demon'];
+
+const fruits: StaticStatusDefinition[] = [
+  {
+    color: '#ffdecb',
+    label: '',
+    labelColor: '#35192b',
+  },
+  {
+    color: '#fffad2',
+    label: '',
+    labelColor: '#555022',
+  },
+  {
+    color: '#cbffd3',
+    label: '',
+    labelColor: '#2c4730',
+  },
+  {
+    color: '#EEAAAA',
+    label: '',
+    labelColor: '#7B1919',
+  },
+];
+
+const getStatus = (text: string): StaticStatusDefinition => {
+  const status = fruits[Math.floor(Math.random() * (fruits.length))];
+  status.label = text;
+
+  return status;
+};
+
+const getItems = () => {
+  loading.value = true;
+  setTimeout(() => {
+    const List = Array.from({ length: 10 }, () => {
+      return {
+        label: nameList[Math.floor(Math.random() * (nameList.length - 1))],
+        value: Math.floor(Math.random() * 10000000),
+      };
+    });
+    for (const item of List) {
+      items.value.push(item);
+    }
+    loading.value = false;
+  }, 2000);
+};
+
+const endOfScroll = () => {
+  if (loading.value === false) {
+    getItems();
+  }
+};
+
+onMounted(() => {
+  getItems();
+});
 </script>
 
 <template>
-  <div className="container">
-    <i class="i-youcan:truck" />
-    <i class="i-youcan:chat" />
-    <i class="i-youcan:arrow-u-right-down" />
-    <i class="i-youcan:plugs-connected" />
-    <i class="i-youcan:plugs" />
-    <i class="i-youcan:rocket-launch" />
-    <i class="i-youcan:arrows-out-simple" />
+  <div class="dropdown-container">
+    <Dropdown
+      v-model="category"
+      searchable
+      :items="items"
+      placeholder="Select category"
+      :loading="loading"
+      @scroll-end="endOfScroll"
+    >
+      <template #accessory="item">
+        <div class="status">
+          <StaticStatus :status="getStatus(item.label)" />
+        </div>
+      </template>
+    </Dropdown>
   </div>
 </template>
 
 <style scoped>
-.container {
+.dropdown-container {
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  margin: 10%;
-  gap: 16px;
+  flex-direction: column;
+  width: 300px;
+  margin: 60px auto;
+  row-gap: 60px;
 }
 
-.selection {
-  padding: 16px;
-  border: 1px solid var(--gray-200);
-  border-radius: 8px;
-  background-color: var(--vp-c-bg);
-}
-
-:is(.dark) .selection {
-  border-color: var(--gray-700);
+.status {
+  display: flex;
+  flex: 1;
+  justify-content: end;
 }
 </style>

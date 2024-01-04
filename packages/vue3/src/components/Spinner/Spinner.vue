@@ -10,7 +10,6 @@ withDefaults(
   {
     color: 'var(--brand-300)',
     size: '40px',
-    label: 'Loading',
     labelColor: 'var(--brand-500)',
     labelFontSize: 'md',
   },
