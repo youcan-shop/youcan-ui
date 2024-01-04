@@ -11,13 +11,14 @@ const props = withDefaults(
     icon?: string
     label: string
     searchable?: boolean
+    loading?: boolean
     modelValue: DropdownItemDefinition[]
     items: DropdownItemArray | DropdownItemGroups
   }>(),
   { searchable: false },
 );
 
-const emit = defineEmits(['update:modelValue']);
+const emit = defineEmits(['update:modelValue', 'scrollEnd']);
 
 const slots = useSlots();
 
@@ -60,7 +61,9 @@ function toggle(item: DropdownItemDefinition, value: boolean): void {
     <div v-if="showList" ref="list" class="dropdown-wrapper">
       <DropdownList
         class="dropdown-list" v-bind="{ items, selected: modelValue, searchable, multiple: true }"
+        :loading="loading"
         @toggle="toggle"
+        @scroll-end="() => emit('scrollEnd')"
       >
         <template v-if="slots.accessory" #accessory="item">
           <slot name="accessory" v-bind="item" />

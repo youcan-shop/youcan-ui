@@ -3,12 +3,14 @@ import { computed, nextTick, ref, watch } from 'vue';
 import type { DropdownItemArray, DropdownItemDefinition, DropdownItemGroups } from './types';
 import DropdownItem from './Internal/DropdownItem.vue';
 import { searchHandler } from './helpers';
+import { Spinner } from '~/components';
 
 const props = withDefaults(
   defineProps<{
     selected: DropdownItemArray | DropdownItemDefinition | null
     items: DropdownItemArray | DropdownItemGroups
     searchable?: boolean
+    loading?: boolean
     multiple?: boolean
     show?: boolean
     searchHandler?: (searchTerm: string, items?: DropdownItemArray | DropdownItemGroups) => void
@@ -20,10 +22,11 @@ const props = withDefaults(
   },
 );
 
-const emit = defineEmits(['toggle', 'select']);
+const emit = defineEmits(['toggle', 'select', 'scrollEnd']);
 
 const searchTerm = ref<string>('');
 const searchInput = ref();
+
 const search = computed<string>({
   get: () => searchTerm.value,
   set: (value: string) => {
@@ -59,6 +62,16 @@ function toggle(item: DropdownItemDefinition, value: boolean): void {
   value && emit('select', item);
 }
 
+const handleScroll = async (event: Event) => {
+  const e = event.target as HTMLElement;
+  const scrollHeight = e.scrollHeight;
+  const scrollTop = e.scrollTop;
+  const clientHeight = e.clientHeight;
+  if (scrollTop + clientHeight >= scrollHeight) {
+    emit('scrollEnd');
+  }
+};
+
 watch(() => props.show, (newValue) => {
   if (newValue && searchInput.value) {
     nextTick(() => {
@@ -74,7 +87,7 @@ watch(() => props.show, (newValue) => {
       <input ref="searchInput" v-model="search" type="text" placeholder="Search..">
     </div>
 
-    <div class="inner">
+    <div class="inner" @scroll="handleScroll">
       <!-- item array -->
       <template v-if="Array.isArray(results)">
         <DropdownItem
@@ -105,6 +118,9 @@ watch(() => props.show, (newValue) => {
       <div v-else class="no-results">
         No results were found
       </div>
+      <div v-if="loading" class="loading">
+        <Spinner size="15px" />
+      </div>
     </div>
   </div>
 </template>
@@ -121,10 +137,10 @@ watch(() => props.show, (newValue) => {
 }
 
 .dropdown-list .inner {
-  --max-height: 240px;
-
-  max-height: var(--max-height);
+  min-height: 10px;
+  max-height: 240px;
   padding: 8px 0;
+  padding-bottom: 20px;
   overflow-x: hidden;
   overflow-y: auto;
   border-radius: 8px;
@@ -188,5 +204,18 @@ watch(() => props.show, (newValue) => {
   padding: 10px 16px;
   color: var(--gray-500);
   font: var(--text-sm-regular);
+}
+
+.loading {
+  display: flex;
+  position: absolute;
+  z-index: 2;
+  bottom: 0;
+  left: 10px;
+  justify-content: center;
+  width: calc(100% - 20px);
+  margin: 0 auto;
+  padding: 7px 0;
+  background-image: linear-gradient(to top, var(--base-white), rgb(255 255 255 / 50%), transparent);
 }
 </style>
