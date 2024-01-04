@@ -19,7 +19,7 @@ const props = withDefaults(
   { searchable: false, size: 36, disabled: false },
 );
 
-const emit = defineEmits(['update:modelValue', 'endOfScroll']);
+const emit = defineEmits(['update:modelValue', 'scrollEnd']);
 
 const slots = useSlots();
 
@@ -63,7 +63,7 @@ const model = computed<DropdownItemDefinition | null>({
         v-bind="{ items, searchable, selected: modelValue, multiple: false }"
         :show="showList"
         :loading="loading"
-        @end-of-scroll="() => emit('endOfScroll')"
+        @scroll-end="() => emit('scrollEnd')"
         @select="(item:DropdownItemDefinition) => model = item"
       >
         <template v-if="slots.accessory" #accessory="item">

@@ -18,7 +18,7 @@ const props = withDefaults(
   { searchable: false },
 );
 
-const emit = defineEmits(['update:modelValue', 'endOfScroll']);
+const emit = defineEmits(['update:modelValue', 'scrollEnd']);
 
 const slots = useSlots();
 
@@ -63,7 +63,7 @@ function toggle(item: DropdownItemDefinition, value: boolean): void {
         class="dropdown-list" v-bind="{ items, selected: modelValue, searchable, multiple: true }"
         :loading="loading"
         @toggle="toggle"
-        @end-of-scroll="() => emit('endOfScroll')"
+        @scroll-end="() => emit('scrollEnd')"
       >
         <template v-if="slots.accessory" #accessory="item">
           <slot name="accessory" v-bind="item" />

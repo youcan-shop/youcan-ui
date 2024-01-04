@@ -22,7 +22,7 @@ const props = withDefaults(
   },
 );
 
-const emit = defineEmits(['toggle', 'select', 'endOfScroll']);
+const emit = defineEmits(['toggle', 'select', 'scrollEnd']);
 
 const searchTerm = ref<string>('');
 const searchInput = ref();
@@ -68,7 +68,7 @@ const handleScroll = async (event: Event) => {
   const scrollTop = e.scrollTop;
   const clientHeight = e.clientHeight;
   if (scrollTop + clientHeight >= scrollHeight) {
-    emit('endOfScroll');
+    emit('scrollEnd');
   }
 };
 

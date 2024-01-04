@@ -80,7 +80,7 @@ onMounted(() => {
       :items="items"
       placeholder="Select category"
       :loading="loading"
-      @end-of-scroll="endOfScroll"
+      @scroll-end="endOfScroll"
     >
       <template #accessory="item">
         <div class="status">
