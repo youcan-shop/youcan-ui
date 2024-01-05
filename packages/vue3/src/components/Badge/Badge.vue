@@ -1,11 +1,8 @@
 <script setup lang="ts">
-import type { BadgeSize, BadgeState } from './types';
+import type { BadgeProps } from './types';
 
 withDefaults(
-  defineProps<{
-    size?: BadgeSize
-    state?: BadgeState
-  }>(),
+  defineProps<BadgeProps>(),
   {
     size: 20,
     state: 'neutral',
