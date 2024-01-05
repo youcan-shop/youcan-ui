@@ -1,11 +1,9 @@
 <script setup lang="ts">
 import { Utils } from '@youcan/ui-core';
 import { computed, useSlots } from 'vue';
+import type { CheckboxProps } from './types';
 
-const props = defineProps<{
-  value?: number | string
-  modelValue: boolean | Array<number | string>
-}>();
+const props = defineProps<CheckboxProps>();
 
 const emit = defineEmits(['update:modelValue']);
 const slots = useSlots();
