@@ -2,62 +2,67 @@
 import 'uno.css';
 import '../assets/main.css';
 import { ref } from 'vue';
-import { Modal, MultiSwitch, PaginationBar, PrimaryButton } from '~/components';
-import type { SwitchButtonOption } from '~/components/MultiSwitch/types';
+import { Percentage, Popover, PrimaryButton, RadioGroup, TertiaryButton } from '~/components';
+import type { RadioData } from '~/components/Radio/types';
 
-const showModal = ref(false);
-
-const onConfirm = () => {
-  showModal.value = false;
-};
-const OPTIONS: SwitchButtonOption[] = [
+const show = ref(false);
+const languages = ref<RadioData[]>([
   {
-    label: 'Mobile',
-    value: 1,
-    icon: 'i-youcan:device-mobile',
+    label: 'JavaScript',
+    value: 'js',
   },
   {
-    label: 'Desktop',
-    value: 2,
-    icon: 'i-youcan:desktop',
+    label: 'PHP',
+    value: 'php',
   },
   {
-    label: 'Tablet',
-    value: 3,
-    icon: 'i-youcan:credit-card',
+    label: 'Python',
+    value: 'python',
   },
-];
-
-const activeOption = ref<SwitchButtonOption>(OPTIONS[0]);
-const TOTAL = 50;
-const PER_PAGE = 5;
-const TOTAL_PAGES = Math.ceil(TOTAL / PER_PAGE);
-
-const currentPage = ref(1);
-
-function handlePaginationNavigation(pageNumber: number) {
-  currentPage.value = pageNumber;
-}
+]);
+// @ts-expect-error the v-model expects a RadioData but sets a string when value is changed.
+const preferredLanguage = ref<RadioData>(languages.value[0].value);
 </script>
 
 <template>
-  <Modal v-model:visible="showModal" title="Edit profile" @on-confirm="onConfirm">
-    <p class="content">
-      The quick brown fox jumps over the lazy dog.
-    </p>
-  </Modal>
   <div class="container">
-    <PrimaryButton @click="showModal = true;">
-      <span>Open Modal</span>
-    </PrimaryButton>
-    <MultiSwitch v-model:selected-option="activeOption" :options="OPTIONS" />
-    <p>{{ activeOption.value }} : {{ activeOption.label }}</p>
-    <PaginationBar
-      :current="currentPage"
-      :size="TOTAL_PAGES"
-      :count="PER_PAGE"
-      :total="TOTAL"
-      @update:current="handlePaginationNavigation"
+    <Percentage
+      type="danger"
+      :percentage="-40"
+    />
+    <Popover
+      v-model:show="show"
+      position="top"
+      object-fit="cover"
+      class="popover"
+      @click-outside="show = false"
+    >
+      <template #title>
+        Introducing Themes!
+      </template>
+      <template #description>
+        <p class="mr-0">
+          Introducing themes, a new way to make your store stand out
+        </p>
+      </template>
+      <template #footer>
+        <div class="actions">
+          <PrimaryButton @click="show = false">
+            Get started
+          </PrimaryButton>
+          <TertiaryButton @click="show = false">
+            Later
+          </TertiaryButton>
+        </div>
+      </template>
+      <PrimaryButton @click="show = !show;">
+        <span>Show Popover</span>
+      </PrimaryButton>
+    </Popover>
+    <RadioGroup
+      v-model="preferredLanguage"
+      name="languages"
+      :items="languages"
     />
   </div>
 </template>
