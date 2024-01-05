@@ -64,13 +64,13 @@ git clone https://github.com/<your-username>/youcan-ui
 cd youcan-ui
 ```
 
-### Build project
+### Build the project
 
 ```bash
 pnpm run build
 ```
 
-### Run project
+### Run the project
 
 ```bash
 pnpm run dev
