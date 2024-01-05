@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import type { NavigationButton } from '../types';
+import type { NavigationButtonProps } from '../types';
 import SecondaryButton from '~/components/Button/SecondaryButton.vue';
 import PrimaryButton from '~/components/Button/PrimaryButton.vue';
 
-const props = defineProps<NavigationButton>();
+const props = defineProps<NavigationButtonProps>();
 
 const isDisabled = computed(() => props.index === '...');
 </script>

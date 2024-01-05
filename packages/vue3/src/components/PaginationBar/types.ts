@@ -9,7 +9,7 @@ export interface PaginationBarProps {
   perPageLabel?: string
 }
 
-export interface NavigationButton {
+export interface NavigationButtonProps {
   current: number
   index: number | string
 }
