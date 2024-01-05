@@ -1,14 +1,9 @@
 <script setup lang="ts">
 import { useSlots } from 'vue';
-import type { ButtonIconPosition, ButtonSize } from '~/components/Button/types';
+import type { ButtonProps } from '~/components/Button/types';
 import BaseButton from '~/components/Button/_BaseButton.vue';
 
-defineProps<{
-  size?: ButtonSize
-  disabled?: boolean
-  iconPosition?: ButtonIconPosition
-  roundedFull?: boolean
-}>();
+defineProps<ButtonProps>();
 
 const slots = useSlots();
 </script>
