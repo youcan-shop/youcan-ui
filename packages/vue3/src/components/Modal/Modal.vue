@@ -1,16 +1,10 @@
 <script lang="ts" setup>
 import { onMounted, onUnmounted } from 'vue';
+import type { ModalProps } from './types';
 import Overlay from '~/components/Overlay/Overlay.vue';
 import { PrimaryButton, SecondaryButton, TertiaryButton } from '~/components';
 
-const props = withDefaults(defineProps<{
-  title?: string
-  visible?: boolean
-  confirmLabel?: string
-  confirmIcon?: string
-  cancelLabel?: string
-  cancelOnly?: boolean
-}>(), {
+const props = withDefaults(defineProps<ModalProps>(), {
   title: 'Customer address',
   confirmLabel: 'Save',
   cancelLabel: 'Cancel',

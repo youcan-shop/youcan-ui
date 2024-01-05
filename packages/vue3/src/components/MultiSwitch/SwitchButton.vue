@@ -1,11 +1,8 @@
 <script setup lang="ts">
 import { defineEmits, defineProps } from 'vue';
-import type { SwitchButtonOption } from './types';
+import type { SwitchButtonProps } from './types';
 
-const props = defineProps<{
-  active?: boolean
-  option: SwitchButtonOption
-}>();
+const props = defineProps<SwitchButtonProps>();
 
 const emit = defineEmits(['click']);
 
