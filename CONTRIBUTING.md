@@ -64,6 +64,18 @@ git clone https://github.com/<your-username>/youcan-ui
 cd youcan-ui
 ```
 
+### Build the project
+
+```bash
+pnpm run build
+```
+
+### Run the project
+
+```bash
+pnpm run dev
+```
+
 ### Create a branch
 
 ```bash
