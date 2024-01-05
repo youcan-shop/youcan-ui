@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import type { HSV } from '@youcan/ui-core';
 import { CLR_BLACK, CLR_WHITE, constructLinearGradient } from '@youcan/ui-core';
 import { type CSSProperties, nextTick, onMounted, ref } from 'vue';
+import type { SaturationProps } from './types';
 
-const props = defineProps<{ color: string; hsv: HSV; size: number }>();
+const props = defineProps<SaturationProps>();
 const emit = defineEmits(['setsaturation']);
 
 const wrapper = ref<HTMLDivElement>();

@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { onMounted, ref, watch } from 'vue';
 import { CLR_WHITE, constructAlphaBackdrop } from '@youcan/ui-core';
+import type { BackdropProps } from './types';
 
 const props = withDefaults(
-  defineProps<{ color: string; width: number; height: number }>(),
+  defineProps<BackdropProps>(),
   { color: CLR_WHITE, width: 100, height: 30 },
 );
 
