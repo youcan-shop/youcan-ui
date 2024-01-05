@@ -2,28 +2,17 @@
 import 'uno.css';
 import '../assets/main.css';
 import { ref } from 'vue';
-import { PrimaryButton, PrimaryDestructiveButton, SecondaryButton, SecondaryDestructiveButton, TertiaryButton } from '~/components';
+import { ColorInput } from '~/components';
 
-const isChecked = ref(false);
+const color = ref('#a8b1ff');
 </script>
 
 <template>
   <div class="container">
-    <PrimaryButton>
-      Primary Button
-    </PrimaryButton>
-    <SecondaryButton>
-      Secondary Button
-    </SecondaryButton>
-    <TertiaryButton>
-      Tertiary Button
-    </TertiaryButton>
-    <PrimaryDestructiveButton>
-      Destructive Primary Button
-    </PrimaryDestructiveButton>
-    <SecondaryDestructiveButton>
-      Destructive Secondary Button
-    </SecondaryDestructiveButton>
+    <ColorInput
+      v-model="color"
+      :preserve-transparency="false"
+    />
   </div>
 </template>
 

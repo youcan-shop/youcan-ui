@@ -4,12 +4,10 @@ import { computed, onMounted, ref, useAttrs } from 'vue';
 import { createPopper } from '@popperjs/core';
 import ColorPicker from './ColorPicker.vue';
 import Backdrop from './Internal/Backdrop.vue';
+import type { ColorInputProps } from './types';
 
 const props = withDefaults(
-  defineProps<{
-    modelValue?: string
-    preserveTransparency?: boolean
-  }>(),
+  defineProps<ColorInputProps>(),
   {
     modelValue: '#ffffff',
     preserveTransparency: false,

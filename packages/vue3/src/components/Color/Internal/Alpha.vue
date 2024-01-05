@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { type CSSProperties, onMounted, ref, watch } from 'vue';
 import { CLR_BLACK, constructAlphaBackdrop, constructAlphaGradient } from '@youcan/ui-core';
-import type { RGBA } from '@youcan/ui-core';
+import type { AlphaProps } from './types';
 
 const props = withDefaults(
-  defineProps<{ color: string; rgba: RGBA; height: number; width: number }>(),
+  defineProps<AlphaProps>(),
   { color: CLR_BLACK, width: 15, height: 152 },
 );
 
