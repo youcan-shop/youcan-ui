@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import type { QueryResult } from '../types';
+import type { SearchResultProps } from '../types';
 import { Rating, Thumbnail } from '~/components';
 
-defineProps<{ result: QueryResult; thumbnail?: boolean }>();
+defineProps<SearchResultProps>();
 </script>
 
 <template>

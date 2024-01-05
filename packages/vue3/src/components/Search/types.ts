@@ -13,3 +13,13 @@ export interface QueryResult<T = any> {
   description?: string
   suffix?: QueryResultSuffix
 }
+
+export interface SearchInputProps {
+  queryHandler: (query: string) => Promise<QueryResult[]>
+  thumbnails?: boolean
+}
+
+export interface SearchResultProps {
+  result: QueryResult
+  thumbnail?: boolean
+}

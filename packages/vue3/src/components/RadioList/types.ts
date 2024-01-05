@@ -4,3 +4,8 @@ export interface RadioListOption {
 }
 
 export type RadioList = RadioListOption[];
+
+export interface RadioListProps {
+  modelValue?: RadioListOption
+  options: RadioList
+}

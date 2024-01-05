@@ -2,68 +2,35 @@
 import 'uno.css';
 import '../assets/main.css';
 import { ref } from 'vue';
-import { Percentage, Popover, PrimaryButton, RadioGroup, TertiaryButton } from '~/components';
-import type { RadioData } from '~/components/Radio/types';
+import { RadioList, RatingInput } from '~/components';
+import type { RadioListOption } from '~/components/RadioList/types';
 
-const show = ref(false);
-const languages = ref<RadioData[]>([
+const movieRating = ref(0);
+const options = ref<RadioListOption[]>([
   {
-    label: 'JavaScript',
-    value: 'js',
+    label: 'Pizza',
+    suffix: '🍕',
   },
   {
-    label: 'PHP',
-    value: 'php',
+    label: 'Burger',
+    suffix: '🍔',
   },
   {
-    label: 'Python',
-    value: 'python',
+    label: 'Burrito',
+    suffix: '🌯',
   },
 ]);
-// @ts-expect-error the v-model expects a RadioData but sets a string when value is changed.
-const preferredLanguage = ref<RadioData>(languages.value[0].value);
+// @ts-expect-error the v-model expects a RadioListOption but sets a string when value is changed.
+const selectedOption = ref<RadioListOption>(options.value[0].label);
 </script>
 
 <template>
   <div class="container">
-    <Percentage
-      type="danger"
-      :percentage="-40"
+    <RadioList
+      v-model="selectedOption"
+      :options="options"
     />
-    <Popover
-      v-model:show="show"
-      position="top"
-      object-fit="cover"
-      class="popover"
-      @click-outside="show = false"
-    >
-      <template #title>
-        Introducing Themes!
-      </template>
-      <template #description>
-        <p class="mr-0">
-          Introducing themes, a new way to make your store stand out
-        </p>
-      </template>
-      <template #footer>
-        <div class="actions">
-          <PrimaryButton @click="show = false">
-            Get started
-          </PrimaryButton>
-          <TertiaryButton @click="show = false">
-            Later
-          </TertiaryButton>
-        </div>
-      </template>
-      <PrimaryButton @click="show = !show;">
-        <span>Show Popover</span>
-      </PrimaryButton>
-    </Popover>
-    <RadioGroup
-      v-model="preferredLanguage"
-      name="languages"
-      :items="languages"
-    />
+    <RatingInput v-model="movieRating" :ceil="5" />
   </div>
 </template>
 
