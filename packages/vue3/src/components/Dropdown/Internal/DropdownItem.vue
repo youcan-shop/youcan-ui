@@ -1,14 +1,10 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import type { DropdownItemDefinition } from '../types';
+import type { DropdownItemProps } from '../types';
 import { Checkbox, Thumbnail } from '~/components';
 
 const props = withDefaults(
-  defineProps<{
-    selected: boolean
-    checkbox?: boolean
-    item: DropdownItemDefinition
-  }>(),
+  defineProps<DropdownItemProps>(),
   { checkbox: false },
 );
 

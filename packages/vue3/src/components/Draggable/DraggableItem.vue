@@ -2,12 +2,9 @@
 import { computed } from 'vue';
 import { DragHandle } from 'vue-slicksort';
 import Checkbox from '../Checkbox/Checkbox.vue';
-import type { DraggableItemType } from './types';
+import type { DraggableItemProps, DraggableItemType } from './types';
 
-const props = defineProps<{
-  modelValue: DraggableItemType
-  canCheck?: boolean
-}>();
+const props = defineProps<DraggableItemProps>();
 
 const emit = defineEmits<{
   (event: 'update:model-value', modelValue: DraggableItemType): void
