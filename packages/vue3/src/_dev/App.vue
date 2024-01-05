@@ -2,19 +2,34 @@
 import 'uno.css';
 import '../assets/main.css';
 import { ref } from 'vue';
-import { DateInput, Divider } from '~/components';
-import type { DateInputValue } from '~/components/DateInput/types';
+import { Draggable, DraggableItem } from '~/components';
+import type { DraggableItemType } from '~/components/Draggable/types';
 
-const defaultStartDate = new Date();
-const defaultEndDate = new Date();
-
-const dateRange = ref<DateInputValue>({ start: defaultStartDate, end: defaultEndDate });
+const items = ref<DraggableItemType[]>([
+  {
+    label: 'Navbar',
+    value: 1,
+  },
+  {
+    label: 'Hero',
+    value: 2,
+  },
+  {
+    label: 'Featured Products',
+    value: 3,
+  },
+]);
 </script>
 
 <template>
   <div class="container">
-    <Divider />
-    <DateInput v-model="dateRange" />
+    <Draggable v-model="items">
+      <DraggableItem
+        v-for="(item, index) in items"
+        :key="item.value as number"
+        v-model="items[index]"
+      />
+    </Draggable>
   </div>
 </template>
 

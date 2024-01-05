@@ -1,13 +1,10 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { SlickItem, SlickList } from 'vue-slicksort';
-import type { DraggableItemType } from './types';
+import type { DraggableItemType, DraggableProps } from './types';
 import DraggableItem from './DraggableItem.vue';
 
-const props = defineProps<{
-  modelValue: DraggableItemType[]
-  canCheck?: boolean
-}>();
+const props = defineProps<DraggableProps>();
 
 const emit = defineEmits<{
   (event: 'update:model-value', modelValue: DraggableItemType[]): void
