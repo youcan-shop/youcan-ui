@@ -2,17 +2,19 @@
 import 'uno.css';
 import '../assets/main.css';
 import { ref } from 'vue';
-import { ColorInput } from '~/components';
+import { DateInput, Divider } from '~/components';
+import type { DateInputValue } from '~/components/DateInput/types';
 
-const color = ref('#a8b1ff');
+const defaultStartDate = new Date();
+const defaultEndDate = new Date();
+
+const dateRange = ref<DateInputValue>({ start: defaultStartDate, end: defaultEndDate });
 </script>
 
 <template>
   <div class="container">
-    <ColorInput
-      v-model="color"
-      :preserve-transparency="false"
-    />
+    <Divider />
+    <DateInput v-model="dateRange" />
   </div>
 </template>
 
