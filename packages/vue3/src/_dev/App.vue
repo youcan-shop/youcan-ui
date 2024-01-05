@@ -2,34 +2,17 @@
 import 'uno.css';
 import '../assets/main.css';
 import { ref } from 'vue';
-import { Draggable, DraggableItem } from '~/components';
-import type { DraggableItemType } from '~/components/Draggable/types';
+import { Increment, Input, Loading } from '~/components';
 
-const items = ref<DraggableItemType[]>([
-  {
-    label: 'Navbar',
-    value: 1,
-  },
-  {
-    label: 'Hero',
-    value: 2,
-  },
-  {
-    label: 'Featured Products',
-    value: 3,
-  },
-]);
+const quantity = ref('0');
+const username = ref('');
 </script>
 
 <template>
   <div class="container">
-    <Draggable v-model="items">
-      <DraggableItem
-        v-for="(item, index) in items"
-        :key="item.value as number"
-        v-model="items[index]"
-      />
-    </Draggable>
+    <Increment v-model="quantity" :max="100" />
+    <Input v-model="username" placeholder="Please enter your username" />
+    <Loading :duration="5000" /> <!-- in milliseconds -->
   </div>
 </template>
 
