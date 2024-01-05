@@ -1,16 +1,10 @@
 <script setup lang="ts">
 import { Utils } from '@youcan/ui-core';
 import { computed, onMounted, ref } from 'vue';
+import type { IncrementProps } from './types';
 import TertiaryButtonVue from '~/components/Button/TertiaryButton.vue';
 
-const props = withDefaults(defineProps<{
-  modelValue: string
-  max?: number
-  min?: number
-  step?: number
-  id?: string
-  disabled?: boolean
-}>(), {
+const props = withDefaults(defineProps<IncrementProps>(), {
   modelValue: '1',
   id: Utils.uid('increment_'),
   min: 0,
