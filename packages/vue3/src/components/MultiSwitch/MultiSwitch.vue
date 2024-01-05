@@ -1,12 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import type { SwitchButtonOption } from './types';
+import type { MultiSwitchProps, SwitchButtonOption } from './types';
 import SwitchButton from './SwitchButton.vue';
 
-const props = defineProps<{
-  options: SwitchButtonOption[]
-  selectedOption: SwitchButtonOption
-}>();
+const props = defineProps<MultiSwitchProps>();
 
 const emit = defineEmits(['update:selectedOption']);
 
