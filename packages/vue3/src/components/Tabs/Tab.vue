@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import Badge from '../Badge/Badge.vue';
-import type { TabsProps } from './types';
+import type { TabProps } from './types';
 
-defineProps<TabsProps>();
+defineProps<TabProps>();
 </script>
 
 <template>
