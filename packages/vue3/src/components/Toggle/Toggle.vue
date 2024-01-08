@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
+import type { ToggleProps } from './types';
 
-const props = defineProps<{
-  modelValue: boolean
-}>();
+const props = defineProps<ToggleProps>();
 
 const emit = defineEmits(['update:modelValue']);
 
