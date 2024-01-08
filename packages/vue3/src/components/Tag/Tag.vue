@@ -2,16 +2,9 @@
 import { computed, onMounted, ref } from 'vue';
 import { Utils } from '@youcan/ui-core';
 import TagItem from './TagItem.vue';
-import type { TagItemType, TagItemValue } from './types';
+import type { TagItemValue, TagProps } from './types';
 
-const props = withDefaults(defineProps<{
-  modelValue: TagItemValue[]
-  type?: TagItemType
-  max?: number
-  placeholder?: string
-  disabled?: boolean
-  error?: boolean
-}>(), {
+const props = withDefaults(defineProps<TagProps>(), {
   type: 'text',
   placeholder: 'Add tag',
   disabled: false,
