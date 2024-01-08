@@ -1,12 +1,8 @@
 <script setup lang="ts">
 import Badge from '../Badge/Badge.vue';
+import type { TabsProps } from './types';
 
-defineProps<{
-  label: string
-  active?: boolean
-  disabled?: boolean
-  errorCount?: number
-}>();
+defineProps<TabsProps>();
 </script>
 
 <template>
