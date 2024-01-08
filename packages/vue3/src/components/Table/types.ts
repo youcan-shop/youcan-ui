@@ -149,3 +149,12 @@ interface TableDataNumberInput extends BaseTableDataInput<'number'> {
 }
 
 interface TableDataGenericInput extends BaseTableDataInput<Exclude<HTMLInputTypeAttribute, 'number'>> {}
+
+export interface TableProps {
+  columns: TableColumn[]
+  data: TableData[]
+  actions?: TableActions[]
+  selectable?: boolean
+  selectedRows?: TableData[]
+  actionsText?: string
+}

@@ -1,24 +1,15 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { TableDataRow } from '../types';
-import type { HandleSubCompModel, TableActions, TableColumn, TableColumnValue, TableData, TableDataComposable, TableInternalData } from '../types';
+import type { HandleSubCompModel, TableActions, TableColumnValue, TableData, TableDataComposable } from '../types';
 import TableButton from './Button.vue';
+import type { TableRowProps } from './types';
 import TertiaryButton from '~/components/Button/TertiaryButton.vue';
 import Checkbox from '~/components/Checkbox/Checkbox.vue';
 import { launder } from '~/utils/type.util';
 import Tooltip from '~/components/Tooltip/Tooltip.vue';
 
-const props = defineProps<{
-  row: TableInternalData
-  columns: TableColumn[]
-  actions?: TableActions[]
-  index: number
-  selected?: boolean
-  expended?: boolean
-  isChild?: boolean
-  data: TableData[]
-  originalRow?: TableDataRow
-}>();
+const props = defineProps<TableRowProps>();
 
 const emit = defineEmits<{
   (event: 'update:selected-rows', data: boolean): void

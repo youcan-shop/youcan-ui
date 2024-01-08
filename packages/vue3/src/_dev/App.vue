@@ -114,7 +114,6 @@ const TABS: { [k: string]: StaticStatusDefinition[] } = {
 .container {
   display: flex;
   flex-direction: column;
-  gap: 30px;
   margin: 10%;
 }
 

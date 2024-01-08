@@ -1,10 +1,8 @@
 <script setup lang="ts">
+import type { LinkProps } from './types';
+
 withDefaults(
-  defineProps<{
-    href: string
-    label: string
-    target?: string
-  }>(),
+  defineProps<LinkProps>(),
   {
     target: '_blank',
   },
