@@ -3,14 +3,11 @@ import { Utils } from '@youcan/ui-core';
 import { onMounted, ref, watch } from 'vue';
 import Input from '../Input/Input.vue';
 import SearchResult from './Internal/SearchResult.vue';
-import type { QueryResult } from './types';
+import type { QueryResult, SearchInputProps } from './types';
 import SearchLoader from './Internal/SearchLoader.vue';
 import SearchNoResults from './Internal/SearchNoResults.vue';
 
-const props = defineProps<{
-  queryHandler: (query: string) => Promise<QueryResult[]>
-  thumbnails?: boolean
-}>();
+const props = defineProps<SearchInputProps>();
 const emit = defineEmits(['select']);
 
 const query = ref<string>('');

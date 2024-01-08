@@ -1,11 +1,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import type { RadioList, RadioListOption } from './types';
+import type { RadioListProps } from './types';
 
-const props = defineProps<{
-  modelValue?: RadioListOption
-  options: RadioList
-}>();
+const props = defineProps<RadioListProps>();
 
 const emit = defineEmits(['update:model-value']);
 
