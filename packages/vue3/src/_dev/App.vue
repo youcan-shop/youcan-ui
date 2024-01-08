@@ -2,86 +2,172 @@
 import 'uno.css';
 import '../assets/main.css';
 import { ref } from 'vue';
-import { SettingsNav, SettingsNavItem, Sidebar, SidebarItem, Skeleton } from '~/components';
+import { Table, Tag } from '~/components';
+import type { TableActions, TableColumn, TableData } from '~/components/Table/types';
+import type { StaticStatusDefinition } from '~/components/Status/types';
+import type { TagItemValue } from '~/components/Tag/types';
 
-const SETTINGS = [
-  { label: 'General', icon: 'i-youcan-gear' },
-  { label: 'Account', icon: 'i-youcan-user' },
-  { label: 'Privacy', icon: 'i-youcan-lock' },
-  { label: 'Appearance', icon: 'i-youcan-palette' },
-  { label: 'Subscriptions', icon: 'i-youcan-receipt' },
+const columns: TableColumn[] = [
+  { label: 'Domain', accessor: 'domain', sortable: 'desc' },
+  { label: 'Status', accessor: 'status', sortable: 'desc' },
+  { label: 'Git Branch', accessor: 'branch', sortable: 'desc' },
 ];
-const activeTab = ref(SETTINGS[0].label);
 
-const handleClick = (tab: string) => {
-  activeTab.value = tab;
+const actions: TableActions[] = [
+  {
+    label: 'Redeploy',
+    iconName: 'i-youcan-arrows-clockwise',
+    tooltip: 'Redeploy',
+  },
+  {
+    label: 'Copy URL',
+    iconName: 'i-youcan-copy',
+    tooltip: 'Copy URL',
+  },
+  {
+    label: 'Source Code',
+    iconName: 'i-youcan-code',
+    tooltip: 'Source Code',
+  },
+];
+
+const domainStatuses: { [k: string]: StaticStatusDefinition } = {
+  ready: {
+    color: '#52E2C0',
+    label: 'Ready',
+    labelColor: '#2d4236',
+  },
+  error: {
+    color: '#EE0200',
+    label: 'Error',
+    labelColor: '#f8dcdc',
+  },
+  building: {
+    color: '#ffc35c',
+    label: 'Building',
+    labelColor: '#574811',
+  },
+  queued: {
+    color: '#999999',
+    label: 'Queued',
+    labelColor: '#fff2f2',
+  },
 };
-const items = [
+
+const data = ref<TableData[]>([
   {
-    label: 'Products',
-    active: true,
-    icon: 'i-youcan-tag',
-    children: [
-      { label: 'All Products' },
-      { label: 'Categories' },
-    ],
+    row: {
+      id: 'eihabkhan.com',
+      domain: 'eihabkhan.com',
+      status: {
+        variant: 'static-status',
+        data: {
+          status: domainStatuses.building,
+        },
+      },
+      branch: 'main',
+    },
   },
   {
-    label: 'Insights',
-    active: false,
-    icon: 'i-youcan-chart-line',
+    row: {
+      id: 'supershop.youcan.shop',
+      domain: 'supershop.youcan.shop',
+      status: {
+        variant: 'static-status',
+        data: {
+          status: domainStatuses.queued,
+        },
+      },
+      branch: 'main',
+    },
   },
-];
+  {
+    row: {
+      id: 'vercel.com',
+      domain: 'vercel.com',
+      status: {
+        variant: 'static-status',
+        data: {
+          status: domainStatuses.ready,
+        },
+      },
+      branch: 'main',
+    },
+  },
+  {
+    row: {
+      domain: 'nextjs.org',
+      status: {
+        variant: 'static-status',
+        data: {
+          status: domainStatuses.error,
+        },
+      },
+      branch: 'feat/next-conf',
+    },
+  },
+]);
+
+const selectedRows = ref<TableData[]>([]);
+
+const handleSort = (column: TableColumn) => {
+  data.value = data.value.sort((a: any, b: any) => {
+    let textA = '';
+    let textB = '';
+
+    if (typeof a.row[column.accessor] === 'string') {
+      textA = (a.row[column.accessor] as string)?.toUpperCase();
+      textB = (b.row[column.accessor] as string)?.toUpperCase();
+    }
+
+    else if (a.row?.status?.data.status.label && b.row?.status?.data.status.label) {
+      textA = a.row?.status?.data.status.label;
+      textB = b.row?.status?.data.status.label;
+    }
+
+    if (textA < textB) {
+      return -1;
+    }
+    if (textA > textB) {
+      return 1;
+    }
+
+    return 0;
+  });
+};
+
+const updateSelectedRows = (data: TableData[]) => {
+  selectedRows.value = data;
+};
+const preferredLanguages = ref<TagItemValue[]>([
+  { label: 'JavaScript' },
+]);
 </script>
 
 <template>
   <div class="container">
-    <Sidebar>
-      <template #header>
-        <p>Awesome App</p>
-      </template>
-      <template #items>
-        <SidebarItem
-          v-for="item in items"
-          :key="item.label"
-          :label="item.label"
-          :active="item.active"
-          :icon="item.icon"
-        >
-          <template v-if="item.children">
-            <SidebarSubitem
-              v-for="subItem in item.children" :key="subItem.label"
-              :label="subItem.label"
-            />
-          </template>
-        </SidebarItem>
-      </template>
-      <template #lower-items>
-        <SidebarItem icon="i-youcan-gear" label="Settings" />
-      </template>
-    </Sidebar>
-    <SettingsNav>
-      <template #header>
-        <p>Settings</p>
-      </template>
-      <template #items>
-        <SettingsNavItem
-          v-for="item in SETTINGS"
-          :key="item.label"
-          :label="item.label"
-          :icon="item.icon"
-          :active="activeTab === item.label"
-          @click="() => handleClick(item.label)"
-        />
-      </template>
-    </SettingsNav>
-    <Skeleton type="text" :lines="5" />
+    <Table
+      :columns="columns"
+      :data="data"
+      :actions="actions"
+      :selectable="true"
+      :selected-rows="selectedRows"
+      @sort="handleSort"
+      @update:selected-rows="updateSelectedRows"
+    />
+    <Tag
+      v-model="preferredLanguages"
+      placeholder="Your favorite programming languages"
+      :max="3"
+    />
   </div>
 </template>
 
 <style scoped>
 .container {
   display: flex;
-  min-width: 100%;
+  flex-direction: column;
+  margin: 10%;
+  gap: 20px;
 }
 </style>

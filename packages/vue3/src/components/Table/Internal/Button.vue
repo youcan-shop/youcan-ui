@@ -1,16 +1,9 @@
 <script setup lang="ts">
+import type { ButtonProps } from './types';
 import SecondaryButton from '~/components/Button/SecondaryButton.vue';
-import type { ButtonIconPosition, ButtonSize } from '~/components/Button/types';
 
 withDefaults(
-  defineProps<{
-    label: string
-    iconName?: string
-    size?: ButtonSize
-    disabled?: boolean
-    iconPosition?: ButtonIconPosition
-    roundedFull?: boolean
-  }>(),
+  defineProps<ButtonProps>(),
   {
     size: 'sm',
   },
