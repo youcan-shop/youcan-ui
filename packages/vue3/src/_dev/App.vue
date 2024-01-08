@@ -1,11 +1,27 @@
 <script setup lang="ts">
 import 'uno.css';
 import '../assets/main.css';
-import { ref } from 'vue';
-import { PrimaryButton, SecondaryButton, Toast, Toggle, Tooltip } from '~/components';
+import { ref, watch } from 'vue';
+import { FileInput, UploadedFile } from '~/components';
 
-const show = ref(false);
-const isActive = ref(false);
+const attachments = ref<File[]>([]);
+const disabled = ref(false);
+const limit = 1;
+
+const checkLimit = () => {
+  disabled.value = attachments.value.length >= limit;
+};
+
+const deleteFile = (file: File) => {
+  const idx = attachments.value.indexOf(file);
+  if (idx > -1) {
+    attachments.value.splice(idx, 1);
+    checkLimit();
+  }
+};
+watch(attachments, () => {
+  checkLimit();
+});
 </script>
 
 <template>
@@ -18,15 +34,15 @@ const isActive = ref(false);
     </template>
   </Toast>
   <div class="container">
-    <PrimaryButton :disabled="show" @click="show = true;">
-      <span>Show Toast</span>
-    </PrimaryButton>
-    <Toggle v-model="isActive" />
-    <Tooltip label="Add to favorites" position="bottom">
-      <SecondaryButton>
-        Hover
-      </SecondaryButton>
-    </Tooltip>
+    <div class="files-grid">
+      <UploadedFile
+        v-for="(attachment, index) in attachments"
+        :key="index"
+        :file="attachment"
+        @delete="deleteFile(attachment)"
+      />
+    </div>
+    <FileInput v-model="attachments" :limit="limit" :disabled="disabled" />
   </div>
 </template>
 
@@ -39,84 +55,10 @@ const isActive = ref(false);
   margin: 10%;
 }
 
-.tab-group {
-  border-radius: 8px;
-  background-color: transparent;
-}
-
-.tab-group .tab-list {
-  display: flex;
-  align-items: center;
-  justify-content: start;
-  width: 100%;
-  margin: 0;
-  padding: 0 20px;
-  list-style-type: none;
-  border-bottom: 1px solid var(--vp-c-divider);
-  font: var(--text-md-regular);
-}
-
-.tab-group .tab-list .list {
-  border-bottom: 0;
-}
-
-.tab-group .tab-list .list .tab .label {
-  color: red !important;
-}
-
-.tab-group .tab-list .tab-item {
-  min-width: fit-content;
-  padding: 14px 0;
-  cursor: pointer;
-}
-
-.tab-group .tab-list .tab-item.active {
-  border-bottom: 1px solid var(--brand-500);
-  color: var(--brand-500);
-  font-weight: var(--text-md-medium);
-}
-
-.tab-panels {
-  display: flex;
-  justify-content: center;
-  min-height: 200px;
-  margin: 16px 0;
-  padding: 24px;
-  border: 1px solid var(--vp-c-divider);
-  border-radius: 8px;
-}
-
-.tab-group .tab-panels {
-  background-color: var(--base-white);
-}
-
-:is(.dark) .tab-group .tab-panels {
-  background-color: var(--vp-sidebar-bg-color);
-}
-
-.tab-panels .panel {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  justify-content: stretch;
-  min-width: 100%;
-  padding: 20px;
-  gap: 0.5rem;
-}
-
-.tab-panels .panel .status {
-  max-width: 100%;
-}
-
-.items-center {
-  align-items: center;
-}
-
-.items-start {
-  align-items: start;
-}
-
-.items-end {
-  align-items: end;
+.file-input {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
 }
 </style>
