@@ -2,111 +2,31 @@
 import 'uno.css';
 import '../assets/main.css';
 import { ref } from 'vue';
-import { StaticStatus, Tab, TabsBar, TextArea, Thumbnail } from '~/components';
-import type { StaticStatusDefinition } from '~/components/Status/types';
+import { PrimaryButton, SecondaryButton, Toast, Toggle, Tooltip } from '~/components';
 
-const activeTab = ref(0);
-const comment = ref('');
-const imageSrc = 'https://i.imgur.com/YcP0tik.jpeg';
-const imageAlt = 'Mr. Shark';
-function setActiveTab(id: number) {
-  activeTab.value = id;
-}
-
-const TABS: { [k: string]: StaticStatusDefinition[] } = {
-  Fruits: [
-    {
-      color: '#ffdecb',
-      label: 'Peach 🍑',
-      labelColor: '#35192b',
-    },
-    {
-      color: '#fffad2',
-      label: 'Banana 🍌',
-      labelColor: '#555022',
-    },
-    {
-      color: '#cbffd3',
-      label: 'Kiwi 🥝',
-      labelColor: '#2c4730',
-    },
-  ],
-  Vegetables: [
-    {
-      color: '#ffceb9',
-      label: 'Je3da 🥕',
-      labelColor: '#35192b',
-    },
-    {
-      color: '#fff6d2',
-      label: 'Corn 🌽',
-      labelColor: '#555022',
-    },
-    {
-      color: '#c4ffc5',
-      label: 'Broccoli 🥦',
-      labelColor: '#2c4730',
-    },
-  ],
-  Meat: [
-    {
-      color: '#ffd2d2',
-      label: 'Chicken 🐔',
-      labelColor: '#35192b',
-    },
-    {
-      color: '#e9e9e9',
-      label: 'Lamb 🐏',
-      labelColor: '#555022',
-    },
-    {
-      color: '#f7cfb0',
-      label: 'Beef 🐮',
-      labelColor: '#2c4730',
-    },
-  ],
-};
+const show = ref(false);
+const isActive = ref(false);
 </script>
 
 <template>
+  <Toast :show="show" :close-after-duration="3000" position="bottom-right" type="success" @close="show = false">
+    <template #title>
+      Profile Updated
+    </template>
+    <template #description>
+      Your profile information has been successfully updated.
+    </template>
+  </Toast>
   <div class="container">
-    <div class="tab-group">
-      <ul class="tab-list">
-        <TabsBar>
-          <Tab
-            v-for="(tab, index) in Object.keys(TABS)"
-            :key="tab"
-            :label="tab"
-            :active="activeTab === index"
-            @click="setActiveTab(index)"
-          />
-        </TabsBar>
-      </ul>
-      <div class="tab-panels">
-        <div
-          v-for="(content, index) in Object.values(TABS)"
-          v-show="activeTab === index"
-          :key="index"
-          class="panel"
-        >
-          <StaticStatus v-for="fruit in content" :key="fruit.color" :status="fruit" />
-        </div>
-      </div>
-    </div>
-    <TextArea
-      v-model="comment"
-      placeholder="Leave your comment"
-    />
-    <Thumbnail
-      :src="imageSrc"
-      :alt="imageAlt"
-      size="large"
-    />
-    <Thumbnail
-      :src="imageSrc"
-      :alt="imageAlt"
-      size="small"
-    />
+    <PrimaryButton :disabled="show" @click="show = true;">
+      <span>Show Toast</span>
+    </PrimaryButton>
+    <Toggle v-model="isActive" />
+    <Tooltip label="Add to favorites" position="bottom">
+      <SecondaryButton>
+        Hover
+      </SecondaryButton>
+    </Tooltip>
   </div>
 </template>
 
@@ -114,6 +34,8 @@ const TABS: { [k: string]: StaticStatusDefinition[] } = {
 .container {
   display: flex;
   flex-direction: column;
+  max-width: fit-content;
+  gap: 30px;
   margin: 10%;
 }
 

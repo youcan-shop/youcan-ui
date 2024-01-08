@@ -1,17 +1,10 @@
 <script setup lang="ts">
 import { useSlots } from 'vue';
-import type { ToastPosition } from './types';
-import type { AlertType } from '~/components/Alert/types';
+import type { ToastProps } from './types';
 import { Alert } from '~/components';
 
 withDefaults(
-  defineProps<{
-    show?: boolean
-    position?: ToastPosition
-    type?: AlertType
-    closeAfterDuration?: number
-    canClose?: boolean
-  }>(),
+  defineProps<ToastProps>(),
   {
     position: 'top-right',
     canClose: true,
