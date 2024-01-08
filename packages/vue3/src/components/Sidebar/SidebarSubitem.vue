@@ -1,5 +1,7 @@
 <script setup lang="ts">
-defineProps<{ label: string; active?: boolean }>();
+import type { SidebarSubItemProps } from './types';
+
+defineProps<SidebarSubItemProps>();
 </script>
 
 <template>

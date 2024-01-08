@@ -1,5 +1,7 @@
 <script setup lang="ts">
-defineProps<{ label: string; icon: string; active?: boolean }>();
+import type { SettingsNavItemProps } from './types';
+
+defineProps<SettingsNavItemProps>();
 </script>
 
 <template>
