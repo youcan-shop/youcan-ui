@@ -25,6 +25,14 @@ watch(attachments, () => {
 </script>
 
 <template>
+  <Toast :show="show" :close-after-duration="3000" position="bottom-right" type="success" @close="show = false">
+    <template #title>
+      Profile Updated
+    </template>
+    <template #description>
+      Your profile information has been successfully updated.
+    </template>
+  </Toast>
   <div class="container">
     <div class="files-grid">
       <UploadedFile
@@ -42,6 +50,8 @@ watch(attachments, () => {
 .container {
   display: flex;
   flex-direction: column;
+  max-width: fit-content;
+  gap: 30px;
   margin: 10%;
 }
 
