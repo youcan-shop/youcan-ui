@@ -13,13 +13,7 @@ export interface MediaInputProps {
   highlightedLabel: string
 }
 
-export interface UploadedFileProps {
-  file: File
-  progress?: number
-  error?: string
-}
-
-export interface UploadedMediaProps {
+export interface UploadedProps {
   file: File
   progress?: number
   error?: string
