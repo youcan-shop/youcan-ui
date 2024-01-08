@@ -1,12 +1,8 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
+import type { SidebarItemProps } from './types';
 
-const props = defineProps<{
-  icon: string
-  label: string
-  count?: number
-  active?: boolean
-}>();
+const props = defineProps<SidebarItemProps>();
 
 const children = ref(1);
 const subitems = ref();
