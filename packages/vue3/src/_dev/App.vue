@@ -2,86 +2,51 @@
 import 'uno.css';
 import '../assets/main.css';
 import { ref } from 'vue';
-import { SettingsNav, SettingsNavItem, Sidebar, SidebarItem, Skeleton } from '~/components';
+import { Slider, Spinner, StaticStatus } from '~/components';
+import type { StaticStatusDefinition } from '~/components/Status/types';
 
-const SETTINGS = [
-  { label: 'General', icon: 'i-youcan-gear' },
-  { label: 'Account', icon: 'i-youcan-user' },
-  { label: 'Privacy', icon: 'i-youcan-lock' },
-  { label: 'Appearance', icon: 'i-youcan-palette' },
-  { label: 'Subscriptions', icon: 'i-youcan-receipt' },
-];
-const activeTab = ref(SETTINGS[0].label);
-
-const handleClick = (tab: string) => {
-  activeTab.value = tab;
-};
-const items = [
+const value = ref(100);
+const fruits: StaticStatusDefinition[] = [
   {
-    label: 'Products',
-    active: true,
-    icon: 'i-youcan-tag',
-    children: [
-      { label: 'All Products' },
-      { label: 'Categories' },
-    ],
+    color: '#ffdecb',
+    label: 'Peach 🍑',
+    labelColor: '#35192b',
   },
   {
-    label: 'Insights',
-    active: false,
-    icon: 'i-youcan-chart-line',
+    color: '#fffad2',
+    label: 'Banana 🍌',
+    labelColor: '#555022',
+  },
+  {
+    color: '#cbffd3',
+    label: 'Kiwi 🥝',
+    labelColor: '#2c4730',
   },
 ];
 </script>
 
 <template>
   <div class="container">
-    <Sidebar>
-      <template #header>
-        <p>Awesome App</p>
-      </template>
-      <template #items>
-        <SidebarItem
-          v-for="item in items"
-          :key="item.label"
-          :label="item.label"
-          :active="item.active"
-          :icon="item.icon"
-        >
-          <template v-if="item.children">
-            <SidebarSubitem
-              v-for="subItem in item.children" :key="subItem.label"
-              :label="subItem.label"
-            />
-          </template>
-        </SidebarItem>
-      </template>
-      <template #lower-items>
-        <SidebarItem icon="i-youcan-gear" label="Settings" />
-      </template>
-    </Sidebar>
-    <SettingsNav>
-      <template #header>
-        <p>Settings</p>
-      </template>
-      <template #items>
-        <SettingsNavItem
-          v-for="item in SETTINGS"
-          :key="item.label"
-          :label="item.label"
-          :icon="item.icon"
-          :active="activeTab === item.label"
-          @click="() => handleClick(item.label)"
-        />
-      </template>
-    </SettingsNav>
-    <Skeleton type="text" :lines="5" />
+    <Slider
+      v-model="value"
+      suffix=""
+      :max="500"
+      :min="0"
+    />
+    <Spinner
+      color="var(--brand-500)"
+      size="40px"
+      label=""
+    />
+    <StaticStatus v-for="fruit in fruits" :key="fruit.color" :status="fruit" />
   </div>
 </template>
 
 <style scoped>
 .container {
   display: flex;
-  min-width: 100%;
+  flex-direction: column;
+  gap: 30px;
+  margin: 10%;
 }
 </style>

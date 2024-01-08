@@ -1,4 +1,4 @@
-export interface SpinnerType {
+export interface SpinnerProps {
   label?: string
   size?: string
   color?: string
