@@ -1,13 +1,14 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue';
 import { Utils } from '@youcan/ui-core';
+import type { UploadedMediaProps } from './types';
 import {
   PrimaryDestructiveButton,
   TertiaryButton,
   Thumbnail,
 } from '~/components';
 
-const props = defineProps<{ file: File; progress?: number; error?: string }>();
+const props = defineProps<UploadedMediaProps>();
 const emit = defineEmits(['delete']);
 
 const isImage = computed(() => props.file.type.startsWith('image/'));
@@ -149,9 +150,9 @@ onMounted(() => {
 
 .popup .action {
   position: absolute;
-  background-color: var(--base-white);
   top: 5%;
   right: 5%;
+  background-color: var(--base-white);
 }
 
 .popup .action:hover {

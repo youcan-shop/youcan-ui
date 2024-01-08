@@ -1,5 +1,7 @@
 <script setup lang="ts">
-defineProps<{ file: File; progress?: number; error?: string }>();
+import type { UploadedFileProps } from './types';
+
+defineProps<UploadedFileProps>();
 const emit = defineEmits(['delete']);
 </script>
 
