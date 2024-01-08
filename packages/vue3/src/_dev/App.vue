@@ -2,163 +2,110 @@
 import 'uno.css';
 import '../assets/main.css';
 import { ref } from 'vue';
-import { Table, Tag } from '~/components';
-import type { TableActions, TableColumn, TableData } from '~/components/Table/types';
+import { StaticStatus, Tab, TabsBar, TextArea, Thumbnail } from '~/components';
 import type { StaticStatusDefinition } from '~/components/Status/types';
-import type { TagItemValue } from '~/components/Tag/types';
 
-const columns: TableColumn[] = [
-  { label: 'Domain', accessor: 'domain', sortable: 'desc' },
-  { label: 'Status', accessor: 'status', sortable: 'desc' },
-  { label: 'Git Branch', accessor: 'branch', sortable: 'desc' },
-];
+const activeTab = ref(0);
+const comment = ref('');
+const imageSrc = 'https://i.imgur.com/YcP0tik.jpeg';
+const imageAlt = 'Mr. Shark';
+function setActiveTab(id: number) {
+  activeTab.value = id;
+}
 
-const actions: TableActions[] = [
-  {
-    label: 'Redeploy',
-    iconName: 'i-youcan-arrows-clockwise',
-    tooltip: 'Redeploy',
-  },
-  {
-    label: 'Copy URL',
-    iconName: 'i-youcan-copy',
-    tooltip: 'Copy URL',
-  },
-  {
-    label: 'Source Code',
-    iconName: 'i-youcan-code',
-    tooltip: 'Source Code',
-  },
-];
-
-const domainStatuses: { [k: string]: StaticStatusDefinition } = {
-  ready: {
-    color: '#52E2C0',
-    label: 'Ready',
-    labelColor: '#2d4236',
-  },
-  error: {
-    color: '#EE0200',
-    label: 'Error',
-    labelColor: '#f8dcdc',
-  },
-  building: {
-    color: '#ffc35c',
-    label: 'Building',
-    labelColor: '#574811',
-  },
-  queued: {
-    color: '#999999',
-    label: 'Queued',
-    labelColor: '#fff2f2',
-  },
+const TABS: { [k: string]: StaticStatusDefinition[] } = {
+  Fruits: [
+    {
+      color: '#ffdecb',
+      label: 'Peach 🍑',
+      labelColor: '#35192b',
+    },
+    {
+      color: '#fffad2',
+      label: 'Banana 🍌',
+      labelColor: '#555022',
+    },
+    {
+      color: '#cbffd3',
+      label: 'Kiwi 🥝',
+      labelColor: '#2c4730',
+    },
+  ],
+  Vegetables: [
+    {
+      color: '#ffceb9',
+      label: 'Je3da 🥕',
+      labelColor: '#35192b',
+    },
+    {
+      color: '#fff6d2',
+      label: 'Corn 🌽',
+      labelColor: '#555022',
+    },
+    {
+      color: '#c4ffc5',
+      label: 'Broccoli 🥦',
+      labelColor: '#2c4730',
+    },
+  ],
+  Meat: [
+    {
+      color: '#ffd2d2',
+      label: 'Chicken 🐔',
+      labelColor: '#35192b',
+    },
+    {
+      color: '#e9e9e9',
+      label: 'Lamb 🐏',
+      labelColor: '#555022',
+    },
+    {
+      color: '#f7cfb0',
+      label: 'Beef 🐮',
+      labelColor: '#2c4730',
+    },
+  ],
 };
-
-const data = ref<TableData[]>([
-  {
-    row: {
-      id: 'eihabkhan.com',
-      domain: 'eihabkhan.com',
-      status: {
-        variant: 'static-status',
-        data: {
-          status: domainStatuses.building,
-        },
-      },
-      branch: 'main',
-    },
-  },
-  {
-    row: {
-      id: 'supershop.youcan.shop',
-      domain: 'supershop.youcan.shop',
-      status: {
-        variant: 'static-status',
-        data: {
-          status: domainStatuses.queued,
-        },
-      },
-      branch: 'main',
-    },
-  },
-  {
-    row: {
-      id: 'vercel.com',
-      domain: 'vercel.com',
-      status: {
-        variant: 'static-status',
-        data: {
-          status: domainStatuses.ready,
-        },
-      },
-      branch: 'main',
-    },
-  },
-  {
-    row: {
-      domain: 'nextjs.org',
-      status: {
-        variant: 'static-status',
-        data: {
-          status: domainStatuses.error,
-        },
-      },
-      branch: 'feat/next-conf',
-    },
-  },
-]);
-
-const selectedRows = ref<TableData[]>([]);
-
-const handleSort = (column: TableColumn) => {
-  data.value = data.value.sort((a: any, b: any) => {
-    let textA = '';
-    let textB = '';
-
-    if (typeof a.row[column.accessor] === 'string') {
-      textA = (a.row[column.accessor] as string)?.toUpperCase();
-      textB = (b.row[column.accessor] as string)?.toUpperCase();
-    }
-
-    else if (a.row?.status?.data.status.label && b.row?.status?.data.status.label) {
-      textA = a.row?.status?.data.status.label;
-      textB = b.row?.status?.data.status.label;
-    }
-
-    if (textA < textB) {
-      return -1;
-    }
-    if (textA > textB) {
-      return 1;
-    }
-
-    return 0;
-  });
-};
-
-const updateSelectedRows = (data: TableData[]) => {
-  selectedRows.value = data;
-};
-const preferredLanguages = ref<TagItemValue[]>([
-  { label: 'JavaScript' },
-]);
 </script>
 
 <template>
   <div class="container">
-    <Table
-      :columns="columns"
-      :data="data"
-      :actions="actions"
-      :selectable="true"
-      :selected-rows="selectedRows"
-      @sort="handleSort"
-      @update:selected-rows="updateSelectedRows"
+    <div class="tab-group">
+      <ul class="tab-list">
+        <TabsBar>
+          <Tab
+            v-for="(tab, index) in Object.keys(TABS)"
+            :key="tab"
+            :label="tab"
+            :active="activeTab === index"
+            @click="setActiveTab(index)"
+          />
+        </TabsBar>
+      </ul>
+      <div class="tab-panels">
+        <div
+          v-for="(content, index) in Object.values(TABS)"
+          v-show="activeTab === index"
+          :key="index"
+          class="panel"
+        >
+          <StaticStatus v-for="fruit in content" :key="fruit.color" :status="fruit" />
+        </div>
+      </div>
+    </div>
+    <TextArea
+      v-model="comment"
+      placeholder="Leave your comment"
     />
-    <Tag
-      v-model="preferredLanguages"
-      placeholder="Your favorite programming languages"
-      :max="3"
+    <Thumbnail
+      :src="imageSrc"
+      :alt="imageAlt"
+      size="large"
+    />
+    <Thumbnail
+      :src="imageSrc"
+      :alt="imageAlt"
+      size="small"
     />
   </div>
 </template>
@@ -168,6 +115,86 @@ const preferredLanguages = ref<TagItemValue[]>([
   display: flex;
   flex-direction: column;
   margin: 10%;
-  gap: 20px;
+}
+
+.tab-group {
+  border-radius: 8px;
+  background-color: transparent;
+}
+
+.tab-group .tab-list {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  width: 100%;
+  margin: 0;
+  padding: 0 20px;
+  list-style-type: none;
+  border-bottom: 1px solid var(--vp-c-divider);
+  font: var(--text-md-regular);
+}
+
+.tab-group .tab-list .list {
+  border-bottom: 0;
+}
+
+.tab-group .tab-list .list .tab .label {
+  color: red !important;
+}
+
+.tab-group .tab-list .tab-item {
+  min-width: fit-content;
+  padding: 14px 0;
+  cursor: pointer;
+}
+
+.tab-group .tab-list .tab-item.active {
+  border-bottom: 1px solid var(--brand-500);
+  color: var(--brand-500);
+  font-weight: var(--text-md-medium);
+}
+
+.tab-panels {
+  display: flex;
+  justify-content: center;
+  min-height: 200px;
+  margin: 16px 0;
+  padding: 24px;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 8px;
+}
+
+.tab-group .tab-panels {
+  background-color: var(--base-white);
+}
+
+:is(.dark) .tab-group .tab-panels {
+  background-color: var(--vp-sidebar-bg-color);
+}
+
+.tab-panels .panel {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: stretch;
+  min-width: 100%;
+  padding: 20px;
+  gap: 0.5rem;
+}
+
+.tab-panels .panel .status {
+  max-width: 100%;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.items-start {
+  align-items: start;
+}
+
+.items-end {
+  align-items: end;
 }
 </style>
