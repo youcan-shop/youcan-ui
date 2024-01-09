@@ -1,3 +1,5 @@
+/* eslint-disable no-alert */
+
 import type { EditorView } from '@tiptap/pm/view';
 
 const MAX_IMAGE_SIZE_MB = 10;
@@ -23,15 +25,19 @@ export default function (view: EditorView, event: DragEvent, slice: unknown, mov
       }
       else {
         const src = await uploadImage(file);
-        if (!src) { return alert('failed to update the image'); }
+        if (!src) {
+          return alert('failed to update the image');
+        }
 
         const { schema } = view.state;
         const coordinates = view.posAtCoords({ left: event.clientX, top: event.clientY })!;
         const node = schema.nodes.image.create({ src });
         const transaction = view.state.tr.insert(coordinates.pos, node);
+
         return view.dispatch(transaction);
       }
     };
+
     return true;
   }
 

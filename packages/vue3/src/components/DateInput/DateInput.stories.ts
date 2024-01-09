@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import type { Meta } from '@storybook/vue3';
 import DateInput_ from './DateInput.vue';
 

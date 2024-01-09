@@ -1,6 +1,7 @@
 import type { Meta } from '@storybook/vue3';
 import PaginationBar from './PaginationBar.vue';
 
+/* eslint-disable no-console */
 const meta: Meta<typeof PaginationBar> = {
   title: 'Application/PaginationBar',
   component: PaginationBar,
