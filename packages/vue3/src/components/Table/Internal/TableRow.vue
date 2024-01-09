@@ -85,11 +85,11 @@ const castToTableDataComposable = (value: TableColumnValue['value']) => launder<
           :class="{ 'na': row.row[column.accessor].value.toString().toLocaleLowerCase() === 'n/a', 'cell-full-width': column.fullContent }"
         >
           <Tooltip v-if="column.tooltip" :label="column.tooltip" position="top">
-            {{ row.row[column.accessor].value }}
+            <span class="text"> {{ row.row[column.accessor].value }} </span>
           </Tooltip>
 
           <template v-else>
-            {{ row.row[column.accessor].value }}
+            <span class="text"> {{ row.row[column.accessor].value }} </span>
           </template>
         </div>
         <component
@@ -137,6 +137,10 @@ const castToTableDataComposable = (value: TableColumnValue['value']) => launder<
 
 .table-row .table-cell {
   padding: 0 12px;
+}
+
+.table-cell:has(.text-column) {
+  max-width: 250px;
 }
 
 .table-row.selected {
@@ -198,6 +202,8 @@ const castToTableDataComposable = (value: TableColumnValue['value']) => launder<
 }
 
 .text-column {
+  display: flex;
+  max-width: 100%;
   color: var(--gray-900);
   font: var(--text-sm-regular);
 }
@@ -206,5 +212,12 @@ const castToTableDataComposable = (value: TableColumnValue['value']) => launder<
   color: var(--gray-300);
   font: var(--text-sm-medium);
   text-transform: uppercase;
+}
+
+.text-column .text {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 </style>
