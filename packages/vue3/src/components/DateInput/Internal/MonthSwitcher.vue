@@ -1,11 +1,10 @@
 <script setup lang="ts">
 import { DateUtils } from '@youcan/ui-core';
 import { computed } from 'vue';
+import type { MonthSwitcherProps } from './types';
 import TertiaryButton from '~/components/Button/TertiaryButton.vue';
 
-const props = defineProps<{
-  modelValue: Date
-}>();
+const props = defineProps<MonthSwitcherProps>();
 
 const emit = defineEmits(['update:modelValue']);
 
@@ -24,13 +23,13 @@ const changeMonth = (increment: boolean) => {
 
 <template>
   <div class="month-switcher">
-    <TertiaryButton icon-position="only" size="xs" @click="changeMonth(false)" type="button">
+    <TertiaryButton icon-position="only" size="xs" type="button" @click="changeMonth(false)">
       <template #icon>
         <i class="i-youcan-caret-left" />
       </template>
     </TertiaryButton>
     <span class="text">{{ DateUtils.getAlphabeticalMonth(model) }} {{ model.getFullYear() }}</span>
-    <TertiaryButton icon-position="only" size="xs" @click="changeMonth(true)" type="button">
+    <TertiaryButton icon-position="only" size="xs" type="button" @click="changeMonth(true)">
       <template #icon>
         <i class="i-youcan-caret-right" />
       </template>

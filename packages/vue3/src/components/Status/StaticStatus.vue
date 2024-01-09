@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import type { StaticStatusDefinition } from './types';
+import type { StaticStatusProps } from './types';
 
-defineProps<{ status: StaticStatusDefinition }>();
+const props = defineProps<StaticStatusProps>();
 </script>
 
 <template>
   <div class="status">
-    {{ status.label }}
+    {{ props.status.label }}
   </div>
 </template>
 

@@ -3,13 +3,10 @@ import { onClickOutside } from '@vueuse/core';
 import { computed, ref } from 'vue';
 import { DateUtils } from '@youcan/ui-core';
 import DatePicker from './DatePicker.vue';
-import type { DateInputValue } from './types';
+import type { DateInputProps, DateInputValue } from './types';
 import SecondaryButton from '~/components/Button/SecondaryButton.vue';
 
-const props = defineProps<{
-  modelValue: DateInputValue
-  disabled?: boolean
-}>();
+const props = defineProps<DateInputProps>();
 
 const emit = defineEmits(['update:modelValue']);
 

@@ -1,12 +1,7 @@
 <script setup lang="ts">
+import type { SpinnerProps } from './types';
 withDefaults(
-  defineProps<{
-    label?: string
-    size?: string
-    color?: string
-    labelColor?: string
-    labelFontSize?: string
-  }>(),
+  defineProps<SpinnerProps>(),
   {
     color: 'var(--brand-300)',
     size: '40px',

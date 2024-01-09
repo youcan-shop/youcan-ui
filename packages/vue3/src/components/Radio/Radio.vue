@@ -1,11 +1,9 @@
 <script setup lang="ts">
 import { Utils } from '@youcan/ui-core';
 import { computed, useSlots } from 'vue';
+import type { RadioProps } from './types';
 
-const props = defineProps<{
-  modelValue?: boolean
-  name?: string
-}>();
+const props = defineProps<RadioProps>();
 
 const emit = defineEmits<{
   (event: 'update:model-value', value: boolean): void

@@ -1,14 +1,10 @@
 <script setup lang="ts">
 import { computed, onUnmounted, useSlots } from 'vue';
-import type { AlertType } from './types';
+import type { AlertProps } from './types';
 import TertiaryButton from '~/components/Button/TertiaryButton.vue';
 
 const props = withDefaults(
-  defineProps<{
-    type: AlertType
-    closeAfterDuration?: number
-    canClose?: boolean
-  }>(),
+  defineProps<AlertProps>(),
   {
     type: 'warning',
     canClose: true,

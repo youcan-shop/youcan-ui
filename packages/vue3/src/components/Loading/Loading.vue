@@ -1,12 +1,11 @@
 <script setup lang="ts">
 import { computed, ref, watch, watchEffect } from 'vue';
+import type { LoadingProps } from './types';
 
-const props = defineProps({
-  duration: {
-    type: Number,
-    default: 12000,
-  },
-});
+const props = withDefaults(
+  defineProps<LoadingProps>(),
+  { duration: 12000 },
+);
 
 const emit = defineEmits(['complete']);
 

@@ -1,12 +1,8 @@
 <script setup lang="ts">
-import type { Orientation, Style, Thickness } from './types';
+import type { DividerProps } from './types';
 
 withDefaults(
-  defineProps<{
-    orientation?: Orientation
-    borderStyle?: Style
-    thickness?: Thickness
-  }>(),
+  defineProps<DividerProps>(),
   {
     orientation: 'horizontal',
     borderStyle: 'solid',

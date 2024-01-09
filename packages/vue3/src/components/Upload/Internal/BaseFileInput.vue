@@ -1,11 +1,9 @@
 <script setup lang="ts">
 import { Utils } from '@youcan/ui-core';
 import { ref } from 'vue';
+import type { BaseFileInputProps } from './types';
 
-const props = withDefaults(defineProps<{
-  modelValue: File[] | undefined
-  limit?: number
-  disabled: boolean }>(), {
+const props = withDefaults(defineProps<BaseFileInputProps>(), {
   limit: 1,
   disabled: false,
 });

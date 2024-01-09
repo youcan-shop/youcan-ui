@@ -1,13 +1,9 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import Radio from './Radio.vue';
-import type { RadioData } from './types';
+import type { RadioData, RadioGroupProps } from './types';
 
-const props = defineProps<{
-  items: RadioData[]
-  name: string
-  modelValue?: RadioData['value']
-}>();
+const props = defineProps<RadioGroupProps>();
 
 const emit = defineEmits<{
   (event: 'update:model-value', value: RadioData['value']): void

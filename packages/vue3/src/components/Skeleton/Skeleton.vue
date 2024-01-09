@@ -1,11 +1,8 @@
 <script setup lang="ts">
-import type { SkeletonType } from './types';
+import type { SkeletonProps } from './types';
 
 withDefaults(
-  defineProps<{
-    type?: SkeletonType
-    lines?: number
-  }>(),
+  defineProps<SkeletonProps>(),
   {
     type: 'text',
     lines: 5,

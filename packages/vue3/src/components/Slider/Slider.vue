@@ -1,15 +1,9 @@
 <script lang="ts" setup>
 import { computed, onMounted, ref } from 'vue';
 import Tooltip from './Internal/Tooltip.vue';
+import type { SliderProps } from './types';
 
-const props = withDefaults(defineProps<{
-  modelValue?: number
-  min?: number
-  max?: number
-  disabled?: boolean
-  prefix?: string
-  suffix?: string
-}>(), {
+const props = withDefaults(defineProps<SliderProps>(), {
   modelValue: 0,
   min: 0,
   max: 100,

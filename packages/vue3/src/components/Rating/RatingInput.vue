@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { computed, onBeforeMount, onUpdated } from 'vue';
+import type { RatingInputProps } from './types';
 
 const props = withDefaults(
-  defineProps<{ ceil?: number; modelValue: number }>(),
+  defineProps<RatingInputProps>(),
   { ceil: 5, modelValue: 0 },
 );
 
