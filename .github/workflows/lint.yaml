@@ -1,4 +1,4 @@
-name: Lint
+name: Lint & Build
 
 on:
   push:
@@ -44,3 +44,6 @@ jobs:
 
       - name: lint
         run: npm run lint
+
+      - name: build
+        run: npm run build
