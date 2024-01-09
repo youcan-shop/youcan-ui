@@ -20,8 +20,8 @@ import InsertTable from './internal/Table.vue';
 import { TextStyleExtended } from './extensions/textstyle';
 import Colors from './internal/Color.vue';
 import handleDropEvent from './handleDrop';
-import Iframe from './extensions/iframe';
-import EmojiPicker from './internal/Emojipicker.vue';
+import Iframe from './extensions/Iframe';
+import EmojiPicker from './internal/EmojiPicker.vue';
 import Tooltip from './internal/Tooltip.vue';
 import toolbar from './toolbar';
 

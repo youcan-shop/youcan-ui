@@ -1,7 +1,7 @@
-import genericSpacing from './rules/generic-spacing'
-import ifNewline from './rules/if-newline'
-import importDedupe from './rules/import-dedupe'
-import preferInlineTypeImport from './rules/prefer-inline-type-import'
+import genericSpacing from './rules/generic-spacing';
+import ifNewline from './rules/if-newline';
+import importDedupe from './rules/import-dedupe';
+import preferInlineTypeImport from './rules/prefer-inline-type-import';
 
 export default {
   rules: {
@@ -10,4 +10,4 @@ export default {
     'prefer-inline-type-import': preferInlineTypeImport,
     'generic-spacing': genericSpacing,
   },
-}
+};

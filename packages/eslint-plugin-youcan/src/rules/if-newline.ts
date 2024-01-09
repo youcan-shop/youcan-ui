@@ -1,8 +1,8 @@
-import { createEslintRule } from '../utils'
+import { createEslintRule } from '../utils';
 
-export const RULE_NAME = 'if-newline'
-export type MessageIds = 'missingIfNewline'
-export type Options = []
+export const RULE_NAME = 'if-newline';
+export type MessageIds = 'missingIfNewline';
+export type Options = [];
 
 export default createEslintRule<Options, MessageIds>({
   name: RULE_NAME,
@@ -22,10 +22,14 @@ export default createEslintRule<Options, MessageIds>({
   create: (context) => {
     return {
       IfStatement(node) {
-        if (!node.consequent)
-          return
-        if (node.consequent.type === 'BlockStatement')
-          return
+        if (!node.consequent) {
+          return;
+        }
+
+        if (node.consequent.type === 'BlockStatement') {
+          return;
+        }
+
         if (node.test.loc.end.line === node.consequent.loc.start.line) {
           context.report({
             node,
@@ -35,11 +39,11 @@ export default createEslintRule<Options, MessageIds>({
             },
             messageId: 'missingIfNewline',
             fix(fixer) {
-              return fixer.replaceTextRange([node.consequent.range[0], node.consequent.range[0]], '\n')
+              return fixer.replaceTextRange([node.consequent.range[0], node.consequent.range[0]], '\n');
             },
-          })
+          });
         }
       },
-    }
+    };
   },
-})
+});

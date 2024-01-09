@@ -301,12 +301,6 @@ importers:
       '@tiptap/vue-3':
         specifier: 2.0.0-beta.210
         version: 2.0.0-beta.210(@tiptap/core@2.0.0-beta.215)(@tiptap/pm@2.0.0-beta.210)(vue@3.3.11)
-      '@types/prismjs':
-        specifier: ^1.26.3
-        version: 1.26.3
-      prismjs:
-        specifier: ^1.29.0
-        version: 1.29.0
       vue-slicksort:
         specifier: ^2.0.5
         version: 2.0.5(vue@3.3.11)
@@ -3800,7 +3794,7 @@ packages:
       '@storybook/core-events': 7.0.0-beta.14
       '@storybook/csf': 0.1.2-next.0
       '@storybook/csf-tools': 7.0.0-beta.14
-      '@storybook/docs-mdx': 0.1.1-next.0
+      '@storybook/docs-mdx': 0.1.1-next.3
       '@storybook/global': 5.0.0
       '@storybook/node-logger': 7.0.0-beta.14
       '@storybook/preview-api': 7.0.0-beta.14
@@ -3874,8 +3868,8 @@ packages:
       type-fest: 2.19.0
     dev: true
 
-  /@storybook/docs-mdx@0.1.1-next.0:
-    resolution: {integrity: sha512-t5gehdVj1GxicE2W3mslaqaLGKg6u1wZRySVrWNM4Ue7PmuI0LvJDLcOcaIzizc4Duh+JljMvShK8NTaxhE1PA==}
+  /@storybook/docs-mdx@0.1.1-next.3:
+    resolution: {integrity: sha512-gdjVot7Lphf1LZnd9Bi3d3bCVMxDEoJGId1fYpaABpx+sMxeO3w2QA24fPeHa8jlRsEPY/W1p34jxPmu57KaHQ==}
     dev: true
 
   /@storybook/docs-tools@7.0.0-beta.14:
@@ -4761,10 +4755,6 @@ packages:
   /@types/pretty-hrtime@1.0.1:
     resolution: {integrity: sha512-VjID5MJb1eGKthz2qUerWT8+R4b9N+CHvGCzg9fn4kWZgaF9AhdYikQio3R7wV8YY1NsQKPaCwKz1Yff+aHNUQ==}
     dev: true
-
-  /@types/prismjs@1.26.3:
-    resolution: {integrity: sha512-A0D0aTXvjlqJ5ZILMz3rNfDBOx9hHxLZYv2by47Sm/pqW35zzjusrZTryatjN/Rf8Us2gZrJD+KeHbUSTux1Cw==}
-    dev: false
 
   /@types/prop-types@15.7.5:
     resolution: {integrity: sha512-JCB8C6SnDoQf0cNycqd/35A7MjcnK+ZTqE7judS6o7utxUCg6imJg3QK2qzHKszlTjcj2cn+NwMB2i96ubpj7w==}
@@ -10389,11 +10379,6 @@ packages:
     resolution: {integrity: sha512-66hKPCr+72mlfiSjlEB1+45IjXSqvVAIy6mocupoww4tBFE9R9IhwwUGoI4G++Tc9Aq+2rxOt0RFU6gPcrte0A==}
     engines: {node: '>= 0.8'}
     dev: true
-
-  /prismjs@1.29.0:
-    resolution: {integrity: sha512-Kx/1w86q/epKcmte75LNrEoT+lX8pBpavuAbvJWRXar7Hz8jrtF+e3vY751p0R8H9HdArwaCTNDDzHg/ScJK1Q==}
-    engines: {node: '>=6'}
-    dev: false
 
   /private@0.1.8:
     resolution: {integrity: sha512-VvivMrbvd2nKkiG38qjULzlc+4Vx4wm/whI9pQD35YrARNnhxeiRktSOhSukRLFNlzg6Br/cJPet5J/u19r/mg==}
