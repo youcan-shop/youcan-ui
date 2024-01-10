@@ -42,7 +42,9 @@
     "dev": "pnpm story:dev & pnpm components:dev",
     "build": "pnpm components:build & pnpm story:build",
     "release": "pnpm publish --access public",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "bench:vue": "ts-node vue3.bench.mjs"
+
   },
   "peerDependencies": {
     "vue": "^3.2.45"
