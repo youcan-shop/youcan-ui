@@ -10,3 +10,20 @@ export interface ToastProps {
   canClose?: boolean
   relative?: boolean
 }
+
+export interface ToastOptions {
+  title?: string
+  description?: string
+  type?: AlertType
+  canClose?: boolean
+}
+
+export interface ToastType {
+  id: string
+  options?: ToastOptions
+}
+
+export interface ToastContainerProps {
+  position?: ToastPosition
+  limit?: number
+}

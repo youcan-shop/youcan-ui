@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useSlots } from 'vue';
-import type { ToastProps } from './types';
+import type { ToastProps } from '../types';
 import { Alert } from '~/components';
 
 withDefaults(
@@ -32,39 +32,10 @@ const { title, description } = useSlots();
 </template>
 
 <style scoped lang="scss">
-$edges-margin: 20px;
-$animation-duration: 0.3s;
+$animation-duration: 0.25s;
 
-.toast-block {
-  &:not(.relative) {
-    position: fixed;
-    z-index: 9999999999;
-
-    &.top {
-      &-right,
-      &-left {
-        top: $edges-margin;
-      }
-    }
-
-    &.bottom {
-      &-right,
-      &-left {
-        bottom: $edges-margin;
-      }
-    }
-
-    &.bottom,
-    &.top {
-      &-right {
-        right: $edges-margin;
-      }
-
-      &-left {
-        left: $edges-margin;
-      }
-    }
-  }
+.m-b-0 {
+  margin-bottom: 0;
 }
 
 .top-right-enter-active,
