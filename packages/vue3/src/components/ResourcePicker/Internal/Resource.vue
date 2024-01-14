@@ -85,7 +85,7 @@ function handleCheck(e: Event) {
   flex-basis: 45%;
   align-items: center;
   gap: 16px;
-  justify-content: end;
+  justify-content: flex-end;
 }
 
 .inventory-price .stock {
