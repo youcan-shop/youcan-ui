@@ -2,11 +2,9 @@
 import { computed, onMounted, ref } from 'vue';
 import FroalaEditor from 'froala-editor';
 import { RichTextConfig } from './config';
+import type { RichTextProps } from './types';
 
-const props = withDefaults(defineProps<{
-  modelValue: string
-  lang: string
-}>(), {
+const props = withDefaults(defineProps<RichTextProps>(), {
   lang: 'en',
 });
 const emit = defineEmits(['update:modelValue']);
