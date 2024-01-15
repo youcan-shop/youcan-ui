@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { nextTick, onMounted, ref } from 'vue';
 import { Utils } from '@youcan/ui-core';
+import { onClickOutside } from '@vueuse/core';
 import type { ToastContainerProps, ToastOptions, ToastType } from './types';
 import Toast from './internal/Toast.vue';
 
@@ -15,6 +16,7 @@ const activeToasts = ref<string[]>([]);
 const body = ref();
 const scroller = ref();
 const showAll = ref(false);
+const hideContainer = ref(false);
 
 const closeAfterDuration = (afterDuration: number | undefined) => {
   if (afterDuration) {
@@ -58,6 +60,7 @@ const messageListener = (event: any) => {
     toasts.value.push(toast);
     nextTick(() => {
       activeToasts.value.push(id);
+      hideContainer.value = true;
       nextTick(() => {
         if (activeToasts.value.length > props.limit && props.limit > 0) {
           const to = activeToasts.value.length - props.limit;
@@ -79,11 +82,14 @@ const close = (id: string) => {
   const index = activeToasts.value.indexOf(id);
   if (index > -1) {
     activeToasts.value.splice(index, 1);
-    if (showAll.value) {
-      nextTick(() => {
-        showAllToasts();
-      });
-    }
+    nextTick(() => {
+      hideContainer.value = activeToasts.value.length > 0;
+      if (showAll.value) {
+        nextTick(() => {
+          showAllToasts();
+        });
+      }
+    });
   }
 };
 
@@ -91,29 +97,33 @@ const toastVisibility = (id: string) => {
   return activeToasts.value.includes(id);
 };
 
+onClickOutside(body, () => showAllToasts(false));
+
 onMounted(() => {
   window.addEventListener('message', messageListener);
 });
 </script>
 
 <template>
-  <div v-if="toasts.length" ref="scroller" class="toast-container" :class="[position, { 'show-all': showAll }]">
-    <div ref="body" class="toast-container-body" @mouseover="showAllToasts()">
-      <Toast
-        v-for="(toast, index) in toasts" :id="toast.id" :key="index" :position="position" :type="toast.options?.type"
-        :show="toastVisibility(toast.id)"
-        :close-after-duration="closeAfterDuration(toast.options?.duration)"
-        @close="close(toast.id)"
-      >
-        <template v-if="toast.options?.title" #title>
-          {{ toast.options.title }} :: {{ index }}
-        </template>
-        <template v-if="toast.options?.description" #description>
-          {{ toast.options.description }}
-        </template>
-      </Toast>
+  <Transition name="fade">
+    <div v-show="hideContainer" ref="scroller" class="toast-container" :class="[position, { 'show-all': showAll }]" @mouseover="showAllToasts()">
+      <div ref="body" class="toast-container-body">
+        <Toast
+          v-for="(toast, index) in toasts" :id="toast.id" :key="index" :position="position" :type="toast.options?.type"
+          :show="toastVisibility(toast.id)"
+          :close-after-duration="closeAfterDuration(toast.options?.duration)"
+          @close="close(toast.id)"
+        >
+          <template v-if="toast.options?.title" #title>
+            {{ toast.options.title }} :: {{ index }}
+          </template>
+          <template v-if="toast.options?.description" #description>
+            {{ toast.options.description }}
+          </template>
+        </Toast>
+      </div>
     </div>
-  </div>
+  </Transition>
 </template>
 
 <style scoped lang="scss">
@@ -209,6 +219,24 @@ onMounted(() => {
   &.top-left,
   &.bottom-left {
     left: 0;
+  }
+}
+
+.fade-enter-active {
+  animation: fade 0.2s ease-in-out;
+}
+
+.fade-leave-active {
+  animation: fade 0.2s reverse ease-in-out;
+}
+
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
   }
 }
 </style>

@@ -35,7 +35,7 @@ const handleClick = () => {
 </script>
 
 <template>
-  <ToastContainer :limit="4" position="bottom-right" />
+  <ToastContainer :limit="4" position="top-right" />
   <div class="container">
     <PrimaryButton @click="handleClick">
       Show Toast
