@@ -16,6 +16,7 @@ export interface ToastOptions {
   description?: string
   type?: AlertType
   canClose?: boolean
+  duration?: number
 }
 
 export interface ToastType {
@@ -26,4 +27,5 @@ export interface ToastType {
 export interface ToastContainerProps {
   position?: ToastPosition
   limit?: number
+  duration?: number
 }

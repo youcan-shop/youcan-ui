@@ -19,7 +19,7 @@ const { title, description } = useSlots();
 <template>
   <Transition :name="position">
     <div v-if="show" class="toast-block" :class="[position, { relative }]">
-      <Alert :type="type" :can-close="canClose" :close-after-duration="closeAfterDuration" @close="emit('close')">
+      <Alert :type="type" :can-close="canClose" :close-after-duration="closeAfterDuration" @close="() => emit('close')">
         <template v-if="title" #title>
           <slot name="title" />
         </template>
@@ -33,10 +33,6 @@ const { title, description } = useSlots();
 
 <style scoped lang="scss">
 $animation-duration: 0.25s;
-
-.m-b-0 {
-  margin-bottom: 0;
-}
 
 .top-right-enter-active,
 .bottom-right-enter-active {

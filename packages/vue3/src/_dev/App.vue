@@ -5,14 +5,37 @@ import { PrimaryButton, ToastContainer } from '~/components';
 import { showToast } from '~/components/ToastContainer';
 import type { ToastOptions } from '~/components/ToastContainer/types';
 
+const toasts: ToastOptions[] = [
+  {
+    title: 'Info',
+    description: 'Click here to learn more about the exciting enhancements we\'ve made.',
+    type: 'info',
+  },
+  {
+    title: 'Success',
+    description: 'Your profile information has been successfully updated.',
+    type: 'success',
+  },
+  {
+    title: 'Warning',
+    description: 'Please check your internet connection.',
+    type: 'warning',
+  },
+  {
+    title: 'Error',
+    description: 'Unable to save data, check again later.',
+    type: 'error',
+  },
+];
+
 const handleClick = () => {
-  const toast: ToastOptions = { title: 'Taost title' };
+  const toast: ToastOptions = toasts[Math.floor(Math.random() * toasts.length)];
   showToast(toast);
 };
 </script>
 
 <template>
-  <ToastContainer />
+  <ToastContainer :limit="4" position="bottom-right" />
   <div class="container">
     <PrimaryButton @click="handleClick">
       Show Toast

@@ -7,6 +7,7 @@ import Toast from './internal/Toast.vue';
 const props = withDefaults(defineProps<ToastContainerProps>(), {
   position: 'top-right',
   limit: 3,
+  duration: 5000,
 });
 
 const toasts = ref<ToastType[]>([]);
@@ -15,30 +16,34 @@ const body = ref();
 const scroller = ref();
 const showAll = ref(false);
 
+const closeAfterDuration = (afterDuration: number | undefined) => {
+  if (afterDuration) {
+    return afterDuration;
+  }
+
+  return props.duration;
+};
+
 const showAllToasts = (show = true) => {
   showAll.value = show;
   let direction = 1;
   if (props.position.includes('bottom')) {
     direction = -1;
   }
-  let bodyHeight = 0;
-
-  let count = 0;
+  let translateX = 0;
   for (const id of activeToasts.value.slice().reverse()) {
     const el = document.getElementById(id);
     if (el && show) {
-      const translateX = el.clientHeight * count;
-      const transform = `scale(1) translateY(${(translateX) * direction}px)`;
+      const transform = `scale(1) translateY(${translateX * direction}px)`;
+      translateX += el.clientHeight;
       el.style.transform = transform;
-      count++;
-      bodyHeight += el.clientHeight;
     }
     else {
       el?.removeAttribute('style');
     }
   }
   if (body.value) {
-    body.value.style.height = `${bodyHeight}px`;
+    body.value.style.height = `${translateX}px`;
   }
 };
 
@@ -97,6 +102,7 @@ onMounted(() => {
       <Toast
         v-for="(toast, index) in toasts" :id="toast.id" :key="index" :position="position" :type="toast.options?.type"
         :show="toastVisibility(toast.id)"
+        :close-after-duration="closeAfterDuration(toast.options?.duration)"
         @close="close(toast.id)"
       >
         <template v-if="toast.options?.title" #title>
@@ -133,7 +139,8 @@ onMounted(() => {
 
   &-body {
     position: relative;
-    width: 100%;
+    width: 400px;
+    max-width: 100%;
 
     .toast-block {
       position: absolute;
@@ -160,7 +167,6 @@ onMounted(() => {
       }
 
       &:last-child {
-        position: relative;
         z-index: 3;
         transform: scaleX(1) translateY(0);
       }
@@ -168,7 +174,6 @@ onMounted(() => {
   }
 
   &.show-all {
-    padding-top: 30px;
     overflow: hidden auto;
 
     .toast-block {
