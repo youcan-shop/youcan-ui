@@ -151,6 +151,7 @@ onMounted(() => {
     position: relative;
     width: 400px;
     max-width: 100%;
+    min-height: 100px;
 
     .toast-block {
       position: absolute;
@@ -207,6 +208,22 @@ onMounted(() => {
       .toast-block {
         top: unset;
         bottom: 0;
+        transform-origin: bottom center;
+
+        &:not(:nth-last-child(3), :nth-last-child(2), :last-child) {
+          transform: scale(0.85) translateY(24px);
+          opacity: 0;
+        }
+
+        &:nth-last-child(3) {
+          z-index: 1;
+          transform: scaleX(0.9) translateY(16px);
+        }
+
+        &:nth-last-child(2) {
+          z-index: 2;
+          transform: scaleX(0.95) translateY(8px);
+        }
       }
     }
   }

@@ -51,7 +51,7 @@ $animation-duration: 0.25s;
   }
 
   100% {
-    left: 0%;
+    left: 0;
     opacity: 1;
   }
 }
@@ -68,12 +68,12 @@ $animation-duration: 0.25s;
 
 @keyframes left {
   0% {
-    right: 100%;
+    left: -100%;
     opacity: 0;
   }
 
   100% {
-    transform: 0;
+    left: 0;
     opacity: 1;
   }
 }
