@@ -117,7 +117,7 @@ watch(() => props.show, (newValue) => {
   </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .dropdown-list {
   position: relative;
   box-sizing: border-box;

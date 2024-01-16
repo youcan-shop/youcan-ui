@@ -8,4 +8,5 @@ export interface ToastProps {
   type?: AlertType
   closeAfterDuration?: number
   canClose?: boolean
+  relative?: boolean
 }
