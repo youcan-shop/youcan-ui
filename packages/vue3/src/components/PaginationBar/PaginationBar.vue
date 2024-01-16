@@ -1,18 +1,10 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import NavigationButton from './Internal/NavigationButton.vue';
+import type { PaginationBarProps } from './types';
 import SecondaryButton from '~/components/Button/SecondaryButton.vue';
 
-const props = withDefaults(defineProps<{
-  count: number | string
-  total: number
-  current: number
-  size: number
-  hidePerPage?: boolean
-  previousLabel?: string
-  nextLabel?: string
-  perPageLabel?: string
-}>(), {
+const props = withDefaults(defineProps<PaginationBarProps>(), {
   hidePerPage: false,
   previousLabel: 'Previous',
   nextLabel: 'Next',

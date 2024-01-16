@@ -1,21 +1,14 @@
 <script setup lang="ts">
 import { onClickOutside } from '@vueuse/core';
 import { computed, ref } from 'vue';
+import type { DropdownPrefixProps } from '../types';
 import DropdownList from '~/components/Dropdown/DropdownList.vue';
 import type {
-  DropdownItemArray,
   DropdownItemDefinition,
-  DropdownItemGroups,
 } from '~/components/Dropdown/types';
 
 const props = withDefaults(
-  defineProps<{
-    placeholder: string
-    searchable?: boolean
-    modelValue: DropdownItemDefinition | null
-    items: DropdownItemArray | DropdownItemGroups
-
-  }>(),
+  defineProps<DropdownPrefixProps>(),
   { searchable: false },
 );
 

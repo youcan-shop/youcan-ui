@@ -1,6 +1,6 @@
 {
   "name": "@youcan/ui-vue3",
-  "version": "2.5.5",
+  "version": "2.5.8-beta.1",
   "description": "YouCan Vue3 components library",
   "author": "YouCan <tech@youcan.shop> (https://github.com/youcan-shop/)",
   "license": "MIT",
@@ -65,9 +65,7 @@
     "@tiptap/pm": "2.0.0-beta.210",
     "@tiptap/starter-kit": "2.0.0-beta.210",
     "@tiptap/vue-3": "2.0.0-beta.210",
-    "vue-slicksort": "^2.0.5",
-    "@types/prismjs": "^1.26.3",
-    "prismjs": "^1.29.0"
+    "vue-slicksort": "^2.0.5"
   },
   "devDependencies": {
     "@iconify-json/line-md": "^1.1.20",

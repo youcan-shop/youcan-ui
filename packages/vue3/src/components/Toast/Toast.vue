@@ -1,20 +1,14 @@
 <script setup lang="ts">
 import { useSlots } from 'vue';
-import type { ToastPosition } from './types';
-import type { AlertType } from '~/components/Alert/types';
+import type { ToastProps } from './types';
 import { Alert } from '~/components';
 
 withDefaults(
-  defineProps<{
-    show?: boolean
-    position?: ToastPosition
-    type?: AlertType
-    closeAfterDuration?: number
-    canClose?: boolean
-  }>(),
+  defineProps<ToastProps>(),
   {
     position: 'top-right',
     canClose: true,
+    type: 'info',
   },
 );
 const emit = defineEmits(['close']);
@@ -24,7 +18,7 @@ const { title, description } = useSlots();
 
 <template>
   <Transition :name="position">
-    <div v-if="show" class="toast-block" :class="position">
+    <div v-if="show" class="toast-block" :class="[position, { relative }]">
       <Alert :type="type" :can-close="canClose" :close-after-duration="closeAfterDuration" @close="emit('close')">
         <template v-if="title" #title>
           <slot name="title" />
@@ -42,31 +36,33 @@ $edges-margin: 20px;
 $animation-duration: 0.3s;
 
 .toast-block {
-  position: fixed;
-  z-index: 9999999999;
+  &:not(.relative) {
+    position: fixed;
+    z-index: 9999999999;
 
-  &.top {
-    &-right,
-    &-left {
-      top: $edges-margin;
-    }
-  }
-
-  &.bottom {
-    &-right,
-    &-left {
-      bottom: $edges-margin;
-    }
-  }
-
-  &.bottom,
-  &.top {
-    &-right {
-      right: $edges-margin;
+    &.top {
+      &-right,
+      &-left {
+        top: $edges-margin;
+      }
     }
 
-    &-left {
-      left: $edges-margin;
+    &.bottom {
+      &-right,
+      &-left {
+        bottom: $edges-margin;
+      }
+    }
+
+    &.bottom,
+    &.top {
+      &-right {
+        right: $edges-margin;
+      }
+
+      &-left {
+        left: $edges-margin;
+      }
     }
   }
 }

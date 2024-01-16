@@ -1,21 +1,11 @@
 <script setup lang="ts">
 import { computed, ref, useSlots } from 'vue';
 import { onClickOutside } from '@vueuse/core';
-import type { DropdownItemArray, DropdownItemDefinition, DropdownItemGroups } from './types';
+import type { DropdownItemDefinition, DropdownProps } from './types';
 import DropdownList from './DropdownList.vue';
 
 const props = withDefaults(
-  defineProps<{
-    size?: 36 | 44
-    icon?: string
-    placeholder: string
-    searchable?: boolean
-    modelValue: DropdownItemDefinition | null
-    items: DropdownItemArray | DropdownItemGroups
-    disabled?: boolean
-    loading?: boolean
-    searchHandler?: (searchTerm: string, items?: DropdownItemArray | DropdownItemGroups) => void
-  }>(),
+  defineProps<DropdownProps>(),
   { searchable: false, size: 36, disabled: false },
 );
 

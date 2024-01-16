@@ -1,16 +1,8 @@
 <script setup lang="ts">
 import { DateUtils } from '@youcan/ui-core';
-import type { DayDisplayFormat, DayEdge } from '../types';
+import type { DayProps } from './types';
 
-const { format, date } = withDefaults(defineProps<{
-  edge: DayEdge
-  date: Date
-  isToday: boolean
-  isSelected: boolean
-  inCurrentMonth?: boolean
-  format?: DayDisplayFormat
-  disabled?: boolean
-}>(), {
+const { format, date } = withDefaults(defineProps<DayProps>(), {
   inCurrentMonth: true,
   format: 'numeric',
 });

@@ -1,14 +1,9 @@
 <script setup lang="ts">
 import { useSlots } from 'vue';
-import type { ButtonIconPosition, ButtonSize } from './types';
+import type { ButtonProps } from './types';
 
 withDefaults(
-  defineProps<{
-    size?: ButtonSize
-    disabled?: boolean
-    iconPosition?: ButtonIconPosition
-    roundedFull?: boolean
-  }>(),
+  defineProps<ButtonProps>(),
   {
     size: 'md',
     iconPosition: 'left',

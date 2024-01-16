@@ -1,16 +1,13 @@
 <script setup lang="ts">
 import { computed, onBeforeMount, ref, useAttrs, useSlots } from 'vue';
 import DropdownPrefix from './prefixes/DropdownPrefix.vue';
-import type { HTMLInputTypeAttribute } from './types';
+import type { InputProps } from './types';
 
 const props = withDefaults(
-  defineProps<{
-    type?: HTMLInputTypeAttribute
-    modelValue: string
-    error?: boolean
-  }>(),
+  defineProps<InputProps>(),
   {
     type: 'text',
+    canShow: false,
   },
 );
 
@@ -19,10 +16,19 @@ const emit = defineEmits(['update:modelValue']);
 const primitive = ref<HTMLInputElement>()!;
 const slots = useSlots();
 const attrs = useAttrs();
+const showPassword = ref(false);
 
 const model = computed({
   get: () => props.modelValue,
   set: (value: string) => emit('update:modelValue', value),
+});
+
+const inputType = computed(() => {
+  if (props.type === 'password') {
+    return showPassword.value ? 'text' : props.type;
+  }
+
+  return props.type;
 });
 
 onBeforeMount(() => {
@@ -45,7 +51,11 @@ onBeforeMount(() => {
     <div v-if="slots.prefix" class="prefix">
       <slot name="prefix" />
     </div>
-    <input ref="primitive" v-model="model" class="input" :type="type" v-bind="$attrs">
+    <input ref="primitive" v-model="model" class="input" :type="inputType" v-bind="$attrs">
+    <div v-if="type === 'password' && canShow" class="show-password" @click="showPassword = !showPassword">
+      <i v-if="showPassword" class="i-youcan:eye" />
+      <i v-else class="i-youcan:eye-slash" />
+    </div>
     <div v-if="slots.icon || slots.suffix" class="tail">
       <div v-if="slots.icon" class="icon">
         <slot name="icon" />
@@ -103,6 +113,11 @@ onBeforeMount(() => {
 
 .input:placeholder {
   color: var(--gray-300);
+}
+
+.show-password {
+  margin-right: 16px;
+  cursor: pointer;
 }
 
 .tail {

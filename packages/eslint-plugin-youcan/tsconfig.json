@@ -6,6 +6,6 @@
     "moduleResolution": "node"
   },
   "include": [
-    "./packages/**/*.ts"
+    "src"
   ]
 }

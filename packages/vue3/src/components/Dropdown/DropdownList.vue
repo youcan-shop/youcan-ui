@@ -1,20 +1,12 @@
 <script setup lang="ts">
 import { computed, nextTick, ref, watch } from 'vue';
-import type { DropdownItemArray, DropdownItemDefinition, DropdownItemGroups } from './types';
+import type { DropdownItemArray, DropdownItemDefinition, DropdownItemGroups, DropdownListProps } from './types';
 import DropdownItem from './Internal/DropdownItem.vue';
 import { searchHandler } from './helpers';
 import { Spinner } from '~/components';
 
 const props = withDefaults(
-  defineProps<{
-    selected: DropdownItemArray | DropdownItemDefinition | null
-    items: DropdownItemArray | DropdownItemGroups
-    searchable?: boolean
-    loading?: boolean
-    multiple?: boolean
-    show?: boolean
-    searchHandler?: (searchTerm: string, items?: DropdownItemArray | DropdownItemGroups) => void
-  }>(),
+  defineProps<DropdownListProps>(),
   {
     searchable: false,
     multiple: false,
@@ -125,7 +117,7 @@ watch(() => props.show, (newValue) => {
   </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .dropdown-list {
   position: relative;
   box-sizing: border-box;

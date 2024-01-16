@@ -1,11 +1,9 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from 'vue';
 import { setPosition } from './utils';
+import type { TooltipProps } from './types';
 
-const props = withDefaults(defineProps<{
-  label?: string
-  position?: 'left' | 'right' | 'top' | 'bottom'
-}>(), {
+const props = withDefaults(defineProps<TooltipProps>(), {
   position: 'top',
 });
 

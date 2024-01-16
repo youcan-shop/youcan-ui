@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 // @unocss-include
 
 import type { Editor } from '@tiptap/vue-3';
@@ -12,6 +13,7 @@ const fontSizes: DropdownItemArray = (() => {
       _items.push({ label: String(i), value: i });
     }
   }
+
   return _items;
 })();
 
@@ -109,7 +111,9 @@ export default function (editor: ShallowRef<Editor | undefined>): Record<string,
         const previousUrl = editor?.value?.getAttributes('link').href;
         const url = window.prompt('URL', previousUrl);
 
-        if (url === null) { return; }
+        if (url === null) {
+          return;
+        }
 
         if (url === '') {
           return editor?.value!.chain().focus().extendMarkRange('link').unsetLink().run();

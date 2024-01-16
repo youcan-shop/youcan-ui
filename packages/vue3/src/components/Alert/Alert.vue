@@ -1,14 +1,10 @@
 <script setup lang="ts">
 import { computed, onUnmounted, useSlots } from 'vue';
-import type { AlertType } from './types';
+import type { AlertProps } from './types';
 import TertiaryButton from '~/components/Button/TertiaryButton.vue';
 
 const props = withDefaults(
-  defineProps<{
-    type: AlertType
-    closeAfterDuration?: number
-    canClose?: boolean
-  }>(),
+  defineProps<AlertProps>(),
   {
     type: 'warning',
     canClose: true,
@@ -90,7 +86,7 @@ onUnmounted(() => {
   display: flex;
   position: relative;
   box-sizing: border-box;
-  width: max-content;
+  width: 400px;
   max-width: 100%;
   margin-bottom: 12px;
   padding: 12px;

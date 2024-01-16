@@ -1,16 +1,10 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import BaseFileInput from './Internal/BaseFileInput.vue';
+import type { MediaInputProps } from './types';
 
 const props = withDefaults(
-  defineProps<{
-    modelValue: File[]
-    limit?: number
-    disabled?: boolean
-    label: string
-    subLabel?: string
-    highlightedLabel: string
-  }>(),
+  defineProps<MediaInputProps>(),
   {
     limit: 1,
     disabled: false,

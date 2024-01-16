@@ -1,13 +1,10 @@
 <script setup lang="ts">
 import { computed, useSlots } from 'vue';
 import BaseFileInput from './Internal/BaseFileInput.vue';
+import type { FileInputProps } from './types';
 
 const props = withDefaults(
-  defineProps<{
-    modelValue: File[]
-    limit?: number
-    disabled?: boolean
-  }>(),
+  defineProps<FileInputProps>(),
   {
     limit: 1,
     disabled: false,

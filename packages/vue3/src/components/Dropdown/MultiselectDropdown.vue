@@ -3,18 +3,11 @@ import { ref, useSlots } from 'vue';
 import { Utils } from '@youcan/ui-core';
 import { onClickOutside } from '@vueuse/core';
 import { Badge } from '..';
-import type { DropdownItemArray, DropdownItemDefinition, DropdownItemGroups } from './types';
+import type { DropdownItemDefinition, MultiselectDropdownProps } from './types';
 import DropdownList from './DropdownList.vue';
 
 const props = withDefaults(
-  defineProps<{
-    icon?: string
-    label: string
-    searchable?: boolean
-    loading?: boolean
-    modelValue: DropdownItemDefinition[]
-    items: DropdownItemArray | DropdownItemGroups
-  }>(),
+  defineProps<MultiselectDropdownProps>(),
   { searchable: false },
 );
 

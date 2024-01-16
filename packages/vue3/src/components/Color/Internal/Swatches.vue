@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { onUnmounted, ref } from 'vue';
 import { CLR_WHITE, constructAlphaBackdrop } from '@youcan/ui-core';
+import type { SwatchesProps } from './types';
 
 const props = withDefaults(
-  defineProps<{ color: string; defaultSwatches: string[] }>(),
+  defineProps<SwatchesProps>(),
   { color: CLR_WHITE, defaultSwatches: () => [] },
 );
 

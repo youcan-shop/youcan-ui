@@ -1,24 +1,15 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { TableDataRow } from '../types';
-import type { HandleSubCompModel, TableActions, TableColumn, TableColumnValue, TableData, TableDataComposable, TableInternalData } from '../types';
+import type { HandleSubCompModel, TableActions, TableColumnValue, TableData, TableDataComposable } from '../types';
 import TableButton from './Button.vue';
+import type { TableRowProps } from './types';
 import TertiaryButton from '~/components/Button/TertiaryButton.vue';
 import Checkbox from '~/components/Checkbox/Checkbox.vue';
 import { launder } from '~/utils/type.util';
 import Tooltip from '~/components/Tooltip/Tooltip.vue';
 
-const props = defineProps<{
-  row: TableInternalData
-  columns: TableColumn[]
-  actions?: TableActions[]
-  index: number
-  selected?: boolean
-  expended?: boolean
-  isChild?: boolean
-  data: TableData[]
-  originalRow?: TableDataRow
-}>();
+const props = defineProps<TableRowProps>();
 
 const emit = defineEmits<{
   (event: 'update:selected-rows', data: boolean): void
@@ -94,11 +85,11 @@ const castToTableDataComposable = (value: TableColumnValue['value']) => launder<
           :class="{ 'na': row.row[column.accessor].value.toString().toLocaleLowerCase() === 'n/a', 'cell-full-width': column.fullContent }"
         >
           <Tooltip v-if="column.tooltip" :label="column.tooltip" position="top">
-            {{ row.row[column.accessor].value }}
+            <span class="text"> {{ row.row[column.accessor].value }} </span>
           </Tooltip>
 
           <template v-else>
-            {{ row.row[column.accessor].value }}
+            <span class="text"> {{ row.row[column.accessor].value }} </span>
           </template>
         </div>
         <component
@@ -146,6 +137,10 @@ const castToTableDataComposable = (value: TableColumnValue['value']) => launder<
 
 .table-row .table-cell {
   padding: 0 12px;
+}
+
+.table-cell:has(.text-column) {
+  max-width: 250px;
 }
 
 .table-row.selected {
@@ -207,6 +202,8 @@ const castToTableDataComposable = (value: TableColumnValue['value']) => launder<
 }
 
 .text-column {
+  display: flex;
+  max-width: 100%;
   color: var(--gray-900);
   font: var(--text-sm-regular);
 }
@@ -215,5 +212,12 @@ const castToTableDataComposable = (value: TableColumnValue['value']) => launder<
   color: var(--gray-300);
   font: var(--text-sm-medium);
   text-transform: uppercase;
+}
+
+.text-column .text {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 </style>

@@ -1,12 +1,9 @@
 <script setup lang="ts">
 import { onClickOutside } from '@vueuse/core';
 import { computed, ref } from 'vue';
-import type { StatusDefinition } from './types';
+import type { EditableStatusProps, StatusDefinition } from './types';
 
-const props = defineProps<{
-  statuses: StatusDefinition[]
-  modelValue: StatusDefinition
-}>();
+const props = defineProps<EditableStatusProps>();
 
 const emit = defineEmits(['update:modelValue']);
 

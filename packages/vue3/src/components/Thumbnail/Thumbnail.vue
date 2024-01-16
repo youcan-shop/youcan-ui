@@ -1,13 +1,8 @@
 <script setup lang="ts">
-import type { ObjectFit, ThumbnailSize } from './types';
+import type { ThumbnailProps } from './types';
 
 withDefaults(
-  defineProps<{
-    size: ThumbnailSize
-    src?: string
-    alt?: string
-    objectFit: ObjectFit
-  }>(),
+  defineProps<ThumbnailProps>(),
   {
     size: 'small',
     objectFit: 'cover',
@@ -45,6 +40,12 @@ withDefaults(
   box-shadow: var(--shadow-xs-gray);
 }
 
+.image {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1 / 1;
+}
+
 .thumbnail .image {
   object-fit: v-bind(objectFit);
 }
@@ -69,11 +70,5 @@ withDefaults(
   width: 20px;
   height: 20px;
   color: var(--gray-300);
-}
-
-.image {
-  width: 100%;
-  height: 100%;
-  aspect-ratio: 1 / 1;
 }
 </style>
