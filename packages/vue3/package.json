@@ -43,7 +43,7 @@
     "build": "pnpm components:build & pnpm story:build",
     "release": "pnpm publish --access public",
     "lint": "eslint .",
-    "bench": "node ../../scripts/vue3.bench.mjs"
+    "bench": "node vue3.bench.mjs"
 
   },
   "peerDependencies": {
