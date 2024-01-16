@@ -25,7 +25,9 @@
     "./style": {
       "require": "./dist/index.css",
       "import": "./dist/index.css"
-    }
+    },
+    "./types": "./dist/types/index.d.ts",
+    "./types/*": "./dist/types/*.d.ts"
   },
   "main": "./dist/index.umd.js",
   "module": "./dist/index.es.js",
