@@ -40,6 +40,7 @@ const model = computed({
 }
 
 .textarea {
+  box-sizing: border-box;
   width: 100%;
   min-height: 130px;
   padding: 11.5px 16px;
