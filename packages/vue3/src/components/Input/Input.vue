@@ -7,6 +7,7 @@ const props = withDefaults(
   defineProps<InputProps>(),
   {
     type: 'text',
+    canShow: false,
   },
 );
 
@@ -51,7 +52,7 @@ onBeforeMount(() => {
       <slot name="prefix" />
     </div>
     <input ref="primitive" v-model="model" class="input" :type="inputType" v-bind="$attrs">
-    <div v-if="type === 'password'" class="show-password" @click="showPassword = !showPassword">
+    <div v-if="type === 'password' && canShow" class="show-password" @click="showPassword = !showPassword">
       <i v-if="showPassword" class="i-youcan:eye" />
       <i v-else class="i-youcan:eye-slash" />
     </div>
