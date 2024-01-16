@@ -1,4 +1,4 @@
-import { BenchConfig } from './config.bench.mjs';
+import { BenchConfig } from '../../bench.config.mjs';
 
 const { bench, run } = BenchConfig;
 

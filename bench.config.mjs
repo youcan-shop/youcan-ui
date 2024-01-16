@@ -1,7 +1,7 @@
 import { execSync } from 'child_process';
 import { bench, run } from 'mitata';
 
-const myBench = (command) => {
+const CustomBench = (command) => {
   const buildComponentsCommand = () => {
     console.time('build');
     execSync(command, { stdio: 'ignore' });
@@ -11,11 +11,11 @@ const myBench = (command) => {
   bench('components:build', () => buildComponentsCommand());
 };
 
-const myRun = async (config) => {
+const CustomRun = async (config) => {
   await run(config);
 };
 
 export const BenchConfig = {
-  bench: myBench,
-  run: myRun,
+  bench: CustomBench,
+  run: CustomRun,
 };
