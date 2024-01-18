@@ -1,6 +1,6 @@
 {
   "name": "@youcan/eslint-config-ts",
-  "version": "2.5.7",
+  "version": "2.5.8-beta.2",
   "description": "",
   "author": "YouCan <tech@youcan.shop> (https://github.com/youcan-shop/)",
   "homepage": "https://github.com/youcan-shop/eslint-config",

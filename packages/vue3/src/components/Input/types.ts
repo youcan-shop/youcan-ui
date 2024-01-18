@@ -6,6 +6,7 @@ export interface InputProps {
   type?: HTMLInputTypeAttribute
   modelValue: string
   error?: boolean
+  canShow?: boolean
 }
 
 export interface DropdownPrefixProps {
