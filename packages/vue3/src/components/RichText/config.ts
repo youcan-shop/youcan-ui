@@ -1,7 +1,12 @@
 const RichTextConfig = {
-  autofocus: true,
-  imageAllowedTypes: ['jpeg', 'jpg', 'png'],
+  key: '', // LICENSE KEY
+  autofocus: false,
+  charCounterCount: false,
   pastePlain: true,
+  editorClass: 'myclass',
+  useClasses: false,
+  linkInsertButtons: ['linkBack'],
+  imageInsertButtons: ['imageBack', '|', 'imageUpload', 'imageByURL'],
   language: '',
   paragraphFormat: {
     N: 'Normal',
@@ -87,6 +92,26 @@ const RichTextConfig = {
   events: {
     initialized() {
       console.log('initialized');
+    },
+    focus(e: any) {
+      const parentElement = e?.target.parentNode;
+      if (parentElement) {
+        const editor = parentElement.parentNode;
+        if (editor) {
+          editor.style.border = '1px solid var(--brand-500)';
+          editor.style.boxShadow = 'var(--focus-shadow-xs-brand)';
+        }
+      }
+    },
+    blur(e: any) {
+      const parentElement = e?.target.parentNode;
+      if (parentElement) {
+        const editor = parentElement.parentNode;
+        if (editor) {
+          editor.style.border = '1px solid var(--gray-200)';
+          editor.style.boxShadow = 'var(--shadow-xs-gray)';
+        }
+      }
     },
   },
 
