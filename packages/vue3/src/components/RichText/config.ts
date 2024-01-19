@@ -1,5 +1,3 @@
-import FroalaEditor from 'froala-editor';
-
 const RichTextConfig = {
   key: '', // LICENSE KEY
   attribution: false,
@@ -93,13 +91,6 @@ const RichTextConfig = {
     },
   },
   events: {
-    'commands.before': function (cmd: any) {
-      if (cmd === 'fullscreen') {
-        console.log('🚀 ~ cmd:', cmd);
-        FroalaEditor.DefineIcon({ key: 'fullscreen', name: 'corners-out', template: 'youcan_icons' });
-        console.log('done');
-      }
-    },
     focus(e: any) {
       const parentElement = e?.target.parentNode;
       if (parentElement) {
