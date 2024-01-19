@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue';
+import { computed, ref } from 'vue';
 import FroalaEditor from 'froala-editor';
 import { RichTextConfig } from './config';
 import type { RichTextProps } from './types';
@@ -37,10 +37,6 @@ FroalaEditor.RegisterCommand('clear', {
 
 RichTextConfig.language = props.lang;
 const config = ref(RichTextConfig);
-
-onMounted(() => {
-  config.value.events.initialized();
-});
 </script>
 
 <template>

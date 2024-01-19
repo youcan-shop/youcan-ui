@@ -1,5 +1,6 @@
 const RichTextConfig = {
   key: '', // LICENSE KEY
+  attribution: false,
   autofocus: false,
   charCounterCount: false,
   pastePlain: true,
@@ -90,10 +91,11 @@ const RichTextConfig = {
     },
   },
   events: {
-    initialized() {
-      console.log('initialized');
-    },
     focus(e: any) {
+      const insertedElement = e?.target;
+      if (insertedElement) {
+        insertedElement.style.fontFamily = 'mona-sans';
+      }
       const parentElement = e?.target.parentNode;
       if (parentElement) {
         const editor = parentElement.parentNode;
