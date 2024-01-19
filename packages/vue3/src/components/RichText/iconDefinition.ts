@@ -2,6 +2,7 @@ const iconDefinitions = [
   { key: 'bold', name: 'text-bolder' },
   { key: 'italic', name: 'text-italic' },
   { key: 'fullscreen', name: 'corners-out' },
+  { key: 'fullscreenCompress', name: 'truck' },
   { key: 'underline', name: 'text-underline' },
   { key: 'strikeThrough', name: 'text-strikethrough' },
   { key: 'textColor', name: 'eyedropper-sample' },
