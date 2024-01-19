@@ -56,6 +56,6 @@ const config = ref(RichTextConfig);
 }
 
 .fr-box.fr-basic .fr-element.fr-view {
-  font: var(--text-md-regular);
+  font: var(--text-sm-regular);
 }
 </style>
