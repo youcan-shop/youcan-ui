@@ -47,7 +47,7 @@ const config = ref(RichTextConfig);
 </template>
 
 <style>
-.myclass {
+.editor-custom {
   --border: 1px solid var(--gray-200);
   --shadow: var(--shadow-xs-gray);
 

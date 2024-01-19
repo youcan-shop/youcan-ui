@@ -4,7 +4,7 @@ const RichTextConfig = {
   autofocus: false,
   charCounterCount: false,
   pastePlain: true,
-  editorClass: 'myclass',
+  editorClass: 'editor-custom',
   useClasses: false,
   linkInsertButtons: ['linkBack'],
   imageInsertButtons: ['imageBack', '|', 'imageUpload', 'imageByURL'],
