@@ -54,4 +54,8 @@ const config = ref(RichTextConfig);
   border: var(--border);
   box-shadow: var(--shadow);
 }
+
+.fr-box.fr-basic .fr-element.fr-view {
+  font: var(--text-md-regular);
+}
 </style>
