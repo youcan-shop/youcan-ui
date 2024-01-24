@@ -1,34 +1,63 @@
 <script setup lang="ts">
 import 'uno.css';
 import '../assets/main.css';
+import { ref, watch } from 'vue';
+import { MediaInput, UploadedMedia } from '~/components';
+
+const attachments = ref<File[]>([]);
+const disabled = ref(false);
+const limit = 4;
+
+const checkLimit = () => {
+  disabled.value = attachments.value.length >= limit;
+};
+
+const deleteFile = (file: File) => {
+  const idx = attachments.value.indexOf(file);
+  if (idx > -1) {
+    attachments.value.splice(idx, 1);
+    checkLimit();
+  }
+};
+watch(attachments, () => {
+  checkLimit();
+});
 </script>
 
 <template>
   <div class="container">
-    <i class="i-youcan:table-header" />
-    <i class="i-youcan:table-footer" />
-    <i class="i-youcan:table" />
-    <i class="i-youcan:row" />
-    <i class="i-youcan:column" />
-    <i class="i-youcan:table-style" />
-    <i class="i-youcan:cell" />
-    <i class="i-youcan:cell-style" />
-    <i class="i-youcan:image-legend" />
-    <i class="i-youcan:text-alt" />
-    <i class="i-youcan:open-link" />
-    <i class="i-youcan:corners-in" />
-    <i class="i-youcan:image-position" />
-    <i class="i-youcan:vertical-align" />
-    <i class="i-youcan:table-style" />
+    <div class="files-grid">
+      <UploadedMedia
+        v-for="(attachment, index) in attachments"
+        :key="index"
+        :file="attachment"
+        @delete="deleteFile(attachment)"
+      />
+    </div>
+    <MediaInput v-model="attachments" :limit="limit" :disabled="disabled" />
+    <div class="files-grid">
+      <UploadedMedia
+        file="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg"
+      />
+    </div>
   </div>
 </template>
 
 <style scoped>
 .container {
   display: flex;
+  position: relative;
   flex-direction: column;
-  width: 500px;
-  margin: 40px auto;
-  row-gap: 20px;
+  align-items: center;
+  justify-content: center;
+  width: 300px;
+  min-height: 140px;
+}
+
+.file-grid {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
 }
 </style>
