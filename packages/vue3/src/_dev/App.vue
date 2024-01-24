@@ -1,24 +1,25 @@
 <script setup lang="ts">
 import 'uno.css';
 import '../assets/main.css';
-import { ref } from 'vue';
-import { Input, TextArea } from '~/components';
-
-const comment = ref('');
 </script>
 
 <template>
   <div class="container">
-    <TextArea
-      v-model="comment"
-      placeholder="Leave your comment"
-    />
-    <Input
-      v-model="comment"
-      placeholder="Leave your comment"
-      type="password"
-      can-show
-    />
+    <i class="i-youcan:table-header" />
+    <i class="i-youcan:table-footer" />
+    <i class="i-youcan:table" />
+    <i class="i-youcan:row" />
+    <i class="i-youcan:column" />
+    <i class="i-youcan:table-style" />
+    <i class="i-youcan:cell" />
+    <i class="i-youcan:cell-style" />
+    <i class="i-youcan:image-legend" />
+    <i class="i-youcan:text-alt" />
+    <i class="i-youcan:open-link" />
+    <i class="i-youcan:corners-in" />
+    <i class="i-youcan:image-position" />
+    <i class="i-youcan:vertical-align" />
+    <i class="i-youcan:table-style" />
   </div>
 </template>
 
