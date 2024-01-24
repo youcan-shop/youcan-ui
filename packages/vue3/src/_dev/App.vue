@@ -1,44 +1,25 @@
 <script setup lang="ts">
 import 'uno.css';
 import '../assets/main.css';
-import { PrimaryButton, ToastContainer, toast } from '~/components';
-import type { ToastOptions } from '~/components/ToastContainer/types';
-
-const toasts: ToastOptions[] = [
-  {
-    title: 'Info',
-    description: 'Click here to learn more about the exciting enhancements we\'ve made.',
-    type: 'info',
-  },
-  {
-    title: 'Success',
-    description: 'Your profile information has been successfully updated.',
-    type: 'success',
-  },
-  {
-    title: 'Warning',
-    description: 'Please check your internet connection.',
-    type: 'warning',
-  },
-  {
-    title: 'Error',
-    description: 'Unable to save data, check again later.',
-    type: 'error',
-  },
-];
-
-const handleClick = () => {
-  const toastOptions: ToastOptions = toasts[Math.floor(Math.random() * toasts.length)];
-  toast.show(toastOptions);
-};
 </script>
 
 <template>
-  <ToastContainer :limit="3" />
-  <div className="container">
-    <PrimaryButton @click="handleClick">
-      Show Toast
-    </PrimaryButton>
+  <div class="container">
+    <i class="i-youcan:table-header" />
+    <i class="i-youcan:table-footer" />
+    <i class="i-youcan:table" />
+    <i class="i-youcan:row" />
+    <i class="i-youcan:column" />
+    <i class="i-youcan:table-style" />
+    <i class="i-youcan:cell" />
+    <i class="i-youcan:cell-style" />
+    <i class="i-youcan:image-legend" />
+    <i class="i-youcan:text-alt" />
+    <i class="i-youcan:open-link" />
+    <i class="i-youcan:corners-in" />
+    <i class="i-youcan:image-position" />
+    <i class="i-youcan:vertical-align" />
+    <i class="i-youcan:table-style" />
   </div>
 </template>
 
