@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import FroalaEditor from 'froala-editor';
-import { RichTextConfig } from './config';
+import { richTextConfig } from './config';
 import type { RichTextProps } from './types';
 import iconDefinitions from './iconDefinition';
 
@@ -13,7 +13,10 @@ const model = computed({
   get: () => props.modelValue,
   set: (value: string) => emit('update:modelValue', value),
 });
+const config = ref();
+const loading = ref(true);
 
+// SET YOUCAN ICONS TEMPLATE
 FroalaEditor.DefineIconTemplate('youcan_icons', '<i class="i-youcan:[NAME]"></i>');
 FroalaEditor.DefineIconTemplate('youcan_icons_align', '<i class="i-youcan:text-[NAME]"></i>');
 
@@ -24,6 +27,7 @@ iconDefinitions.forEach(({ key, name, template }) => {
   FroalaEditor.DefineIcon(key, iconConfig);
 });
 
+// CREATE CLEAR EDITOR COMMAND
 FroalaEditor.RegisterCommand('clear', {
   title: 'Clear HTML',
   focus: false,
@@ -35,27 +39,69 @@ FroalaEditor.RegisterCommand('clear', {
   },
 });
 
-RichTextConfig.language = props.lang;
-const config = ref(RichTextConfig);
+const setEditorConfig = () => {
+  const { lang, license, toolbar } = props;
+  const { text, paragraph, misc, rich } = toolbar;
+
+  // SET LANGUAGE AND LICENSE KEY
+  richTextConfig.language = lang;
+  richTextConfig.key = license;
+
+  // SET TOOLBAR BUTTONS
+  richTextConfig.toolbarButtons = [...text, ...paragraph, ...misc, ...rich];
+
+  // SET TOOLBAR BUTTONS MD, SM, XS
+  ['MD', 'SM', 'XS'].forEach((size) => {
+    const sizeConfig = richTextConfig[`toolbarButtons${size}` as keyof typeof richTextConfig];
+
+    if (sizeConfig && typeof sizeConfig === 'object') {
+      (sizeConfig as any).moreText.buttons = text;
+      (sizeConfig as any).moreParagraph.buttons = paragraph;
+      (sizeConfig as any).moreMisc.buttons = misc;
+      (sizeConfig as any).moreRich.buttons = rich;
+    }
+  });
+
+  // SET CONFIG
+  config.value = richTextConfig;
+};
+
+onMounted(() => {
+  loading.value = false;
+  setEditorConfig();
+});
 </script>
 
 <template>
-  <div id="app">
-    <div id="froala-icons" />
-    <froala id="edit" v-model:value="model" tag="textarea" :config="config" />
+  <div v-if="!loading" class="editor" :class="{ error }">
+    <froala v-model:value="model" tag="textarea" :config="config" />
   </div>
 </template>
 
 <style>
-.editor-custom {
+.fr-box.fr-basic .fr-element.fr-view {
+  font: var(--text-sm-regular);
+}
+
+.editor {
   --border: 1px solid var(--gray-200);
   --shadow: var(--shadow-xs-gray);
+  --border-radius: 10px;
 
   border: var(--border);
+  border-radius: var(--border-radius);
   box-shadow: var(--shadow);
 }
 
-.fr-box.fr-basic .fr-element.fr-view {
-  font: var(--text-sm-regular);
+.editor.error {
+  --border: 1px solid var(--red-500);
+  --shadow: var(--focus-shadow-xs-red);
+  --border-radius: 10px;
+}
+
+.editor:focus-within {
+  --border: 1px solid var(--brand-500);
+  --shadow: var(--focus-shadow-xs-brand);
+  --border-radius: 10px;
 }
 </style>

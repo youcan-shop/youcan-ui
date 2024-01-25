@@ -1,10 +1,9 @@
-const RichTextConfig = {
-  key: '', // LICENSE KEY
+const richTextConfig = {
+  key: '',
   attribution: false,
   autofocus: false,
   charCounterCount: false,
   pastePlain: true,
-  editorClass: 'editor-custom',
   useClasses: false,
   linkInsertButtons: ['linkBack'],
   imageInsertButtons: ['imageBack', '|', 'imageUpload', 'imageByURL'],
@@ -17,102 +16,72 @@ const RichTextConfig = {
     H4: 'Heading 4',
   },
   paragraphFormatSelection: true,
-  toolbarButtons: {
-    moreText: {
-      buttons: ['fullscreen', '|', 'bold', 'italic', 'underline', 'strikeThrough', 'textColor', 'backgroundColor', '|', 'fontSize', 'paragraphFormat', 'align', 'formatOL', 'formatUL', '|', 'outdent', 'indent', '|', 'undo', 'redo', 'emoticons', 'insertLink', 'specialCharacters', 'insertHR', 'insertTable', 'insertImage', 'insertVideo', '|', 'codeView', '|', 'clear'],
-      buttonsVisible: 27,
-
-    },
-  },
+  toolbarButtons: [''],
   toolbarButtonsMD: {
     moreText: {
-      buttons: ['fullscreen', '|', 'bold', 'italic', 'underline', 'strikeThrough', 'textColor', 'backgroundColor', '|', 'fontSize', 'paragraphFormat'],
+      buttons: [''],
       buttonsVisible: 5,
 
     },
     moreParagraph: {
-      buttons: ['align', 'formatOL', 'formatUL', '|', 'outdent', 'indent'],
+      buttons: [''],
       buttonsVisible: 3,
     },
     moreMisc: {
-      buttons: ['|', 'undo', 'redo'],
+      buttons: [''],
       buttonsVisible: 3,
 
     },
     moreRich: {
-
-      buttons: ['insertTable', 'insertImage', 'insertVideo', 'emoticons', 'insertLink', 'specialCharacters', 'insertHR', '|', 'codeView', '|', 'clear'],
+      buttons: [''],
       buttonsVisible: 3,
 
     },
   },
   toolbarButtonsSM: {
     moreText: {
-      buttons: ['fullscreen', '|', 'bold', 'italic', 'underline', 'strikeThrough', 'textColor', 'backgroundColor', '|', 'fontSize', 'paragraphFormat'],
+      buttons: [''],
       buttonsVisible: 3,
 
     },
     moreParagraph: {
-      buttons: ['align', 'formatOL', 'formatUL', '|', 'outdent', 'indent'],
+      buttons: [''],
       buttonsVisible: 2,
     },
     moreMisc: {
-      buttons: ['|', 'undo', 'redo'],
+      buttons: [''],
       buttonsVisible: 3,
 
     },
     moreRich: {
 
-      buttons: ['insertTable', 'insertImage', 'insertVideo', 'emoticons', 'insertLink', 'specialCharacters', 'insertHR', '|', 'codeView', '|', 'clear'],
+      buttons: [''],
       buttonsVisible: 3,
 
     },
   },
   toolbarButtonsXS: {
     moreText: {
-      buttons: ['fullscreen', '|', 'bold', 'italic', 'underline', 'strikeThrough', 'textColor', 'backgroundColor', 'fontSize', 'paragraphFormat'],
+      buttons: [''],
       buttonsVisible: 2,
 
     },
     moreParagraph: {
-      buttons: ['align', 'formatOL', 'formatUL', 'outdent', 'indent'],
+      buttons: [''],
       buttonsVisible: 1,
     },
     moreMisc: {
-      buttons: ['undo', 'redo'],
+      buttons: [''],
       buttonsVisible: 1,
 
     },
     moreRich: {
 
-      buttons: ['insertImage', 'insertVideo', 'emoticons', 'insertLink', 'specialCharacters', 'insertHR', 'insertTable', '|', 'codeView', '|', 'clear'],
+      buttons: [''],
       buttonsVisible: 2,
 
     },
   },
-  events: {
-    focus(e: any) {
-      const parentElement = e?.target.parentNode;
-      if (parentElement) {
-        const editor = parentElement.parentNode;
-        if (editor) {
-          editor.style.border = '1px solid var(--brand-500)';
-          editor.style.boxShadow = 'var(--focus-shadow-xs-brand)';
-        }
-      }
-    },
-    blur(e: any) {
-      const parentElement = e?.target.parentNode;
-      if (parentElement) {
-        const editor = parentElement.parentNode;
-        if (editor) {
-          editor.style.border = '1px solid var(--gray-200)';
-          editor.style.boxShadow = 'var(--shadow-xs-gray)';
-        }
-      }
-    },
-  },
-
 };
 
-export { RichTextConfig };
+export { richTextConfig };
