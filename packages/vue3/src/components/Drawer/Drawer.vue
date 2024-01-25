@@ -1,19 +1,23 @@
 <script lang="ts" setup>
-import { onMounted, onUnmounted } from 'vue';
-import type { ModalProps } from './types';
+import { onMounted, onUnmounted, ref, useSlots } from 'vue';
+import type { DrawerProps } from './types';
 import Overlay from '~/components/Overlay/Overlay.vue';
-import { PrimaryButton, SecondaryButton, TertiaryButton } from '~/components';
 
-const props = withDefaults(defineProps<ModalProps>(), {
-  title: 'Customer address',
-  confirmLabel: 'Save',
-  cancelLabel: 'Cancel',
+const props = withDefaults(defineProps<DrawerProps>(), {
+  visible: false,
+  position: 'right',
 });
 
-const emit = defineEmits(['update:visible', 'onConfirm']);
+const emit = defineEmits(['update:visible']);
+
+const slideDirection = ref('100%');
+
+const slots = useSlots();
+
 const close = () => {
   emit('update:visible', false);
 };
+
 const handleKeypress = (event: KeyboardEvent) => {
   if (props.visible && event.key === 'Escape') {
     close();
@@ -21,6 +25,9 @@ const handleKeypress = (event: KeyboardEvent) => {
 };
 
 onMounted(() => {
+  if (props.position === 'left') {
+    slideDirection.value = '-100%';
+  }
   window.addEventListener('keydown', handleKeypress);
 });
 
@@ -31,28 +38,19 @@ onUnmounted(() => {
 
 <template>
   <Transition name="fade">
-    <Overlay v-show="visible" @on-backdrop-click="close">
-      <Transition name="slide-up">
-        <div v-if="visible" class="modal">
+    <Overlay v-show="visible" class="drawer-overlay" :class="position" @on-backdrop-click="close">
+      <Transition name="slide">
+        <div v-if="visible" class="drawer">
           <div class="header">
-            <TertiaryButton @click="close">
+            <div class="close" @click="close">
               <i class="i-youcan-x" />
-            </TertiaryButton>
-            <span class="title">{{ title }}</span>
+            </div>
           </div>
           <div class="body">
             <slot />
           </div>
-          <div class="footer">
-            <PrimaryButton v-if="!cancelOnly" @click="emit('onConfirm')">
-              <template v-if="confirmIcon" #icon>
-                <i :class="confirmIcon" />
-              </template>
-              <span>{{ confirmLabel }}</span>
-            </PrimaryButton>
-            <SecondaryButton @click="close">
-              <span>{{ cancelLabel }}</span>
-            </SecondaryButton>
+          <div v-if="slots.footer" class="footer">
+            <slot name="footer" />
           </div>
         </div>
       </Transition>
@@ -61,33 +59,49 @@ onUnmounted(() => {
 </template>
 
 <style scoped lang="scss">
-.modal {
+$duration: 0.45s;
+
+.drawer-overlay {
+  flex-direction: row-reverse;
+  align-items: flex-start;
+
+  &.left {
+    flex-direction: row;
+  }
+
+  > :deep(.body) {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    margin: 0;
+  }
+}
+
+.drawer {
   display: flex;
+  flex: 1;
   flex-direction: column;
-  width: 900px;
-  max-width: calc(100vw - 40px);
-  max-height: calc(100vh - 40px);
+  width: max-content;
+  max-width: 80vw;
   overflow: hidden;
   border: 1px solid var(--gray-200);
-  border-radius: 8px;
   background-color: var(--base-white);
   box-shadow: var(--shadow-md-gray);
+
+  @media only screen and (max-width: 992px) {
+    max-width: 100vw;
+  }
 
   > * {
     box-sizing: border-box;
     width: 100%;
   }
 
-  .header,
-  .footer {
+  .header {
     display: flex;
     flex-direction: row-reverse;
     align-items: center;
-    justify-content: space-between;
-  }
-
-  .header {
-    padding: 14px 20px;
+    padding: 10px 20px;
     border-bottom: 1px solid var(--gray-100);
 
     .title {
@@ -95,19 +109,23 @@ onUnmounted(() => {
       font: var(--text-md-medium);
     }
 
-    i {
-      color: var(--gray-500);
+    .close {
+      cursor: pointer;
+
+      i {
+        color: var(--gray-500);
+      }
     }
   }
 
   .footer {
-    padding: 14px 20px;
+    padding: 10px 20px;
     border-top: 1px solid var(--gray-100);
   }
 
   .body {
     flex: 1;
-    padding: 20px;
+    padding: 14px 20px;
     overflow-y: auto;
     font: var(--text-md-regular);
 
@@ -131,11 +149,11 @@ onUnmounted(() => {
 }
 
 .fade-enter-active {
-  animation: fade 0.35s ease-in-out;
+  animation: fade $duration ease-in-out;
 }
 
 .fade-leave-active {
-  animation: fade 0.35s reverse ease-in-out;
+  animation: fade $duration reverse ease-in-out;
 }
 
 @keyframes fade {
@@ -148,21 +166,21 @@ onUnmounted(() => {
   }
 }
 
-.slide-up-enter-active {
-  animation: slide-up 0.35s ease-in-out;
+.slide-enter-active {
+  animation: slide $duration ease-in-out;
 }
 
-.slide-up-leave-active {
-  animation: slide-up 0.35s reverse ease-in-out;
+.slide-leave-active {
+  animation: slide $duration reverse ease-in-out;
 }
 
-@keyframes slide-up {
+@keyframes slide {
   0% {
-    transform: translateY(16px);
+    transform: translateX(v-bind(slideDirection));
   }
 
   100% {
-    transform: translateY(0%);
+    transform: translateX(0%);
   }
 }
 </style>
