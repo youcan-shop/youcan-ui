@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue';
 import { Utils } from '@youcan/ui-core';
-import type { UploadedProps } from './types';
+import type { UploadedMediaProps } from './types';
 import {
   PrimaryDestructiveButton,
   TertiaryButton,
   Thumbnail,
 } from '~/components';
 
-const props = defineProps<UploadedProps>();
+const props = defineProps<UploadedMediaProps>();
 const emit = defineEmits(['delete']);
 
 const isFile = computed(() => props.file instanceof File && props.file.type.startsWith('image/'));
