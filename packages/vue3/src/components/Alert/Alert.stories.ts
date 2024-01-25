@@ -1,6 +1,7 @@
-import type { Meta } from '@storybook/vue3';
+import type { Meta, StoryObj } from '@storybook/vue3';
 import Alert from './Alert.vue';
 
+type Story = StoryObj<typeof Alert>;
 const meta: Meta<typeof Alert> = {
   title: 'Application/Alert',
   component: Alert,
@@ -21,12 +22,14 @@ const meta: Meta<typeof Alert> = {
   },
 };
 
-const Template = (args: Record<string, unknown>, { argTypes }: Record<string, Record<string, unknown>>) => ({
-  props: Object.keys(argTypes),
-  components: { Alert },
-  template: `
-    <Alert v-bind="$props" :closeAfterDuration="2000" :type="type"
-    >
+export const Default: Story = {
+  render: args => ({
+    components: { Alert },
+    setup() {
+      return { args };
+    },
+    template: `
+    <Alert v-bind="args">
       <template #title>
         Title of Toast
       </template>
@@ -35,8 +38,7 @@ const Template = (args: Record<string, unknown>, { argTypes }: Record<string, Re
       </template>
     </Alert>
   `,
-});
-
-export const Default = Template.bind({});
+  }),
+};
 
 export default meta;
