@@ -46,7 +46,9 @@
     "release": "pnpm publish --access public",
     "lint": "eslint .",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "bench": "node vue3.bench.mjs"
+
   },
   "peerDependencies": {
     "vue": "^3.2.45"

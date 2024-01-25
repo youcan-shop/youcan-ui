@@ -20,6 +20,9 @@ importers:
       eslint-plugin-youcan:
         specifier: workspace:*
         version: link:packages/eslint-plugin-youcan
+      mitata:
+        specifier: ^0.1.6
+        version: 0.1.6
       postcss-html:
         specifier: ^1.5.0
         version: 1.5.0
@@ -10140,6 +10143,10 @@ packages:
     dependencies:
       minipass: 3.3.6
       yallist: 4.0.0
+    dev: true
+
+  /mitata@0.1.6:
+    resolution: {integrity: sha512-VKQ0r3jriTOU9E2Z+mwbZrUmbg4Li4QyFfi7kfHKl6reZhGzL0AYlu3wE0VPXzIwA5xnFzmEQoBwCcNT8stUkA==}
     dev: true
 
   /mkdirp-classic@0.5.3:
