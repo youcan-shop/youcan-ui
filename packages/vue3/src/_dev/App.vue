@@ -1,33 +1,63 @@
 <script setup lang="ts">
 import 'uno.css';
 import '../assets/main.css';
-import { ref } from 'vue';
-import { Input, TextArea } from '~/components';
+import { ref, watch } from 'vue';
+import { MediaInput, UploadedMedia } from '~/components';
 
-const comment = ref('');
+const attachments = ref<File[]>([]);
+const disabled = ref(false);
+const limit = 4;
+
+const checkLimit = () => {
+  disabled.value = attachments.value.length >= limit;
+};
+
+const deleteFile = (file: File) => {
+  const idx = attachments.value.indexOf(file);
+  if (idx > -1) {
+    attachments.value.splice(idx, 1);
+    checkLimit();
+  }
+};
+watch(attachments, () => {
+  checkLimit();
+});
 </script>
 
 <template>
   <div class="container">
-    <TextArea
-      v-model="comment"
-      placeholder="Leave your comment"
-    />
-    <Input
-      v-model="comment"
-      placeholder="Leave your comment"
-      type="password"
-      can-show
-    />
+    <div class="files-grid">
+      <UploadedMedia
+        v-for="(attachment, index) in attachments"
+        :key="index"
+        :file="attachment"
+        @delete="deleteFile(attachment)"
+      />
+    </div>
+    <MediaInput v-model="attachments" :limit="limit" :disabled="disabled" />
+    <div class="files-grid">
+      <UploadedMedia
+        file="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg"
+      />
+    </div>
   </div>
 </template>
 
 <style scoped>
 .container {
   display: flex;
+  position: relative;
   flex-direction: column;
-  width: 500px;
-  margin: 40px auto;
-  row-gap: 20px;
+  align-items: center;
+  justify-content: center;
+  width: 300px;
+  min-height: 140px;
+}
+
+.file-grid {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
 }
 </style>

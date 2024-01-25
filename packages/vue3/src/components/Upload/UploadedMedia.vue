@@ -1,32 +1,48 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue';
 import { Utils } from '@youcan/ui-core';
-import type { UploadedProps } from './types';
+import type { UploadedMediaProps } from './types';
 import {
   PrimaryDestructiveButton,
   TertiaryButton,
   Thumbnail,
 } from '~/components';
 
-const props = defineProps<UploadedProps>();
+const props = defineProps<UploadedMediaProps>();
 const emit = defineEmits(['delete']);
 
-const isImage = computed(() => props.file.type.startsWith('image/'));
+const isFile = computed(() => props.file instanceof File && props.file.type.startsWith('image/'));
+
+const isImage = computed(() => isFile.value || typeof props.file === 'string');
+
+const fileName = computed(() => {
+  if (isFile.value) {
+    return (props.file as File).name;
+  }
+
+  return '';
+});
+
 const dataUrl = ref<string | null>(null);
 const previewing = ref(false);
 const togglePreview = (override = !previewing.value) => previewing.value = override;
 
 onMounted(() => {
-  Utils.toDataUrl(props.file)
-    .then(res => (dataUrl.value = res))
-    .catch();
+  if (props.file instanceof File) {
+    Utils.toDataUrl(props.file)
+      .then(res => (dataUrl.value = res))
+      .catch();
+  }
+  else if (typeof props.file === 'string') {
+    dataUrl.value = props.file;
+  }
 });
 </script>
 
 <template>
   <div tabindex="0" class="file">
     <div>
-      <Thumbnail class="preview" :alt="file.name" :src="isImage && dataUrl ? dataUrl : undefined" size="large" />
+      <Thumbnail class="preview" :alt="fileName" :src="isImage && dataUrl ? dataUrl : undefined" size="large" />
     </div>
     <div class="actions">
       <TertiaryButton
@@ -58,7 +74,7 @@ onMounted(() => {
             <i class="i-youcan:x" />
           </template>
         </TertiaryButton>
-        <img :src="dataUrl ?? undefined" :alt="file.name">
+        <img :src="dataUrl ?? undefined" :alt="fileName">
       </div>
     </Teleport>
   </div>
