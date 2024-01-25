@@ -8,12 +8,18 @@ export interface MediaInputProps {
   modelValue: File[]
   limit?: number
   disabled?: boolean
-  label: string
+  label?: string
   subLabel?: string
-  highlightedLabel: string
+  highlightedLabel?: string
 }
 
-export interface UploadedProps {
+export interface UploadedMediaProps {
+  file: File | string
+  progress?: number
+  error?: string
+}
+
+export interface UploadedFileProps {
   file: File
   progress?: number
   error?: string

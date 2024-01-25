@@ -61,6 +61,7 @@ const imageAlt = 'Mr. Frog';
 <style scoped>
 .container {
   display: flex;
+  position: relative;
   flex-direction: column;
   width: 500px;
   margin: 40px auto;

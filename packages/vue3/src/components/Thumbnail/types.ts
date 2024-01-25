@@ -5,5 +5,5 @@ export interface ThumbnailProps {
   size: ThumbnailSize
   src?: string
   alt?: string
-  objectFit: ObjectFit
+  objectFit?: ObjectFit
 }

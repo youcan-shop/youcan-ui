@@ -16,14 +16,11 @@ module.exports = {
     "options": {}
   },
   "docs": {
-    "docsPage": true
+    "docsPage": false
   },
-  viteFinal(config, { configType }) {
-    console.log(`${path.resolve(__dirname, '..', 'src')}/`);
-
-    config.resolve.alias['~/'] = `${path.resolve(__dirname, '..', 'src')}/`;
-    config.plugins.push(Unocss());
-
+  async viteFinal(config, { configType }) {
+    config.resolve.alias['~'] =  `${path.resolve(__dirname, 'src')}/`;
+    config.plugins.push(Unocss);
     return config;
-  },
+  }
 }
