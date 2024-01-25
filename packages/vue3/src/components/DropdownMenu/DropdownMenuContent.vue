@@ -24,8 +24,7 @@
   min-width: var(--min-width);
   margin: 0;
   padding: var(--padding);
-  transform-origin: top center;
-  animation: grow-down 200ms ease-in-out forwards;
+  animation: fade-in-translate 200ms ease-in-out;
   border: 1px solid var(--gray-200);
   border-radius: var(--border-radius);
   background-color: var(--base-white);
@@ -34,25 +33,15 @@
   gap: var(--gap);
 }
 
-@keyframes grow-down {
-  0% {
-    transform: scaleY(0);
+@keyframes fade-in-translate {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
   }
 
-  25% {
-    transform: scaleY(0.6);
-  }
-
-  50% {
-    transform: scaleY(0.9);
-  }
-
-  75% {
-    transform: scaleY(1.1);
-  }
-
-  100% {
-    transform: scaleY(1);
+  to {
+    transform: translateY(0);
+    opacity: 1;
   }
 }
 </style>
