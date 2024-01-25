@@ -1,29 +1,18 @@
-import path from 'path';
-import Unocss from 'unocss/vite';
+import type { StorybookConfig } from "@storybook/vue3-vite";
 
-module.exports = {
-  "stories": [
-    "../src/**/*.mdx",
-    "../src/**/*.stories.@(js|jsx|ts|tsx)"
-  ],
-  "addons": [
+const config: StorybookConfig = {
+  stories: ["../src/**/*.mdx", "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
+  addons: [
     "@storybook/addon-links",
     "@storybook/addon-essentials",
-    "@storybook/addon-interactions"
+    "@storybook/addon-interactions",
   ],
-  "framework": {
-    "name": "@storybook/vue3-vite",
-    "options": {}
+  framework: {
+    name: "@storybook/vue3-vite",
+    options: {},
   },
-  "docs": {
-    "docsPage": true
+  docs: {
+    autodocs: "tag",
   },
-  viteFinal(config, { configType }) {
-    console.log(`${path.resolve(__dirname, '..', 'src')}/`);
-
-    config.resolve.alias['~/'] = `${path.resolve(__dirname, '..', 'src')}/`;
-    config.plugins.push(Unocss());
-
-    return config;
-  },
-}
+};
+export default config;
