@@ -4,9 +4,11 @@ import { onClickOutside } from '@vueuse/core';
 
 const show = ref(false);
 const DropdownMenu = ref();
+
 const toggleMenu = () => {
   show.value = !show.value;
 };
+
 onClickOutside(DropdownMenu, () => show.value = false);
 </script>
 
