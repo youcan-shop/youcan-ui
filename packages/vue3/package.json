@@ -46,10 +46,12 @@
     "release": "pnpm publish --access public",
     "lint": "eslint .",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "bench": "node vue3.bench.mjs"
+
   },
   "peerDependencies": {
-    "vue": "^3.2.45"
+    "vue": "^3.4.5"
   },
   "dependencies": {
     "@popperjs/core": "^2.11.7",
@@ -82,7 +84,7 @@
     "@storybook/vue3": "^7.6.10",
     "@storybook/vue3-vite": "^7.6.10",
     "@types/node": "18.7.15",
-    "@vitejs/plugin-vue": "^4.0.0",
+    "@vitejs/plugin-vue": "^5.0.2",
     "@vueuse/core": "^9.9.0",
     "@youcan/ui-core": "*",
     "@youcan/ui-icons": "*",
@@ -93,8 +95,8 @@
     "storybook": "^7.6.10",
     "typescript": "4.8.2",
     "unocss": "^0.47.6",
-    "vite": "^4.0.3",
-    "vue": "^3.3.0",
-    "vue-tsc": "1.0.9"
+    "vite": "^5.0.11",
+    "vue": "^3.4.5",
+    "vue-tsc": "1.8.27"
   }
 }
