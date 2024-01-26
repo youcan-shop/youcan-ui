@@ -44,7 +44,11 @@
     "dev": "pnpm story:dev & pnpm components:dev",
     "build": "pnpm components:build & pnpm story:build",
     "release": "pnpm publish --access public",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "bench": "node vue3.bench.mjs"
+
   },
   "peerDependencies": {
     "vue": "^3.2.45"
@@ -72,13 +76,13 @@
   "devDependencies": {
     "@iconify-json/line-md": "^1.1.20",
     "@iconify-json/tabler": "^1.1.53",
-    "@storybook/addon-essentials": "7.0.0-beta.14",
-    "@storybook/addon-interactions": "7.0.0-beta.14",
-    "@storybook/addon-links": "7.0.0-beta.14",
-    "@storybook/blocks": "7.0.0-beta.14",
-    "@storybook/testing-library": "^0.0.13",
-    "@storybook/vue3": "7.0.0-beta.14",
-    "@storybook/vue3-vite": "7.0.0-beta.14",
+    "@storybook/addon-essentials": "^7.6.10",
+    "@storybook/addon-interactions": "^7.6.10",
+    "@storybook/addon-links": "^7.6.10",
+    "@storybook/blocks": "^7.6.10",
+    "@storybook/test": "^7.6.10",
+    "@storybook/vue3": "^7.6.10",
+    "@storybook/vue3-vite": "^7.6.10",
     "@types/node": "18.7.15",
     "@vitejs/plugin-vue": "^4.0.0",
     "@vueuse/core": "^9.9.0",
@@ -88,7 +92,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "sass": "1.54.8",
-    "storybook": "7.0.0-beta.14",
+    "storybook": "^7.6.10",
     "typescript": "4.8.2",
     "unocss": "^0.47.6",
     "vite": "^4.0.3",
