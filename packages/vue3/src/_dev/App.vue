@@ -6,8 +6,9 @@ import { RichText } from '~/components';
 import type { ToolbarButtonsType } from '~/components/RichText/types';
 
 const content = ref('');
-const error = ref(false);
 const license = ref('license-key');
+const error = ref(false);
+const quickInsert = ref(false);
 const toolbar: ToolbarButtonsType = {
   text: ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'textColor', 'backgroundColor', 'fontSize', 'paragraphFormat'],
   paragraph: ['align', 'formatOL', 'formatUL', 'outdent', 'indent'],
@@ -18,7 +19,7 @@ const toolbar: ToolbarButtonsType = {
 
 <template>
   <div class="container">
-    <RichText v-model="content" :error="error" lang="ar" :license="license" :toolbar="toolbar" />
+    <RichText v-model="content" :error="error" lang="ar" :license="license" :toolbar="toolbar" :quick-insert="quickInsert" />
   </div>
 </template>
 

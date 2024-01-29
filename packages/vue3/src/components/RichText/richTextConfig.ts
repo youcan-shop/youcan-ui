@@ -8,6 +8,7 @@ const richTextConfig = {
   linkInsertButtons: ['linkBack'],
   imageInsertButtons: ['imageBack', '|', 'imageUpload', 'imageByURL'],
   language: '',
+  quickInsertEnabled: true,
   paragraphFormat: {
     N: 'Normal',
     H1: 'Heading 1',

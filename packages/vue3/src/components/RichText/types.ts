@@ -10,4 +10,5 @@ export interface RichTextProps {
   error?: boolean
   license: string
   toolbar: ToolbarButtonsType
+  quickInsert?: boolean
 }

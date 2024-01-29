@@ -7,6 +7,7 @@ import iconDefinitions from './iconDefinition';
 
 const props = withDefaults(defineProps<RichTextProps>(), {
   lang: 'en',
+  quickInsert: true,
 });
 const emit = defineEmits(['update:modelValue']);
 const model = computed({
@@ -40,12 +41,13 @@ FroalaEditor.RegisterCommand('clear', {
 });
 
 const setEditorConfig = () => {
-  const { lang, license, toolbar } = props;
+  const { lang, license, toolbar, quickInsert } = props;
   const { text, paragraph, misc, rich } = toolbar;
 
   // SET LANGUAGE AND LICENSE KEY
   richTextConfig.language = lang;
   richTextConfig.key = license;
+  richTextConfig.quickInsertEnabled = quickInsert;
 
   // SET TOOLBAR BUTTONS
   richTextConfig.toolbarButtons = [...text, ...paragraph, ...misc, ...rich];
