@@ -2,11 +2,13 @@
 import 'uno.css';
 import '../assets/main.css';
 import { ref } from 'vue';
-import { Dropdown, MultiselectDropdown } from '~/components';
+import { Dropdown, MultiselectDropdown, PrimaryButton } from '~/components';
 
 const category = ref(null);
 
 const desiredLanguages = ref([]);
+
+const hasError = ref(false);
 
 const items = [
   { label: 'Shoes', value: 1 },
@@ -28,7 +30,7 @@ const languages = [
       searchable
       :items="items"
       placeholder="Select category"
-      error
+      :error="hasError"
     />
 
     <MultiselectDropdown
@@ -37,8 +39,12 @@ const languages = [
       :items="languages"
       label="Desired languages"
       icon="i-youcan-translate"
-      error
+      :error="hasError"
     />
+
+    <PrimaryButton @click="hasError = true">
+      Submit
+    </PrimaryButton>
   </div>
 </template>
 
