@@ -2,47 +2,67 @@
 import 'uno.css';
 import '../assets/main.css';
 import { ref } from 'vue';
-import { Drawer, PrimaryButton } from '~/components';
+import { Badge, Divider, DropdownMenu, DropdownMenuItem, Thumbnail, Toast } from '~/components';
 
 const show = ref(false);
+const imageSrc = 'https://imgur.com/EXA4lN9.jpeg';
+const imageAlt = 'Mr. Frog';
 </script>
 
 <template>
-  <Drawer v-model:visible="show" position="left">
-    <p v-for="index in 50" :key="index" class="content">
-      The quick brown fox jumps over the lazy dog.
-    </p>
-    <template #footer>
-      <div class="actions">
-        <PrimaryButton @click="show = false;">
-          <span>Save</span>
-        </PrimaryButton>
-      </div>
+  <Toast :show="show" :close-after-duration="3000" position="bottom-right" type="success" @close="show = false">
+    <template #title>
+      Profile Updated
     </template>
-  </Drawer>
+    <template #description>
+      Your profile information has been successfully updated.
+    </template>
+  </Toast>
   <div class="container">
-    <PrimaryButton @click="show = true;">
-      <span>Open Drawer</span>
-    </PrimaryButton>
+    <DropdownMenu position="bottom">
+      <Thumbnail
+        :src="imageSrc"
+        :alt="imageAlt"
+        size="large"
+      />
+      <template #MenuItems>
+        <DropdownMenuItem label="Account" />
+        <DropdownMenuItem label="Show toast" @click="show = true;" />
+        <Divider thickness="light" />
+        <DropdownMenuItem label="With accessory">
+          <template #accessory>
+            <i class="i-youcan:rocket-launch" />
+          </template>
+        </DropdownMenuItem>
+        <DropdownMenuItem label="With Badge">
+          <template #icon>
+            <Badge state="success" :size="20">
+              Badge
+            </Badge>
+          </template>
+        </DropdownMenuItem>
+        <DropdownMenuItem label="Notification" />
+        <DropdownMenuItem class="custom-class" label="Logout">
+          <template #icon>
+            <i class="i-youcan:sign-out" />
+          </template>
+        </DropdownMenuItem>
+      </template>
+    </DropdownMenu>
   </div>
 </template>
 
 <style scoped>
 .container {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 100vw;
   height: 100vh;
 }
 
-.content {
-  margin: 0;
-  text-align: center;
-}
-
-.actions {
-  display: flex;
-  flex-direction: row-reverse;
+.custom-class {
+  color: var(--red-500); /* Change this to your desired color */
 }
 </style>
