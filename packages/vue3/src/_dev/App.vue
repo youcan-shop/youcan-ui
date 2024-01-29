@@ -42,7 +42,7 @@ const languages = [
       :error="hasError"
     />
 
-    <PrimaryButton @click="hasError = true">
+    <PrimaryButton @click="hasError = !hasError">
       Submit
     </PrimaryButton>
   </div>
