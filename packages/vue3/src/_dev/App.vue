@@ -17,6 +17,14 @@ const toolbar: ToolbarButtonsType = {
 </script>
 
 <template>
+  <Toast :show="show" :close-after-duration="3000" position="bottom-right" type="success" @close="show = false">
+    <template #title>
+      Profile Updated
+    </template>
+    <template #description>
+      Your profile information has been successfully updated.
+    </template>
+  </Toast>
   <div class="container">
     <RichText v-model="content" :error="error" lang="ar" :license="license" :toolbar="toolbar" />
   </div>
@@ -25,6 +33,7 @@ const toolbar: ToolbarButtonsType = {
 <style scoped>
 .container {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 100vh;
