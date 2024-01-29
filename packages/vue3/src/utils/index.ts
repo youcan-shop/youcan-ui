@@ -1,5 +1,5 @@
-import MyUtil from './MyUtil';
+import { toast } from './toast';
 
 export {
-  MyUtil,
+  toast,
 };

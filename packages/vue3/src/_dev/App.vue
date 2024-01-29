@@ -1,68 +1,54 @@
 <script setup lang="ts">
 import 'uno.css';
 import '../assets/main.css';
-import { ref } from 'vue';
-import { Badge, Divider, DropdownMenu, DropdownMenuItem, Thumbnail, Toast } from '~/components';
+import { PrimaryButton, ToastContainer } from '~/components';
+import { toast } from '~/utils';
+import type { ToastOptions } from '~/components/ToastContainer/types';
 
-const show = ref(false);
-const imageSrc = 'https://imgur.com/EXA4lN9.jpeg';
-const imageAlt = 'Mr. Frog';
+const toasts: ToastOptions[] = [
+  {
+    title: 'Info',
+    description: 'Click here to learn more about the exciting enhancements we\'ve made.',
+    type: 'info',
+  },
+  {
+    title: 'Success',
+    description: 'Your profile information has been successfully updated.',
+    type: 'success',
+  },
+  {
+    title: 'Warning',
+    description: 'Please check your internet connection.',
+    type: 'warning',
+  },
+  {
+    title: 'Error',
+    description: 'Unable to save data, check again later.',
+    type: 'error',
+  },
+];
+
+const handleClick = () => {
+  const item: ToastOptions = toasts[Math.floor(Math.random() * toasts.length)];
+  toast.show(item);
+};
 </script>
 
 <template>
-  <Toast :show="show" :close-after-duration="3000" position="bottom-right" type="success" @close="show = false">
-    <template #title>
-      Profile Updated
-    </template>
-    <template #description>
-      Your profile information has been successfully updated.
-    </template>
-  </Toast>
+  <ToastContainer :limit="3" position="bottom-right" :duration="100000" />
   <div class="container">
-    <DropdownMenu position="bottom">
-      <Thumbnail
-        :src="imageSrc"
-        :alt="imageAlt"
-        size="large"
-      />
-      <template #MenuItems>
-        <DropdownMenuItem label="Account" />
-        <DropdownMenuItem label="Show toast" @click="show = true;" />
-        <Divider thickness="light" />
-        <DropdownMenuItem label="With accessory">
-          <template #accessory>
-            <i class="i-youcan:rocket-launch" />
-          </template>
-        </DropdownMenuItem>
-        <DropdownMenuItem label="With Badge">
-          <template #icon>
-            <Badge state="success" :size="20">
-              Badge
-            </Badge>
-          </template>
-        </DropdownMenuItem>
-        <DropdownMenuItem label="Notification" />
-        <DropdownMenuItem class="custom-class" label="Logout">
-          <template #icon>
-            <i class="i-youcan:sign-out" />
-          </template>
-        </DropdownMenuItem>
-      </template>
-    </DropdownMenu>
+    <PrimaryButton @click="handleClick">
+      Show Toast
+    </PrimaryButton>
   </div>
 </template>
 
 <style scoped>
 .container {
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 100vw;
   height: 100vh;
-}
-
-.custom-class {
-  color: var(--red-500); /* Change this to your desired color */
 }
 </style>
