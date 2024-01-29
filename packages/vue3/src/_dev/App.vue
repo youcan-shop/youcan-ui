@@ -43,7 +43,7 @@ const languages = [
     />
 
     <PrimaryButton @click="hasError = !hasError">
-      Submit
+      Submit form
     </PrimaryButton>
   </div>
 </template>
