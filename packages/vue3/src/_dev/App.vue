@@ -2,67 +2,59 @@
 import 'uno.css';
 import '../assets/main.css';
 import { ref } from 'vue';
-import { Badge, Divider, DropdownMenu, DropdownMenuItem, Thumbnail, Toast } from '~/components';
+import { Dropdown, MultiselectDropdown, PrimaryButton } from '~/components';
 
-const show = ref(false);
-const imageSrc = 'https://imgur.com/EXA4lN9.jpeg';
-const imageAlt = 'Mr. Frog';
+const category = ref(null);
+
+const desiredLanguages = ref([]);
+
+const hasError = ref(false);
+
+const items = [
+  { label: 'Shoes', value: 1 },
+  { label: 'Cosmetics', value: 2 },
+  { label: 'Gym', value: 3 },
+];
+
+const languages = [
+  { label: 'Arabic', value: 1 },
+  { label: 'English', value: 2 },
+  { label: 'German', value: 3 },
+];
 </script>
 
 <template>
-  <Toast :show="show" :close-after-duration="3000" position="bottom-right" type="success" @close="show = false">
-    <template #title>
-      Profile Updated
-    </template>
-    <template #description>
-      Your profile information has been successfully updated.
-    </template>
-  </Toast>
-  <div class="container">
-    <DropdownMenu position="bottom">
-      <Thumbnail
-        :src="imageSrc"
-        :alt="imageAlt"
-        size="large"
-      />
-      <template #MenuItems>
-        <DropdownMenuItem label="Account" />
-        <DropdownMenuItem label="Show toast" @click="show = true;" />
-        <Divider thickness="light" />
-        <DropdownMenuItem label="With accessory">
-          <template #accessory>
-            <i class="i-youcan:rocket-launch" />
-          </template>
-        </DropdownMenuItem>
-        <DropdownMenuItem label="With Badge">
-          <template #icon>
-            <Badge state="success" :size="20">
-              Badge
-            </Badge>
-          </template>
-        </DropdownMenuItem>
-        <DropdownMenuItem label="Notification" />
-        <DropdownMenuItem class="custom-class" label="Logout">
-          <template #icon>
-            <i class="i-youcan:sign-out" />
-          </template>
-        </DropdownMenuItem>
-      </template>
-    </DropdownMenu>
+  <div class="dropdown-container">
+    <Dropdown
+      v-model="category"
+      searchable
+      :items="items"
+      placeholder="Select category"
+      :error="hasError"
+    />
+
+    <MultiselectDropdown
+      v-model="desiredLanguages"
+      :searchable="true"
+      :items="languages"
+      label="Desired languages"
+      icon="i-youcan-translate"
+      :error="hasError"
+    />
+
+    <PrimaryButton @click="hasError = !hasError">
+      Submit form
+    </PrimaryButton>
   </div>
 </template>
 
 <style scoped>
-.container {
+.dropdown-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100vw;
-  height: 100vh;
-}
-
-.custom-class {
-  color: var(--red-500); /* Change this to your desired color */
+  max-width: 300px;
+  margin: auto;
+  row-gap: 40px;
+  padding-top: 40px;
 }
 </style>
