@@ -1,44 +1,25 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { nextTick, ref } from 'vue';
 import { onClickOutside } from '@vueuse/core';
+import { setPosition } from '../Tooltip/utils';
+import type { DropdownMenuProps } from './types';
+
+const props = withDefaults(defineProps<DropdownMenuProps>(), { position: 'bottom' });
 
 const show = ref(false);
 const DropdownMenuContainer = ref();
-const position = ref();
-
-const getEdgePosition = (rect: any) => {
-  const screenWidth = window.innerWidth;
-
-  const isAtLeftEdge = rect.left <= 0;
-  const isAtRightEdge = rect.right >= screenWidth;
-
-  if (isAtLeftEdge) {
-    position.value = 'left';
-
-    return 'left';
-  }
-  if (isAtRightEdge) {
-    position.value = 'right';
-
-    return 'right';
-  }
-
-  return 'center';
-};
-
-const positionClasses = computed(() => {
-  return {
-    'position-right': position.value === 'right',
-    'position-left': position.value === 'left',
-  };
-});
+const DropdownMenuTrigger = ref();
+const DropdownMenuContent = ref();
 
 const toggleMenu = () => {
   show.value = !show.value;
-  if (show.value) {
-    const containerRect = DropdownMenuContainer?.value.getBoundingClientRect();
-    getEdgePosition(containerRect);
-  }
+
+  nextTick(() => {
+    if (DropdownMenuTrigger.value && DropdownMenuContent.value && show.value) {
+      const { top, left } = setPosition(DropdownMenuContent.value, DropdownMenuTrigger.value, props.position, 5);
+      DropdownMenuContent.value?.setAttribute('style', `top:${top}px;left:${left}px`);
+    }
+  });
 };
 
 onClickOutside(DropdownMenuContainer, () => show.value = false);
@@ -46,24 +27,18 @@ onClickOutside(DropdownMenuContainer, () => show.value = false);
 
 <template>
   <div ref="DropdownMenuContainer">
-    <div @click="toggleMenu">
+    <div ref="DropdownMenuTrigger" @click="toggleMenu">
       <slot />
     </div>
-    <div v-if="show" :class="positionClasses" class="dropdown-menu-content">
-      <slot name="MenuList" />
-    </div>
+    <Transition name="fade-in">
+      <div v-if="show" ref="DropdownMenuContent" class="dropdown-menu-content">
+        <slot name="MenuList" />
+      </div>
+    </Transition>
   </div>
 </template>
 
 <style scoped>
-.position-right {
-  right: 0;
-}
-
-.position-left {
-  left: 0;
-}
-
 .dropdown-menu-content {
   --border-radius: 8px;
   --min-width: 200px;
@@ -78,25 +53,32 @@ onClickOutside(DropdownMenuContainer, () => show.value = false);
   flex-direction: column;
   width: max-content;
   min-width: var(--min-width);
-  margin-top: 5px;
   padding: var(--padding);
-  animation: fade-in-translate 200ms ease-in-out;
   border: 1px solid var(--gray-200);
   border-radius: var(--border-radius);
+  opacity: 1;
   background-color: var(--base-white);
   box-shadow: var(--shadow-xs-gray);
   color: var(--gray-500);
   gap: var(--gap);
 }
 
-@keyframes fade-in-translate {
-  from {
-    transform: translateY(-20px);
+.fade-in-enter-active {
+  animation: fade-in 0.1s ease-in-out;
+}
+
+.fade-in-leave-active {
+  animation: fade-in 0.1s reverse ease-in-out;
+}
+
+@keyframes fade-in {
+  0% {
+    transform: translate(-10px) scale(0.9);
     opacity: 0;
   }
 
-  to {
-    transform: translateY(0);
+  100% {
+    transform: translate(0) scale(1);
     opacity: 1;
   }
 }

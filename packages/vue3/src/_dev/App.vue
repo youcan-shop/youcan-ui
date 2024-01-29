@@ -19,7 +19,7 @@ const imageAlt = 'Mr. Frog';
     </template>
   </Toast>
   <div class="container">
-    <DropdownMenu>
+    <DropdownMenu position="bottom">
       <DropdownMenuTrigger>
         <Thumbnail
           :src="imageSrc"
@@ -57,9 +57,8 @@ const imageAlt = 'Mr. Frog';
 <style scoped>
 .container {
   display: flex;
-  position: relative;
   flex-direction: column;
-  align-items: start;
+  align-items: center;
   justify-content: center;
   width: 100vw;
   height: 100vh;
