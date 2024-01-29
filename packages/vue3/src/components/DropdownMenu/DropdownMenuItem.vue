@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { DropdownMenuItemProps } from './types.ts';
+import type { DropdownMenuItemProps } from './types';
 
 const props = defineProps<DropdownMenuItemProps>();
 
