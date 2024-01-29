@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { nextTick, ref } from 'vue';
+import { nextTick, onMounted, onUnmounted, ref } from 'vue';
 import { onClickOutside } from '@vueuse/core';
 import { setPosition } from '../Tooltip/utils';
 import type { DropdownMenuProps } from './types';
@@ -21,6 +21,18 @@ const toggleMenu = () => {
     }
   });
 };
+
+const handleScroll = () => {
+  show.value = false;
+};
+
+onMounted(() => {
+  window.addEventListener('scroll', handleScroll);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', handleScroll);
+});
 
 onClickOutside(DropdownMenuContainer, () => show.value = false);
 </script>
