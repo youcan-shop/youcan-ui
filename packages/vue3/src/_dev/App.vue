@@ -2,7 +2,7 @@
 import 'uno.css';
 import '../assets/main.css';
 import { ref } from 'vue';
-import { Badge, Divider, DropdownMenu, DropdownMenuItem, DropdownMenuTrigger, Thumbnail, Toast } from '~/components';
+import { Badge, Divider, DropdownMenu, DropdownMenuItem, Thumbnail, Toast } from '~/components';
 
 const show = ref(false);
 const imageSrc = 'https://imgur.com/EXA4lN9.jpeg';
@@ -20,14 +20,12 @@ const imageAlt = 'Mr. Frog';
   </Toast>
   <div class="container">
     <DropdownMenu position="bottom">
-      <DropdownMenuTrigger>
-        <Thumbnail
-          :src="imageSrc"
-          :alt="imageAlt"
-          size="large"
-        />
-      </DropdownMenuTrigger>
-      <template #MenuList>
+      <Thumbnail
+        :src="imageSrc"
+        :alt="imageAlt"
+        size="large"
+      />
+      <template #MenuItems>
         <DropdownMenuItem label="Account" />
         <DropdownMenuItem label="Show toast" @click="show = true;" />
         <Divider thickness="light" />

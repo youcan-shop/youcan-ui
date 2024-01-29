@@ -64,5 +64,4 @@ export { default as MultiSwitch } from './MultiSwitch/MultiSwitch.vue';
 export { default as SwitchButton } from './MultiSwitch/SwitchButton.vue';
 export { default as Drawer } from './Drawer/Drawer.vue';
 export { default as DropdownMenu } from './DropdownMenu/DropdownMenu.vue';
-export { default as DropdownMenuTrigger } from './DropdownMenu/DropdownMenuTrigger.vue';
 export { default as DropdownMenuItem } from './DropdownMenu/DropdownMenuItem.vue';

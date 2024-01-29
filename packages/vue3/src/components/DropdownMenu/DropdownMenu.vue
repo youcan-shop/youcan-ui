@@ -39,12 +39,12 @@ onClickOutside(DropdownMenuContainer, () => show.value = false);
 
 <template>
   <div ref="DropdownMenuContainer">
-    <div ref="DropdownMenuTrigger" @click="toggleMenu">
+    <div ref="DropdownMenuTrigger" class="dropdown-menu-trigger" @click="toggleMenu">
       <slot />
     </div>
     <Transition name="fade-in">
       <div v-if="show" ref="DropdownMenuContent" class="dropdown-menu-content">
-        <slot name="MenuList" />
+        <slot name="MenuItems" />
       </div>
     </Transition>
   </div>
@@ -81,6 +81,12 @@ onClickOutside(DropdownMenuContainer, () => show.value = false);
 
 .fade-in-leave-active {
   animation: fade-in 0.1s reverse ease-in-out;
+}
+
+.dropdown-menu-trigger {
+  width: max-content;
+  max-width: 100%;
+  margin: 0;
 }
 
 @keyframes fade-in {
