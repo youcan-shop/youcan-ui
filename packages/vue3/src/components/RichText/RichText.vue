@@ -90,6 +90,7 @@ onMounted(() => {
   --shadow: var(--shadow-xs-gray);
   --border-radius: 10px;
 
+  max-width: 100%;
   border: var(--border);
   border-radius: var(--border-radius);
   box-shadow: var(--shadow);
