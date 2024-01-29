@@ -33,6 +33,7 @@ const handleClick = () => {
   &:hover {
     border-radius: var(--border-radius);
     background-color: var(--gray-100);
+    cursor: pointer;
   }
 }
 

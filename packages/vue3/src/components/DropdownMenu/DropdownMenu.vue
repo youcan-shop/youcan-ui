@@ -91,12 +91,12 @@ onClickOutside(DropdownMenuContainer, () => show.value = false);
 
 @keyframes fade-in {
   0% {
-    transform: translate(-10px) scale(0.9);
+    transform: scale(0.9);
     opacity: 0;
   }
 
   100% {
-    transform: translate(0) scale(1);
+    transform: scale(1);
     opacity: 1;
   }
 }
