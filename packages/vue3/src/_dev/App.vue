@@ -2,47 +2,53 @@
 import 'uno.css';
 import '../assets/main.css';
 import { ref } from 'vue';
-import { Drawer, PrimaryButton } from '~/components';
+import { Dropdown, MultiselectDropdown } from '~/components';
 
-const show = ref(false);
+const category = ref(null);
+
+const desiredLanguages = ref([]);
+
+const items = [
+  { label: 'Shoes', value: 1 },
+  { label: 'Cosmetics', value: 2 },
+  { label: 'Gym', value: 3 },
+];
+
+const languages = [
+  { label: 'Arabic', value: 1 },
+  { label: 'English', value: 2 },
+  { label: 'German', value: 3 },
+];
 </script>
 
 <template>
-  <Drawer v-model:visible="show" position="left">
-    <p v-for="index in 50" :key="index" class="content">
-      The quick brown fox jumps over the lazy dog.
-    </p>
-    <template #footer>
-      <div class="actions">
-        <PrimaryButton @click="show = false;">
-          <span>Save</span>
-        </PrimaryButton>
-      </div>
-    </template>
-  </Drawer>
-  <div class="container">
-    <PrimaryButton @click="show = true;">
-      <span>Open Drawer</span>
-    </PrimaryButton>
+  <div class="dropdown-container">
+    <Dropdown
+      v-model="category"
+      searchable
+      :items="items"
+      placeholder="Select category"
+      error
+    />
+
+    <MultiselectDropdown
+      v-model="desiredLanguages"
+      :searchable="true"
+      :items="languages"
+      label="Desired languages"
+      icon="i-youcan-translate"
+      error
+    />
   </div>
 </template>
 
 <style scoped>
-.container {
+.dropdown-container {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100vw;
-  height: 100vh;
-}
-
-.content {
-  margin: 0;
-  text-align: center;
-}
-
-.actions {
-  display: flex;
-  flex-direction: row-reverse;
+  flex-direction: column;
+  max-width: 300px;
+  margin: auto;
+  row-gap: 40px;
+  padding-top: 40px;
 }
 </style>

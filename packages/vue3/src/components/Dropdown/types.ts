@@ -37,6 +37,7 @@ export interface DropdownProps {
   items: DropdownItemArray | DropdownItemGroups
   disabled?: boolean
   loading?: boolean
+  error?: boolean
   searchHandler?: (searchTerm: string, items?: DropdownItemArray | DropdownItemGroups) => void
 }
 
@@ -57,4 +58,5 @@ export interface MultiselectDropdownProps {
   loading?: boolean
   modelValue: DropdownItemDefinition[]
   items: DropdownItemArray | DropdownItemGroups
+  error?: boolean
 }
