@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue';
 import FroalaEditor from 'froala-editor';
-import { richTextConfig } from './config';
+import { richTextConfig } from './richTextConfig';
 import type { RichTextProps } from './types';
 import iconDefinitions from './iconDefinition';
 

@@ -17,24 +17,12 @@ const toolbar: ToolbarButtonsType = {
 </script>
 
 <template>
-  <Drawer v-model:visible="show" position="left">
-    <p v-for="index in 50" :key="index" class="content">
-      The quick brown fox jumps over the lazy dog.
-    </p>
-    <template #footer>
-      <div class="actions">
-        <PrimaryButton @click="show = false;">
-          <span>Save</span>
-        </PrimaryButton>
-      </div>
-    </template>
-  </Drawer>
   <div class="container">
     <RichText v-model="content" :error="error" lang="ar" :license="license" :toolbar="toolbar" />
   </div>
 </template>
 
-<style scoped lang="css">
+<style scoped>
 .container {
   display: flex;
   align-items: center;
