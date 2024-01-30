@@ -9,28 +9,29 @@ const props = withDefaults(defineProps<RichTextProps>(), {
   lang: 'en',
   quickInsert: true,
 });
+
 const emit = defineEmits(['update:modelValue']);
+
 const model = computed({
   get: () => props.modelValue,
   set: (value: string) => emit('update:modelValue', value),
 });
-const config = ref();
+
+const editorConfig = ref();
 const loading = ref(true);
 
-// SET YOUCAN ICONS TEMPLATE
+// SET FROALA TOOLBAR ICONS
 FroalaEditor.DefineIconTemplate('youcan_icons', '<i class="i-youcan:[NAME]"></i>');
 FroalaEditor.DefineIconTemplate('youcan_icons_align', '<i class="i-youcan:text-[NAME]"></i>');
-
 FroalaEditor.ICON_DEFAULT_TEMPLATE = 'youcan_icons_align';
 
-iconDefinitions.forEach(({ key, name, template }) => {
-  const iconConfig = { NAME: name, ...(template ? { template } : { template: 'youcan_icons' }) };
+iconDefinitions.forEach(({ key, name }) => {
+  const iconConfig = { NAME: name, template: 'youcan_icons' };
   FroalaEditor.DefineIcon(key, iconConfig);
 });
 
-// CREATE CLEAR EDITOR COMMAND
+// SET FROALA CLEAR TEXTAREA COMMAND
 FroalaEditor.RegisterCommand('clear', {
-  title: 'Clear HTML',
   focus: false,
   undo: true,
   refreshAfterCallback: true,
@@ -40,43 +41,45 @@ FroalaEditor.RegisterCommand('clear', {
   },
 });
 
-const setEditorConfig = () => {
-  const { lang, license, toolbar, quickInsert } = props;
-  const { text, paragraph, misc, rich } = toolbar;
+const createEditorInstance = () => {
+  // CREATE A COPY OF THE richTextConfig FOR EACH INSTANCE
+  const config = { ...richTextConfig };
+  // SET LANGUAGE - LICENSE KEY - QUICKINSERT
+  config.language = props.lang;
+  config.key = props.license;
+  config.quickInsertEnabled = props.quickInsert;
 
-  // SET LANGUAGE AND LICENSE KEY
-  richTextConfig.language = lang;
-  richTextConfig.key = license;
-  richTextConfig.quickInsertEnabled = quickInsert;
+  // SET CUSTOM TOOLBAR
+  if (props.toolbar) {
+    const { text, paragraph, misc, rich } = props.toolbar;
+    // SET TOOLBAR BUTTONS
+    config.toolbarButtons = [...text, ...paragraph, ...misc, ...rich];
 
-  // SET TOOLBAR BUTTONS
-  richTextConfig.toolbarButtons = [...text, ...paragraph, ...misc, ...rich];
+    // SET TOOLBAR BUTTONS MD, SM, XS
+    ['MD', 'SM', 'XS'].forEach((size) => {
+      const sizeConfig = config[`toolbarButtons${size}` as keyof typeof config];
 
-  // SET TOOLBAR BUTTONS MD, SM, XS
-  ['MD', 'SM', 'XS'].forEach((size) => {
-    const sizeConfig = richTextConfig[`toolbarButtons${size}` as keyof typeof richTextConfig];
+      if (sizeConfig && typeof sizeConfig === 'object') {
+        (sizeConfig as any).moreText.buttons = text;
+        (sizeConfig as any).moreParagraph.buttons = paragraph;
+        (sizeConfig as any).moreMisc.buttons = misc;
+        (sizeConfig as any).moreRich.buttons = rich;
+      }
+    });
+  }
 
-    if (sizeConfig && typeof sizeConfig === 'object') {
-      (sizeConfig as any).moreText.buttons = text;
-      (sizeConfig as any).moreParagraph.buttons = paragraph;
-      (sizeConfig as any).moreMisc.buttons = misc;
-      (sizeConfig as any).moreRich.buttons = rich;
-    }
-  });
-
-  // SET CONFIG
-  config.value = richTextConfig;
+  return config;
 };
 
 onMounted(() => {
   loading.value = false;
-  setEditorConfig();
+  editorConfig.value = createEditorInstance();
 });
 </script>
 
 <template>
   <div v-if="!loading" class="editor" :class="{ error }">
-    <froala v-model:value="model" tag="textarea" :config="config" />
+    <froala v-model:value="model" tag="textarea" :config="editorConfig" />
   </div>
 </template>
 

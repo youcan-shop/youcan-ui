@@ -7,7 +7,6 @@ const iconDefinitions = [
   { key: 'strikeThrough', name: 'text-strikethrough' },
   { key: 'textColor', name: 'eyedropper-sample' },
   { key: 'backgroundColor', name: 'paint-bucket' },
-  { key: 'fontSize', name: 'Aa', template: 'text' },
   { key: 'alignLeft', name: 'align-left' },
   { key: 'alignCenter', name: 'text-align-center' },
   { key: 'alignRight', name: 'text-align-right' },
