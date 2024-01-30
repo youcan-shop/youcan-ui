@@ -7,6 +7,7 @@ import type { DraggableItemType } from '~/components/Draggable/types';
 const meta: Meta<typeof Draggable> = {
   title: 'Application/Draggable',
   component: Draggable,
+  tags: ['draggable'],
 };
 
 export default meta;
