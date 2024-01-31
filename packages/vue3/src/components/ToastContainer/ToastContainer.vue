@@ -115,7 +115,7 @@ onMounted(() => {
           @close="close(toast.id)"
         >
           <template v-if="toast.options?.title" #title>
-            {{ toast.options?.title }} :: {{ index }}
+            {{ toast.options?.title }}
           </template>
           <template v-if="toast.options?.description" #description>
             {{ toast.options?.description }}
