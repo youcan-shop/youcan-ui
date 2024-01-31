@@ -3,9 +3,9 @@ import type { Meta } from '@storybook/vue3';
 import Checkbox from './Checkbox.vue';
 
 const meta: Meta<typeof Checkbox> = {
-  title: 'Primitive/Checkbox',
+  title: 'Application/Checkbox',
   component: Checkbox,
-  tags: ['primitive', 'toggle', 'input', 'on/off', 'switch', 'checkbox'],
+  tags: ['toggle', 'input', 'on/off', 'switch', 'checkbox'],
   argTypes: {
     value: {
       table: { disable: true },
