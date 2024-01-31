@@ -2,7 +2,7 @@
 import 'uno.css';
 import '../assets/main.css';
 import { PrimaryButton, ToastContainer } from '~/components';
-import { toast } from '~/utils';
+import { toast } from '~/helpers';
 import type { ToastOptions } from '~/components/ToastContainer/types';
 
 const toasts: ToastOptions[] = [

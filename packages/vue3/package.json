@@ -22,9 +22,9 @@
         "types": "./dist/types/index.d.ts"
       }
     },
-    "./utils": {
-      "require": "./src/utils/index.ts",
-      "import": "./src/utils/index.ts"
+    "./helpers": {
+      "require": "./src/helpers/index.ts",
+      "import": "./src/helpers/index.ts"
     },
     "./style": {
       "require": "./dist/index.css",
