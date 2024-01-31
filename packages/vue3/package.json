@@ -26,8 +26,10 @@
       "require": "./dist/index.css",
       "import": "./dist/index.css"
     },
-    "./types": "./dist/types/index.d.ts",
-    "./types/*": "./dist/types/*.d.ts"
+    "./types": {
+      "require": "./dist/types/types/index.d.ts",
+      "import": "./dist/types/types/index.d.ts"
+    }
   },
   "main": "./dist/index.umd.js",
   "module": "./dist/index.es.js",
