@@ -39,7 +39,7 @@ const model = computed<DropdownItemDefinition | null>({
 
 <template>
   <div class="dropdown">
-    <button ref="button" type="button" :class="[{ disabled }, `size-${size}`]" class="dropdown-input" @click="() => toggleList()">
+    <button ref="button" type="button" :class="[{ disabled }, { error }, `size-${size}`]" class="dropdown-input" @click="() => toggleList()">
       <i v-if="icon" class="icon" :class="icon" />
       <span class="label">
         {{ model?.label ?? placeholder }}
@@ -99,42 +99,54 @@ const model = computed<DropdownItemDefinition | null>({
   color: var(--gray-500);
   cursor: pointer;
   gap: 8px;
-}
 
-.dropdown-input.disabled {
-  background-color: var(--gray-50);
-  cursor: default;
-}
+  &.disabled {
+    background-color: var(--gray-50);
+    cursor: default;
+  }
 
-.dropdown-input.size-36 {
-  padding: 7.5px 12px;
-  border-radius: 4px;
-}
+  &:not(.disabled) {
+    &:hover {
+      background-color: var(--gray-50);
+    }
 
-.dropdown-input.size-44 {
-  padding: 11.5px 16px;
-  border-radius: 8px;
-}
+    &:is(:focus, :active) {
+      border: 1px solid var(--brand-500);
+      outline: none;
+      box-shadow: var(--focus-shadow-xs-brand);
+    }
 
-.dropdown-input .label {
-  overflow: hidden;
-  color: var(--gray-900);
-  font: var(--text-sm-regular);
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
+    &.error {
+      border: 1px solid var(--red-500);
 
-.dropdown-input:not(.disabled):hover {
-  background-color: var(--gray-50);
-}
+      &:focus {
+        box-shadow: var(--focus-shadow-xs-red);
+      }
+    }
+  }
 
-.dropdown-input:not(.disabled):is(:focus, :active) {
-  border: 1px solid var(--brand-500);
-  outline: none;
-  box-shadow: var(--focus-shadow-xs-brand);
-}
+  &.size {
+    &-36 {
+      padding: 7.5px 12px;
+      border-radius: 4px;
+    }
 
-.dropdown-input .chevron {
-  margin-inline-start: auto;
+    &-44 {
+      padding: 11.5px 16px;
+      border-radius: 8px;
+    }
+  }
+
+  .label {
+    overflow: hidden;
+    color: var(--gray-900);
+    font: var(--text-sm-regular);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .chevron {
+    margin-inline-start: auto;
+  }
 }
 </style>

@@ -38,7 +38,7 @@ function toggle(item: DropdownItemDefinition, value: boolean): void {
 
 <template>
   <div>
-    <button ref="button" type="button" class="dropdown-input" @click="() => toggleList()">
+    <button ref="button" type="button" :class="{ error }" class="dropdown-input" @click="() => toggleList()">
       <i v-if="icon" class="icon" :class="icon" />
       <span class="label">
         <span>
@@ -51,10 +51,11 @@ function toggle(item: DropdownItemDefinition, value: boolean): void {
 
       <i class="chevron i-youcan-carret-down" />
     </button>
-    <div v-if="showList" ref="list" class="dropdown-wrapper">
+    <div v-show="showList" ref="list" class="dropdown-wrapper">
       <DropdownList
         class="dropdown-list" v-bind="{ items, selected: modelValue, searchable, multiple: true }"
         :loading="loading"
+        :show="showList"
         @toggle="toggle"
         @scroll-end="() => emit('scrollEnd')"
       >
@@ -97,6 +98,14 @@ function toggle(item: DropdownItemDefinition, value: boolean): void {
   border: 1px solid var(--brand-500);
   outline: none;
   box-shadow: var(--focus-shadow-xs-brand);
+}
+
+.dropdown-input.error {
+  border: 1px solid var(--red-500);
+}
+
+.dropdown-input.error:focus {
+  box-shadow: var(--focus-shadow-xs-red);
 }
 
 .dropdown-input .chevron {

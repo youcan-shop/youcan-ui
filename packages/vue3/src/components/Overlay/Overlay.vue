@@ -49,7 +49,7 @@ const emit = defineEmits(['onBackdropClick']);
     position: relative;
     z-index: 3;
     max-width: 100%;
-    margin: auto;
+    margin: 0 auto;
   }
 }
 </style>

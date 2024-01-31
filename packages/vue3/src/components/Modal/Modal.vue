@@ -11,12 +11,12 @@ const props = withDefaults(defineProps<ModalProps>(), {
 });
 
 const emit = defineEmits(['update:visible', 'onConfirm']);
-const closeModal = () => {
+const close = () => {
   emit('update:visible', false);
 };
 const handleKeypress = (event: KeyboardEvent) => {
   if (props.visible && event.key === 'Escape') {
-    closeModal();
+    close();
   }
 };
 
@@ -31,11 +31,11 @@ onUnmounted(() => {
 
 <template>
   <Transition name="fade">
-    <Overlay v-show="visible" @on-backdrop-click="closeModal">
+    <Overlay v-show="visible" @on-backdrop-click="close">
       <Transition name="slide-up">
         <div v-if="visible" class="modal">
           <div class="header">
-            <TertiaryButton @click="closeModal">
+            <TertiaryButton @click="close">
               <i class="i-youcan-x" />
             </TertiaryButton>
             <span class="title">{{ title }}</span>
@@ -50,7 +50,7 @@ onUnmounted(() => {
               </template>
               <span>{{ confirmLabel }}</span>
             </PrimaryButton>
-            <SecondaryButton @click="closeModal">
+            <SecondaryButton @click="close">
               <span>{{ cancelLabel }}</span>
             </SecondaryButton>
           </div>
@@ -110,6 +110,23 @@ onUnmounted(() => {
     padding: 20px;
     overflow-y: auto;
     font: var(--text-md-regular);
+
+    &::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      border-radius: 2px;
+      background-color: var(--brand-500);
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+      background-color: var(--brand-500);
+    }
   }
 }
 

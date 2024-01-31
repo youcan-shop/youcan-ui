@@ -2,32 +2,59 @@
 import 'uno.css';
 import '../assets/main.css';
 import { ref } from 'vue';
-import { Input, TextArea } from '~/components';
+import { Dropdown, MultiselectDropdown, PrimaryButton } from '~/components';
 
-const comment = ref('');
+const category = ref(null);
+
+const desiredLanguages = ref([]);
+
+const hasError = ref(false);
+
+const items = [
+  { label: 'Shoes', value: 1 },
+  { label: 'Cosmetics', value: 2 },
+  { label: 'Gym', value: 3 },
+];
+
+const languages = [
+  { label: 'Arabic', value: 1 },
+  { label: 'English', value: 2 },
+  { label: 'German', value: 3 },
+];
 </script>
 
 <template>
-  <div class="container">
-    <TextArea
-      v-model="comment"
-      placeholder="Leave your comment"
+  <div class="dropdown-container">
+    <Dropdown
+      v-model="category"
+      searchable
+      :items="items"
+      placeholder="Select category"
+      :error="hasError"
     />
-    <Input
-      v-model="comment"
-      placeholder="Leave your comment"
-      type="password"
-      can-show
+
+    <MultiselectDropdown
+      v-model="desiredLanguages"
+      :searchable="true"
+      :items="languages"
+      label="Desired languages"
+      icon="i-youcan-translate"
+      :error="hasError"
     />
+
+    <PrimaryButton @click="hasError = !hasError">
+      Submit form
+    </PrimaryButton>
   </div>
 </template>
 
 <style scoped>
-.container {
+.dropdown-container {
   display: flex;
   flex-direction: column;
-  width: 500px;
-  margin: 40px auto;
-  row-gap: 20px;
+  max-width: 300px;
+  margin: auto;
+  row-gap: 40px;
+  padding-top: 40px;
 }
 </style>
