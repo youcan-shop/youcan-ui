@@ -6,7 +6,7 @@ import TableButton from './Button.vue';
 import type { TableRowProps } from './types';
 import TertiaryButton from '~/components/Button/TertiaryButton.vue';
 import Checkbox from '~/components/Checkbox/Checkbox.vue';
-import { launder } from '~/utils/type.util';
+import { launder } from '~/helpers/type.util';
 import Tooltip from '~/components/Tooltip/Tooltip.vue';
 
 const props = defineProps<TableRowProps>();

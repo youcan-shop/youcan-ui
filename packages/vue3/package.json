@@ -22,6 +22,10 @@
         "types": "./dist/types/index.d.ts"
       }
     },
+    "./helpers": {
+      "require": "./src/helpers/index.ts",
+      "import": "./src/helpers/index.ts"
+    },
     "./style": {
       "require": "./dist/index.css",
       "import": "./dist/index.css"
@@ -50,7 +54,6 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "bench": "node vue3.bench.mjs"
-
   },
   "peerDependencies": {
     "vue": "^3.4.5"
