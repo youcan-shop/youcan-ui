@@ -39,31 +39,33 @@ const removeTag = (index: number) => {
 };
 
 onMounted(() => {
-  tagInput.value?.addEventListener('keydown', (event: KeyboardEvent) => {
-    if (event.key === 'Enter') {
-      event.preventDefault();
+  if (props.disabled === false) {
+    tagInput.value?.addEventListener('keydown', (event: KeyboardEvent) => {
+      if (event.key === 'Enter') {
+        event.preventDefault();
 
-      if (!newTagLabel.value || (typeof props.max === 'number' && model.value.length >= props.max)) {
-        return;
+        if (!newTagLabel.value || (typeof props.max === 'number' && model.value.length >= props.max)) {
+          return;
+        }
+
+        model.value = model.value.concat({
+          label: newTagLabel.value,
+        });
+
+        newTagLabel.value = '';
       }
 
-      model.value = model.value.concat({
-        label: newTagLabel.value,
-      });
+      if (event.key === 'Backspace' && !newTagLabel.value) {
+        removeTag(model.value.length - 1);
+      }
+    });
 
-      newTagLabel.value = '';
-    }
-
-    if (event.key === 'Backspace' && !newTagLabel.value) {
-      removeTag(model.value.length - 1);
-    }
-  });
-
-  tagsContainer.value?.addEventListener('click', (event: MouseEvent) => {
-    if (event.target === tagsContainer.value) {
-      tagInput.value?.focus();
-    }
-  });
+    tagsContainer.value?.addEventListener('click', (event: MouseEvent) => {
+      if (event.target === tagsContainer.value) {
+        tagInput.value?.focus();
+      }
+    });
+  }
 });
 </script>
 
@@ -73,10 +75,7 @@ onMounted(() => {
       v-for="(tag, index) in model" :key="`${tag.label}-${index}`" :model-value="model[index]" :type="type"
       @update:model-value="(value) => updateTag(index, value)" @remove="removeTag(index)"
     />
-    <input
-      v-show="typeof max === 'undefined' || model.length < max" ref="tagInput" v-model="newTagLabel" type="text"
-      class="tag-input" :placeholder="placeholder"
-    >
+    <input v-if="disabled === false" v-show="typeof max === 'undefined' || model.length < max" ref="tagInput" v-model="newTagLabel" type="text" class="tag-input" :placeholder="placeholder">
   </div>
 </template>
 
@@ -137,9 +136,10 @@ onMounted(() => {
   font: var(--text-sm-regular);
 }
 
-.tag[disabled="true"] .tag-input {
-  background-color: var(--gray-50);
-  pointer-events: none;
+.tag[disabled="true"],
+.tag[disabled="true"]:deep(*),
+.tag[disabled="true"] * {
+  cursor: not-allowed !important;
 }
 
 .tag .tag-input::placeholder {
