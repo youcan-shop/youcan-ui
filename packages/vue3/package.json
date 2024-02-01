@@ -1,6 +1,6 @@
 {
   "name": "@youcan/ui-vue3",
-  "version": "2.5.8-beta.3",
+  "version": "2.5.8-beta.4",
   "description": "YouCan Vue3 components library",
   "author": "YouCan <tech@youcan.shop> (https://github.com/youcan-shop/)",
   "license": "MIT",
@@ -22,12 +22,18 @@
         "types": "./dist/types/index.d.ts"
       }
     },
+    "./helpers": {
+      "require": "./src/helpers/index.ts",
+      "import": "./src/helpers/index.ts"
+    },
     "./style": {
       "require": "./dist/index.css",
       "import": "./dist/index.css"
     },
-    "./types": "./dist/types/index.d.ts",
-    "./types/*": "./dist/types/*.d.ts"
+    "./types": {
+      "require": "./dist/types/types/index.d.ts",
+      "import": "./dist/types/types/index.d.ts"
+    }
   },
   "main": "./dist/index.umd.js",
   "module": "./dist/index.es.js",
@@ -48,7 +54,6 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "bench": "node vue3.bench.mjs"
-
   },
   "peerDependencies": {
     "vue": "^3.4.5"
