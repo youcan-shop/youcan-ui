@@ -1,54 +1,41 @@
 <script setup lang="ts">
 import 'uno.css';
 import '../assets/main.css';
-import { PrimaryButton, ToastContainer } from '~/components';
-import { toast } from '~/helpers';
-import type { ToastOptions } from '~/components/ToastContainer/types';
+import { ref } from 'vue';
+import { RichText } from '~/components';
+import type { ToolbarButtonsType } from '~/components/RichText/types';
 
-const toasts: ToastOptions[] = [
-  {
-    title: 'Info',
-    description: 'Click here to learn more about the exciting enhancements we\'ve made.',
-    type: 'info',
-  },
-  {
-    title: 'Success',
-    description: 'Your profile information has been successfully updated.',
-    type: 'success',
-  },
-  {
-    title: 'Warning',
-    description: 'Please check your internet connection.',
-    type: 'warning',
-  },
-  {
-    title: 'Error',
-    description: 'Unable to save data, check again later.',
-    type: 'error',
-  },
-];
+const content1 = ref('');
+const content2 = ref('');
 
-const handleClick = () => {
-  const item: ToastOptions = toasts[Math.floor(Math.random() * toasts.length)];
-  toast.show(item);
+const license1 = ref('license-key-fr');
+const license2 = ref('license-key-ar');
+
+const error = ref(false);
+const quickInsert = ref(false);
+
+const customToolbar: ToolbarButtonsType = {
+  text: ['fullscreen', 'bold', 'italic', 'backgroundColor', 'fontSize', 'paragraphFormat'],
+  paragraph: ['formatOL', 'formatUL', 'outdent', 'indent'],
+  misc: ['undo', 'redo'],
+  rich: ['insertTable', 'insertLink', 'insertHR', 'codeView', 'clear'],
 };
 </script>
 
 <template>
-  <ToastContainer :limit="3" position="bottom-right" :duration="100000" />
   <div class="container">
-    <PrimaryButton @click="handleClick">
-      Show Toast
-    </PrimaryButton>
+    <RichText v-model="content1" :error="error" lang="fr" :license="license1" :quick-insert="quickInsert" />
+    <RichText v-model="content2" :error="error" lang="ar" :license="license2" :toolbar="customToolbar" :quick-insert="quickInsert" />
+    <RichText v-model="content2" :error="error" lang="en" :license="license2" :toolbar="customToolbar" :quick-insert="quickInsert" />
   </div>
 </template>
 
 <style scoped>
 .container {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100vw;
-  height: 100vh;
+  flex-direction: column;
+  width: 80vw;
+  margin: 5%;
+  gap: 20px;
 }
 </style>

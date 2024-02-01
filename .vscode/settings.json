@@ -8,6 +8,7 @@
   },
   "stylelint.validate": ["vue"],
    "cSpell.words": [
-      "youcan"
-    ]
+    "froala",
+    "youcan"
+  ]
 }
