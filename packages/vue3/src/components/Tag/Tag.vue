@@ -22,6 +22,14 @@ const model = computed({
   set: (value: TagItemValue[]) => emit('update:modelValue', value),
 });
 
+const hideInput = computed(() => {
+  if ((typeof props.max === 'undefined' || model.value.length < props.max) && props.disabled === false) {
+    return true;
+  }
+
+  return false;
+});
+
 const updateTag = (index: number, value: TagItemValue) => {
   if (props.disabled) {
     return;
@@ -73,10 +81,7 @@ onMounted(() => {
       v-for="(tag, index) in model" :key="`${tag.label}-${index}`" :model-value="model[index]" :type="type"
       @update:model-value="(value) => updateTag(index, value)" @remove="removeTag(index)"
     />
-    <input
-      v-show="typeof max === 'undefined' || model.length < max" ref="tagInput" v-model="newTagLabel" type="text"
-      class="tag-input" :placeholder="placeholder"
-    >
+    <input v-show="hideInput" ref="tagInput" v-model="newTagLabel" type="text" class="tag-input" :placeholder="placeholder">
   </div>
 </template>
 
@@ -137,9 +142,10 @@ onMounted(() => {
   font: var(--text-sm-regular);
 }
 
-.tag[disabled="true"] .tag-input {
-  background-color: var(--gray-50);
-  pointer-events: none;
+.tag[disabled="true"],
+.tag[disabled="true"]:deep(*),
+.tag[disabled="true"] * {
+  cursor: not-allowed !important;
 }
 
 .tag .tag-input::placeholder {
