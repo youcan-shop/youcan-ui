@@ -29,6 +29,9 @@ const meta: Meta<typeof Dropdown> = {
         disable: true,
       },
     },
+    accessory: {
+      control: false,
+    },
   },
   args: {
     searchable: false,

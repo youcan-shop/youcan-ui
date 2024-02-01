@@ -18,6 +18,9 @@ const meta: Meta<typeof MultiselectDropdown> = {
         disable: true,
       },
     },
+    accessory: {
+      control: false,
+    },
   },
   args: {
     searchable: false,
