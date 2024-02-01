@@ -15,11 +15,11 @@
     ".": {
       "require": {
         "default": "./dist/index.umd.js",
-        "types": "./dist/types/index.d.ts"
+        "types": "./dist/types/types/index.d.ts"
       },
       "import": {
         "default": "./dist/index.es.js",
-        "types": "./dist/types/index.d.ts"
+        "types": "./dist/types/types/index.d.ts"
       }
     },
     "./helpers": {
@@ -40,7 +40,9 @@
   "types": "./dist/types/index.d.ts",
   "files": [
     "src",
-    "dist"
+    "dist",
+    "./src/helpers",
+    "./src/types"
   ],
   "scripts": {
     "story:dev": "storybook dev -p 6006",
