@@ -22,6 +22,14 @@ const model = computed({
   set: (value: TagItemValue[]) => emit('update:modelValue', value),
 });
 
+const hideInput = computed(() => {
+  if ((typeof props.max === 'undefined' || model.value.length < props.max) && props.disabled === false) {
+    return true;
+  }
+
+  return false;
+});
+
 const updateTag = (index: number, value: TagItemValue) => {
   if (props.disabled) {
     return;
@@ -39,33 +47,31 @@ const removeTag = (index: number) => {
 };
 
 onMounted(() => {
-  if (props.disabled === false) {
-    tagInput.value?.addEventListener('keydown', (event: KeyboardEvent) => {
-      if (event.key === 'Enter') {
-        event.preventDefault();
+  tagInput.value?.addEventListener('keydown', (event: KeyboardEvent) => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
 
-        if (!newTagLabel.value || (typeof props.max === 'number' && model.value.length >= props.max)) {
-          return;
-        }
-
-        model.value = model.value.concat({
-          label: newTagLabel.value,
-        });
-
-        newTagLabel.value = '';
+      if (!newTagLabel.value || (typeof props.max === 'number' && model.value.length >= props.max)) {
+        return;
       }
 
-      if (event.key === 'Backspace' && !newTagLabel.value) {
-        removeTag(model.value.length - 1);
-      }
-    });
+      model.value = model.value.concat({
+        label: newTagLabel.value,
+      });
 
-    tagsContainer.value?.addEventListener('click', (event: MouseEvent) => {
-      if (event.target === tagsContainer.value) {
-        tagInput.value?.focus();
-      }
-    });
-  }
+      newTagLabel.value = '';
+    }
+
+    if (event.key === 'Backspace' && !newTagLabel.value) {
+      removeTag(model.value.length - 1);
+    }
+  });
+
+  tagsContainer.value?.addEventListener('click', (event: MouseEvent) => {
+    if (event.target === tagsContainer.value) {
+      tagInput.value?.focus();
+    }
+  });
 });
 </script>
 
@@ -75,7 +81,7 @@ onMounted(() => {
       v-for="(tag, index) in model" :key="`${tag.label}-${index}`" :model-value="model[index]" :type="type"
       @update:model-value="(value) => updateTag(index, value)" @remove="removeTag(index)"
     />
-    <input v-if="disabled === false" v-show="typeof max === 'undefined' || model.length < max" ref="tagInput" v-model="newTagLabel" type="text" class="tag-input" :placeholder="placeholder">
+    <input v-show="hideInput" ref="tagInput" v-model="newTagLabel" type="text" class="tag-input" :placeholder="placeholder">
   </div>
 </template>
 
