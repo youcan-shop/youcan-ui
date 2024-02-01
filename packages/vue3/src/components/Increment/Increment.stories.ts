@@ -3,7 +3,7 @@ import type { Meta } from '@storybook/vue3';
 import Increment_ from './Increment.vue';
 
 const meta: Meta<typeof Increment_> = {
-  title: 'Application/Increment 🔴',
+  title: 'Application/Increment',
   component: Increment_,
   tags: ['application', 'input', 'number', 'increment'],
 };
