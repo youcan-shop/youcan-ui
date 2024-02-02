@@ -15,16 +15,16 @@
     ".": {
       "require": {
         "default": "./dist/index.umd.js",
-        "types": "./dist/types/types/index.d.ts"
+        "types": "./dist/types/index.d.ts"
       },
       "import": {
         "default": "./dist/index.es.js",
-        "types": "./dist/types/types/index.d.ts"
+        "types": "./dist/types/index.d.ts"
       }
     },
     "./helpers": {
-      "require": "./src/helpers/index.ts",
-      "import": "./src/helpers/index.ts"
+      "require": "./dist/types/helpers/index.d.ts",
+      "import": "./dist/types/helpers/index.d.ts"
     },
     "./style": {
       "require": "./dist/index.css",

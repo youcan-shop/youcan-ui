@@ -13,12 +13,10 @@
       "vite/client"
     ],
     "paths": {
-      "~/*": [
-        "src/*"
-      ],
-      "dev/*": [
-        "src/dev/*"
-      ]
+      "~/*": [ "src/*" ],
+      "dev/*": [ "src/dev/*" ],
+      "@youcan/ui-vue3/types": ["./types"],
+      "@youcan/ui-vue3/helpers": ["./helpers"],
     }
   },
   "include": [
