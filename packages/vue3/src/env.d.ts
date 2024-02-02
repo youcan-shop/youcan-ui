@@ -7,3 +7,6 @@ declare module '*.vue' {
   const component: DefineComponent<{}, {}, any>;
   export default component;
 }
+
+declare module '@youcan/ui-vue3/helpers' 
+declare module '@youcan/ui-vue3/types'
