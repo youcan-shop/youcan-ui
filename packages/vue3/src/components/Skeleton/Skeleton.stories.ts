@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
-import { ref } from 'vue';
 import { Skeleton } from '~/components';
 
 type Story = StoryObj<typeof Skeleton>;
@@ -27,9 +26,7 @@ export const Default: Story = {
   render: args => ({
     components: { Skeleton },
     setup() {
-      const value = ref(5);
-
-      return { args, value };
+      return { args };
     },
     template: '<Skeleton v-bind="args" />',
   }),
