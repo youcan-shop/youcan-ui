@@ -9,7 +9,7 @@ const meta: Meta<typeof Slider> = {
   parameters: {
     layout: 'centered',
   },
-  tags: ['skeleton', 'loader', 'loading'],
+  tags: ['slider', 'number'],
   argTypes: {
     modelValue: { table: { disable: true } },
   },
