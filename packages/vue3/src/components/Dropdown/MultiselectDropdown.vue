@@ -53,7 +53,7 @@ function toggle(item: DropdownItemDefinition, value: boolean): void {
     </button>
     <div v-show="showList" ref="list" class="dropdown-wrapper">
       <DropdownList
-        class="dropdown-list" v-bind="{ items, selected: modelValue, searchable, multiple: true }"
+        class="dropdown-list" v-bind="{ items, selected: modelValue, optionLabel, optionValue, searchable, multiple: true }"
         :loading="loading"
         :show="showList"
         @toggle="toggle"

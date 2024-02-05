@@ -50,7 +50,7 @@ const model = computed<DropdownItemDefinition | null>({
     <div ref="list" :class="{ 'dropdown-show': showList && !disabled, 'dropdown-top': showListInTop }" class="dropdown-wrapper">
       <DropdownList
         :search-handler="searchHandler"
-        v-bind="{ items, searchable, selected: modelValue, multiple: false }"
+        v-bind="{ items, searchable, optionLabel, optionValue, selected: modelValue, multiple: false }"
         :show="showList"
         :loading="loading"
         @scroll-end="() => emit('scrollEnd')"

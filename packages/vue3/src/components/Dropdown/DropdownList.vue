@@ -10,6 +10,8 @@ const props = withDefaults(
   {
     searchable: false,
     multiple: false,
+    optionLabel: 'label',
+    optionValue: 'value',
     searchHandler,
   },
 );
@@ -27,14 +29,39 @@ const search = computed<string>({
   },
 });
 
+
+const convertedItems = computed<DropdownItemArray | DropdownItemGroups>(() => {
+  const convertItem = (item: DropdownItemDefinition): DropdownItemDefinition => {
+    const label = (item as any)[props.optionLabel];
+    const value = (item as any)[props.optionValue];
+
+    return { label, value };
+  };
+
+  const convertGroup = (group: DropdownItemDefinition[]): DropdownItemDefinition[] => {
+    return group.map(convertItem);
+  };
+
+  if (Array.isArray(props.items)) {
+    return props.items.map(convertItem);
+  }
+
+  const convertedGroups: DropdownItemGroups = {};
+  Object.entries(props.items).forEach(([label, group]) => {
+    convertedGroups[label] = convertGroup(group);
+  });
+
+  return convertedGroups;
+});
+
 const results = computed<DropdownItemArray | DropdownItemGroups>(() => {
-  const data = props.searchHandler(search.value.trim(), props.items);
+  const data = props.searchHandler(search.value.trim(), convertedItems.value);
 
   if (Array.isArray(data)) {
     return data;
   }
 
-  return props.items;
+  return convertedItems.value;
 });
 
 function isSelected(item: DropdownItemDefinition): boolean {
