@@ -5,7 +5,7 @@ import type { RadioData } from '~/components/Radio/types';
 
 type Story = StoryObj<typeof RadioGroup>;
 const meta: Meta<typeof RadioGroup> = {
-  title: 'Application/Radio',
+  title: 'Application/Radio/RadioGroup',
   component: RadioGroup,
   parameters: {
     layout: 'centered',
