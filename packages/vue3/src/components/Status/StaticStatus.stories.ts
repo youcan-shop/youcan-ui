@@ -18,7 +18,7 @@ const meta: Meta<typeof StaticStatus> = {
   },
 };
 
-export const Default: Story = {
+export const Static: Story = {
   render: args => ({
     components: { StaticStatus },
     setup() {

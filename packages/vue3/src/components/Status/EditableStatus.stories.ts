@@ -17,7 +17,7 @@ const meta: Meta<typeof EditableStatus> = {
   },
 };
 
-export const Default: Story = {
+export const Editable: Story = {
   render: args => ({
     components: { EditableStatus },
     setup() {
