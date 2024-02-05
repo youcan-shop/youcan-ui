@@ -4,7 +4,7 @@ import { Dropdown } from '~/components';
 
 type Story = StoryObj<typeof Dropdown>;
 const meta: Meta<typeof Dropdown> = {
-  title: 'Application/Dropdown',
+  title: 'Application/Dropdowns/Dropdown',
   component: Dropdown,
   tags: ['dropdown', 'options', 'select'],
   argTypes: {

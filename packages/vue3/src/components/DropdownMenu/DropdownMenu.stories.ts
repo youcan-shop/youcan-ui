@@ -3,7 +3,7 @@ import { Divider, DropdownMenu, DropdownMenuItem, PrimaryButton } from '~/compon
 
 type Story = StoryObj<typeof DropdownMenu>;
 const meta: Meta<typeof DropdownMenu> = {
-  title: 'Application/DropdownMenu',
+  title: 'Application/Dropdowns/DropdownMenu',
   component: DropdownMenu,
   parameters: {
     layout: 'centered',

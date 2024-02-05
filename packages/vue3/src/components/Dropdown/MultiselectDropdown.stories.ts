@@ -4,7 +4,7 @@ import { MultiselectDropdown } from '~/components';
 
 type Story = StoryObj<typeof MultiselectDropdown>;
 const meta: Meta<typeof MultiselectDropdown> = {
-  title: 'Application/MultiselectDropdown',
+  title: 'Application/Dropdowns/MultiselectDropdown',
   component: MultiselectDropdown,
   tags: ['dropdown', 'options', 'select', 'multi select'],
   argTypes: {
