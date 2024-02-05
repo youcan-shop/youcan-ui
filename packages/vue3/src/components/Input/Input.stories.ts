@@ -35,10 +35,8 @@ const meta: Meta<typeof Input> = {
       options: ['button', 'checkbox', 'color', 'date', 'datetime-local', 'email', 'file', 'hidden', 'image', 'month', 'number', 'password', 'radio', 'range', 'reset', 'search', 'submit', 'tel', 'text', 'time', 'url', 'week'],
     },
     canShow: {
-      control: {
-        type: 'boolean',
-      },
-      description: 'This option work only when type is password to enable show or hide',
+      control: { type: 'boolean' },
+      if: { arg: 'type', eq: 'password' },
     },
   },
   args: {
