@@ -31,8 +31,8 @@
       "import": "./dist/index.css"
     },
     "./types": {
-      "require": "./dist/types/types/index.d.ts",
-      "import": "./dist/types/types/index.d.ts"
+      "require": "./types/",
+      "import": "./types/"
     }
   },
   "main": "./dist/index.umd.js",
@@ -42,20 +42,22 @@
     "src",
     "dist",
     "./src/helpers",
-    "./src/types"
+    "./src/types",
+    "./types"
   ],
   "scripts": {
     "story:dev": "storybook dev -p 6006",
     "story:build": "storybook build",
     "components:dev": "vite dev",
-    "components:build": "rimraf dist && vue-tsc --declaration --emitDeclarationOnly --project tsconfig.build.json && vite build",
+    "components:build": "rimraf dist && pnpm copy-types && vue-tsc --declaration --emitDeclarationOnly --project tsconfig.build.json && vite build",
     "dev": "pnpm story:dev & pnpm components:dev",
     "build": "pnpm components:build & pnpm story:build",
     "release": "pnpm publish --access public",
     "lint": "eslint .",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "bench": "node vue3.bench.mjs"
+    "bench": "node vue3.bench.mjs",
+    "copy-types": "rimraf ./types/index.ts && cp -r ./src/types/ ./types/"
   },
   "peerDependencies": {
     "vue": "^3.4.5"

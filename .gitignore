@@ -4,3 +4,6 @@ storybook-static
 dist
 icons.json
 .idea
+
+# This is a copy folder that is created when building components
+packages/vue3/types/
