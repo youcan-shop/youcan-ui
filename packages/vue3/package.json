@@ -23,8 +23,8 @@
       }
     },
     "./helpers": {
-      "require": "./dist/types/helpers/index.d.ts",
-      "import": "./dist/types/helpers/index.d.ts"
+      "require": "./src/helpers/index.ts",
+      "import": "./src/helpers/index.ts"
     },
     "./style": {
       "require": "./dist/index.css",
