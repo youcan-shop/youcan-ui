@@ -46,7 +46,7 @@ const meta: Meta<typeof Input> = {
   },
 };
 
-export const Default: Story = {
+export const Input_: Story = {
   render: args => ({
     components: { Input },
     setup() {

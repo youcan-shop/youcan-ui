@@ -6,7 +6,7 @@ type Story = StoryObj<typeof DropdownPrefix>;
 const meta: Meta<typeof DropdownPrefix> = {
   title: 'Application/Inputs/Prefix',
   component: DropdownPrefix,
-  tags: ['application', 'input', 'number', 'Input'],
+  tags: ['application', 'input', 'number', 'dropdown', 'prefix'],
   argTypes: {
     modelValue: {
       table: {
@@ -29,7 +29,7 @@ const meta: Meta<typeof DropdownPrefix> = {
   },
 };
 
-export const Default: Story = {
+export const Prefix: Story = {
   render: args => ({
     components: { Input, DropdownPrefix },
     setup() {
