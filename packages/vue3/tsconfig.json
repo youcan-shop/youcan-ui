@@ -2,27 +2,15 @@
   "extends": "../../tsconfig.base",
   "compilerOptions": {
     "baseUrl": ".",
-    "lib": [
-      "esnext",
-      "dom",
-    ],
+    "lib": ["esnext", "dom"],
     "declaration": true,
     "emitDeclarationOnly": true,
     "declarationDir": "./dist/types",
-    "types": [
-      "vite/client"
-    ],
+    "types": ["vite/client"],
     "paths": {
-      "~/*": [ "src/*" ],
-      "dev/*": [ "src/dev/*" ],
-      "@youcan/ui-vue3/types": ["./types"],
-      "@youcan/ui-vue3/helpers": ["./helpers"],
+      "~/*": ["src/*"],
+      "dev/*": ["src/dev/*"]
     }
   },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.d.ts",
-    "src/**/*.vue",
-    "src/index.js"
-  ]
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.vue", "src/index.js"]
 }
