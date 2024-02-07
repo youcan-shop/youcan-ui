@@ -1,6 +1,6 @@
 {
   "name": "@youcan/eslint-config-vue",
-  "version": "2.5.8",
+  "version": "2.5.9-beta.0",
   "description": "",
   "author": "YouCan <tech@youcan.shop> (https://github.com/youcan-shop/)",
   "keywords": [
