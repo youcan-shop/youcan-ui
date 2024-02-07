@@ -7,6 +7,9 @@ const meta: Meta<typeof ActionBar> = {
   title: 'Application/ActionBar',
   component: ActionBar,
   tags: ['action bar', 'actions row', 'bar'],
+  argTypes: {
+    default: { control: false },
+  },
 };
 
 export const Default: Story = {

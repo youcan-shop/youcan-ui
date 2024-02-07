@@ -8,17 +8,16 @@ const meta: Meta<typeof Alert> = {
   tags: ['info', 'alert'],
   argTypes: {
     type: {
-      control: {
-        type: 'select',
-      },
-      options: ['success', 'warning', 'info'],
+      control: 'select',
+      options: ['success', 'warning', 'info', 'error'],
     },
-
-    closeAfterDuration: {
-      control: {
-        type: 'number',
-      },
-    },
+    title: { control: false },
+    description: { control: false },
+  },
+  args: {
+    type: 'warning',
+    closeAfterDuration: 5000,
+    canClose: true,
   },
 };
 
