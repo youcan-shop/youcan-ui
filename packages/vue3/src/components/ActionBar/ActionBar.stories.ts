@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
-import ActionBar from './ActionBar.vue';
-import { PrimaryButton, TertiaryButton } from '~/components';
+import { ActionBar, PrimaryButton, TertiaryButton } from '~/components';
 
 type Story = StoryObj<typeof ActionBar>;
 const meta: Meta<typeof ActionBar> = {

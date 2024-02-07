@@ -5,7 +5,7 @@ type Story = StoryObj<typeof BaseButton>;
 const meta: Meta<typeof BaseButton> = {
   title: 'Application/Button/BaseButton',
   component: BaseButton,
-  tags: ['application', 'display', 'badge', 'note'],
+  tags: ['button', 'submit'],
   argTypes: {
     size: {
       control: { type: 'select' },

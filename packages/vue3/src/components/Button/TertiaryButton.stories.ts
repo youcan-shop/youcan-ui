@@ -5,7 +5,7 @@ type Story = StoryObj<typeof TertiaryButton>;
 const meta: Meta<typeof TertiaryButton> = {
   title: 'Application/Button/TertiaryButton',
   component: TertiaryButton,
-  tags: ['application', 'display', 'badge', 'note'],
+  tags: ['button', 'submit'],
   argTypes: {
     size: {
       control: { type: 'select' },

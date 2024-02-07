@@ -5,7 +5,7 @@ type Story = StoryObj<typeof SecondaryDestructiveButton>;
 const meta: Meta<typeof SecondaryDestructiveButton> = {
   title: 'Application/Button/SecondaryDestructiveButton',
   component: SecondaryDestructiveButton,
-  tags: ['application', 'display', 'badge', 'note'],
+  tags: ['button', 'submit'],
   argTypes: {
     size: {
       control: { type: 'select' },

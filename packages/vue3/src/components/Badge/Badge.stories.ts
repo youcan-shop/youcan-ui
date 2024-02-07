@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
-import Badge from './Badge.vue';
+import { Badge } from '~/components';
 
 type Story = StoryObj<typeof Badge>;
 const meta: Meta<typeof Badge> = {
@@ -8,16 +8,12 @@ const meta: Meta<typeof Badge> = {
   tags: ['application', 'display', 'badge', 'note'],
   argTypes: {
     size: {
+      control: 'select',
       options: [20, 24],
-      control: {
-        type: 'select',
-      },
     },
     state: {
       options: ['neutral', 'danger', 'info', 'warning', 'success'],
-      control: {
-        type: 'select',
-      },
+      control: 'select',
     },
     default: { control: false },
   },
