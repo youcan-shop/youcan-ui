@@ -23,7 +23,7 @@ export const Default: Story = {
 
       return { args, value };
     },
-    template: ' <ColorInput v-model="value" v-bind="args"/> ',
+    template: '<ColorInput v-model="value" v-bind="args"/>',
   }),
 };
 
