@@ -8,16 +8,8 @@ const meta: Meta<typeof MultiselectDropdown> = {
   component: MultiselectDropdown,
   tags: ['dropdown', 'options', 'select', 'multi select'],
   argTypes: {
-    modelValue: {
-      table: {
-        disable: true,
-      },
-    },
-    items: {
-      table: {
-        disable: true,
-      },
-    },
+    modelValue: { table: { disable: true } },
+    items: { table: { disable: true } },
     accessory: {
       control: false,
     },

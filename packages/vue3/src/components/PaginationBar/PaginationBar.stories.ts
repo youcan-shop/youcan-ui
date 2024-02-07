@@ -7,11 +7,7 @@ const meta: Meta<typeof PaginationBar> = {
   component: PaginationBar,
   tags: ['application', 'input', 'pagination'],
   argTypes: {
-    current: {
-      table: {
-        disable: true,
-      },
-    },
+    current: { table: { disable: true } },
   },
   args: {
     size: 20,

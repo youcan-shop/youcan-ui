@@ -12,11 +12,11 @@ const meta: Meta<typeof Popover> = {
   tags: ['popover'],
   argTypes: {
     position: {
-      control: { type: 'select' },
+      control: 'select',
       options: ['left', 'right', 'top', 'bottom'],
     },
     objectFit: {
-      control: { type: 'select' },
+      control: 'select',
       options: ['fill', 'contain', 'cover', 'none'],
     },
     show: { table: { disable: true } },

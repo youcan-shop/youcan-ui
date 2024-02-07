@@ -9,26 +9,12 @@ const meta: Meta<typeof Dropdown> = {
   tags: ['dropdown', 'options', 'select'],
   argTypes: {
     size: {
-      control: {
-        type: 'select',
-      },
+      control: 'select',
       options: [36, 44],
     },
-    modelValue: {
-      table: {
-        disable: true,
-      },
-    },
-    items: {
-      table: {
-        disable: true,
-      },
-    },
-    searchHandler: {
-      table: {
-        disable: true,
-      },
-    },
+    modelValue: { table: { disable: true } },
+    items: { table: { disable: true } },
+    searchHandler: { table: { disable: true } },
     accessory: {
       control: false,
     },

@@ -13,7 +13,7 @@ const meta: Meta<typeof SettingsNavItem> = {
   },
 };
 
-export const Default: Story = {
+export const SettingsNavItem_: Story = {
   render: args => ({
     components: { SettingsNavItem, SettingsNav },
     setup() {

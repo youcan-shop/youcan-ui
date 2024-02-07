@@ -8,21 +8,9 @@ const meta: Meta<typeof DropdownPrefix> = {
   component: DropdownPrefix,
   tags: ['application', 'input', 'number', 'dropdown', 'prefix'],
   argTypes: {
-    modelValue: {
-      table: {
-        disable: true,
-      },
-    },
-    placeholder: {
-      table: {
-        disable: true,
-      },
-    },
-    items: {
-      table: {
-        disable: true,
-      },
-    },
+    modelValue: { table: { disable: true } },
+    placeholder: { table: { disable: true } },
+    items: { table: { disable: true } },
   },
   args: {
     searchable: false,

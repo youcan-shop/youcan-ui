@@ -9,8 +9,8 @@ const meta: Meta<typeof Drawer> = {
   tags: ['drawer', 'aside', 'side bar'],
   argTypes: {
     position: {
-      control: 'select',
       options: ['left', 'right'],
+      control: 'select',
     },
   },
   args: {

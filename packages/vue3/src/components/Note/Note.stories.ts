@@ -6,16 +6,8 @@ const meta: Meta<typeof Note> = {
   component: Note,
   tags: ['application', 'display', 'note'],
   argTypes: {
-    icon: {
-      table: {
-        disable: true,
-      },
-    },
-    content: {
-      table: {
-        disable: true,
-      },
-    },
+    icon: { table: { disable: true } },
+    content: { table: { disable: true } },
   },
 };
 

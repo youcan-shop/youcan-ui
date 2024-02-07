@@ -8,7 +8,7 @@ const meta: Meta<typeof Skeleton> = {
   tags: ['skeleton', 'loader', 'loading'],
   argTypes: {
     type: {
-      control: { type: 'select' },
+      control: 'select',
       options: ['text', 'media'],
     },
     lines: {

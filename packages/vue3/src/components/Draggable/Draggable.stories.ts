@@ -8,6 +8,9 @@ const meta: Meta<typeof Draggable> = {
   title: 'Application/Draggable',
   component: Draggable,
   tags: ['draggable'],
+  argTypes: {
+    modelValue: { table: { disable: true } },
+  },
 };
 
 export default meta;

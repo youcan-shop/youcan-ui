@@ -8,21 +8,15 @@ const meta: Meta<typeof Divider> = {
   tags: ['divider', 'hr', 'vr', 'separator'],
   argTypes: {
     orientation: {
-      control: {
-        type: 'select',
-      },
+      control: 'select',
       options: ['horizontal', 'vertical'],
     },
     borderStyle: {
-      control: {
-        type: 'select',
-      },
+      control: 'select',
       options: ['solid', 'dotted', 'dashed'],
     },
     thickness: {
-      control: {
-        type: 'select',
-      },
+      control: 'select',
       options: ['light', 'regular', 'thick'],
     },
   },

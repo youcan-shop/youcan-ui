@@ -8,9 +8,7 @@ const meta: Meta<typeof Percentage> = {
   tags: ['application', 'input', 'number', 'Percentage'],
   argTypes: {
     type: {
-      control: {
-        type: 'select',
-      },
+      control: 'select',
       options: ['success', 'info', 'warning', 'danger'],
     },
   },

@@ -11,9 +11,7 @@ const meta: Meta<typeof Modal> = {
   },
   tags: ['modal'],
   argTypes: {
-    visible: {
-      table: { disable: true },
-    },
+    visible: { table: { disable: true } },
     default: {
       control: false,
     },

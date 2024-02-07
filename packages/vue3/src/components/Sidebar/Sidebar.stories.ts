@@ -14,7 +14,7 @@ const meta: Meta<typeof Sidebar> = {
   },
 };
 
-export const Default: Story = {
+export const Sidebar_: Story = {
   render: args => ({
     components: { Sidebar, SidebarItem, SidebarSubitem },
     setup() {

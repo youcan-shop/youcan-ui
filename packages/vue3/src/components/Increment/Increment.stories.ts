@@ -8,16 +8,8 @@ const meta: Meta<typeof Increment> = {
   component: Increment,
   tags: ['application', 'input', 'number', 'increment'],
   argTypes: {
-    modelValue: {
-      table: {
-        disable: true,
-      },
-    },
-    id: {
-      table: {
-        disable: true,
-      },
-    },
+    modelValue: { table: { disable: true } },
+    id: { table: { disable: true } },
   },
   args: {
     step: 10,

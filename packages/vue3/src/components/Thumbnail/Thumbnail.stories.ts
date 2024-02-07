@@ -8,11 +8,11 @@ const meta: Meta<typeof Thumbnail> = {
   tags: ['application', 'display', 'thumbnail', 'image', 'avatar'],
   argTypes: {
     size: {
-      control: { type: 'select' },
+      control: 'select',
       options: ['small', 'large'],
     },
     objectFit: {
-      control: { type: 'select' },
+      control: 'select',
       options: ['fill', 'contain', 'cover', 'none'],
     },
   },

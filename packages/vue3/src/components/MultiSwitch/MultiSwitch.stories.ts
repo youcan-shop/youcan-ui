@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 import { ref } from 'vue';
+import type { SwitchButtonOption } from './types';
 import { MultiSwitch } from '~/components';
-import type { SwitchButtonOption } from '~/types';
 
 type Story = StoryObj<typeof MultiSwitch>;
 const meta: Meta<typeof MultiSwitch> = {

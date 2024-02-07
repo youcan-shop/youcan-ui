@@ -11,9 +11,7 @@ const meta: Meta<typeof DropdownMenu> = {
   tags: ['dropdown', 'menu', 'dropdown menu'],
   argTypes: {
     position: {
-      control: {
-        type: 'select',
-      },
+      control: 'select',
       options: ['left', 'right', 'top', 'bottom'],
     },
     default: {
