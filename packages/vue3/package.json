@@ -22,10 +22,6 @@
         "types": "./dist/types/index.d.ts"
       }
     },
-    "./helpers": {
-      "require": "./src/helpers/index.ts",
-      "import": "./src/helpers/index.ts"
-    },
     "./style": {
       "require": "./dist/index.css",
       "import": "./dist/index.css"
