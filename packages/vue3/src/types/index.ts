@@ -35,6 +35,7 @@ export type { TagProps, TagItemProps, TagItemType, TagItemValue } from '../compo
 export type { TextAreaProps } from '../components/TextArea/types';
 export type { ThumbnailProps, ThumbnailSize } from '../components/Thumbnail/types';
 export type { ToastProps, ToastPosition } from '../components/Toast/types';
+export type { ToastContainerProps, ToastType, ToastOptions } from '../components/ToastContainer/types';
 export type { ToggleProps } from '../components/Toggle/types';
 export type { TooltipProps, TooltipPosition } from '../components/Tooltip/types';
 export type { FileInputProps, MediaInputProps, UploadedMediaProps, UploadedFileProps } from '../components/Upload/types';
