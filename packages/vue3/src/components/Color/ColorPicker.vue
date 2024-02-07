@@ -20,6 +20,12 @@ const props = withDefaults(
 
 const emit = defineEmits(['setcolor']);
 
+const windowAvailable = ref(false);
+
+if (typeof window !== 'undefined') {
+  windowAvailable.value = true;
+}
+
 const saturationElement = ref();
 const hueElement = ref();
 
@@ -103,7 +109,7 @@ function constructColor(color: unknown) {
 </script>
 
 <template>
-  <div class="color-picker">
+  <div v-if="windowAvailable" class="color-picker">
     <Saturation
       ref="saturationElement" class="color-saturation" :color="rgbFuncString" :hsv="hsv" :size="224"
       @setsaturation="setSaturation"
