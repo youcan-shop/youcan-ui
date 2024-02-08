@@ -62,9 +62,7 @@
   },
   "dependencies": {
     "@popperjs/core": "^2.11.7",
-    "vue-slicksort": "^2.0.5",
-    "froala-editor": "^4.1.4",
-    "vue-froala-wysiwyg": "^4.1.4"
+    "vue-slicksort": "^2.0.5"
   },
   "devDependencies": {
     "@iconify-json/line-md": "^1.1.20",
