@@ -9,7 +9,9 @@ import {
   Thumbnail,
 } from '~/components';
 
-const props = defineProps<UploadedMediaProps>();
+const props = withDefaults(defineProps<UploadedMediaProps>(), {
+  errorText: 'Invalid URL',
+});
 const emit = defineEmits(['delete']);
 
 const isFile = computed(() => {
@@ -33,7 +35,7 @@ const fileName = computed(() => {
 const dataUrl = ref('');
 const previewing = ref(false);
 const loading = ref(false);
-const error = ref<boolean | string>(false);
+const error = ref<boolean>(false);
 
 const togglePreview = (override = !previewing.value) => previewing.value = override;
 
@@ -57,7 +59,7 @@ const urlType = (url: string) => {
       setValues();
     };
     video.onerror = () => {
-      error.value = 'Set valid Image/Video URL';
+      error.value = true;
     };
   };
 };
@@ -74,7 +76,7 @@ const getUrl = () => {
       urlType(props.file);
     }
     else {
-      error.value = 'Invalid URL';
+      error.value = true;
     }
   }
 };
@@ -119,7 +121,7 @@ watch(() => props.file, getUrl);
       </div>
     </template>
     <div v-else class="error-text">
-      {{ error }}
+      {{ errorText }}
     </div>
     <Teleport to="body">
       <Transition name="fade">
