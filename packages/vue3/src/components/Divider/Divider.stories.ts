@@ -33,7 +33,7 @@ export const Default: Story = {
     setup() {
       return { args };
     },
-    template: '<Divider v-bind="args" />',
+    template: '<div style="height: 100px;"><Divider v-bind="args" /></div>',
   }),
 };
 

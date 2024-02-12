@@ -22,13 +22,14 @@ export const Prefix: Story = {
     components: { Input, DropdownPrefix },
     setup() {
       const value = ref(10);
+      const currency = ref('');
       const currencies = ref([
         { label: 'USD', value: 1 },
         { label: 'EUR', value: 2 },
         { label: 'GBP', value: 3 },
       ]);
 
-      return { args, value, currencies };
+      return { args, value, currencies, currency };
     },
     template: `
       <Input v-model="value" type="number">

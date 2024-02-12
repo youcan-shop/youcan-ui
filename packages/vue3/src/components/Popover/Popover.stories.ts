@@ -18,6 +18,7 @@ const meta: Meta<typeof Popover> = {
     objectFit: {
       control: 'select',
       options: ['fill', 'contain', 'cover', 'none'],
+      if: { arg: 'imgSrc', neq: '' },
     },
     show: { table: { disable: true } },
     default: { control: false },

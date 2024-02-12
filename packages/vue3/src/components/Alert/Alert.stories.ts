@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
+import { ref } from 'vue';
 import { Alert } from '~/components';
 
 type Story = StoryObj<typeof Alert>;
@@ -25,10 +26,12 @@ export const Default: Story = {
   render: args => ({
     components: { Alert },
     setup() {
-      return { args };
+      const show = ref(true);
+
+      return { args, show };
     },
     template: `
-    <Alert v-bind="args">
+    <Alert v-if="show" v-bind="args" @close="show = false">
       <template #title>
         Title of Toast
       </template>
