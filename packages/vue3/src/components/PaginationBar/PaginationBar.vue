@@ -1,8 +1,11 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, onMounted, ref } from 'vue';
+import { Dropdown } from '..';
 import NavigationButton from './Internal/NavigationButton.vue';
 import type { PaginationBarProps } from './types';
+import type { DropdownItemArray } from '~/components/Dropdown/types';
 import SecondaryButton from '~/components/Button/SecondaryButton.vue';
+import type { DropdownItemDefinition } from '~/types';
 
 const props = withDefaults(defineProps<PaginationBarProps>(), {
   hidePerPage: false,
@@ -11,9 +14,10 @@ const props = withDefaults(defineProps<PaginationBarProps>(), {
   perPageLabel: 'Showing :count of :total results',
 });
 
-const emit = defineEmits<{
-  (event: 'update:current', value: number): void
-}>();
+const emit = defineEmits(['update:current', 'update:perPage']);
+
+const perPageItems = ref<DropdownItemArray>([]);
+const perPageModel = ref<DropdownItemDefinition | null>(null);
 
 const variables: Array<string> = ['count', 'total'];
 
@@ -61,13 +65,32 @@ function updateCurrentPage(index: number) {
   emit('update:current', index);
 }
 
+function updatePerPageModel(perPage: DropdownItemDefinition) {
+  emit('update:perPage', parseInt(perPage.label));
+}
+
 const barJustifyContentStyle = props.hidePerPage ? 'center' : 'space-between';
+
+onMounted(() => {
+  if (props.perPageOptions && props.perPageOptions.length) {
+    const options: DropdownItemArray = [];
+    props.perPageOptions.forEach((el, i) => {
+      const item = { value: i, label: String(el) };
+      options.push(item);
+      if (el === props.perPage) {
+        perPageModel.value = item;
+      }
+    });
+    perPageItems.value = options;
+  }
+});
 </script>
 
 <template>
   <div class="pagination-bar">
     <span v-if="!hidePerPage" class="text">{{ formattedPerPageLabel }}</span>
     <div class="navigation">
+      <Dropdown v-if="perPage && perPageItems.length" v-model="perPageModel" :items="perPageItems" @update:model-value="updatePerPageModel" />
       <SecondaryButton size="sm" :disabled="current === 1" @click="updateCurrentPage(current - 1)">
         {{ previousLabel }}
       </SecondaryButton>

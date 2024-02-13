@@ -2,19 +2,36 @@
 import 'uno.css';
 import '../assets/main.css';
 import { ref } from 'vue';
-import { Tag } from '~/components';
-import type { TagItemValue } from '~/types';
+import { PaginationBar } from '~/components';
 
-const preferredLanguages = ref<TagItemValue[]>([
-  { label: 'JavaScript' },
-]);
+const currentPage = ref(1);
+const perPage = ref(10);
+
+const total = 50;
+const totalPages = Math.ceil(total / perPage.value);
+const perPageOptions = [5, 10, 20, 30, 50];
+
+function handlePaginationNavigation(pageNumber: number) {
+  currentPage.value = pageNumber;
+}
 </script>
 
 <template>
-  <Tag
-    v-model="preferredLanguages"
-    placeholder="Your favorite programming languages"
-    :max="3"
-    disabled
-  />
+  <div class="container">
+    <PaginationBar
+      v-model:perPage="perPage"
+      :current="currentPage"
+      :size="totalPages"
+      :count="perPage"
+      :total="total"
+      :per-page-options="perPageOptions"
+      @update:current="handlePaginationNavigation"
+    />
+  </div>
 </template>
+
+<style scoped>
+.container {
+  min-width: 100%;
+}
+</style>
