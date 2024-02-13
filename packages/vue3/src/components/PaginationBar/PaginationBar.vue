@@ -90,7 +90,7 @@ onMounted(() => {
   <div class="pagination-bar">
     <span v-if="!hidePerPage" class="text">{{ formattedPerPageLabel }}</span>
     <div class="navigation">
-      <Dropdown v-if="perPage && perPageItems.length" v-model="perPageModel" :items="perPageItems" @update:model-value="updatePerPageModel" />
+      <Dropdown v-if="perPage && perPageItems.length" v-model="perPageModel" class="per-page-dropdown" :items="perPageItems" @update:model-value="updatePerPageModel" />
       <SecondaryButton size="sm" :disabled="current === 1" @click="updateCurrentPage(current - 1)">
         {{ previousLabel }}
       </SecondaryButton>
@@ -125,5 +125,9 @@ onMounted(() => {
   display: flex;
   align-items: center;
   gap: 8px;
+}
+
+.per-page-dropdown {
+  min-width: 75px;
 }
 </style>
