@@ -1,8 +1,11 @@
-export type TagItemType = 'text' | 'color';
+import type { DropdownItemArray, DropdownItemGroups } from '../Dropdown/types';
+
+export type TagItemType = 'text' | 'color' | 'dropdown';
 
 export interface TagItemValue {
   label: string
   hexColor?: string
+  value?: number | string
 }
 
 export interface UniqueTagItem extends TagItemValue {
@@ -16,6 +19,8 @@ export interface TagProps {
   placeholder?: string
   disabled?: boolean
   error?: boolean
+  items?: DropdownItemArray | DropdownItemGroups
+  searchable?: boolean
 }
 
 export interface TagItemProps {

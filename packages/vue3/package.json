@@ -1,6 +1,6 @@
 {
   "name": "@youcan/ui-vue3",
-  "version": "2.5.8-beta.3",
+  "version": "2.5.9-beta.1",
   "description": "YouCan Vue3 components library",
   "author": "YouCan <tech@youcan.shop> (https://github.com/youcan-shop/)",
   "license": "MIT",
@@ -22,19 +22,27 @@
         "types": "./dist/types/index.d.ts"
       }
     },
+    "./helpers": {
+      "require": "./src/helpers/index.ts",
+      "import": "./src/helpers/index.ts"
+    },
     "./style": {
       "require": "./dist/index.css",
       "import": "./dist/index.css"
     },
-    "./types": "./dist/types/index.d.ts",
-    "./types/*": "./dist/types/*.d.ts"
+    "./types": {
+      "require": "./dist/types/types/index.d.ts",
+      "import": "./dist/types/types/index.d.ts"
+    }
   },
   "main": "./dist/index.umd.js",
   "module": "./dist/index.es.js",
   "types": "./dist/types/index.d.ts",
   "files": [
     "src",
-    "dist"
+    "dist",
+    "./src/helpers",
+    "./src/types"
   ],
   "scripts": {
     "story:dev": "storybook dev -p 6006",
@@ -48,29 +56,12 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "bench": "node vue3.bench.mjs"
-
   },
   "peerDependencies": {
     "vue": "^3.4.5"
   },
   "dependencies": {
     "@popperjs/core": "^2.11.7",
-    "@tiptap/core": "2.0.0-beta.215",
-    "@tiptap/extension-color": "2.0.0-beta.210",
-    "@tiptap/extension-highlight": "2.0.0-beta.210",
-    "@tiptap/extension-horizontal-rule": "2.0.0-beta.210",
-    "@tiptap/extension-image": "2.0.0-beta.210",
-    "@tiptap/extension-link": "2.0.0-beta.210",
-    "@tiptap/extension-table": "2.0.0-beta.210",
-    "@tiptap/extension-table-cell": "2.0.0-beta.210",
-    "@tiptap/extension-table-header": "2.0.0-beta.210",
-    "@tiptap/extension-table-row": "2.0.0-beta.210",
-    "@tiptap/extension-text-align": "^2.0.0-beta.210",
-    "@tiptap/extension-text-style": "2.0.0-beta.210",
-    "@tiptap/extension-underline": "2.0.0-beta.210",
-    "@tiptap/pm": "2.0.0-beta.210",
-    "@tiptap/starter-kit": "2.0.0-beta.210",
-    "@tiptap/vue-3": "2.0.0-beta.210",
     "vue-slicksort": "^2.0.5"
   },
   "devDependencies": {

@@ -1,4 +1,4 @@
-import type { ToastOptions } from './types';
+import type { ToastOptions } from '../types/index';
 
 const toast = {
   show: (toastOptions: ToastOptions) => {

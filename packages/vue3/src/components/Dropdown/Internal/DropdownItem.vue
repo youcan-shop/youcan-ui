@@ -22,7 +22,7 @@ function toggle(event: Event) {
 </script>
 
 <template>
-  <button role="button" class="item" @click="(event) => toggle(event)">
+  <button role="button" class="item" :class="{ selected }" @click="(event) => toggle(event)">
     <Checkbox v-if="checkbox" v-model="model" tabindex="-1" class="checkbox" />
     <div v-if="item.image || item.icon" class="preview">
       <Thumbnail v-if="item.image" size="small" :src="item.image" :alt="item.label" class="preview-image" />

@@ -8,6 +8,6 @@
   },
   "stylelint.validate": ["vue"],
    "cSpell.words": [
-      "youcan"
-    ]
+    "youcan"
+  ]
 }

@@ -130,7 +130,7 @@ watch(() => props.show, (newValue) => {
 
 .dropdown-list .inner {
   min-height: 10px;
-  max-height: 240px;
+  max-height: 220px;
   padding: 8px 0;
   padding-bottom: 20px;
   overflow-x: hidden;

@@ -18,6 +18,8 @@ const scroller = ref();
 const showAll = ref(false);
 const hideContainer = ref(false);
 
+let timeOut: ReturnType<typeof setTimeout>;
+
 const closeAfterDuration = (afterDuration: number | undefined) => {
   if (afterDuration) {
     return afterDuration;
@@ -47,6 +49,8 @@ const showAllToasts = (show = true) => {
   if (body.value) {
     body.value.style.height = `${translateX}px`;
   }
+
+  clearTimeout(timeOut);
 };
 
 const messageListener = (event: any) => {
@@ -96,6 +100,11 @@ const close = (id: string) => {
 const toastVisibility = (id: string) => {
   return activeToasts.value.includes(id);
 };
+const mouseLeave = () => {
+  timeOut = setTimeout(() => {
+    showAllToasts(false);
+  }, 500);
+};
 
 onClickOutside(body, () => showAllToasts(false));
 
@@ -106,16 +115,17 @@ onMounted(() => {
 
 <template>
   <Transition name="fade">
-    <div v-show="hideContainer" ref="scroller" class="toast-container" :class="[position, { 'show-all': showAll }]" @mouseover="showAllToasts()">
+    <div v-show="hideContainer" ref="scroller" class="toast-container" :class="[position, { 'show-all': showAll }]" @mouseover="showAllToasts()" @mouseleave="mouseLeave">
       <div ref="body" class="toast-container-body">
         <Toast
           v-for="(toast, index) in toasts" :id="toast.id" :key="index" :position="position" :type="toast.options?.type"
           :show="toastVisibility(toast.id)"
           :close-after-duration="closeAfterDuration(toast.options?.duration)"
+          :can-close="toast.options?.canClose"
           @close="close(toast.id)"
         >
           <template v-if="toast.options?.title" #title>
-            {{ toast.options?.title }} :: {{ index }}
+            {{ toast.options?.title }}
           </template>
           <template v-if="toast.options?.description" #description>
             {{ toast.options?.description }}
