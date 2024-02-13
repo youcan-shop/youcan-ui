@@ -1,28 +1,30 @@
-/* eslint-disable no-console */
-import type { Meta } from '@storybook/vue3';
-import DateInput_ from './DateInput.vue';
+import type { Meta, StoryObj } from '@storybook/vue3';
+import { ref } from 'vue';
+import { DateInput } from '~/components';
 
-const meta: Meta<typeof DateInput_> = {
+type Story = StoryObj<typeof DateInput>;
+const meta: Meta<typeof DateInput> = {
   title: 'Application/DateInput',
-  component: DateInput_,
+  component: DateInput,
   tags: ['application', 'date', 'input', 'multi', 'select'],
+  argTypes: {
+    modelValue: { table: { disable: true } },
+  },
+  args: {
+    disabled: false,
+  },
+};
+
+export const Default: Story = {
+  render: args => ({
+    components: { DateInput },
+    setup() {
+      const value = ref({ start: null, end: null });
+
+      return { args, value };
+    },
+    template: '<DateInput v-bind="args" v-model="value"/><span>Date: {{ value }}</span>',
+  }),
 };
 
 export default meta;
-
-const Template = (args: Record<string, unknown>, { argTypes }: Record<string, Record<string, unknown>>) => ({
-  props: Object.keys(argTypes).filter(x => x !== 'value'),
-  data() {
-    return {
-      value: {
-        // start: null,
-        // end: null,
-      },
-    };
-  },
-  components: { DateInput_ },
-  template: '<DateInput_ v-bind="$props" v-model="value" @update:model-value="action" /><span class="sb-c-preview-text">Date: {{ value }}</span>',
-  methods: { action: (value: boolean) => console.log(`Date: ${value}`) },
-});
-
-export const Default = Template.bind({});

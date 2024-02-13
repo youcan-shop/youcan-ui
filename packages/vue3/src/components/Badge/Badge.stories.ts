@@ -1,40 +1,36 @@
-import type { Meta } from '@storybook/vue3';
-import { Utils } from '@youcan/ui-core';
-import Badge_ from './Badge.vue';
+import type { Meta, StoryObj } from '@storybook/vue3';
+import { Badge } from '~/components';
 
-const meta: Meta<typeof Badge_> = {
+type Story = StoryObj<typeof Badge>;
+const meta: Meta<typeof Badge> = {
   title: 'Application/Badge',
-  component: Badge_,
+  component: Badge,
   tags: ['application', 'display', 'badge', 'note'],
   argTypes: {
     size: {
+      control: 'select',
       options: [20, 24],
-      control: {
-        type: 'select',
-      },
     },
     state: {
       options: ['neutral', 'danger', 'info', 'warning', 'success'],
-      control: {
-        type: 'select',
-      },
+      control: 'select',
     },
+    default: { control: false },
   },
+  args: {
+    size: 20,
+    state: 'neutral',
+  },
+};
+
+export const Default: Story = {
+  render: args => ({
+    components: { Badge },
+    setup() {
+      return { args };
+    },
+    template: '<Badge v-bind="args">45</Badge>',
+  }),
 };
 
 export default meta;
-
-const BadgeTemplate = (args: Record<string, unknown>) => ({
-  components: { Badge_ },
-  setup() {
-    return { args };
-  },
-  template: '<Badge_ v-bind="args">45</Badge_>',
-});
-
-export const Badge = Utils.templatify(BadgeTemplate.bind({}));
-
-Badge.args = {
-  size: 20,
-  state: 'neutral',
-};
