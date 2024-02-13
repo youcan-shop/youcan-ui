@@ -121,6 +121,7 @@ onMounted(() => {
           v-for="(toast, index) in toasts" :id="toast.id" :key="index" :position="position" :type="toast.options?.type"
           :show="toastVisibility(toast.id)"
           :close-after-duration="closeAfterDuration(toast.options?.duration)"
+          :can-close="toast.options?.canClose"
           @close="close(toast.id)"
         >
           <template v-if="toast.options?.title" #title>
