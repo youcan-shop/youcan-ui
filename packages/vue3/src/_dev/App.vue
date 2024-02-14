@@ -1,35 +1,27 @@
 <script setup lang="ts">
 import 'uno.css';
 import '../assets/main.css';
-import { ref } from 'vue';
-import { Tag } from '~/components';
-import type { TagItemValue } from '~/components/Tag/types';
+import { PrimaryButton, ToastContainer } from '~/components';
+import { toast } from '~/helpers';
+import type { ToastOptions } from '~/types';
 
-const preferredLanguages = ref<TagItemValue[]>([
-  { label: 'English', value: 2 },
-]);
+const toastOptions: ToastOptions = {
+  title: 'Info',
+  description: 'Click here to learn more about the exciting enhancements we\'ve made.',
+  type: 'info',
+};
 
-const languages = [
-  { label: 'Arabic', value: 1 },
-  { label: 'English', value: 2 },
-  { label: 'German', value: 3 },
-  { label: 'French', value: 4 },
-  { label: 'Dutch', value: 5 },
-  { label: 'Hindi', value: 6 },
-];
+const handleClick = () => {
+  toast.show(toastOptions);
+};
 </script>
 
 <template>
-  <div class="container">
-    <div>
-      <Tag
-        v-model="preferredLanguages"
-        placeholder="Select programming languages"
-        :max="3"
-        type="dropdown"
-        :items="languages"
-      />
-    </div>
+  <ToastContainer :limit="3" />
+  <div className="container">
+    <PrimaryButton @click="handleClick">
+      Show Toast
+    </PrimaryButton>
   </div>
 </template>
 
@@ -41,9 +33,5 @@ const languages = [
   justify-content: center;
   width: 100vw;
   height: 100vh;
-}
-
-.container > div {
-  width: 500px;
 }
 </style>
