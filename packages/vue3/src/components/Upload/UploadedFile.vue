@@ -17,7 +17,7 @@ const emit = defineEmits(['delete']);
         {{ file.name }}
       </div>
       <div class="actions">
-        <i class="icon-remove i-youcan-trash" @click="emit('delete', file)" />
+        <i class="icon-remove i-youcan-trash" @click="() => emit('delete')" />
       </div>
     </div>
     <div v-if="error" class="error">
