@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import { TableDataRow } from '../types';
 import TableButton from './Button.vue';
+import { TableDataRow } from '~/types';
 import type { HandleSubCompModel, TableActions, TableColumnValue, TableData, TableDataComposable, TableRowProps } from '~/types';
 import TertiaryButton from '~/components/Button/TertiaryButton.vue';
 import Checkbox from '~/components/Checkbox/Checkbox.vue';
