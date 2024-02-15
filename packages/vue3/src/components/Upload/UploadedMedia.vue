@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { computed, onMounted, ref, watch } from 'vue';
+import { computed, onMounted, onUnmounted, ref, watch } from 'vue';
+import { onClickOutside } from '@vueuse/core';
 import type { UploadedMediaProps } from './types';
 import { isUrl } from './utils';
 import {
@@ -34,6 +35,7 @@ const fileName = computed(() => {
 
 const dataUrl = ref('');
 const previewing = ref(false);
+const popupBody = ref();
 const loading = ref(false);
 const error = ref<boolean>(false);
 
@@ -81,7 +83,22 @@ const getUrl = () => {
   }
 };
 
-onMounted(getUrl);
+onClickOutside(popupBody, () => togglePreview(false));
+
+const handleKeypress = (event: KeyboardEvent) => {
+  if (previewing.value && event.key === 'Escape') {
+    togglePreview(false);
+  }
+};
+
+onMounted(() => {
+  window.addEventListener('keydown', handleKeypress);
+  getUrl();
+});
+
+onUnmounted(() => {
+  window.removeEventListener('keydown', handleKeypress);
+});
 
 watch(() => props.file, getUrl);
 </script>
@@ -134,7 +151,7 @@ watch(() => props.file, getUrl);
               <i class="i-youcan:x" />
             </template>
           </TertiaryButton>
-          <div class="popup-body">
+          <div ref="popupBody" class="popup-body">
             <div v-if="isVideo" class="video-container">
               <video v-if="isFile" :src="dataUrl" controls autoplay />
               <iframe v-else :src="`${dataUrl}?autoplay=1`" frameborder="0" />
@@ -269,6 +286,7 @@ watch(() => props.file, getUrl);
   width: 100%;
   height: 100%;
   background: linear-gradient(0deg, rgb(0 0 0 / 24%), rgb(0 0 0 / 24%)), url(".jpg");
+  cursor: pointer;
 }
 
 .popup-body {
@@ -278,7 +296,7 @@ watch(() => props.file, getUrl);
   justify-content: center;
   width: 900px;
   max-width: 95vw;
-  height: 90vh;
+  max-height: 90vh;
 }
 
 .popup img {
