@@ -286,7 +286,6 @@ watch(() => props.file, getUrl);
   width: 100%;
   height: 100%;
   background: linear-gradient(0deg, rgb(0 0 0 / 24%), rgb(0 0 0 / 24%)), url(".jpg");
-  cursor: pointer;
 }
 
 .popup-body {
@@ -297,6 +296,7 @@ watch(() => props.file, getUrl);
   width: 900px;
   max-width: 95vw;
   max-height: 90vh;
+  cursor: pointer;
 }
 
 .popup img {
