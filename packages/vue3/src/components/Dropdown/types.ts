@@ -31,7 +31,7 @@ export interface DropdownItemProps {
 export interface DropdownProps {
   size?: 36 | 44
   icon?: string
-  placeholder: string
+  placeholder?: string
   searchable?: boolean
   modelValue: DropdownItemDefinition | null
   items: DropdownItemArray | DropdownItemGroups

@@ -1,37 +1,37 @@
 <script setup lang="ts">
 import 'uno.css';
 import '../assets/main.css';
-import { PrimaryButton, ToastContainer } from '~/components';
-import { toast } from '~/helpers';
-import type { ToastOptions } from '~/types';
+import { ref } from 'vue';
+import { PaginationBar } from '~/components';
 
-const toastOptions: ToastOptions = {
-  title: 'Info',
-  description: 'Click here to learn more about the exciting enhancements we\'ve made.',
-  type: 'info',
-};
+const currentPage = ref(1);
+const perPage = ref(10);
 
-const handleClick = () => {
-  toast.show(toastOptions);
-};
+const total = 50;
+const totalPages = Math.ceil(total / perPage.value);
+const perPageOptions = [5, 10, 20, 30, 50];
+
+function handlePaginationNavigation(pageNumber: number) {
+  currentPage.value = pageNumber;
+}
 </script>
 
 <template>
-  <ToastContainer :limit="3" />
-  <div className="container">
-    <PrimaryButton @click="handleClick">
-      Show Toast
-    </PrimaryButton>
+  <div class="container">
+    <PaginationBar
+      v-model:perPage="perPage"
+      :current="currentPage"
+      :size="totalPages"
+      :count="perPage"
+      :total="total"
+      :per-page-options="perPageOptions"
+      @update:current="handlePaginationNavigation"
+    />
   </div>
 </template>
 
 <style scoped>
 .container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100vw;
-  height: 100vh;
+  min-width: 100%;
 }
 </style>

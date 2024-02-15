@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import NavigationButton from './Internal/NavigationButton.vue';
-import type { PaginationBarProps } from '~/types';
+import type { DropdownItemArray, DropdownItemDefinition, PaginationBarProps } from '~/types';
 import SecondaryButton from '~/components/Button/SecondaryButton.vue';
 
 const props = withDefaults(defineProps<PaginationBarProps>(), {
@@ -11,9 +11,10 @@ const props = withDefaults(defineProps<PaginationBarProps>(), {
   perPageLabel: 'Showing :count of :total results',
 });
 
-const emit = defineEmits<{
-  (event: 'update:current', value: number): void
-}>();
+const emit = defineEmits(['update:current', 'update:perPage']);
+
+const perPageItems = ref<DropdownItemArray>([]);
+const perPageModel = ref<DropdownItemDefinition | null>(null);
 
 const variables: Array<string> = ['count', 'total'];
 
@@ -61,13 +62,32 @@ function updateCurrentPage(index: number) {
   emit('update:current', index);
 }
 
+function updatePerPageModel(perPage: DropdownItemDefinition) {
+  emit('update:perPage', parseInt(perPage.label));
+}
+
 const barJustifyContentStyle = props.hidePerPage ? 'center' : 'space-between';
+
+onMounted(() => {
+  if (props.perPageOptions && props.perPageOptions.length) {
+    const options: DropdownItemArray = [];
+    props.perPageOptions.forEach((el, i) => {
+      const item = { value: i, label: String(el) };
+      options.push(item);
+      if (el === props.perPage) {
+        perPageModel.value = item;
+      }
+    });
+    perPageItems.value = options;
+  }
+});
 </script>
 
 <template>
   <div class="pagination-bar">
     <span v-if="!hidePerPage" class="text">{{ formattedPerPageLabel }}</span>
     <div class="navigation">
+      <Dropdown v-if="perPage && perPageItems.length" v-model="perPageModel" class="per-page-dropdown" :items="perPageItems" @update:model-value="updatePerPageModel" />
       <SecondaryButton size="sm" :disabled="current === 1" @click="updateCurrentPage(current - 1)">
         {{ previousLabel }}
       </SecondaryButton>
@@ -102,5 +122,9 @@ const barJustifyContentStyle = props.hidePerPage ? 'center' : 'space-between';
   display: flex;
   align-items: center;
   gap: 8px;
+}
+
+.per-page-dropdown {
+  min-width: 75px;
 }
 </style>
