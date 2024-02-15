@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import Badge from '../Badge/Badge.vue';
-import type { TabProps } from './types';
+import type { TabProps } from '~/types';
 
 defineProps<TabProps>();
 </script>

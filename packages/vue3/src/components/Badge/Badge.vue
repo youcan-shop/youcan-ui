@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { BadgeProps } from './types';
+import type { BadgeProps } from '~/types';
 
 withDefaults(
   defineProps<BadgeProps>(),

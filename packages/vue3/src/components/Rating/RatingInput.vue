@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, onBeforeMount } from 'vue';
-import type { RatingInputProps } from './types';
+import type { RatingInputProps } from '~/types';
 
 const props = withDefaults(
   defineProps<RatingInputProps>(),

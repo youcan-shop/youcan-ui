@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useSlots } from 'vue';
-import type { ButtonProps } from '~/components/Button/types';
+import type { ButtonProps } from '~/types';
 import BaseButton from '~/components/Button/_BaseButton.vue';
 
 defineProps<ButtonProps>();

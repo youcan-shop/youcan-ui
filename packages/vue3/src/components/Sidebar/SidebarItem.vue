@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
-import type { SidebarItemProps } from './types';
+import type { SidebarItemProps } from '~/types';
 
 const props = defineProps<SidebarItemProps>();
 

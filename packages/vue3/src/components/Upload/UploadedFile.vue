@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { UploadedFileProps } from './types';
+import type { UploadedFileProps } from '~/types';
 
 defineProps<UploadedFileProps>();
 const emit = defineEmits(['delete']);

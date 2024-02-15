@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { StaticStatusProps } from './types';
+import type { StaticStatusProps } from '~/types';
 
 const props = defineProps<StaticStatusProps>();
 </script>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { SpinnerProps } from './types';
+import type { SpinnerProps } from '~/types';
 withDefaults(
   defineProps<SpinnerProps>(),
   {

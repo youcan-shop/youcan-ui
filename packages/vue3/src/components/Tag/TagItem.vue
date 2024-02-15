@@ -2,7 +2,7 @@
 import { computed, ref } from 'vue';
 import type { ColorObject } from '@youcan/ui-core';
 import { onClickOutside } from '@vueuse/core';
-import type { TagItemProps, TagItemValue } from './types';
+import type { TagItemProps, TagItemValue } from '~/types';
 import Backdrop from '~/components/Color/Internal/Backdrop.vue';
 import ColorPicker from '~/components/Color/ColorPicker.vue';
 

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, onUnmounted, useSlots } from 'vue';
-import type { AlertProps } from './types';
+import type { AlertProps } from '~/types';
 import TertiaryButton from '~/components/Button/TertiaryButton.vue';
 
 const props = withDefaults(

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Utils } from '@youcan/ui-core';
 import { computed, onMounted, ref } from 'vue';
-import type { IncrementProps } from './types';
+import type { IncrementProps } from '~/types';
 import TertiaryButtonVue from '~/components/Button/TertiaryButton.vue';
 
 const props = withDefaults(defineProps<IncrementProps>(), {

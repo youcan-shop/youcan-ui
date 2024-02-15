@@ -7,7 +7,7 @@ import Swatches from './Internal/Swatches.vue';
 import Saturation from './Internal/Saturation.vue';
 import Hue from './Internal/Hue.vue';
 import Alpha from './Internal/Alpha.vue';
-import type { ColorPickerProps } from './types';
+import type { ColorPickerProps } from '~/types';
 
 const props = withDefaults(
   defineProps<ColorPickerProps>(),

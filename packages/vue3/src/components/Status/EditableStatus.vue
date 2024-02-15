@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onClickOutside } from '@vueuse/core';
 import { computed, ref } from 'vue';
-import type { EditableStatusProps, StatusDefinition } from './types';
+import type { EditableStatusProps, StatusDefinition } from '~/types';
 
 const props = defineProps<EditableStatusProps>();
 

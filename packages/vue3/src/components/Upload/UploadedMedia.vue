@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue';
 import { Utils } from '@youcan/ui-core';
-import type { UploadedMediaProps } from './types';
+import type { UploadedMediaProps } from '~/types';
 import {
   PrimaryDestructiveButton,
   TertiaryButton,

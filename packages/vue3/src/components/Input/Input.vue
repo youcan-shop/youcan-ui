@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, onBeforeMount, ref, useAttrs, useSlots } from 'vue';
 import DropdownPrefix from './prefixes/DropdownPrefix.vue';
-import type { InputProps } from './types';
+import type { InputProps } from '~/types';
 
 const props = withDefaults(
   defineProps<InputProps>(),

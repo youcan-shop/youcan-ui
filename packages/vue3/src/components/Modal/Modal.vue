@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { onMounted, onUnmounted } from 'vue';
-import type { ModalProps } from './types';
+import type { ModalProps } from '~/types';
 import Overlay from '~/components/Overlay/Overlay.vue';
 import { PrimaryButton, SecondaryButton, TertiaryButton } from '~/components';
 

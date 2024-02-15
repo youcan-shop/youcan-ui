@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { onClickOutside } from '@vueuse/core';
 import { onMounted, onUnmounted, ref, useSlots } from 'vue';
-import type { PopoverProps } from './types';
+import type { PopoverProps } from '~/types';
 import { setPosition } from '~/components/Tooltip/utils';
 const props = withDefaults(defineProps<PopoverProps>(), {
   position: 'left',

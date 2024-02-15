@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted, ref, toRaw } from 'vue';
 import ResourceItem from './Internal/Resource.vue';
-import type { PickerProps, Resource } from './types';
 import { isEmptyArray } from './utils';
+import type { PickerProps, Resource } from '~/types';
 import Overlay from '~/components/Overlay/Overlay.vue';
 import { Input, PrimaryButton, SecondaryButton, Spinner, TertiaryButton } from '~/components';
 
