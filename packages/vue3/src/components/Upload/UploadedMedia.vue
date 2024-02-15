@@ -179,6 +179,7 @@ watch(() => props.file, getUrl);
   width: 100%;
   height: 0;
   padding-bottom: 56.25%;
+  background-color: var(--base-black);
 }
 
 .video-container iframe,
