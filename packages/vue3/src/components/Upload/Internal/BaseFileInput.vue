@@ -22,9 +22,10 @@ const handleInput = (event: Event) => {
   if (modelValue && limit > 1) {
     override = modelValue;
     for (let i = 0; i < target.files.length; i++) {
-      override.push(target.files[i]);
+      if (override.length < limit) {
+        override.push(target.files[i]);
+      }
     }
-    override = override.splice(0, limit);
   }
   else {
     override.push(target.files[0]);

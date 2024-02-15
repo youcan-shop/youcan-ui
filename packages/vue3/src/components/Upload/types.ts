@@ -16,7 +16,7 @@ export interface MediaInputProps {
 export interface UploadedMediaProps {
   file: File | string
   progress?: number
-  error?: string
+  errorText?: string
 }
 
 export interface UploadedFileProps {
