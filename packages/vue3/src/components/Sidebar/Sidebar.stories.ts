@@ -1,43 +1,69 @@
-// @unocss-include
+import type { Meta, StoryObj } from '@storybook/vue3';
+import { Sidebar, SidebarItem, SidebarSubitem } from '~/components';
 
-import type { Meta } from '@storybook/vue3';
-import Sidebar from './Sidebar.vue';
-import SidebarItem from './SidebarItem.vue';
-import SidebarSubitem from './SidebarSubitem.vue';
-
+type Story = StoryObj<typeof Sidebar>;
 const meta: Meta<typeof Sidebar> = {
-  title: 'Application/Sidebar',
+  title: 'Application/Sidebar/Sidebar',
   component: Sidebar,
+  tags: ['sidebar', 'bar', 'nav'],
+  argTypes: {
+    'items': { table: { disable: true } },
+    'header': { table: { disable: true } },
+    'lower-items': { table: { disable: true } },
+    'collapsed': { table: { disable: true } },
+  },
 };
 
-const Template = (args: Record<string, unknown>, { argTypes }: Record<string, Record<string, unknown>>) => ({
-  props: Object.keys(argTypes),
-  components: { Sidebar, SidebarItem, SidebarSubitem },
-  template: `
-      <Sidebar>
-      <template #header>
-        Store
-      </template>
-      <template #items>
-        <SidebarItem icon="i-youcan-house-simple" label="Home" />
-        <SidebarItem icon="i-youcan-cube" label="Orders">
-          <SidebarSubitem label="All Orders" />
-          <SidebarSubitem label="Create Orders" />
-        </SidebarItem>
-        <SidebarItem icon="i-youcan-tag" label="Products">
-          <SidebarSubitem label="All Products" />
-          <SidebarSubitem label="Create Products" />
-        </SidebarItem>
-        <SidebarItem icon="i-youcan-squares-four" label="Apps" />
-      </template>
-      <template #lower-items>
-        <SidebarItem icon="i-youcan-headset" label="Support" />
-        <SidebarItem icon="i-youcan-gear" label="Settings" />
-      </template>
-    </Sidebar>
-  `,
-});
+export const Sidebar_: Story = {
+  render: args => ({
+    components: { Sidebar, SidebarItem, SidebarSubitem },
+    setup() {
+      const items = [
+        {
+          label: 'Products',
+          active: true,
+          icon: 'i-youcan-tag',
+          children: [
+            { label: 'All Products' },
+            { label: 'Categories' },
+          ],
+        },
+        {
+          label: 'Insights',
+          active: false,
+          icon: 'i-youcan-chart-line',
+        },
+      ];
 
-export const Default = Template.bind({});
+      return { args, items };
+    },
+    template: `
+      <Sidebar>
+        <template #header>
+          <p>Awesome App</p>
+        </template>
+        <template #items>
+          <SidebarItem
+            v-for="item in items"
+            :key="item.label"
+            :label="item.label"
+            :active="item.active"
+            :icon="item.icon"
+          >
+            <template v-if="item.children">
+              <SidebarSubitem
+                v-for="subItem in item.children" :key="subItem.label"
+                :label="subItem.label"
+              />
+            </template>
+          </SidebarItem>
+        </template>
+        <template #lower-items>
+          <SidebarItem icon="i-youcan-gear" label="Settings" />
+        </template>
+      </Sidebar>
+    `,
+  }),
+};
 
 export default meta;

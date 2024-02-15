@@ -1,6 +1,6 @@
 {
   "name": "@youcan/ui-vue3",
-  "version": "2.5.9-beta.0",
+  "version": "2.5.9-beta.1",
   "description": "YouCan Vue3 components library",
   "author": "YouCan <tech@youcan.shop> (https://github.com/youcan-shop/)",
   "license": "MIT",
@@ -21,6 +21,10 @@
         "default": "./dist/index.es.js",
         "types": "./dist/types/index.d.ts"
       }
+    },
+    "./helpers": {
+      "require": "./src/helpers/index.ts",
+      "import": "./src/helpers/index.ts"
     },
     "./style": {
       "require": "./dist/index.css",
@@ -58,9 +62,7 @@
   },
   "dependencies": {
     "@popperjs/core": "^2.11.7",
-    "vue-slicksort": "^2.0.5",
-    "froala-editor": "^4.1.4",
-    "vue-froala-wysiwyg": "^4.1.4"
+    "vue-slicksort": "^2.0.5"
   },
   "devDependencies": {
     "@iconify-json/line-md": "^1.1.20",

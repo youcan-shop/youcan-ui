@@ -1,28 +1,28 @@
-/* eslint-disable no-console */
-import type { Meta } from '@storybook/vue3';
-import Toggle from './Toggle.vue';
+import type { Meta, StoryObj } from '@storybook/vue3';
+import { ref } from 'vue';
+import { Toggle } from '~/components';
 
+type Story = StoryObj<typeof Toggle>;
 const meta: Meta<typeof Toggle> = {
-  title: 'Primitive/Toggle',
+  title: 'Application/Toggle',
   component: Toggle,
+  parameters: { layout: 'centered' },
   tags: ['primitive', 'toggle', 'input', 'on/off', 'switch'],
   argTypes: {
-    value: {
-      table: { disable: true },
-    },
+    modelValue: { table: { disable: true } },
   },
 };
 
+export const Default: Story = {
+  render: args => ({
+    components: { Toggle },
+    setup() {
+      const isActive = ref(false);
+
+      return { args, isActive };
+    },
+    template: '<Toggle v-model="isActive" /> <p> {{ isActive? "On" : "Off" }}</p>',
+  }),
+};
+
 export default meta;
-
-const Template = (args: Record<string, unknown>, { argTypes }: Record<string, Record<string, unknown>>) => ({
-  props: Object.keys(argTypes).filter(x => x !== 'value'),
-  data() {
-    return { value: false };
-  },
-  components: { Toggle },
-  template: '<Toggle v-bind="$props" v-model="value" @update:model-value="action" /><span class="sb-c-preview-text">Toggle\'s: {{ value ? "on" : "off" }}</span>',
-  methods: { action: (value: boolean) => console.log(`Toggle: ${value}`) },
-});
-
-export const Default = Template.bind({});
