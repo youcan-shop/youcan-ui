@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 import { ref } from 'vue';
 import { StaticStatus, Tab, TabsBar } from '~/components';
-import type { StaticStatusDefinition } from '~/components/Status/types';
+import type { StaticStatusDefinition } from '~/types';
 
 type Story = StoryObj<typeof TabsBar>;
 const meta: Meta<typeof TabsBar> = {

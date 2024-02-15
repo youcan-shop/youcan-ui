@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { SidebarSubItemProps } from './types';
+import type { SidebarSubItemProps } from '~/types';
 
 defineProps<SidebarSubItemProps>();
 </script>

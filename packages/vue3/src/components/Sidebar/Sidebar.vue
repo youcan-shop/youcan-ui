@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import type { SidebarProps } from './types';
+import type { SidebarProps } from '~/types';
 
 const props = withDefaults(defineProps<SidebarProps>(), {
   collapsed: false,

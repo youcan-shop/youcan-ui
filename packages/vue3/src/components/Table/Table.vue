@@ -2,7 +2,7 @@
 import { computed, ref, shallowRef, toRaw } from 'vue';
 import CellsRegistrar from './Internal/cells-registrar';
 import TableRow from './Internal/TableRow.vue';
-import type { TableColumn, TableColumnValue, TableColumnValues, TableData, TableDataComposable, TableDataRow, TableInternalData, TableProps } from './types';
+import type { TableColumn, TableColumnValue, TableColumnValues, TableData, TableDataComposable, TableDataRow, TableInternalData, TableProps } from '~/types';
 import Checkbox from '~/components/Checkbox/Checkbox.vue';
 
 const props = withDefaults(defineProps<TableProps>(), {

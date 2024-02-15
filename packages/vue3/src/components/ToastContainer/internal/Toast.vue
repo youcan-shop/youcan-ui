@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useSlots } from 'vue';
-import type { ToastProps } from '../types';
+import type { ToastProps } from '~/types';
 import { Alert } from '~/components';
 
 withDefaults(

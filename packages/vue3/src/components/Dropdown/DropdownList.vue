@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed, nextTick, ref, watch } from 'vue';
-import type { DropdownItemArray, DropdownItemDefinition, DropdownItemGroups, DropdownListProps } from './types';
 import DropdownItem from './Internal/DropdownItem.vue';
 import { searchHandler } from './helpers';
+import type { DropdownItemArray, DropdownItemDefinition, DropdownItemGroups, DropdownListProps } from '~/types';
 import { Spinner } from '~/components';
 
 const props = withDefaults(

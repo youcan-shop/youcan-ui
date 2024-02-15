@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import NavigationButton from './Internal/NavigationButton.vue';
-import type { PaginationBarProps } from './types';
+import type { PaginationBarProps } from '~/types';
 import SecondaryButton from '~/components/Button/SecondaryButton.vue';
 
 const props = withDefaults(defineProps<PaginationBarProps>(), {

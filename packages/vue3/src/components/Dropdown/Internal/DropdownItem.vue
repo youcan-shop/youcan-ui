@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import type { DropdownItemProps } from '../types';
+import type { DropdownItemProps } from '~/types';
 import { Checkbox, Thumbnail } from '~/components';
 
 const props = withDefaults(

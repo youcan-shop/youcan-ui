@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import type { ButtonProps } from './types';
+import type { TableButtonProps } from '~/types';
 import SecondaryButton from '~/components/Button/SecondaryButton.vue';
 
 withDefaults(
-  defineProps<ButtonProps>(),
+  defineProps<TableButtonProps>(),
   {
     size: 'sm',
   },

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { defineEmits, defineProps } from 'vue';
-import type { SwitchButtonProps } from './types';
+import type { SwitchButtonProps } from '~/types';
 
 const props = defineProps<SwitchButtonProps>();
 

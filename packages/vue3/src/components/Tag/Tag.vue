@@ -2,9 +2,8 @@
 import { computed, nextTick, onMounted, ref } from 'vue';
 import { Utils } from '@youcan/ui-core';
 import { onClickOutside } from '@vueuse/core';
-import type { DropdownItemDefinition } from '../Dropdown/types';
 import TagItem from './TagItem.vue';
-import type { TagItemValue, TagProps } from './types';
+import type { DropdownItemDefinition, TagItemValue, TagProps } from '~/types';
 import { DropdownList } from '~/components';
 
 const props = withDefaults(defineProps<TagProps>(), {

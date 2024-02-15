@@ -2,7 +2,7 @@ import type { Meta } from '@storybook/vue3';
 import { ref } from 'vue';
 import { Utils } from '@youcan/ui-core';
 import { Draggable, DraggableItem } from '~/components';
-import type { DraggableItemType } from '~/components/Draggable/types';
+import type { DraggableItemType } from '~/types';
 
 const meta: Meta<typeof Draggable> = {
   title: 'Application/Draggable',

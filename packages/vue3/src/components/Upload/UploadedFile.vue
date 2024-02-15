@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { UploadedFileProps } from './types';
+import type { UploadedFileProps } from '~/types';
 
 defineProps<UploadedFileProps>();
 const emit = defineEmits(['delete']);
@@ -17,7 +17,7 @@ const emit = defineEmits(['delete']);
         {{ file.name }}
       </div>
       <div class="actions">
-        <i class="icon-remove i-youcan-trash" @click="emit('delete', file)" />
+        <i class="icon-remove i-youcan-trash" @click="() => emit('delete')" />
       </div>
     </div>
     <div v-if="error" class="error">

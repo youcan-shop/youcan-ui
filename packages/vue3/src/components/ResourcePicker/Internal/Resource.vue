@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { Checkbox, Thumbnail } from '~/components';
-import type { ResourceProps } from '~/components/ResourcePicker/types';
+import type { ResourceProps } from '~/types';
 
 const props = withDefaults(defineProps<ResourceProps>(), {
   stockLabel: 'Stock',

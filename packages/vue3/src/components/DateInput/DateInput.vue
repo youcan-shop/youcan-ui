@@ -3,7 +3,7 @@ import { onClickOutside } from '@vueuse/core';
 import { computed, ref } from 'vue';
 import { DateUtils } from '@youcan/ui-core';
 import DatePicker from './DatePicker.vue';
-import type { DateInputProps, DateInputValue } from './types';
+import type { DateInputProps, DateInputValue } from '~/types';
 import SecondaryButton from '~/components/Button/SecondaryButton.vue';
 
 const props = defineProps<DateInputProps>();

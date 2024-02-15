@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, useSlots } from 'vue';
 import BaseFileInput from './Internal/BaseFileInput.vue';
-import type { FileInputProps } from './types';
+import type { FileInputProps } from '~/types';
 
 const props = withDefaults(
   defineProps<FileInputProps>(),

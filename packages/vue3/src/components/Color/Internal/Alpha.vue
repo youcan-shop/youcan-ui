@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { type CSSProperties, onMounted, ref, watch } from 'vue';
 import { CLR_BLACK, constructAlphaBackdrop, constructAlphaGradient } from '@youcan/ui-core';
-import type { AlphaProps } from './types';
+import type { AlphaProps } from '~/types';
 
 const props = withDefaults(
   defineProps<AlphaProps>(),

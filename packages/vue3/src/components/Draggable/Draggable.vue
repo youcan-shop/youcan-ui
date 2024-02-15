@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { SlickItem, SlickList } from 'vue-slicksort';
-import type { DraggableItemType, DraggableProps } from './types';
 import DraggableItem from './DraggableItem.vue';
+import type { DraggableItemType, DraggableProps } from '~/types';
 
 const props = defineProps<DraggableProps>();
 

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Utils } from '@youcan/ui-core';
 import { computed, useSlots } from 'vue';
-import type { CheckboxProps } from './types';
+import type { CheckboxProps } from '~/types';
 
 const props = defineProps<CheckboxProps>();
 

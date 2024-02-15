@@ -4,7 +4,7 @@ import { DateUtils } from '@youcan/ui-core';
 import { computed, ref } from 'vue';
 import Day from './Internal/Day.vue';
 import MonthSwitcher from './Internal/MonthSwitcher.vue';
-import type { DateInputValue, DatePickerProps } from './types';
+import type { DateInputValue, DatePickerProps } from '~/types';
 
 const props = defineProps<DatePickerProps>();
 
