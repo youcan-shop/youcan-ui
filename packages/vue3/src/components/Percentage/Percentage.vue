@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { PercentageProps } from './types';
+import type { PercentageProps } from '~/types';
 
 withDefaults(
   defineProps<PercentageProps>(),

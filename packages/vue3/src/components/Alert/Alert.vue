@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted, useSlots } from 'vue';
-import type { AlertProps } from './types';
+import { computed, onUnmounted, useSlots } from 'vue';
+import type { AlertProps } from '~/types';
 import TertiaryButton from '~/components/Button/TertiaryButton.vue';
 
 const props = withDefaults(
@@ -42,13 +42,11 @@ const handleClose = () => {
 };
 
 let timeOut: ReturnType<typeof setTimeout>;
-onMounted(() => {
-  if (props.closeAfterDuration && typeof props.closeAfterDuration === 'number') {
-    timeOut = setTimeout(() => {
-      handleClose();
-    }, props.closeAfterDuration);
-  }
-});
+if (props.closeAfterDuration && typeof props.closeAfterDuration === 'number') {
+  timeOut = setTimeout(() => {
+    handleClose();
+  }, props.closeAfterDuration);
+}
 
 onUnmounted(() => {
   clearTimeout(timeOut);

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, ref, useAttrs } from 'vue';
-import type { TextAreaProps } from './types';
+import type { TextAreaProps } from '~/types';
 
 const props = defineProps<TextAreaProps>();
 

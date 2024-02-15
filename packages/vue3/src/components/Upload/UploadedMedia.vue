@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted, ref, watch } from 'vue';
 import { onClickOutside } from '@vueuse/core';
-import type { UploadedMediaProps } from './types';
 import { isUrl } from './utils';
+import type { UploadedMediaProps } from '~/types';
 import {
   PrimaryDestructiveButton,
   Spinner,

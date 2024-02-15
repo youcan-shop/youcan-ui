@@ -2,8 +2,8 @@
 import { nextTick, onMounted, ref } from 'vue';
 import { Utils } from '@youcan/ui-core';
 import { onClickOutside } from '@vueuse/core';
-import type { ToastContainerProps, ToastOptions, ToastType } from './types';
 import Toast from './internal/Toast.vue';
+import type { ToastContainerProps, ToastOptions, ToastType } from '~/types';
 
 const props = withDefaults(defineProps<ToastContainerProps>(), {
   position: 'top-right',

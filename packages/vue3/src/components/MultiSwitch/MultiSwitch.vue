@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import type { MultiSwitchProps, SwitchButtonOption } from './types';
 import SwitchButton from './SwitchButton.vue';
+import type { MultiSwitchProps, SwitchButtonOption } from '~/types';
 
 const props = defineProps<MultiSwitchProps>();
 

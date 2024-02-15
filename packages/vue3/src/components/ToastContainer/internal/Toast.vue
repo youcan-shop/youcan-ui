@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, useSlots, watch } from 'vue';
-import type { ToastProps } from '../types';
+import { useSlots } from 'vue';
+import type { ToastProps } from '~/types';
 import { Alert } from '~/components';
 
-const props = withDefaults(
+withDefaults(
   defineProps<ToastProps>(),
   {
     position: 'top-right',
@@ -14,40 +14,12 @@ const props = withDefaults(
 const emit = defineEmits(['close']);
 
 const { title, description } = useSlots();
-
-let closeTimer: ReturnType<typeof setTimeout>;
-
-const setCloseTimer = () => {
-  if (props.closeAfterDuration && typeof props.closeAfterDuration === 'number') {
-    closeTimer = setTimeout(() => {
-      emit('close');
-    }, props.closeAfterDuration);
-  }
-};
-
-onMounted(() => {
-  setCloseTimer();
-});
-
-onUnmounted(() => {
-  clearTimeout(closeTimer);
-});
-
-watch(() => props.mouseOver, (newValue) => {
-  if (newValue) {
-    clearTimeout(closeTimer);
-
-    return;
-  }
-
-  setCloseTimer();
-});
 </script>
 
 <template>
   <Transition :name="position">
-    <div v-if="show" class="toast-block" :class="[position]">
-      <Alert :type="type" :can-close="canClose" @close="() => emit('close')">
+    <div v-if="show" class="toast-block" :class="[position, { relative }]">
+      <Alert :type="type" :can-close="canClose" :close-after-duration="closeAfterDuration" @close="() => emit('close')">
         <template v-if="title" #title>
           <slot name="title" />
         </template>

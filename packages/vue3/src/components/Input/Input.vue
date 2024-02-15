@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, onBeforeMount, ref, useAttrs, useSlots } from 'vue';
 import DropdownPrefix from './prefixes/DropdownPrefix.vue';
-import type { InputProps } from './types';
+import type { InputProps } from '~/types';
 
 const props = withDefaults(
   defineProps<InputProps>(),
@@ -20,7 +20,7 @@ const showPassword = ref(false);
 
 const model = computed({
   get: () => props.modelValue,
-  set: (value: string) => emit('update:modelValue', value),
+  set: (value: string | number) => emit('update:modelValue', value),
 });
 
 const inputType = computed(() => {
