@@ -1,4 +1,4 @@
-import type { DropdownItemArray, DropdownItemDefinition, DropdownItemGroups } from './types';
+import type { DropdownItemArray, DropdownItemDefinition, DropdownItemGroups } from '~/types';
 
 function matches(haystack: string, needle: string) {
   return haystack?.toLowerCase().includes(needle.toLowerCase());

@@ -1,11 +1,8 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue';
 import NavigationButton from './Internal/NavigationButton.vue';
-import type { PaginationBarProps } from './types';
-import { Dropdown } from '~/components';
-import type { DropdownItemArray } from '~/components/Dropdown/types';
+import type { DropdownItemArray, DropdownItemDefinition, PaginationBarProps } from '~/types';
 import SecondaryButton from '~/components/Button/SecondaryButton.vue';
-import type { DropdownItemDefinition } from '~/types';
 
 const props = withDefaults(defineProps<PaginationBarProps>(), {
   hidePerPage: false,

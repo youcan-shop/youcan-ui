@@ -3,9 +3,9 @@ import { Utils } from '@youcan/ui-core';
 import { onMounted, ref, watch } from 'vue';
 import Input from '../Input/Input.vue';
 import SearchResult from './Internal/SearchResult.vue';
-import type { QueryResult, SearchInputProps } from './types';
 import SearchLoader from './Internal/SearchLoader.vue';
 import SearchNoResults from './Internal/SearchNoResults.vue';
+import type { QueryResult, SearchInputProps } from '~/types';
 
 const props = defineProps<SearchInputProps>();
 const emit = defineEmits(['select']);

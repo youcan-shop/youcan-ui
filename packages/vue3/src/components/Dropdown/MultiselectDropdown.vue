@@ -3,8 +3,8 @@ import { ref, useSlots } from 'vue';
 import { Utils } from '@youcan/ui-core';
 import { onClickOutside } from '@vueuse/core';
 import { Badge } from '..';
-import type { DropdownItemDefinition, MultiselectDropdownProps } from './types';
 import DropdownList from './DropdownList.vue';
+import type { DropdownItemDefinition, MultiselectDropdownProps } from '~/types';
 
 const props = withDefaults(
   defineProps<MultiselectDropdownProps>(),

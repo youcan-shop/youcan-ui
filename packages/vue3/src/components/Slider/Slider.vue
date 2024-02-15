@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { computed, onMounted, ref } from 'vue';
 import Tooltip from './Internal/Tooltip.vue';
-import type { SliderProps } from './types';
+import type { SliderProps } from '~/types';
 
 const props = withDefaults(defineProps<SliderProps>(), {
   modelValue: 0,

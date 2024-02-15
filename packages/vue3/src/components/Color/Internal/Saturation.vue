@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { CLR_BLACK, CLR_WHITE, constructLinearGradient } from '@youcan/ui-core';
 import { type CSSProperties, nextTick, onMounted, ref } from 'vue';
-import type { SaturationProps } from './types';
+import type { SaturationProps } from '~/types';
 
 const props = defineProps<SaturationProps>();
 const emit = defineEmits(['setsaturation']);

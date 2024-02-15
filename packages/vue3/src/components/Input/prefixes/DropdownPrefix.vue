@@ -1,11 +1,8 @@
 <script setup lang="ts">
 import { onClickOutside } from '@vueuse/core';
 import { computed, ref } from 'vue';
-import type { DropdownPrefixProps } from '../types';
+import type { DropdownItemDefinition, DropdownPrefixProps } from '~/types';
 import DropdownList from '~/components/Dropdown/DropdownList.vue';
-import type {
-  DropdownItemDefinition,
-} from '~/components/Dropdown/types';
 
 const props = withDefaults(
   defineProps<DropdownPrefixProps>(),

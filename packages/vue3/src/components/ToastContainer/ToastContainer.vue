@@ -2,8 +2,8 @@
 import { nextTick, onMounted, ref } from 'vue';
 import { Utils } from '@youcan/ui-core';
 import { onClickOutside } from '@vueuse/core';
-import type { ToastContainerProps, ToastOptions, ToastType } from './types';
 import Toast from './internal/Toast.vue';
+import type { ToastContainerProps, ToastOptions, ToastType } from '~/types';
 
 const props = withDefaults(defineProps<ToastContainerProps>(), {
   position: 'top-right',
@@ -17,8 +17,9 @@ const body = ref();
 const scroller = ref();
 const showAll = ref(false);
 const hideContainer = ref(false);
+const mouseOver = ref(false);
 
-let timeOut: ReturnType<typeof setTimeout>;
+let stackTimer: ReturnType<typeof setTimeout>;
 
 const closeAfterDuration = (afterDuration: number | undefined) => {
   if (afterDuration) {
@@ -30,6 +31,7 @@ const closeAfterDuration = (afterDuration: number | undefined) => {
 
 const showAllToasts = (show = true) => {
   showAll.value = show;
+  mouseOver.value = show;
   let direction = 1;
   if (props.position.includes('bottom')) {
     direction = -1;
@@ -50,7 +52,7 @@ const showAllToasts = (show = true) => {
     body.value.style.height = `${translateX}px`;
   }
 
-  clearTimeout(timeOut);
+  clearTimeout(stackTimer);
 };
 
 const messageListener = (event: any) => {
@@ -101,7 +103,7 @@ const toastVisibility = (id: string) => {
   return activeToasts.value.includes(id);
 };
 const mouseLeave = () => {
-  timeOut = setTimeout(() => {
+  stackTimer = setTimeout(() => {
     showAllToasts(false);
   }, 500);
 };
@@ -121,6 +123,8 @@ onMounted(() => {
           v-for="(toast, index) in toasts" :id="toast.id" :key="index" :position="position" :type="toast.options?.type"
           :show="toastVisibility(toast.id)"
           :close-after-duration="closeAfterDuration(toast.options?.duration)"
+          :can-close="toast.options?.canClose"
+          :mouse-over="mouseOver"
           @close="close(toast.id)"
         >
           <template v-if="toast.options?.title" #title>

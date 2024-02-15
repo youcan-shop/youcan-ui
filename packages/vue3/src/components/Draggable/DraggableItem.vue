@@ -2,7 +2,7 @@
 import { computed } from 'vue';
 import { DragHandle } from 'vue-slicksort';
 import Checkbox from '../Checkbox/Checkbox.vue';
-import type { DraggableItemProps, DraggableItemType } from './types';
+import type { DraggableItemProps, DraggableItemType } from '~/types';
 
 const props = defineProps<DraggableItemProps>();
 

@@ -4,7 +4,7 @@ export type HTMLInputTypeAttribute = 'button' | 'checkbox' | 'color' | 'date' | 
 
 export interface InputProps {
   type?: HTMLInputTypeAttribute
-  modelValue: string
+  modelValue: string | number
   error?: boolean
   canShow?: boolean
 }

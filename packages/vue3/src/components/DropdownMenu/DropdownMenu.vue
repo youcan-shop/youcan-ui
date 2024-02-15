@@ -2,7 +2,7 @@
 import { nextTick, onMounted, onUnmounted, ref } from 'vue';
 import { onClickOutside } from '@vueuse/core';
 import { setPosition } from '../Tooltip/utils';
-import type { DropdownMenuProps } from './types';
+import type { DropdownMenuProps } from '~/types';
 
 const props = withDefaults(defineProps<DropdownMenuProps>(), { position: 'bottom' });
 

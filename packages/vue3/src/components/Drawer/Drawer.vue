@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { onMounted, onUnmounted, useSlots } from 'vue';
-import type { DrawerProps } from './types';
+import type { DrawerProps } from '~/types';
 import Overlay from '~/components/Overlay/Overlay.vue';
 
 const props = withDefaults(defineProps<DrawerProps>(), {

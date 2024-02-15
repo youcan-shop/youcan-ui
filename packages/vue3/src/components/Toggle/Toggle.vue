@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import type { ToggleProps } from './types';
+import type { ToggleProps } from '~/types';
 
 const props = defineProps<ToggleProps>();
 

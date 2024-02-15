@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed, ref, useSlots } from 'vue';
 import { onClickOutside } from '@vueuse/core';
-import type { DropdownItemDefinition, DropdownProps } from './types';
 import DropdownList from './DropdownList.vue';
+import type { DropdownItemDefinition, DropdownProps } from '~/types';
 
 const props = withDefaults(
   defineProps<DropdownProps>(),

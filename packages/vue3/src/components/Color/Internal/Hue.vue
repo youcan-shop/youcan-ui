@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { type CSSProperties, onMounted, ref } from 'vue';
 import { constructHueGradient } from '@youcan/ui-core';
-import type { HueProps } from './types';
+import type { HueProps } from '~/types';
 
 const { hsv, width, height } = withDefaults(
   defineProps<HueProps>(),

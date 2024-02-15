@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { computed, onBeforeMount, onUpdated } from 'vue';
-import type { RatingInputProps } from './types';
+import { computed, onBeforeMount } from 'vue';
+import type { RatingInputProps } from '~/types';
 
 const props = withDefaults(
   defineProps<RatingInputProps>(),
@@ -24,14 +24,6 @@ const updateRatingModel = (star: number) => {
 };
 
 onBeforeMount(() => {
-  if (props.modelValue > props.ceil) {
-    throw new Error(
-      'The rating\'s ceil must be higher than or equal to the score.',
-    );
-  }
-});
-
-onUpdated(() => {
   if (props.modelValue > props.ceil) {
     throw new Error(
       'The rating\'s ceil must be higher than or equal to the score.',

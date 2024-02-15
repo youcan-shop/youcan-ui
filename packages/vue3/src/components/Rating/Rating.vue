@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onBeforeMount } from 'vue';
-import type { RatingProps } from './types';
+import type { RatingProps } from '~/types';
 
 const props = withDefaults(defineProps<RatingProps>(), {
   ceil: 5,

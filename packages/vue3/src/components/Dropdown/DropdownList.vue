@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed, nextTick, ref, watch } from 'vue';
-import type { DropdownItemArray, DropdownItemDefinition, DropdownItemGroups, DropdownListProps } from './types';
 import DropdownItem from './Internal/DropdownItem.vue';
 import { searchHandler } from './helpers';
+import type { DropdownItemArray, DropdownItemDefinition, DropdownItemGroups, DropdownListProps } from '~/types';
 import { Spinner } from '~/components';
 
 const props = withDefaults(
@@ -130,7 +130,7 @@ watch(() => props.show, (newValue) => {
 
 .dropdown-list .inner {
   min-height: 10px;
-  max-height: 240px;
+  max-height: 220px;
   padding: 8px 0;
   padding-bottom: 20px;
   overflow-x: hidden;

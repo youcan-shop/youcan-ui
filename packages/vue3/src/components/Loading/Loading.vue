@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, ref, watch, watchEffect } from 'vue';
-import type { LoadingProps } from './types';
+import type { LoadingProps } from '~/types';
 
 const props = withDefaults(
   defineProps<LoadingProps>(),

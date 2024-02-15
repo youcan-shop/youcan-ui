@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { PercentageProps } from './types';
+import type { PercentageProps } from '~/types';
 
 withDefaults(
   defineProps<PercentageProps>(),
@@ -16,6 +16,8 @@ withDefaults(
 <style scoped>
 .percentage {
   box-sizing: border-box;
+  width: max-content;
+  max-width: 100%;
   padding: 7.5px 12px;
   border-radius: 4px;
   background-color: var(--gray-50);

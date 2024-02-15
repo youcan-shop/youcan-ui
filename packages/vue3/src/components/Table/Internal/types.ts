@@ -1,7 +1,6 @@
-import type { TableActions, TableColumn, TableData, TableDataRow, TableInternalData } from '../types';
-import type { ButtonIconPosition, ButtonSize } from '~/components/Button/types';
+import type { ButtonIconPosition, ButtonSize, TableActions, TableColumn, TableData, TableDataRow, TableInternalData } from '~/types';
 
-export interface ButtonProps {
+export interface TableButtonProps {
   label: string
   iconName?: string
   size?: ButtonSize

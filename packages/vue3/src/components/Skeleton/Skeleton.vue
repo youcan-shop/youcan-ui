@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { SkeletonProps } from './types';
+import type { SkeletonProps } from '~/types';
 
 withDefaults(
   defineProps<SkeletonProps>(),

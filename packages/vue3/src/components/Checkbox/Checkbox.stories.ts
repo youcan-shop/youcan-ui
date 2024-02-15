@@ -1,28 +1,29 @@
-/* eslint-disable no-console */
-import type { Meta } from '@storybook/vue3';
-import Checkbox from './Checkbox.vue';
+import type { Meta, StoryObj } from '@storybook/vue3';
+import { ref } from 'vue';
+import { Checkbox } from '~/components';
 
+type Story = StoryObj<typeof Checkbox>;
 const meta: Meta<typeof Checkbox> = {
-  title: 'Primitive/Checkbox',
+  title: 'Application/Checkbox',
   component: Checkbox,
-  tags: ['primitive', 'toggle', 'input', 'on/off', 'switch', 'checkbox'],
+  tags: ['toggle', 'input', 'on/off', 'switch', 'checkbox'],
   argTypes: {
-    value: {
-      table: { disable: true },
-    },
+    value: { table: { disable: true } },
+    modelValue: { table: { disable: true } },
+    label: { control: false },
   },
 };
 
+export const Default: Story = {
+  render: args => ({
+    components: { Checkbox },
+    setup() {
+      const value = ref(false);
+
+      return { args, value };
+    },
+    template: '<Checkbox v-model="value" /><span>Toggle\'s: {{ value ? "on" : "off" }}</span>',
+  }),
+};
+
 export default meta;
-
-const Template = (args: Record<string, unknown>, { argTypes }: Record<string, Record<string, unknown>>) => ({
-  props: Object.keys(argTypes).filter(x => x !== 'value'),
-  data() {
-    return { value: false };
-  },
-  components: { Checkbox },
-  template: '<Checkbox v-bind="$props" v-model="value" @update:model-value="action" /><span class="sb-c-preview-text">Toggle\'s: {{ value ? "on" : "off" }}</span>',
-  methods: { action: (value: boolean) => console.log(`Toggle: ${value}`) },
-});
-
-export const Default = Template.bind({});

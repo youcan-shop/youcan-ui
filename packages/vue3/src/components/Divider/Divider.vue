@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { DividerProps } from './types';
+import type { DividerProps } from '~/types';
 
 withDefaults(
   defineProps<DividerProps>(),

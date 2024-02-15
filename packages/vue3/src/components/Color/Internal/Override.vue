@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import type { OverrideProps } from './types';
+import type { OverrideProps } from '~/types';
 import Input from '~/components/Input/Input.vue';
 
 const props = withDefaults(

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { SearchResultProps } from '../types';
+import type { SearchResultProps } from '~/types';
 import { Rating, Thumbnail } from '~/components';
 
 defineProps<SearchResultProps>();
