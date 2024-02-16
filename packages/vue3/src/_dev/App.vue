@@ -2,36 +2,33 @@
 import 'uno.css';
 import '../assets/main.css';
 import { ref } from 'vue';
-import { PaginationBar } from '~/components';
-
-const currentPage = ref(1);
-const perPage = ref(10);
-
-const total = 50;
-const totalPages = Math.ceil(total / perPage.value);
-const perPageOptions = [5, 10, 20, 30, 50];
-
-function handlePaginationNavigation(pageNumber: number) {
-  currentPage.value = pageNumber;
-}
+import { RangeSlider } from '~/components';
+const value = ref(100);
 </script>
 
 <template>
   <div class="container">
-    <PaginationBar
-      v-model:perPage="perPage"
-      :current="currentPage"
-      :size="totalPages"
-      :count="perPage"
-      :total="total"
-      :per-page-options="perPageOptions"
-      @update:current="handlePaginationNavigation"
-    />
+    <div>
+      <RangeSlider
+        v-model="value"
+        suffix=""
+        :max="500"
+        :min="50"
+      />
+    </div>
   </div>
 </template>
 
 <style scoped>
 .container {
-  min-width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+}
+
+.container > div {
+  width: 450px;
 }
 </style>
