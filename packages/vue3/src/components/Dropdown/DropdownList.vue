@@ -51,7 +51,7 @@ function toggle(item: DropdownItemDefinition, value: boolean): void {
   if (props.multiple) {
     return emit('toggle', item, value);
   }
-  value && emit('select', item);
+  emit('select', item);
 }
 
 const handleScroll = async (event: Event) => {
@@ -129,6 +129,8 @@ watch(() => props.show, (newValue) => {
 }
 
 .dropdown-list .inner {
+  display: flex;
+  flex-direction: column;
   min-height: 10px;
   max-height: 220px;
   padding: 8px 0;
@@ -141,6 +143,7 @@ watch(() => props.show, (newValue) => {
   white-space: nowrap;
   scrollbar-width: thin;
   scrollbar-color: var(--brand-500) transparent;
+  row-gap: 1px;
 
   &::-webkit-scrollbar {
     width: 4px;

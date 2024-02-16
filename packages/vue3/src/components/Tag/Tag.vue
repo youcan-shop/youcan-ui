@@ -184,12 +184,6 @@ onMounted(() => {
   bottom: calc(100% + 5px);
 }
 
-.dropdown > :deep(.inner) {
-  display: flex;
-  flex-direction: column;
-  row-gap: 1px;
-}
-
 .dropdown :deep(.item .checkbox) {
   display: none;
 }

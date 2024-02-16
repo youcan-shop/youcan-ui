@@ -53,14 +53,15 @@ function toggle(event: Event) {
   font: var(--text-sm-regular);
 }
 
-.item:hover {
-  background-color: var(--gray-50);
-}
-
 .item:focus,
 .item:active {
   outline: none;
   background: var(--gray-100);
+}
+
+.item.selected,
+.item:hover {
+  background-color: var(--gray-50);
 }
 
 .preview {
