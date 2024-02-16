@@ -9,18 +9,22 @@ const props = defineProps<SingleDateInputProps>();
 
 const emit = defineEmits(['update:modelValue']);
 
-const model = computed({
-  get: () => props.modelValue,
-  set: (value: Date | null) => emit('update:modelValue', value),
-});
-
 const isDatePickerVisible = ref(false);
 const datePicker = ref<HTMLDivElement>();
+
 const toggleDatePicker = (state = !isDatePickerVisible.value) => {
   if (!props.disabled) {
     isDatePickerVisible.value = state;
   }
 };
+
+const model = computed({
+  get: () => props.modelValue,
+  set: (value: Date | null) => {
+    toggleDatePicker(false);
+    emit('update:modelValue', value);
+  },
+});
 
 onClickOutside(datePicker, () => toggleDatePicker(false));
 </script>
