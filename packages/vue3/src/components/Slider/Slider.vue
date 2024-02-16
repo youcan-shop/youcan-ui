@@ -224,7 +224,6 @@ html[dir="rtl"] {
       .tooltip {
         right: unset;
         left: 7px;
-        transform: translateX(-50%) scale(1);
       }
     }
 
