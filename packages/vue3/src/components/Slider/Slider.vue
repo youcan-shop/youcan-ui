@@ -43,7 +43,7 @@ onMounted(() => {
   <div class="slider-container" :class="{ disabled }">
     <span class="label">{{ `${prefix}${min}${suffix}` }}</span>
     <div class="slider" :class="{ disabled }">
-      <input v-model="model" type="range" :min="min" :max="max">
+      <input v-model.number="model" type="range" :min="min" :max="max">
       <div class="selected-rail">
         <Tooltip>
           {{ label }}
@@ -199,6 +199,42 @@ onMounted(() => {
 
             &::before {
               transform: scale(1.45);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+</style>
+
+<style lang="scss" scoped>
+html[dir="rtl"] {
+  .slider {
+    .selected-rail {
+      right: 0;
+      left: unset;
+
+      &::before,
+      &::after {
+        right: unset;
+        left: 0;
+      }
+
+      .tooltip {
+        right: unset;
+        left: 7px;
+        transform: translateX(-50%) scale(1);
+      }
+    }
+
+    input[type="range"] {
+      &:hover {
+        ~ {
+          .selected-rail {
+            .tooltip {
+              transform: translateX(-50%) scale(1);
+              opacity: 1;
             }
           }
         }
