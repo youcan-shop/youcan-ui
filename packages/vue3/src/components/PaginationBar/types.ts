@@ -7,6 +7,8 @@ export interface PaginationBarProps {
   previousLabel?: string
   nextLabel?: string
   perPageLabel?: string
+  perPage?: number
+  perPageOptions?: number[]
 }
 
 export interface NavigationButtonProps {
