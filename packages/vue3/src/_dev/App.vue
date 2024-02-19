@@ -2,36 +2,25 @@
 import 'uno.css';
 import '../assets/main.css';
 import { ref } from 'vue';
-import { PaginationBar } from '~/components';
+import { SingleDateInput } from '~/components';
 
-const currentPage = ref(1);
-const perPage = ref(10);
+const defaultDate = new Date();
 
-const total = 50;
-const totalPages = Math.ceil(total / perPage.value);
-const perPageOptions = [5, 10, 20, 30, 50];
-
-function handlePaginationNavigation(pageNumber: number) {
-  currentPage.value = pageNumber;
-}
+const myDate = ref<Date>(defaultDate);
 </script>
 
 <template>
   <div class="container">
-    <PaginationBar
-      v-model:perPage="perPage"
-      :current="currentPage"
-      :size="totalPages"
-      :count="perPage"
-      :total="total"
-      :per-page-options="perPageOptions"
-      @update:current="handlePaginationNavigation"
-    />
+    <SingleDateInput v-model="myDate" />
   </div>
 </template>
 
 <style scoped>
 .container {
-  min-width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 50vh;
 }
 </style>
