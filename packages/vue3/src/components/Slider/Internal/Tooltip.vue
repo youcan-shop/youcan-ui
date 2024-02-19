@@ -46,3 +46,12 @@
   }
 }
 </style>
+
+<style scoped lang="scss">
+html[dir="rtl"] {
+  .tooltip {
+    right: unset;
+    left: 7px;
+  }
+}
+</style>

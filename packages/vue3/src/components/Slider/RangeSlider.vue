@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, onMounted } from 'vue';
+import { computed, ref } from 'vue';
 import Rail from './Internal/Rail.vue';
 import type { SliderProps } from '~/types';
 
@@ -11,31 +11,27 @@ const props = withDefaults(defineProps<SliderProps>(), {
   suffix: '',
 });
 
-const emit = defineEmits(['update:modelValue']);
+const minValue = ref(props.min);
+const maxValue = ref(props.max);
 
-const model = computed({
-  get: () => props.modelValue,
-  set: (value: number) => emit('update:modelValue', value),
-},
-);
-
-const label = computed(() => {
+const minLabel = computed(() => {
   const { prefix, suffix } = props;
 
-  return `${prefix}${model.value}${suffix}`;
+  return `${prefix}${minValue.value}${suffix}`;
 });
 
-onMounted(() => {
-  const { max, min, modelValue } = props;
-  model.value = modelValue > max ? max : modelValue < min ? min : modelValue;
+const maxLabel = computed(() => {
+  const { prefix, suffix } = props;
+
+  return `${prefix}${maxValue.value}${suffix}`;
 });
 </script>
 
 <template>
-  <div class="slider" :class="{ disabled }">
+  <div class="slider" :class="[{ disabled }, type]">
     <span class="label">{{ `${prefix}${min}${suffix}` }}</span>
     <div class="slide-area">
-      <Rail v-model="model" :label="label" :min="min" :max="max" :disabled="disabled" />
+      <Rail v-model:min-value="minValue" v-model:max-value="maxValue" v-bind="{ min, max, disabled, minLabel, maxLabel, type }" />
     </div>
     <span class="label">{{ `${prefix}${max}${suffix}` }}</span>
   </div>
@@ -74,6 +70,14 @@ onMounted(() => {
     font: var(--text-xs-regular);
     font-style: italic;
     user-select: none;
+  }
+
+  &.range {
+    .slide-area {
+      &::before {
+        background-color: var(--brand-500);
+      }
+    }
   }
 }
 </style>

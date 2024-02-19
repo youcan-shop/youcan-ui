@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { nextTick, onMounted, onUnmounted, ref } from 'vue';
 import Tooltip from './Tooltip.vue';
 import type { RailProps } from '~/types';
 
@@ -7,31 +7,93 @@ const props = withDefaults(defineProps<RailProps>(), {
   modelValue: 0,
 });
 
-const emit = defineEmits(['update:modelValue']);
+const emit = defineEmits(['update:minValue', 'update:maxValue']);
 
-const width = ref('0%');
+const minWidth = ref(0);
+const maxWidth = ref(0);
+const selectedThumb = ref('min');
+const active = ref(false);
 const rail = ref();
 
-const model = computed({
-  get: () => props.modelValue,
-  set: (value: number) => {
-    const { max, min, disabled } = props;
-    if (disabled) {
-      return;
+const isRtl = () => {
+  return document.dir === 'rtl';
+};
+
+const setValues = (percent: number) => {
+  const { min, max, maxValue, minValue } = props;
+  const total = max - min;
+  const value = Math.floor(total * (percent / 100)) + min;
+
+  if (selectedThumb.value === 'max') {
+    const newValue = (max - value) + min;
+    if (newValue >= minValue) {
+      maxWidth.value = percent;
+      emit('update:maxValue', newValue);
     }
-    const percent = (Math.abs(Math.abs(value) - Math.abs(min)) / Math.abs(Math.abs(max) - Math.abs(min))) * 100;
-    width.value = `${percent > 100 ? 100 : percent}%`;
-    emit('update:modelValue', value);
-  },
+
+    return;
+  }
+
+  if (value <= maxValue) {
+    minWidth.value = percent;
+    emit('update:minValue', value);
+  }
+};
+
+const mousedown = (selected = 'min') => {
+  selectedThumb.value = selected;
+  nextTick(() => {
+    active.value = true;
+  });
+};
+
+const mousemove = (event: MouseEvent, clickEvent = false) => {
+  if ((active.value || (clickEvent && props.type !== 'range')) && rail.value) {
+    const offset = rail.value.getBoundingClientRect();
+
+    const mousePosition = (isRtl() || selectedThumb.value === 'max') ? offset.right - event.clientX : event.clientX - offset.left;
+
+    let percent = Math.floor((mousePosition / offset.width) * 100);
+    percent = percent >= 100 ? 100 : percent;
+    percent = percent <= 0 ? 0 : percent;
+    setValues(percent);
+  }
+};
+
+const handleClick = (event: MouseEvent) => {
+  mousemove(event, true);
+};
+
+const mouseup = () => {
+  active.value = false;
+};
+const topercent = (val: number) => {
+  return `${val}%`;
+};
+
+onMounted(() => {
+  window.addEventListener('mousemove', mousemove);
+  window.addEventListener('mouseup', mouseup);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('mousemove', mousemove);
+  window.removeEventListener('mouseup', mouseup);
 });
 </script>
 
 <template>
-  <div ref="rail" class="rail">
-    <input v-model.number="model" type="range" :min="min" :max="max">
-    <div class="selected">
+  <div ref="rail" class="rail" :class="[{ active }, { rtl: isRtl() }, type]" @click="handleClick">
+    <div class="selected min">
+      <div class="thumb" @mousedown="mousedown()" />
       <Tooltip>
-        {{ label }}
+        {{ minLabel }}
+      </Tooltip>
+    </div>
+    <div v-if="type === 'range'" class="selected max">
+      <div class="thumb" @mousedown="mousedown('max')" />
+      <Tooltip>
+        {{ maxLabel }}
       </Tooltip>
     </div>
   </div>
@@ -50,78 +112,98 @@ const model = computed({
 
   .selected {
     display: flex;
-    position: relative;
+    position: absolute;
     align-items: center;
-    width: v-bind(width);
     min-width: 14px;
     height: 6px;
     border-radius: 7px;
     background-color: var(--brand-500);
     cursor: pointer;
+    user-select: none;
 
-    &::before,
-    &::after {
-      content: "";
+    .thumb {
       position: absolute;
       right: 0;
-      box-sizing: border-box;
       width: 14px;
       height: 14px;
-      border-radius: 50%;
-      cursor: pointer;
+
+      &::before,
+      &::after {
+        content: "";
+        position: absolute;
+        box-sizing: border-box;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        cursor: pointer;
+      }
+
+      &::before {
+        z-index: 1;
+        transition: transform 150ms linear;
+        border: 1px solid var(--brand-500);
+        background-color: var(--base-white);
+      }
+
+      &::after {
+        z-index: 2;
+        background-color: var(--brand-500);
+      }
     }
 
-    &::before {
-      z-index: 1;
-      transition: transform 150ms linear;
-      border: 1px solid var(--brand-500);
-      background-color: var(--base-white);
+    &.min {
+      left: 0;
+      width: v-bind(topercent(minWidth));
+
+      .thumb {
+        right: 0;
+      }
     }
 
-    &::after {
-      z-index: 2;
-      background-color: var(--brand-500);
-    }
+    &.max {
+      right: 0;
+      width: v-bind(topercent(maxWidth));
 
-    &:hover {
-      background-color: var(--brand-600);
-
-      .tooltip {
-        transform: translateX(50%) scale(1);
-        opacity: 1;
+      .thumb {
+        left: 0;
       }
     }
   }
 
-  input[type="range"] {
-    position: absolute;
-    z-index: 4;
-    left: 0;
-    width: 100%;
-    margin: 0;
-    opacity: 0;
+  &.range {
+    .selected {
+      background-color: var(--gray-200);
 
-    &:hover {
-      ~ {
-        .selected {
-          background-color: var(--brand-600);
+      &.min {
+        max-width: calc(100% - 14px);
+      }
+    }
+  }
 
-          .tooltip {
-            transform: translateX(50%) scale(1);
-            opacity: 1;
-          }
+  &:hover,
+  &.active {
+    .selected {
+      .tooltip {
+        transform: translateX(50%) scale(1);
+        opacity: 1;
+      }
+
+      &.max {
+        .tooltip {
+          right: unset;
+          left: 7px;
+          transform: translateX(-50%) scale(1);
+          opacity: 1;
         }
       }
     }
+  }
 
-    &:active {
-      ~ {
-        .selected {
-          background-color: var(--brand-400);
-
-          &::before {
-            transform: scale(1.45);
-          }
+  &.active {
+    .selected {
+      .thumb {
+        &::before {
+          transform: scale(1.45);
         }
       }
     }

@@ -12,8 +12,9 @@ const value = ref(100);
       <RangeSlider
         v-model="value"
         suffix=""
-        :max="500"
-        :min="50"
+        :max="200000"
+        :min="2000"
+        type="range"
       />
     </div>
   </div>

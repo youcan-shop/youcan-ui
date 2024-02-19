@@ -26,7 +26,7 @@ export type { SearchInputProps, SearchResultProps, QueryResult } from '../compon
 export type { SettingsNavItemProps } from '../components/SettingsNav/types';
 export type { SidebarProps, SidebarItemProps, SidebarSubItemProps } from '../components/Sidebar/types';
 export type { SkeletonProps, SkeletonType } from '../components/Skeleton/types';
-export type { SliderProps, RailProps } from '../components/Slider/types';
+export type { SliderProps, RailProps, RangeValue } from '../components/Slider/types';
 export type { SpinnerProps } from '../components/Spinner/types';
 export type { EditableStatusProps, StaticStatusProps, StaticStatusDefinition, StatusDefinition } from '../components/Status/types';
 export type { TableProps, TableActions, TableColumn, TableData, TableDataRow, TableInternalData, TableDataComposable, TableColumnValue, HandleSubCompModel, TableColumnValues } from '../components/Table/types';

@@ -1,9 +1,18 @@
-export interface RailProps {
-  modelValue?: number
-  label?: string
+type SliderType = 'number' | 'range';
+export interface RangeValue {
   min: number
   max: number
+}
+export interface RailProps {
+  modelValue?: number
+  minLabel?: string
+  maxLabel?: string
+  min: number
+  max: number
+  minValue: number
+  maxValue: number
   disabled?: boolean
+  type?: SliderType
 }
 
 export interface SliderProps {
@@ -13,4 +22,5 @@ export interface SliderProps {
   disabled?: boolean
   prefix?: string
   suffix?: string
+  type?: SliderType
 }
