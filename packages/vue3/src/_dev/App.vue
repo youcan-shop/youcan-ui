@@ -2,25 +2,23 @@
 import 'uno.css';
 import '../assets/main.css';
 import { ref } from 'vue';
-import { SingleDateInput } from '~/components';
+import { RichText } from '~/components';
 
-const defaultDate = new Date();
-
-const myDate = ref<Date>(defaultDate);
+const content = ref();
 </script>
 
 <template>
   <div class="container">
-    <SingleDateInput v-model="myDate" />
+    <RichText v-model="content" />
+    <p>{{ content }}</p>
   </div>
 </template>
 
 <style scoped>
 .container {
-  display: flex;
   align-items: center;
   justify-content: center;
-  width: 100vw;
-  height: 50vh;
+  width: 60%;
+  margin: 10%;
 }
 </style>
