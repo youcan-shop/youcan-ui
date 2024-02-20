@@ -2,25 +2,21 @@
 import 'uno.css';
 import '../assets/main.css';
 import { ref } from 'vue';
-import { SingleDateInput } from '~/components';
+import { Dropdown } from '~/components';
+const category = ref(null);
 
-const defaultDate = new Date();
-
-const myDate = ref<Date>(defaultDate);
+const items = [
+  { label: 'Shoes', value: 1 },
+  { label: 'Cosmetics', value: 2 },
+  { label: 'Gym', value: 3 },
+];
 </script>
 
 <template>
-  <div class="container">
-    <SingleDateInput v-model="myDate" />
-  </div>
+  <Dropdown
+    v-model="category"
+    searchable
+    :items="items"
+    placeholder="Select category"
+  />
 </template>
-
-<style scoped>
-.container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100vw;
-  height: 50vh;
-}
-</style>
