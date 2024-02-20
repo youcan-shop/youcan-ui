@@ -11,7 +11,7 @@ const emit = defineEmits(['update:modelValue']);
 
 const minWidth = ref(0);
 const maxWidth = ref(0);
-const selectedThumb = ref('min');
+const selectedThumb = ref('');
 const active = ref(false);
 const rail = ref();
 
@@ -51,11 +51,14 @@ const setValues = (percent: number) => {
 const initValues = () => {
   const { min, max, modelValue } = props;
   if (typeof modelValue === 'number') {
-    minWidth.value = (modelValue / (max - min)) * 100;
+    minWidth.value = Math.abs(modelValue / (max - min)) * 100;
   }
 };
 
-const mousedown = (selected = 'min') => {
+const mousedown = (event: MouseEvent, selected = 'min') => {
+  if (event.button !== 0) {
+    return;
+  }
   selectedThumb.value = selected;
   nextTick(() => {
     active.value = true;
@@ -66,7 +69,8 @@ const mousemove = (event: MouseEvent, clickEvent = false) => {
   if ((active.value || (clickEvent && props.type !== 'range')) && rail.value) {
     const offset = rail.value.getBoundingClientRect();
 
-    const mousePosition = (isRtl() || selectedThumb.value === 'max') ? offset.right - event.clientX : event.clientX - offset.left;
+    let mousePosition = (isRtl() || selectedThumb.value === 'max') ? offset.right - event.clientX : event.clientX - offset.left;
+    mousePosition = (isRtl() && selectedThumb.value === 'max') ? event.clientX - offset.left : offset.right - event.clientX;
 
     let percent = Math.floor((mousePosition / offset.width) * 100);
     percent = percent >= 100 ? 100 : percent;
@@ -102,13 +106,13 @@ onUnmounted(() => {
 <template>
   <div ref="rail" class="rail" :class="[{ rtl: isRtl() }, type]" @click="handleClick">
     <div class="selected min" :class="{ active: selectedThumb === 'min' }">
-      <div class="thumb" @mousedown="mousedown()" />
+      <div class="thumb" @mousedown="mousedown($event)" />
       <Tooltip>
         {{ minLabel }}
       </Tooltip>
     </div>
     <div v-if="type === 'range'" class="selected max" :class="{ active: selectedThumb === 'max' }">
-      <div class="thumb" @mousedown="mousedown('max')" />
+      <div class="thumb" @mousedown="mousedown($event, 'max')" />
       <Tooltip>
         {{ maxLabel }}
       </Tooltip>
@@ -218,6 +222,36 @@ onUnmounted(() => {
     .selected {
       max-width: calc(100% - 14px);
       background-color: var(--gray-200);
+    }
+  }
+
+  &.rtl {
+    .selected {
+      &.min {
+        right: 0;
+        left: unset;
+
+        .thumb {
+          right: unset;
+          left: 0;
+        }
+      }
+
+      &.max {
+        right: unset;
+        left: 0;
+
+        .thumb {
+          right: 0;
+          left: unset;
+        }
+
+        .tooltip {
+          right: unset;
+          left: 7px;
+          transform: translateX(-50%) scale(0);
+        }
+      }
     }
   }
 }

@@ -21,6 +21,18 @@ const modelValues = computed({
   },
 });
 
+const MIN = computed(() => {
+  const { min, max } = props;
+
+  return Math.min(min, max);
+});
+
+const MAX = computed(() => {
+  const { min, max } = props;
+
+  return Math.max(min, max);
+});
+
 const minLabel = computed(() => {
   const { prefix, suffix } = props;
   const label = typeof modelValues.value === 'number' ? modelValues.value : modelValues.value.min;
@@ -35,14 +47,13 @@ const maxLabel = computed(() => {
 });
 
 const setValues = (model: number | RangeValue) => {
-  const { min, max } = props;
   if (typeof model === 'number') {
-    modelValues.value = model < min ? min : model > max ? max : model;
+    modelValues.value = model < MIN.value ? MIN.value : model > MAX.value ? MAX.value : model;
   }
   else {
     const values = (model as RangeValue);
-    const minValue = values.min < min ? min : values.min > max ? max : values.min;
-    const maxValue = values.max > max ? max : values.max < min ? min : values.max;
+    const minValue = values.min < MIN.value ? MIN.value : values.min > MAX.value ? MAX.value : values.min;
+    const maxValue = values.max > MAX.value ? MAX.value : values.max < MIN.value ? MIN.value : values.max;
     modelValues.value = { min: minValue, max: maxValue };
   }
 };
@@ -54,11 +65,11 @@ onMounted(() => {
 
 <template>
   <div class="slider" :class="[{ disabled }, type]">
-    <span class="label">{{ `${prefix}${min}${suffix}` }}</span>
+    <span class="label">{{ `${prefix}${MIN}${suffix}` }}</span>
     <div class="slide-area">
-      <Rail v-model="modelValues" v-bind="{ min, max, disabled, minLabel, maxLabel, type }" />
+      <Rail v-model="modelValues" :min="MIN" :max="MAX" v-bind="{ disabled, minLabel, maxLabel, type }" />
     </div>
-    <span class="label">{{ `${prefix}${max}${suffix}` }}</span>
+    <span class="label">{{ `${prefix}${MAX}${suffix}` }}</span>
   </div>
 </template>
 
