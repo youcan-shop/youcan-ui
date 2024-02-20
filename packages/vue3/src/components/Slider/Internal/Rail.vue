@@ -66,11 +66,14 @@ const mousedown = (event: MouseEvent, selected = 'min') => {
 };
 
 const mousemove = (event: MouseEvent, clickEvent = false) => {
+  if (props.disabled) {
+    return;
+  }
   if ((active.value || (clickEvent && props.type !== 'range')) && rail.value) {
     const offset = rail.value.getBoundingClientRect();
 
     let mousePosition = (isRtl() || selectedThumb.value === 'max') ? offset.right - event.clientX : event.clientX - offset.left;
-    mousePosition = (isRtl() && selectedThumb.value === 'max') ? event.clientX - offset.left : offset.right - event.clientX;
+    mousePosition = (isRtl() && selectedThumb.value === 'max') ? event.clientX - offset.left : mousePosition;
 
     let percent = Math.floor((mousePosition / offset.width) * 100);
     percent = percent >= 100 ? 100 : percent;
@@ -104,7 +107,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div ref="rail" class="rail" :class="[{ rtl: isRtl() }, type]" @click="handleClick">
+  <div ref="rail" class="rail" :class="[{ rtl: isRtl() }, { disabled }, type]" @click="handleClick">
     <div class="selected min" :class="{ active: selectedThumb === 'min' }">
       <div class="thumb" @mousedown="mousedown($event)" />
       <Tooltip>
@@ -235,6 +238,10 @@ onUnmounted(() => {
           right: unset;
           left: 0;
         }
+
+        .tooltip {
+          transform: translateX(-50%) scale(0);
+        }
       }
 
       &.max {
@@ -247,9 +254,90 @@ onUnmounted(() => {
         }
 
         .tooltip {
-          right: unset;
-          left: 7px;
-          transform: translateX(-50%) scale(0);
+          right: 7px;
+          left: unset;
+          transform: translateX(50%) scale(0);
+        }
+      }
+
+      &.active,
+      &:hover {
+        .tooltip {
+          transform: translateX(-50%) scale(1);
+          opacity: 1;
+        }
+
+        &.max {
+          .tooltip {
+            transform: translateX(50%) scale(1);
+            opacity: 1;
+          }
+        }
+      }
+    }
+  }
+}
+</style>
+
+<style scoped lang="scss">
+.rail.disabled {
+  .selected {
+    background-color: var(--gray-100);
+
+    &,
+    .thumb::before,
+    .thumb::after {
+      cursor: not-allowed;
+    }
+
+    .thumb {
+      &::before,
+      &::after {
+        border: 1px solid var(--gray-200);
+        background-color: var(--gray-200);
+      }
+    }
+
+    &.max,
+    &.min {
+      .tooltip {
+        opacity: 1;
+      }
+    }
+
+    &.min {
+      .tooltip {
+        transform: translateX(50%) scale(1);
+      }
+    }
+
+    &.max {
+      .tooltip {
+        transform: translateX(-50%) scale(1);
+      }
+    }
+
+    &:hover,
+    &.active {
+      .thumb {
+        &::before {
+          transform: scale(1);
+        }
+      }
+    }
+  }
+
+  &.rtl {
+    .selected {
+      &.min {
+        .tooltip {
+          transform: translateX(-50%) scale(1);
+        }
+      }
+
+      &.max {
+        .tooltip {
+          transform: translateX(50%) scale(1);
         }
       }
     }

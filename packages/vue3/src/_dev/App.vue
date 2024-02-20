@@ -18,6 +18,7 @@ const rangeValue = ref<RangeValue>({ min: 40, max: 50 });
         :max="200000"
         :min="2000"
         type="range"
+        disabled
       />
       <div>min : {{ rangeValue.min }}  ==> max: {{ rangeValue.max }}</div>
       <Slider
@@ -25,6 +26,7 @@ const rangeValue = ref<RangeValue>({ min: 40, max: 50 });
         suffix=""
         :max="200000"
         :min="2000"
+        disabled
       />
       <div>{{ value }}</div>
     </div>

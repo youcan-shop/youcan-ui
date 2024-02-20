@@ -115,13 +115,27 @@ onMounted(() => {
       }
     }
 
-    &:hover {
+    &.disabled {
       .slide-area {
         &::before {
-          background-color: var(--brand-400);
+          background-color: var(--gray-100);
         }
       }
     }
+
+    &:hover {
+      &:not(.disabled) {
+        .slide-area {
+          &::before {
+            background-color: var(--brand-400);
+          }
+        }
+      }
+    }
+  }
+
+  &.disabled {
+    cursor: not-allowed;
   }
 }
 </style>
