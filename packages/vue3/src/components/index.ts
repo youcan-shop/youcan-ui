@@ -53,7 +53,6 @@ export { default as RadioGroup } from './Radio/RadioGroup.vue';
 export { default as RadioList } from './RadioList/RadioList.vue';
 export { default as Tooltip } from './Tooltip/Tooltip.vue';
 export { default as Slider } from './Slider/Slider.vue';
-export { default as RangeSlider } from './Slider/RangeSlider.vue';
 export { default as Modal } from './Modal/Modal.vue';
 export { default as ResourcePicker } from './ResourcePicker/ResourcePicker.vue';
 export { default as Popover } from './Popover/Popover.vue';

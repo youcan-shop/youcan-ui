@@ -2,20 +2,31 @@
 import 'uno.css';
 import '../assets/main.css';
 import { ref } from 'vue';
-import { RangeSlider } from '~/components';
-const value = ref(100);
+import { Slider } from '~/components';
+import type { RangeValue } from '~/types';
+
+const value = ref(102980);
+const rangeValue = ref<RangeValue>({ min: 40, max: 50 });
 </script>
 
 <template>
   <div class="container">
     <div>
-      <RangeSlider
-        v-model="value"
+      <Slider
+        v-model="rangeValue"
         suffix=""
         :max="200000"
         :min="2000"
         type="range"
       />
+      <div>min : {{ rangeValue.min }}  ==> max: {{ rangeValue.max }}</div>
+      <Slider
+        v-model="value"
+        suffix=""
+        :max="200000"
+        :min="2000"
+      />
+      <div>{{ value }}</div>
     </div>
   </div>
 </template>
@@ -30,6 +41,13 @@ const value = ref(100);
 }
 
 .container > div {
+  display: flex;
+  flex-direction: column;
   width: 450px;
+  gap: 30px;
+}
+
+.container > div > div {
+  font: var(--text-sm-medium);
 }
 </style>

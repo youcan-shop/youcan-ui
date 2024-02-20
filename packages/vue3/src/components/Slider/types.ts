@@ -3,24 +3,22 @@ export interface RangeValue {
   min: number
   max: number
 }
-export interface RailProps {
-  modelValue?: number
-  minLabel?: string
-  maxLabel?: string
+
+interface Props {
+  modelValue?: number | RangeValue
   min: number
   max: number
-  minValue: number
-  maxValue: number
   disabled?: boolean
   type?: SliderType
 }
 
-export interface SliderProps {
-  modelValue?: number
-  min?: number
-  max?: number
-  disabled?: boolean
+export interface RailProps extends Props {
+  modelValue?: number | RangeValue
+  minLabel?: string
+  maxLabel?: string
+}
+
+export interface SliderProps extends Props {
   prefix?: string
   suffix?: string
-  type?: SliderType
 }

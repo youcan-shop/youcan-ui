@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { nextTick, onMounted, onUnmounted, ref } from 'vue';
 import Tooltip from './Tooltip.vue';
-import type { RailProps } from '~/types';
+import type { RailProps, RangeValue } from '~/types';
 
 const props = withDefaults(defineProps<RailProps>(), {
   modelValue: 0,
 });
 
-const emit = defineEmits(['update:minValue', 'update:maxValue']);
+const emit = defineEmits(['update:modelValue']);
 
 const minWidth = ref(0);
 const maxWidth = ref(0);
@@ -20,23 +20,38 @@ const isRtl = () => {
 };
 
 const setValues = (percent: number) => {
-  const { min, max, maxValue, minValue } = props;
+  const { min, max, modelValue } = props;
   const total = max - min;
   const value = Math.floor(total * (percent / 100)) + min;
 
-  if (selectedThumb.value === 'max') {
-    const newValue = (max - value) + min;
-    if (newValue >= minValue) {
-      maxWidth.value = percent;
-      emit('update:maxValue', newValue);
+  if (typeof modelValue === 'number') {
+    minWidth.value = percent;
+    emit('update:modelValue', value);
+  }
+  else {
+    const convertedModel = (modelValue as RangeValue);
+    const newModelValue: RangeValue = convertedModel;
+
+    if (selectedThumb.value === 'max') {
+      const newValue = (max - value) + min;
+      if (newValue >= convertedModel.min) {
+        maxWidth.value = percent;
+        newModelValue.max = newValue;
+      }
+    }
+    else if (value <= convertedModel.max && selectedThumb.value === 'min') {
+      minWidth.value = percent;
+      newModelValue.min = value;
     }
 
-    return;
+    emit('update:modelValue', newModelValue);
   }
+};
 
-  if (value <= maxValue) {
-    minWidth.value = percent;
-    emit('update:minValue', value);
+const initValues = () => {
+  const { min, max, modelValue } = props;
+  if (typeof modelValue === 'number') {
+    minWidth.value = (modelValue / (max - min)) * 100;
   }
 };
 
@@ -66,6 +81,7 @@ const handleClick = (event: MouseEvent) => {
 
 const mouseup = () => {
   active.value = false;
+  selectedThumb.value = '';
 };
 const topercent = (val: number) => {
   return `${val}%`;
@@ -74,6 +90,7 @@ const topercent = (val: number) => {
 onMounted(() => {
   window.addEventListener('mousemove', mousemove);
   window.addEventListener('mouseup', mouseup);
+  initValues();
 });
 
 onUnmounted(() => {
@@ -83,14 +100,14 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div ref="rail" class="rail" :class="[{ active }, { rtl: isRtl() }, type]" @click="handleClick">
-    <div class="selected min">
+  <div ref="rail" class="rail" :class="[{ rtl: isRtl() }, type]" @click="handleClick">
+    <div class="selected min" :class="{ active: selectedThumb === 'min' }">
       <div class="thumb" @mousedown="mousedown()" />
       <Tooltip>
         {{ minLabel }}
       </Tooltip>
     </div>
-    <div v-if="type === 'range'" class="selected max">
+    <div v-if="type === 'range'" class="selected max" :class="{ active: selectedThumb === 'max' }">
       <div class="thumb" @mousedown="mousedown('max')" />
       <Tooltip>
         {{ maxLabel }}
@@ -167,22 +184,22 @@ onUnmounted(() => {
       .thumb {
         left: 0;
       }
-    }
-  }
 
-  &.range {
-    .selected {
-      background-color: var(--gray-200);
-
-      &.min {
-        max-width: calc(100% - 14px);
+      .tooltip {
+        right: unset;
+        left: 7px;
+        transform: translateX(-50%) scale(0);
       }
     }
-  }
 
-  &:hover,
-  &.active {
-    .selected {
+    &.active,
+    &:hover {
+      .thumb {
+        &::before {
+          transform: scale(1.45);
+        }
+      }
+
       .tooltip {
         transform: translateX(50%) scale(1);
         opacity: 1;
@@ -190,8 +207,6 @@ onUnmounted(() => {
 
       &.max {
         .tooltip {
-          right: unset;
-          left: 7px;
           transform: translateX(-50%) scale(1);
           opacity: 1;
         }
@@ -199,13 +214,10 @@ onUnmounted(() => {
     }
   }
 
-  &.active {
+  &.range {
     .selected {
-      .thumb {
-        &::before {
-          transform: scale(1.45);
-        }
-      }
+      max-width: calc(100% - 14px);
+      background-color: var(--gray-200);
     }
   }
 }
