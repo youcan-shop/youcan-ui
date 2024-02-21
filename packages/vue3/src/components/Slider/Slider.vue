@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, onMounted } from 'vue';
+import { computed, nextTick, onMounted, ref } from 'vue';
 import Rail from './Internal/Rail.vue';
 import type { RangeValue, SliderProps } from '~/types';
 
@@ -13,6 +13,8 @@ const props = withDefaults(defineProps<SliderProps>(), {
 });
 
 const emit = defineEmits(['update:modelValue']);
+
+const refreshValues = ref(false);
 
 const modelValues = computed({
   get: () => props.modelValue,
@@ -47,15 +49,22 @@ const maxLabel = computed(() => {
 });
 
 const setValues = (model: number | RangeValue) => {
+  let override = modelValues.value;
   if (typeof model === 'number') {
-    modelValues.value = model < MIN.value ? MIN.value : model > MAX.value ? MAX.value : model;
+    override = model < MIN.value ? MIN.value : model > MAX.value ? MAX.value : model;
   }
   else {
     const values = (model as RangeValue);
     const minValue = values.min < MIN.value ? MIN.value : values.min > MAX.value ? MAX.value : values.min;
     const maxValue = values.max > MAX.value ? MAX.value : values.max < MIN.value ? MIN.value : values.max;
-    modelValues.value = { min: minValue, max: maxValue };
+    override = { min: minValue, max: maxValue };
   }
+
+  modelValues.value = override;
+  emit('update:modelValue', override);
+  nextTick(() => {
+    refreshValues.value = true;
+  });
 };
 
 onMounted(() => {
@@ -64,7 +73,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="slider" :class="[{ disabled }, type]">
+  <div v-if="refreshValues" class="slider" :class="[{ disabled }, type]">
     <span class="label">{{ `${prefix}${MIN}${suffix}` }}</span>
     <div class="slide-area">
       <Rail v-model="modelValues" :min="MIN" :max="MAX" v-bind="{ disabled, minLabel, maxLabel, type }" />

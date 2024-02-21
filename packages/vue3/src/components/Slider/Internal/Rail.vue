@@ -48,13 +48,6 @@ const setValues = (percent: number) => {
   }
 };
 
-const initValues = () => {
-  const { min, max, modelValue } = props;
-  if (typeof modelValue === 'number') {
-    minWidth.value = Math.abs(modelValue / (max - min)) * 100;
-  }
-};
-
 const mousedown = (event: MouseEvent, selected = 'min') => {
   if (event.button !== 0) {
     return;
@@ -92,6 +85,18 @@ const mouseup = () => {
 };
 const topercent = (val: number) => {
   return `${val}%`;
+};
+
+const initValues = () => {
+  const { min, max, modelValue } = props;
+  if (typeof modelValue === 'number') {
+    minWidth.value = Math.abs((modelValue - min) * 100 / (max - min));
+  }
+  else {
+    const convertedModel = (modelValue as RangeValue);
+    minWidth.value = Math.abs((convertedModel.min - min) * 100 / (max - min));
+    maxWidth.value = Math.abs((max - convertedModel.max) * 100 / (max - min));
+  }
 };
 
 onMounted(() => {

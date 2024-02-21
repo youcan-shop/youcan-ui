@@ -5,8 +5,8 @@ import { ref } from 'vue';
 import { Slider } from '~/components';
 import type { RangeValue } from '~/types';
 
-const value = ref(102980);
-const rangeValue = ref<RangeValue>({ min: 40, max: 50 });
+const value = ref(2000);
+const rangeValue = ref<RangeValue>({ min: 200, max: 500 });
 </script>
 
 <template>
@@ -15,18 +15,16 @@ const rangeValue = ref<RangeValue>({ min: 40, max: 50 });
       <Slider
         v-model="rangeValue"
         suffix=""
-        :max="200000"
-        :min="2000"
+        :max="2000"
+        :min="200"
         type="range"
-        disabled
       />
       <div>min : {{ rangeValue.min }}  ==> max: {{ rangeValue.max }}</div>
       <Slider
         v-model="value"
         suffix=""
-        :max="200000"
-        :min="2000"
-        disabled
+        :max="2000"
+        :min="200"
       />
       <div>{{ value }}</div>
     </div>
