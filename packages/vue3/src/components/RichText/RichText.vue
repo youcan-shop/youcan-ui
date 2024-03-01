@@ -13,7 +13,7 @@ const props = withDefaults(
     disabled: false,
     error: false,
     placeholder: 'Type something...',
-    toolbar: toolbarOptions,
+    toolbar: () => toolbarOptions,
   },
 );
 
@@ -97,6 +97,7 @@ onMounted(() => {
 
 <style>
 .ql-editor {
+  min-height: 100px;
   font: var(--text-sm-regular);
 }
 
@@ -124,6 +125,11 @@ onMounted(() => {
   box-shadow: var(--focus-shadow-xs-red);
 }
 
+.ql-snow .ql-formats {
+  display: flex;
+  gap: 8px;
+}
+
 .ql-picker.ql-expanded .ql-picker-options {
   border-radius: 8px;
   box-shadow: var(--shadow-md-gray);
@@ -139,10 +145,6 @@ onMounted(() => {
   }
 }
 
-.ql-picker.ql-expanded .ql-picker-label {
-  border: unset;
-}
-
 .ql-snow.ql-toolbar .ql-picker-label.ql-active,
 .ql-toolbar.ql-snow .ql-picker-label:hover,
 .ql-snow.ql-toolbar .ql-picker-item.ql-selected,
@@ -153,12 +155,12 @@ onMounted(() => {
   color: var(--brand-500);
 }
 
-.ql-toolbar.ql-snow .ql-color-picker .ql-picker-item.ql-selected {
-  border-color: var(--brand-500);
+.ql-toolbar.ql-snow .ql-picker.ql-expanded .ql-picker-label {
+  border-color: transparent;
 }
 
-.ql-toolbar.ql-snow .ql-formats {
-  margin-right: 8px;
+.ql-toolbar.ql-snow .ql-color-picker .ql-picker-item.ql-selected {
+  border-color: var(--brand-500);
 }
 
 .ql-snow .ql-picker.ql-expanded .ql-picker-options#ql-picker-options-0 {
