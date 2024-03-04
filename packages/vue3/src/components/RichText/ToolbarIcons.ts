@@ -14,7 +14,7 @@ const customIcons: any = {
   'color': '<i class="i-youcan:eyedropper-sample"></i>',
   'direction': {
     '': '',
-    'rtl': '<i class="i-youcan:text-alt"></i>',
+    'rtl': '<i class="i-youcan:text-direction"></i>',
   },
   'float': {
     center: '<i class="i-youcan:truck"></i>',

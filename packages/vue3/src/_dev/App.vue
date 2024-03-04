@@ -16,7 +16,7 @@ const content = ref();
 
 <style scoped>
 .container {
-  width: 100%;
+  width: 90%;
   margin: 30px;
 }
 </style>

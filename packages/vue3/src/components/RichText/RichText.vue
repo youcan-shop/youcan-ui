@@ -74,13 +74,21 @@ onMounted(() => {
     replaceIcons(customIcons);
     // INITIATING QUILL
     quill.value = new Quill(editor.value, editorConfig);
-    // WACHING EDITOR CHANGE
+    // WATCHING EDITOR CHANGE
     quill.value.on('text-change', () => {
       if (quill.value) {
         model.value = quill.value.root.innerHTML;
       }
     });
-
+    // ACCEPTING ALL TYPES OF IMAGES
+    const insertImage = document.querySelector('.ql-image');
+    insertImage?.addEventListener('click', () => {
+      const input = document.querySelector('input.ql-image');
+      if (input) {
+        input.setAttribute('accept', 'image/*');
+      }
+    });
+    // SET EDITOR DIRECTION
     if (document.dir === 'rtl') {
       quill.value.format('direction', 'rtl');
       quill.value.format('align', 'right');
@@ -102,7 +110,11 @@ onMounted(() => {
 }
 
 .ql-toolbar {
+  position: sticky;
+  z-index: 9;
+  top: 0;
   border-radius: 8px 8px 0 0;
+  background-color: var(--base-white);
 }
 
 .ql-container {
