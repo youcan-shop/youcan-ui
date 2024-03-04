@@ -139,6 +139,7 @@ onMounted(() => {
 
 .ql-snow .ql-formats {
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
 }
 
@@ -176,12 +177,12 @@ onMounted(() => {
 }
 
 .ql-snow .ql-picker.ql-expanded .ql-picker-options#ql-picker-options-0 {
-  width: 250px;
+  width: 285px;
   padding: 5px;
 }
 
 .ql-snow .ql-picker.ql-expanded .ql-picker-options#ql-picker-options-1 {
-  width: 250px;
+  width: 285px;
   padding: 5px;
 }
 
