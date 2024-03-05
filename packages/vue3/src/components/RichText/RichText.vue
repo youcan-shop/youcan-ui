@@ -93,6 +93,13 @@ onMounted(() => {
       quill.value.format('direction', 'rtl');
       quill.value.format('align', 'right');
     }
+    // STYLING COLOR PICKER DROPDOWN
+    const elementToAppendTo = document.querySelectorAll('.ql-picker-item[data-value="transparent"]');
+    elementToAppendTo.forEach((element) => {
+      const redLineSpan = document.createElement('span');
+      redLineSpan.classList.add('red-line');
+      element.appendChild(redLineSpan);
+    });
   }
 });
 </script>
@@ -158,6 +165,18 @@ onMounted(() => {
   }
 }
 
+[data-value="none"] {
+  border-color: transparent !important;
+}
+
+[data-value="none"]:hover {
+  border-color: transparent !important;
+}
+
+.ql-snow .ql-color-picker.ql-color .ql-picker-item {
+  background-color: transparent;
+}
+
 .ql-snow.ql-toolbar .ql-picker-label.ql-active,
 .ql-toolbar.ql-snow .ql-picker-label:hover,
 .ql-snow.ql-toolbar .ql-picker-item.ql-selected,
@@ -190,10 +209,19 @@ onMounted(() => {
   width: 30px;
   height: 30px;
   border-radius: 8px;
+  border-color: var(--gray-100);
 }
 
 .ql-toolbar.ql-snow .ql-color-picker .ql-picker-item:hover {
   border-color: unset;
+}
+
+.red-line {
+  display: inline-block;
+  width: 100%;
+  height: 2px;
+  transform: rotate(-45deg);
+  background-color: red;
 }
 
 @media screen and (max-width: 767px) {

@@ -1,6 +1,15 @@
 import type { ToolbarOption } from './types';
 
-const colors = ['var(--brand-50)',
+const colors = [
+  'transparent',
+  'var(--base-white)',
+  'var(--base-black)',
+  'none',
+  'none',
+  'none',
+  'none',
+  'none',
+  'var(--brand-50)',
   'var(--brand-100)',
   'var(--brand-200)',
   'var(--brand-300)',
