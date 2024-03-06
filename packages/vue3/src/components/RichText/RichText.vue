@@ -27,25 +27,58 @@ const model = computed({
 const editor = ref<HTMLDivElement | null>(null);
 const quill = ref<Quill | null>(null);
 
-const replaceIcons = (customIcons: { [key: string]: any }): void => {
+function replaceIcons(customIcons: { [key: string]: any }): void {
   const icons = Quill.import('ui/icons');
   icons.undo = '';
   icons.redo = '';
+  icons.customImage = '';
   for (const key in icons) {
     // eslint-disable-next-line no-prototype-builtins
     if (customIcons.hasOwnProperty(key)) {
       icons[key] = customIcons[key];
     }
   }
-};
+}
 
-const undoChange = () => {
+function undoChange() {
   quill.value?.history.undo();
-};
+}
 
-const redoChange = () => {
+function redoChange() {
   quill.value?.history.redo();
-};
+}
+
+function customImageInsert() {
+  const range = quill.value?.getSelection();
+  const fileInput = document.querySelector('.ql-image') as HTMLInputElement;
+  const toolbar = document.querySelector('.ql-toolbar');
+
+  if (!fileInput) {
+    const newFileInput = document.createElement('input');
+    newFileInput.type = 'file';
+    newFileInput.accept = 'image/*';
+    newFileInput.className = 'ql-image';
+
+    toolbar?.appendChild(newFileInput);
+    newFileInput.click();
+
+    newFileInput.onchange = function (event) {
+      const files = (event.target as HTMLInputElement).files;
+      if (files && files.length > 0 && range) {
+        const file = files[0];
+        const reader = new FileReader();
+        reader.onload = function () {
+          const imageDataUrl = reader.result as string;
+          quill.value?.insertEmbed(range.index, 'image', imageDataUrl, Quill.sources.USER);
+        };
+        reader.readAsDataURL(file);
+      }
+    };
+  }
+  else {
+    fileInput.click();
+  }
+}
 
 const editorConfig = {
   modules: {
@@ -54,6 +87,7 @@ const editorConfig = {
       handlers: {
         undo: undoChange,
         redo: redoChange,
+        customImage: customImageInsert,
       },
     },
     history: {
@@ -78,14 +112,6 @@ onMounted(() => {
     quill.value.on('text-change', () => {
       if (quill.value) {
         model.value = quill.value.root.innerHTML;
-      }
-    });
-    // ACCEPTING ALL TYPES OF IMAGES
-    const insertImage = document.querySelector('.ql-image');
-    insertImage?.addEventListener('click', () => {
-      const input = document.querySelector('input.ql-image');
-      if (input) {
-        input.setAttribute('accept', 'image/*');
       }
     });
     // SET EDITOR DIRECTION

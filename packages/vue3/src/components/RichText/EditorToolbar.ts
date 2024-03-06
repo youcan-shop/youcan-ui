@@ -84,6 +84,6 @@ export const toolbarOptions: ToolbarOption[] = [
   { direction: 'rtl' },
   'code-block',
   'link',
-  'image',
+  'customImage',
   'video',
 ];
