@@ -1,42 +1,40 @@
+<script setup lang="ts">
+import { useSlots } from 'vue';
+
+const slots = useSlots();
+</script>
+
 <template>
   <div class="note">
-    <div class="icon">
-      <slot name="icon" class="icon">
-        <i class="icon i-tabler-mail-opened" />
-      </slot>
+    <div v-if="slots.icon" class="icon">
+      <slot name="icon" class="icon" />
     </div>
-    <div class="content">
-      <slot name="content">
-        <p>Don't forget to check your inbox, we have sent a link to verify your account.</p>
-      </slot>
+    <div v-if="slots.content" class="content">
+      <slot name="content" />
     </div>
   </div>
 </template>
 
 <style scoped lang="scss">
 .note {
-  --note-background: var(--base-white);
-  --note-border-color: var(--gray-100);
-  --note-icon-color: var(--brand-500);
-  --note-text-color: var(--gray-700);
-
   display: flex;
   box-sizing: border-box;
   align-items: center;
-  max-width: 540px;
+  width: max-content;
+  max-width: 100%;
   padding: 2px 25px;
-  border: 1px solid var(--note-border-color);
+  border: 1px solid var(--gray-100);
   border-radius: 8px;
-  background: var(--note-background);
+  background: var(--base-white);
   gap: 32px;
 }
 
-.icon {
-  color: var(--note-icon-color);
+.note .icon {
+  color: var(--brand-500);
 }
 
-.content {
-  color: var(--note-text-color);
+.note .content {
+  color: var(--gray-700);
   font: var(--text-sm-regular);
 }
 </style>
