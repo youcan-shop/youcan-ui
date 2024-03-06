@@ -28,20 +28,22 @@ const idAttr = Utils.uid('input_group_');
 </template>
 
 <style scoped>
-.input-group > * + * {
-  margin-top: 8px;
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
-.label {
+.input-group .label {
   font: var(--text-sm-regular);
 }
 
-.error {
+.input-group .error {
   color: var(--red-500);
   font: var(--text-sm-medium);
 }
 
-.info {
+.input-group .info {
   color: var(--gray-500);
   font: var(--text-sm-regular);
 }
