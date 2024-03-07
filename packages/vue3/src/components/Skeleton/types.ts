@@ -1,4 +1,4 @@
-export type SkeletonType = 'text' | 'media';
+export type SkeletonType = 'text' | 'media' | 'card';
 
 export interface SkeletonProps {
   type?: SkeletonType

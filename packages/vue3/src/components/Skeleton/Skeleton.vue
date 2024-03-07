@@ -19,6 +19,7 @@ withDefaults(
   <div v-if="type === 'media'" class="media pulse">
     <i class="i-youcan:image icon" />
   </div>
+  <div v-if="type === 'card'" class="card pulse" />
 </template>
 
 <style scoped>
@@ -32,6 +33,17 @@ withDefaults(
 
 .pulse {
   animation: blink 2s linear infinite;
+}
+
+.card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  min-height: 300px;
+  border-radius: 6px;
+  background-color: var(--gray-200);
 }
 
 .content .pulse .line {

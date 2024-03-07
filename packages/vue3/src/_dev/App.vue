@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import 'uno.css';
 import '../assets/main.css';
-import { Divider } from '~/components';
+import { Skeleton } from '~/components';
 </script>
 
 <template>
   <div class="container">
-    <Divider />
+    <Skeleton type="card" />
   </div>
 </template>
 
@@ -14,7 +14,8 @@ import { Divider } from '~/components';
 .container {
   align-items: center;
   justify-content: center;
-  width: 30vw;
-  height: 100vh;
+  width: 40vw;
+  height: 40vh;
+  margin: 10%;
 }
 </style>
