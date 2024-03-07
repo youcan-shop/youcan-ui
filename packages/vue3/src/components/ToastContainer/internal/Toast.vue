@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { useSlots } from 'vue';
-import type { ToastProps } from '~/types';
+import { onMounted, onUnmounted, useSlots, watch } from 'vue';
+import type { ToastProps } from '../types';
 import { Alert } from '~/components';
 
-withDefaults(
+const props = withDefaults(
   defineProps<ToastProps>(),
   {
     position: 'top-right',
@@ -14,12 +14,40 @@ withDefaults(
 const emit = defineEmits(['close']);
 
 const { title, description } = useSlots();
+
+let closeTimer: ReturnType<typeof setTimeout>;
+
+const setCloseTimer = () => {
+  if (props.closeAfterDuration && typeof props.closeAfterDuration === 'number') {
+    closeTimer = setTimeout(() => {
+      emit('close');
+    }, props.closeAfterDuration);
+  }
+};
+
+onMounted(() => {
+  setCloseTimer();
+});
+
+onUnmounted(() => {
+  clearTimeout(closeTimer);
+});
+
+watch(() => props.mouseOver, (newValue) => {
+  if (newValue) {
+    clearTimeout(closeTimer);
+
+    return;
+  }
+
+  setCloseTimer();
+});
 </script>
 
 <template>
   <Transition :name="position">
-    <div v-if="show" class="toast-block" :class="[position, { relative }]">
-      <Alert :type="type" :can-close="canClose" :close-after-duration="closeAfterDuration" @close="() => emit('close')">
+    <div v-if="show" class="toast-block" :class="[position]">
+      <Alert :type="type" :can-close="canClose" @close="() => emit('close')">
         <template v-if="title" #title>
           <slot name="title" />
         </template>
@@ -31,17 +59,19 @@ const { title, description } = useSlots();
   </Transition>
 </template>
 
-<style scoped lang="scss">
-$animation-duration: 0.25s;
+<style scoped>
+.toast-block {
+  --animation-duration: 0.25s;
+}
 
 .top-right-enter-active,
 .bottom-right-enter-active {
-  animation: right $animation-duration ease-in-out;
+  animation: right var(--animation-duration) ease-in-out;
 }
 
 .top-right-leave-active,
 .bottom-right-leave-active {
-  animation: right $animation-duration reverse ease-in-out;
+  animation: right var(--animation-duration) reverse ease-in-out;
 }
 
 @keyframes right {
@@ -58,12 +88,12 @@ $animation-duration: 0.25s;
 
 .top-left-enter-active,
 .bottom-left-enter-active {
-  animation: left $animation-duration ease-in-out;
+  animation: left var(--animation-duration) ease-in-out;
 }
 
 .top-left-leave-active,
 .bottom-left-leave-active {
-  animation: left $animation-duration reverse ease-in-out;
+  animation: left var(--animation-duration) reverse ease-in-out;
 }
 
 @keyframes left {

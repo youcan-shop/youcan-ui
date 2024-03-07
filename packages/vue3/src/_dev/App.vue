@@ -12,10 +12,9 @@ import { Divider } from '~/components';
 
 <style scoped>
 .container {
-  display: flex;
   align-items: center;
   justify-content: center;
-  width: 100vw;
+  width: 30vw;
   height: 100vh;
 }
 </style>
