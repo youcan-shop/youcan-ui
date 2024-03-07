@@ -13,7 +13,7 @@ withDefaults(
 <template>
   <div v-if="type === 'text'" class="content">
     <div v-for="index in lines" :key="index" class="pulse">
-      <div class="line" :class="{ 'last-line': index === lines }" />
+      <div class="line" />
     </div>
   </div>
   <div v-if="type === 'media'" class="media pulse">
@@ -21,9 +21,27 @@ withDefaults(
   </div>
 </template>
 
-<style scoped lang="scss">
+<style scoped>
+.content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  row-gap: 15px;
+  justify-items: start;
+}
+
 .pulse {
   animation: blink 2s linear infinite;
+}
+
+.content .pulse .line {
+  height: 1.2vh;
+  border-bottom: 1px solid var(--gray-300);
+  background-color: var(--gray-300);
+}
+
+.content .pulse:last-child {
+  width: 80%;
 }
 
 .media {
@@ -37,28 +55,10 @@ withDefaults(
   background-color: var(--gray-200);
 }
 
-.icon {
+.media .icon {
   min-width: 80px;
   min-height: 80px;
   color: var(--gray-300);
-}
-
-.content {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  row-gap: 15px;
-  justify-items: start;
-}
-
-.line {
-  height: 1.2vh;
-  border-bottom: 1px solid var(--gray-300);
-  background-color: var(--gray-300);
-
-  &.last-line {
-    width: 80%;
-  }
 }
 
 @keyframes blink {
