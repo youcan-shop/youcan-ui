@@ -35,17 +35,6 @@ withDefaults(
   animation: blink 2s linear infinite;
 }
 
-.card {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-  min-height: 300px;
-  border-radius: 6px;
-  background-color: var(--gray-200);
-}
-
 .content .pulse .line {
   height: 1.2vh;
   border-bottom: 1px solid var(--gray-300);
@@ -56,13 +45,14 @@ withDefaults(
   width: 80%;
 }
 
-.media {
+.media,
+.card {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
   height: 100%;
-  min-height: 300px;
+  min-height: 40px;
   border-radius: 6px;
   background-color: var(--gray-200);
 }
