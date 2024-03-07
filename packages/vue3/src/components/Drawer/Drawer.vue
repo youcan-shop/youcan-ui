@@ -33,58 +33,72 @@ onUnmounted(() => {
 
 <template>
   <Transition name="fade">
-    <Overlay v-show="visible" class="drawer-overlay" :class="position" @on-backdrop-click="close">
-      <Transition :name="position">
-        <div v-if="visible" class="drawer">
-          <div class="header">
-            <div class="close" @click="close">
-              <i class="i-youcan-x" />
-            </div>
-          </div>
-          <div class="body">
-            <slot />
-          </div>
-          <div v-if="slots.footer" class="footer">
-            <slot name="footer" />
-          </div>
+    <Overlay v-if="visible" class="drawer-overlay" @on-backdrop-click="close" />
+  </Transition>
+  <Transition :name="position">
+    <div v-if="visible" class="drawer" :class="position">
+      <div class="header">
+        <div class="close" @click="close">
+          <i class="i-youcan-x" />
         </div>
-      </Transition>
-    </Overlay>
+      </div>
+      <div class="body">
+        <slot />
+      </div>
+      <div v-if="slots.footer" class="footer">
+        <slot name="footer" />
+      </div>
+    </div>
   </Transition>
 </template>
 
 <style scoped lang="scss">
 .drawer-overlay {
-  --duration: 0.45s;
-
-  flex-direction: row-reverse;
-  align-items: flex-start;
+  z-index: 999999998;
 }
 
-.drawer-overlay .drawer {
+.drawer-overlay,
+.drawer {
+  --duration: 0.45s;
+}
+
+.drawer {
   display: flex;
+  position: fixed;
+  z-index: 999999999;
+  top: 0;
   flex: 1;
   flex-direction: column;
   width: max-content;
   max-width: 80vw;
+  height: 100%;
   overflow: hidden;
   border: 1px solid var(--gray-200);
   background-color: var(--base-white);
   box-shadow: var(--shadow-md-gray);
 }
 
+.drawer.right {
+  right: 0;
+}
+
+.drawer.left {
+  right: unset;
+  left: 0;
+}
+
 @media only screen and (max-width: 992px) {
-  .drawer-overlay .drawer {
+  .drawer {
     max-width: 100vw;
   }
 }
 
-.drawer-overlay .drawer > * {
+.drawer > * {
   box-sizing: border-box;
   width: 100%;
 }
 
-.drawer-overlay .drawer .header {
+.drawer .header {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -92,56 +106,45 @@ onUnmounted(() => {
   border-bottom: 1px solid var(--gray-100);
 }
 
-.drawer-overlay .drawer .header .close {
+.drawer.left .header {
+  flex-direction: row-reverse;
+}
+
+.drawer .header .close {
   cursor: pointer;
 }
 
-.drawer-overlay .drawer .header .close i {
+.drawer .header .close i {
   color: var(--gray-500);
 }
 
-.drawer-overlay .drawer .footer {
+.drawer .footer {
   padding: 10px 20px;
   border-top: 1px solid var(--gray-100);
 }
 
-.drawer-overlay .drawer .body {
+.drawer .body {
   flex: 1;
   padding: 14px 20px;
   overflow-y: auto;
   font: var(--text-md-regular);
 }
 
-.drawer-overlay .drawer .body::-webkit-scrollbar {
+.drawer .body::-webkit-scrollbar {
   width: 4px;
 }
 
-.drawer-overlay .drawer .body::-webkit-scrollbar-track {
+.drawer .body::-webkit-scrollbar-track {
   background: transparent;
 }
 
-.drawer-overlay .drawer .body::-webkit-scrollbar-thumb {
+.drawer .body::-webkit-scrollbar-thumb {
   border-radius: 2px;
   background-color: var(--brand-500);
 }
 
-.drawer-overlay .drawer .body::-webkit-scrollbar-thumb:hover {
+.drawer .body::-webkit-scrollbar-thumb:hover {
   background-color: var(--brand-500);
-}
-
-.drawer-overlay.left {
-  flex-direction: row;
-}
-
-.drawer-overlay.left .drawer .header {
-  flex-direction: row-reverse;
-}
-
-.drawer-overlay > :deep(.body) {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  margin: 0;
 }
 
 .fade-enter-active {
@@ -198,13 +201,11 @@ onUnmounted(() => {
   }
 }
 
-html[dir="rtl"] .drawer-overlay {
-  flex-direction: row;
-  align-items: flex-start;
-  direction: rtl;
+html[dir="rtl"] .drawer.right .header {
+  flex-direction: row-reverse;
 }
 
-html[dir="rtl"] .drawer-overlay.left {
-  flex-direction: row-reverse;
+html[dir="rtl"] .drawer.left .header {
+  flex-direction: row;
 }
 </style>

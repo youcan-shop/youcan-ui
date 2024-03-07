@@ -47,7 +47,7 @@ const showDrawer = ref(false);
 .drawer-content {
   display: flex;
   flex-direction: column;
-  width: 50vw;
+  max-width: 992px;
   height: 100%;
 }
 
