@@ -19,6 +19,7 @@ withDefaults(
   <div v-if="type === 'media'" class="media pulse">
     <i class="i-youcan:image icon" />
   </div>
+  <div v-if="type === 'card'" class="card pulse" />
 </template>
 
 <style scoped>
@@ -44,13 +45,14 @@ withDefaults(
   width: 80%;
 }
 
-.media {
+.media,
+.card {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
   height: 100%;
-  min-height: 300px;
+  min-height: 40px;
   border-radius: 6px;
   background-color: var(--gray-200);
 }
