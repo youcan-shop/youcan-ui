@@ -2,8 +2,8 @@
 import { nextTick, onMounted, ref } from 'vue';
 import { Utils } from '@youcan/ui-core';
 import { onClickOutside } from '@vueuse/core';
+import type { ToastContainerProps, ToastOptions, ToastType } from './types';
 import Toast from './internal/Toast.vue';
-import type { ToastContainerProps, ToastOptions, ToastType } from '~/types';
 
 const props = withDefaults(defineProps<ToastContainerProps>(), {
   position: 'top-right',
@@ -117,8 +117,8 @@ onMounted(() => {
 
 <template>
   <Transition name="fade">
-    <div v-show="hideContainer" ref="scroller" class="toast-container" :class="[position, { 'show-all': showAll }]" @mouseover="showAllToasts()" @mouseleave="mouseLeave">
-      <div ref="body" class="toast-container-body">
+    <div v-show="hideContainer" ref="scroller" class="toast" :class="[position, { 'show-all': showAll }]" @mouseover="showAllToasts()" @mouseleave="mouseLeave">
+      <div ref="body" class="toast-body">
         <Toast
           v-for="(toast, index) in toasts" :id="toast.id" :key="index" :position="position" :type="toast.options?.type"
           :show="toastVisibility(toast.id)"
@@ -140,7 +140,7 @@ onMounted(() => {
 </template>
 
 <style scoped lang="scss">
-.toast-container {
+.toast {
   position: fixed;
   z-index: 9999999999;
   box-sizing: border-box;
@@ -151,105 +151,110 @@ onMounted(() => {
   padding: 20px;
   scrollbar-width: none;
   scrollbar-color: transparent transparent;
+}
 
-  &::-webkit-scrollbar {
-    width: 0;
-  }
+.toast::-webkit-scrollbar {
+  width: 0;
+}
 
-  &::-webkit-scrollbar-track {
-    background: transparent;
-  }
+.toast::-webkit-scrollbar-track {
+  background: transparent;
+}
 
-  &-body {
-    position: relative;
-    width: 400px;
-    max-width: 100%;
-    min-height: 100px;
+.toast-body {
+  position: relative;
+  width: 400px;
+  max-width: 100%;
+  min-height: 100px;
+}
 
-    .toast-block {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      transform-origin: top center;
-      transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
-      user-select: none;
+.toast-body .toast-block {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  transform-origin: top center;
+  transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
+  user-select: none;
+}
 
-      &:not(:nth-last-child(3), :nth-last-child(2), :last-child) {
-        transform: scale(0.85) translateY(-24px);
-        opacity: 0;
-      }
+.toast-body .toast-block:not(:nth-last-child(3), :nth-last-child(2), :last-child) {
+  transform: scale(0.85) translateY(-24px);
+  opacity: 0;
+}
 
-      &:nth-last-child(3) {
-        z-index: 1;
-        transform: scaleX(0.9) translateY(-16px);
-      }
+.toast-body .toast-block:nth-last-child(3) {
+  z-index: 1;
+  transform: scaleX(0.9) translateY(-16px);
+}
 
-      &:nth-last-child(2) {
-        z-index: 2;
-        transform: scaleX(0.95) translateY(-8px);
-      }
+.toast-body .toast-block:nth-last-child(2) {
+  z-index: 2;
+  transform: scaleX(0.95) translateY(-8px);
+}
 
-      &:last-child {
-        z-index: 3;
-        transform: scaleX(1) translateY(0);
-      }
-    }
-  }
+.toast-body .toast-block:last-child {
+  z-index: 3;
+  transform: scaleX(1) translateY(0);
+}
 
-  &.show-all {
-    overflow: hidden auto;
+.toast.show-all {
+  overflow: hidden auto;
+}
 
-    .toast-block {
-      opacity: 1;
-    }
-  }
+.toast.show-all .toast-block {
+  opacity: 1;
+}
 
-  &.top-left,
-  &.top-right {
-    top: 0;
-  }
+.toast.top-left,
+.toast.top-right {
+  top: 0;
+}
 
-  &.bottom-left,
-  &.bottom-right {
-    bottom: 0;
+.toast.bottom-left,
+.toast.bottom-right {
+  bottom: 0;
+}
 
-    .toast-container-body {
-      display: flex;
-      flex-direction: column-reverse;
+.toast.bottom-left .toast-body,
+.toast.bottom-right .toast-body {
+  display: flex;
+  flex-direction: column-reverse;
+}
 
-      .toast-block {
-        top: unset;
-        bottom: 0;
-        transform-origin: bottom center;
+.toast.bottom-left .toast-body .toast-block,
+.toast.bottom-right .toast-body .toast-block {
+  top: unset;
+  bottom: 0;
+  transform-origin: bottom center;
+}
 
-        &:not(:nth-last-child(3), :nth-last-child(2), :last-child) {
-          transform: scale(0.85) translateY(24px);
-          opacity: 0;
-        }
+.toast.bottom-left .toast-body .toast-block:not(:nth-last-child(3), :nth-last-child(2), :last-child),
+.toast.bottom-right .toast-body .toast-block:not(:nth-last-child(3), :nth-last-child(2), :last-child) {
+  transform: scale(0.85) translateY(24px);
+  opacity: 0;
+}
 
-        &:nth-last-child(3) {
-          z-index: 1;
-          transform: scaleX(0.9) translateY(16px);
-        }
+.toast.bottom-left .toast-body .toast-block:nth-last-child(3),
+.toast.bottom-right .toast-body .toast-block:nth-last-child(3) {
+  z-index: 1;
+  transform: scaleX(0.9) translateY(16px);
+}
 
-        &:nth-last-child(2) {
-          z-index: 2;
-          transform: scaleX(0.95) translateY(8px);
-        }
-      }
-    }
-  }
+.toast.bottom-left .toast-body .toast-block:nth-last-child(2),
+.toast.bottom-right .toast-body .toast-block:nth-last-child(2) {
+  z-index: 2;
+  transform: scaleX(0.95) translateY(8px);
+}
 
-  &.top-right,
-  &.bottom-right {
-    right: 0;
-  }
+.toast.top-right,
+.toast.bottom-right {
+  right: 0;
+}
 
-  &.top-left,
-  &.bottom-left {
-    left: 0;
-  }
+.toast.top-left,
+.toast.bottom-left {
+  left: 0;
 }
 
 .fade-enter-active {
