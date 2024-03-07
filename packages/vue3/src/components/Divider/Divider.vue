@@ -15,7 +15,7 @@ withDefaults(
   <div :class="[orientation, borderStyle, thickness]" />
 </template>
 
-<style scoped lang="scss">
+<style scoped>
 .horizontal {
   width: 100%;
   max-height: 0;
