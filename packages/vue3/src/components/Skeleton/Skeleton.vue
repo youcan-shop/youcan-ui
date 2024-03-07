@@ -30,13 +30,17 @@ withDefaults(
   justify-items: start;
 }
 
+.pulse {
+  animation: blink 2s linear infinite;
+}
+
 .content .pulse .line {
   height: 1.2vh;
   border-bottom: 1px solid var(--gray-300);
   background-color: var(--gray-300);
 }
 
-.content .pulse .last-line {
+.content .pulse:last-child {
   width: 80%;
 }
 
@@ -55,10 +59,6 @@ withDefaults(
   min-width: 80px;
   min-height: 80px;
   color: var(--gray-300);
-}
-
-.pulse {
-  animation: blink 2s linear infinite;
 }
 
 @keyframes blink {
