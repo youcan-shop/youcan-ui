@@ -34,10 +34,10 @@ withDefaults(
   height: 1.2vh;
   border-bottom: 1px solid var(--gray-300);
   background-color: var(--gray-300);
+}
 
-  &.last-line {
-    width: 80%;
-  }
+.content .pulse .last-line {
+  width: 80%;
 }
 
 .media {
