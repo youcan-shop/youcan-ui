@@ -139,7 +139,7 @@ onMounted(() => {
   </Transition>
 </template>
 
-<style scoped lang="scss">
+<style scoped>
 .toast {
   position: fixed;
   z-index: 9999999999;

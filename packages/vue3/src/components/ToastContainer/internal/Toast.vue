@@ -59,17 +59,19 @@ watch(() => props.mouseOver, (newValue) => {
   </Transition>
 </template>
 
-<style scoped lang="scss">
-$animation-duration: 0.25s;
+<style scoped>
+.toast-block {
+  --animation-duration: 0.25s;
+}
 
 .top-right-enter-active,
 .bottom-right-enter-active {
-  animation: right $animation-duration ease-in-out;
+  animation: right var(--animation-duration) ease-in-out;
 }
 
 .top-right-leave-active,
 .bottom-right-leave-active {
-  animation: right $animation-duration reverse ease-in-out;
+  animation: right var(--animation-duration) reverse ease-in-out;
 }
 
 @keyframes right {
@@ -86,12 +88,12 @@ $animation-duration: 0.25s;
 
 .top-left-enter-active,
 .bottom-left-enter-active {
-  animation: left $animation-duration ease-in-out;
+  animation: left var(--animation-duration) ease-in-out;
 }
 
 .top-left-leave-active,
 .bottom-left-leave-active {
-  animation: left $animation-duration reverse ease-in-out;
+  animation: left var(--animation-duration) reverse ease-in-out;
 }
 
 @keyframes left {
