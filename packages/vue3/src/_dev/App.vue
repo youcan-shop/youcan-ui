@@ -1,32 +1,16 @@
 <script setup lang="ts">
 import 'uno.css';
 import '../assets/main.css';
-import { ref } from 'vue';
-import { Input, InputGroup } from '~/components';
-
-const username = ref('');
+import { Note } from '~/components';
 </script>
 
 <template>
-  <div class="container">
-    <InputGroup>
-      <template #label>
-        New username
-      </template>
-      <template #input>
-        <Input v-model="username" placeholder="Enter username" />
-      </template>
-      <template #info>
-        You can only change your username once every 30 days
-      </template>
-    </InputGroup>
-  </div>
+  <Note>
+    <template #icon>
+      📪
+    </template>
+    <template #content>
+      <p>Don't forget to check your inbox, we have sent a link to verify your account.</p>
+    </template>
+  </Note>
 </template>
-
-<style scoped>
-.container {
-  max-width: 500px;
-  margin: auto;
-  margin-top: 40px;
-}
-</style>
