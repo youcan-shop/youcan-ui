@@ -13,7 +13,7 @@ withDefaults(
 <template>
   <div v-if="type === 'text'" class="content">
     <div v-for="index in lines" :key="index" class="pulse">
-      <div class="line" :class="{ 'last-line': index === lines }" />
+      <div class="line" />
     </div>
   </div>
   <div v-if="type === 'media'" class="media pulse">
