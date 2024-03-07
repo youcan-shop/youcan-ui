@@ -1,37 +1,32 @@
 <script setup lang="ts">
 import 'uno.css';
 import '../assets/main.css';
-import { PrimaryButton, ToastContainer } from '~/components';
-import { toast } from '~/helpers';
-import type { ToastOptions } from '~/types';
+import { ref } from 'vue';
+import { Input, InputGroup } from '~/components';
 
-const toastOptions: ToastOptions = {
-  title: 'Info',
-  description: 'Click here to learn more about the exciting enhancements we\'ve made.',
-  type: 'info',
-};
-
-const handleClick = () => {
-  toast.show(toastOptions);
-};
+const username = ref('');
 </script>
 
 <template>
-  <ToastContainer :limit="3" position="bottom-left" />
-  <div className="container">
-    <PrimaryButton @click="handleClick">
-      Show Toast
-    </PrimaryButton>
+  <div class="container">
+    <InputGroup>
+      <template #label>
+        New username
+      </template>
+      <template #input>
+        <Input v-model="username" placeholder="Enter username" />
+      </template>
+      <template #info>
+        You can only change your username once every 30 days
+      </template>
+    </InputGroup>
   </div>
 </template>
 
 <style scoped>
 .container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100vw;
-  height: 100vh;
+  max-width: 500px;
+  margin: auto;
+  margin-top: 40px;
 }
 </style>
