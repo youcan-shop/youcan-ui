@@ -21,9 +21,23 @@ withDefaults(
   </div>
 </template>
 
-<style scoped lang="scss">
-.pulse {
-  animation: blink 2s linear infinite;
+<style scoped>
+.content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  row-gap: 15px;
+  justify-items: start;
+}
+
+.content .pulse .line {
+  height: 1.2vh;
+  border-bottom: 1px solid var(--gray-300);
+  background-color: var(--gray-300);
+
+  &.last-line {
+    width: 80%;
+  }
 }
 
 .media {
@@ -37,28 +51,14 @@ withDefaults(
   background-color: var(--gray-200);
 }
 
-.icon {
+.media .icon {
   min-width: 80px;
   min-height: 80px;
   color: var(--gray-300);
 }
 
-.content {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  row-gap: 15px;
-  justify-items: start;
-}
-
-.line {
-  height: 1.2vh;
-  border-bottom: 1px solid var(--gray-300);
-  background-color: var(--gray-300);
-
-  &.last-line {
-    width: 80%;
-  }
+.pulse {
+  animation: blink 2s linear infinite;
 }
 
 @keyframes blink {
