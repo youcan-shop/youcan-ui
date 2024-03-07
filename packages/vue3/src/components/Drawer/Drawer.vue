@@ -1,11 +1,12 @@
 <script lang="ts" setup>
-import { onMounted, onUnmounted, useSlots } from 'vue';
+import { computed, onMounted, onUnmounted, useSlots } from 'vue';
 import type { DrawerProps } from '~/types';
 import Overlay from '~/components/Overlay/Overlay.vue';
 
 const props = withDefaults(defineProps<DrawerProps>(), {
   visible: false,
   position: 'right',
+  duration: 450,
 });
 
 const emit = defineEmits(['update:visible']);
@@ -16,11 +17,15 @@ const close = () => {
   emit('update:visible', false);
 };
 
-const handleKeypress = (event: KeyboardEvent) => {
+const transitionDuration = computed(() => {
+  return `${props.duration}ms`;
+});
+
+function handleKeypress(event: KeyboardEvent) {
   if (props.visible && event.key === 'Escape') {
     close();
   }
-};
+}
 
 onMounted(() => {
   window.addEventListener('keydown', handleKeypress);
@@ -59,7 +64,7 @@ onUnmounted(() => {
 
 .drawer-overlay,
 .drawer {
-  --duration: 0.45s;
+  --duration: v-bind(transitionDuration);
 }
 
 .drawer {
