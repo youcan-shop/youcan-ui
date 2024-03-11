@@ -57,7 +57,7 @@ onUnmounted(() => {
   </Transition>
 </template>
 
-<style scoped lang="scss">
+<style scoped>
 .drawer-overlay {
   z-index: 999999998;
 }
