@@ -59,7 +59,7 @@ onUnmounted(() => {
   </Transition>
 </template>
 
-<style scoped lang="scss">
+<style scoped>
 .modal {
   display: flex;
   position: fixed;
