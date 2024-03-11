@@ -11,7 +11,7 @@ withDefaults(
 </script>
 
 <template>
-  <span class="badge" :class="[`state-${state}`]">
+  <span class="badge" :class="[`state-${state}`]" :style="{ '--size': `${size}px` }">
     <slot />
   </span>
 </template>
@@ -25,7 +25,7 @@ withDefaults(
   align-items: center;
   justify-content: center;
   width: min-content;
-  height: v-bind(size);
+  height: var(--size);
   padding: 0 6px;
   border-radius: 100px;
   background-color: var(--background-color);
