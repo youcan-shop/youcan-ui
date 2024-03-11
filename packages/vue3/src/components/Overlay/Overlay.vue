@@ -15,7 +15,7 @@ const emit = defineEmits(['onBackdropClick']);
 .overlay {
   display: flex;
   position: fixed;
-  z-index: 999999999;
+  z-index: 999999998;
   top: 0;
   left: 0;
   align-items: center;
