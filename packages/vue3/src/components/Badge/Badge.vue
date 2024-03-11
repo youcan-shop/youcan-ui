@@ -16,36 +16,40 @@ withDefaults(
   </span>
 </template>
 
-<style scoped lang="scss">
-$states: (
-  "neutral": "gray-500",
-  "danger": "red-500",
-  "info": "blue-500",
-  "warning": "yellow-500",
-  "success": "green-600"
-);
-
+<style scoped>
 .badge {
   --background-color: var(--gray-300);
-  --height: v-bind(`${size}px`);
 
   display: flex;
   box-sizing: border-box;
   align-items: center;
   justify-content: center;
   width: min-content;
-  height: var(--height);
+  height: v-bind(size);
   padding: 0 6px;
   border-radius: 100px;
   background-color: var(--background-color);
   color: var(--base-white);
   font: var(--text-sm-medium);
+}
 
-  @each $state,
-    $color in $states {
-    &.state-#{$state} {
-      --background-color: var(--#{$color});
-    }
-  }
+.badge.state-neutral {
+  --background-color: var(--gray-500);
+}
+
+.badge.state-danger {
+  --background-color: var(--red-500);
+}
+
+.badge.state-info {
+  --background-color: var(--blue-500);
+}
+
+.badge.state-warning {
+  --background-color: var(--yellow-500);
+}
+
+.badge.state-success {
+  --background-color: var(--green-600);
 }
 </style>
