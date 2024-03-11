@@ -2,31 +2,52 @@
 import 'uno.css';
 import '../assets/main.css';
 import { ref } from 'vue';
-import { Modal, PrimaryButton } from '~/components';
+import { Slider } from '~/components';
+import type { RangeValue } from '~/types';
 
-const showModal = ref(false);
-
-const onConfirm = () => {
-  showModal.value = false;
-};
+const value = ref(2000);
+const rangeValue = ref<RangeValue>({ min: 200, max: 500 });
 </script>
 
 <template>
   <div class="container">
-    <Modal v-model:visible="showModal" title="Edit profile" @on-confirm="onConfirm">
-      <p class="content">
-        The quick brown fox jumps over the lazy dog.
-      </p>
-    </Modal>
-    <PrimaryButton @click="showModal = true;">
-      <span>Open Modal</span>
-    </PrimaryButton>
+    <div>
+      <Slider
+        v-model="rangeValue"
+        suffix=""
+        :max="2000"
+        :min="200"
+        type="range"
+      />
+      <div>min : {{ rangeValue.min }}  ==> max: {{ rangeValue.max }}</div>
+      <Slider
+        v-model="value"
+        suffix=""
+        :max="2000"
+        :min="200"
+      />
+      <div>{{ value }}</div>
+    </div>
   </div>
 </template>
 
 <style scoped>
-.content {
-  margin: 0;
-  text-align: center;
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+}
+
+.container > div {
+  display: flex;
+  flex-direction: column;
+  width: 450px;
+  gap: 30px;
+}
+
+.container > div > div {
+  font: var(--text-sm-medium);
 }
 </style>
