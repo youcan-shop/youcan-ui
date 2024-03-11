@@ -1,12 +1,24 @@
 <script setup lang="ts">
 import 'uno.css';
 import '../assets/main.css';
-import { Skeleton } from '~/components';
+import { Thumbnail } from '~/components';
+
+const imageSrc = 'https://i.imgur.com/YcP0tik.jpeg';
+const imageAlt = 'Mr. Shark';
 </script>
 
 <template>
   <div class="container">
-    <Skeleton type="card" />
+    <Thumbnail
+      :src="imageSrc"
+      :alt="imageAlt"
+      size="large"
+    />
+    <Thumbnail
+      :src="imageSrc"
+      :alt="imageAlt"
+      size="small"
+    />
   </div>
 </template>
 
