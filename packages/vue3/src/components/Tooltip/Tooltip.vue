@@ -7,28 +7,28 @@ const props = withDefaults(defineProps<TooltipProps>(), {
   position: 'top',
 });
 
-const tooltipTrigger = ref<HTMLElement >();
+const triggeredElement = ref<HTMLElement >();
 const tooltip = ref<HTMLElement>();
 const tooltipPosition = () => {
-  if (tooltipTrigger.value && tooltip.value) {
-    const { left, top } = setPosition(tooltipTrigger.value, tooltip.value, props.position);
-    tooltipTrigger.value?.setAttribute('style', `top:${top}px;left:${left}px`);
+  if (triggeredElement.value && tooltip.value) {
+    const { left, top } = setPosition(triggeredElement.value, tooltip.value, props.position);
+    triggeredElement.value?.setAttribute('style', `top:${top}px;left:${left}px`);
   }
 };
 
 const handleScroll = () => {
-  if (!tooltipTrigger.value?.classList.contains('tooltip-trigger-hide')) {
-    tooltipTrigger.value?.classList.add('tooltip-trigger-hide');
+  if (!triggeredElement.value?.classList.contains('triggered-element-hide')) {
+    triggeredElement.value?.classList.add('triggered-element-hide');
   }
 };
 
 const handleMouseEnter = () => {
-  tooltipTrigger.value?.classList.remove('tooltip-trigger-hide');
+  triggeredElement.value?.classList.remove('triggered-element-hide');
   tooltipPosition();
 };
 
 onMounted(() => {
-  tooltipTrigger.value?.classList.remove('tooltip-trigger-hide');
+  triggeredElement.value?.classList.remove('triggered-element-hide');
   tooltipPosition();
   window.addEventListener('scroll', handleScroll);
 });
@@ -40,7 +40,7 @@ onUnmounted(() => {
 
 <template>
   <div v-if="label" ref="tooltip" class="tooltip" :class="position" @mouseenter="handleMouseEnter">
-    <span ref="tooltipTrigger" class="tooltip-trigger">{{ label }}</span>
+    <span ref="triggeredElement" class="triggered-element">{{ label }}</span>
 
     <slot />
   </div>
@@ -53,7 +53,7 @@ onUnmounted(() => {
   position: relative;
 }
 
-.tooltip .tooltip-trigger {
+.tooltip .triggered-element {
   visibility: hidden;
   position: fixed;
   z-index: 9999999999;
@@ -69,12 +69,12 @@ onUnmounted(() => {
   font: var(--text-xs-regular);
 }
 
-.tooltip .tooltip-trigger-hide {
+.tooltip .triggered-element-hide {
   visibility: hidden !important;
   opacity: 0 !important;
 }
 
-.tooltip:hover .tooltip-trigger {
+.tooltip:hover .triggered-element {
   visibility: visible;
   transition-delay: 0.2s;
   opacity: 1;
