@@ -1,28 +1,26 @@
 <script setup lang="ts">
 import 'uno.css';
 import '../assets/main.css';
-import { Badge } from '~/components';
-import type { BadgeState } from '~/types';
-const badgeLabel = 'Badge';
-const labelStates: BadgeState[] = ['danger', 'info', 'neutral', 'success', 'warning'];
+import { ref } from 'vue';
+import { Checkbox } from '~/components';
+const isChecked = ref(false);
 </script>
 
 <template>
-  <div class="container">
-    <Badge v-for="state in labelStates" :key="state" :state="state" :size="24">
-      {{ badgeLabel }}
-    </Badge>
+  <div class="form-control">
+    <Checkbox v-model="isChecked">
+      <template #label>
+        Accept terms and conditions
+      </template>
+    </Checkbox>
   </div>
 </template>
 
 <style scoped>
-.container {
+.form-control {
   display: flex;
-  gap: 10px;
   align-items: center;
   justify-content: center;
-  width: 40vw;
-  height: 40vh;
-  margin: 10%;
+  gap: 12px;
 }
 </style>

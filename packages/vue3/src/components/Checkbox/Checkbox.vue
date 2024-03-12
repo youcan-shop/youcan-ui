@@ -20,16 +20,17 @@ const checked = computed(
 );
 
 const idAttr = Utils.uid('checkbox');
+const ariaDescribedby = `${idAttr}-aria-describedby`;
 </script>
 
 <template>
   <label :for="idAttr" v-bind="$attrs">
     <div class="checkbox" :class="{ 'has-label': slots.label }">
-      <input v-bind="$attrs" :id="idAttr" v-model="model" type="checkbox" class="input" :value="value">
+      <input v-bind="$attrs" :id="idAttr" v-model="model" type="checkbox" class="input" :value="value" :aria-describedby="ariaDescribedby">
       <span v-if="!$attrs.indeterminate" class="checkmark" :class="{ checked }"> <i class="i-youcan-check" /> </span>
       <span v-else class="checkmark" :class="[{ checked }]"> <i class="i-youcan-minus" /> </span>
     </div>
-    <div v-if="slots.label" class="label">
+    <div v-if="slots.label" :id="ariaDescribedby" class="label">
       <slot name="label" />
     </div>
   </label>
