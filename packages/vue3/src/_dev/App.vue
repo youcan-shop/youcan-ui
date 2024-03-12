@@ -24,6 +24,8 @@ const imageAlt = 'Mr. Shark';
 
 <style scoped>
 .container {
+  display: flex;
+  gap: 10px;
   align-items: center;
   justify-content: center;
   width: 40vw;
