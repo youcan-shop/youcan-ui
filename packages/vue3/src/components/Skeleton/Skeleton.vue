@@ -13,36 +13,16 @@ withDefaults(
 <template>
   <div v-if="type === 'text'" class="content">
     <div v-for="index in lines" :key="index" class="pulse">
-      <div class="line" :class="{ 'last-line': index === lines }" />
+      <div class="line" />
     </div>
   </div>
   <div v-if="type === 'media'" class="media pulse">
     <i class="i-youcan:image icon" />
   </div>
+  <div v-if="type === 'card'" class="card pulse" />
 </template>
 
-<style scoped lang="scss">
-.pulse {
-  animation: blink 2s linear infinite;
-}
-
-.media {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-  min-height: 300px;
-  border-radius: 6px;
-  background-color: var(--gray-200);
-}
-
-.icon {
-  min-width: 80px;
-  min-height: 80px;
-  color: var(--gray-300);
-}
-
+<style scoped>
 .content {
   display: flex;
   flex-direction: column;
@@ -51,14 +31,36 @@ withDefaults(
   justify-items: start;
 }
 
-.line {
+.pulse {
+  animation: blink 2s linear infinite;
+}
+
+.content .pulse .line {
   height: 1.2vh;
   border-bottom: 1px solid var(--gray-300);
   background-color: var(--gray-300);
+}
 
-  &.last-line {
-    width: 80%;
-  }
+.content .pulse:last-child {
+  width: 80%;
+}
+
+.media,
+.card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  min-height: 40px;
+  border-radius: 6px;
+  background-color: var(--gray-200);
+}
+
+.media .icon {
+  min-width: 80px;
+  min-height: 80px;
+  color: var(--gray-300);
 }
 
 @keyframes blink {

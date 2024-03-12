@@ -1,11 +1,13 @@
 ## JIRA Ticket
 
-[DOT-X](https://youcanshop.atlassian.net/browse/DOT-X)
+[UI-X](https://youcanshop.atlassian.net/browse/UI-X)
 
 ## QA Steps
 
-* [ ] Go to X and Y
-* [ ] See TEXT in page Z
+* [ ] RTL
+* [ ] Responsiveness
+* [ ] Class Names (insure specificity)
+* [ ] Build (No errors)
 
 ## Note
 
