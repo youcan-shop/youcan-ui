@@ -1,17 +1,24 @@
 <script setup lang="ts">
 import 'uno.css';
 import '../assets/main.css';
-import { Badge } from '~/components';
-import type { BadgeState } from '~/types';
-const badgeLabel = 'Badge';
-const labelStates: BadgeState[] = ['danger', 'info', 'neutral', 'success', 'warning'];
+import { Thumbnail } from '~/components';
+
+const imageSrc = 'https://i.imgur.com/YcP0tik.jpeg';
+const imageAlt = 'Mr. Shark';
 </script>
 
 <template>
   <div class="container">
-    <Badge v-for="state in labelStates" :key="state" :state="state" :size="24">
-      {{ badgeLabel }}
-    </Badge>
+    <Thumbnail
+      :src="imageSrc"
+      :alt="imageAlt"
+      size="large"
+    />
+    <Thumbnail
+      :src="imageSrc"
+      :alt="imageAlt"
+      size="small"
+    />
   </div>
 </template>
 
