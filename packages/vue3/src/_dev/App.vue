@@ -2,7 +2,7 @@
 import 'uno.css';
 import '../assets/main.css';
 import { ref } from 'vue';
-import { ResourcePicker } from '~/components';
+import { PrimaryButton, ResourcePicker } from '~/components';
 import type { Resource } from '~/types';
 
 const MOCK_RESOURCES: Resource[] = [
