@@ -8,7 +8,7 @@ const isChecked = ref(false);
 
 <template>
   <div class="form-control">
-    <Checkbox v-model="isChecked">
+    <Checkbox v-model="isChecked" indeterminate="true">
       <template #label>
         Accept terms and conditions
       </template>
