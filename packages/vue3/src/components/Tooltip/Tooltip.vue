@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from 'vue';
-import { setPosition } from './utils';
+import { setPosition } from '~/helpers';
 import type { TooltipProps } from '~/types';
 
 const props = withDefaults(defineProps<TooltipProps>(), {
