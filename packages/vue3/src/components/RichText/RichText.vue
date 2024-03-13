@@ -48,32 +48,75 @@ function redoChange() {
   quill.value?.history.redo();
 }
 
+// function customImageInsert() {
+//   const fileInput = document.querySelector('.ql-image') as HTMLInputElement;
+//   const toolbar = document.querySelector('.ql-toolbar');
+
+//   if (!fileInput) {
+//     const newFileInput = document.createElement('input');
+//     newFileInput.type = 'file';
+//     newFileInput.accept = 'image/*';
+//     newFileInput.className = 'ql-image';
+
+//     toolbar?.appendChild(newFileInput);
+//     newFileInput.click();
+
+//     newFileInput.onchange = function (event) {
+//       const files = (event.target as HTMLInputElement).files;
+//       const range = quill.value?.getSelection(true);
+//       if (files && files.length > 0 && range) {
+//         const file = files[0];
+//         const reader = new FileReader();
+//         reader.onload = function () {
+//           const imageDataUrl = reader.result as string;
+//           quill.value?.insertEmbed(range.index, 'image', imageDataUrl, Quill.sources.USER);
+//         };
+//         reader.readAsDataURL(file);
+//       }
+//     };
+//   }
+//   else {
+//     fileInput.click();
+//   }
+// }
+
+function insertImageHandler(event: any) {
+  const files = event.target.files;
+  const range = quill.value?.getSelection(true);
+  if (files && files.length > 0 && range) {
+    const file = files[0];
+    const reader = new FileReader();
+    reader.onload = function () {
+      const imageDataUrl = reader.result;
+      if (imageDataUrl && typeof imageDataUrl === 'string') {
+        quill.value?.insertEmbed(range.index, 'image', imageDataUrl, Quill.sources.USER);
+        quill.value?.insertText(range.index + 1, '\n', Quill.sources.USER);
+        quill.value?.setSelection(range.index + 3, 0, Quill.sources.USER);
+      }
+      else {
+        console.error('Failed to read image data.');
+      }
+    };
+    reader.readAsDataURL(file);
+  }
+}
+
+function addFileInputToToolbar(toolbar: any) {
+  const newFileInput = document.createElement('input');
+  newFileInput.type = 'file';
+  newFileInput.accept = 'image/*';
+  newFileInput.className = 'ql-image';
+  newFileInput.addEventListener('change', insertImageHandler);
+  toolbar.appendChild(newFileInput);
+  newFileInput.click();
+}
+
 function customImageInsert() {
-  const range = quill.value?.getSelection();
   const fileInput = document.querySelector('.ql-image') as HTMLInputElement;
   const toolbar = document.querySelector('.ql-toolbar');
 
   if (!fileInput) {
-    const newFileInput = document.createElement('input');
-    newFileInput.type = 'file';
-    newFileInput.accept = 'image/*';
-    newFileInput.className = 'ql-image';
-
-    toolbar?.appendChild(newFileInput);
-    newFileInput.click();
-
-    newFileInput.onchange = function (event) {
-      const files = (event.target as HTMLInputElement).files;
-      if (files && files.length > 0 && range) {
-        const file = files[0];
-        const reader = new FileReader();
-        reader.onload = function () {
-          const imageDataUrl = reader.result as string;
-          quill.value?.insertEmbed(range.index, 'image', imageDataUrl, Quill.sources.USER);
-        };
-        reader.readAsDataURL(file);
-      }
-    };
+    addFileInputToToolbar(toolbar);
   }
   else {
     fileInput.click();
