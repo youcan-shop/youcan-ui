@@ -22,7 +22,7 @@ function handleCheck(e: Event) {
 </script>
 
 <template>
-  <Checkbox v-model="model" class="container" :class="!showThumbnail && 'variant'" :indeterminate="indeterminate" @change.stop="handleCheck">
+  <Checkbox v-model="model" class="resource" :class="!showThumbnail && 'variant'" :indeterminate="indeterminate" @change.stop="handleCheck">
     <template #label>
       <div class="content">
         <div class="info">
@@ -33,7 +33,7 @@ function handleCheck(e: Event) {
         </div>
         <div class="inventory-price">
           <span v-if="showStock && resource.stock" class="stock">{{ resource.stock }} {{ stockLabel }}</span>
-          <p v-if="resource.price" class="price">
+          <p v-if="resource.price">
             {{ resource.price }}
           </p>
         </div>
@@ -43,7 +43,7 @@ function handleCheck(e: Event) {
 </template>
 
 <style scoped>
-.container {
+.resource {
   display: flex;
   justify-content: start;
   padding: 0 16px;
@@ -53,15 +53,15 @@ function handleCheck(e: Event) {
   gap: 8px;
 }
 
-.container:hover {
+.resource:hover {
   background-color: var(--gray-50);
 }
 
-.variant {
+.resource.variant {
   padding-inline-start: 52px;
 }
 
-.content {
+.resource .content {
   display: flex;
   flex: 1 1 auto;
   align-items: center;
@@ -69,18 +69,18 @@ function handleCheck(e: Event) {
   gap: 8px;
 }
 
-.info {
+.resource .content .info {
   display: flex;
   flex-basis: 55%;
   align-items: center;
   gap: 8px;
 }
 
-.info .thumbnail {
+.resource .content .info .thumbnail {
   margin: 16px 0;
 }
 
-.inventory-price {
+.resource .content .inventory-price {
   display: flex;
   flex-basis: 45%;
   align-items: center;
@@ -88,7 +88,7 @@ function handleCheck(e: Event) {
   justify-content: flex-end;
 }
 
-.inventory-price .stock {
+.resource .content .inventory-price .stock {
   color: var(--gray-400);
 }
 </style>

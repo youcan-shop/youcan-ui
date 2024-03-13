@@ -2,7 +2,7 @@
 import { onClickOutside } from '@vueuse/core';
 import { onMounted, onUnmounted, ref, useSlots } from 'vue';
 import type { PopoverProps } from '~/types';
-import { setPosition } from '~/components/Tooltip/utils';
+import { setPosition } from '~/helpers';
 const props = withDefaults(defineProps<PopoverProps>(), {
   position: 'left',
   objectFit: 'cover',
