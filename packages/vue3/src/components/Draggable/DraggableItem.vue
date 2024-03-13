@@ -24,13 +24,13 @@ function handleCheck(value: boolean) {
 </script>
 
 <template>
-  <li class="draggable-item">
-    <DragHandle>
-      <i class="handle i-youcan-dots-six-vertical" />
-    </DragHandle>
-    <span class="label">{{ model.label }}</span>
-    <Checkbox v-if="canCheck" v-model="model.checked" @update:model-value="handleCheck" />
-  </li>
+  <DragHandle>
+    <li class="draggable-item">
+      <i class="i-youcan-dots-six-vertical" />
+      <span class="label">{{ model.label }}</span>
+      <Checkbox v-if="canCheck" v-model="model.checked" @update:model-value="handleCheck" />
+    </li>
+  </DragHandle>
 </template>
 
 <style scoped>
@@ -48,19 +48,15 @@ function handleCheck(value: boolean) {
   gap: 8px;
 }
 
-.handle {
-  flex: none;
-  width: 20px;
-  height: 20px;
-  color: var(--gray-500);
+.draggable-item:hover {
   cursor: grab;
 }
 
-.handle:active {
+.draggable-item:active {
   cursor: grabbing;
 }
 
-.label {
+.draggable-item .label {
   width: 100%;
   color: var(--gray-900);
   font: var(--text-sm-regular);

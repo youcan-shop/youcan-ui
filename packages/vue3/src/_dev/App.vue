@@ -2,48 +2,49 @@
 import 'uno.css';
 import '../assets/main.css';
 import { ref } from 'vue';
-import { SettingsNav, SettingsNavItem } from '~/components';
+import { Draggable, DraggableItem } from '~/components';
+import type { DraggableItemType } from '~/types';
 
-const SETTINGS = [
-  { label: 'General', icon: 'i-youcan-gear' },
-  { label: 'Account', icon: 'i-youcan-user' },
-  { label: 'Privacy', icon: 'i-youcan-lock' },
-  { label: 'Appearance', icon: 'i-youcan-palette' },
-  { label: 'Subscriptions', icon: 'i-youcan-receipt' },
-];
-const activeTab = ref(SETTINGS[0].label);
-
-const handleClick = (tab: string) => {
-  activeTab.value = tab;
-};
+const items = ref<DraggableItemType[]>([
+  {
+    label: 'Navbar',
+    value: 1,
+  },
+  {
+    label: 'Hero',
+    value: 2,
+  },
+  {
+    label: 'Featured Products',
+    value: 3,
+  },
+]);
+const item = ref<DraggableItemType>({
+  label: 'Do the dishes 🧽',
+  value: 1,
+  checked: false,
+});
 </script>
 
 <template>
   <div class="container">
-    <SettingsNav>
-      <template #header>
-        <p>Settings</p>
-      </template>
-      <template #items>
-        <SettingsNavItem
-          v-for="item in SETTINGS"
-          :key="item.label"
-          :label="item.label"
-          :icon="item.icon"
-          :active="activeTab === item.label"
-          @click="() => handleClick(item.label)"
-        />
-      </template>
-    </SettingsNav>
+    <Draggable v-model="items">
+      <DraggableItem
+        v-for="(item, index) in items"
+        :key="item.value as number"
+        v-model="items[index]"
+      />
+    </Draggable>
+    <DraggableItem v-model="item" :can-check="true" />
   </div>
 </template>
 
 <style scoped>
 .container {
-  min-width: 100%;
-}
-
-.settings-nav {
-  color: black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
 }
 </style>
