@@ -60,7 +60,7 @@ onUnmounted(() => {
   </Transition>
 </template>
 
-<style scoped lang="scss">
+<style scoped>
 .modal {
   display: flex;
   flex-direction: column;
@@ -72,62 +72,62 @@ onUnmounted(() => {
   border-radius: 8px;
   background-color: var(--base-white);
   box-shadow: var(--shadow-md-gray);
+}
 
-  > * {
-    box-sizing: border-box;
-    width: 100%;
-  }
+.modal > * {
+  box-sizing: border-box;
+  width: 100%;
+}
 
-  .header,
-  .footer {
-    display: flex;
-    flex-direction: row-reverse;
-    align-items: center;
-    justify-content: space-between;
-  }
+.modal .header,
+.modal .footer {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: space-between;
+}
 
-  .header {
-    padding: 14px 20px;
-    border-bottom: 1px solid var(--gray-100);
+.modal .header {
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--gray-100);
+}
 
-    .title {
-      color: var(--gray-700);
-      font: var(--text-md-medium);
-    }
+.modal .header .title {
+  color: var(--gray-700);
+  font: var(--text-md-medium);
+}
 
-    i {
-      color: var(--gray-500);
-    }
-  }
+.modal .header i {
+  color: var(--gray-500);
+}
 
-  .footer {
-    padding: 14px 20px;
-    border-top: 1px solid var(--gray-100);
-  }
+.modal .footer {
+  padding: 14px 20px;
+  border-top: 1px solid var(--gray-100);
+}
 
-  .body {
-    flex: 1;
-    padding: 20px;
-    overflow-y: auto;
-    font: var(--text-md-regular);
+.modal .body {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  font: var(--text-md-regular);
+}
 
-    &::-webkit-scrollbar {
-      width: 4px;
-    }
+.modal .body::-webkit-scrollbar {
+  width: 4px;
+}
 
-    &::-webkit-scrollbar-track {
-      background: transparent;
-    }
+.modal .body::-webkit-scrollbar-track {
+  background: transparent;
+}
 
-    &::-webkit-scrollbar-thumb {
-      border-radius: 2px;
-      background-color: var(--brand-500);
-    }
+.modal .body::-webkit-scrollbar-thumb {
+  border-radius: 2px;
+  background-color: var(--brand-500);
+}
 
-    &::-webkit-scrollbar-thumb:hover {
-      background-color: var(--brand-500);
-    }
-  }
+.modal .body::-webkit-scrollbar-thumb:hover {
+  background-color: var(--brand-500);
 }
 
 .fade-enter-active {
