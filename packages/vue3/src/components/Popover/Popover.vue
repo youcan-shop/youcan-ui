@@ -11,6 +11,7 @@ const emit = defineEmits(['update:show']);
 
 const popover = ref();
 const trigger = ref();
+const triangle = ref();
 const triggeredElement = ref();
 const top = ref('0px');
 const left = ref('0px');
@@ -47,9 +48,9 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div ref="popover" class="popover">
+  <div ref="popover" class="popover" :class="[currentPosition, { 'has-footer': slots.footer }]">
     <Transition name="fade">
-      <div v-if="show" ref="triggeredElement" class="triggered-element" :class="[currentPosition, { 'has-footer': slots.footer }]">
+      <div v-if="show" ref="triggeredElement" class="triggered-element">
         <div class="content">
           <div v-if="imgSrc" class="image">
             <img :src="imgSrc">
@@ -66,9 +67,10 @@ onUnmounted(() => {
         </div>
       </div>
     </Transition>
-    <div ref="trigger" @click="setPopoverPosition();">
+    <div ref="trigger" class="trigger" @click="setPopoverPosition();">
       <slot />
     </div>
+    <div ref="triangle" class="triangle" :class="[{ show }]" />
   </div>
 </template>
 
@@ -80,7 +82,12 @@ onUnmounted(() => {
   position: relative;
 }
 
-.triggered-element {
+.popover .trigger {
+  width: max-content;
+  max-width: 100%;
+}
+
+.popover .triggered-element {
   display: flex;
   position: fixed;
   z-index: 9999999999;
@@ -96,23 +103,31 @@ onUnmounted(() => {
   box-shadow: var(--shadow-xl-gray);
 }
 
-.triggered-element::after {
-  content: "";
+.popover .triangle {
+  visibility: hidden;
   position: absolute;
+  z-index: 9999999999;
   width: var(--caret-size);
   height: var(--caret-size);
+  transition: opacity 250ms linear;
   border-top: var(--caret-border);
   border-right: var(--caret-border);
   border-top-right-radius: 2px;
+  opacity: 0;
   background-color: var(--base-white);
 }
 
-.triggered-element > * {
+.popover .triangle.show {
+  visibility: visible;
+  opacity: 1;
+}
+
+.popover .triggered-element > * {
   box-sizing: border-box;
   width: 100%;
 }
 
-.triggered-element .content {
+.popover .triggered-element .content {
   display: flex;
   flex-direction: column;
   row-gap: 6px;
@@ -120,7 +135,7 @@ onUnmounted(() => {
   font: var(--text-sm-regular);
 }
 
-.triggered-element .content .image {
+.popover .triggered-element .content .image {
   width: 100%;
   height: 220px;
   margin-bottom: 14px;
@@ -128,22 +143,22 @@ onUnmounted(() => {
   border-radius: 8px;
 }
 
-.triggered-element .content .image img {
+.popover .triggered-element .content .image img {
   width: 100%;
   height: 100%;
   object-fit: v-bind(objectFit);
 }
 
-.triggered-element .title {
+.popover .triggered-element .title {
   color: var(--gray-900);
   font: var(--text-md-bold);
 }
 
-.triggered-element .description {
+.popover .triggered-element .description {
   color: var(--gray-600);
 }
 
-.triggered-element .footer {
+.popover .triggered-element .footer {
   display: flex;
   flex-direction: row-reverse;
   align-items: center;
@@ -155,38 +170,38 @@ onUnmounted(() => {
   background-color: var(--gray-50);
 }
 
-.triggered-element.left::after,
-.triggered-element.right::after {
+.popover.left .triangle,
+.popover.right .triangle {
   top: calc(50% - var(--caret-size) / 2);
 }
 
-.triggered-element.left::after {
-  left: calc(100% - var(--caret-size) / 2);
+.popover.left .triangle {
+  right: calc(100% + 9px);
   transform: rotate(45deg);
 }
 
-.triggered-element.right::after {
-  right: calc(100% - var(--caret-size) / 2);
+.popover.right .triangle {
+  left: calc(100% + 11px);
   transform: rotate(-135deg);
 }
 
-.triggered-element.top::after,
-.triggered-element.bottom::after {
+.popover.top .triangle,
+.popover.bottom .triangle {
   left: calc(50% - var(--caret-size) / 2);
 }
 
-.triggered-element.top::after {
-  top: calc(100% - var(--caret-size) / 2);
+.popover.top .triangle {
+  bottom: calc(100% + 9px);
   transform: rotate(135deg);
 }
 
-.triggered-element.top.has-footer::after {
-  background-color: var(--gray-50);
+.popover.bottom .triangle {
+  top: calc(100% + 11px);
+  transform: rotate(-45deg);
 }
 
-.triggered-element.bottom::after {
-  bottom: calc(100% - var(--caret-size) / 2);
-  transform: rotate(-45deg);
+.popover.top.has-footer .triangle {
+  background-color: var(--gray-50);
 }
 
 .fade-enter-active {
