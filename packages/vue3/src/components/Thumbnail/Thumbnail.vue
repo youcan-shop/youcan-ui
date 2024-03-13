@@ -12,11 +12,7 @@ withDefaults(
 
 <template>
   <div class="thumbnail" :class="[`size-${size}`]">
-    <object v-if="src" :data="src" type="image/png" class="image">
-      <div class="placeholder">
-        <i class="i-youcan-image icon" />
-      </div>
-    </object>
+    <img v-if="src" :src="src" class="image">
     <div v-else class="placeholder">
       <i class="i-youcan-image icon" />
     </div>
@@ -40,13 +36,10 @@ withDefaults(
   box-shadow: var(--shadow-xs-gray);
 }
 
-.image {
+.thumbnail .image {
   width: 100%;
   height: 100%;
   aspect-ratio: 1 / 1;
-}
-
-.thumbnail .image {
   object-fit: v-bind(objectFit);
 }
 
@@ -58,14 +51,14 @@ withDefaults(
   --size: 44px;
 }
 
-.placeholder {
+.thumbnail .placeholder {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100%;
 }
 
-.placeholder .icon {
+.thumbnail .placeholder .icon {
   display: block;
   width: 20px;
   height: 20px;
