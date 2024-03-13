@@ -48,38 +48,6 @@ function redoChange() {
   quill.value?.history.redo();
 }
 
-// function customImageInsert() {
-//   const fileInput = document.querySelector('.ql-image') as HTMLInputElement;
-//   const toolbar = document.querySelector('.ql-toolbar');
-
-//   if (!fileInput) {
-//     const newFileInput = document.createElement('input');
-//     newFileInput.type = 'file';
-//     newFileInput.accept = 'image/*';
-//     newFileInput.className = 'ql-image';
-
-//     toolbar?.appendChild(newFileInput);
-//     newFileInput.click();
-
-//     newFileInput.onchange = function (event) {
-//       const files = (event.target as HTMLInputElement).files;
-//       const range = quill.value?.getSelection(true);
-//       if (files && files.length > 0 && range) {
-//         const file = files[0];
-//         const reader = new FileReader();
-//         reader.onload = function () {
-//           const imageDataUrl = reader.result as string;
-//           quill.value?.insertEmbed(range.index, 'image', imageDataUrl, Quill.sources.USER);
-//         };
-//         reader.readAsDataURL(file);
-//       }
-//     };
-//   }
-//   else {
-//     fileInput.click();
-//   }
-// }
-
 function insertImageHandler(event: any) {
   const files = event.target.files;
   const range = quill.value?.getSelection(true);
