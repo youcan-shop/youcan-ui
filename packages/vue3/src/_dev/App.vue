@@ -2,92 +2,48 @@
 import 'uno.css';
 import '../assets/main.css';
 import { ref } from 'vue';
-import { PrimaryButton, ResourcePicker } from '~/components';
-import type { Resource } from '~/types';
+import { SettingsNav, SettingsNavItem } from '~/components';
 
-const MOCK_RESOURCES: Resource[] = [
-  {
-    id: 1,
-    thumbnailUrl: '',
-    name: 'Apple MacBook Pro',
-    price: '$2,499.00',
-    stock: 7,
-    isChecked: false,
-    variants: [
-      {
-        id: 33,
-        thumbnailUrl: '',
-        name: 'Apple MacBook Pro 16 M3 Max',
-        price: '$3,499.00',
-        stock: 3,
-        isChecked: false,
-      },
-      {
-        id: 21,
-        thumbnailUrl: '',
-        name: 'Apple MacBook Pro 14 M3 Pro',
-        price: '$2,499.00',
-        stock: 4,
-        isChecked: false,
-      },
-    ],
-  },
-  {
-    id: 2,
-    thumbnailUrl: '',
-    name: 'Apple iMac',
-    price: '$1,499.00',
-    stock: 2,
-    isChecked: false,
-  },
+const SETTINGS = [
+  { label: 'General', icon: 'i-youcan-gear' },
+  { label: 'Account', icon: 'i-youcan-user' },
+  { label: 'Privacy', icon: 'i-youcan-lock' },
+  { label: 'Appearance', icon: 'i-youcan-palette' },
+  { label: 'Subscriptions', icon: 'i-youcan-receipt' },
 ];
+const activeTab = ref(SETTINGS[0].label);
 
-const showPicker = ref(false);
-const selectedResources = ref<Resource[]>([]);
-const resources = ref<Resource[]>(MOCK_RESOURCES);
-
-const onConfirm = (resources: Resource[]) => {
-  selectedResources.value = resources;
-  showPicker.value = false;
+const handleClick = (tab: string) => {
+  activeTab.value = tab;
 };
 </script>
 
 <template>
-  <div className="container">
-    <ResourcePicker
-      v-model:visible="showPicker"
-      :resources="resources"
-      stock-label="in stock"
-      :is-loading="false"
-      @confirm="onConfirm"
-    />
-    <PrimaryButton @click="showPicker = true;">
-      <span>Open Picker</span>
-    </PrimaryButton>
-    <div v-if="selectedResources.length > 0" class="selection">
-      <pre>{{ selectedResources }}</pre>
-    </div>
+  <div class="container">
+    <SettingsNav>
+      <template #header>
+        <p>Settings</p>
+      </template>
+      <template #items>
+        <SettingsNavItem
+          v-for="item in SETTINGS"
+          :key="item.label"
+          :label="item.label"
+          :icon="item.icon"
+          :active="activeTab === item.label"
+          @click="() => handleClick(item.label)"
+        />
+      </template>
+    </SettingsNav>
   </div>
 </template>
 
 <style scoped>
 .container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  max-width: 300px;
-  gap: 16px;
+  min-width: 100%;
 }
 
-.selection {
-  padding: 16px;
-  border: 1px solid var(--gray-200);
-  border-radius: 8px;
-  background-color: var(--vp-c-bg);
-}
-
-:is(.dark) .selection {
-  border-color: var(--gray-700);
+.settings-nav {
+  color: black;
 }
 </style>
