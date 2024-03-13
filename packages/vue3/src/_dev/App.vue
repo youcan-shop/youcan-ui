@@ -1,25 +1,93 @@
 <script setup lang="ts">
 import 'uno.css';
 import '../assets/main.css';
-import { SecondaryButton, Tooltip } from '~/components';
+import { ref } from 'vue';
+import { PrimaryButton, ResourcePicker } from '~/components';
+import type { Resource } from '~/types';
+
+const MOCK_RESOURCES: Resource[] = [
+  {
+    id: 1,
+    thumbnailUrl: '',
+    name: 'Apple MacBook Pro',
+    price: '$2,499.00',
+    stock: 7,
+    isChecked: false,
+    variants: [
+      {
+        id: 33,
+        thumbnailUrl: '',
+        name: 'Apple MacBook Pro 16 M3 Max',
+        price: '$3,499.00',
+        stock: 3,
+        isChecked: false,
+      },
+      {
+        id: 21,
+        thumbnailUrl: '',
+        name: 'Apple MacBook Pro 14 M3 Pro',
+        price: '$2,499.00',
+        stock: 4,
+        isChecked: false,
+      },
+    ],
+  },
+  {
+    id: 2,
+    thumbnailUrl: '',
+    name: 'Apple iMac',
+    price: '$1,499.00',
+    stock: 2,
+    isChecked: false,
+  },
+];
+
+const showPicker = ref(false);
+const selectedResources = ref<Resource[]>([]);
+const resources = ref<Resource[]>(MOCK_RESOURCES);
+
+const onConfirm = (resources: Resource[]) => {
+  selectedResources.value = resources;
+  showPicker.value = false;
+};
 </script>
 
 <template>
-  <div class="container">
-    <Tooltip label="Add to favorites" position="top">
-      <SecondaryButton>
-        Hover
-      </SecondaryButton>
-    </Tooltip>
+  <div className="container">
+    <ResourcePicker
+      v-model:visible="showPicker"
+      :resources="resources"
+      stock-label="in stock"
+      :is-loading="false"
+      @confirm="onConfirm"
+    />
+    <PrimaryButton @click="showPicker = true;">
+      <span>Open Picker</span>
+    </PrimaryButton>
+    <div v-if="selectedResources.length > 0" class="selection">
+      <pre>{{ selectedResources }}</pre>
+    </div>
   </div>
 </template>
 
 <style scoped>
 .container {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100vw;
-  height: 100vh;
+  max-width: 300px;
+  gap: 16px;
+}
+
+.selection {
+  padding: 16px;
+  border: 1px solid var(--gray-200);
+  border-radius: 8px;
+  background-color: var(--vp-c-bg);
+}
+
+:is(.dark) .selection {
+  border-color: var(--gray-700);
 }
 </style>

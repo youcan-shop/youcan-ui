@@ -109,7 +109,7 @@ onUnmounted(() => {
 <template>
   <Transition name="fade">
     <Overlay v-show="visible">
-      <div class="picker">
+      <div class="resource-picker">
         <div class="header">
           <span>{{ title }}</span>
           <TertiaryButton @click="closePicker">
@@ -166,7 +166,7 @@ onUnmounted(() => {
 </template>
 
 <style scoped>
-.picker {
+.resource-picker {
   --border: 1px solid var(--gray-100);
 
   width: 620px;
@@ -174,48 +174,48 @@ onUnmounted(() => {
   background-color: var(--base-white);
 }
 
-.header {
+.resource-picker .header {
   padding: 8px 16px;
   border-bottom: var(--border);
 }
 
-.header,
-.footer {
+.resource-picker .header,
+.resource-picker .footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.search {
+.resource-picker .search {
   padding: 16px;
   border-bottom: var(--border);
   background-color: var(--gray-50);
 }
 
-.footer {
+.resource-picker .footer {
   padding: 16px;
   border-top: 1px solid var(--gray-200);
 }
 
-.selection {
+.resource-picker .footer .selection {
   color: var(--gray-400);
 }
 
-.actions {
+.resource-picker .footer .actions {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 16px;
 }
 
-.loading {
+.resource-picker .loading {
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 16px;
 }
 
-.list {
+.resource-picker .list {
   position: relative;
   max-height: 500px;
   margin: 0;
@@ -224,7 +224,7 @@ onUnmounted(() => {
   list-style: none;
 }
 
-.list::after {
+.resource-picker .list::after {
   content: "";
   display: block;
   position: sticky;
@@ -235,16 +235,11 @@ onUnmounted(() => {
   pointer-events: none;
 }
 
-.empty-state {
+.resource-picker .empty-state {
   display: block;
   padding: 16px 24px;
   color: var(--gray-400);
   text-align: center;
-}
-
-.container ul li > ul {
-  padding: 0;
-  list-style: none;
 }
 
 .fade-enter-active,
