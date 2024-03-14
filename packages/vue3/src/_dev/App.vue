@@ -10,7 +10,7 @@ const show = ref(false);
   <div class="container">
     <Popover
       v-model:show="show"
-      position="left"
+      position="right"
       object-fit="cover"
       class="popover"
       @click-outside="show = false"
@@ -44,7 +44,7 @@ const show = ref(false);
 .container {
   display: flex;
   box-sizing: border-box;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
   width: 100vw;
   height: 100vh;

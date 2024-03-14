@@ -21,7 +21,10 @@ const slots = useSlots();
 
 const setPopoverPosition = () => {
   if (triggeredElement.value && trigger.value) {
-    const position = setPosition(triggeredElement.value, trigger.value, props.position, 22);
+    let position = setPosition(triggeredElement.value, trigger.value, props.position, 22);
+    if (position.left < 0) {
+      position = setPosition(triggeredElement.value, trigger.value, 'top', 22);
+    }
     top.value = `${position.top}px`;
     left.value = `${position.left}px`;
     currentPosition.value = position.currentPosition;
@@ -74,7 +77,7 @@ onUnmounted(() => {
   </div>
 </template>
 
-<style scoped lang="scss">
+<style scoped>
 .popover {
   --caret-size: 22px;
   --caret-border: 1px solid var(--gray-300);
