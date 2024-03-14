@@ -33,7 +33,7 @@ const handleClick = () => {
   cursor: pointer;
 }
 
-.label {
+.dropdown-menu-item .label {
   flex: 1;
   margin: 0 10px;
   font: var(--text-sm-regular);

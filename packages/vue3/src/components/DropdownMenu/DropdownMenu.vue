@@ -38,7 +38,7 @@ onClickOutside(dropdownMenu, () => show.value = false);
 </script>
 
 <template>
-  <div ref="dropdownMenu">
+  <div ref="dropdownMenu" class="dropdown-menu">
     <div ref="trigger" class="trigger" @click="toggleMenu">
       <slot />
     </div>
@@ -51,7 +51,7 @@ onClickOutside(dropdownMenu, () => show.value = false);
 </template>
 
 <style scoped>
-.triggered-element {
+.dropdown-menu .triggered-element {
   display: flex;
   position: fixed;
   z-index: 10;
@@ -69,18 +69,18 @@ onClickOutside(dropdownMenu, () => show.value = false);
   gap: 1px;
 }
 
+.dropdown-menu .trigger {
+  width: max-content;
+  max-width: 100%;
+  margin: 0;
+}
+
 .fade-in-enter-active {
   animation: fade-in 0.1s ease-in-out;
 }
 
 .fade-in-leave-active {
   animation: fade-in 0.1s reverse ease-in-out;
-}
-
-.trigger {
-  width: max-content;
-  max-width: 100%;
-  margin: 0;
 }
 
 @keyframes fade-in {
