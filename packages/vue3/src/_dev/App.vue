@@ -2,48 +2,52 @@
 import 'uno.css';
 import '../assets/main.css';
 import { ref } from 'vue';
-import { SettingsNav, SettingsNavItem } from '~/components';
+import { Slider } from '~/components';
+import type { RangeValue } from '~/types';
 
-const SETTINGS = [
-  { label: 'General', icon: 'i-youcan-gear' },
-  { label: 'Account', icon: 'i-youcan-user' },
-  { label: 'Privacy', icon: 'i-youcan-lock' },
-  { label: 'Appearance', icon: 'i-youcan-palette' },
-  { label: 'Subscriptions', icon: 'i-youcan-receipt' },
-];
-const activeTab = ref(SETTINGS[0].label);
-
-const handleClick = (tab: string) => {
-  activeTab.value = tab;
-};
+const value = ref(2000);
+const rangeValue = ref<RangeValue>({ min: 200, max: 500 });
 </script>
 
 <template>
   <div class="container">
-    <SettingsNav>
-      <template #header>
-        <p>Settings</p>
-      </template>
-      <template #items>
-        <SettingsNavItem
-          v-for="item in SETTINGS"
-          :key="item.label"
-          :label="item.label"
-          :icon="item.icon"
-          :active="activeTab === item.label"
-          @click="() => handleClick(item.label)"
-        />
-      </template>
-    </SettingsNav>
+    <div>
+      <Slider
+        v-model="rangeValue"
+        suffix=""
+        :max="2000"
+        :min="200"
+        type="range"
+      />
+      <div>min : {{ rangeValue.min }}  ==> max: {{ rangeValue.max }}</div>
+      <Slider
+        v-model="value"
+        suffix=""
+        :max="2000"
+        :min="200"
+      />
+      <div>{{ value }}</div>
+    </div>
   </div>
 </template>
 
 <style scoped>
 .container {
-  min-width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
 }
 
-.settings-nav {
-  color: black;
+.container > div {
+  display: flex;
+  flex-direction: column;
+  width: 450px;
+  gap: 30px;
+}
+
+.container > div > div {
+  font: var(--text-sm-medium);
 }
 </style>

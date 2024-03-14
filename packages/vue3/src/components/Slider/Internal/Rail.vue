@@ -128,7 +128,7 @@ onUnmounted(() => {
   </div>
 </template>
 
-<style scoped lang="scss">
+<style scoped>
 .rail {
   display: flex;
   position: absolute;
@@ -138,214 +138,179 @@ onUnmounted(() => {
   width: 100%;
   min-width: 14px;
   cursor: pointer;
+}
 
-  .selected {
-    display: flex;
-    position: absolute;
-    align-items: center;
-    min-width: 14px;
-    height: 6px;
-    border-radius: 7px;
-    background-color: var(--brand-500);
-    cursor: pointer;
-    user-select: none;
+.rail .selected {
+  display: flex;
+  position: absolute;
+  align-items: center;
+  min-width: 14px;
+  height: 6px;
+  border-radius: 7px;
+  background-color: var(--brand-500);
+  cursor: pointer;
+  user-select: none;
+}
 
-    .thumb {
-      position: absolute;
-      right: 0;
-      width: 14px;
-      height: 14px;
+.rail .selected .thumb {
+  position: absolute;
+  right: 0;
+  width: 14px;
+  height: 14px;
+}
 
-      &::before,
-      &::after {
-        content: "";
-        position: absolute;
-        box-sizing: border-box;
-        width: 100%;
-        height: 100%;
-        border-radius: 50%;
-        cursor: pointer;
-      }
+.rail .selected .thumb::before,
+.rail .selected .thumb::after {
+  content: "";
+  position: absolute;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  cursor: pointer;
+}
 
-      &::before {
-        z-index: 1;
-        transition: transform 150ms linear;
-        border: 1px solid var(--brand-500);
-        background-color: var(--base-white);
-      }
+.rail .selected .thumb::before {
+  z-index: 1;
+  transition: transform 150ms linear;
+  border: 1px solid var(--brand-500);
+  background-color: var(--base-white);
+}
 
-      &::after {
-        z-index: 2;
-        background-color: var(--brand-500);
-      }
-    }
+.rail .selected .thumb::after {
+  z-index: 2;
+  background-color: var(--brand-500);
+}
 
-    &.min {
-      left: 0;
-      width: v-bind(topercent(minWidth));
+.rail .selected.min {
+  left: 0;
+  width: v-bind(topercent(minWidth));
+}
 
-      .thumb {
-        right: 0;
-      }
-    }
+.rail .selected.min .thumb {
+  right: 0;
+}
 
-    &.max {
-      right: 0;
-      width: v-bind(topercent(maxWidth));
+.rail .selected.max {
+  right: 0;
+  width: v-bind(topercent(maxWidth));
+}
 
-      .thumb {
-        left: 0;
-      }
+.rail .selected.max .thumb {
+  left: 0;
+}
 
-      .tooltip {
-        right: unset;
-        left: 7px;
-        transform: translateX(-50%) scale(0);
-      }
-    }
+.rail .selected.max .tooltip {
+  right: unset;
+  left: 7px;
+  transform: translateX(-50%) scale(0);
+}
 
-    &.active,
-    &:hover {
-      .thumb {
-        &::before {
-          transform: scale(1.45);
-        }
-      }
+.rail .selected.active .thumb::before,
+.rail .selected:hover .thumb::before {
+  transform: scale(1.45);
+}
 
-      .tooltip {
-        transform: translateX(50%) scale(1);
-        opacity: 1;
-      }
+.rail .selected.active .tooltip,
+.rail .selected:hover .tooltip {
+  transform: translateX(50%) scale(1);
+  opacity: 1;
+}
 
-      &.max {
-        .tooltip {
-          transform: translateX(-50%) scale(1);
-          opacity: 1;
-        }
-      }
-    }
-  }
+.rail .selected.active.max .tooltip,
+.rail .selected:hover.max .tooltip {
+  transform: translateX(-50%) scale(1);
+  opacity: 1;
+}
 
-  &.range {
-    .selected {
-      max-width: calc(100% - 14px);
-      background-color: var(--gray-200);
-    }
-  }
+.rail.range .selected {
+  max-width: calc(100% - 14px);
+  background-color: var(--gray-200);
+}
 
-  &.rtl {
-    .selected {
-      &.min {
-        right: 0;
-        left: unset;
+.rail.rtl .selected.min {
+  right: 0;
+  left: unset;
+}
 
-        .thumb {
-          right: unset;
-          left: 0;
-        }
+.rail.rtl .selected.min .thumb {
+  right: unset;
+  left: 0;
+}
 
-        .tooltip {
-          transform: translateX(-50%) scale(0);
-        }
-      }
+.rail.rtl .selected.min .tooltip {
+  transform: translateX(-50%) scale(0);
+}
 
-      &.max {
-        right: unset;
-        left: 0;
+.rail.rtl .selected.max {
+  right: unset;
+  left: 0;
+}
 
-        .thumb {
-          right: 0;
-          left: unset;
-        }
+.rail.rtl .selected.max .thumb {
+  right: 0;
+  left: unset;
+}
 
-        .tooltip {
-          right: 7px;
-          left: unset;
-          transform: translateX(50%) scale(0);
-        }
-      }
+.rail.rtl .selected.max .tooltip {
+  right: 7px;
+  left: unset;
+  transform: translateX(50%) scale(0);
+}
 
-      &.active,
-      &:hover {
-        .tooltip {
-          transform: translateX(-50%) scale(1);
-          opacity: 1;
-        }
+.rail.rtl .selected.active .tooltip,
+.rail.rtl .selected:hover .tooltip {
+  transform: translateX(-50%) scale(1);
+  opacity: 1;
+}
 
-        &.max {
-          .tooltip {
-            transform: translateX(50%) scale(1);
-            opacity: 1;
-          }
-        }
-      }
-    }
-  }
+.rail.rtl .selected.active.max .tooltip,
+.rail.rtl .selected:hover.max .tooltip {
+  transform: translateX(50%) scale(1);
+  opacity: 1;
 }
 </style>
 
-<style scoped lang="scss">
-.rail.disabled {
-  .selected {
-    background-color: var(--gray-100);
+<style scoped>
+.rail.disabled .selected {
+  background-color: var(--gray-100);
+}
 
-    &,
-    .thumb::before,
-    .thumb::after {
-      cursor: not-allowed;
-    }
+.rail.disabled .selected,
+.rail.disabled .selected .thumb::before,
+.rail.disabled .selected .thumb::after {
+  cursor: not-allowed;
+}
 
-    .thumb {
-      &::before,
-      &::after {
-        border: 1px solid var(--gray-200);
-        background-color: var(--gray-200);
-      }
-    }
+.rail.disabled .selected .thumb::before,
+.rail.disabled .selected .thumb::after {
+  border: 1px solid var(--gray-200);
+  background-color: var(--gray-200);
+}
 
-    &.max,
-    &.min {
-      .tooltip {
-        opacity: 1;
-      }
-    }
+.rail.disabled .selected.max .tooltip,
+.rail.disabled .selected.min .tooltip {
+  opacity: 1;
+}
 
-    &.min {
-      .tooltip {
-        transform: translateX(50%) scale(1);
-      }
-    }
+.rail.disabled .selected.min .tooltip {
+  transform: translateX(50%) scale(1);
+}
 
-    &.max {
-      .tooltip {
-        transform: translateX(-50%) scale(1);
-      }
-    }
+.rail.disabled .selected.max .tooltip {
+  transform: translateX(-50%) scale(1);
+}
 
-    &:hover,
-    &.active {
-      .thumb {
-        &::before {
-          transform: scale(1);
-        }
-      }
-    }
-  }
+.rail.disabled .selected:hover .thumb::before,
+.rail.disabled .selected.active .thumb::before {
+  transform: scale(1);
+}
 
-  &.rtl {
-    .selected {
-      &.min {
-        .tooltip {
-          transform: translateX(-50%) scale(1);
-        }
-      }
+.rail.disabled.rtl .selected.min .tooltip {
+  transform: translateX(-50%) scale(1);
+}
 
-      &.max {
-        .tooltip {
-          transform: translateX(50%) scale(1);
-        }
-      }
-    }
-  }
+.rail.disabled.rtl .selected.max .tooltip {
+  transform: translateX(50%) scale(1);
 }
 </style>
