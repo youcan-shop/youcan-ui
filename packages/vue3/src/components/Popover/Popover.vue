@@ -22,7 +22,7 @@ const slots = useSlots();
 const setPopoverPosition = () => {
   if (triggeredElement.value && trigger.value) {
     let position = setPosition(triggeredElement.value, trigger.value, props.position, 22);
-    if (position.left < 0) {
+    if (position.left < 0 && position.currentPosition === 'left') {
       position = setPosition(triggeredElement.value, trigger.value, 'top', 22);
     }
     top.value = `${position.top}px`;
