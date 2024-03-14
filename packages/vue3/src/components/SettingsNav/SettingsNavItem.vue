@@ -17,16 +17,13 @@ defineProps<SettingsNavItemProps>();
 </template>
 
 <style scoped>
-button {
-  box-sizing: border-box;
-  width: 100%;
-  border: none;
-}
-
 .settings-nav-item {
   display: flex;
+  box-sizing: border-box;
   align-items: center;
+  width: 100%;
   padding: 12px;
+  border: none;
   background-color: var(--base-white);
   cursor: pointer;
   gap: 12px;
@@ -57,5 +54,9 @@ button {
 .settings-nav-item.active .icon {
   color: var(--brand-500);
   font: var(--text-sm-medium);
+}
+
+html[dir="rtl"] .settings-nav-item.active {
+  box-shadow: inset -3px 0 0 0 var(--brand-500);
 }
 </style>

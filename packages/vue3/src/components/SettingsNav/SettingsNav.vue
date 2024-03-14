@@ -1,10 +1,12 @@
 <script setup lang="ts">
+import { useSlots } from 'vue';
 
+const slots = useSlots();
 </script>
 
 <template>
   <div class="settings-nav">
-    <div class="header">
+    <div v-if="slots.header" class="header">
       <slot name="header" />
     </div>
 
