@@ -1,34 +1,34 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from 'vue';
-import { setPosition } from './utils';
+import { setPosition } from '~/helpers';
 import type { TooltipProps } from '~/types';
 
 const props = withDefaults(defineProps<TooltipProps>(), {
   position: 'top',
 });
 
-const tooltipTrigger = ref<HTMLElement >();
+const triggeredElement = ref<HTMLElement >();
 const tooltip = ref<HTMLElement>();
 const tooltipPosition = () => {
-  if (tooltipTrigger.value && tooltip.value) {
-    const { left, top } = setPosition(tooltipTrigger.value, tooltip.value, props.position);
-    tooltipTrigger.value?.setAttribute('style', `top:${top}px;left:${left}px`);
+  if (triggeredElement.value && tooltip.value) {
+    const { left, top } = setPosition(triggeredElement.value, tooltip.value, props.position);
+    triggeredElement.value?.setAttribute('style', `top:${top}px;left:${left}px`);
   }
 };
 
 const handleScroll = () => {
-  if (!tooltipTrigger.value?.classList.contains('tooltip-trigger-hide')) {
-    tooltipTrigger.value?.classList.add('tooltip-trigger-hide');
+  if (!triggeredElement.value?.classList.contains('triggered-element-hide')) {
+    triggeredElement.value?.classList.add('triggered-element-hide');
   }
 };
 
 const handleMouseEnter = () => {
-  tooltipTrigger.value?.classList.remove('tooltip-trigger-hide');
+  triggeredElement.value?.classList.remove('triggered-element-hide');
   tooltipPosition();
 };
 
 onMounted(() => {
-  tooltipTrigger.value?.classList.remove('tooltip-trigger-hide');
+  triggeredElement.value?.classList.remove('triggered-element-hide');
   tooltipPosition();
   window.addEventListener('scroll', handleScroll);
 });
@@ -40,45 +40,43 @@ onUnmounted(() => {
 
 <template>
   <div v-if="label" ref="tooltip" class="tooltip" :class="position" @mouseenter="handleMouseEnter">
-    <span ref="tooltipTrigger" class="tooltip-trigger">{{ label }}</span>
+    <span ref="triggeredElement" class="triggered-element">{{ label }}</span>
 
     <slot />
   </div>
   <slot v-else />
 </template>
 
-<style scoped lang="scss">
+<style scoped>
 .tooltip {
   display: inline-block;
   position: relative;
+}
 
-  .tooltip-trigger {
-    visibility: hidden;
-    position: fixed;
-    z-index: 9999999999;
-    width: max-content;
-    max-width: 200px;
-    padding: 8px 12px;
-    transition: opacity 0.3s ease-in-out;
-    transition-delay: 0.1s;
-    border-radius: 4px;
-    opacity: 0;
-    background-color: var(--base-black);
-    color: var(--base-white);
-    font: var(--text-xs-regular);
+.tooltip .triggered-element {
+  visibility: hidden;
+  position: fixed;
+  z-index: 9999999999;
+  width: max-content;
+  max-width: 200px;
+  padding: 8px 12px;
+  transition: opacity 0.3s ease-in-out;
+  transition-delay: 0.1s;
+  border-radius: 4px;
+  opacity: 0;
+  background-color: var(--base-black);
+  color: var(--base-white);
+  font: var(--text-xs-regular);
+}
 
-    &-hide {
-      visibility: hidden !important;
-      opacity: 0 !important;
-    }
-  }
+.tooltip .triggered-element-hide {
+  visibility: hidden !important;
+  opacity: 0 !important;
+}
 
-  &:hover {
-    .tooltip-trigger {
-      visibility: visible;
-      transition-delay: 0.2s;
-      opacity: 1;
-    }
-  }
+.tooltip:hover .triggered-element {
+  visibility: visible;
+  transition-delay: 0.2s;
+  opacity: 1;
 }
 </style>

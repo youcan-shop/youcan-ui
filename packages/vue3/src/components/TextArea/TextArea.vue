@@ -39,7 +39,7 @@ const model = computed({
   border: 1px solid var(--gray-300);
 }
 
-.textarea {
+.wrapper .textarea {
   box-sizing: border-box;
   width: 100%;
   min-height: 130px;
@@ -69,7 +69,7 @@ const model = computed({
   box-shadow: var(--focus-shadow-xs-red);
 }
 
-.textarea:placeholder {
+.wrapper .textarea:placeholder {
   color: var(--gray-300);
 }
 </style>

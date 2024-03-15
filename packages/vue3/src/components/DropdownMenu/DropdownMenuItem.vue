@@ -20,24 +20,20 @@ const handleClick = () => {
   </div>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 .dropdown-menu-item {
-  --border-radius: 5px;
-  --padding: 8px;
-
   display: flex;
   justify-content: space-between;
-  padding: var(--padding);
-  border-radius: var(--border-radius);
-
-  &:hover {
-    border-radius: var(--border-radius);
-    background-color: var(--gray-100);
-    cursor: pointer;
-  }
+  padding: 8px;
+  border-radius: 5px;
 }
 
-.label {
+.dropdown-menu-item:hover {
+  background-color: var(--gray-100);
+  cursor: pointer;
+}
+
+.dropdown-menu-item .label {
   flex: 1;
   margin: 0 10px;
   font: var(--text-sm-regular);
