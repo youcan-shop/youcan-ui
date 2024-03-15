@@ -15,8 +15,7 @@ export type ToolbarOption =
   | 'code-block'
   | 'link'
   | 'image'
-  | 'video'
-  | 'customImage';
+  | 'video';
 
 export interface RichTextProps {
   modelValue: string
