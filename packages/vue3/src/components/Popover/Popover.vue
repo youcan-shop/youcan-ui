@@ -10,8 +10,9 @@ const props = withDefaults(defineProps<PopoverProps>(), {
 const emit = defineEmits(['update:show']);
 
 const popover = ref();
-const element = ref();
-const popoverTrigger = ref();
+const trigger = ref();
+const triangle = ref();
+const triggeredElement = ref();
 const top = ref('0px');
 const left = ref('0px');
 const currentPosition = ref('');
@@ -19,8 +20,11 @@ const currentPosition = ref('');
 const slots = useSlots();
 
 const setPopoverPosition = () => {
-  if (popoverTrigger.value && element.value) {
-    const position = setPosition(popoverTrigger.value, element.value, props.position, 22);
+  if (triggeredElement.value && trigger.value) {
+    let position = setPosition(triggeredElement.value, trigger.value, props.position, 22);
+    if (position.left < 0 && position.currentPosition === 'left') {
+      position = setPosition(triggeredElement.value, trigger.value, 'top', 22);
+    }
     top.value = `${position.top}px`;
     left.value = `${position.left}px`;
     currentPosition.value = position.currentPosition;
@@ -47,9 +51,9 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div ref="popover" class="popover">
+  <div ref="popover" class="popover" :class="[currentPosition, { 'has-footer': slots.footer }]">
     <Transition name="fade">
-      <div v-if="show" ref="popoverTrigger" class="popover-trigger" :class="[currentPosition, { 'has-footer': slots.footer }]">
+      <div v-if="show" ref="triggeredElement" class="triggered-element">
         <div class="content">
           <div v-if="imgSrc" class="image">
             <img :src="imgSrc">
@@ -66,142 +70,141 @@ onUnmounted(() => {
         </div>
       </div>
     </Transition>
-    <div ref="element" @click="setPopoverPosition();">
+    <div ref="trigger" class="trigger" @click="setPopoverPosition();">
       <slot />
     </div>
+    <div ref="triangle" class="triangle" :class="[{ show }]" />
   </div>
 </template>
 
-<style scoped lang="scss">
-$margin: 24px;
-$caret-size: 22px;
-$caret-border: 1px solid var(--gray-300);
-
+<style scoped>
 .popover {
+  --caret-size: 22px;
+  --caret-border: 1px solid var(--gray-300);
+
   position: relative;
+}
 
-  &-trigger {
-    display: flex;
-    position: fixed;
-    z-index: 9999999999;
-    top: v-bind(top);
-    left: v-bind(left);
-    flex-direction: column;
-    width: 400px;
-    max-width: calc(100vw - 40px);
-    min-height: 70px;
-    border: 1px solid var(--gray-200);
-    border-radius: 8px;
-    background-color: var(--base-white);
-    box-shadow: var(--shadow-xl-gray);
+.popover .trigger {
+  width: max-content;
+  max-width: 100%;
+}
 
-    &::after {
-      content: "";
-      position: absolute;
-      width: $caret-size;
-      height: $caret-size;
-      border-top: $caret-border;
-      border-right: $caret-border;
-      border-top-right-radius: 2px;
-      background-color: var(--base-white);
-    }
+.popover .triggered-element {
+  display: flex;
+  position: fixed;
+  z-index: 9999999999;
+  top: v-bind(top);
+  left: v-bind(left);
+  flex-direction: column;
+  width: 400px;
+  max-width: calc(100vw - 40px);
+  min-height: 70px;
+  border: 1px solid var(--gray-200);
+  border-radius: 8px;
+  background-color: var(--base-white);
+  box-shadow: var(--shadow-xl-gray);
+}
 
-    > * {
-      box-sizing: border-box;
-      width: 100%;
-    }
+.popover .triangle {
+  visibility: hidden;
+  position: absolute;
+  z-index: 9999999999;
+  width: var(--caret-size);
+  height: var(--caret-size);
+  transition: opacity 250ms linear;
+  border-top: var(--caret-border);
+  border-right: var(--caret-border);
+  border-top-right-radius: 2px;
+  opacity: 0;
+  background-color: var(--base-white);
+}
 
-    .content {
-      display: flex;
-      flex-direction: column;
-      row-gap: 6px;
-      padding: 24px;
-      font: var(--text-sm-regular);
+.popover .triangle.show {
+  visibility: visible;
+  opacity: 1;
+}
 
-      .image {
-        width: 100%;
-        height: 220px;
-        margin-bottom: 14px;
-        overflow: hidden;
-        border-radius: 8px;
+.popover .triggered-element > * {
+  box-sizing: border-box;
+  width: 100%;
+}
 
-        img {
-          width: 100%;
-          height: 100%;
-          object-fit: v-bind(objectFit);
-        }
-      }
-    }
+.popover .triggered-element .content {
+  display: flex;
+  flex-direction: column;
+  row-gap: 6px;
+  padding: 24px;
+  font: var(--text-sm-regular);
+}
 
-    .title {
-      color: var(--gray-900);
-      font: var(--text-md-bold);
-    }
+.popover .triggered-element .content .image {
+  width: 100%;
+  height: 220px;
+  margin-bottom: 14px;
+  overflow: hidden;
+  border-radius: 8px;
+}
 
-    .description {
-      color: var(--gray-600);
-    }
+.popover .triggered-element .content .image img {
+  width: 100%;
+  height: 100%;
+  object-fit: v-bind(objectFit);
+}
 
-    .footer {
-      display: flex;
-      flex-direction: row-reverse;
-      align-items: center;
-      justify-content: space-between;
-      padding: 18px 24px;
-      column-gap: 20px;
-      border-top: 1px solid var(--gray-100);
-      border-radius: 0 0 8px 8px;
-      background-color: var(--gray-50);
-    }
+.popover .triggered-element .title {
+  color: var(--gray-900);
+  font: var(--text-md-bold);
+}
 
-    &.left,
-    &.right {
-      &::after {
-        top: calc(50% - calc($caret-size / 2));
-      }
-    }
+.popover .triggered-element .description {
+  color: var(--gray-600);
+}
 
-    &.left {
-      &::after {
-        left: calc(100% - calc($caret-size / 2));
-        transform: rotate(45deg);
-      }
-    }
+.popover .triggered-element .footer {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 24px;
+  column-gap: 20px;
+  border-top: 1px solid var(--gray-100);
+  border-radius: 0 0 8px 8px;
+  background-color: var(--gray-50);
+}
 
-    &.right {
-      &::after {
-        right: calc(100% - calc($caret-size / 2));
-        transform: rotate(-135deg);
-      }
-    }
+.popover.left .triangle,
+.popover.right .triangle {
+  top: calc(50% - var(--caret-size) / 2);
+}
 
-    &.top,
-    &.bottom {
-      &::after {
-        left: calc(50% - calc($caret-size / 2));
-      }
-    }
+.popover.left .triangle {
+  right: calc(100% + 9px);
+  transform: rotate(45deg);
+}
 
-    &.top {
-      &::after {
-        top: calc(100% - calc($caret-size / 2));
-        transform: rotate(135deg);
-      }
+.popover.right .triangle {
+  left: calc(100% + 11px);
+  transform: rotate(-135deg);
+}
 
-      &.has-footer {
-        &::after {
-          background-color: var(--gray-50);
-        }
-      }
-    }
+.popover.top .triangle,
+.popover.bottom .triangle {
+  left: calc(50% - var(--caret-size) / 2);
+}
 
-    &.bottom {
-      &::after {
-        bottom: calc(100% - calc($caret-size / 2));
-        transform: rotate(-45deg);
-      }
-    }
-  }
+.popover.top .triangle {
+  bottom: calc(100% + 9px);
+  transform: rotate(135deg);
+}
+
+.popover.bottom .triangle {
+  top: calc(100% + 11px);
+  transform: rotate(-45deg);
+}
+
+.popover.top.has-footer .triangle {
+  background-color: var(--gray-50);
 }
 
 .fade-enter-active {
