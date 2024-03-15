@@ -31,43 +31,47 @@ onUnmounted(() => {
 
 <template>
   <Transition name="fade">
-    <Overlay v-show="visible" @on-backdrop-click="close">
-      <Transition name="slide-up">
-        <div v-if="visible" class="modal">
-          <div class="header">
-            <TertiaryButton @click="close">
-              <i class="i-youcan-x" />
-            </TertiaryButton>
-            <span class="title">{{ title }}</span>
-          </div>
-          <div class="body">
-            <slot />
-          </div>
-          <div class="footer">
-            <PrimaryButton v-if="!cancelOnly" @click="emit('onConfirm')">
-              <template v-if="confirmIcon" #icon>
-                <i :class="confirmIcon" />
-              </template>
-              <span>{{ confirmLabel }}</span>
-            </PrimaryButton>
-            <SecondaryButton @click="close">
-              <span>{{ cancelLabel }}</span>
-            </SecondaryButton>
-          </div>
-        </div>
-      </Transition>
-    </Overlay>
+    <Overlay v-if="visible" @on-backdrop-click="close" />
+  </Transition>
+  <Transition name="slide-up">
+    <div v-if="visible" class="modal">
+      <div class="header">
+        <TertiaryButton @click="close">
+          <i class="i-youcan-x" />
+        </TertiaryButton>
+        <span class="title">{{ title }}</span>
+      </div>
+      <div class="body">
+        <slot />
+      </div>
+      <div class="footer">
+        <PrimaryButton v-if="!cancelOnly" @click="emit('onConfirm')">
+          <template v-if="confirmIcon" #icon>
+            <i :class="confirmIcon" />
+          </template>
+          <span>{{ confirmLabel }}</span>
+        </PrimaryButton>
+        <SecondaryButton @click="close">
+          <span>{{ cancelLabel }}</span>
+        </SecondaryButton>
+      </div>
+    </div>
   </Transition>
 </template>
 
 <style scoped>
 .modal {
   display: flex;
+  position: fixed;
+  z-index: 999999999;
+  top: 50%;
+  left: 50%;
   flex-direction: column;
   width: 900px;
   max-width: calc(100vw - 40px);
   max-height: calc(100vh - 40px);
   overflow: hidden;
+  transform: translateX(-50%) translateY(-50%);
   border: 1px solid var(--gray-200);
   border-radius: 8px;
   background-color: var(--base-white);
@@ -158,11 +162,13 @@ onUnmounted(() => {
 
 @keyframes slide-up {
   0% {
-    transform: translateY(16px);
+    transform: translateX(-50%) translateY(calc(-50% + 16px));
+    opacity: 0;
   }
 
   100% {
-    transform: translateY(0%);
+    transform: translateX(-50%) translateY(-50%);
+    opacity: 1;
   }
 }
 </style>

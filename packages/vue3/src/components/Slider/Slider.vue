@@ -82,7 +82,7 @@ onMounted(() => {
   </div>
 </template>
 
-<style scoped lang="scss">
+<style scoped>
 .slider {
   display: flex;
   position: relative;
@@ -90,61 +90,47 @@ onMounted(() => {
   flex-direction: row;
   align-items: center;
   column-gap: 8px;
+}
 
-  .slide-area {
-    display: flex;
-    position: relative;
-    flex: 1;
-    align-items: center;
-    min-height: 20px;
+.slider .slide-area {
+  display: flex;
+  position: relative;
+  flex: 1;
+  align-items: center;
+  min-height: 20px;
+}
 
-    &::before {
-      content: "";
-      display: block;
-      position: relative;
-      z-index: 1;
-      width: 100%;
-      height: 6px;
-      border-radius: 7px;
-      background-color: var(--gray-200);
-    }
-  }
+.slider .slide-area::before {
+  content: "";
+  display: block;
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 6px;
+  border-radius: 7px;
+  background-color: var(--gray-200);
+}
 
-  .label {
-    color: var(--gray-900);
-    font: var(--text-xs-regular);
-    font-style: italic;
-    user-select: none;
-  }
+.slider .label {
+  color: var(--gray-900);
+  font: var(--text-xs-regular);
+  font-style: italic;
+  user-select: none;
+}
 
-  &.range {
-    .slide-area {
-      &::before {
-        background-color: var(--brand-500);
-      }
-    }
+.slider.range .slide-area::before {
+  background-color: var(--brand-500);
+}
 
-    &.disabled {
-      .slide-area {
-        &::before {
-          background-color: var(--gray-100);
-        }
-      }
-    }
+.slider.range.disabled .slide-area::before {
+  background-color: var(--gray-100);
+}
 
-    &:hover {
-      &:not(.disabled) {
-        .slide-area {
-          &::before {
-            background-color: var(--brand-400);
-          }
-        }
-      }
-    }
-  }
+.slider.range:hover:not(.disabled) .slide-area::before {
+  background-color: var(--brand-400);
+}
 
-  &.disabled {
-    cursor: not-allowed;
-  }
+.slider.disabled {
+  cursor: not-allowed;
 }
 </style>

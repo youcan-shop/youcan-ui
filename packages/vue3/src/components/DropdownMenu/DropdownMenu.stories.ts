@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
-import { Divider, DropdownMenu, DropdownMenuItem, PrimaryButton } from '~/components';
+import { Badge, Divider, DropdownMenu, DropdownMenuItem, PrimaryButton } from '~/components';
 
 type Story = StoryObj<typeof DropdownMenu>;
 const meta: Meta<typeof DropdownMenu> = {
@@ -28,7 +28,7 @@ const meta: Meta<typeof DropdownMenu> = {
 
 export const Default: Story = {
   render: args => ({
-    components: { DropdownMenu, DropdownMenuItem, Divider, PrimaryButton },
+    components: { DropdownMenu, DropdownMenuItem, Divider, PrimaryButton, Badge },
     setup() {
       return { args };
     },
