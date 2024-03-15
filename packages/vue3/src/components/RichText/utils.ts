@@ -21,3 +21,12 @@ export function styleColorPickerDropdown() {
     element.appendChild(redLineSpan);
   });
 }
+
+export function handleRtl(quill: Quill | null) {
+  const divElement = document.querySelector('.ql-editor') as HTMLElement;
+  divElement.style.textAlign = 'right';
+  if (quill) {
+    quill.format('direction', 'rtl');
+    quill.format('align', 'right');
+  }
+}

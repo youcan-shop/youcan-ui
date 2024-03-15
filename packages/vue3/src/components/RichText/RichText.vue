@@ -7,7 +7,7 @@ import type { RichTextProps } from './types';
 import customIcons from './internal/icons';
 import { toolbarOptions } from './internal/toolbar';
 import { customImage, redoChange, undoChange } from './internal/handlers';
-import { replaceIcons, styleColorPickerDropdown } from './utils';
+import { handleRtl, replaceIcons, styleColorPickerDropdown } from './utils';
 
 const props = withDefaults(
   defineProps<RichTextProps>(),
@@ -66,8 +66,7 @@ onMounted(() => {
       });
 
       if (document.dir === 'rtl') {
-        quill.format('direction', 'rtl');
-        quill.format('align', 'right');
+        handleRtl(quill);
       }
 
       styleColorPickerDropdown();
