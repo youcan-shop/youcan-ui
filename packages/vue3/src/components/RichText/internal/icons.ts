@@ -48,7 +48,6 @@ const customIcons: any = {
   'video': '<i class="i-youcan:video-camera"></i>',
   'undo': '<i class="i-youcan:arrow-bend-up-left"></i>',
   'redo': '<i class="i-youcan:arrow-bend-up-right"></i>',
-  'customImage': '<i class="i-youcan:image"></i>',
 };
 
 export default customIcons;

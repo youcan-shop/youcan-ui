@@ -4,8 +4,10 @@ import 'quill/dist/quill.snow.css';
 import { computed, onMounted, ref } from 'vue';
 import Quill from 'quill';
 import type { RichTextProps } from './types';
-import customIcons from './ToolbarIcons';
-import { toolbarOptions } from './EditorToolbar';
+import customIcons from './internal/icons';
+import { toolbarOptions } from './internal/toolbar';
+import { customImage, redoChange, undoChange } from './internal/handlers';
+import { replaceIcons, styleColorPickerDropdown } from './utils';
 
 const props = withDefaults(
   defineProps<RichTextProps>(),
@@ -25,36 +27,16 @@ const model = computed({
 });
 
 const editor = ref<HTMLDivElement | null>(null);
-const quill = ref<Quill | null>(null);
-
-function replaceIcons(customIcons: { [key: string]: any }): void {
-  const icons = Quill.import('ui/icons');
-  icons.undo = '';
-  icons.redo = '';
-  icons.customImage = '';
-  for (const key in icons) {
-    // eslint-disable-next-line no-prototype-builtins
-    if (customIcons.hasOwnProperty(key)) {
-      icons[key] = customIcons[key];
-    }
-  }
-}
-
-function undoChange() {
-  quill.value?.history.undo();
-}
-
-function redoChange() {
-  quill.value?.history.redo();
-}
+let quill: Quill | null;
 
 const editorConfig = {
   modules: {
     toolbar: {
       container: props.toolbar,
       handlers: {
-        undo: undoChange,
-        redo: redoChange,
+        undo: () => undoChange(quill),
+        redo: () => redoChange(quill),
+        image: () => customImage(quill, quill?.getSelection(true)),
       },
     },
     history: {
@@ -68,31 +50,28 @@ const editorConfig = {
 };
 
 onMounted(() => {
-  if (props.disabled) {
-    quill.value?.disable();
+  if (props.disabled && quill) {
+    quill.disable();
   }
+
   if (editor.value) {
     replaceIcons(customIcons);
-    // INITIATING QUILL
-    quill.value = new Quill(editor.value, editorConfig);
-    // WATCHING EDITOR CHANGE
-    quill.value.on('text-change', () => {
-      if (quill.value) {
-        model.value = quill.value.root.innerHTML;
+    quill = new Quill(editor.value, editorConfig);
+
+    if (quill) {
+      quill.on('text-change', () => {
+        if (quill) {
+          model.value = quill.root.innerHTML;
+        }
+      });
+
+      if (document.dir === 'rtl') {
+        quill.format('direction', 'rtl');
+        quill.format('align', 'right');
       }
-    });
-    // SET EDITOR DIRECTION
-    if (document.dir === 'rtl') {
-      quill.value.format('direction', 'rtl');
-      quill.value.format('align', 'right');
+
+      styleColorPickerDropdown();
     }
-    // STYLING COLOR PICKER DROPDOWN
-    const elementToAppendTo = document.querySelectorAll('.ql-picker-item[data-value="transparent"]');
-    elementToAppendTo.forEach((element) => {
-      const redLineSpan = document.createElement('span');
-      redLineSpan.classList.add('red-line');
-      element.appendChild(redLineSpan);
-    });
   }
 });
 </script>

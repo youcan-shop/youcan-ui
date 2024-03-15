@@ -1,4 +1,4 @@
-import type { ToolbarOption } from './types';
+import type { ToolbarOption } from '../types';
 
 const colors = [
   'transparent',

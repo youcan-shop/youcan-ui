@@ -14,8 +14,8 @@ export type ToolbarOption =
   | { direction: 'rtl' | 'ltr' }
   | 'code-block'
   | 'link'
-  | 'image'
-  | 'video';
+  | 'video'
+  | 'image';
 
 export interface RichTextProps {
   modelValue: string
