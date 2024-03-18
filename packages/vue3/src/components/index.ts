@@ -66,4 +66,3 @@ export { default as SwitchButton } from './MultiSwitch/SwitchButton.vue';
 export { default as Drawer } from './Drawer/Drawer.vue';
 export { default as DropdownMenu } from './DropdownMenu/DropdownMenu.vue';
 export { default as DropdownMenuItem } from './DropdownMenu/DropdownMenuItem.vue';
-export { default as RichText } from './RichText/RichText.vue';
