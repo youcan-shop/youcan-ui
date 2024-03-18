@@ -21,6 +21,7 @@ const handleCheck = (value: DraggableItemType, checked: boolean) => {
 };
 
 function getItemModel(value: unknown) {
+  if (typeof value === 'undefined') return -1; // Handle error case
   return model.value.findIndex(model => model.value === value);
 }
 </script>
