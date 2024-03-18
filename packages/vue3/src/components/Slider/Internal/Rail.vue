@@ -15,9 +15,7 @@ const selectedThumb = ref('');
 const active = ref(false);
 const rail = ref();
 
-const isRtl = () => {
-  return document.dir === 'rtl';
-};
+const isRtl = ref(false);
 
 const setValues = (percent: number) => {
   const { min, max, modelValue } = props;
@@ -65,8 +63,8 @@ const mousemove = (event: MouseEvent, clickEvent = false) => {
   if ((active.value || (clickEvent && props.type !== 'range')) && rail.value) {
     const offset = rail.value.getBoundingClientRect();
 
-    let mousePosition = (isRtl() || selectedThumb.value === 'max') ? offset.right - event.clientX : event.clientX - offset.left;
-    mousePosition = (isRtl() && selectedThumb.value === 'max') ? event.clientX - offset.left : mousePosition;
+    let mousePosition = (isRtl.value || selectedThumb.value === 'max') ? offset.right - event.clientX : event.clientX - offset.left;
+    mousePosition = (isRtl.value && selectedThumb.value === 'max') ? event.clientX - offset.left : mousePosition;
 
     let percent = Math.floor((mousePosition / offset.width) * 100);
     percent = percent >= 100 ? 100 : percent;
@@ -102,6 +100,7 @@ const initValues = () => {
 onMounted(() => {
   window.addEventListener('mousemove', mousemove);
   window.addEventListener('mouseup', mouseup);
+  isRtl.value = document.dir === 'rtl';
   initValues();
 });
 
@@ -112,7 +111,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div ref="rail" class="rail" :class="[{ rtl: isRtl() }, { disabled }, type]" @click="handleClick">
+  <div ref="rail" class="rail" :class="[{ rtl: isRtl }, { disabled }, type]" @click="handleClick">
     <div class="selected min" :class="{ active: selectedThumb === 'min' }">
       <div class="thumb" @mousedown="mousedown($event)" />
       <Tooltip>
