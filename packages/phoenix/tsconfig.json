@@ -1,0 +1,16 @@
+{
+  "extends": "../../tsconfig.base",
+  "compilerOptions": {
+    "baseUrl": "",
+    "lib": ["esnext", "dom"],
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "declarationDir": "dist/types",
+    "types": ["vite/client"],
+    "paths": {
+      "~/*": ["src/*"],
+      "dev/*": ["src/dev/*"]
+    }
+  },
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.vue", "src/index.js"]
+}
