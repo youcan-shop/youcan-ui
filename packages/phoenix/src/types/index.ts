@@ -16,7 +16,6 @@ export type { InputProps, DropdownPrefixProps, HTMLInputTypeAttribute } from '..
 export type { ModalProps } from '../components/Modal/types';
 export type { MultiSwitchProps, SwitchButtonProps, SwitchButtonOption } from '../components/MultiSwitch/types';
 export type { PaginationBarProps, NavigationButtonProps } from '../components/PaginationBar/types';
-export type { PercentageProps, PercentageType } from '../components/Percentage/types';
 export type { PopoverProps, ObjectFit } from '../components/Popover/types';
 export type { RadioProps, RadioGroupProps, RadioData } from '../components/Radio/types';
 export type { RadioListProps, RadioList } from '../components/RadioList/types';
@@ -35,7 +34,6 @@ export type { TabProps } from '../components/Tabs/types';
 export type { TagProps, TagItemProps, TagItemType, TagItemValue } from '../components/Tag/types';
 export type { TextAreaProps } from '../components/TextArea/types';
 export type { ThumbnailProps, ThumbnailSize } from '../components/Thumbnail/types';
-export type { ToastProps, ToastPosition } from '../components/Toast/types';
 export type { ToastContainerProps, ToastType, ToastOptions } from '../components/ToastContainer/types';
 export type { ToggleProps } from '../components/Toggle/types';
 export type { TooltipProps, TooltipPosition } from '../components/Tooltip/types';
