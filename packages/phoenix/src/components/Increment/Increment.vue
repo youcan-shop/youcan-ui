@@ -102,22 +102,19 @@ onMounted(() => {
 
 <style scoped>
 .increment {
-  --width: 460px;
-  --text-color: var(--gray-900);
-  --background-color: var(--base-white);
   --border: 1px solid var(--gray-200);
   --shadow: var(--shadow-xs-gray);
 
   display: flex;
   box-sizing: border-box;
   align-items: center;
-  width: var(--width);
+  width: 460px;
   max-width: 100%;
   padding: 6px 10px;
   border: var(--border);
   border-radius: 8px;
   outline: none;
-  background-color: var(--background-color);
+  background-color: var(--base-white);
   box-shadow: var(--shadow);
   gap: 8px;
 }
@@ -130,7 +127,7 @@ onMounted(() => {
   border: none;
   outline: none;
   background-color: var(--base-white);
-  color: var(--text-color);
+  color: var(--gray-900);
   font: var(--text-sm-regular);
   text-align: center;
 }
@@ -146,12 +143,17 @@ onMounted(() => {
 }
 
 .increment[disabled="true"] {
-  --text-color: var(--gray-300);
-  --background-color: var(--gray-50);
+  background-color: var(--gray-50);
+}
+
+.increment[disabled="true"],
+.increment[disabled="true"] * {
+  cursor: not-allowed;
 }
 
 .increment[disabled="true"] .input {
   background-color: var(--gray-50);
+  color: var(--gray-300);
   pointer-events: none;
 }
 
