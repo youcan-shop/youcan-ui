@@ -110,7 +110,7 @@ onMounted(() => {
   gap: 8px;
 }
 
-.input {
+.increment .input {
   flex: 1;
   height: 21px;
   margin: 0;
