@@ -4,7 +4,7 @@ export interface IncrementMachineValue {
 }
 
 export interface IncrementProps {
-  modelValue: string
+  modelValue: number
   max?: number
   min?: number
   step?: number

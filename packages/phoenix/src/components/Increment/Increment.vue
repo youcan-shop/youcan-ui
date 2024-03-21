@@ -5,7 +5,7 @@ import type { IncrementProps } from '~/types';
 import TertiaryButtonVue from '~/components/Button/TertiaryButton.vue';
 
 const props = withDefaults(defineProps<IncrementProps>(), {
-  modelValue: '1',
+  modelValue: 1,
   id: Utils.uid('increment_'),
   min: 0,
   step: 1,
@@ -16,15 +16,15 @@ const emit = defineEmits(['update:modelValue']);
 
 const model = computed({
   get: () => props.modelValue,
-  set: (value: string) => {
+  set: (value: number) => {
     const inputValue = Number(value);
     if (typeof props.max !== 'undefined' && inputValue > props.max) {
-      model.value = String(props.max);
+      model.value = props.max;
 
       return;
     }
     else if (typeof props.min !== 'undefined' && inputValue < props.min) {
-      model.value = String(props.min);
+      model.value = props.min;
 
       return;
     }
@@ -40,24 +40,24 @@ const increment = () => {
   if (props.disabled) {
     return;
   }
-  model.value = String(Number(model.value) + props.step);
+  model.value = model.value + props.step;
 };
 
 const decrement = () => {
   if (props.disabled) {
     return;
   }
-  model.value = String(Number(model.value) - props.step);
+  model.value = model.value - props.step;
 };
 
 const handleInput = (event: Event) => {
   const value = parseInt((event.target as HTMLInputElement).value);
-  model.value = String(isNaN(value) ? 0 : value);
+  model.value = isNaN(value) ? 0 : value;
 };
 
 onMounted(() => {
   input.value?.addEventListener('keypress', (event) => {
-    if ((props.max && Number(model.value) >= props.max) || (props.min && Number(model.value) <= props.min)) {
+    if ((props.max && model.value >= props.max) || (props.min && model.value <= props.min)) {
       event.preventDefault();
     }
   });
@@ -91,7 +91,7 @@ onMounted(() => {
         <i class="i-youcan-minus" />
       </template>
     </TertiaryButtonVue>
-    <input :id="id" ref="input" v-model="model" class="input" tabindex="-1" @input="handleInput">
+    <input :id="id" ref="input" v-model.number="model" class="input" tabindex="-1" @input="handleInput">
     <TertiaryButtonVue size="xs" icon-position="only" :disabled="disabled" @click="increment">
       <template #icon>
         <i class="i-youcan-plus" />
