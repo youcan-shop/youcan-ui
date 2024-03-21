@@ -36,24 +36,15 @@ const model = computed({
 const input = ref<HTMLInputElement>();
 const container = ref<HTMLInputElement>();
 
-const increment = () => {
-  if (props.disabled) {
-    return;
-  }
-  model.value = model.value + props.step;
-};
+function update(status: 'increment' | 'decrement' = 'increment') {
+  const newValue = status === 'increment' ? model.value + props.step : model.value - props.step;
+  model.value = newValue;
+}
 
-const decrement = () => {
-  if (props.disabled) {
-    return;
-  }
-  model.value = model.value - props.step;
-};
-
-const handleInput = (event: Event) => {
+function handleInput(event: Event) {
   const value = parseInt((event.target as HTMLInputElement).value);
   model.value = isNaN(value) ? 0 : value;
-};
+}
 
 onMounted(() => {
   input.value?.addEventListener('keypress', (event) => {
@@ -72,13 +63,13 @@ onMounted(() => {
     if (event.key === 'ArrowUp') {
       event.preventDefault();
 
-      increment();
+      update();
     }
 
     if (event.key === 'ArrowDown') {
       event.preventDefault();
 
-      decrement();
+      update('decrement');
     }
   });
 });
@@ -86,13 +77,13 @@ onMounted(() => {
 
 <template>
   <div ref="container" class="increment" tabindex="0" :disabled="disabled">
-    <TertiaryButtonVue size="xs" icon-position="only" :disabled="disabled" @click="decrement">
+    <TertiaryButtonVue size="xs" icon-position="only" :disabled="disabled" @click="update('decrement')">
       <template #icon>
         <i class="i-youcan-minus" />
       </template>
     </TertiaryButtonVue>
     <input :id="id" ref="input" v-model.number="model" class="input" tabindex="-1" @input="handleInput">
-    <TertiaryButtonVue size="xs" icon-position="only" :disabled="disabled" @click="increment">
+    <TertiaryButtonVue size="xs" icon-position="only" :disabled="disabled" @click="update()">
       <template #icon>
         <i class="i-youcan-plus" />
       </template>

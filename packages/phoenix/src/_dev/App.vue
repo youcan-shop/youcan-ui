@@ -9,7 +9,7 @@ const quantity = ref(4);
 
 <template>
   <div class="container">
-    <Increment v-model="quantity" :max="100" />
+    <Increment v-model="quantity" :max="100" :step="10" />
   </div>
 </template>
 
