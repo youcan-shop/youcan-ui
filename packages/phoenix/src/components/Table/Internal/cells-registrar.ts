@@ -4,7 +4,6 @@ import Link from './Link.vue';
 import Button from './Button.vue';
 import Thumbnail from '~/components/Thumbnail/Thumbnail.vue';
 import EditableStatus from '~/components/Status/EditableStatus.vue';
-import Percentage from '~/components/Percentage/Percentage.vue';
 import Rating from '~/components/Rating/Rating.vue';
 import Toggle from '~/components/Toggle/Toggle.vue';
 import Increment from '~/components/Increment/Increment.vue';
@@ -17,7 +16,6 @@ export default function (name: TableComposableVariant): Component | undefined {
     case 'link': return Link;
     case 'status': return EditableStatus;
     case 'static-status': return StaticStatus;
-    case 'percentage': return Percentage;
     case 'button': return Button;
     case 'rating': return Rating;
     case 'toggle': return Toggle;

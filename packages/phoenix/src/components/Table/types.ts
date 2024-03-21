@@ -1,11 +1,11 @@
 import type { Component } from 'vue';
 import type { IntegerRange } from '@youcan/ui-core';
 import type { StaticStatusDefinition, StatusDefinition } from '../Status/types';
-import type { PercentageType } from '../Percentage/types';
 import type { ButtonIconPosition, ButtonSize } from '../Button/types';
 import type { HTMLInputTypeAttribute } from '../Input/types';
 import type { ThumbnailSize } from '~/components/Thumbnail/types';
 
+type PercentageType = 'success' | 'info' | 'warning' | 'danger' | null;
 export interface HandleSubCompModel {
   index: number
   accessor: string
