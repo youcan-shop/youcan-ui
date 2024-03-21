@@ -51,6 +51,7 @@
     "components:build": "rimraf dist && vue-tsc --declaration --emitDeclarationOnly --project tsconfig.build.json && vite build",
     "dev": "pnpm story:dev & pnpm components:dev",
     "build": "pnpm components:build & pnpm story:build",
+    "release": "pnpm publish --access public",
     "lint": "eslint .",
     "storybook": "storybook dev -p 6007",
     "build-storybook": "storybook build",
