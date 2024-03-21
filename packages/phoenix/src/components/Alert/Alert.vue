@@ -56,7 +56,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="alert-block" :class="[type]">
+  <div class="alert" :class="[type]">
     <div class="main">
       <div class="icon-block" :class="[type]">
         <i class="icon" :class="alertVariant" />
@@ -82,7 +82,7 @@ onUnmounted(() => {
 </template>
 
 <style scoped>
-.alert-block {
+.alert {
   --border-left-color: var(--orange-500);
 
   display: flex;
@@ -102,7 +102,7 @@ onUnmounted(() => {
   gap: 8px;
 }
 
-.alert-block::before {
+.alert::before {
   content: "";
   position: absolute;
   top: 0;
@@ -112,15 +112,15 @@ onUnmounted(() => {
   background-color: var(--border-left-color);
 }
 
-.alert-block.success {
+.alert.success {
   --border-left-color: var(--green-600);
 }
 
-.alert-block.info {
+.alert.info {
   --border-left-color: var(--blue-500);
 }
 
-.alert-block.error {
+.alert.error {
   --border-left-color: var(--red-500);
 }
 
