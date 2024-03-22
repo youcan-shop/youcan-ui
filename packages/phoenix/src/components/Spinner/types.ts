@@ -3,5 +3,5 @@ export interface SpinnerProps {
   size?: number
   color?: string
   labelColor?: string
-  labelFontSize?: string
+  labelFontSize?: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 }

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { computed } from 'vue';
 import type { SpinnerProps } from '~/types';
 const props = withDefaults(
   defineProps<SpinnerProps>(),
@@ -11,30 +11,26 @@ const props = withDefaults(
   },
 );
 
-const spinnerSize = ref(`${props.size}px`);
+const spinnerSize = computed(() => `${props.size}px`);
 </script>
 
 <template>
-  <div class="container">
+  <div class="spinner-block">
     <div class="spinner" />
-    <p v-if="label" class="label">
+    <p v-if="label" class="label" :class="[labelFontSize]">
       {{ label }}
     </p>
   </div>
 </template>
 
 <style lang="css" scoped>
-.container {
+.spinner-block {
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
-.label {
-  color: v-bind("labelColor");
-  font: v-bind("`var(--text-${labelFontSize}-regular)`");
-}
-
-.spinner {
+.spinner-block .spinner {
   position: relative;
   width: v-bind(spinnerSize);
   animation: s4 1s infinite linear;
@@ -42,6 +38,27 @@ const spinnerSize = ref(`${props.size}px`);
   border-radius: 50%;
   border-right-color: transparent;
   aspect-ratio: 1;
+}
+
+.spinner-block .label {
+  color: v-bind("labelColor");
+  font: var(--text-md-regular);
+}
+
+.spinner-block .label.xs {
+  font: var(--text-xs-regular);
+}
+
+.spinner-block .label.sm {
+  font: var(--text-sm-regular);
+}
+
+.spinner-block .label.lg {
+  font: var(--text-lg-regular);
+}
+
+.spinner-block .label.xl {
+  font: var(--text-xl-regular);
 }
 
 @keyframes s4 {
