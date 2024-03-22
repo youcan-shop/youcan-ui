@@ -1,14 +1,17 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 import type { SpinnerProps } from '~/types';
-withDefaults(
+const props = withDefaults(
   defineProps<SpinnerProps>(),
   {
     color: 'var(--brand-300)',
-    size: '40px',
+    size: 40,
     labelColor: 'var(--brand-500)',
     labelFontSize: 'md',
   },
 );
+
+const spinnerSize = ref(`${props.size}px`);
 </script>
 
 <template>
@@ -33,7 +36,7 @@ withDefaults(
 
 .spinner {
   position: relative;
-  width: v-bind("size");
+  width: v-bind(spinnerSize);
   animation: s4 1s infinite linear;
   border: medium solid v-bind("color");
   border-radius: 50%;
