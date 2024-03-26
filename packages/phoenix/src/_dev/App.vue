@@ -2,20 +2,20 @@
 import 'uno.css';
 import '../assets/main.css';
 import { ref } from 'vue';
-import { RichText } from '~/components';
+import { Increment } from '~/components';
 
-const content = ref('');
+const quantity = ref(4);
 </script>
 
 <template>
   <div class="container">
-    <RichText v-model="content" />
-    <p>{{ content }}</p>
+    <Increment v-model="quantity" :max="100" :step="10" />
   </div>
 </template>
 
 <style scoped>
 .container {
+  width: 400px;
   margin: 30px;
 }
 </style>
