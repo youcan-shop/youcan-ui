@@ -1,0 +1,284 @@
+<script setup lang="ts">
+import { computed, ref, shallowRef, toRaw } from 'vue';
+import CellsRegistrar from './Internal/cells-registrar';
+import TableRow from './Internal/TableRow.vue';
+import type { TableColumn, TableColumnValue, TableColumnValues, TableData, TableDataComposable, TableDataRow, TableInternalData, TableProps } from '~/types';
+import Checkbox from '~/components/Checkbox/Checkbox.vue';
+
+const props = withDefaults(defineProps<TableProps>(), {
+  actionsText: 'Actions',
+});
+
+const emit = defineEmits<{
+  (event: 'sort', column: TableColumn, index: number): void
+  (event: 'update:data', data: TableData[]): void
+  (event: 'update:selected-rows', data: TableData[]): void
+  (event: 'check', indexes: Array<number>): void
+  (event: 'update:cell', data: { row: unknown; accessor: string }): void
+}>();
+
+const expandedRows = ref(Array<boolean>(props.data.length).fill(false));
+const hasChildren = computed(() => props.data.some(row => row.children && row.children.length > 0));
+
+const tableColumns = computed(() => {
+  const columns = [
+    props.selectable ? { accessor: 'check', label: 'Checkbox' } : null,
+    hasChildren.value ? { accessor: '_expand', label: 'Expand' } : null,
+    ...props.columns,
+  ];
+
+  if (props.actions && props.actions.length > 0) {
+    columns.push({ accessor: 'actions', label: props.actionsText });
+  }
+
+  return columns.filter(column => column !== null) as TableColumn[];
+});
+
+const rows = computed(
+  () => props.data.map(({ row, children }) => {
+    const rowObject: TableInternalData = {
+      row: {},
+      children: [],
+    };
+
+    function fieldsMapper(dataRow: TableDataRow) {
+      const tableRowObject: Record<Exclude<keyof TableDataRow, number>, TableColumnValue> = {};
+
+      Object.keys(dataRow).forEach((key) => {
+        const value = dataRow[key];
+
+        if (typeof value === 'undefined') {
+          return null;
+        }
+
+        tableRowObject[key] = {
+          value,
+          accessor: key as string,
+          isString: typeof value !== 'object',
+          component: typeof value === 'object' ? CellsRegistrar(value.variant) : undefined,
+        };
+      });
+
+      return tableRowObject;
+    }
+
+    rowObject.row = fieldsMapper(row);
+    if (children) {
+      rowObject.children = children.map(child => ({ row: fieldsMapper(child) }));
+    }
+
+    return rowObject;
+  }).filter(row => row !== null),
+);
+
+const sortable = (column: TableColumn) => {
+  return column.sortable && column.sortable !== 'none';
+};
+
+const emitSort = (column: TableColumn, index: number) => {
+  if (sortable(column) === false) {
+    return false;
+  }
+  emit('sort', column, index);
+};
+
+function mapRowsToTableData(records: TableInternalData[]): TableData[] {
+  return props.data.map(({ row, children }: TableData, index: number) => {
+    function mapRowObjToPropsOriginalObj(obj: TableDataRow, innerObj: TableColumnValues) {
+      const mappedObj: TableDataRow = {};
+
+      Object.keys(obj).forEach((key: Exclude<keyof TableDataRow, number>) => {
+        const composedRow = rows.value[index].row[key];
+        const propRow = obj[key];
+
+        if (typeof composedRow === 'undefined' || typeof propRow !== 'object') {
+          return mappedObj[key] = propRow;
+        }
+
+        mappedObj[key] = innerObj[key].value;
+      });
+
+      return mappedObj;
+    }
+
+    const innerRow = records[index];
+    const childrenRaw = children ? toRaw(children) : [];
+    const tableData = {
+      row: mapRowObjToPropsOriginalObj(row, innerRow.row),
+      children: childrenRaw.map((child, index) => mapRowObjToPropsOriginalObj(child, innerRow.children ? innerRow.children[index].row : {})),
+    };
+
+    return tableData;
+  });
+}
+
+function handleSubCompModel(row: number, accessor: string, data: unknown, parentRow?: number) {
+  if (typeof parentRow === 'undefined') {
+    const rowsReplica = shallowRef(rows.value);
+    const propRow = props.data[row].row[accessor] as TableDataComposable;
+
+    rowsReplica.value[row].row[accessor].value = {
+      // @ts-expect-error - TS is crying about variant type here, but it's not a problem since it's valid
+      variant: propRow.variant,
+      data: {
+        ...propRow.data,
+        // @ts-expect-error - Expected from TS to not know the type def here since the value is dynamically set
+        modelValue: data,
+      },
+    };
+
+    const patchedData = mapRowsToTableData(rowsReplica.value);
+
+    emit('update:cell', { row: patchedData[row].row, accessor });
+    emit('update:data', patchedData);
+  }
+  else {
+    const rowsReplica = shallowRef(rows.value);
+    const propRow = props.data[parentRow].children![row][accessor] as TableDataComposable;
+
+    rowsReplica.value[parentRow].children![row].row[accessor].value = {
+      // @ts-expect-error - TS is crying about variant type here, but it's not a problem since it's valid
+      variant: propRow.variant,
+      data: {
+        ...propRow.data,
+        // @ts-expect-error - Expected from TS to not know the type def here since the value is dynamically set
+        modelValue: data,
+      },
+    };
+
+    const patchedData = mapRowsToTableData(rowsReplica.value);
+
+    emit('update:cell', { row: patchedData[parentRow].children![row], accessor });
+    emit('update:data', patchedData);
+  }
+}
+
+const checkedRows = computed({
+  get: () => {
+    if (props.selectedRows && props.selectedRows.length) {
+      return props.data.map(row => props.selectedRows!.some(selectedRow => selectedRow.row.id === row.row.id));
+    }
+    else {
+      return Array(props.data.length).fill(false);
+    }
+  },
+  set: (value: boolean[]) => {
+    emit('update:selected-rows', props.data.filter((_, index) => value[index]));
+
+    const selectedIndexes = value.map((_, index) => {
+      return _ ? index : null;
+    }).filter(index => index !== null) as Array<number>;
+
+    emit('check', selectedIndexes);
+  },
+});
+
+const isAllChecked = computed(() => checkedRows.value.every(row => row));
+
+const batchSelect = (value: boolean) => checkedRows.value = Array<boolean>(props.data.length).fill(value);
+
+function selectRow(index: number, data: boolean) {
+  checkedRows.value = checkedRows.value.map((row, i) => i === index ? data : row);
+}
+</script>
+
+<template>
+  <div class="table-container">
+    <table class="table">
+      <thead class="table-head">
+        <th v-for="(column, index) in tableColumns" :key="column.accessor" class="head-column" :style="{ width: column.size ?? undefined }">
+          <template v-if="column.accessor === 'check'">
+            <Checkbox v-model="isAllChecked" @update:model-value="batchSelect" />
+          </template>
+          <template v-else-if="column.accessor === '_expand'">
+            <span />
+          </template>
+          <template v-else>
+            <span class="text" :class="{ 'text-sortable': sortable(column) }" @click="emitSort(column, index)">
+              {{ column.label }}
+              <i v-if="sortable(column)" class="i-youcan-caret-down" tabindex="1" :class="column.sortable" />
+            </span>
+          </template>
+        </th>
+      </thead>
+      <tbody class="table-body">
+        <template v-for="(row, index) in rows" :key="index">
+          <TableRow
+            :index="index" :row="row" :columns="tableColumns" :selected="checkedRows[index]"
+            :expended="expandedRows[index]" :actions="actions" :data="data"
+            @update:selected-rows="selectRow(index, $event)"
+            @update:expend="expandedRows[index] = $event"
+            @update:sub-comp-model="handleSubCompModel($event.index, $event.accessor, $event.data, $event.child ? index : undefined)"
+          />
+        </template>
+      </tbody>
+    </table>
+  </div>
+</template>
+
+<style scoped>
+.table-container {
+  display: flex;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: start;
+  width: 100%;
+  overflow: auto hidden;
+}
+
+.table {
+  width: 100%;
+  overflow: hidden;
+  border-collapse: collapse;
+}
+
+.table-head {
+  height: 52px;
+  border-bottom: 1px solid var(--gray-200);
+  background-color: var(--gray-50);
+}
+
+.table-head .head-column {
+  height: 100%;
+  padding: 0 16px;
+  text-align: start;
+}
+
+.table-head .head-column .text {
+  color: var(--gray-700);
+  font: var(--text-sm-medium);
+}
+
+.table-head .head-column .text.text-sortable {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  gap: 8px;
+}
+
+.table-head .head-column .text.text-sortable i[tabindex="1"] {
+  width: 12px;
+  height: 12px;
+  transition: transform 150ms linear;
+  color: var(--gray-500);
+}
+
+.table-head .head-column .text.text-sortable i[tabindex="1"].asc {
+  transform: rotate(180deg);
+}
+
+.table-head .head-column * {
+  vertical-align: middle;
+}
+
+.table-body .text-column {
+  color: var(--gray-900);
+  font: var(--text-sm-regular);
+}
+
+.table-body .text-column.na {
+  color: var(--gray-300);
+  font: var(--text-sm-medium);
+  text-transform: uppercase;
+}
+</style>

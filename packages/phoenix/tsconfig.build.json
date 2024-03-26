@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig",
+  "exclude": [
+    "src/**/*.stories.ts",
+    "src/_dev",
+    "src/utils",
+    "src/constants"
+  ]
+}
