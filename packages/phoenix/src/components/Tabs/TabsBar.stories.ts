@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 import { ref } from 'vue';
-import { StaticStatus, Tab, TabsBar } from '~/components';
-import type { StaticStatusDefinition } from '~/types';
+import { Status, Tab, TabsBar } from '~/components';
+import type { StatusObject } from '~/types';
 
 type Story = StoryObj<typeof TabsBar>;
 const meta: Meta<typeof TabsBar> = {
@@ -18,7 +18,7 @@ const meta: Meta<typeof TabsBar> = {
 
 export const TabsBar_: Story = {
   render: args => ({
-    components: { TabsBar, Tab, StaticStatus },
+    components: { TabsBar, Tab, Status },
     setup() {
       const activeTab = ref(0);
 
@@ -26,7 +26,7 @@ export const TabsBar_: Story = {
         activeTab.value = id;
       }
 
-      const tabs: { [k: string]: StaticStatusDefinition[] } = {
+      const tabs: { [k: string]: StatusObject[] } = {
         Fruits: [
           {
             color: '#ffdecb',
@@ -101,7 +101,7 @@ export const TabsBar_: Story = {
           :key="index"
           style="display: flex; flex-direction: column;gap: 10px; margin-top: 10px"
         >
-          <StaticStatus style="max-width: 100%" v-for="fruit in content" :key="fruit.color" :status="fruit" />
+          <Status style="max-width: 100%" v-for="fruit in content" :key="fruit.color" :status="fruit" />
         </div>
       </div>
       `,
