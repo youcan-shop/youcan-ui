@@ -22,13 +22,22 @@ defineProps<TabProps>();
   box-sizing: border-box;
   align-items: center;
   justify-content: center;
-  margin-bottom: -1px;
   padding: 16px 0;
   border: none;
-  border-bottom: 1px solid transparent;
   background-color: transparent;
   cursor: pointer;
   gap: 4px;
+}
+
+.tab::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 50%;
+  width: 0%;
+  height: 2px;
+  transition: all 250ms ease-in-out;
+  background-color: var(--brand-500);
 }
 
 .tab:is(:focus, :active) {
@@ -36,7 +45,7 @@ defineProps<TabProps>();
 }
 
 .tab .label {
-  transition: all 200ms linear;
+  transition: all 100ms linear;
   border-radius: 4px;
   color: var(--gray-700);
   font: var(--text-md-regular);
@@ -68,14 +77,18 @@ defineProps<TabProps>();
   color: var(--gray-300);
 }
 
-.tab:is(:focus, :active):not(.active, .disabled) .label {
-  outline: 1px solid var(--brand-500);
-  box-shadow: var(--focus-shadow-xs-brand);
+.tab.disabled .count {
+  background-color: var(--gray-50);
+  color: var(--gray-300);
 }
 
 .tab.active {
-  border-bottom: 2px solid var(--brand-500);
   cursor: default;
+}
+
+.tab.active::after {
+  left: 0%;
+  width: 100%;
 }
 
 .tab.disabled {
