@@ -9,12 +9,22 @@ const meta: Meta<typeof Spinner> = {
     layout: 'centered',
   },
   tags: ['spinner', 'loader', 'loading'],
+  argTypes: {
+    labelFontSize: {
+      control: 'select',
+      options: ['xs', 'sm', 'md', 'lg', 'xl'],
+      if: { arg: 'label' },
+    },
+    labelColor: {
+      if: { arg: 'label' },
+    },
+  },
   args: {
     color: '#B8256E',
-    label: 'Loading...',
-    size: '40px',
+    size: 50,
+    label: '',
     labelColor: '#B8256E',
-    labelFontSize: '10px',
+    labelFontSize: 'md',
   },
 };
 
