@@ -17,28 +17,27 @@ defineProps<TabProps>();
 </template>
 
 <style scoped>
-button {
-  box-sizing: border-box;
-  border: none;
-  background-color: transparent;
-  cursor: pointer;
-}
-
-button:is(:focus, :active) {
-  outline: none;
-}
-
 .tab {
   display: flex;
+  position: relative;
+  box-sizing: border-box;
   align-items: center;
   justify-content: center;
   margin-bottom: -1px;
   padding: 16px 0;
+  border: none;
   border-bottom: 1px solid transparent;
+  background-color: transparent;
+  cursor: pointer;
   gap: 4px;
 }
 
+.tab:is(:focus, :active) {
+  outline: none;
+}
+
 .tab .label {
+  transition: all 200ms linear;
   border-radius: 4px;
   color: var(--gray-700);
   font: var(--text-md-regular);
