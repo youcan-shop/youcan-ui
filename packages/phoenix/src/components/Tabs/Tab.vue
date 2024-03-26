@@ -1,18 +1,17 @@
 <script setup lang="ts">
-import Badge from '../Badge/Badge.vue';
 import type { TabProps } from '~/types';
 
 defineProps<TabProps>();
 </script>
 
 <template>
-  <button :disabled="disabled || active" class="tab" :class="{ active, disabled, error: errorCount }">
+  <button :disabled="disabled || active" class="tab" :class="{ active, disabled }">
     <div class="label">
       {{ label }}
     </div>
-    <Badge v-if="errorCount" state="danger" :size="20">
-      {{ errorCount }}
-    </Badge>
+    <div v-if="typeof count === 'number'" class="count">
+      {{ count }}
+    </div>
   </button>
 </template>
 
@@ -43,16 +42,26 @@ defineProps<TabProps>();
   font: var(--text-md-regular);
 }
 
+.tab .count {
+  display: flex;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 5px;
+  border-radius: 10px;
+  background-color: var(--blue-500);
+  color: var(--base-white);
+  font: var(--text-xs-medium);
+}
+
 .tab:hover .label {
   color: var(--gray-900);
 }
 
 .tab.active .label {
   color: var(--brand-500);
-}
-
-.tab.error .label {
-  color: var(--red-500);
 }
 
 .tab.disabled .label {
@@ -67,14 +76,6 @@ defineProps<TabProps>();
 .tab.active {
   border-bottom: 2px solid var(--brand-500);
   cursor: default;
-}
-
-.tab.error:hover .label {
-  color: var(--red-600);
-}
-
-.tab.error.active {
-  border-bottom: 1px solid var(--red-500);
 }
 
 .tab.disabled {

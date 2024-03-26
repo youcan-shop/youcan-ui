@@ -89,6 +89,7 @@ export const TabsBar_: Story = {
             v-for="(tab, index) in Object.keys(tabs)"
             :key="tab"
             :label="tab"
+            :count="5"
             :active="activeTab === index"
             @click="setActiveTab(index)"
           />
