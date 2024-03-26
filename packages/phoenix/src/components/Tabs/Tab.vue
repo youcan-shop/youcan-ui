@@ -1,47 +1,68 @@
 <script setup lang="ts">
-import Badge from '../Badge/Badge.vue';
 import type { TabProps } from '~/types';
 
 defineProps<TabProps>();
 </script>
 
 <template>
-  <button :disabled="disabled || active" class="tab" :class="{ active, disabled, error: errorCount }">
+  <button :disabled="disabled || active" class="tab" :class="{ active, disabled }">
     <div class="label">
       {{ label }}
     </div>
-    <Badge v-if="errorCount" state="danger" :size="20">
-      {{ errorCount }}
-    </Badge>
+    <div v-if="typeof count === 'number'" class="count">
+      {{ count }}
+    </div>
   </button>
 </template>
 
 <style scoped>
-button {
+.tab {
+  display: flex;
+  position: relative;
   box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 0;
   border: none;
   background-color: transparent;
   cursor: pointer;
-}
-
-button:is(:focus, :active) {
-  outline: none;
-}
-
-.tab {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: -1px;
-  padding: 16px 0;
-  border-bottom: 1px solid transparent;
   gap: 4px;
 }
 
+.tab::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 50%;
+  width: 0%;
+  height: 2px;
+  transition: all 250ms ease-in-out;
+  background-color: var(--brand-500);
+}
+
+.tab:is(:focus, :active) {
+  outline: none;
+}
+
 .tab .label {
+  transition: all 100ms linear;
   border-radius: 4px;
   color: var(--gray-700);
   font: var(--text-md-regular);
+}
+
+.tab .count {
+  display: flex;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 5px;
+  border-radius: 10px;
+  background-color: var(--blue-500);
+  color: var(--base-white);
+  font: var(--text-xs-medium);
 }
 
 .tab:hover .label {
@@ -52,30 +73,22 @@ button:is(:focus, :active) {
   color: var(--brand-500);
 }
 
-.tab.error .label {
-  color: var(--red-500);
-}
-
 .tab.disabled .label {
   color: var(--gray-300);
 }
 
-.tab:is(:focus, :active):not(.active, .disabled) .label {
-  outline: 1px solid var(--brand-500);
-  box-shadow: var(--focus-shadow-xs-brand);
+.tab.disabled .count {
+  background-color: var(--gray-50);
+  color: var(--gray-300);
 }
 
 .tab.active {
-  border-bottom: 2px solid var(--brand-500);
   cursor: default;
 }
 
-.tab.error:hover .label {
-  color: var(--red-600);
-}
-
-.tab.error.active {
-  border-bottom: 1px solid var(--red-500);
+.tab.active::after {
+  left: 0%;
+  width: 100%;
 }
 
 .tab.disabled {
