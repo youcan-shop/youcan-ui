@@ -13,7 +13,7 @@ const meta: Meta<typeof Tab> = {
     label: 'Peach 🍑',
     active: false,
     disabled: false,
-    errorCount: 0,
+    count: 0,
   },
 };
 
