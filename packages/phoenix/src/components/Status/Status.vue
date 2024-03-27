@@ -168,6 +168,7 @@ const selectStatus = (item: StatusObject) => {
 }
 
 html[dir="rtl"] .editable-status {
-  padding-left: 10px;
+  padding-right: 0;
+  padding-left: 12px;
 }
 </style>
