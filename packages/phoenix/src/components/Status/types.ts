@@ -1,18 +1,11 @@
-export interface StaticStatusDefinition {
+export interface StatusObject {
   label: string
   color: string
   labelColor?: string
+  value?: string
 }
 
-export interface StatusDefinition<T = any> extends StaticStatusDefinition {
-  value: T
-}
-
-export interface EditableStatusProps {
-  statuses: StatusDefinition[]
-  modelValue: StatusDefinition
-}
-
-export interface StaticStatusProps {
-  status: StaticStatusDefinition
+export interface StatusProps {
+  status: StatusObject | StatusObject[]
+  editable?: boolean
 }

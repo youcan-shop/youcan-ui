@@ -1,6 +1,6 @@
 import type { Component } from 'vue';
 import type { IntegerRange } from '@youcan/ui-core';
-import type { StaticStatusDefinition, StatusDefinition } from '../Status/types';
+import type { StatusObject } from '../Status/types';
 import type { ButtonIconPosition, ButtonSize } from '../Button/types';
 import type { HTMLInputTypeAttribute } from '../Input/types';
 import type { ThumbnailSize } from '~/components/Thumbnail/types';
@@ -93,12 +93,12 @@ export interface TableDataThumbnail {
 }
 
 export interface TableDataStatus {
-  statuses: StatusDefinition[]
-  modelValue: StatusDefinition
+  statuses: StatusObject[]
+  modelValue: StatusObject
 }
 
 export interface TableDataStaticStatus {
-  status: StaticStatusDefinition
+  status: StatusObject
 }
 
 export interface TableDataPercentage {
