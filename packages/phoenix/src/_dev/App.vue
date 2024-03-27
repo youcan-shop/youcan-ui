@@ -2,20 +2,26 @@
 import 'uno.css';
 import '../assets/main.css';
 import { ref } from 'vue';
-import { Increment } from '~/components';
+import { Table } from '~/components';
+import type { TableColumn } from '~/types';
 
-const quantity = ref(4);
+export interface User {
+  id?: number
+  name?: string
+  age?: number
+}
+
+const tableColumns = ref<TableColumn[]>([
+  { label: 'Id', key: 'id', sortable: false },
+  { label: 'Name', key: 'name', sortable: true },
+  { label: 'Age', key: 'age', sortable: true },
+]);
+const usersList = Array.from({ length: 50 }, () => {
+  return { name: 'Mostafa ARABI', id: `${Math.floor(Math.random() * 10000000000)}`, age: Math.floor(Math.random() * 80) + 20 };
+});
+const users = ref(usersList);
 </script>
 
 <template>
-  <div class="container">
-    <Increment v-model="quantity" :max="100" :step="10" />
-  </div>
+  <Table :table-columns="tableColumns" :items="users" selectable />
 </template>
-
-<style scoped>
-.container {
-  width: 400px;
-  margin: 30px;
-}
-</style>
