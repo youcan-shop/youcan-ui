@@ -167,5 +167,7 @@ const selectStatus = (item: StatusObject) => {
   position: relative;
 }
 
-/* Add any additional styling here */
-  </style>
+html[dir="rtl"] .editable-status {
+  padding-left: 10px;
+}
+</style>
