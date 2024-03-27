@@ -4,7 +4,7 @@ import '../assets/main.css';
 import { ref } from 'vue';
 import { RichText } from '~/components';
 
-const content = ref('');
+const content = ref('Default value');
 </script>
 
 <template>
