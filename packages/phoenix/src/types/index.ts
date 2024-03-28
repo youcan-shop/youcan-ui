@@ -1,7 +1,7 @@
 export type { DropdownItemProps, MultiselectDropdownProps, DropdownProps, DropdownListProps, DropdownItemDefinition, DropdownItemArray, DropdownItemGroups, DropdownItemWithIcon, DropdownItemWithImage } from '../components/Dropdown/types';
 export type { DropdownMenuItemProps, DropdownMenuProps } from '../components/DropdownMenu/types';
 export type { LoadingProps } from '../components/Loading/types';
-export type { ButtonProps, ButtonSize, ButtonIconPosition } from '../components/Button/types';
+export type { ButtonProps, ButtonSize, ButtonIconPosition, ActionButtonProps } from '../components/Buttons/types';
 export type { AlertProps, AlertType } from '../components/Alert/types';
 export type { BadgeProps, BadgeSize, BadgeState } from '../components/Badge/types';
 export type { CheckboxProps } from '../components/Checkbox/types';
