@@ -2,7 +2,7 @@ export interface TableColumn {
   label?: string
   key?: string
   sortable?: boolean
-  order?: 'desc' | 'asc'
+  order?: 'none' | 'desc' | 'asc'
 }
 
 export interface SelectQuery {

@@ -13,7 +13,7 @@ export interface User {
 
 const tableColumns = ref<TableColumn[]>([
   { label: 'Id', key: 'id', sortable: false },
-  { label: 'Name', key: 'name', sortable: true },
+  { label: 'Name', key: 'name', sortable: true, order: 'asc' },
   { label: 'Age', key: 'age', sortable: true },
   { label: 'Actions', key: 'actions' },
 ]);
