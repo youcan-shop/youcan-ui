@@ -6,12 +6,11 @@ export interface TableColumn {
 }
 
 export interface SelectQuery {
-  all: boolean
-  excluded: Array<string>
   included: Array<string>
 }
 export interface TableProps<T> {
   tableColumns?: Array<TableColumn>
   items?: Array<T>
   selectable?: boolean
+  uniqueKey?: string
 }

@@ -1,17 +1,17 @@
 <script setup lang="ts" generic="T">
 import { ref, useSlots } from 'vue';
-import type { TableColumn, TableProps } from '~/types';
-import { Tooltip } from '~/components';
+import type { SelectQuery, TableColumn, TableProps } from '~/types';
+import { Checkbox, Tooltip } from '~/components';
 
-withDefaults(defineProps<TableProps<T>>(), {
+const props = withDefaults(defineProps<TableProps<T>>(), {
   tableColumns: () => [],
   items: () => [],
+  uniqueKey: 'id',
 });
 
 const emit = defineEmits(['onSelect', 'onSort']);
 
 const selectedItems = ref<string[]>([]);
-const unSelectedItems = ref<string[]>([]);
 const sortColumns = ref<TableColumn[]>([]);
 const selectAll = ref(false);
 
@@ -49,6 +49,39 @@ function handleSort(column: TableColumn) {
   sortColumns.value = override;
   emit('onSort', override);
 }
+
+function handleSelectAll(value: boolean) {
+  const override: string[] = [];
+  const { items, uniqueKey } = props;
+  if (value) {
+    for (const item of items) {
+      override.push((item as any)[uniqueKey]);
+    }
+  }
+  selectedItems.value = override;
+  const selected: SelectQuery = { included: override };
+  emit('onSelect', selected);
+}
+
+function handleSelect(value: boolean, id: string) {
+  const override: string[] = selectedItems.value;
+  const index = override.indexOf(id);
+  if (index > -1) {
+    override.splice(index, 1);
+  }
+  else {
+    override.push(id);
+  }
+
+  selectedItems.value = override;
+  selectAll.value = override.length !== 0;
+  const selected: SelectQuery = { included: override };
+  emit('onSelect', selected);
+}
+
+function checkedRow(id: string) {
+  return selectedItems.value.includes(id);
+}
 </script>
 
 <template>
@@ -56,6 +89,9 @@ function handleSort(column: TableColumn) {
     <table class="table">
       <thead class="table-head">
         <tr>
+          <th v-if="selectable" class="checkbox">
+            <Checkbox v-model="selectAll" @on-change="handleSelectAll" />
+          </th>
           <th v-for="column in tableColumns" :key="column.key" :class="[`th-${column.key}`]">
             <Tooltip v-if="column.sortable" :label="activeOrder(column.key)">
               <div class="content" @click="handleSort(column)">
@@ -68,7 +104,10 @@ function handleSort(column: TableColumn) {
         </tr>
       </thead>
       <tbody class="table-body">
-        <tr v-for="(item, index) in items" :key="index">
+        <tr v-for="(item, index) in items" :key="index" :class="{ checked: checkedRow((item as any)[uniqueKey]) }">
+          <td v-if="selectable" class="td-checkbox">
+            <Checkbox :checked="checkedRow((item as any)[uniqueKey])" @on-change="handleSelect($event, (item as any)[uniqueKey])" />
+          </td>
           <td v-for="column in tableColumns" :key="column.key" :class="[`td-${column.key}`]">
             <template v-if="slots[column.key as string]">
               <slot :name="column.key" v-bind="item" />
@@ -106,6 +145,10 @@ function handleSort(column: TableColumn) {
   user-select: none;
 }
 
+.table-container .table .table-head th.checkbox {
+  width: 50px;
+}
+
 .table-container .table .table-head th .content {
   display: flex;
   align-items: center;
@@ -136,6 +179,37 @@ function handleSort(column: TableColumn) {
 }
 
 .table-container .table .table-body tr:not(:last-child) td {
+  box-sizing: border-box;
   border-bottom: 1px solid var(--gray-200);
+}
+
+.table-container .table .table-body td.td-checkbox {
+  position: relative;
+}
+
+.table-container .table .table-body td.td-checkbox::before {
+  content: "";
+  position: absolute;
+  z-index: 9;
+  top: 0;
+  left: 0;
+  width: 3px;
+  height: calc(100% + 1px);
+  transition: all 150ms ease-in-out;
+  opacity: 0;
+  background-color: var(--brand-500);
+}
+
+.table-container .table .table-body tr {
+  transition: background-color 150ms ease-in-out;
+  background-color: transparent;
+}
+
+.table-container .table .table-body tr.checked {
+  background-color: var(--brand-50);
+}
+
+.table-container .table .table-body tr.checked td.td-checkbox::before {
+  opacity: 1;
 }
 </style>

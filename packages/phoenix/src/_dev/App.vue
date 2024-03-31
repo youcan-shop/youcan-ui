@@ -3,7 +3,7 @@ import 'uno.css';
 import '../assets/main.css';
 import { ref } from 'vue';
 import { ActionButton, Table } from '~/components';
-import type { TableColumn } from '~/types';
+import type { SelectQuery, TableColumn } from '~/types';
 
 export interface User {
   id?: string
@@ -25,11 +25,15 @@ const users = ref<User[]>([
   { id: 'U-0004', name: 'Jack WILLIAMS', age: 24 },
   { id: 'U-0005', name: 'Jack WILLIAMS', age: 56 },
 ]);
+
+function handleSelect(selected: SelectQuery) {
+  console.log(selected);
+}
 </script>
 
 <template>
   <div class="container">
-    <Table :table-columns="tableColumns" :items="users" selectable>
+    <Table :table-columns="tableColumns" :items="users" selectable @on-select="handleSelect">
       <template #actions>
         <div class="actions">
           <ActionButton icon="i-youcan-trash" />
