@@ -60,6 +60,7 @@ function handleSelectAll(value: boolean) {
   }
   selectedItems.value = override;
   const selected: SelectQuery = { included: override };
+
   emit('onSelect', selected);
 }
 
@@ -76,6 +77,7 @@ function handleSelect(value: boolean, id: string) {
   selectedItems.value = override;
   selectAll.value = override.length !== 0;
   const selected: SelectQuery = { included: override };
+
   emit('onSelect', selected);
 }
 
@@ -123,6 +125,8 @@ function checkedRow(id: string) {
 
 <style scoped>
 .table-container {
+  --border: 1px solid var(--gray-200);
+
   width: 100%;
   max-width: 100%;
   overflow: auto hidden;
@@ -131,10 +135,11 @@ function checkedRow(id: string) {
 .table-container .table {
   width: 100%;
   border-spacing: 0;
+  border: var(--border);
 }
 
 .table-container .table .table-head {
-  border-bottom: 1px solid var(--gray-100);
+  border-bottom: var(--border);
   background-color: var(--gray-50);
 }
 
@@ -180,7 +185,12 @@ function checkedRow(id: string) {
 
 .table-container .table .table-body tr:not(:last-child) td {
   box-sizing: border-box;
-  border-bottom: 1px solid var(--gray-200);
+  border-bottom: var(--border);
+}
+
+.table-container .table .table-body tr td:not(:last-child),
+.table-container .table .table-head tr th:not(:last-child) {
+  border-right: var(--border);
 }
 
 .table-container .table .table-body td.td-checkbox {

@@ -29,11 +29,15 @@ const users = ref<User[]>([
 function handleSelect(selected: SelectQuery) {
   console.log(selected);
 }
+
+function handleSort(columns: TableColumn[]) {
+  console.log(columns);
+}
 </script>
 
 <template>
   <div class="container">
-    <Table :table-columns="tableColumns" :items="users" selectable @on-select="handleSelect">
+    <Table :table-columns="tableColumns" :items="users" selectable @on-select="handleSelect" @on-sort="handleSort">
       <template #actions>
         <div class="actions">
           <ActionButton icon="i-youcan-trash" />
