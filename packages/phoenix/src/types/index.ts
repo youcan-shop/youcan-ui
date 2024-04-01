@@ -27,7 +27,7 @@ export type { SidebarProps, SidebarItemProps, SidebarSubItemProps } from '../com
 export type { SkeletonProps, SkeletonType } from '../components/Skeleton/types';
 export type { SliderProps, RailProps, RangeValue } from '../components/Slider/types';
 export type { SpinnerProps } from '../components/Spinner/types';
-export type { EditableStatusProps, StaticStatusProps, StaticStatusDefinition, StatusDefinition } from '../components/Status/types';
+export type { StatusObject, StatusProps } from '../components/Status/types';
 export type { TableProps, TableActions, TableColumn, TableData, TableDataRow, TableInternalData, TableDataComposable, TableColumnValue, HandleSubCompModel, TableColumnValues } from '../components/Table/types';
 export type { LinkProps, TableRowProps, TableButtonProps } from '../components/Table/Internal/types';
 export type { TabProps } from '../components/Tabs/types';
