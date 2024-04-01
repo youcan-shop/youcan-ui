@@ -42,8 +42,8 @@ import Button from '~/components/Button/Button.vue';
 .container {
   display: flex;
   flex-direction: row;
-  gap: 50px;
   width: 400px;
   margin: 30px;
+  gap: 0.5rem;
 }
 </style>

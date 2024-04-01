@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
-import { StaticStatus } from '~/components';
+import { Status } from '~/components';
 
-type Story = StoryObj<typeof StaticStatus>;
-const meta: Meta<typeof StaticStatus> = {
+type Story = StoryObj<typeof Status>;
+const meta: Meta<typeof Status> = {
   title: 'Application/Status/Static',
-  component: StaticStatus,
+  component: Status,
   parameters: {
     layout: 'centered',
   },
@@ -20,11 +20,11 @@ const meta: Meta<typeof StaticStatus> = {
 
 export const Static: Story = {
   render: args => ({
-    components: { StaticStatus },
+    components: { Status },
     setup() {
       return { args };
     },
-    template: '<StaticStatus v-bind="args" />',
+    template: '<Status v-bind="args" />',
   }),
 };
 
