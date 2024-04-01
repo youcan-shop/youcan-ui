@@ -1,17 +1,17 @@
 <script setup lang="ts" generic="T">
-import { ref, useSlots } from 'vue';
+import { ref, useSlots, watch } from 'vue';
 import type { SelectQuery, TableColumn, TableProps } from '~/types';
 import { Checkbox, Tooltip } from '~/components';
 
 const props = withDefaults(defineProps<TableProps<T>>(), {
   tableColumns: () => [],
   items: () => [],
-  uniqueKey: 'id',
 });
 
 const emit = defineEmits(['onSelect', 'onSort']);
 
 const selectedItems = ref<string[]>([]);
+const unSelectedItems = ref<string[]>([]);
 const sortColumns = ref<TableColumn[]>([]);
 const selectAll = ref(false);
 
@@ -50,40 +50,66 @@ function handleSort(column: TableColumn) {
   emit('onSort', override);
 }
 
-function handleSelectAll(value: boolean) {
+function setSelected(all: boolean, included: string[], excluded: string[]) {
+  const selectQ: SelectQuery = { all, included, excluded };
+  emit('onSelect', selectQ);
+}
+
+const handleSelectAll = (value: boolean) => {
   const override: string[] = [];
-  const { items, uniqueKey } = props;
   if (value) {
-    for (const item of items) {
-      override.push((item as any)[uniqueKey]);
+    for (const item of props.items) {
+      override.push((item as any).id);
     }
   }
   selectedItems.value = override;
-  const selected: SelectQuery = { included: override };
-
-  emit('onSelect', selected);
-}
+  unSelectedItems.value = [];
+  setSelected(value, [], []);
+};
 
 function handleSelect(value: boolean, id: string) {
-  const override: string[] = selectedItems.value;
-  const index = override.indexOf(id);
-  if (index > -1) {
-    override.splice(index, 1);
+  const overrideSelected = selectedItems.value;
+  const overrideUnselected = unSelectedItems.value;
+  if (value) {
+    overrideSelected.push(id);
+    const index = overrideUnselected.indexOf(id);
+    if (index > -1) {
+      overrideUnselected.splice(index, 1);
+    }
   }
   else {
-    override.push(id);
+    const index = overrideSelected.indexOf(id);
+    selectAll.value && overrideUnselected.push(id);
+    if (index > -1) {
+      overrideSelected.splice(index, 1);
+    }
   }
-
-  selectedItems.value = override;
-  selectAll.value = override.length !== 0;
-  const selected: SelectQuery = { included: override };
-
-  emit('onSelect', selected);
+  selectedItems.value = overrideSelected;
+  unSelectedItems.value = overrideUnselected;
+  setSelected(selectAll.value, selectAll.value ? [] : overrideSelected, selectAll.value ? overrideUnselected : []);
 }
 
 function checkedRow(id: string) {
   return selectedItems.value.includes(id);
 }
+
+watch(() => props.items, (newItems: T[]) => {
+  if (props.selectable === false) {
+    return;
+  }
+  const overrideUnselected = unSelectedItems.value;
+  const overrideSelected = selectedItems.value;
+  if (selectAll.value) {
+    for (const item of newItems) {
+      const id = (item as any).id;
+      const index = overrideSelected.indexOf(id);
+      if (overrideUnselected.includes(id) === false && index === -1) {
+        overrideSelected.push(id);
+      }
+    }
+  }
+  selectedItems.value = overrideSelected;
+});
 </script>
 
 <template>
@@ -106,9 +132,9 @@ function checkedRow(id: string) {
         </tr>
       </thead>
       <tbody class="table-body">
-        <tr v-for="(item, index) in items" :key="index" :class="{ checked: checkedRow((item as any)[uniqueKey]) }">
+        <tr v-for="(item, index) in items" :key="index" :class="{ checked: checkedRow((item as any).id) }">
           <td v-if="selectable" class="td-checkbox">
-            <Checkbox :checked="checkedRow((item as any)[uniqueKey])" @on-change="handleSelect($event, (item as any)[uniqueKey])" />
+            <Checkbox :checked="checkedRow((item as any).id)" @on-change="handleSelect($event, (item as any).id)" />
           </td>
           <td v-for="column in tableColumns" :key="column.key" :class="[`td-${column.key}`]">
             <template v-if="slots[column.key as string]">
@@ -205,13 +231,13 @@ function checkedRow(id: string) {
   left: 0;
   width: 3px;
   height: calc(100% + 1px);
-  transition: all 150ms ease-in-out;
+  transition: all 100ms ease-in-out;
   opacity: 0;
   background-color: var(--brand-500);
 }
 
 .table-container .table .table-body tr {
-  transition: background-color 150ms ease-in-out;
+  transition: background-color 100ms ease-in-out;
   background-color: transparent;
 }
 
