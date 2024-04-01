@@ -2,7 +2,7 @@
 import { computed, onMounted, ref } from 'vue';
 import NavigationButton from './Internal/NavigationButton.vue';
 import type { DropdownItemArray, DropdownItemDefinition, PaginationBarProps } from '~/types';
-import SecondaryButton from '~/components/Button/SecondaryButton.vue';
+import Button from '~/components/Button/Button.vue';
 
 const props = withDefaults(defineProps<PaginationBarProps>(), {
   hidePerPage: false,
@@ -88,16 +88,16 @@ onMounted(() => {
     <span v-if="!hidePerPage" class="text">{{ formattedPerPageLabel }}</span>
     <div class="navigation">
       <Dropdown v-if="perPage && perPageItems.length" v-model="perPageModel" class="per-page-dropdown" :items="perPageItems" @update:model-value="updatePerPageModel" />
-      <SecondaryButton size="sm" :disabled="current === 1" @click="updateCurrentPage(current - 1)">
+      <Button variant="secondary" size="sm" :disabled="current === 1" @click="updateCurrentPage(current - 1)">
         {{ previousLabel }}
-      </SecondaryButton>
+      </Button>
       <NavigationButton
         v-for="index in handlePaginationButtons" :key="index" :current="current" :index="index"
         @click="updateCurrentPage(index as number)"
       />
-      <SecondaryButton size="sm" :disabled="current === size" @click="updateCurrentPage(current + 1)">
+      <Button variant="secondary" size="sm" :disabled="current === size" @click="updateCurrentPage(current + 1)">
         {{ nextLabel }}
-      </SecondaryButton>
+      </Button>
     </div>
   </div>
 </template>

@@ -3,7 +3,7 @@ import { computed } from 'vue';
 import TableButton from './Button.vue';
 import { TableDataRow } from '~/types';
 import type { HandleSubCompModel, TableActions, TableColumnValue, TableData, TableDataComposable, TableRowProps } from '~/types';
-import TertiaryButton from '~/components/Button/TertiaryButton.vue';
+import Button from '~/components/Button/Button.vue';
 import Checkbox from '~/components/Checkbox/Checkbox.vue';
 import { launder } from '~/helpers/type.util';
 import Tooltip from '~/components/Tooltip/Tooltip.vue';
@@ -72,11 +72,11 @@ const castToTableDataComposable = (value: TableColumnValue['value']) => launder<
         <Checkbox v-model="isSelected" />
       </div>
       <template v-else-if="column.accessor === '_expand' && row.children && row.children.length > 0">
-        <TertiaryButton size="xs" icon-position="only" rounded-full @click="isExpended = !isExpended">
+        <Button variant="tertiary" size="xs" icon-position="only" rounded-full @click="isExpended = !isExpended">
           <template #icon>
             <i class="" :class="[isExpended ? 'i-youcan-carret-down' : 'i-youcan-caret-right']" />
           </template>
-        </TertiaryButton>
+        </Button>
       </template>
       <template v-else-if="row.row[column.accessor]">
         <div

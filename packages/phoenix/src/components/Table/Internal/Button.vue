@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { TableButtonProps } from '~/types';
-import SecondaryButton from '~/components/Button/SecondaryButton.vue';
+import Button from '~/components/Button/Button.vue';
 
 withDefaults(
   defineProps<TableButtonProps>(),
@@ -11,10 +11,10 @@ withDefaults(
 </script>
 
 <template>
-  <SecondaryButton v-bind="$props" :size="size">
+  <Button v-bind="$props" variant="secondary" :size="size">
     <template v-if="iconName" #icon>
       <i :class="iconName" />
     </template>
     {{ label }}
-  </SecondaryButton>
+  </Button>
 </template>

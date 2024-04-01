@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import type { NavigationButtonProps } from '~/types';
-import SecondaryButton from '~/components/Button/SecondaryButton.vue';
-import PrimaryButton from '~/components/Button/PrimaryButton.vue';
+import Button from '~/components/Button/Button.vue';
 
 const props = defineProps<NavigationButtonProps>();
 
@@ -10,18 +9,18 @@ const isDisabled = computed(() => props.index === '...');
 </script>
 
 <template>
-  <SecondaryButton
+  <Button
     v-if="current !== index" size="sm" class="navigation-button" :class="{ active: current === index }"
-    :disabled="isDisabled"
+    :disabled="isDisabled" variant="secondary"
   >
     {{ index }}
-  </SecondaryButton>
-  <PrimaryButton
+  </Button>
+  <Button
     v-else size="sm" class="navigation-button" :class="{ active: current === index }"
-    :disabled="isDisabled"
+    :disabled="isDisabled" variant="primary"
   >
     {{ index }}
-  </PrimaryButton>
+  </Button>
 </template>
 
 <style scoped>

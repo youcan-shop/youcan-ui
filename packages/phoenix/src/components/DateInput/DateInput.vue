@@ -4,7 +4,7 @@ import { computed, ref } from 'vue';
 import { DateUtils } from '@youcan/ui-core';
 import DatePicker from './DatePicker.vue';
 import type { DateInputProps, DateInputValue } from '~/types';
-import SecondaryButton from '~/components/Button/SecondaryButton.vue';
+import Button from '~/components/Button/Button.vue';
 
 const props = defineProps<DateInputProps>();
 
@@ -28,9 +28,9 @@ onClickOutside(datePicker, () => toggleDatePicker(false));
 
 <template>
   <div class="date-input">
-    <SecondaryButton
+    <Button
       size="sm" icon-position="right" class="input-trigger" :disabled="disabled" type="button"
-      @click="toggleDatePicker()"
+      variant="secondary" @click="toggleDatePicker()"
     >
       <span v-show="model.start || model.start">
         {{ DateUtils.getCalendarDay(model.start, 'Start') }} - {{ DateUtils.getCalendarDay(model.end, 'End') }}
@@ -39,7 +39,7 @@ onClickOutside(datePicker, () => toggleDatePicker(false));
       <template #icon>
         <i class="i-youcan-calendar-blank" />
       </template>
-    </SecondaryButton>
+    </Button>
     <div class="date-picker-container">
       <DatePicker v-show="isDatePickerVisible" ref="datePicker" v-model="model" />
     </div>
