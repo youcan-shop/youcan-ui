@@ -67,7 +67,7 @@ onMounted(() => {
 
 <template>
   <div class="container">
-    <Table :table-columns="tableColumns" table-id="users-list" :items="users" @on-select="handleSelect" @on-sort="handleSort">
+    <Table :table-columns="tableColumns" table-id="users-list" :items="users" selectable @on-select="handleSelect" @on-sort="handleSort">
       <template #actions>
         <div class="actions">
           <ActionButton icon="i-youcan-trash" />

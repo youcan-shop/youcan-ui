@@ -1,5 +1,5 @@
 <script setup lang="ts" generic="T">
-import { ref, useSlots, watch } from 'vue';
+import { onMounted, ref, useSlots, watch } from 'vue';
 import type { SelectQuery, TableColumn, TableProps } from '~/types';
 import { Checkbox, Tooltip } from '~/components';
 
@@ -93,8 +93,21 @@ function checkedRow(id: string) {
   return selectedItems.value.includes(id);
 }
 
+function isSelectable() {
+  const { tableColumns, selectable } = props;
+
+  const index = tableColumns.findIndex((column: TableColumn) => column.key === 'id');
+
+  return (selectable && index > -1);
+}
+
+onMounted(() => {
+  if (props.selectable && !isSelectable()) {
+    console.error('ID is undefined: To enable table selection, please define the ID column.');
+  }
+});
 watch(() => props.items, (newItems: T[]) => {
-  if (props.selectable === false) {
+  if (isSelectable() === false) {
     return;
   }
   const overrideUnselected = unSelectedItems.value;
@@ -117,7 +130,7 @@ watch(() => props.items, (newItems: T[]) => {
     <table class="table">
       <thead class="table-head">
         <tr>
-          <th v-if="selectable" class="checkbox">
+          <th v-if="isSelectable()" class="checkbox">
             <Checkbox v-model="selectAll" @on-change="handleSelectAll" />
           </th>
           <th v-for="column in tableColumns" :key="column.key" :class="[`th-${column.key}`]">
@@ -133,7 +146,7 @@ watch(() => props.items, (newItems: T[]) => {
       </thead>
       <tbody class="table-body">
         <tr v-for="(item, index) in items" :key="index" :class="{ checked: checkedRow((item as any).id) }">
-          <td v-if="selectable" class="td-checkbox">
+          <td v-if="isSelectable()" class="td-checkbox">
             <Checkbox :checked="checkedRow((item as any).id)" @on-change="handleSelect($event, (item as any).id)" />
           </td>
           <td v-for="column in tableColumns" :key="column.key" :class="[`td-${column.key}`]">
