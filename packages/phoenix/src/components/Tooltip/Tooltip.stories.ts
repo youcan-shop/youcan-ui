@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
-import { SecondaryButton, Tooltip } from '~/components';
+import { Button, Tooltip } from '~/components';
 
 type Story = StoryObj<typeof Tooltip>;
 const meta: Meta<typeof Tooltip> = {
@@ -21,15 +21,15 @@ const meta: Meta<typeof Tooltip> = {
 
 export const Default: Story = {
   render: args => ({
-    components: { Tooltip, SecondaryButton },
+    components: { Tooltip, Button },
     setup() {
       return { args };
     },
     template: `
               <Tooltip v-bind="args">
-                <SecondaryButton>
+                <Button variant="secondary">
                   Hover 
-                </SecondaryButton>  
+                </Button>  
               </Tooltip> `,
   }),
 };

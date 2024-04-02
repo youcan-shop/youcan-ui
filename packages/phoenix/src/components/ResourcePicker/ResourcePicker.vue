@@ -4,7 +4,7 @@ import ResourceItem from './Internal/Resource.vue';
 import { isEmptyArray } from './utils';
 import type { PickerProps, Resource } from '~/types';
 import Overlay from '~/components/Overlay/Overlay.vue';
-import { Input, PrimaryButton, SecondaryButton, Spinner, TertiaryButton } from '~/components';
+import { Button, Input, Spinner } from '~/components';
 
 const props = withDefaults(defineProps<PickerProps>(), {
   visible: false,
@@ -112,9 +112,9 @@ onUnmounted(() => {
       <div class="resource-picker">
         <div class="header">
           <span>{{ title }}</span>
-          <TertiaryButton @click="closePicker">
+          <Button variant="tertiary" @click="closePicker">
             <i class="i-youcan-x" />
-          </TertiaryButton>
+          </Button>
         </div>
         <div class="search">
           <Input v-model.trim="term" :placeholder="searchPlaceholder" @input.stop="handleSearch" @keyup.enter.stop="handleSearch" />
@@ -152,12 +152,12 @@ onUnmounted(() => {
         <div class="footer">
           <span class="selection">{{ selectedResources?.length }} {{ selectionLabel }}</span>
           <div class="actions">
-            <SecondaryButton @click="closePicker">
+            <Button variant="secondary" @click="closePicker">
               <span>{{ cancelLabel }}</span>
-            </SecondaryButton>
-            <PrimaryButton :disabled="shouldDisabledAddButton" @click="handleAdd">
+            </Button>
+            <Button :disabled="shouldDisabledAddButton" variant="primary" @click="handleAdd">
               <span>{{ confirmLabel }}</span>
-            </PrimaryButton>
+            </Button>
           </div>
         </div>
       </div>

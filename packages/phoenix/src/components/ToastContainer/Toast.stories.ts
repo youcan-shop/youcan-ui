@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 import type { ToastOptions } from '~/types';
 import { toast } from '~/helpers';
-import { PrimaryButton, ToastContainer } from '~/components';
+import { Button, ToastContainer } from '~/components';
 
 type Story = StoryObj<typeof ToastContainer>;
 const meta: Meta<typeof ToastContainer> = {
@@ -23,7 +23,7 @@ const meta: Meta<typeof ToastContainer> = {
 };
 export const Default: Story = {
   render: args => ({
-    components: { ToastContainer, PrimaryButton },
+    components: { ToastContainer, Button },
     setup() {
       const toasts: ToastOptions[] = [
         {
@@ -54,7 +54,7 @@ export const Default: Story = {
 
       return { args, handleClick };
     },
-    template: '<ToastContainer v-bind="args" /> <PrimaryButton @click="handleClick"> Show Toast </PrimaryButton>',
+    template: '<ToastContainer v-bind="args" /> <Button @click="handleClick" variant="primary"> Show Toast </Button>',
   }),
 };
 

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 import { ref } from 'vue';
-import { PrimaryButton, ResourcePicker } from '~/components';
+import { Button, ResourcePicker } from '~/components';
 import type { Resource } from '~/components/ResourcePicker/types';
 
 type Story = StoryObj<typeof ResourcePicker>;
@@ -29,7 +29,7 @@ const meta: Meta<typeof ResourcePicker> = {
 
 export const Default: Story = {
   render: args => ({
-    components: { ResourcePicker, PrimaryButton },
+    components: { ResourcePicker, Button },
     setup() {
       const MOCK_RESOURCES: Resource[] = [
         {
@@ -86,9 +86,9 @@ export const Default: Story = {
       v-bind="args"
       @confirm="onConfirm"
     />
-    <PrimaryButton @click="showPicker = true;">
+    <Button @click="showPicker = true;" variant="primary">
       <span>Open Picker</span>
-    </PrimaryButton>
+    </Button>
     <div v-if="selectedResources.length > 0" class="selection">
       <pre>{{ selectedResources }}</pre>
     </div>
