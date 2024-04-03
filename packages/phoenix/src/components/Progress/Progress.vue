@@ -1,0 +1,41 @@
+<script setup lang="ts">
+import { ref } from 'vue';
+import type { ProgressProps } from '~/types';
+
+const props = withDefaults(defineProps<ProgressProps>(),
+  {
+    size: 110,
+    value: 0,
+    maxValue: 100,
+    playable: true,
+  },
+);
+
+const progressCircle = ref();
+</script>
+
+<template>
+  <div class="progress">
+    <svg :width="size" :height="size" viewBox="0 0 100 100" fill="none" class="circles" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="50" cy="50" r="47" class="shadow-circle" />
+      <circle ref="progressCircle" cx="50" class="progress-circle" cy="50" r="47" />
+    </svg>
+  </div>
+</template>
+
+<style scoped>
+.progress .circles circle {
+  position: relative;
+  stroke-width: 6;
+}
+
+.progress .circles .shadow-circle {
+  z-index: 1;
+  stroke: var(--gray-100);
+}
+
+.progress .circles .progress-circle {
+  z-index: 2;
+  stroke: var(--brand-500);
+}
+</style>
