@@ -4,7 +4,7 @@ import '../assets/main.css';
 import { ref } from 'vue';
 import { Progress, Slider } from '~/components';
 
-const value = ref(600);
+const value = ref(0);
 const maxValue = 2000;
 </script>
 
