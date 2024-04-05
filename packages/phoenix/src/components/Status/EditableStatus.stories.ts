@@ -1,27 +1,26 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 import { ref } from 'vue';
-import { EditableStatus } from '~/components';
-import type { StatusDefinition } from '~/components/Status/types';
+import { Status } from '~/components';
+import type { StatusObject } from '~/components/Status/types';
 
-type Story = StoryObj<typeof EditableStatus>;
-const meta: Meta<typeof EditableStatus> = {
+type Story = StoryObj<typeof Status>;
+const meta: Meta<typeof Status> = {
   title: 'Application/Status/Editable',
-  component: EditableStatus,
+  component: Status,
   parameters: {
     layout: 'centered',
   },
   tags: ['editable', 'editable status', 'status'],
-  argTypes: {
-    modelValue: { table: { disable: true } },
-    statuses: { table: { disable: true } },
+  args: {
+    editable: true,
   },
 };
 
 export const Editable: Story = {
   render: args => ({
-    components: { EditableStatus },
+    components: { Status },
     setup() {
-      const fruits: StatusDefinition[] = [
+      const fruits: StatusObject[] = [
         {
           color: '#ffdecb',
           label: 'Peach 🍑',
@@ -45,7 +44,7 @@ export const Editable: Story = {
 
       return { args, fruits, favoriteFruit };
     },
-    template: '<EditableStatus v-model="favoriteFruit" :statuses="fruits" />',
+    template: '<Status v-model="favoriteFruit" :status="fruits" v-bind="args"/>',
   }),
 };
 
