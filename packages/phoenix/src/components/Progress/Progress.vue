@@ -12,7 +12,7 @@ const props = withDefaults(defineProps<ProgressProps>(),
   },
 );
 
-const progressValue = ref();
+const progress = ref();
 const strokeDasharray = 299;
 const strokeDashoffset = ref(strokeDasharray);
 const barWidth = ref(0);
@@ -36,7 +36,14 @@ function update() {
 }
 
 onMounted(() => {
-  update();
+  setTimeout(() => {
+    update();
+    setTimeout(() => {
+      if (progress.value) {
+        progress.value.classList.remove('init');
+      }
+    }, 1200);
+  }, 300);
 });
 
 watch(() => props.value, () => {
@@ -45,11 +52,11 @@ watch(() => props.value, () => {
 </script>
 
 <template>
-  <div class="progress">
+  <div ref="progress" class="progress init">
     <div v-if="progressType === 'circle'" class="circle">
       <svg :width="size" :height="size" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
         <circle cx="50" cy="50" r="47.5" class="shadow" />
-        <circle ref="progressValue" cx="50" class="progress-value" stroke-linecap="round" cy="50" r="47.5" />
+        <circle cx="50" class="progress-value" stroke-linecap="round" cy="50" r="47.5" />
       </svg>
     </div>
     <div v-else class="bar">
@@ -60,8 +67,14 @@ watch(() => props.value, () => {
 
 <style scoped>
 .progress {
+  --duration: 150ms;
+
   width: max-content;
   max-width: 100%;
+}
+
+.progress.init {
+  --duration: 1200ms;
 }
 
 .progress .circle .shadow {
@@ -74,7 +87,7 @@ watch(() => props.value, () => {
 .progress .circle .progress-value {
   position: relative;
   z-index: 2;
-  transition: all 200ms linear;
+  transition: all var(--duration) linear;
   stroke-width: 5;
   stroke-dasharray: v-bind(strokeDasharray);
   stroke-dashoffset: v-bind(strokeDashoffset);
@@ -93,7 +106,7 @@ watch(() => props.value, () => {
 .progress .bar .progress-value {
   width: v-bind(barWidthValue);
   height: 100%;
-  transition: all 200ms linear;
+  transition: all var(--duration) linear;
   background-color: var(--brand-500);
 }
 </style>
