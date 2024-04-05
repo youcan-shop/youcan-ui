@@ -2,7 +2,7 @@
 import { DateUtils } from '@youcan/ui-core';
 import { computed } from 'vue';
 import type { MonthSwitcherProps } from './types';
-import TertiaryButton from '~/components/Button/TertiaryButton.vue';
+import { TertiaryButton } from '~/components';
 
 const props = defineProps<MonthSwitcherProps>();
 
