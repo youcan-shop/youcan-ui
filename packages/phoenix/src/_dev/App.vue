@@ -4,18 +4,23 @@ import '../assets/main.css';
 import { ref } from 'vue';
 import { Progress, Slider } from '~/components';
 
-const value = ref(0);
+const value = ref(600);
 const maxValue = 2000;
 </script>
 
 <template>
   <div class="container">
+    <label class="progress-type"> Progress circle :</label>
     <Progress :value="value" :max-value="maxValue" />
-    <Slider
-      v-model="value"
-      :max="maxValue"
-      :min="0"
-    />
+    <label class="progress-type"> Progress bar :</label>
+    <Progress :value="value" :max-value="maxValue" progress-type="bar" />
+    <div class="slider-holder">
+      <Slider
+        v-model="value"
+        :max="maxValue"
+        :min="0"
+      />
+    </div>
   </div>
 </template>
 
@@ -23,9 +28,19 @@ const maxValue = 2000;
 .container {
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: center;
   width: 500px;
   margin: 30px auto;
   gap: 30px;
+}
+
+.progress-type {
+  font: var(--text-md-medium);
+}
+
+.container .slider-holder {
+  width: 100%;
+  margin-top: 20px;
 }
 </style>

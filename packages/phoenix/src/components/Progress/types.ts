@@ -3,4 +3,5 @@ export interface ProgressProps {
   maxValue?: number
   playable?: boolean
   size?: number
+  progressType?: 'circle' | 'bar'
 }
