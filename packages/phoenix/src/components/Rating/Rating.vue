@@ -1,24 +1,37 @@
 <script setup lang="ts">
-import { onBeforeMount } from 'vue';
+import { computed } from 'vue';
 import type { RatingProps } from '~/types';
 
 const props = withDefaults(defineProps<RatingProps>(), {
-  ceil: 5,
-  score: 0,
+  stars: 5,
+  rating: 0,
+  modelValue: 0,
+  editable: false,
 });
 
-onBeforeMount(() => {
-  if (props.score > props.ceil) {
-    throw new Error(
-      'The rating\'s ceil must be higher than or equal to the score.',
-    );
-  }
+const emit = defineEmits(['update:modelValue']);
+
+const model = computed<number>({
+  get: () => props.modelValue,
+  set: (value: number) => emit('update:modelValue', value),
 });
+
+const updateRatingModel = (star: number) => {
+  if (model.value === star) {
+    model.value = 0;
+
+    return;
+  }
+  model.value = star;
+};
 </script>
 
 <template>
-  <div class="rating">
-    <i v-for="idx in ceil" :key="idx" class="star i-youcan-star" :class="{ active: idx <= score }" />
+  <div v-if="editable">
+    <i v-for="star in stars" :key="star" i-youcan-star class="editable-star" :class="{ active: star <= model }" @mousedown="updateRatingModel(star)" />
+  </div>
+  <div v-else class="rating">
+    <i v-for="star in stars" :key="star" class="star i-youcan-star" :class="{ active: star <= rating }" />
   </div>
 </template>
 
@@ -29,12 +42,21 @@ onBeforeMount(() => {
   align-items: center;
 }
 
-.star {
+.rating .star {
   display: block;
   margin-inline-end: 2px;
   color: var(--gray-100);
 }
 
+.editable-star {
+  display: inline-block;
+  box-sizing: border-box;
+  margin-inline-end: 2px;
+  color: var(--gray-100);
+  cursor: pointer;
+}
+
+.editable-star.active,
 .star.active {
   color: var(--yellow-500);
 }

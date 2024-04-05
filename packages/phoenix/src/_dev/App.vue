@@ -2,53 +2,25 @@
 import 'uno.css';
 import '../assets/main.css';
 import { ref } from 'vue';
-import { Status } from '~/components';
-import type { StatusObject } from '~/components/Status/types';
+import { Rating } from '~/components';
 
-const staticFruit = ref<StatusObject>({
-  color: '#fffad2',
-  label: 'Banana 🍌',
-  labelColor: '#555022',
-});
-
-const fruits = [
-  {
-    color: '#ffdecb',
-    label: 'Peach 🍑',
-    labelColor: '#35192b',
-    value: 'peach',
-  },
-  {
-    color: '#fffad2',
-    label: 'Banana 🍌',
-    labelColor: '#555022',
-    value: 'banana',
-  },
-  {
-    color: '#cbffd3',
-    label: 'Kiwi 🥝',
-    labelColor: '#2c4730',
-    value: 'kiwi',
-  },
-];
-
-const favoriteFruit = ref<StatusObject>(fruits[0]);
+const movieRating = ref(0);
 </script>
 
 <template>
   <div class="container">
-    <!-- Single status badge -->
-    <Status :status="staticFruit" />
+    <Rating v-model="movieRating" editable :stars="5" />
+    {{ movieRating }}
+    <Rating :stars="6" :rating="4" />
 
-    <!-- Dropdown of badges -->
-    <Status v-model="favoriteFruit" :status="fruits" :editable="true" />
-    {{ favoriteFruit }}
+    <Rating :stars="6" :rating="10" />
   </div>
 </template>
 
 <style scoped>
 .container {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   margin: 30px;

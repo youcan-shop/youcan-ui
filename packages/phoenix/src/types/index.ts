@@ -19,7 +19,7 @@ export type { PaginationBarProps, NavigationButtonProps } from '../components/Pa
 export type { PopoverProps, ObjectFit } from '../components/Popover/types';
 export type { RadioProps, RadioGroupProps, RadioData } from '../components/Radio/types';
 export type { RadioListProps, RadioList } from '../components/RadioList/types';
-export type { RatingProps, RatingInputProps } from '../components/Rating/types';
+export type { RatingProps } from '../components/Rating/types';
 export type { ResourceProps, PickerProps, Resource } from '../components/ResourcePicker/types';
 export type { SearchInputProps, SearchResultProps, QueryResult } from '../components/Search/types';
 export type { SettingsNavItemProps } from '../components/SettingsNav/types';

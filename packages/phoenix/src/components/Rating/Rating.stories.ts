@@ -1,33 +1,34 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 import { ref } from 'vue';
-import { RatingInput } from '~/components';
+import { Rating } from '~/components';
 
-type Story = StoryObj<typeof RatingInput>;
-const meta: Meta<typeof RatingInput> = {
-  title: 'Application/RatingInput',
-  component: RatingInput,
+type Story = StoryObj<typeof Rating>;
+const meta: Meta<typeof Rating> = {
+  title: 'Application/Rating',
+  component: Rating,
   parameters: {
     layout: 'centered',
   },
-  tags: ['rate', 'score', 'rating', 'stars'],
+  tags: ['rate', 'rating', 'rating', 'stars'],
   argTypes: {
     modelValue: { table: { disable: true } },
   },
   args: {
-    ceil: 5,
+    stars: 5,
+    editable: true,
   },
 };
 
 export const Default: Story = {
   render: args => ({
-    components: { RatingInput },
+    components: { Rating },
     setup() {
       const value = ref(5);
 
       return { args, value };
     },
     template: `
-    <RatingInput v-model="value" v-bind="args" />
+    <Rating v-model="value" v-bind="args" />
     <p>{{ value }}</p>
     `,
   }),

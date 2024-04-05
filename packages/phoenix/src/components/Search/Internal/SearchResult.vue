@@ -18,7 +18,7 @@ defineProps<SearchResultProps>();
     </div>
 
     <div v-if="result.suffix" class="suffix">
-      <Rating v-if="result.suffix.type === 'rating'" :ceil="result.suffix.ceil" :score="result.suffix.score" />
+      <Rating v-if="result.suffix.type === 'rating'" :stars="result.suffix.stars" :rating="result.suffix.rating" />
     </div>
   </button>
 </template>
