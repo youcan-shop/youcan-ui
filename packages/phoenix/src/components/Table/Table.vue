@@ -185,7 +185,7 @@ watch(() => props.items, (newItems: T[]) => {
 .table-container .table .table-head th {
   color: var(--gray-700);
   font: var(--text-sm-medium);
-  text-align: left;
+  text-align: start;
   user-select: none;
 }
 
