@@ -1,284 +1,264 @@
-<script setup lang="ts">
-import { computed, ref, shallowRef, toRaw } from 'vue';
-import CellsRegistrar from './Internal/cells-registrar';
-import TableRow from './Internal/TableRow.vue';
-import type { TableColumn, TableColumnValue, TableColumnValues, TableData, TableDataComposable, TableDataRow, TableInternalData, TableProps } from '~/types';
-import Checkbox from '~/components/Checkbox/Checkbox.vue';
+<script setup lang="ts" generic="T">
+import { onMounted, ref, useSlots, watch } from 'vue';
+import type { SelectQuery, TableColumn, TableProps } from '~/types';
+import { Checkbox, Tooltip } from '~/components';
 
-const props = withDefaults(defineProps<TableProps>(), {
-  actionsText: 'Actions',
+const props = withDefaults(defineProps<TableProps<T>>(), {
+  tableColumns: () => [],
+  items: () => [],
 });
 
-const emit = defineEmits<{
-  (event: 'sort', column: TableColumn, index: number): void
-  (event: 'update:data', data: TableData[]): void
-  (event: 'update:selected-rows', data: TableData[]): void
-  (event: 'check', indexes: Array<number>): void
-  (event: 'update:cell', data: { row: unknown; accessor: string }): void
-}>();
+const emit = defineEmits(['onSelect', 'onSort']);
 
-const expandedRows = ref(Array<boolean>(props.data.length).fill(false));
-const hasChildren = computed(() => props.data.some(row => row.children && row.children.length > 0));
+const selectedItems = ref<string[]>([]);
+const unSelectedItems = ref<string[]>([]);
+const sortColumns = ref<TableColumn[]>([]);
+const selectAll = ref(false);
 
-const tableColumns = computed(() => {
-  const columns = [
-    props.selectable ? { accessor: 'check', label: 'Checkbox' } : null,
-    hasChildren.value ? { accessor: '_expand', label: 'Expand' } : null,
-    ...props.columns,
-  ];
+const slots = useSlots();
 
-  if (props.actions && props.actions.length > 0) {
-    columns.push({ accessor: 'actions', label: props.actionsText });
+function activeOrder(key: string | undefined) {
+  const column = sortColumns.value.find((col: TableColumn) => col.key === key);
+  if (column) {
+    return column.order;
   }
 
-  return columns.filter(column => column !== null) as TableColumn[];
-});
+  return 'none';
+}
 
-const rows = computed(
-  () => props.data.map(({ row, children }) => {
-    const rowObject: TableInternalData = {
-      row: {},
-      children: [],
-    };
-
-    function fieldsMapper(dataRow: TableDataRow) {
-      const tableRowObject: Record<Exclude<keyof TableDataRow, number>, TableColumnValue> = {};
-
-      Object.keys(dataRow).forEach((key) => {
-        const value = dataRow[key];
-
-        if (typeof value === 'undefined') {
-          return null;
-        }
-
-        tableRowObject[key] = {
-          value,
-          accessor: key as string,
-          isString: typeof value !== 'object',
-          component: typeof value === 'object' ? CellsRegistrar(value.variant) : undefined,
-        };
-      });
-
-      return tableRowObject;
-    }
-
-    rowObject.row = fieldsMapper(row);
-    if (children) {
-      rowObject.children = children.map(child => ({ row: fieldsMapper(child) }));
-    }
-
-    return rowObject;
-  }).filter(row => row !== null),
-);
-
-const sortable = (column: TableColumn) => {
-  return column.sortable && column.sortable !== 'none';
-};
-
-const emitSort = (column: TableColumn, index: number) => {
-  if (sortable(column) === false) {
+function handleSort(column: TableColumn) {
+  if (!column.sortable) {
     return false;
   }
-  emit('sort', column, index);
-};
-
-function mapRowsToTableData(records: TableInternalData[]): TableData[] {
-  return props.data.map(({ row, children }: TableData, index: number) => {
-    function mapRowObjToPropsOriginalObj(obj: TableDataRow, innerObj: TableColumnValues) {
-      const mappedObj: TableDataRow = {};
-
-      Object.keys(obj).forEach((key: Exclude<keyof TableDataRow, number>) => {
-        const composedRow = rows.value[index].row[key];
-        const propRow = obj[key];
-
-        if (typeof composedRow === 'undefined' || typeof propRow !== 'object') {
-          return mappedObj[key] = propRow;
-        }
-
-        mappedObj[key] = innerObj[key].value;
-      });
-
-      return mappedObj;
+  const override = sortColumns.value;
+  const index = override.findIndex(col => col.key === column.key);
+  if (index > -1) {
+    const col = override[index];
+    switch (col.order) {
+      case 'asc':
+        col.order = 'desc';
+        break;
+      case 'desc':
+        override.splice(index, 1);
     }
-
-    const innerRow = records[index];
-    const childrenRaw = children ? toRaw(children) : [];
-    const tableData = {
-      row: mapRowObjToPropsOriginalObj(row, innerRow.row),
-      children: childrenRaw.map((child, index) => mapRowObjToPropsOriginalObj(child, innerRow.children ? innerRow.children[index].row : {})),
-    };
-
-    return tableData;
-  });
-}
-
-function handleSubCompModel(row: number, accessor: string, data: unknown, parentRow?: number) {
-  if (typeof parentRow === 'undefined') {
-    const rowsReplica = shallowRef(rows.value);
-    const propRow = props.data[row].row[accessor] as TableDataComposable;
-
-    rowsReplica.value[row].row[accessor].value = {
-      // @ts-expect-error - TS is crying about variant type here, but it's not a problem since it's valid
-      variant: propRow.variant,
-      data: {
-        ...propRow.data,
-        // @ts-expect-error - Expected from TS to not know the type def here since the value is dynamically set
-        modelValue: data,
-      },
-    };
-
-    const patchedData = mapRowsToTableData(rowsReplica.value);
-
-    emit('update:cell', { row: patchedData[row].row, accessor });
-    emit('update:data', patchedData);
   }
   else {
-    const rowsReplica = shallowRef(rows.value);
-    const propRow = props.data[parentRow].children![row][accessor] as TableDataComposable;
-
-    rowsReplica.value[parentRow].children![row].row[accessor].value = {
-      // @ts-expect-error - TS is crying about variant type here, but it's not a problem since it's valid
-      variant: propRow.variant,
-      data: {
-        ...propRow.data,
-        // @ts-expect-error - Expected from TS to not know the type def here since the value is dynamically set
-        modelValue: data,
-      },
-    };
-
-    const patchedData = mapRowsToTableData(rowsReplica.value);
-
-    emit('update:cell', { row: patchedData[parentRow].children![row], accessor });
-    emit('update:data', patchedData);
+    column.order = 'asc';
+    override.push(column);
   }
+  sortColumns.value = override;
+  emit('onSort', override);
 }
 
-const checkedRows = computed({
-  get: () => {
-    if (props.selectedRows && props.selectedRows.length) {
-      return props.data.map(row => props.selectedRows!.some(selectedRow => selectedRow.row.id === row.row.id));
-    }
-    else {
-      return Array(props.data.length).fill(false);
-    }
-  },
-  set: (value: boolean[]) => {
-    emit('update:selected-rows', props.data.filter((_, index) => value[index]));
+function setSelected(all: boolean, included: string[], excluded: string[]) {
+  const selectQ: SelectQuery = { all, included, excluded };
+  emit('onSelect', selectQ);
+}
 
-    const selectedIndexes = value.map((_, index) => {
-      return _ ? index : null;
-    }).filter(index => index !== null) as Array<number>;
+const handleSelectAll = (value: boolean) => {
+  const override: string[] = [];
+  if (value) {
+    for (const item of props.items) {
+      override.push((item as any).id);
+    }
+  }
+  selectedItems.value = override;
+  unSelectedItems.value = [];
+  setSelected(value, [], []);
+};
 
-    emit('check', selectedIndexes);
-  },
+function handleSelect(value: boolean, id: string) {
+  const overrideSelected = selectedItems.value;
+  const overrideUnselected = unSelectedItems.value;
+  if (value) {
+    overrideSelected.push(id);
+    const index = overrideUnselected.indexOf(id);
+    if (index > -1) {
+      overrideUnselected.splice(index, 1);
+    }
+  }
+  else {
+    const index = overrideSelected.indexOf(id);
+    selectAll.value && overrideUnselected.push(id);
+    if (index > -1) {
+      overrideSelected.splice(index, 1);
+    }
+  }
+  selectedItems.value = overrideSelected;
+  unSelectedItems.value = overrideUnselected;
+  setSelected(selectAll.value, selectAll.value ? [] : overrideSelected, selectAll.value ? overrideUnselected : []);
+}
+
+function checkedRow(id: string) {
+  return selectedItems.value.includes(id);
+}
+
+function isSelectable() {
+  const { tableColumns, selectable } = props;
+
+  const index = tableColumns.findIndex((column: TableColumn) => column.key === 'id');
+
+  return (selectable && index > -1);
+}
+
+onMounted(() => {
+  if (props.selectable && !isSelectable()) {
+    console.error('ID is undefined: To enable table selection, please define the ID column.');
+  }
 });
-
-const isAllChecked = computed(() => checkedRows.value.every(row => row));
-
-const batchSelect = (value: boolean) => checkedRows.value = Array<boolean>(props.data.length).fill(value);
-
-function selectRow(index: number, data: boolean) {
-  checkedRows.value = checkedRows.value.map((row, i) => i === index ? data : row);
-}
+watch(() => props.items, (newItems: T[]) => {
+  if (isSelectable() === false) {
+    return;
+  }
+  const overrideUnselected = unSelectedItems.value;
+  const overrideSelected = selectedItems.value;
+  if (selectAll.value) {
+    for (const item of newItems) {
+      const id = (item as any).id;
+      const index = overrideSelected.indexOf(id);
+      if (overrideUnselected.includes(id) === false && index === -1) {
+        overrideSelected.push(id);
+      }
+    }
+  }
+  selectedItems.value = overrideSelected;
+});
 </script>
 
 <template>
   <div class="table-container">
     <table class="table">
       <thead class="table-head">
-        <th v-for="(column, index) in tableColumns" :key="column.accessor" class="head-column" :style="{ width: column.size ?? undefined }">
-          <template v-if="column.accessor === 'check'">
-            <Checkbox v-model="isAllChecked" @update:model-value="batchSelect" />
-          </template>
-          <template v-else-if="column.accessor === '_expand'">
-            <span />
-          </template>
-          <template v-else>
-            <span class="text" :class="{ 'text-sortable': sortable(column) }" @click="emitSort(column, index)">
-              {{ column.label }}
-              <i v-if="sortable(column)" class="i-youcan-caret-down" tabindex="1" :class="column.sortable" />
-            </span>
-          </template>
-        </th>
+        <tr>
+          <th v-if="isSelectable()" class="checkbox">
+            <Checkbox v-model="selectAll" @on-change="handleSelectAll" />
+          </th>
+          <th v-for="column in tableColumns" :key="column.key" :class="[`th-${column.key}`]">
+            <Tooltip v-if="column.sortable" :label="activeOrder(column.key)">
+              <div class="content" @click="handleSort(column)">
+                <span class="text">{{ column.label }}</span>
+                <i class="i-youcan-caret-down" :class="activeOrder(column.key)" />
+              </div>
+            </Tooltip>
+            <span v-else class="text">{{ column.label }}</span>
+          </th>
+        </tr>
       </thead>
       <tbody class="table-body">
-        <template v-for="(row, index) in rows" :key="index">
-          <TableRow
-            :index="index" :row="row" :columns="tableColumns" :selected="checkedRows[index]"
-            :expended="expandedRows[index]" :actions="actions" :data="data"
-            @update:selected-rows="selectRow(index, $event)"
-            @update:expend="expandedRows[index] = $event"
-            @update:sub-comp-model="handleSubCompModel($event.index, $event.accessor, $event.data, $event.child ? index : undefined)"
-          />
-        </template>
+        <tr v-for="(item, index) in items" :key="index" :class="{ checked: checkedRow((item as any).id) }">
+          <td v-if="isSelectable()" class="td-checkbox">
+            <Checkbox :checked="checkedRow((item as any).id)" @on-change="handleSelect($event, (item as any).id)" />
+          </td>
+          <td v-for="column in tableColumns" :key="column.key" :class="[`td-${column.key}`]">
+            <template v-if="slots[column.key as string]">
+              <slot :name="column.key" v-bind="item" />
+            </template>
+            <span v-else class="text">{{ item[column.key as keyof T] }}</span>
+          </td>
+        </tr>
       </tbody>
+      <tbody />
     </table>
   </div>
 </template>
 
 <style scoped>
 .table-container {
-  display: flex;
-  box-sizing: border-box;
-  align-items: center;
-  justify-content: start;
+  --border: 1px solid var(--gray-200);
+
   width: 100%;
+  max-width: 100%;
   overflow: auto hidden;
 }
 
-.table {
+.table-container .table {
   width: 100%;
-  overflow: hidden;
-  border-collapse: collapse;
+  border-spacing: 0;
+  border: var(--border);
 }
 
-.table-head {
-  height: 52px;
-  border-bottom: 1px solid var(--gray-200);
+.table-container .table .table-head {
+  border-bottom: var(--border);
   background-color: var(--gray-50);
 }
 
-.table-head .head-column {
-  height: 100%;
-  padding: 0 16px;
-  text-align: start;
-}
-
-.table-head .head-column .text {
+.table-container .table .table-head th {
   color: var(--gray-700);
   font: var(--text-sm-medium);
+  text-align: start;
+  user-select: none;
 }
 
-.table-head .head-column .text.text-sortable {
+.table-container .table .table-head th.checkbox {
+  width: 50px;
+}
+
+.table-container .table .table-head th .content {
   display: flex;
   align-items: center;
-  cursor: pointer;
   gap: 8px;
+  cursor: pointer;
 }
 
-.table-head .head-column .text.text-sortable i[tabindex="1"] {
+.table-container .table .table-head th .content i {
   width: 12px;
   height: 12px;
-  transition: transform 150ms linear;
+  transform: rotate(180deg);
+  transition: all 150ms linear;
   color: var(--gray-500);
 }
 
-.table-head .head-column .text.text-sortable i[tabindex="1"].asc {
-  transform: rotate(180deg);
+.table-container .table .table-head th .content i.desc {
+  transform: rotate(0deg);
 }
 
-.table-head .head-column * {
-  vertical-align: middle;
+.table-container .table .table-head th,
+.table-container .table .table-body td {
+  padding: 16px;
 }
 
-.table-body .text-column {
+.table-container .table .table-body td {
   color: var(--gray-900);
   font: var(--text-sm-regular);
 }
 
-.table-body .text-column.na {
-  color: var(--gray-300);
-  font: var(--text-sm-medium);
-  text-transform: uppercase;
+.table-container .table .table-body tr:not(:last-child) td {
+  box-sizing: border-box;
+  border-bottom: var(--border);
+}
+
+.table-container .table .table-body tr td:not(:last-child),
+.table-container .table .table-head tr th:not(:last-child) {
+  border-right: var(--border);
+}
+
+.table-container .table .table-body td.td-checkbox {
+  position: relative;
+}
+
+.table-container .table .table-body td.td-checkbox::before {
+  content: "";
+  position: absolute;
+  z-index: 9;
+  top: 0;
+  left: 0;
+  width: 3px;
+  height: calc(100% + 1px);
+  transition: all 100ms ease-in-out;
+  opacity: 0;
+  background-color: var(--brand-500);
+}
+
+.table-container .table .table-body tr {
+  transition: background-color 100ms ease-in-out;
+  background-color: transparent;
+}
+
+.table-container .table .table-body tr.checked {
+  background-color: var(--brand-50);
+}
+
+.table-container .table .table-body tr.checked td.td-checkbox::before {
+  opacity: 1;
 }
 </style>
