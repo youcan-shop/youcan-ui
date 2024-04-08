@@ -22,8 +22,6 @@ const movieRating = ref(0);
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  margin: 30px;
-  gap: 0.5rem;
+  gap: 8px;
 }
 </style>
