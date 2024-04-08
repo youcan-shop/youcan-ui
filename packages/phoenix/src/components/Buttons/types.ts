@@ -8,3 +8,7 @@ export interface ButtonProps {
   iconPosition?: ButtonIconPosition
   roundedFull?: boolean
 }
+
+export interface ActionButtonProps {
+  icon?: string
+}

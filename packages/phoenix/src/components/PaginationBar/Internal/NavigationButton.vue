@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import type { NavigationButtonProps } from '~/types';
-import SecondaryButton from '~/components/Button/SecondaryButton.vue';
-import PrimaryButton from '~/components/Button/PrimaryButton.vue';
+import { PrimaryButton, SecondaryButton } from '~/components';
 
 const props = defineProps<NavigationButtonProps>();
 

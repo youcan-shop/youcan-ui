@@ -1,7 +1,7 @@
 export type { DropdownItemProps, MultiselectDropdownProps, DropdownProps, DropdownListProps, DropdownItemDefinition, DropdownItemArray, DropdownItemGroups, DropdownItemWithIcon, DropdownItemWithImage } from '../components/Dropdown/types';
 export type { DropdownMenuItemProps, DropdownMenuProps } from '../components/DropdownMenu/types';
 export type { LoadingProps } from '../components/Loading/types';
-export type { ButtonProps, ButtonSize, ButtonIconPosition } from '../components/Button/types';
+export type { ButtonProps, ButtonSize, ButtonIconPosition, ActionButtonProps } from '../components/Buttons/types';
 export type { AlertProps, AlertType } from '../components/Alert/types';
 export type { BadgeProps, BadgeSize, BadgeState } from '../components/Badge/types';
 export type { CheckboxProps } from '../components/Checkbox/types';
@@ -19,7 +19,7 @@ export type { PaginationBarProps, NavigationButtonProps } from '../components/Pa
 export type { PopoverProps, ObjectFit } from '../components/Popover/types';
 export type { RadioProps, RadioGroupProps, RadioData } from '../components/Radio/types';
 export type { RadioListProps, RadioList } from '../components/RadioList/types';
-export type { RatingProps, RatingInputProps } from '../components/Rating/types';
+export type { RatingProps } from '../components/Rating/types';
 export type { ResourceProps, PickerProps, Resource } from '../components/ResourcePicker/types';
 export type { SearchInputProps, SearchResultProps, QueryResult } from '../components/Search/types';
 export type { SettingsNavItemProps } from '../components/SettingsNav/types';
@@ -27,9 +27,8 @@ export type { SidebarProps, SidebarItemProps, SidebarSubItemProps } from '../com
 export type { SkeletonProps, SkeletonType } from '../components/Skeleton/types';
 export type { SliderProps, RailProps, RangeValue } from '../components/Slider/types';
 export type { SpinnerProps } from '../components/Spinner/types';
-export type { StatusObject, StatusProps } from '../components/Status/types';
-export type { TableProps, TableActions, TableColumn, TableData, TableDataRow, TableInternalData, TableDataComposable, TableColumnValue, HandleSubCompModel, TableColumnValues } from '../components/Table/types';
-export type { LinkProps, TableRowProps, TableButtonProps } from '../components/Table/Internal/types';
+export type { EditableStatusProps, StaticStatusProps, StaticStatusDefinition, StatusDefinition } from '../components/Status/types';
+export type { TableProps, TableColumn, SelectQuery } from '../components/Table/types';
 export type { TabProps } from '../components/Tabs/types';
 export type { TagProps, TagItemProps, TagItemType, TagItemValue } from '../components/Tag/types';
 export type { TextAreaProps } from '../components/TextArea/types';

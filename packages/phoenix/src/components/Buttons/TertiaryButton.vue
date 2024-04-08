@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useSlots } from 'vue';
 import type { ButtonProps } from '~/types';
-import BaseButton from '~/components/Button/_BaseButton.vue';
+import BaseButton from '~/components/Buttons/_BaseButton.vue';
 
 defineProps<ButtonProps>();
 
@@ -11,7 +11,7 @@ const slots = useSlots();
 <template>
   <BaseButton
     :size="size" :disabled="disabled" :icon-position="iconPosition" :rounded-full="roundedFull"
-    class="secondary-destructive"
+    class="tertiary"
   >
     <template v-if="slots.icon" #icon>
       <slot name="icon" />
@@ -21,21 +21,17 @@ const slots = useSlots();
 </template>
 
 <style scoped>
-.secondary-destructive {
+.tertiary {
   --text-color: var(--gray-900);
   --text-style: var(--text-sm-regular);
   --disabled-text-color: var(--gray-300);
-  --icon-color: var(--red-500);
+  --icon-color: var(--gray-700);
   --disabled-icon-color: var(--gray-300);
-  --background-color: var(--base-white);
+  --background-color: transparent;
   --hover-background-color: var(--gray-50);
   --active-background-color: var(--gray-100);
-  --disabled-background-color: var(--base-white);
-  --focus-shadow: var(--focus-shadow-xs-red);
-  --disabled-shadow: none;
-  --border: 1px solid var(--gray-200);
-  --focus-border: 1px solid var(--red-500);
-  --hover-border: 1px solid var(--gray-300);
-  --active-border: 1px solid var(--gray-300);
+  --disabled-background-color: transparent;
+  --shadow: none;
+  --focus-shadow: var(--focus-no-shadow-brand);
 }
 </style>
