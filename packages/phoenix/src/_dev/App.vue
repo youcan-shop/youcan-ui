@@ -2,18 +2,33 @@
 import 'uno.css';
 import '../assets/main.css';
 import { ref } from 'vue';
-import { Rating } from '~/components';
+import { MultiSwitch } from '~/components';
+import type { SwitchButtonOption } from '~/types';
 
-const movieRating = ref(0);
+const OPTIONS: SwitchButtonOption[] = [
+  {
+    label: 'Mobile',
+    value: 1,
+  },
+  {
+    label: 'Desktop',
+    value: 2,
+    icon: 'i-youcan:desktop',
+  },
+  {
+    label: 'Tablet',
+    value: 3,
+    icon: '',
+  },
+];
+
+const activeOption = ref<SwitchButtonOption>(OPTIONS[0]);
 </script>
 
 <template>
   <div class="container">
-    <Rating v-model="movieRating" editable :stars="5" />
-    {{ movieRating }}
-    <Rating :stars="6" :rating="4" />
-
-    <Rating :stars="6" :rating="10" />
+    <MultiSwitch v-model="activeOption" :options="OPTIONS" />
+    <p>{{ activeOption.value }} : {{ activeOption.label }}</p>
   </div>
 </template>
 

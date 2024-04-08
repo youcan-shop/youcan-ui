@@ -1,13 +1,13 @@
 export interface SwitchButtonOption {
   label: string
-  icon: string
+  icon?: string
   value: string | number
   disabled?: boolean
 }
 
 export interface MultiSwitchProps {
   options: SwitchButtonOption[]
-  selectedOption: SwitchButtonOption
+  modelValue: SwitchButtonOption
 }
 
 export interface SwitchButtonProps {
