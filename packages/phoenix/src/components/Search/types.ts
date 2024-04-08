@@ -1,7 +1,7 @@
 export interface QueryResultRatingSuffix {
   type: 'rating'
-  score: number
-  ceil: number
+  rating: number
+  stars: number
 }
 
 export type QueryResultSuffix = QueryResultRatingSuffix | null;
