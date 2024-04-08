@@ -1,6 +1,6 @@
 {
   "name": "@youcan/ui",
-  "version": "2.6.1-beta.1",
+  "version": "2.6.1",
   "packageManager": "pnpm@8.10.0",
   "engines": {
     "node": "^20.9.0",
