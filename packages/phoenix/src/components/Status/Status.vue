@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { defineEmits, defineProps, ref } from 'vue';
 import { onClickOutside } from '@vueuse/core';
-import type { StatusObject, StatusProps } from './types';
+import type { StatusObject, StatusProps } from '~/types';
 
 const props = defineProps<StatusProps>();
 
