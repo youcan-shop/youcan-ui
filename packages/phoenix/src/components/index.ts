@@ -45,7 +45,6 @@ export { default as Alert } from './Alert/Alert.vue';
 export { default as ToastContainer } from './ToastContainer/ToastContainer.vue';
 export { default as DraggableItem } from './Draggable/DraggableItem.vue';
 export { default as Draggable } from './Draggable/Draggable.vue';
-export { default as Radio } from './Radio/Radio.vue';
 export { default as RadioGroup } from './Radio/RadioGroup.vue';
 export { default as RadioList } from './RadioList/RadioList.vue';
 export { default as Tooltip } from './Tooltip/Tooltip.vue';
