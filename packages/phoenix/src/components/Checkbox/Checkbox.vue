@@ -5,19 +5,16 @@ import type { CheckboxProps } from '~/types';
 
 const props = defineProps<CheckboxProps>();
 
-const emit = defineEmits(['update:modelValue']);
+const emit = defineEmits(['update:modelValue', 'onChange']);
 const slots = useSlots();
 
 const model = computed({
   get: () => props.modelValue,
-  set: (value: boolean | Array<number | string>) => emit('update:modelValue', value),
+  set: (value: boolean | Array<number | string> | undefined) => {
+    emit('update:modelValue', value);
+    emit('onChange', value);
+  },
 });
-
-const checked = computed(
-  () => Array.isArray(model.value)
-    ? model.value.find(i => i === props.value!)
-    : model.value,
-);
 
 const idAttr = Utils.uid('checkbox');
 const ariaDescribedby = `${idAttr}-aria-describedby`;
@@ -26,8 +23,8 @@ const ariaDescribedby = `${idAttr}-aria-describedby`;
 <template>
   <label :for="idAttr" v-bind="$attrs" class="checkbox-content">
     <div class="checkbox" :class="{ 'has-label': slots.label }">
-      <input v-bind="$attrs" :id="idAttr" v-model="model" type="checkbox" class="input" :value="value" :aria-describedby="ariaDescribedby">
-      <span class="checkmark" :class="{ checked }">
+      <input v-bind="$attrs" :id="idAttr" v-model="model" type="checkbox" :checked="checked" class="input" :value="value" :aria-describedby="ariaDescribedby">
+      <span class="checkmark">
         <i v-if="!$attrs.indeterminate" class="i-youcan-check" />
         <i v-else class="i-youcan-minus" />
       </span>
@@ -85,12 +82,12 @@ const ariaDescribedby = `${idAttr}-aria-describedby`;
   color: var(--base-white);
 }
 
-.checkbox-content .checkbox .checkmark.checked {
+.checkbox-content .checkbox input:checked ~ .checkmark {
   border: 1px solid transparent;
   background-color: var(--brand-500);
 }
 
-.checkbox-content .checkbox .checkmark.checked i {
+.checkbox-content .checkbox input:checked ~ .checkmark i {
   display: inline-block;
 }
 
@@ -109,11 +106,11 @@ const ariaDescribedby = `${idAttr}-aria-describedby`;
   background-color: var(--gray-50);
 }
 
-.checkbox-content .checkbox input:disabled ~ .checkmark.checked {
+.checkbox-content .checkbox input:disabled:checked ~ .checkmark {
   background-color: var(--gray-100);
 }
 
-.checkbox-content:hover .checkbox input:enabled ~ .checkmark.checked {
+.checkbox-content:hover .checkbox input:enabled:checked ~ .checkmark {
   background-color: var(--brand-600);
 }
 

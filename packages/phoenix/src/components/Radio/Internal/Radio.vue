@@ -36,13 +36,13 @@ const id = Utils.uid('radio_');
   gap: 8px;
 }
 
-.label {
+.radio .label {
   color: var(--gray-900);
   font: var(--text-sm-regular);
   cursor: pointer;
 }
 
-.trigger {
+.radio .trigger {
   width: 18px;
   height: 18px;
   margin: 0;
@@ -54,20 +54,20 @@ const id = Utils.uid('radio_');
   cursor: pointer;
 }
 
-.trigger:hover {
+.radio .trigger:hover {
   border-color: var(--gray-300);
   background-color: var(--gray-50);
 }
 
-.trigger:active {
+.radio .trigger:active {
   background-color: var(--gray-100);
 }
 
-.trigger:checked {
+.radio .trigger:checked {
   border: 4px solid var(--brand-500);
 }
 
-.trigger:checked:hover {
+.radio .trigger:checked:hover {
   border-color: var(--brand-600);
 }
 </style>

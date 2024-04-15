@@ -12,3 +12,7 @@ export interface ButtonProps {
   linkUrl?: string
   link?: boolean
 }
+
+export interface ActionButtonProps {
+  icon?: string
+}

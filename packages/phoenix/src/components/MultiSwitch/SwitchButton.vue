@@ -12,7 +12,7 @@ const handleClick = () => {
 </script>
 
 <template>
-  <button
+  <div
     class="option"
     :class="{ active, disabled: option.disabled }"
     :disabled="option.disabled || active"
@@ -22,22 +22,11 @@ const handleClick = () => {
     <span v-if="option.label" class="label">
       {{ props.option.label }}
     </span>
-  </button>
+  </div>
 </template>
 
 <style scoped>
-button {
-  box-sizing: border-box;
-  border: none;
-  background-color: transparent;
-  cursor: pointer;
-}
-
-button:is(:focus, :active) {
-  outline: none;
-}
-
-i {
+.option i {
   color: var(--gray-500);
 }
 
@@ -50,6 +39,7 @@ i {
   padding: 0 8px;
   gap: 4px;
   border: 1px solid transparent;
+  cursor: pointer;
 }
 
 .option .label {
