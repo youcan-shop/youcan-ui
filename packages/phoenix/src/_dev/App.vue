@@ -1,34 +1,14 @@
 <script setup lang="ts">
 import 'uno.css';
 import '../assets/main.css';
-import { ref } from 'vue';
-import { MultiSwitch } from '~/components';
-import type { SwitchButtonOption } from '~/types';
-
-const OPTIONS: SwitchButtonOption[] = [
-  {
-    label: 'Mobile',
-    value: 1,
-  },
-  {
-    label: 'Desktop',
-    value: 2,
-    icon: 'i-youcan:desktop',
-  },
-  {
-    label: 'Tablet',
-    value: 3,
-    icon: '',
-  },
-];
-
-const activeOption = ref<SwitchButtonOption>(OPTIONS[0]);
+import DropDown from '~/components/Dropdown-V3/DropDown.vue';
 </script>
 
 <template>
   <div class="container">
-    <MultiSwitch v-model="activeOption" :options="OPTIONS" />
-    <p>{{ activeOption.value }} : {{ activeOption.label }}</p>
+    <div>
+      <DropDown placeholder="Select language" />
+    </div>
   </div>
 </template>
 
@@ -37,6 +17,13 @@ const activeOption = ref<SwitchButtonOption>(OPTIONS[0]);
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
   gap: 8px;
+}
+
+.container > div {
+  width: 500px;
 }
 </style>
