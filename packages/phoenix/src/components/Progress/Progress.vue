@@ -39,14 +39,7 @@ function update() {
 }
 
 onMounted(() => {
-  setTimeout(() => {
-    update();
-    setTimeout(() => {
-      if (progress.value) {
-        progress.value.classList.remove('init');
-      }
-    }, 1200);
-  }, 300);
+  update();
 });
 
 watch(() => props.value, () => {
@@ -55,7 +48,7 @@ watch(() => props.value, () => {
 </script>
 
 <template>
-  <div ref="progress" class="progress init" :class="`progress-${progressType}`">
+  <div ref="progress" class="progress" :class="`progress-${progressType}`">
     <div v-if="progressType === 'circle'" class="circle">
       <svg :width="size" :height="size" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
         <circle cx="50" cy="50" r="47.5" class="shadow" />
@@ -76,10 +69,6 @@ watch(() => props.value, () => {
   position: relative;
   width: max-content;
   max-width: 100%;
-}
-
-.progress.init {
-  --duration: 1200ms;
 }
 
 .progress .label {
