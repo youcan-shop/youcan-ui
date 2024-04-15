@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { TableButtonProps } from '~/types';
-import Button from '~/components/Button/Button.vue';
+import { Button } from '~/components';
 
 withDefaults(
   defineProps<TableButtonProps>(),

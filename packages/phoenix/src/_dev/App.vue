@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import 'uno.css';
 import '../assets/main.css';
-import Button from '~/components/Button/Button.vue';
+import { Button } from '~/components';
 </script>
 
 <template>

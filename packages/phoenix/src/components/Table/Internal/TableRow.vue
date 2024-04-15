@@ -3,7 +3,7 @@ import { computed } from 'vue';
 import TableButton from './Button.vue';
 import { TableDataRow } from '~/types';
 import type { HandleSubCompModel, TableActions, TableColumnValue, TableData, TableDataComposable, TableRowProps } from '~/types';
-import Button from '~/components/Button/Button.vue';
+import { Button } from '~/components';
 import Checkbox from '~/components/Checkbox/Checkbox.vue';
 import { launder } from '~/helpers/type.util';
 import Tooltip from '~/components/Tooltip/Tooltip.vue';

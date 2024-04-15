@@ -2,7 +2,7 @@
 import { computed, onMounted, ref } from 'vue';
 import NavigationButton from './Internal/NavigationButton.vue';
 import type { DropdownItemArray, DropdownItemDefinition, PaginationBarProps } from '~/types';
-import Button from '~/components/Button/Button.vue';
+import { Button } from '~/components';
 
 const props = withDefaults(defineProps<PaginationBarProps>(), {
   hidePerPage: false,

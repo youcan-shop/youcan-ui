@@ -3,7 +3,7 @@ import Button from './Button.vue';
 
 type Story = StoryObj<typeof Button>;
 const meta: Meta<typeof Button> = {
-  title: 'Application/Button/BaseButton',
+  title: 'Application/Buttons',
   component: Button,
   tags: ['button', 'submit'],
   argTypes: {

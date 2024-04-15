@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted, useSlots } from 'vue';
 import type { AlertProps } from './types';
-import Button from '~/components/Button/Button.vue';
+import { Button } from '~/components';
 
 const props = withDefaults(
   defineProps<AlertProps>(),

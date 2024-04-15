@@ -2,7 +2,7 @@
 import { Utils } from '@youcan/ui-core';
 import { computed, onMounted, ref } from 'vue';
 import type { IncrementProps } from '~/types';
-import Button from '~/components/Button/Button.vue';
+import { Button } from '~/components';
 
 const props = withDefaults(defineProps<IncrementProps>(), {
   modelValue: 1,

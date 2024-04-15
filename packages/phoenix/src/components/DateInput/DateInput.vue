@@ -4,7 +4,7 @@ import { computed, ref } from 'vue';
 import { DateUtils } from '@youcan/ui-core';
 import DatePicker from './DatePicker.vue';
 import type { DateInputProps, DateInputValue } from '~/types';
-import Button from '~/components/Button/Button.vue';
+import { Button } from '~/components';
 
 const props = defineProps<DateInputProps>();
 
