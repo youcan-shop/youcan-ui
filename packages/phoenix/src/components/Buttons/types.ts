@@ -7,10 +7,8 @@ export interface ButtonProps {
   variant?: ButtonVariants
   size?: ButtonSize
   disabled?: boolean
-  iconPosition?: ButtonIconPosition
-  roundedFull?: boolean
-  linkUrl?: string
-  link?: boolean
+  rounded?: boolean
+  href?: string
 }
 
 export interface ActionButtonProps {

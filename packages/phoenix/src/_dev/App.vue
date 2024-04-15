@@ -7,19 +7,17 @@ import { Button } from '~/components';
 <template>
   <div class="container">
     <Button variant="primary">
+      <i class="i-youcan:arrow-bend-up-right" />
       primary
     </Button>
-    <Button variant="primary" rounded-full>
+    <Button variant="primary" rounded>
       primary
     </Button>
     <Button variant="primary" disabled>
       primary
     </Button>
     <Button variant="primary" icon-position="right">
-      <template #icon>
-        🧠
-      </template>
-      primary
+      <p>🧠</p>  primary <p>🧠</p>
     </Button>
     <Button variant="primary" size="2xl">
       primary
@@ -29,22 +27,18 @@ import { Button } from '~/components';
     <Button variant="secondary">
       secondary
     </Button>
-    <Button variant="secondary" rounded-full>
+    <Button variant="secondary" rounded>
       secondary
     </Button>
     <Button variant="secondary" disabled>
       secondary
     </Button>
     <Button variant="secondary" icon-position="right">
-      <template #icon>
-        🧠
-      </template>
+      <i class="i-youcan:arrow-bend-up-right" />
       secondary
     </Button>
     <Button variant="secondary" size="lg">
-      <template #icon>
-        🧠
-      </template>
+      🧠
       secondary
     </Button>
   </div>
@@ -52,16 +46,14 @@ import { Button } from '~/components';
     <Button variant="tertiary">
       tertiary
     </Button>
-    <Button variant="tertiary" rounded-full>
+    <Button variant="tertiary" rounded>
       tertiary
     </Button>
     <Button variant="tertiary" disabled>
       tertiary
     </Button>
     <Button variant="tertiary" icon-position="right">
-      <template #icon>
-        🧠
-      </template>
+      🧠
       tertiary
     </Button>
     <Button variant="tertiary" size="2xl">
@@ -72,16 +64,14 @@ import { Button } from '~/components';
     <Button variant="destructive">
       destructive
     </Button>
-    <Button variant="destructive" rounded-full>
+    <Button variant="destructive" rounded>
       destructive
     </Button>
     <Button variant="destructive" disabled>
       destructive
     </Button>
     <Button variant="destructive" icon-position="right">
-      <template #icon>
-        🧠
-      </template>
+      🧠
       destructive
     </Button>
     <Button variant="destructive" size="2xl">
@@ -89,16 +79,16 @@ import { Button } from '~/components';
     </Button>
   </div>
   <div class="container">
-    <Button variant="primary" link link-url="https://www.google.com">
+    <Button variant="primary" href="https://www.google.com">
       Primary Link
     </Button>
-    <Button variant="secondary" link link-url="https://www.google.com">
+    <Button variant="secondary" href="https://www.google.com">
       Secondary Link
     </Button>
-    <Button variant="tertiary" link link-url="https://www.google.com">
+    <Button variant="tertiary" href="https://www.google.com">
       Tertiary Link
     </Button>
-    <Button variant="destructive" link link-url="https://www.google.com">
+    <Button variant="destructive" href="https://www.google.com">
       Destructive Link
     </Button>
   </div>
