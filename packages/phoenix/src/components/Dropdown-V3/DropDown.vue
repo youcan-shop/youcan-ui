@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { nextTick, onMounted, ref } from 'vue';
-
+import { onClickOutside } from '@vueuse/core';
 import type { DropdownProps } from './type';
-
+import DropdownItem from './Internal/DropdownItem.vue';
 import { setPosition } from '~/helpers';
 
 defineProps<DropdownProps>();
-const show = ref(false);
+
+const show = ref(true);
 const dropdown = ref();
 const dropdownList = ref();
 const listWidth = ref('300px');
@@ -24,6 +25,8 @@ function toggle() {
   });
 }
 
+onClickOutside(dropdown, () => show.value = true);
+
 onMounted(() => {
   if (dropdown.value) {
     listWidth.value = `${dropdown.value.clientWidth}px`;
@@ -34,13 +37,15 @@ onMounted(() => {
 
 <template>
   <div ref="dropdown" class="dropdown" :class="[{ focus: show }]">
-    <div class="dropdown-input" @click="toggle()">
+    <button class="dropdown-input" type="button" @click="toggle()">
       <label class="text">{{ placeholder }}</label>
       <i class="i-youcan-caret-down caret" />
-    </div>
+    </button>
 
     <Transition name="animate-list">
-      <div v-if="show" ref="dropdownList" class="dropdown-list" />
+      <div v-if="show" ref="dropdownList" class="dropdown-list">
+        <DropdownItem v-for="item in items" :key="item.value" :item="item" />
+      </div>
     </Transition>
   </div>
 </template>
@@ -56,27 +61,36 @@ onMounted(() => {
   width: 100%;
 }
 
-.dropdown.focus {
-  --input-border: 1px solid var(--brand-500);
-  --input-shadow: var(--focus-shadow-xs-brand);
-  --caret-transform: rotate(-180deg);
-}
-
 .dropdown .dropdown-input {
   display: flex;
   box-sizing: border-box;
   align-items: center;
+  justify-content: flex-start;
   width: 100%;
   height: 44px;
   padding: 10px  16px;
   border: var(--input-border);
   border-radius: 8px;
+  outline: none;
+  background-color: var(--base-white);
   box-shadow: var(--input-shadow);
   cursor: pointer;
 }
 
+.dropdown.focus {
+  --caret-transform: rotate(-180deg);
+}
+
+.dropdown.focus,
+.dropdown .dropdown-input:focus {
+  --input-border: 1px solid var(--brand-500);
+  --input-shadow: var(--focus-shadow-xs-brand);
+}
+
 .dropdown .dropdown-input .text {
+  display: flex;
   flex: 1;
+  justify-content: flex-start;
   color: var(--gray-300);
   font: var(--text-sm-regular);
   cursor: pointer;
@@ -90,15 +104,19 @@ onMounted(() => {
 }
 
 .dropdown .dropdown-list {
+  display: flex;
   position: fixed;
   z-index: 9999999999;
+  flex-direction: column;
   width: v-bind(listWidth);
-  height: 240px;
+  height: max-content;
   max-height: 240px;
+  overflow: hidden;
   border: 1px solid var(--gray-200);
   border-radius: 8px;
   background-color: var(--base-white);
   box-shadow: var(--shadow-md-gray);
+  row-gap: 1px;
 }
 
 .animate-list-enter-active {
