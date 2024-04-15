@@ -6,34 +6,100 @@ import Button from '~/components/Button/Button.vue';
 
 <template>
   <div class="container">
+    <Button variant="primary">
+      primary
+    </Button>
     <Button variant="primary" rounded-full>
       primary
     </Button>
-    <Button variant="destructive">
-      destructive
+    <Button variant="primary" disabled>
+      primary
+    </Button>
+    <Button variant="primary" icon-position="right">
+      <template #icon>
+        🧠
+      </template>
+      primary
+    </Button>
+    <Button variant="primary" size="2xl">
+      primary
+    </Button>
+  </div>
+  <div class="container">
+    <Button variant="secondary">
+      secondary
     </Button>
     <Button variant="secondary" rounded-full>
       secondary
     </Button>
-    <Button variant="tertiary" link link-url="https://www.google.com">
-      tertiary
+    <Button variant="secondary" disabled>
+      secondary
     </Button>
-    <Button variant="secondary" link link-url="https://www.google.com">
-      Link
+    <Button variant="secondary" icon-position="right">
+      <template #icon>
+        🧠
+      </template>
+      secondary
+    </Button>
+    <Button variant="secondary" size="lg">
+      <template #icon>
+        🧠
+      </template>
+      secondary
     </Button>
   </div>
   <div class="container">
-    <Button variant="primary" rounded-full disabled>
-      primary
+    <Button variant="tertiary">
+      tertiary
     </Button>
-    <Button variant="destructive" rounded-full disabled>
+    <Button variant="tertiary" rounded-full>
+      tertiary
+    </Button>
+    <Button variant="tertiary" disabled>
+      tertiary
+    </Button>
+    <Button variant="tertiary" icon-position="right">
+      <template #icon>
+        🧠
+      </template>
+      tertiary
+    </Button>
+    <Button variant="tertiary" size="2xl">
+      tertiary
+    </Button>
+  </div>
+  <div class="container">
+    <Button variant="destructive">
       destructive
     </Button>
-    <Button variant="secondary" rounded-full disabled>
-      secondary
+    <Button variant="destructive" rounded-full>
+      destructive
     </Button>
-    <Button variant="tertiary" rounded-full disabled>
-      tertiary
+    <Button variant="destructive" disabled>
+      destructive
+    </Button>
+    <Button variant="destructive" icon-position="right">
+      <template #icon>
+        🧠
+      </template>
+      destructive
+    </Button>
+    <Button variant="destructive" size="2xl">
+      destructive
+    </Button>
+  </div>
+  <div class="container">
+    <Button variant="primary" link link-url="https://www.google.com">
+      Primary Link
+    </Button>
+    <Button variant="secondary" link link-url="https://www.google.com">
+      Secondary Link
+    </Button>
+    <Button variant="tertiary" link link-url="https://www.google.com">
+      Tertiary Link
+    </Button>
+    <Button variant="destructive" link link-url="https://www.google.com">
+      Destructive Link
     </Button>
   </div>
 </template>
@@ -42,7 +108,6 @@ import Button from '~/components/Button/Button.vue';
 .container {
   display: flex;
   flex-direction: row;
-  width: 400px;
   margin: 30px;
   gap: 0.5rem;
 }
