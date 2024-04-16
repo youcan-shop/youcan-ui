@@ -1,23 +1,32 @@
 <script setup lang="ts">
-import { nextTick, onMounted, ref } from 'vue';
+import { nextTick, onMounted, ref, useSlots } from 'vue';
 import { onClickOutside } from '@vueuse/core';
-import type { DropdownProps } from './type';
+import type { DropdownItemType, DropdownProps } from './type';
 import DropdownItem from './Internal/DropdownItem.vue';
 import { setPosition } from '~/helpers';
+import { log } from 'console';
 
-defineProps<DropdownProps>();
+const props = defineProps<DropdownProps>();
 
-const show = ref(true);
+const emit = defineEmits(['update:modelValue']);
+
+const slots = useSlots();
+
 const dropdown = ref();
 const dropdownList = ref();
+const show = ref(true);
+const itemsList = ref<DropdownItemType[]>([]);
+const groupNames = ref<Array<string>>([]);
 const listWidth = ref('300px');
 
 function ListPosition() {
   if (dropdown.value && dropdownList.value) {
     const { left, top } = setPosition(dropdownList.value, dropdown.value, 'bottom', 8);
     dropdownList.value?.setAttribute('style', `top:${top}px;left:${left}px`);
+    listWidth.value = `${dropdown.value.clientWidth}px`;
   }
 }
+
 function toggle() {
   show.value = !show.value;
   nextTick(() => {
@@ -25,14 +34,41 @@ function toggle() {
   });
 }
 
-onClickOutside(dropdown, () => show.value = true);
+function updateModel(item: DropdownItemType) {
+  const { multiple } = props;
+  if (!multiple) {
+    emit('update:modelValue', item);
+  }
+}
+
+function getNames() {
+  const { items } = props;
+  const Names = items.filter((obj, index, self) => index === self.findIndex((item) => item.groupName === obj.groupName));
+  Names.forEach(item => {
+    groupNames.value.push((item.groupName as string));
+  }); 
+  nextTick(()=>{
+    console.log(groupNames.value);
+  })
+}
+
+function groupByName(name: string) {
+  const { items } = props;
+  return items.filter((item) => item.groupName === name);
+}
 
 onMounted(() => {
-  if (dropdown.value) {
-    listWidth.value = `${dropdown.value.clientWidth}px`;
+  const { items } = props;
+  const list = items.filter((item: DropdownItemType) => item.groupName !== undefined && item.groupName !== '');
+  if (list.length) {
+    getNames();
+
+    return;
   }
-  ListPosition();
+  itemsList.value = Array.isArray(items) ? items : [];
 });
+
+onClickOutside(dropdown, () => show.value = true);
 </script>
 
 <template>
@@ -44,7 +80,21 @@ onMounted(() => {
 
     <Transition name="animate-list">
       <div v-if="show" ref="dropdownList" class="dropdown-list">
-        <DropdownItem v-for="item in items" :key="item.value" :item="item" />
+        <template v-if="groupNames.length"  v-for="name in groupNames" :key="name">
+          <div>{{ name }}</div>
+          <DropdownItem v-for="item in groupByName(name)" :key="item.key" :multiple="multiple" :item="item" @on-select="updateModel(item)">
+            <template v-if="slots.item">
+              <slot v-bind="item" name="item" />
+            </template>
+          </DropdownItem>
+        </template>
+       <template v-else>
+        <DropdownItem v-for="(item, index) in itemsList" :key="index" :multiple="multiple" :item="item" @on-select="updateModel(item)">
+          <template v-if="slots.item">
+            <slot v-bind="item" name="item" />
+          </template>
+        </DropdownItem>
+       </template>
       </div>
     </Transition>
   </div>

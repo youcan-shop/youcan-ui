@@ -1,25 +1,29 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import type { DropdownItemProps, DropdownItemType } from '../type';
+import type { DropdownItemProps } from '../type';
 import { Checkbox } from '~/components';
 
-defineProps<DropdownItemProps>();
+const props = defineProps<DropdownItemProps>();
 const emit = defineEmits(['onSelect']);
 
 const checked = ref(false);
 
-function select(item: DropdownItemType) {
-  emit('onSelect', item);
-  checked.value = !checked.value;
+function select() {
+  emit('onSelect');
+  if (props.multiple) {
+    checked.value = !checked.value;
+  }
 }
 </script>
 
 <template>
-  <div class="dropdown-item" :class="{ selected: checked }" @click="select(item)">
+  <div class="dropdown-item" :class="{ selected }" @click="select">
     <Checkbox v-if="multiple" v-model="checked" />
-    <div class="label">
-      {{ item.label }}
-    </div>
+    <slot>
+      <div class="label">
+        {{ item.label }}
+      </div>
+    </slot>
   </div>
 </template>
 
