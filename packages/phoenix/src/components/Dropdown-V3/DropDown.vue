@@ -79,10 +79,11 @@ onClickOutside(dropdown, () => show.value = true);
     </button>
 
     <Transition name="animate-list">
-      <div v-if="show" ref="dropdownList" class="dropdown-list">
+      <div v-if="show" ref="dropdownList" class="list-container">
+        <div class="dropdown-list">
         <template v-if="groupNames.length"  v-for="name in groupNames" :key="name">
-          <div>{{ name }}</div>
-          <DropdownItem v-for="item in groupByName(name)" :key="item.key" :multiple="multiple" :item="item" @on-select="updateModel(item)">
+          <div class="group-name">{{ name }}</div>
+          <DropdownItem v-for="item in groupByName(name)" :key="item.key" class="group-item" :multiple="multiple" :item="item" @on-select="updateModel(item)">
             <template v-if="slots.item">
               <slot v-bind="item" name="item" />
             </template>
@@ -95,6 +96,7 @@ onClickOutside(dropdown, () => show.value = true);
           </template>
         </DropdownItem>
        </template>
+      </div>
       </div>
     </Transition>
   </div>
@@ -153,7 +155,7 @@ onClickOutside(dropdown, () => show.value = true);
   transition: all var(--duration) linear;
 }
 
-.dropdown .dropdown-list {
+.dropdown .list-container {
   display: flex;
   position: fixed;
   z-index: 9999999999;
@@ -161,12 +163,51 @@ onClickOutside(dropdown, () => show.value = true);
   width: v-bind(listWidth);
   height: max-content;
   max-height: 240px;
+  padding: 8px 0;
   overflow: hidden;
   border: 1px solid var(--gray-200);
   border-radius: 8px;
   background-color: var(--base-white);
   box-shadow: var(--shadow-md-gray);
+}
+
+.dropdown .list-container .dropdown-list {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  overflow: hidden auto;
   row-gap: 1px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--brand-500) transparent;
+}
+
+.dropdown-list::-webkit-scrollbar {
+  width: 4px;
+}
+
+.dropdown-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.dropdown-list::-webkit-scrollbar-thumb {
+  border-radius: 2px;
+  background-color: var(--brand-500);
+}
+
+.dropdown-list::-webkit-scrollbar-thumb:hover {
+  background-color: var(--brand-500);
+}
+
+.dropdown .list-container .dropdown-list .group-name {
+  padding: 6px 16px;
+  color: var(--dark-900);
+  font: var(--text-sm-medium);
+  cursor: not-allowed;
+  user-select: none;
+}
+
+.dropdown .list-container .dropdown-list .group-item {
+  padding: 16px 30px;
 }
 
 .animate-list-enter-active {

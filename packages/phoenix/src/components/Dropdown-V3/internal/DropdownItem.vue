@@ -17,7 +17,7 @@ function select() {
 </script>
 
 <template>
-  <div class="dropdown-item" :class="{ selected }" @click="select">
+  <div class="dropdown-item" :class="[{ selected }]" @click="select">
     <Checkbox v-if="multiple" v-model="checked" />
     <slot>
       <div class="label">
