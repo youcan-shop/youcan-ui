@@ -54,7 +54,6 @@ function updateModel(item: DropdownItemType) {
       override.push(item);
       emit('update:modelValue', override);
     }
-    console.log(override);
   }
 }
 
