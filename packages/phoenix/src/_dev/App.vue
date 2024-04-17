@@ -2,33 +2,25 @@
 import 'uno.css';
 import '../assets/main.css';
 import { ref } from 'vue';
-import { MultiSwitch } from '~/components';
-import type { SwitchButtonOption } from '~/types';
+import { Progress, Slider } from '~/components';
 
-const OPTIONS: SwitchButtonOption[] = [
-  {
-    label: 'Mobile',
-    value: 1,
-  },
-  {
-    label: 'Desktop',
-    value: 2,
-    icon: 'i-youcan:desktop',
-  },
-  {
-    label: 'Tablet',
-    value: 3,
-    icon: '',
-  },
-];
-
-const activeOption = ref<SwitchButtonOption>(OPTIONS[0]);
+const value = ref(1000);
+const maxValue = 2000;
 </script>
 
 <template>
   <div class="container">
-    <MultiSwitch v-model="activeOption" :options="OPTIONS" />
-    <p>{{ activeOption.value }} : {{ activeOption.label }}</p>
+    <label class="progress-type"> Progress circle :</label>
+    <Progress :value="value" :max-value="maxValue" />
+    <label class="progress-type"> Progress bar :</label>
+    <Progress :value="value" :max-value="maxValue" progress-type="bar" />
+    <div class="slider-holder">
+      <Slider
+        v-model="value"
+        :max="maxValue"
+        :min="0"
+      />
+    </div>
   </div>
 </template>
 
@@ -37,6 +29,18 @@ const activeOption = ref<SwitchButtonOption>(OPTIONS[0]);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  justify-content: center;
+  width: 500px;
+  margin: 30px auto;
+  gap: 30px;
+}
+
+.progress-type {
+  font: var(--text-md-medium);
+}
+
+.container .slider-holder {
+  width: 100%;
+  margin-top: 20px;
 }
 </style>
