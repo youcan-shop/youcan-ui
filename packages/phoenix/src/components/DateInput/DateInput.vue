@@ -36,9 +36,7 @@ onClickOutside(datePicker, () => toggleDatePicker(false));
         {{ DateUtils.getCalendarDay(model.start, 'Start') }} - {{ DateUtils.getCalendarDay(model.end, 'End') }}
       </span>
       <span v-show="!model.start && !model.start">Select date range</span>
-      <template #icon>
-        <i class="i-youcan-calendar-blank" />
-      </template>
+      <i class="i-youcan-calendar-blank" />
     </Button>
     <div class="date-picker-container">
       <DatePicker v-show="isDatePickerVisible" ref="datePicker" v-model="model" />
@@ -59,6 +57,11 @@ onClickOutside(datePicker, () => toggleDatePicker(false));
 
   justify-content: space-between;
   width: 100%;
+}
+
+.input-trigger:deep(span.label) {
+  justify-content: space-between;
+  width: inherit;
 }
 
 .date-picker-container {
