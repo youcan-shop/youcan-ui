@@ -4,7 +4,6 @@ import { onClickOutside } from '@vueuse/core';
 import type { DropdownItemType, DropdownProps } from './type';
 import DropdownItem from './Internal/DropdownItem.vue';
 import { setPosition } from '~/helpers';
-import { log } from 'console';
 
 const props = defineProps<DropdownProps>();
 
@@ -39,18 +38,19 @@ function updateModel(item: DropdownItemType) {
   if (!multiple) {
     emit('update:modelValue', item);
   }
-  else{
+  else {
     let override: DropdownItemType[] = (modelValue as DropdownItemType[]);
-    if(override && override.length){
-      const index = override.findIndex((el: DropdownItemType)=>el.key === item.key);
-      if(index >-1){
-        override.splice(index,1);
+    if (override && override.length) {
+      const index = override.findIndex((el: DropdownItemType) => el.key === item.key);
+      if (index > -1) {
+        override.splice(index, 1);
       }
       else {
-      override.push(item);
+        override.push(item);
       }
-    }else{
-      override= [];
+    }
+    else {
+      override = [];
       override.push(item);
       emit('update:modelValue', override);
     }
@@ -59,15 +59,16 @@ function updateModel(item: DropdownItemType) {
 
 function getNames() {
   const { items } = props;
-  const Names = items.filter((obj, index, self) => index === self.findIndex((item) => item.groupName === obj.groupName));
-  Names.forEach(item => {
+  const Names = items.filter((obj, index, self) => index === self.findIndex(item => item.groupName === obj.groupName));
+  Names.forEach((item) => {
     groupNames.value.push((item.groupName as string));
   });
 }
 
 function groupByName(name: string) {
   const { items } = props;
-  return items.filter((item) => item.groupName === name);
+
+  return items.filter(item => item.groupName === name);
 }
 
 onMounted(() => {
@@ -94,22 +95,26 @@ onClickOutside(dropdown, () => show.value = false);
     <Transition name="animate-list">
       <div v-if="show" ref="dropdownList" class="list-container">
         <div class="dropdown-list">
-        <template v-if="groupNames.length"  v-for="name in groupNames" :key="name">
-          <div class="group-name">{{ name }}</div>
-          <DropdownItem v-for="item in groupByName(name)" :key="item.key" class="group-item" :multiple="multiple" :item="item" @on-select="updateModel(item)">
-            <template v-if="slots.item">
-              <slot v-bind="item" name="item" />
+          <template v-if="groupNames.length">
+            <template v-for="name in groupNames" :key="name">
+              <div class="group-name">
+                {{ name }}
+              </div>
+              <DropdownItem v-for="item in groupByName(name)" :key="item.key" class="group-item" :multiple="multiple" :item="item" @on-select="updateModel(item)">
+                <template v-if="slots.item">
+                  <slot v-bind="item" name="item" />
+                </template>
+              </DropdownItem>
             </template>
-          </DropdownItem>
-        </template>
-       <template v-else>
-        <DropdownItem v-for="(item, index) in itemsList" :key="index" :multiple="multiple" :item="item" @on-select="updateModel(item)">
-          <template v-if="slots.item">
-            <slot v-bind="item" name="item" />
           </template>
-        </DropdownItem>
-       </template>
-      </div>
+          <template v-else>
+            <DropdownItem v-for="(item, index) in itemsList" :key="index" :multiple="multiple" :item="item" @on-select="updateModel(item)">
+              <template v-if="slots.item">
+                <slot v-bind="item" name="item" />
+              </template>
+            </DropdownItem>
+          </template>
+        </div>
       </div>
     </Transition>
   </div>
