@@ -15,4 +15,5 @@ export interface DropdownProps {
   placeholder?: string
   items: DropdownItemType[]
   multiple?: boolean
+  multiSelectLabel?: string
 }

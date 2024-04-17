@@ -5,7 +5,9 @@ import type { DropdownItemType, DropdownProps } from './type';
 import DropdownItem from './Internal/DropdownItem.vue';
 import { setPosition } from '~/helpers';
 
-const props = defineProps<DropdownProps>();
+const props = withDefaults(defineProps<DropdownProps>(), {
+  multiSelectLabel: 'Selected items',
+});
 
 const emit = defineEmits(['update:modelValue']);
 
@@ -19,9 +21,15 @@ const groupNames = ref<Array<string>>([]);
 const listWidth = ref('300px');
 
 const selectedOptions = computed(() => {
-  const { modelValue, placeholder, multiple } = props;
-  if (modelValue && !multiple) {
-    return (modelValue as DropdownItemType).label;
+  const { modelValue, placeholder, multiple, multiSelectLabel } = props;
+  if (modelValue) {
+    if (!multiple) {
+      return (modelValue as DropdownItemType).label;
+    }
+
+    if (multiple && (modelValue as DropdownItemType[]).length) {
+      return multiSelectLabel;
+    }
   }
 
   return placeholder;
@@ -63,8 +71,9 @@ function updateModel(item: DropdownItemType) {
     else {
       override = [];
       override.push(item);
-      emit('update:modelValue', override);
     }
+
+    emit('update:modelValue', override.length ? override : null);
   }
 }
 
@@ -82,6 +91,26 @@ function groupByName(name: string) {
   return items.filter(item => item.groupName === name);
 }
 
+function clear() {
+  emit('update:modelValue', null);
+}
+
+function selected(item: DropdownItemType) {
+  const { multiple, modelValue } = props;
+  if (modelValue) {
+    if (multiple) {
+      const override = (modelValue as DropdownItemType[]);
+      const index = override.findIndex((el: DropdownItemType) => el.key === item.key);
+
+      return index > -1;
+    }
+
+    return item.key === (modelValue as DropdownItemType).key;
+  }
+
+  return false;
+}
+
 onMounted(() => {
   const { items } = props;
   const list = items.filter((item: DropdownItemType) => item.groupName !== undefined && item.groupName !== '');
@@ -97,10 +126,16 @@ onClickOutside(dropdown, () => show.value = false);
 </script>
 
 <template>
-  <div ref="dropdown" class="dropdown" :class="[{ focus: show }]">
-    <button class="dropdown-input" type="button" @click="toggle()">
-      <label class="label" :class="{ placeholder: !modelValue }">{{ selectedOptions }}</label>
-      <i class="i-youcan-caret-down caret" />
+  <div ref="dropdown" class="dropdown" :class="[{ focus: show }, { multiple }]">
+    <button class="dropdown-input" type="button">
+      <label class="label" :class="{ placeholder: !modelValue }" @click="toggle()">
+        <span v-if="multiple && modelValue && modelValue.length" class="selected-count">{{ modelValue.length }}</span>
+        <span class="text"> {{ selectedOptions }}</span>
+        <i class="i-youcan-caret-down caret" />
+      </label>
+      <div v-if="modelValue && !multiple" class="clear-button" @click="clear">
+        <i class="i-youcan-x" />
+      </div>
     </button>
 
     <Transition name="animate-list">
@@ -111,7 +146,7 @@ onClickOutside(dropdown, () => show.value = false);
               <div class="group-name">
                 {{ name }}
               </div>
-              <DropdownItem v-for="item in groupByName(name)" :key="item.key" class="group-item" :multiple="multiple" :item="item" @on-select="updateModel(item)">
+              <DropdownItem v-for="item in groupByName(name)" :key="item.key" :selected="selected(item)" class="group-item" :multiple="multiple" :item="item" @on-select="updateModel(item)">
                 <template v-if="slots.item">
                   <slot v-bind="item" name="item" />
                 </template>
@@ -119,7 +154,7 @@ onClickOutside(dropdown, () => show.value = false);
             </template>
           </template>
           <template v-else>
-            <DropdownItem v-for="(item, index) in itemsList" :key="index" :multiple="multiple" :item="item" @on-select="updateModel(item)">
+            <DropdownItem v-for="(item, index) in itemsList" :key="index" :selected="selected(item)" :multiple="multiple" :item="item" @on-select="updateModel(item)">
               <template v-if="slots.item">
                 <slot v-bind="item" name="item" />
               </template>
@@ -149,7 +184,7 @@ onClickOutside(dropdown, () => show.value = false);
   justify-content: flex-start;
   width: 100%;
   height: 44px;
-  padding: 10px  16px;
+  padding: 0  16px;
   border: var(--input-border);
   border-radius: 8px;
   outline: none;
@@ -170,22 +205,70 @@ onClickOutside(dropdown, () => show.value = false);
 
 .dropdown .dropdown-input .label {
   display: flex;
+  position: relative;
+  z-index: 1;
   flex: 1;
-  justify-content: flex-start;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  overflow: hidden;
   color: var(--gray-900);
   font: var(--text-sm-regular);
   cursor: pointer;
+  gap: 8px;
+}
+
+.dropdown .dropdown-input .label .text {
+  display: flex;
+  display: block;
+  flex: 1;
+  justify-content: flex-start;
+  max-width: 100%;
+  padding-right: 30px;
+  overflow: hidden;
+  text-align: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dropdown.multiple .dropdown-input .label .text {
+  padding: 0 !important;
+}
+
+.dropdown .dropdown-input .label .selected-count {
+  --size: 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--size);
+  height: var(--size);
+  border-radius: calc(var(--size) / 2);
+  background-color: var(--blue-500);
+  color: var(--base-white);
+  font: var(--text-xs-medium);
+  line-height: normal;
 }
 
 .dropdown .dropdown-input .label.placeholder {
   color: var(--gray-300);
 }
 
-.dropdown .dropdown-input .caret {
+.dropdown .dropdown-input .label .caret {
   width: 13px;
+  min-width: 13px;
   height: 13px;
+  min-height: 13px;
   transform: var(--caret-transform);
   transition: all var(--duration) linear;
+  color: var(--gray-900);
+}
+
+.dropdown .dropdown-input .clear-button {
+  position: absolute;
+  z-index: 2;
+  right: 40px;
+  color: var(--red-500);
 }
 
 .dropdown .list-container {
@@ -241,7 +324,7 @@ onClickOutside(dropdown, () => show.value = false);
 }
 
 .dropdown .list-container .dropdown-list .group-item {
-  padding: 16px 30px;
+  padding-left: 30px;
 }
 
 .animate-list-enter-active {
@@ -262,5 +345,21 @@ onClickOutside(dropdown, () => show.value = false);
     transform: scale(1);
     opacity: 1;
   }
+}
+
+html[dir="rtl"] .dropdown .dropdown-input .label .text {
+  padding-right: 0;
+  padding-left: 30px;
+  text-align: right;
+}
+
+html[dir="rtl"] .dropdown .list-container .dropdown-list .group-item {
+  padding-right: 30px;
+  padding-left: 16px;
+}
+
+html[dir="rtl"] .dropdown .dropdown-input .clear-button {
+  right: unset;
+  left: 40px;
 }
 </style>

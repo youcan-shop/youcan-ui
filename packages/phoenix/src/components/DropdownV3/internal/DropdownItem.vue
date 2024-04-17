@@ -1,23 +1,25 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import type { DropdownItemProps } from '../type';
 import { Checkbox } from '~/components';
 
 const props = defineProps<DropdownItemProps>();
+
 const emit = defineEmits(['onSelect']);
 
 const checked = ref(false);
 
-function select() {
-  emit('onSelect');
-  if (props.multiple) {
-    checked.value = !checked.value;
-  }
-}
+onMounted(() => {
+  checked.value = props.selected;
+});
+
+watch(() => props.selected, (newValue) => {
+  checked.value = newValue;
+});
 </script>
 
 <template>
-  <div class="dropdown-item" :class="[{ selected }]" @click="select">
+  <div class="dropdown-item" :class="[{ selected }]" @click="() => emit('onSelect')">
     <Checkbox v-if="multiple" v-model="checked" />
     <slot>
       <div class="label">
@@ -39,7 +41,8 @@ function select() {
 }
 
 .dropdown-item.selected,
-.dropdown-item:hover {
+.dropdown-item:hover,
+.dropdown-item:focus {
   background-color: var(--gray-50);
 }
 </style>
