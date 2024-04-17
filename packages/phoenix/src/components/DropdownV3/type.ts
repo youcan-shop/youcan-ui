@@ -16,4 +16,6 @@ export interface DropdownProps {
   items: DropdownItemType[]
   multiple?: boolean
   multiSelectLabel?: string
+  isLoading?: boolean
+  noDataText?: string
 }

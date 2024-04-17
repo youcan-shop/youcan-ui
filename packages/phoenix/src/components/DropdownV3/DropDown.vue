@@ -1,12 +1,15 @@
 <script setup lang="ts">
 import { computed, nextTick, onMounted, ref, useSlots } from 'vue';
 import { onClickOutside } from '@vueuse/core';
-import type { DropdownItemType, DropdownProps } from './type';
+import { DropdownItemType } from './type';
+import type { DropdownProps } from './type';
 import DropdownItem from './Internal/DropdownItem.vue';
 import { setPosition } from '~/helpers';
+import { Spinner } from '~/components';
 
 const props = withDefaults(defineProps<DropdownProps>(), {
   multiSelectLabel: 'Selected items',
+  noDataText: 'No results were found',
 });
 
 const emit = defineEmits(['update:modelValue', 'scrollEnd']);
@@ -33,6 +36,12 @@ const selectedOptions = computed(() => {
   }
 
   return placeholder;
+});
+
+const hasCount = computed(() => {
+  const { multiple, modelValue } = props;
+
+  return multiple && modelValue && (modelValue as DropdownItemType[]).length;
 });
 
 function ListPosition() {
@@ -118,7 +127,6 @@ function handleScroll(event: Event) {
   const clientHeight = e.clientHeight;
   if (scrollTop + clientHeight >= scrollHeight) {
     emit('scrollEnd');
-    console.log('endscroll');
   }
 }
 
@@ -140,7 +148,7 @@ onClickOutside(dropdown, () => show.value = false);
   <div ref="dropdown" class="dropdown" :class="[{ focus: show }, { multiple }]">
     <button class="dropdown-input" type="button">
       <label class="label" :class="{ placeholder: !modelValue }" @click="toggle()">
-        <span v-if="multiple && modelValue && modelValue.length" class="selected-count">{{ modelValue.length }}</span>
+        <span v-if="hasCount" class="selected-count">{{ (modelValue as DropdownItemType[]).length }}</span>
         <span class="text"> {{ selectedOptions }}</span>
         <i class="i-youcan-caret-down caret" />
       </label>
@@ -151,7 +159,7 @@ onClickOutside(dropdown, () => show.value = false);
 
     <Transition name="animate-list">
       <div v-if="show" ref="dropdownList" class="list-container">
-        <div class="dropdown-list" @scroll="handleScroll">
+        <div v-if="items.length" class="dropdown-list" @scroll="handleScroll">
           <template v-if="groupNames.length">
             <template v-for="name in groupNames" :key="name">
               <div class="group-name">
@@ -171,6 +179,13 @@ onClickOutside(dropdown, () => show.value = false);
               </template>
             </DropdownItem>
           </template>
+        </div>
+
+        <div v-else class="no-results">
+          {{ noDataText }}
+        </div>
+        <div v-if="isLoading" class="loading">
+          <Spinner :size="15" />
         </div>
       </div>
     </Transition>
@@ -309,21 +324,40 @@ onClickOutside(dropdown, () => show.value = false);
   scrollbar-color: var(--brand-500) transparent;
 }
 
-.dropdown-list::-webkit-scrollbar {
+.dropdown .list-container .dropdown-list::-webkit-scrollbar {
   width: 4px;
 }
 
-.dropdown-list::-webkit-scrollbar-track {
+.dropdown .list-container .dropdown-list::-webkit-scrollbar-track {
   background: transparent;
 }
 
-.dropdown-list::-webkit-scrollbar-thumb {
+.dropdown .list-container .dropdown-list::-webkit-scrollbar-thumb {
   border-radius: 2px;
   background-color: var(--brand-500);
 }
 
-.dropdown-list::-webkit-scrollbar-thumb:hover {
+.dropdown .list-container .dropdown-list::-webkit-scrollbar-thumb:hover {
   background-color: var(--brand-500);
+}
+
+.dropdown .list-container .no-results {
+  padding: 10px 16px;
+  color: var(--gray-500);
+  font: var(--text-sm-regular);
+}
+
+.dropdown .list-container .loading {
+  display: flex;
+  position: absolute;
+  z-index: 2;
+  bottom: 0;
+  left: 10px;
+  justify-content: center;
+  width: calc(100% - 20px);
+  margin: 0 auto;
+  padding: 7px 0;
+  background-image: linear-gradient(to top, var(--base-white), rgb(255 255 255 / 50%), transparent);
 }
 
 .dropdown .list-container .dropdown-list .group-name {
