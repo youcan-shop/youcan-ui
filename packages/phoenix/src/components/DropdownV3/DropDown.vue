@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { nextTick, onMounted, ref, useSlots } from 'vue';
+import { computed, nextTick, onMounted, ref, useSlots } from 'vue';
 import { onClickOutside } from '@vueuse/core';
 import type { DropdownItemType, DropdownProps } from './type';
 import DropdownItem from './Internal/DropdownItem.vue';
@@ -18,11 +18,22 @@ const itemsList = ref<DropdownItemType[]>([]);
 const groupNames = ref<Array<string>>([]);
 const listWidth = ref('300px');
 
+const selectedOptions = computed(() => {
+  const { modelValue, placeholder, multiple } = props;
+  if (modelValue && !multiple) {
+    return (modelValue as DropdownItemType).label;
+  }
+
+  return placeholder;
+});
+
 function ListPosition() {
   if (dropdown.value && dropdownList.value) {
-    const { left, top } = setPosition(dropdownList.value, dropdown.value, 'bottom', 8);
-    dropdownList.value?.setAttribute('style', `top:${top}px;left:${left}px`);
     listWidth.value = `${dropdown.value.clientWidth}px`;
+    nextTick(() => {
+      const { left, top } = setPosition(dropdownList.value, dropdown.value, 'bottom', 8);
+      dropdownList.value?.setAttribute('style', `top:${top}px;left:${left}px`);
+    });
   }
 }
 
@@ -57,7 +68,7 @@ function updateModel(item: DropdownItemType) {
   }
 }
 
-function getNames() {
+function getGroupNames() {
   const { items } = props;
   const Names = items.filter((obj, index, self) => index === self.findIndex(item => item.groupName === obj.groupName));
   Names.forEach((item) => {
@@ -75,7 +86,7 @@ onMounted(() => {
   const { items } = props;
   const list = items.filter((item: DropdownItemType) => item.groupName !== undefined && item.groupName !== '');
   if (list.length) {
-    getNames();
+    getGroupNames();
 
     return;
   }
@@ -88,7 +99,7 @@ onClickOutside(dropdown, () => show.value = false);
 <template>
   <div ref="dropdown" class="dropdown" :class="[{ focus: show }]">
     <button class="dropdown-input" type="button" @click="toggle()">
-      <label class="text">{{ placeholder }}</label>
+      <label class="label" :class="{ placeholder: !modelValue }">{{ selectedOptions }}</label>
       <i class="i-youcan-caret-down caret" />
     </button>
 
@@ -157,13 +168,17 @@ onClickOutside(dropdown, () => show.value = false);
   --input-shadow: var(--focus-shadow-xs-brand);
 }
 
-.dropdown .dropdown-input .text {
+.dropdown .dropdown-input .label {
   display: flex;
   flex: 1;
   justify-content: flex-start;
-  color: var(--gray-300);
+  color: var(--gray-900);
   font: var(--text-sm-regular);
   cursor: pointer;
+}
+
+.dropdown .dropdown-input .label.placeholder {
+  color: var(--gray-300);
 }
 
 .dropdown .dropdown-input .caret {
@@ -193,6 +208,7 @@ onClickOutside(dropdown, () => show.value = false);
   display: flex;
   flex: 1;
   flex-direction: column;
+  width: 100%;
   overflow: hidden auto;
   row-gap: 1px;
   scrollbar-width: thin;

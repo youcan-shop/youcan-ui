@@ -1,7 +1,7 @@
 export interface DropdownItemType {
   label: string
   key: string | number
-  groupName?: string 
+  groupName?: string
 }
 
 export interface DropdownItemProps {
