@@ -17,12 +17,16 @@ const items: Array<DropdownItemType> = [
   { label: '+4 stars', key: 1, groupName: 'Rating' },
 ];
 
-const defaultItems: Array<DropdownItemType> = [
-  { label: '+1 stars', key: 3 },
-  { label: 'Visible', key: 2 },
-  { label: 'Hidden', key: 5 },
-  { label: '+3 stars', key: 4 },
-  { label: '+4 stars', key: 1 },
+const singleItems: Array<DropdownItemType> = [
+  { label: 'Shoes', key: 1 },
+  { label: 'Cosmetics', key: 2 },
+  { label: 'Gym', key: 3 },
+];
+
+const languages: Array<DropdownItemType> = [
+  { label: 'Arabic', key: 1 },
+  { label: 'English', key: 2 },
+  { label: 'German', key: 3 },
 ];
 </script>
 
@@ -30,7 +34,7 @@ const defaultItems: Array<DropdownItemType> = [
   <div class="container">
     <div>
       <span>Default Dropdown : </span>
-      <Dropdown v-model="value" :items="defaultItems" placeholder="Select item" />
+      <Dropdown v-model="value" :items="languages" placeholder="Select item" />
     </div>
     <div>
       <span>Multiple Dropdown : </span>
@@ -38,7 +42,7 @@ const defaultItems: Array<DropdownItemType> = [
     </div>
     <div>
       <span>Single Dropdown :</span>
-      <Dropdown v-model="single" :items="items" placeholder="Select item" />
+      <Dropdown v-model="single" :items="singleItems" placeholder="Select item" />
     </div>
   </div>
 </template>

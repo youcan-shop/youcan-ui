@@ -9,7 +9,7 @@ const props = withDefaults(defineProps<DropdownProps>(), {
   multiSelectLabel: 'Selected items',
 });
 
-const emit = defineEmits(['update:modelValue']);
+const emit = defineEmits(['update:modelValue', 'scrollEnd']);
 
 const slots = useSlots();
 
@@ -111,6 +111,17 @@ function selected(item: DropdownItemType) {
   return false;
 }
 
+function handleScroll(event: Event) {
+  const e = event.target as HTMLElement;
+  const scrollHeight = e.scrollHeight;
+  const scrollTop = e.scrollTop;
+  const clientHeight = e.clientHeight;
+  if (scrollTop + clientHeight >= scrollHeight) {
+    emit('scrollEnd');
+    console.log('endscroll');
+  }
+}
+
 onMounted(() => {
   const { items } = props;
   const list = items.filter((item: DropdownItemType) => item.groupName !== undefined && item.groupName !== '');
@@ -140,7 +151,7 @@ onClickOutside(dropdown, () => show.value = false);
 
     <Transition name="animate-list">
       <div v-if="show" ref="dropdownList" class="list-container">
-        <div class="dropdown-list">
+        <div class="dropdown-list" @scroll="handleScroll">
           <template v-if="groupNames.length">
             <template v-for="name in groupNames" :key="name">
               <div class="group-name">
