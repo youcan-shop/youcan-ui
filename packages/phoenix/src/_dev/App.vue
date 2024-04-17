@@ -6,13 +6,14 @@ import Dropdown from '~/components/Dropdown-V3/Dropdown.vue';
 import type { DropdownItemType } from '~/components/Dropdown-V3/type';
 
 const model = ref(null);
-const multiple = ref(false);
+const multiple = ref(true);
 
 const items: Array<DropdownItemType> = [
-  { label: 'Arabic', key: 1, groupName: 'test' },
-  { label: 'French', key: 2, groupName: 'te' },
-  { label: 'English', key: 3 },
-  { label: 'Arabic', key: 4 ,groupName: 'test' },
+  { label: '+1 stars', key: 3,groupName: 'Rating' },
+  { label: 'Visible', key: 2, groupName: 'Visibility' },
+  { label: 'Hidden', key: 3, groupName: 'Visibility' },
+  { label: '+3 stars', key: 4 ,groupName: 'Rating' },
+  { label: '+4 stars', key: 1, groupName: 'Rating' },
 ];
 </script>
 

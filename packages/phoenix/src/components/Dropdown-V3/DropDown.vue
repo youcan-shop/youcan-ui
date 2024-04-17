@@ -14,7 +14,7 @@ const slots = useSlots();
 
 const dropdown = ref();
 const dropdownList = ref();
-const show = ref(true);
+const show = ref(false);
 const itemsList = ref<DropdownItemType[]>([]);
 const groupNames = ref<Array<string>>([]);
 const listWidth = ref('300px');
@@ -35,9 +35,26 @@ function toggle() {
 }
 
 function updateModel(item: DropdownItemType) {
-  const { multiple } = props;
+  const { multiple, modelValue } = props;
   if (!multiple) {
     emit('update:modelValue', item);
+  }
+  else{
+    let override: DropdownItemType[] = (modelValue as DropdownItemType[]);
+    if(override && override.length){
+      const index = override.findIndex((el: DropdownItemType)=>el.key === item.key);
+      if(index >-1){
+        override.splice(index,1);
+      }
+      else {
+      override.push(item);
+      }
+    }else{
+      override= [];
+      override.push(item);
+      emit('update:modelValue', override);
+    }
+    console.log(override);
   }
 }
 
@@ -46,10 +63,7 @@ function getNames() {
   const Names = items.filter((obj, index, self) => index === self.findIndex((item) => item.groupName === obj.groupName));
   Names.forEach(item => {
     groupNames.value.push((item.groupName as string));
-  }); 
-  nextTick(()=>{
-    console.log(groupNames.value);
-  })
+  });
 }
 
 function groupByName(name: string) {
@@ -68,7 +82,7 @@ onMounted(() => {
   itemsList.value = Array.isArray(items) ? items : [];
 });
 
-onClickOutside(dropdown, () => show.value = true);
+onClickOutside(dropdown, () => show.value = false);
 </script>
 
 <template>
