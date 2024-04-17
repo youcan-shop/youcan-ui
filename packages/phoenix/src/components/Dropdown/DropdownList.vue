@@ -111,7 +111,7 @@ watch(() => props.show, (newValue) => {
         No results were found
       </div>
       <div v-if="loading" class="loading">
-        <Spinner size="15px" />
+        <Spinner :size="15" />
       </div>
     </div>
   </div>

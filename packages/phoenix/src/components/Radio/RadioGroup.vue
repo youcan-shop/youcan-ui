@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import Radio from './Radio.vue';
+import Radio from './Internal/Radio.vue';
 import type { RadioData, RadioGroupProps } from '~/types';
 
 const props = defineProps<RadioGroupProps>();

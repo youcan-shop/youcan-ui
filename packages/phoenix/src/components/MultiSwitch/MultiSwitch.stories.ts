@@ -12,7 +12,7 @@ const meta: Meta<typeof MultiSwitch> = {
   },
   tags: ['multi switch', 'switch', 'multi'],
   argTypes: {
-    selectedOption: {
+    modelValue: {
       table: {
         disable: true,
       },
@@ -52,7 +52,7 @@ export const Default: Story = {
       return { args, OPTIONS, activeOption };
     },
     template: `
-        <MultiSwitch v-model:selected-option="activeOption" :options="OPTIONS" />
+        <MultiSwitch v-model="activeOption" :options="OPTIONS" />
         <p>{{ activeOption.value }} : {{ activeOption.label }}</p>
       `,
   }),

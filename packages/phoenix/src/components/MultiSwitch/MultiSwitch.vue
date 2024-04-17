@@ -5,13 +5,13 @@ import type { MultiSwitchProps, SwitchButtonOption } from '~/types';
 
 const props = defineProps<MultiSwitchProps>();
 
-const emit = defineEmits(['update:selectedOption']);
+const emit = defineEmits(['update:modelValue']);
 
-const activeOption = ref<SwitchButtonOption>(props.selectedOption);
+const activeOption = ref<SwitchButtonOption>(props.modelValue);
 
 const setActiveOption = (option: SwitchButtonOption) => {
   activeOption.value = option;
-  emit('update:selectedOption', option);
+  emit('update:modelValue', option);
 };
 </script>
 
@@ -30,7 +30,7 @@ const setActiveOption = (option: SwitchButtonOption) => {
 <style scoped>
 .list {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
   width: 100%;
   height: 36px;
