@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import { computed, nextTick, onMounted, ref } from 'vue';
+import { computed, nextTick, onMounted, ref, watch } from 'vue';
 import { Utils } from '@youcan/ui-core';
-import { onClickOutside } from '@vueuse/core';
 import TagItem from './TagItem.vue';
-import type { DropdownItemDefinition, TagItemValue, TagProps } from '~/types';
-import { DropdownList } from '~/components';
+import type { DropdownValue, TagItemValue, TagProps } from '~/types';
+import { Dropdown } from '~/components';
 
 const props = withDefaults(defineProps<TagProps>(), {
   type: 'text',
@@ -19,10 +18,7 @@ const emit = defineEmits(['update:modelValue']);
 const tagInput = ref<HTMLInputElement>();
 const tagsContainer = ref<HTMLDivElement>();
 const newTagLabel = ref('');
-const show = ref(false);
-const list = ref();
-const listPosition = ref('bottom');
-const selected = ref<DropdownItemDefinition[]>([]);
+const selected = ref<DropdownValue[]>([]);
 
 const model = computed({
   get: () => props.modelValue,
@@ -66,33 +62,9 @@ const removeTag = (index: number) => {
 
   model.value = Utils.removeFromArray(model.value, index);
   nextTick(() => {
-    selected.value = (model.value as DropdownItemDefinition[]);
+    selected.value = (model.value as DropdownValue[]);
   });
 };
-
-const handleSelect = (item: DropdownItemDefinition) => {
-  const index = selected.value.findIndex(el => el.label === item.label);
-  if (index > -1) {
-    selected.value.splice(index, 1);
-  }
-  else if (checkLimit() === false) {
-    selected.value.push(item);
-  }
-
-  nextTick(() => {
-    emit('update:modelValue', selected.value);
-  });
-};
-
-const toggleList = (override = !show.value) => {
-  const offset = list.value.getBoundingClientRect();
-  if (offset) {
-    listPosition.value = offset.bottom > window.innerHeight ? 'top' : 'bottom';
-  }
-  show.value = override;
-};
-
-onClickOutside(tagsContainer, () => toggleList(false));
 
 onMounted(() => {
   tagInput.value?.addEventListener('keydown', (event: KeyboardEvent) => {
@@ -113,8 +85,12 @@ onMounted(() => {
     }
   });
   if (model.value.length && props.type === 'dropdown' && props.items) {
-    selected.value = (model.value as DropdownItemDefinition[]);
+    selected.value = (model.value as DropdownValue[]);
   }
+});
+
+watch(selected.value, (newValue: DropdownValue[]) => {
+  emit('update:modelValue', newValue);
 });
 </script>
 
@@ -124,18 +100,15 @@ onMounted(() => {
       v-for="(tag, index) in model" :key="`${tag.label}-${index}`" :model-value="model[index]" :type="type"
       @update:model-value="(value) => updateTag(index, value)" @remove="removeTag(index)"
     />
-    <label v-if="props.type === 'dropdown'" class="dropdown-placeholder" @click="toggleList()"> {{ placeholder }} </label>
     <template v-if="type === 'dropdown'">
-      <div ref="list" class="dropdown-container" :class="[listPosition, { show }]">
-        <DropdownList
-          class="dropdown"
-          :class="[{ max: checkLimit() }]"
-          :items="items ? items : []"
-          :selected="selected" multiple
-          :searchable="searchable"
-          @toggle="handleSelect"
-        />
-      </div>
+      <Dropdown
+        v-model="selected"
+        class="dropdown" :class="[{ max: checkLimit() }]"
+        :items="items ? items : []"
+        :selected="selected"
+        multiple
+        :searchable="searchable"
+      />
     </template>
 
     <input

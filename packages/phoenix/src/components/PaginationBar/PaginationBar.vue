@@ -125,6 +125,14 @@ onMounted(() => {
 }
 
 .per-page-dropdown {
-  min-width: 75px;
+  max-width: 85px;
+}
+
+.per-page-dropdown:deep(.dropdown-input .clear-button) {
+  display: none;
+}
+
+.per-page-dropdown:deep(.dropdown-input .label .text) {
+  padding: 0 !important;
 }
 </style>

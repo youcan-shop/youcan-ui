@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, nextTick, onMounted, ref, useSlots } from 'vue';
 import { onClickOutside } from '@vueuse/core';
+import DropdownItem from './internal/DropdownItem.vue';
 import { DropdownValue } from '~/types';
 import type { DropdownProps } from '~/types';
 import { setPosition } from '~/helpers';
