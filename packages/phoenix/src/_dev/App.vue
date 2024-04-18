@@ -2,18 +2,19 @@
 import 'uno.css';
 import '../assets/main.css';
 import { ref } from 'vue';
-import { Dropdown, PaginationBar } from '~/components';
-import type { DropdownValue } from '~/types';
+import { Dropdown, PaginationBar, Tag } from '~/components';
+import type { DropdownValue, TagItemValue } from '~/types';
 
 const multiple = ref(null);
 const single = ref(null);
 const value = ref(null);
 const currentPage = ref(1);
 const perPage = ref(10);
+const preferredLanguages = ref<TagItemValue[]>([]);
 
 const total = 50;
 const totalPages = Math.ceil(total / perPage.value);
-const perPageOptions = [5, 10, 20, 30, 50];
+const perPageOptions = [5, 10, 20, 30, 50, 100];
 
 const items: Array<DropdownValue> = [
   { label: '+1 stars', key: 3, groupName: 'Rating' },
@@ -33,6 +34,9 @@ const languages: Array<DropdownValue> = [
   { label: 'Arabic', key: 1 },
   { label: 'English', key: 2 },
   { label: 'German', key: 3 },
+  { label: 'French', key: 4 },
+  { label: 'Dutch', key: 5 },
+  { label: 'Hindi', key: 6 },
 ];
 
 function handlePaginationNavigation(pageNumber: number) {
@@ -59,6 +63,19 @@ function handlePaginationNavigation(pageNumber: number) {
 
     <div class="row">
       <div>
+        <Tag
+          v-model="preferredLanguages"
+          placeholder="Select programming languages"
+          :max="3"
+          type="dropdown"
+          :items="languages"
+          disabled
+        />
+      </div>
+    </div>
+
+    <div class="row">
+      <div>
         <PaginationBar
           v-model:perPage="perPage"
           :current="currentPage"
@@ -78,6 +95,7 @@ function handlePaginationNavigation(pageNumber: number) {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   width: 100vw;
   height: 100vh;
   gap: 40px;
@@ -91,9 +109,7 @@ function handlePaginationNavigation(pageNumber: number) {
 }
 
 .container .row > div {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+  flex: 1;
 }
 
 .container .row > div span {

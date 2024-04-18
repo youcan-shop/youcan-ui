@@ -15,7 +15,10 @@ export interface DropdownProps {
   placeholder?: string
   items: DropdownValue[]
   multiple?: boolean
+  disabled?: boolean
   multiSelectLabel?: string
   isLoading?: boolean
+  clearable?: boolean
   noDataText?: string
+  limit?: number
 }

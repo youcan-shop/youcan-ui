@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, nextTick, onMounted, ref, watch } from 'vue';
+import { computed, nextTick, onMounted, ref } from 'vue';
 import { Utils } from '@youcan/ui-core';
 import TagItem from './TagItem.vue';
 import type { DropdownValue, TagItemValue, TagProps } from '~/types';
@@ -67,30 +67,32 @@ const removeTag = (index: number) => {
 };
 
 onMounted(() => {
-  tagInput.value?.addEventListener('keydown', (event: KeyboardEvent) => {
-    if (event.key === 'Enter') {
-      event.preventDefault();
-      addTag(newTagLabel.value);
-      newTagLabel.value = '';
-    }
-
-    if (event.key === 'Backspace' && !newTagLabel.value) {
-      removeTag(model.value.length - 1);
-    }
-  });
-
-  tagsContainer.value?.addEventListener('click', (event: MouseEvent) => {
-    if (event.target === tagsContainer.value) {
-      tagInput.value?.focus();
-    }
-  });
   if (model.value.length && props.type === 'dropdown' && props.items) {
-    selected.value = (model.value as DropdownValue[]);
+    const list = (model.value as DropdownValue[]);
+    if (typeof props.max === 'number' && list.length > props.max) {
+      list.splice(0, props.max);
+    }
+    selected.value = list;
   }
-});
+  else {
+    tagInput.value?.addEventListener('keydown', (event: KeyboardEvent) => {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        addTag(newTagLabel.value);
+        newTagLabel.value = '';
+      }
 
-watch(selected.value, (newValue: DropdownValue[]) => {
-  emit('update:modelValue', newValue);
+      if (event.key === 'Backspace' && !newTagLabel.value) {
+        removeTag(model.value.length - 1);
+      }
+    });
+
+    tagsContainer.value?.addEventListener('click', (event: MouseEvent) => {
+      if (event.target === tagsContainer.value) {
+        tagInput.value?.focus();
+      }
+    });
+  }
 });
 </script>
 
@@ -105,9 +107,13 @@ watch(selected.value, (newValue: DropdownValue[]) => {
         v-model="selected"
         class="dropdown" :class="[{ max: checkLimit() }]"
         :items="items ? items : []"
-        :selected="selected"
         multiple
         :searchable="searchable"
+        :placeholder="placeholder"
+        :multi-select-label="placeholder"
+        :limit="max ? max : 0"
+        :disabled="disabled"
+        @update:model-value="(value) => emit('update:modelValue', value ? value : [])"
       />
     </template>
 
@@ -126,72 +132,33 @@ watch(selected.value, (newValue: DropdownValue[]) => {
   flex-wrap: wrap;
   align-items: center;
   width: 100%;
-  padding: 6px;
+  min-height: 44px;
+  padding: 0 16px;
   border: 1px solid var(--gray-200);
   border-radius: 8px;
   outline: none;
   background-color: var(--base-white);
   box-shadow: var(--shadow-xs-gray);
-  gap: 6px;
 }
 
-.dropdown-container {
-  visibility: hidden;
-  position: absolute;
-  z-index: 99;
-  left: 0;
-  width: 100%;
-  opacity: 0;
+.tag.type-dropdown {
+  padding: 0;
 }
 
-.dropdown-container.show {
-  visibility: visible;
-  opacity: 1;
+.dropdown:deep(.dropdown-input) {
+  border: 0 !important;
+  box-shadow: unset !important;
 }
 
-.dropdown-container.bottom {
-  top: calc(100% + 5px);
-}
-
-.dropdown-container.top {
-  bottom: calc(100% + 5px);
-}
-
-.dropdown :deep(.item .checkbox) {
+.dropdown :deep(.dropdown-input .label .selected-count),
+.dropdown :deep(.dropdown-input .label .caret),
+.dropdown :deep(.dropdown-list .dropdown-item .checkbox) {
   display: none;
 }
 
-.dropdown :deep(.item:focus),
-.dropdown :deep(.item:active) {
-  background: var(--base-white);
-}
-
-.dropdown :deep(.item.selected) {
-  background-color: var(--gray-50);
-}
-
-.dropdown :deep(.item:hover) {
-  background-color: var(--gray-50);
-}
-
-.dropdown.max :deep(.item:not(.selected)) {
+.dropdown.max :deep(.dropdown-list .dropdown-item:not(.selected)) {
+  background-color: var(--base-white);
   cursor: not-allowed;
-}
-
-.dropdown.max :deep(.item:not(.selected):hover) {
-  background: var(--base-white);
-}
-
-.dropdown-placeholder {
-  flex: 1;
-  min-width: 20%;
-  padding: 8px 0;
-  overflow: hidden;
-  color: var(--gray-300);
-  font: var(--text-sm-regular);
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  cursor: pointer;
 }
 
 .tag:hover {

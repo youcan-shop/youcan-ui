@@ -1,15 +1,16 @@
 <script setup lang="ts">
-import { computed, nextTick, onMounted, ref, useSlots } from 'vue';
+import { computed, nextTick, onMounted, onUnmounted, ref, useSlots } from 'vue';
 import { onClickOutside } from '@vueuse/core';
-import DropdownItem from './internal/DropdownItem.vue';
-import { DropdownValue } from '~/types';
-import type { DropdownProps } from '~/types';
+import DropdownItem from './Internal/DropdownItem.vue';
+import type { DropdownProps, DropdownValue } from '~/types';
 import { setPosition } from '~/helpers';
 import { Spinner } from '~/components';
 
 const props = withDefaults(defineProps<DropdownProps>(), {
   multiSelectLabel: 'Selected items',
   noDataText: 'No results were found',
+  clearable: true,
+  limit: 0,
 });
 
 const emit = defineEmits(['update:modelValue', 'scrollEnd']);
@@ -23,6 +24,10 @@ const itemsList = ref<DropdownValue[]>([]);
 const groupNames = ref<Array<string>>([]);
 const listWidth = ref('300px');
 
+function asArray() {
+  return props.modelValue ? (props.modelValue as DropdownValue[]) : [];
+}
+
 const selectedOptions = computed(() => {
   const { modelValue, placeholder, multiple, multiSelectLabel } = props;
   if (modelValue) {
@@ -30,7 +35,7 @@ const selectedOptions = computed(() => {
       return (modelValue as DropdownValue).label;
     }
 
-    if (multiple && (modelValue as DropdownValue[]).length) {
+    if (multiple && asArray().length) {
       return multiSelectLabel;
     }
   }
@@ -41,7 +46,7 @@ const selectedOptions = computed(() => {
 const hasCount = computed(() => {
   const { multiple, modelValue } = props;
 
-  return multiple && modelValue && (modelValue as DropdownValue[]).length;
+  return multiple && modelValue && asArray().length;
 });
 
 function ListPosition() {
@@ -55,6 +60,9 @@ function ListPosition() {
 }
 
 function toggle() {
+  if (props.disabled) {
+    return;
+  }
   show.value = !show.value;
   nextTick(() => {
     ListPosition();
@@ -62,26 +70,25 @@ function toggle() {
 }
 
 function updateModel(item: DropdownValue) {
-  const { multiple, modelValue } = props;
-  if (!multiple) {
+  const { limit, multiple } = props;
+
+  if (multiple === false) {
     emit('update:modelValue', item);
+    show.value = false;
   }
   else {
-    let override: DropdownValue[] = (modelValue as DropdownValue[]);
-    if (override && override.length) {
-      const index = override.findIndex((el: DropdownValue) => el.key === item.key);
-      if (index > -1) {
-        override.splice(index, 1);
-      }
-      else {
-        override.push(item);
-      }
+    const override: DropdownValue[] = asArray() ? asArray() : [];
+    const index = override.findIndex((el: DropdownValue) => el.key === item.key);
+    if (limit > 0 && limit === asArray().length && index === -1) {
+      return;
+    }
+    if (index > -1) {
+      override.splice(index, 1);
     }
     else {
-      override = [];
       override.push(item);
     }
-
+    ListPosition();
     emit('update:modelValue', override.length ? override : null);
   }
 }
@@ -108,7 +115,7 @@ function selected(item: DropdownValue) {
   const { multiple, modelValue } = props;
   if (modelValue) {
     if (multiple) {
-      const override = (modelValue as DropdownValue[]);
+      const override = asArray();
       const index = override.findIndex((el: DropdownValue) => el.key === item.key);
 
       return index > -1;
@@ -130,6 +137,12 @@ function handleScroll(event: Event) {
   }
 }
 
+function handleResize() {
+  ListPosition();
+}
+
+onClickOutside(dropdown, () => show.value = false);
+
 onMounted(() => {
   const { items } = props;
   const list = items.filter((item: DropdownValue) => item.groupName !== undefined && item.groupName !== '');
@@ -139,20 +152,24 @@ onMounted(() => {
     return;
   }
   itemsList.value = Array.isArray(items) ? items : [];
+
+  window.addEventListener('resize', handleResize);
 });
 
-onClickOutside(dropdown, () => show.value = false);
+onUnmounted(() => {
+  window.removeEventListener('resize', handleResize);
+});
 </script>
 
 <template>
-  <div ref="dropdown" class="dropdown" :class="[{ focus: show }, { multiple }]">
+  <div ref="dropdown" class="dropdown" :class="[{ focus: show }, { multiple }, { disabled }]">
     <button class="dropdown-input" type="button">
-      <label class="label" :class="{ placeholder: !modelValue }" @click="toggle()">
-        <span v-if="hasCount" class="selected-count">{{ (modelValue as DropdownValue[]).length }}</span>
+      <label class="label" :class="{ placeholder: !modelValue || (modelValue && !asArray().length) }" @click="toggle()">
+        <span v-if="hasCount" class="selected-count">{{ asArray().length }}</span>
         <span class="text"> {{ selectedOptions }}</span>
         <i class="i-youcan-caret-down caret" />
       </label>
-      <div v-if="modelValue && !multiple" class="clear-button" @click="clear">
+      <div v-if="modelValue && !multiple && clearable" class="clear-button" @click="clear">
         <i class="i-youcan-x" />
       </div>
     </button>
