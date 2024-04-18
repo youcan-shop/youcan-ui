@@ -2,14 +2,14 @@
 import 'uno.css';
 import '../assets/main.css';
 import { ref } from 'vue';
-import Dropdown from '~/components/DropdownV3/Dropdown.vue';
-import type { DropdownItemType } from '~/components/DropdownV3/type';
+import { Dropdown } from '~/components';
+import type { DropdownValue } from '~/components/DropdownV3/type';
 
 const multiple = ref(null);
 const single = ref(null);
 const value = ref(null);
 
-const items: Array<DropdownItemType> = [
+const items: Array<DropdownValue> = [
   { label: '+1 stars', key: 3, groupName: 'Rating' },
   { label: 'Visible', key: 2, groupName: 'Visibility' },
   { label: 'Hidden', key: 5, groupName: 'Visibility' },
@@ -17,13 +17,13 @@ const items: Array<DropdownItemType> = [
   { label: '+4 stars', key: 1, groupName: 'Rating' },
 ];
 
-const singleItems: Array<DropdownItemType> = [
+const singleItems: Array<DropdownValue> = [
   { label: 'Shoes', key: 1 },
   { label: 'Cosmetics', key: 2 },
   { label: 'Gym', key: 3 },
 ];
 
-const languages: Array<DropdownItemType> = [
+const languages: Array<DropdownValue> = [
   { label: 'Arabic', key: 1 },
   { label: 'English', key: 2 },
   { label: 'German', key: 3 },
@@ -71,3 +71,4 @@ const languages: Array<DropdownItemType> = [
   font: var(--text-sm-medium);
 }
 </style>
+~/components/Dropdown/type

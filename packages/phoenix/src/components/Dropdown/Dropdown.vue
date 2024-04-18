@@ -1,152 +1,409 @@
 <script setup lang="ts">
-import { computed, ref, useSlots } from 'vue';
+import { computed, nextTick, onMounted, ref, useSlots } from 'vue';
 import { onClickOutside } from '@vueuse/core';
-import DropdownList from './DropdownList.vue';
-import type { DropdownItemDefinition, DropdownProps } from '~/types';
+import { DropdownValue } from '~/types';
+import type { DropdownProps } from '~/types';
+import { setPosition } from '~/helpers';
+import { Spinner } from '~/components';
 
-const props = withDefaults(
-  defineProps<DropdownProps>(),
-  { searchable: false, size: 36, disabled: false },
-);
+const props = withDefaults(defineProps<DropdownProps>(), {
+  multiSelectLabel: 'Selected items',
+  noDataText: 'No results were found',
+});
 
 const emit = defineEmits(['update:modelValue', 'scrollEnd']);
 
 const slots = useSlots();
 
-const list = ref();
-const button = ref();
-const showList = ref(false);
-const showListInTop = ref(false);
+const dropdown = ref();
+const dropdownList = ref();
+const show = ref(false);
+const itemsList = ref<DropdownValue[]>([]);
+const groupNames = ref<Array<string>>([]);
+const listWidth = ref('300px');
 
-const toggleList = (override = !showList.value) => {
-  list.value.classList.remove('dropdown-top');
-  const offset = list.value.getBoundingClientRect();
-  if (offset) {
-    showListInTop.value = offset.bottom > window.innerHeight;
+const selectedOptions = computed(() => {
+  const { modelValue, placeholder, multiple, multiSelectLabel } = props;
+  if (modelValue) {
+    if (!multiple) {
+      return (modelValue as DropdownValue).label;
+    }
+
+    if (multiple && (modelValue as DropdownValue[]).length) {
+      return multiSelectLabel;
+    }
   }
-  showList.value = override;
-};
-onClickOutside(list, () => toggleList(false), { ignore: [button] });
 
-const model = computed<DropdownItemDefinition | null>({
-  get: () => props.modelValue,
-  set: (item: DropdownItemDefinition | null) => {
-    toggleList(false);
-    emit('update:modelValue', item);
-  },
+  return placeholder;
 });
+
+const hasCount = computed(() => {
+  const { multiple, modelValue } = props;
+
+  return multiple && modelValue && (modelValue as DropdownValue[]).length;
+});
+
+function ListPosition() {
+  if (dropdown.value && dropdownList.value) {
+    listWidth.value = `${dropdown.value.clientWidth}px`;
+    nextTick(() => {
+      const { left, top } = setPosition(dropdownList.value, dropdown.value, 'bottom', 8);
+      dropdownList.value?.setAttribute('style', `top:${top}px;left:${left}px`);
+    });
+  }
+}
+
+function toggle() {
+  show.value = !show.value;
+  nextTick(() => {
+    ListPosition();
+  });
+}
+
+function updateModel(item: DropdownValue) {
+  const { multiple, modelValue } = props;
+  if (!multiple) {
+    emit('update:modelValue', item);
+  }
+  else {
+    let override: DropdownValue[] = (modelValue as DropdownValue[]);
+    if (override && override.length) {
+      const index = override.findIndex((el: DropdownValue) => el.key === item.key);
+      if (index > -1) {
+        override.splice(index, 1);
+      }
+      else {
+        override.push(item);
+      }
+    }
+    else {
+      override = [];
+      override.push(item);
+    }
+
+    emit('update:modelValue', override.length ? override : null);
+  }
+}
+
+function getGroupNames() {
+  const { items } = props;
+  const Names = items.filter((obj, index, self) => index === self.findIndex(item => item.groupName === obj.groupName));
+  Names.forEach((item) => {
+    groupNames.value.push((item.groupName as string));
+  });
+}
+
+function groupByName(name: string) {
+  const { items } = props;
+
+  return items.filter(item => item.groupName === name);
+}
+
+function clear() {
+  emit('update:modelValue', null);
+}
+
+function selected(item: DropdownValue) {
+  const { multiple, modelValue } = props;
+  if (modelValue) {
+    if (multiple) {
+      const override = (modelValue as DropdownValue[]);
+      const index = override.findIndex((el: DropdownValue) => el.key === item.key);
+
+      return index > -1;
+    }
+
+    return item.key === (modelValue as DropdownValue).key;
+  }
+
+  return false;
+}
+
+function handleScroll(event: Event) {
+  const e = event.target as HTMLElement;
+  const scrollHeight = e.scrollHeight;
+  const scrollTop = e.scrollTop;
+  const clientHeight = e.clientHeight;
+  if (scrollTop + clientHeight >= scrollHeight) {
+    emit('scrollEnd');
+  }
+}
+
+onMounted(() => {
+  const { items } = props;
+  const list = items.filter((item: DropdownValue) => item.groupName !== undefined && item.groupName !== '');
+  if (list.length) {
+    getGroupNames();
+
+    return;
+  }
+  itemsList.value = Array.isArray(items) ? items : [];
+});
+
+onClickOutside(dropdown, () => show.value = false);
 </script>
 
 <template>
-  <div class="dropdown">
-    <button ref="button" type="button" :class="[{ disabled }, { error }, `size-${size}`]" class="dropdown-input" @click="() => toggleList()">
-      <i v-if="icon" class="icon" :class="icon" />
-      <span class="label">
-        {{ model?.label ?? placeholder }}
-      </span>
-
-      <i class="chevron i-youcan-carret-down" />
+  <div ref="dropdown" class="dropdown" :class="[{ focus: show }, { multiple }]">
+    <button class="dropdown-input" type="button">
+      <label class="label" :class="{ placeholder: !modelValue }" @click="toggle()">
+        <span v-if="hasCount" class="selected-count">{{ (modelValue as DropdownValue[]).length }}</span>
+        <span class="text"> {{ selectedOptions }}</span>
+        <i class="i-youcan-caret-down caret" />
+      </label>
+      <div v-if="modelValue && !multiple" class="clear-button" @click="clear">
+        <i class="i-youcan-x" />
+      </div>
     </button>
-    <div ref="list" :class="{ 'dropdown-show': showList && !disabled, 'dropdown-top': showListInTop }" class="dropdown-wrapper">
-      <DropdownList
-        :search-handler="searchHandler"
-        v-bind="{ items, searchable, selected: modelValue, multiple: false }"
-        :show="showList"
-        :loading="loading"
-        @scroll-end="() => emit('scrollEnd')"
-        @select="(item:DropdownItemDefinition) => model = item"
-      >
-        <template v-if="slots.accessory" #accessory="item">
-          <slot name="accessory" v-bind="item" />
-        </template>
-      </DropdownList>
-    </div>
+
+    <Transition name="animate-list">
+      <div v-if="show" ref="dropdownList" class="list-container">
+        <div v-if="items.length" class="dropdown-list" @scroll="handleScroll">
+          <template v-if="groupNames.length">
+            <template v-for="name in groupNames" :key="name">
+              <div class="group-name">
+                {{ name }}
+              </div>
+              <DropdownItem v-for="item in groupByName(name)" :key="item.key" :selected="selected(item)" class="group-item" :multiple="multiple" :item="item" @on-select="updateModel(item)">
+                <template v-if="slots.item">
+                  <slot v-bind="item" name="item" />
+                </template>
+              </DropdownItem>
+            </template>
+          </template>
+          <template v-else>
+            <DropdownItem v-for="(item, index) in itemsList" :key="index" :selected="selected(item)" :multiple="multiple" :item="item" @on-select="updateModel(item)">
+              <template v-if="slots.item">
+                <slot v-bind="item" name="item" />
+              </template>
+            </DropdownItem>
+          </template>
+        </div>
+
+        <div v-else class="no-results">
+          {{ noDataText }}
+        </div>
+        <div v-if="isLoading" class="loading">
+          <Spinner :size="15" />
+        </div>
+      </div>
+    </Transition>
   </div>
 </template>
 
-<style scoped lang="scss">
+<style scoped>
 .dropdown {
+  --input-border: 1px solid var(--gray-200);
+  --input-shadow: var(--shadow-xs-gray);
+  --caret-transform: rotate(0deg);
+  --duration: 250ms;
+
   position: relative;
-}
-
-.dropdown-wrapper {
-  visibility: hidden;
-  position: absolute;
-  z-index: 10;
-  top: calc(100% + 8px);
   width: 100%;
-  opacity: 0;
-
-  &.dropdown-show {
-    visibility: visible;
-    opacity: 1;
-  }
-
-  &.dropdown-top {
-    top: unset;
-    bottom: calc(100% + 8px);
-  }
 }
 
-.dropdown-input {
+.dropdown .dropdown-input {
   display: flex;
   box-sizing: border-box;
   align-items: center;
+  justify-content: flex-start;
   width: 100%;
-  border: 1px solid var(--gray-200);
+  height: 44px;
+  padding: 0  16px;
+  border: var(--input-border);
+  border-radius: 8px;
+  outline: none;
   background-color: var(--base-white);
-  box-shadow: var(--shadow-xs-gray);
-  color: var(--gray-500);
+  box-shadow: var(--input-shadow);
+  cursor: pointer;
+}
+
+.dropdown.focus {
+  --caret-transform: rotate(-180deg);
+}
+
+.dropdown.focus,
+.dropdown .dropdown-input:focus {
+  --input-border: 1px solid var(--brand-500);
+  --input-shadow: var(--focus-shadow-xs-brand);
+}
+
+.dropdown .dropdown-input .label {
+  display: flex;
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  overflow: hidden;
+  color: var(--gray-900);
+  font: var(--text-sm-regular);
   cursor: pointer;
   gap: 8px;
+}
 
-  &.disabled {
-    background-color: var(--gray-50);
-    cursor: default;
+.dropdown .dropdown-input .label .text {
+  display: flex;
+  display: block;
+  flex: 1;
+  justify-content: flex-start;
+  max-width: 100%;
+  padding-right: 30px;
+  overflow: hidden;
+  text-align: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dropdown.multiple .dropdown-input .label .text {
+  padding: 0 !important;
+}
+
+.dropdown .dropdown-input .label .selected-count {
+  --size: 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--size);
+  height: var(--size);
+  border-radius: calc(var(--size) / 2);
+  background-color: var(--blue-500);
+  color: var(--base-white);
+  font: var(--text-xs-medium);
+  line-height: normal;
+}
+
+.dropdown .dropdown-input .label.placeholder {
+  color: var(--gray-300);
+}
+
+.dropdown .dropdown-input .label .caret {
+  width: 13px;
+  min-width: 13px;
+  height: 13px;
+  min-height: 13px;
+  transform: var(--caret-transform);
+  transition: all var(--duration) linear;
+  color: var(--gray-900);
+}
+
+.dropdown .dropdown-input .clear-button {
+  position: absolute;
+  z-index: 2;
+  right: 40px;
+  color: var(--red-500);
+}
+
+.dropdown .list-container {
+  display: flex;
+  position: fixed;
+  z-index: 9999999999;
+  flex-direction: column;
+  width: v-bind(listWidth);
+  height: max-content;
+  max-height: 240px;
+  padding: 8px 0;
+  overflow: hidden;
+  border: 1px solid var(--gray-200);
+  border-radius: 8px;
+  background-color: var(--base-white);
+  box-shadow: var(--shadow-md-gray);
+}
+
+.dropdown .list-container .dropdown-list {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  width: 100%;
+  overflow: hidden auto;
+  row-gap: 1px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--brand-500) transparent;
+}
+
+.dropdown .list-container .dropdown-list::-webkit-scrollbar {
+  width: 4px;
+}
+
+.dropdown .list-container .dropdown-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.dropdown .list-container .dropdown-list::-webkit-scrollbar-thumb {
+  border-radius: 2px;
+  background-color: var(--brand-500);
+}
+
+.dropdown .list-container .dropdown-list::-webkit-scrollbar-thumb:hover {
+  background-color: var(--brand-500);
+}
+
+.dropdown .list-container .no-results {
+  padding: 10px 16px;
+  color: var(--gray-500);
+  font: var(--text-sm-regular);
+}
+
+.dropdown .list-container .loading {
+  display: flex;
+  position: absolute;
+  z-index: 2;
+  bottom: 0;
+  left: 10px;
+  justify-content: center;
+  width: calc(100% - 20px);
+  margin: 0 auto;
+  padding: 7px 0;
+  background-image: linear-gradient(to top, var(--base-white), rgb(255 255 255 / 50%), transparent);
+}
+
+.dropdown .list-container .dropdown-list .group-name {
+  padding: 6px 16px;
+  color: var(--dark-900);
+  font: var(--text-sm-medium);
+  cursor: not-allowed;
+  user-select: none;
+}
+
+.dropdown .list-container .dropdown-list .group-item {
+  padding-left: 30px;
+}
+
+.animate-list-enter-active {
+  animation: fade var(--duration) ease-in-out;
+}
+
+.animate-list-leave-active {
+  animation: fade var(--duration) reverse ease-in-out;
+}
+
+@keyframes fade {
+  0% {
+    transform: scale(0.99);
+    opacity: 0;
   }
 
-  &:not(.disabled) {
-    &:hover {
-      background-color: var(--gray-50);
-    }
-
-    &:is(:focus, :active) {
-      border: 1px solid var(--brand-500);
-      outline: none;
-      box-shadow: var(--focus-shadow-xs-brand);
-    }
-
-    &.error {
-      border: 1px solid var(--red-500);
-
-      &:focus {
-        box-shadow: var(--focus-shadow-xs-red);
-      }
-    }
+  100% {
+    transform: scale(1);
+    opacity: 1;
   }
+}
 
-  &.size {
-    &-36 {
-      padding: 7.5px 12px;
-      border-radius: 4px;
-    }
+html[dir="rtl"] .dropdown .dropdown-input .label .text {
+  padding-right: 0;
+  padding-left: 30px;
+  text-align: right;
+}
 
-    &-44 {
-      padding: 11.5px 16px;
-      border-radius: 8px;
-    }
-  }
+html[dir="rtl"] .dropdown .list-container .dropdown-list .group-item {
+  padding-right: 30px;
+  padding-left: 16px;
+}
 
-  .label {
-    overflow: hidden;
-    color: var(--gray-900);
-    font: var(--text-sm-regular);
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
-  .chevron {
-    margin-inline-start: auto;
-  }
+html[dir="rtl"] .dropdown .dropdown-input .clear-button {
+  right: unset;
+  left: 40px;
 }
 </style>
