@@ -103,6 +103,11 @@ onMounted(() => {
   border-radius: 0 0 8px 8px;
 }
 
+.ql-container.ql-snow {
+  height: auto;
+  background-color: var(--base-white);
+}
+
 .rich-text {
   border: 1px solid var(--gray-200);
   border-radius: 8px;
