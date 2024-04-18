@@ -1,7 +1,7 @@
 export { default as Dropdown } from './Dropdown/Dropdown.vue';
 export { default as DropdownList } from './Dropdown/DropdownList.vue';
 export { default as Note } from './Note/Note.vue';
-export { default as Loading } from './Loading/Loading.vue';
+export { default as Progress } from './Progress/Progress.vue';
 export { default as Checkbox } from './Checkbox/Checkbox.vue';
 export { default as Button } from './Buttons/Button.vue';
 export { default as Input } from './Input/Input.vue';
