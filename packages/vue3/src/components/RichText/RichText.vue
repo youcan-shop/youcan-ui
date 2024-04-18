@@ -104,7 +104,7 @@ onMounted(() => {
 }
 
 .ql-container.ql-snow {
-  height: unset;
+  height: auto;
   background-color: var(--base-white);
 }
 
