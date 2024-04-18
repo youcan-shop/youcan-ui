@@ -2,7 +2,7 @@
 import { onMounted, onUnmounted } from 'vue';
 import type { ModalProps } from '~/types';
 import Overlay from '~/components/Overlay/Overlay.vue';
-import { PrimaryButton, SecondaryButton, TertiaryButton } from '~/components';
+import { Button } from '~/components';
 
 const props = withDefaults(defineProps<ModalProps>(), {
   title: 'Customer address',
@@ -36,24 +36,24 @@ onUnmounted(() => {
   <Transition name="slide-up">
     <div v-if="visible" class="modal">
       <div class="header">
-        <TertiaryButton @click="close">
+        <Button variant="tertiary" @click="close">
           <i class="i-youcan-x" />
-        </TertiaryButton>
+        </Button>
         <span class="title">{{ title }}</span>
       </div>
       <div class="body">
         <slot />
       </div>
       <div class="footer">
-        <PrimaryButton v-if="!cancelOnly" @click="emit('onConfirm')">
+        <Button v-if="!cancelOnly" variant="primary" @click="emit('onConfirm')">
           <template v-if="confirmIcon" #icon>
             <i :class="confirmIcon" />
           </template>
           <span>{{ confirmLabel }}</span>
-        </PrimaryButton>
-        <SecondaryButton @click="close">
+        </Button>
+        <Button variant="secondary" @click="close">
           <span>{{ cancelLabel }}</span>
-        </SecondaryButton>
+        </Button>
       </div>
     </div>
   </Transition>
