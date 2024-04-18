@@ -2,7 +2,7 @@
 import { Utils } from '@youcan/ui-core';
 import { computed, onMounted, ref } from 'vue';
 import type { IncrementProps } from '~/types';
-import { TertiaryButton } from '~/components';
+import { Button } from '~/components';
 
 const props = withDefaults(defineProps<IncrementProps>(), {
   modelValue: 1,
@@ -77,17 +77,13 @@ onMounted(() => {
 
 <template>
   <div ref="container" class="increment" tabindex="0" :disabled="disabled">
-    <TertiaryButton size="xs" icon-position="only" :disabled="disabled" @click="update('decrement')">
-      <template #icon>
-        <i class="i-youcan-minus" />
-      </template>
-    </TertiaryButton>
+    <Button variant="tertiary" size="xs" icon-position="only" :disabled="disabled" @click="update('decrement')">
+      <i class="i-youcan-minus" />
+    </Button>
     <input :id="id" ref="input" v-model.number="model" class="input" tabindex="-1" @input="handleInput">
-    <TertiaryButton size="xs" icon-position="only" :disabled="disabled" @click="update()">
-      <template #icon>
-        <i class="i-youcan-plus" />
-      </template>
-    </TertiaryButton>
+    <Button variant="tertiary" size="xs" icon-position="only" :disabled="disabled" @click="update()">
+      <i class="i-youcan-plus" />
+    </Button>
   </div>
 </template>
 
