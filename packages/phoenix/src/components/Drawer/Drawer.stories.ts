@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 import { ref } from 'vue';
-import { Drawer, PrimaryButton } from '~/components';
+import { Button, Drawer } from '~/components';
 
 type Story = StoryObj<typeof Drawer>;
 const meta: Meta<typeof Drawer> = {
@@ -20,7 +20,7 @@ const meta: Meta<typeof Drawer> = {
 
 export const Default: Story = {
   render: args => ({
-    components: { Drawer, PrimaryButton },
+    components: { Drawer, Button },
     setup() {
       const show = ref(false);
 

@@ -3,7 +3,7 @@
 import { onClickOutside } from '@vueuse/core';
 import { computed, ref } from 'vue';
 import type { SingleDateInputProps } from './types';
-import { SecondaryButton, SingleDatePicker } from '~/components';
+import { Button, SingleDatePicker } from '~/components';
 
 const props = defineProps<SingleDateInputProps>();
 
@@ -31,9 +31,9 @@ onClickOutside(datePicker, () => toggleDatePicker(false));
 
 <template>
   <div class="date-input">
-    <SecondaryButton
+    <Button
       size="sm" icon-position="right" class="input-trigger"
-      :disabled="disabled" @click="toggleDatePicker()"
+      :disabled="disabled" variant="secondary" @click="toggleDatePicker()"
     >
       <span v-show="model">
         {{ model?.toLocaleDateString() }}
@@ -42,7 +42,7 @@ onClickOutside(datePicker, () => toggleDatePicker(false));
       <template #icon>
         <i class="i-youcan-calendar-blank" />
       </template>
-    </SecondaryButton>
+    </Button>
     <div class="date-picker-container">
       <SingleDatePicker v-show="isDatePickerVisible" ref="datePicker" v-model="model" />
     </div>

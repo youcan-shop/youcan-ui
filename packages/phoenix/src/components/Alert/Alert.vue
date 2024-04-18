@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted, useSlots } from 'vue';
 import type { AlertProps } from './types';
-import { TertiaryButton } from '~/components';
+import { Button } from '~/components';
 
 const props = withDefaults(
   defineProps<AlertProps>(),
@@ -71,11 +71,11 @@ onUnmounted(() => {
       </div>
       <!-- Close button -->
       <div v-if="canClose" class="btn">
-        <TertiaryButton class="close-button" size="xs" icon-position="only" @click="handleClose">
+        <Button class="close-button" size="xs" icon-position="only" variant="tertiary" @click="handleClose">
           <template #icon>
             <i class="i-tabler:x" />
           </template>
-        </TertiaryButton>
+        </Button>
       </div>
     </div>
   </div>
