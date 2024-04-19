@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { ref } from 'vue';
+import { defaultSidebarStyle, mergeWithDefaultValues } from './StyleUtils';
 import type { SidebarProps } from '~/types';
 
 const props = withDefaults(defineProps<SidebarProps>(), {
   collapsed: false,
+  styleConfig: () => defaultSidebarStyle,
 });
 
 const emit = defineEmits(['collapse']);
@@ -14,13 +16,32 @@ const toggle = (override = !collapsed.value) => {
   collapsed.value = override;
   emit('collapse', override);
 };
+
+const resolvedCustomStyle = mergeWithDefaultValues(props.styleConfig, defaultSidebarStyle);
 </script>
 
 <template>
-  <aside class="sidebar" :class="{ collapsed }">
-    <div class="sidebar-header">
+  <aside
+    class="sidebar" :class="{ collapsed }"
+    :style="{
+      '--sidebar-background-color': resolvedCustomStyle.backgroundColor,
+      '--sidebar-icon-color': resolvedCustomStyle.iconColor,
+      '--subitem-icon-color': resolvedCustomStyle.subItemIconColor,
+      '--sidebar-width': `${resolvedCustomStyle?.width}px`,
+      '--sidebar-header-font': resolvedCustomStyle.font,
+      '--sidebar-spacing': `${resolvedCustomStyle.spacing}px`,
+    }"
+  >
+    <div
+      class="sidebar-header"
+      :style="{
+        '--sidebar-header-hover-color': resolvedCustomStyle.hoverColor,
+        '--sidebar-header-active-color': resolvedCustomStyle.activeColor,
+      }"
+    >
       <button class="item-icon" @click="() => toggle()">
-        <i class="i-youcan:list" />
+        <i v-if="collapsed" class="i-youcan:sidebar-close" />
+        <i v-else class="i-youcan:sidebar-open" />
       </button>
       <div class="item-label">
         <slot name="header" />
@@ -37,10 +58,9 @@ const toggle = (override = !collapsed.value) => {
   </aside>
 </template>
 
-<style scoped lang="scss">
+<style scoped>
 .sidebar {
-  --sidebar-width: 230px;
-  --sidebar-collapsed-width: 54px;
+  --sidebar-collapsed-width: 60px;
   --sidebar-height: 100vh;
 
   display: flex;
@@ -49,154 +69,138 @@ const toggle = (override = !collapsed.value) => {
   width: var(--sidebar-width);
   height: var(--sidebar-height);
   transition: width 0.2s ease-in-out;
-  background-color: var(--gray-800);
+  background-color: var(--sidebar-background-color);
+}
 
-  i {
-    color: var(--gray-200);
-  }
+.sidebar i {
+  color: var(--sidebar-icon-color);
+}
 
-  &-header {
-    display: flex;
-    align-items: center;
-    height: 68px;
-    padding: 0 16px;
-    border-bottom: 1px solid var(--gray-700);
-    font: var(--text-lg-medium);
-    gap: 20px;
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  height: 68px;
+  padding: 0 16px;
+  font: var(--sidebar-header-font);
+  gap: 20px;
+}
 
-    :hover {
-      background-color: var(--gray-700);
-    }
+.sidebar-header:hover {
+  background-color: var(--sidebar-header-hover-color);
+}
 
-    :active {
-      background-color: var(--gray-600);
-    }
+.sidebar-header:active {
+  background-color: var(--sidebar-header-active-color);
+}
 
-    .item-icon {
-      padding: 0;
-      border: none;
-      background-color: transparent;
-      cursor: pointer;
+.sidebar-header .item-icon {
+  padding: 0;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
 
-      i {
-        transition: transform 0.25s ease-in-out;
-      }
-    }
+.sidebar-header .item-icon i {
+  transition: transform 0.25s ease-in-out;
+}
 
-    .item-label {
-      color: var(--base-white);
-      font: var(--text-lg-medium);
-    }
-  }
+.sidebar-header .item-label {
+  color: var(--base-white);
+  font: var(--sidebar-header-font);
+}
 
-  &-items {
-    &.lower {
-      margin-top: auto;
-    }
+.sidebar-items.upper {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10%;
+  gap: var(--sidebar-spacing);
+}
 
-    .item-label,
-    :deep(.item-label) {
-      color: var(--base-white);
-      font: var(--text-sm-medium);
-    }
-  }
+.sidebar-items.lower {
+  margin-top: auto;
+  margin-bottom: 10%;
+}
 
-  .item-icon,
-  :deep(.item-icon) {
-    outline: none;
-    color: var(--gray-100);
-  }
+.sidebar-items :deep(.item-label) a {
+  color: inherit;
+  text-decoration: none;
+}
 
-  &.collapsed {
-    width: var(--sidebar-collapsed-width);
-    overflow-x: hidden;
+.sidebar.collapsed {
+  width: var(--sidebar-collapsed-width);
+  overflow-x: hidden;
+}
 
-    .item-label,
-    &:deep(.item-label),
-    &:deep(.subitem-text),
-    &:deep(.expand-icon) {
-      visibility: hidden;
-      transition: opacity 0.3s ease-in-out, transform 0.25s ease-in-out;
-      opacity: 0;
-      white-space: nowrap;
-    }
+.sidebar.collapsed .item-label,
+.sidebar.collapsed :deep(.item-label),
+.sidebar.collapsed :deep(.subitem-text),
+.sidebar.collapsed :deep(.expand-icon) {
+  visibility: hidden;
+  transition: opacity 0.3s ease-in-out, transform 0.25s ease-in-out;
+  opacity: 0;
+  white-space: nowrap;
+}
 
-    &:deep(.sidebar-subitem) {
-      position: relative;
+.sidebar.collapsed :deep(.sidebar-subitem) {
+  position: relative;
+}
 
-      &::before {
-        content: "";
-        position: absolute;
-        left: 25px;
-        width: 5px;
-        height: 5px;
-        transform: translateX(-50%);
-        transition: opacity 0.2s ease-in-out;
-        border: 1px solid var(--gray-400);
-        border-radius: 50%;
-        opacity: 1;
-        background-color: var(--gray-700);
-      }
-    }
+.sidebar.collapsed :deep(.sidebar-subitem)::before {
+  content: "";
+  position: absolute;
+  left: 25px;
+  width: 5px;
+  height: 5px;
+  transform: translateX(-50%);
+  transition: opacity 0.2s ease-in-out;
+  border: 1px solid var(--subitem-icon-color);
+  border-radius: 50%;
+  opacity: 1;
+  background-color: var(--gray-700);
+}
 
-    .item-label,
-    &:deep(.item-label),
-    &:deep(.subitem-text) {
-      transform: translateX(100%);
-    }
+.sidebar.collapsed .item-label,
+.sidebar.collapsed :deep(.item-label),
+.sidebar.collapsed :deep(.subitem-text) {
+  transform: translateX(100%);
+}
 
-    &:hover {
-      width: var(--sidebar-width);
+.sidebar.collapsed:hover {
+  width: var(--sidebar-width);
+}
 
-      .item-label,
-      &:deep(.item-label),
-      &:deep(.subitem-text),
-      &:deep(.expand-icon) {
-        visibility: visible;
-        opacity: 1;
-      }
+.sidebar.collapsed:hover .item-label,
+.sidebar.collapsed:hover :deep(.item-label),
+.sidebar.collapsed:hover :deep(.subitem-text),
+.sidebar.collapsed:hover :deep(.expand-icon) {
+  visibility: visible;
+  opacity: 1;
+}
 
-      .item-label,
-      &:deep(.item-label),
-      &:deep(.subitem-text) {
-        transform: translateX(0%);
-      }
+.sidebar.collapsed:hover .item-label,
+.sidebar.collapsed:hover :deep(.item-label),
+.sidebar.collapsed:hover :deep(.subitem-text) {
+  transform: translateX(0%);
+}
 
-      &:deep(.sidebar-subitem) {
-        &::before {
-          opacity: 0;
-        }
-      }
-    }
+.sidebar.collapsed:hover :deep(.sidebar-subitem)::before {
+  opacity: 0;
+}
 
-    .sidebar-header {
-      .item-icon {
-        i {
-          color: var(--gray-500);
-        }
-      }
-    }
-  }
+.sidebar.collapsed .sidebar-header .item-icon i {
+  color: var(--sidebar-icon-color);
 }
 </style>
 
-<style lang="scss">
-html[dir="rtl"] {
-  .sidebar {
-    &.collapsed {
-      .item-label,
-      .subitem-text {
-        transform: translateX(-100%);
-      }
-
-      .sidebar-subitem {
-        &::before {
-          right: 25px;
-          left: unset;
-          transform: translateX(50%);
-        }
-      }
-    }
-  }
+<style>
+html[dir="rtl"] .sidebar.collapsed .item-label,
+html[dir="rtl"] .sidebar.collapsed .subitem-text {
+  transform: translateX(-100%);
 }
-</style>
+
+html[dir="rtl"] .sidebar.collapsed .sidebar-subitem::before {
+  right: 25px;
+  left: unset;
+  transform: translateX(50%);
+}
+</style>./styleUtils
