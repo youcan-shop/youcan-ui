@@ -156,6 +156,10 @@ onMounted(() => {
   display: none;
 }
 
+.dropdown :deep(.dropdown-input .label) {
+  color: var(--gray-300);
+}
+
 .dropdown.max :deep(.dropdown-list .dropdown-item:not(.selected)) {
   background-color: var(--base-white);
   cursor: not-allowed;

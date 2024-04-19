@@ -164,7 +164,7 @@ onUnmounted(() => {
 <template>
   <div ref="dropdown" class="dropdown" :class="[{ focus: show }, { multiple }, { disabled }]">
     <button class="dropdown-input" type="button">
-      <label class="label" :class="{ placeholder: !modelValue || (modelValue && !asArray().length) }" @click="toggle()">
+      <label class="label" :class="{ placeholder: !modelValue || (multiple && !asArray().length) }" @click="toggle()">
         <span v-if="hasCount" class="selected-count">{{ asArray().length }}</span>
         <span class="text"> {{ selectedOptions }}</span>
         <i class="i-youcan-caret-down caret" />
@@ -244,6 +244,11 @@ onUnmounted(() => {
 .dropdown .dropdown-input:focus {
   --input-border: 1px solid var(--brand-500);
   --input-shadow: var(--focus-shadow-xs-brand);
+}
+
+.dropdown.disabled .dropdown-input:focus {
+  --input-border: 1px solid var(--gray-200);
+  --input-shadow: unset;
 }
 
 .dropdown .dropdown-input .label {
@@ -379,7 +384,7 @@ onUnmounted(() => {
 
 .dropdown .list-container .dropdown-list .group-name {
   padding: 6px 16px;
-  color: var(--dark-900);
+  color: var(--gray-900);
   font: var(--text-sm-medium);
   cursor: not-allowed;
   user-select: none;
@@ -387,6 +392,19 @@ onUnmounted(() => {
 
 .dropdown .list-container .dropdown-list .group-item {
   padding-left: 30px;
+}
+
+.dropdown.disabled .dropdown-input .label,
+.dropdown.disabled .dropdown-input .label .caret {
+  color: var(--gray-300);
+}
+
+.dropdown.disabled .dropdown-input .clear-button {
+  display: none;
+}
+
+.dropdown.disabled .dropdown-input .label .selected-count {
+  background-color: var(--gray-300);
 }
 
 .animate-list-enter-active {

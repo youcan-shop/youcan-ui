@@ -63,13 +63,13 @@ function handlePaginationNavigation(pageNumber: number) {
 
     <div class="row">
       <div>
+        <span>Tags : </span>
         <Tag
           v-model="preferredLanguages"
           placeholder="Select programming languages"
           :max="3"
           type="dropdown"
           :items="languages"
-          disabled
         />
       </div>
     </div>
