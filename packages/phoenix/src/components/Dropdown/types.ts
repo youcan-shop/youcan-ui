@@ -10,14 +10,19 @@ export interface DropdownItemProps {
   selected?: boolean
 }
 
-export interface DropdownProps {
+export interface DropdownCommonProps {
+  searchable?: boolean
+  searchInputPlaceholder?: string
+  search?: (value: string) => void
+  items: DropdownValue[]
+  isLoading?: boolean
+}
+export interface DropdownProps extends DropdownCommonProps {
   modelValue: DropdownValue | DropdownValue[] | null
   placeholder?: string
-  items: DropdownValue[]
   multiple?: boolean
   disabled?: boolean
   multiSelectLabel?: string
-  isLoading?: boolean
   clearable?: boolean
   noDataText?: string
   limit?: number

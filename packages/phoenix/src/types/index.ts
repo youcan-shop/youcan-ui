@@ -1,4 +1,4 @@
-export type { DropdownValue, DropdownItemProps, DropdownProps } from '../components/Dropdown/types';
+export type { DropdownValue, DropdownItemProps, DropdownProps, DropdownCommonProps } from '../components/Dropdown/types';
 export type { DropdownMenuItemProps, DropdownMenuProps } from '../components/DropdownMenu/types';
 export type { ProgressProps } from '../components/Progress/types';
 export type { ButtonProps, ButtonSize, ActionButtonProps } from '../components/Buttons/types';

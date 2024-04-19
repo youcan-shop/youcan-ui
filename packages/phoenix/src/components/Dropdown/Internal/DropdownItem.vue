@@ -22,7 +22,7 @@ watch(() => props.selected, (newValue) => {
   <div class="dropdown-item" :class="[{ selected }]" @click="() => emit('onSelect')">
     <Checkbox v-if="multiple" v-model="checked" />
     <slot>
-      <div class="label">
+      <div class="dropdown-item-label">
         {{ item.label }}
       </div>
     </slot>

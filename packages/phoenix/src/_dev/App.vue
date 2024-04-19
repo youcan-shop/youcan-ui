@@ -42,6 +42,10 @@ const languages: Array<DropdownValue> = [
 function handlePaginationNavigation(pageNumber: number) {
   currentPage.value = pageNumber;
 }
+
+function search(value: string) {
+  console.log(value);
+}
 </script>
 
 <template>
@@ -49,7 +53,7 @@ function handlePaginationNavigation(pageNumber: number) {
     <div class="row">
       <div>
         <span>Default Dropdown : </span>
-        <Dropdown v-model="value" :items="languages" placeholder="Select item" />
+        <Dropdown v-model="value" searchable :items="languages" placeholder="Select item" />
       </div>
       <div>
         <span>Multiple Dropdown : </span>
@@ -70,6 +74,8 @@ function handlePaginationNavigation(pageNumber: number) {
           :max="3"
           type="dropdown"
           :items="languages"
+          search-input-placeholder="Search..."
+          :search="search"
         />
       </div>
     </div>

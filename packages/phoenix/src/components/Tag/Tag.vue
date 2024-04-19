@@ -11,6 +11,7 @@ const props = withDefaults(defineProps<TagProps>(), {
   disabled: false,
   error: false,
   searchable: true,
+  searchInputPlaceholder: 'Search',
 });
 
 const emit = defineEmits(['update:modelValue']);
@@ -108,11 +109,11 @@ onMounted(() => {
         class="dropdown" :class="[{ max: checkLimit() }]"
         :items="items ? items : []"
         multiple
-        :searchable="searchable"
         :placeholder="placeholder"
         :multi-select-label="placeholder"
         :limit="max ? max : 0"
         :disabled="disabled"
+        v-bind="{ searchInputPlaceholder, searchable, search }"
         @update:model-value="(value) => emit('update:modelValue', value ? value : [])"
       />
     </template>
@@ -152,7 +153,7 @@ onMounted(() => {
 
 .dropdown :deep(.dropdown-input .label .selected-count),
 .dropdown :deep(.dropdown-input .label .caret),
-.dropdown :deep(.dropdown-list .dropdown-item .checkbox) {
+.dropdown :deep(.dropdown-list .dropdown-item .checkbox-content) {
   display: none;
 }
 

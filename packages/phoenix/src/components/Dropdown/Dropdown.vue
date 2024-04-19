@@ -11,6 +11,7 @@ const props = withDefaults(defineProps<DropdownProps>(), {
   noDataText: 'No results were found',
   clearable: true,
   limit: 0,
+  searchInputPlaceholder: 'Search',
 });
 
 const emit = defineEmits(['update:modelValue', 'scrollEnd']);
@@ -20,6 +21,7 @@ const slots = useSlots();
 const dropdown = ref();
 const dropdownList = ref();
 const show = ref(false);
+const searchValue = ref('');
 const itemsList = ref<DropdownValue[]>([]);
 const groupNames = ref<Array<string>>([]);
 const listWidth = ref('300px');
@@ -137,6 +139,30 @@ function handleScroll(event: Event) {
   }
 }
 
+let endTaping: ReturnType<typeof setTimeout>;
+
+function handleSearch(event: Event) {
+  const value = (event.target as HTMLInputElement).value.toLowerCase();
+  const { search, items } = props;
+  clearTimeout(endTaping);
+  if (search) {
+    endTaping = setTimeout(() => {
+      search(value);
+    }, 500);
+  }
+  else {
+    endTaping = setTimeout(() => {
+      const list = items.filter((item: DropdownValue) => {
+        const element = item.label.toLowerCase();
+
+        return element.includes(value);
+      });
+
+      itemsList.value = list;
+    }, 200);
+  }
+}
+
 function handleResize() {
   ListPosition();
 }
@@ -176,6 +202,9 @@ onUnmounted(() => {
 
     <Transition name="animate-list">
       <div v-if="show" ref="dropdownList" class="list-container">
+        <div v-if="searchable" class="search-input">
+          <input v-model="searchValue" type="search" :placeholder="searchInputPlaceholder" @input="handleSearch">
+        </div>
         <div v-if="items.length" class="dropdown-list" @scroll="handleScroll">
           <template v-if="groupNames.length">
             <template v-for="name in groupNames" :key="name">
@@ -319,6 +348,11 @@ onUnmounted(() => {
   color: var(--red-500);
 }
 
+.dropdown .dropdown-input .clear-button i {
+  width: 18px;
+  height: 18px;
+}
+
 .dropdown .list-container {
   display: flex;
   position: fixed;
@@ -327,12 +361,32 @@ onUnmounted(() => {
   width: v-bind(listWidth);
   height: max-content;
   max-height: 240px;
-  padding: 8px 0;
   overflow: hidden;
   border: 1px solid var(--gray-200);
   border-radius: 8px;
   background-color: var(--base-white);
   box-shadow: var(--shadow-md-gray);
+}
+
+.dropdown .list-container .search-input {
+  height: 44px;
+  min-height: 44px;
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.dropdown .list-container .search-input input[type="search"] {
+  width: 100%;
+  height: 100%;
+  padding: 0 16px;
+  border: 0;
+  outline: none;
+  background-color: var(--base-white);
+  color: var(--gray-900);
+  font: var(--text-sm-regular);
+}
+
+.dropdown .list-container .search-input input[type="search"]::placeholder {
+  color: var(--gray-400);
 }
 
 .dropdown .list-container .dropdown-list {
