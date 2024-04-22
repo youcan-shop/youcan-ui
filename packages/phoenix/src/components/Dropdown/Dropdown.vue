@@ -2,6 +2,7 @@
 import { computed, nextTick, onMounted, onUnmounted, ref, useSlots } from 'vue';
 import { onClickOutside } from '@vueuse/core';
 import DropdownItem from './Internal/DropdownItem.vue';
+import { elementChildrenNavigate } from './utils';
 import type { DropdownProps, DropdownValue } from '~/types';
 import { setPosition } from '~/helpers';
 import { Spinner } from '~/components';
@@ -19,6 +20,7 @@ const emit = defineEmits(['update:modelValue', 'scrollEnd']);
 const slots = useSlots();
 
 const dropdown = ref();
+const dropdownContainer = ref();
 const dropdownList = ref();
 const searchInput = ref();
 const show = ref(false);
@@ -53,20 +55,20 @@ const hasCount = computed(() => {
 });
 
 function ListPosition() {
-  if (dropdown.value && dropdownList.value) {
+  if (dropdown.value && dropdownContainer.value) {
     listWidth.value = `${dropdown.value.clientWidth}px`;
     nextTick(() => {
-      const { left, top } = setPosition(dropdownList.value, dropdown.value, 'bottom', 8);
-      dropdownList.value?.setAttribute('style', `top:${top}px;left:${left}px`);
+      const { left, top } = setPosition(dropdownContainer.value, dropdown.value, 'bottom', 8);
+      dropdownContainer.value?.setAttribute('style', `top:${top}px;left:${left}px`);
     });
   }
 }
 
-function toggle() {
+function toggle(override = !show.value) {
   if (props.disabled) {
     return;
   }
-  show.value = !show.value;
+  show.value = override;
   nextTick(() => {
     ListPosition();
     if (show.value && searchInput.value) {
@@ -171,9 +173,42 @@ function handleResize() {
   ListPosition();
 }
 
-onClickOutside(dropdown, () => show.value = false);
+function handleFocusout(event: FocusEvent) {
+  const target = event.relatedTarget;
+  if (!dropdown.value.contains(target)) {
+    toggle(false);
+  }
+}
+
+let currentElement: Element | null = null;
+function handleKeypress(event: KeyboardEvent) {
+  const key = event.key;
+  if (key === 'ArrowUp' || key === 'ArrowDown') {
+    event.preventDefault();
+    currentElement = elementChildrenNavigate(dropdownList.value, 'dropdown-item', key === 'ArrowUp' ? 'previous' : 'next');
+    if (currentElement) {
+      currentElement.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  }
+
+  if (key === 'Enter' && currentElement && show.value) {
+    event.preventDefault();
+    (currentElement as HTMLElement).click();
+    nextTick(() => {
+      currentElement?.classList.add('focus');
+    });
+  }
+  if (key === 'Backspace' && !props.multiple) {
+    clear();
+  }
+}
 
 onMounted(() => {
+  window.addEventListener('resize', handleResize);
+
+  dropdown.value?.addEventListener('keydown', handleKeypress);
+  dropdown.value.addEventListener('focusout', handleFocusout);
+
   const { items } = props;
   const list = items.filter((item: DropdownValue) => item.groupName !== undefined && item.groupName !== '');
   if (list.length) {
@@ -182,13 +217,15 @@ onMounted(() => {
     return;
   }
   itemsList.value = Array.isArray(items) ? items : [];
-
-  window.addEventListener('resize', handleResize);
 });
 
 onUnmounted(() => {
   window.removeEventListener('resize', handleResize);
+  window.removeEventListener('keydown', handleKeypress);
+  dropdown.value?.removeEventListener('focusout', handleFocusout);
 });
+
+onClickOutside(dropdown, () => show.value = false);
 </script>
 
 <template>
@@ -205,11 +242,11 @@ onUnmounted(() => {
     </div>
 
     <Transition name="animate-list">
-      <div v-if="show" ref="dropdownList" class="list-container">
+      <div v-if="show" ref="dropdownContainer" class="list-container">
         <div v-if="searchable" class="search-input">
           <input ref="searchInput" v-model="searchValue" type="search" :placeholder="searchInputPlaceholder" @input="handleSearch">
         </div>
-        <div v-if="items.length" class="dropdown-list" @scroll="handleScroll">
+        <div v-if="items.length" ref="dropdownList" class="dropdown-list" @scroll="handleScroll">
           <template v-if="groupNames.length">
             <template v-for="name in groupNames" :key="name">
               <div class="group-name">
