@@ -20,6 +20,7 @@ const slots = useSlots();
 
 const dropdown = ref();
 const dropdownList = ref();
+const searchInput = ref();
 const show = ref(false);
 const searchValue = ref('');
 const itemsList = ref<DropdownValue[]>([]);
@@ -68,6 +69,9 @@ function toggle() {
   show.value = !show.value;
   nextTick(() => {
     ListPosition();
+    if (show.value && searchInput.value) {
+      (searchInput.value as HTMLInputElement).focus();
+    }
   });
 }
 
@@ -189,21 +193,21 @@ onUnmounted(() => {
 
 <template>
   <div ref="dropdown" class="dropdown" :class="[{ focus: show }, { multiple }, { disabled }]">
-    <button class="dropdown-input" type="button">
-      <label class="label" :class="{ placeholder: !modelValue || (multiple && !asArray().length) }" @click="toggle()">
+    <button class="dropdown-input" type="button" @click="toggle()">
+      <label class="label" :class="{ placeholder: !modelValue || (multiple && !asArray().length) }">
         <span v-if="hasCount" class="selected-count">{{ asArray().length }}</span>
         <span class="text"> {{ selectedOptions }}</span>
         <i class="i-youcan-caret-down caret" />
       </label>
-      <div v-if="modelValue && !multiple && clearable" class="clear-button" @click="clear">
-        <i class="i-youcan-x" />
-      </div>
     </button>
+    <div v-if="modelValue && !multiple && clearable" class="clear-button" @click="clear">
+      <i class="i-youcan-x" />
+    </div>
 
     <Transition name="animate-list">
       <div v-if="show" ref="dropdownList" class="list-container">
         <div v-if="searchable" class="search-input">
-          <input v-model="searchValue" type="search" :placeholder="searchInputPlaceholder" @input="handleSearch">
+          <input ref="searchInput" v-model="searchValue" type="search" :placeholder="searchInputPlaceholder" @input="handleSearch">
         </div>
         <div v-if="items.length" class="dropdown-list" @scroll="handleScroll">
           <template v-if="groupNames.length">
@@ -289,6 +293,9 @@ onUnmounted(() => {
   justify-content: space-between;
   height: 100%;
   overflow: hidden;
+  border: 0;
+  outline: none;
+  background-color: var(--base-white);
   color: var(--gray-900);
   font: var(--text-sm-regular);
   cursor: pointer;
@@ -341,14 +348,17 @@ onUnmounted(() => {
   color: var(--gray-900);
 }
 
-.dropdown .dropdown-input .clear-button {
+.dropdown .clear-button {
   position: absolute;
   z-index: 2;
+  top: 50%;
   right: 40px;
+  transform: translateY(-50%);
   color: var(--red-500);
+  cursor: pointer;
 }
 
-.dropdown .dropdown-input .clear-button i {
+.dropdown .clear-button i {
   width: 18px;
   height: 18px;
 }
@@ -453,7 +463,7 @@ onUnmounted(() => {
   color: var(--gray-300);
 }
 
-.dropdown.disabled .dropdown-input .clear-button {
+.dropdown.disabled .clear-button {
   display: none;
 }
 

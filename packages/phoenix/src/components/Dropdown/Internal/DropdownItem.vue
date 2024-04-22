@@ -19,14 +19,14 @@ watch(() => props.selected, (newValue) => {
 </script>
 
 <template>
-  <div class="dropdown-item" :class="[{ selected }]" @click="() => emit('onSelect')">
-    <Checkbox v-if="multiple" v-model="checked" />
+  <button class="dropdown-item" type="button" :class="[{ selected }]" @click="() => emit('onSelect')">
+    <Checkbox v-if="multiple" v-model="checked" tabindex="-1" />
     <slot>
       <div class="dropdown-item-label">
         {{ item.label }}
       </div>
     </slot>
-  </div>
+  </button>
 </template>
 
 <style scoped>
@@ -35,6 +35,9 @@ watch(() => props.selected, (newValue) => {
   align-items: center;
   padding: 16px;
   transition: background-color 150ms linear;
+  border: 0;
+  outline: none;
+  background-color: var(--base-white);
   font: var(--text-sm-regular);
   cursor: pointer;
   gap: 16px;
@@ -42,7 +45,8 @@ watch(() => props.selected, (newValue) => {
 
 .dropdown-item.selected,
 .dropdown-item:hover,
-.dropdown-item:focus {
+.dropdown-item:focus,
+.dropdown-item.focus {
   background-color: var(--gray-50);
 }
 </style>
