@@ -36,3 +36,4 @@ export type { ToastContainerProps, ToastType, ToastOptions } from '../components
 export type { ToggleProps } from '../components/Toggle/types';
 export type { TooltipProps, TooltipPosition } from '../components/Tooltip/types';
 export type { FileInputProps, MediaInputProps, UploadedMediaProps, UploadedFileProps } from '../components/Upload/types';
+export type { DateLocale } from '../components/DatePicker/types';

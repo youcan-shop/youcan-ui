@@ -1,4 +1,5 @@
 import type { ToastOptions } from '../types/index';
+import { getWeekdayNames, monthToString } from './date';
 
 const toast = {
   show: (toastOptions: ToastOptions) => {
@@ -7,7 +8,7 @@ const toast = {
   },
 };
 
-const setPosition = (triggeredElement: HTMLElement, trigger: HTMLElement, position: string, gap = 6) => {
+function setPosition(triggeredElement: HTMLElement, trigger: HTMLElement, position: string, gap = 6) {
   const xy = { top: 0, left: 0, currentPosition: position };
   if (triggeredElement && trigger) {
     const offset = trigger?.getBoundingClientRect();
@@ -57,9 +58,11 @@ const setPosition = (triggeredElement: HTMLElement, trigger: HTMLElement, positi
   }
 
   return xy;
-};
+}
 
 export {
   toast,
   setPosition,
+  getWeekdayNames,
+  monthToString,
 };

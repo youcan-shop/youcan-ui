@@ -1,5 +1,7 @@
 <script lang="ts" setup>
-const daynames = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'];
+import { getWeekdayNames } from '~/helpers';
+
+const daynames = getWeekdayNames();
 </script>
 
 <template>

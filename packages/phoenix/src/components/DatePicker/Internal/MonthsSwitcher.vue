@@ -1,16 +1,39 @@
 <script lang="ts" setup>
+import { nextTick, ref } from 'vue';
 import { Button } from '~/components';
+import { monthToString } from '~/helpers';
+
+const emit = defineEmits(['update:month']);
+
+const MONTH = ref(new Date().getMonth());
+const YEAR = ref(new Date().getFullYear());
+
+function navigate(direction: 'next' | 'previous' = 'next') {
+  if (direction === 'next') {
+    MONTH.value = MONTH.value < 11 ? MONTH.value + 1 : 0;
+    nextTick(() => {
+      YEAR.value = MONTH.value === 0 ? YEAR.value + 1 : YEAR.value;
+    });
+  }
+
+  if (direction === 'previous') {
+    MONTH.value = MONTH.value > 0 ? MONTH.value - 1 : 11;
+    nextTick(() => {
+      YEAR.value = MONTH.value === 11 ? YEAR.value - 1 : YEAR.value;
+    });
+  }
+}
 </script>
 
 <template>
   <div class="months-switcher">
-    <Button variant="tertiary" class="navigation-button">
+    <Button variant="tertiary" class="navigation-button" @click="navigate('previous')">
       <i class="i-youcan:caret-left" />
     </Button>
     <button class="years-label">
-      December 2022
+      {{ monthToString(MONTH) }} {{ YEAR }}
     </button>
-    <Button variant="tertiary" class="navigation-button">
+    <Button variant="tertiary" class="navigation-button" @click="navigate()">
       <i class="i-youcan:caret-right" />
     </Button>
   </div>
