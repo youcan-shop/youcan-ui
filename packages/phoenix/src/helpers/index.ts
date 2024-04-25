@@ -1,5 +1,5 @@
 import type { ToastOptions } from '../types/index';
-import { getWeekdayNames, monthToString } from './date';
+import { getMonthDays, getWeekdayNames, monthToString } from './date';
 
 const toast = {
   show: (toastOptions: ToastOptions) => {
@@ -65,4 +65,5 @@ export {
   setPosition,
   getWeekdayNames,
   monthToString,
+  getMonthDays,
 };

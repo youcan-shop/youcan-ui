@@ -2,26 +2,31 @@
 import { nextTick, ref } from 'vue';
 import { Button } from '~/components';
 import { monthToString } from '~/helpers';
+import type { MonthsSwitcherProps } from '~/types';
 
-const emit = defineEmits(['update:month']);
+defineProps<MonthsSwitcherProps>();
+const emit = defineEmits(['update:modelValue']);
 
 const MONTH = ref(new Date().getMonth());
 const YEAR = ref(new Date().getFullYear());
-
 function navigate(direction: 'next' | 'previous' = 'next') {
+  let year = YEAR.value;
+  let month = MONTH.value;
   if (direction === 'next') {
-    MONTH.value = MONTH.value < 11 ? MONTH.value + 1 : 0;
-    nextTick(() => {
-      YEAR.value = MONTH.value === 0 ? YEAR.value + 1 : YEAR.value;
-    });
+    month = MONTH.value < 11 ? MONTH.value + 1 : 0;
+    year = month === 0 ? YEAR.value + 1 : YEAR.value;
   }
 
   if (direction === 'previous') {
-    MONTH.value = MONTH.value > 0 ? MONTH.value - 1 : 11;
-    nextTick(() => {
-      YEAR.value = MONTH.value === 11 ? YEAR.value - 1 : YEAR.value;
-    });
+    month = MONTH.value > 0 ? MONTH.value - 1 : 11;
+    year = month === 11 ? YEAR.value - 1 : YEAR.value;
   }
+
+  MONTH.value = month;
+  YEAR.value = year;
+  nextTick(() => {
+    emit('update:modelValue', new Date(YEAR.value, MONTH.value + 1, 0));
+  });
 }
 </script>
 

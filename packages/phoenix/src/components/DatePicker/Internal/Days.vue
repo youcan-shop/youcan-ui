@@ -1,20 +1,32 @@
 <script lang="ts" setup>
-import { getWeekdayNames } from '~/helpers';
+import { computed } from 'vue';
+import { getMonthDays, getWeekdayNames } from '~/helpers';
+import type { Day, DaysProps } from '~/types';
 
-const daynames = getWeekdayNames();
+const props = defineProps<DaysProps>();
+
+const calendarDays = computed(() => getMonthDays(props.month));
+const dayNames = getWeekdayNames();
+
+function select(day: Day) {
+  console.log(day.date);
+}
 </script>
 
 <template>
   <div class="days">
-    <div v-for="day in daynames" :key="day" class="day name">
+    <div v-for="day in dayNames" :key="day" class="day name">
       {{ day }}
     </div>
-    <div v-for="day in 31" :key="day" class="day in" :class="[{ 'is-tody': day === 24 }, { selected: day === 16 }]">
-      {{ day }}
-    </div>
-    <div v-for="day in 4" :key="day" class="day out">
-      {{ day }}
-    </div>
+    <button
+      v-for="(day, index) in calendarDays"
+      :key="index" class="day"
+      :class="[{ 'is-tody': day.isToday }, { selected: day.selected }, `${day.isInMonth ? 'in' : 'out'}`]"
+      type="button"
+      @click="select(day)"
+    >
+      {{ day.date?.getDate() }}
+    </button>
   </div>
 </template>
 
@@ -30,7 +42,10 @@ const daynames = getWeekdayNames();
   align-items: center;
   justify-content: center;
   height: 36px;
+  border: 0;
   border-radius: 4px;
+  outline: none;
+  background-color: transparent;
   color: var(--gray-900);
   font: var(--text-sm-regular);
 }

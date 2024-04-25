@@ -1,11 +1,14 @@
 <script lang="ts" setup>
+import { ref } from 'vue';
 import { Days, MonthsSwitcher } from './Internal';
+
+const month = ref(new Date());
 </script>
 
 <template>
   <div class="calendar">
-    <MonthsSwitcher />
-    <Days />
+    <MonthsSwitcher v-model="month" />
+    <Days :month="month" />
   </div>
 </template>
 
