@@ -1,6 +1,6 @@
 import type { DateLocale, Day, NavigateDirection } from '~/types';
 
-function isSameDay(a: Date, b: Date): boolean {
+export function isSameDay(a: Date, b: Date): boolean {
   return a.toDateString() === b.toDateString();
 }
 

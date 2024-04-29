@@ -3,12 +3,13 @@ import { ref } from 'vue';
 import { Days, MonthsSwitcher } from './Internal';
 
 const month = ref(new Date());
+const date = ref(new Date());
 </script>
 
 <template>
   <div class="calendar">
     <MonthsSwitcher v-model="month" />
-    <Days :month="month" />
+    <Days v-model="date" :month="month" />
   </div>
 </template>
 

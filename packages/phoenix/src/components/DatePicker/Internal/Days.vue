@@ -1,15 +1,26 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
-import { getDisplayedDays, getWeekdayNames } from '~/helpers';
+import { getDisplayedDays, getWeekdayNames, isSameDay } from '~/helpers';
 import type { Day, DaysProps } from '~/types';
 
 const props = defineProps<DaysProps>();
+
+const emit = defineEmits(['update:modelValue']);
 
 const calendarDays = computed(() => getDisplayedDays(props.month));
 const dayNames = getWeekdayNames();
 
 function select(day: Day) {
-  console.log(day.date);
+  emit('update:modelValue', day.date);
+}
+
+function isSelected(date: Date | undefined) {
+  const { modelValue } = props;
+  if (modelValue && date) {
+    return isSameDay(date, modelValue);
+  }
+
+  return false;
 }
 </script>
 
@@ -21,7 +32,7 @@ function select(day: Day) {
     <button
       v-for="(day, index) in calendarDays"
       :key="index" class="day"
-      :class="[{ 'is-tody': day.isToday }, { selected: day.selected }, `${day.isInMonth ? 'in' : 'out'}`]"
+      :class="[{ 'is-tody': day.isToday }, { selected: isSelected(day.date) }, `${day.isInMonth ? 'in' : 'out'}`]"
       type="button"
       @click="select(day)"
     >
@@ -33,7 +44,7 @@ function select(day: Day) {
 <style scoped>
 .days {
   display: grid;
-  grid-template-columns: repeat(7, 40px);
+  grid-template-columns: repeat(7, 36px);
 }
 
 .day {
@@ -60,7 +71,13 @@ function select(day: Day) {
   cursor: pointer;
 }
 
-.day.in:hover {
+.day.selected {
+  background-color: var(--brand-500);
+  color: var(--base-white);
+  font: var(--text-sm-medium);
+}
+
+.day.in:not(.selected):hover {
   background-color: var(--gray-50);
 }
 
@@ -80,11 +97,5 @@ function select(day: Day) {
   height: var(--size);
   border-radius: 50%;
   background-color: var(--brand-500);
-}
-
-.day.selected {
-  background-color: var(--brand-500);
-  color: var(--base-white);
-  font: var(--text-sm-medium);
 }
 </style>

@@ -13,4 +13,9 @@ export interface MonthsSwitcherProps {
 
 export interface DaysProps {
   month: Date
+  modelValue: Date | null
+}
+
+export interface CalendarProps {
+  modelValue: Date | null
 }
