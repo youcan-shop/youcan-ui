@@ -1,29 +1,19 @@
 <script lang="ts" setup>
 import { nextTick, ref } from 'vue';
 import { Button } from '~/components';
-import { monthToString } from '~/helpers';
-import type { MonthsSwitcherProps } from '~/types';
+import { monthToString, navigateToMonth } from '~/helpers';
+import type { MonthsSwitcherProps, NavigateDirection } from '~/types';
 
 defineProps<MonthsSwitcherProps>();
 const emit = defineEmits(['update:modelValue']);
 
 const MONTH = ref(new Date().getMonth());
 const YEAR = ref(new Date().getFullYear());
-function navigate(direction: 'next' | 'previous' = 'next') {
-  let year = YEAR.value;
-  let month = MONTH.value;
-  if (direction === 'next') {
-    month = MONTH.value < 11 ? MONTH.value + 1 : 0;
-    year = month === 0 ? YEAR.value + 1 : YEAR.value;
-  }
 
-  if (direction === 'previous') {
-    month = MONTH.value > 0 ? MONTH.value - 1 : 11;
-    year = month === 11 ? YEAR.value - 1 : YEAR.value;
-  }
-
-  MONTH.value = month;
-  YEAR.value = year;
+function update(direction: NavigateDirection = 'next') {
+  const nextMonth = navigateToMonth(direction, MONTH.value, YEAR.value);
+  MONTH.value = nextMonth.month;
+  YEAR.value = nextMonth.year;
   nextTick(() => {
     emit('update:modelValue', new Date(YEAR.value, MONTH.value + 1, 0));
   });
@@ -32,13 +22,13 @@ function navigate(direction: 'next' | 'previous' = 'next') {
 
 <template>
   <div class="months-switcher">
-    <Button variant="tertiary" class="navigation-button" @click="navigate('previous')">
+    <Button variant="tertiary" class="navigation-button" @click="update('previous')">
       <i class="i-youcan:caret-left" />
     </Button>
     <button class="years-label">
       {{ monthToString(MONTH) }} {{ YEAR }}
     </button>
-    <Button variant="tertiary" class="navigation-button" @click="navigate()">
+    <Button variant="tertiary" class="navigation-button" @click="update()">
       <i class="i-youcan:caret-right" />
     </Button>
   </div>

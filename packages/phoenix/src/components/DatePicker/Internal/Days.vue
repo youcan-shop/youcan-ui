@@ -1,11 +1,11 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
-import { getMonthDays, getWeekdayNames } from '~/helpers';
+import { getDisplayedDays, getWeekdayNames } from '~/helpers';
 import type { Day, DaysProps } from '~/types';
 
 const props = defineProps<DaysProps>();
 
-const calendarDays = computed(() => getMonthDays(props.month));
+const calendarDays = computed(() => getDisplayedDays(props.month));
 const dayNames = getWeekdayNames();
 
 function select(day: Day) {
