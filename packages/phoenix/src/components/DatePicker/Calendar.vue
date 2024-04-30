@@ -1,15 +1,26 @@
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { Days, MonthsSwitcher } from './Internal';
+import type { CalendarProps } from '~/types';
 
-const month = ref(new Date());
-const date = ref(new Date());
+const props = defineProps<CalendarProps>();
+
+const emit = defineEmits(['update:modelValue']);
+
+const model = computed({
+  get: () => props.modelValue,
+  set: (value: Date | null) => {
+    emit('update:modelValue', value);
+  },
+});
+
+const month = ref(props.modelValue ? props.modelValue : new Date());
 </script>
 
 <template>
   <div class="calendar">
-    <MonthsSwitcher v-model="month" />
-    <Days v-model="date" :month="month" />
+    <MonthsSwitcher v-model="month" :locale="locale" />
+    <Days v-model="model" :month="month" :locale="locale" />
   </div>
 </template>
 

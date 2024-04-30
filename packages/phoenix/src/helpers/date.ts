@@ -4,6 +4,14 @@ export function isSameDay(a: Date, b: Date): boolean {
   return a.toDateString() === b.toDateString();
 }
 
+export function dateFormat(date: Date | null, locale: DateLocale) {
+  if (date) {
+    return new Intl.DateTimeFormat(locale).format(date);
+  }
+
+  return '';
+}
+
 export function navigateToMonth(direction: NavigateDirection, currentMonth: number, currentYear: number) {
   let year = currentYear;
   let month = currentMonth;
@@ -21,13 +29,13 @@ export function navigateToMonth(direction: NavigateDirection, currentMonth: numb
   return { year, month };
 }
 
-export function getWeekdayNames(locale: DateLocale = 'en-US'): string[] {
+export function getWeekdayNames(locale: DateLocale = 'en'): string[] {
   return [...Array(7)].map(
     (_, i) => new Date(2021, 0, 3 + i).toLocaleDateString(locale, { weekday: 'short' }),
   );
 }
 
-export function monthToString(month: number, locale: DateLocale = 'en-US'): string {
+export function monthToString(month: number, locale: DateLocale = 'en'): string {
   return new Date(2021, month, 1).toLocaleDateString(locale, { month: 'long' });
 }
 

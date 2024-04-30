@@ -1,4 +1,4 @@
-export type DateLocale = 'en-US' | 'fr-FR' | 'es-ES' | 'de-DE' | 'ar-SA';
+export type DateLocale = 'en' | 'fr' | 'es' | 'de' | 'ar';
 export type NavigateDirection = 'next' | 'previous';
 
 export interface Day {
@@ -9,13 +9,18 @@ export interface Day {
 }
 export interface MonthsSwitcherProps {
   modelValue: Date
+  locale?: DateLocale
 }
-
-export interface DaysProps {
+interface SharedProps {
+  modelValue: Date | null
+  locale?: DateLocale
+}
+export interface DaysProps extends SharedProps {
   month: Date
-  modelValue: Date | null
 }
 
-export interface CalendarProps {
-  modelValue: Date | null
+export interface CalendarProps extends SharedProps {}
+
+export interface DatePickerProps extends SharedProps {
+  isRange?: boolean
 }

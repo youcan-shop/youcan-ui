@@ -1,12 +1,15 @@
 <script setup lang="ts">
 import 'uno.css';
 import '../assets/main.css';
+import { ref } from 'vue';
 import { DatePicker } from '~/components';
+
+const date = ref(new Date('10/2/2023'));
 </script>
 
 <template>
   <div class="container">
-    <DatePicker />
+    <DatePicker v-model="date" />
   </div>
 </template>
 

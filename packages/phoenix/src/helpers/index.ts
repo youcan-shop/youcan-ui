@@ -1,5 +1,5 @@
 import type { ToastOptions } from '../types/index';
-import { getDisplayedDays, getWeekdayNames, isSameDay, monthToString, navigateToMonth } from './date';
+import { dateFormat, getDisplayedDays, getWeekdayNames, isSameDay, monthToString, navigateToMonth } from './date';
 
 const toast = {
   show: (toastOptions: ToastOptions) => {
@@ -68,4 +68,5 @@ export {
   getDisplayedDays,
   navigateToMonth,
   isSameDay,
+  dateFormat,
 };

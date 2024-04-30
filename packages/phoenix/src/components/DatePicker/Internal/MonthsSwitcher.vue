@@ -4,11 +4,11 @@ import { Button } from '~/components';
 import { monthToString, navigateToMonth } from '~/helpers';
 import type { MonthsSwitcherProps, NavigateDirection } from '~/types';
 
-defineProps<MonthsSwitcherProps>();
+const props = defineProps<MonthsSwitcherProps>();
 const emit = defineEmits(['update:modelValue']);
 
-const MONTH = ref(new Date().getMonth());
-const YEAR = ref(new Date().getFullYear());
+const MONTH = ref(props.modelValue.getMonth());
+const YEAR = ref(props.modelValue.getFullYear());
 
 function update(direction: NavigateDirection = 'next') {
   const nextMonth = navigateToMonth(direction, MONTH.value, YEAR.value);
@@ -25,8 +25,8 @@ function update(direction: NavigateDirection = 'next') {
     <Button variant="tertiary" class="navigation-button" @click="update('previous')">
       <i class="i-youcan:caret-left" />
     </Button>
-    <button class="years-label">
-      {{ monthToString(MONTH) }} {{ YEAR }}
+    <button class="year-label">
+      {{ monthToString(MONTH, locale) }} {{ YEAR }}
     </button>
     <Button variant="tertiary" class="navigation-button" @click="update()">
       <i class="i-youcan:caret-right" />
@@ -51,12 +51,13 @@ function update(direction: NavigateDirection = 'next') {
   color: var(--gray-500);
 }
 
-.months-switcher .years-label {
+.months-switcher .year-label {
   border: 0;
   outline: none;
   background-color: var(--base-white);
   color: var(--gray-900);
   font: var(--text-sm-medium);
+  text-transform: capitalize;
   cursor: pointer;
 }
 </style>

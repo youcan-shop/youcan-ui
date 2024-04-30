@@ -8,16 +8,20 @@ const props = defineProps<DaysProps>();
 const emit = defineEmits(['update:modelValue']);
 
 const calendarDays = computed(() => getDisplayedDays(props.month));
-const dayNames = getWeekdayNames();
+const dayNames = getWeekdayNames(props.locale);
 
 function select(day: Day) {
+  if (day.isInMonth === false) {
+    return;
+  }
+
   emit('update:modelValue', day.date);
 }
 
-function isSelected(date: Date | undefined) {
+function isSelected(day: Day) {
   const { modelValue } = props;
-  if (modelValue && date) {
-    return isSameDay(date, modelValue);
+  if (modelValue && day.isInMonth && day.date) {
+    return isSameDay(day.date, modelValue);
   }
 
   return false;
@@ -25,14 +29,14 @@ function isSelected(date: Date | undefined) {
 </script>
 
 <template>
-  <div class="days">
+  <div class="days" :class="locale">
     <div v-for="day in dayNames" :key="day" class="day name">
       {{ day }}
     </div>
     <button
       v-for="(day, index) in calendarDays"
       :key="index" class="day"
-      :class="[{ 'is-tody': day.isToday }, { selected: isSelected(day.date) }, `${day.isInMonth ? 'in' : 'out'}`]"
+      :class="[{ 'is-tody': day.isToday }, { selected: isSelected(day) }, `${day.isInMonth ? 'in' : 'out'}`]"
       type="button"
       @click="select(day)"
     >
@@ -64,6 +68,7 @@ function isSelected(date: Date | undefined) {
 .day.name {
   color: var(--gray-500);
   font: var(--text-xs-medium);
+  text-transform: capitalize;
 }
 
 .day.in {
