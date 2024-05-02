@@ -8,7 +8,7 @@ const toast = {
   },
 };
 
-function setPosition(triggeredElement: HTMLElement, trigger: HTMLElement, position: string, gap = 6) {
+function setPosition(triggeredElement: HTMLElement, trigger: HTMLElement, position: string, gap = 6, center = true) {
   const xy = { top: 0, left: 0, currentPosition: position };
   if (triggeredElement && trigger) {
     const offset = trigger?.getBoundingClientRect();
@@ -22,7 +22,7 @@ function setPosition(triggeredElement: HTMLElement, trigger: HTMLElement, positi
     const disableHorizontal = triggeredElementWidth + triggerWidth + gap > windowWidth;
     if (offset) {
     // set position top as default
-      let centerTooltip = (triggeredElementWidth - triggerWidth) / 2;
+      let centerTooltip = center ? (triggeredElementWidth - triggerWidth) / 2 : 0;
       let top = offset.top - (triggeredElementHeight + gap);
       let left = offset.left - centerTooltip;
 

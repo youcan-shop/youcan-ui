@@ -1,5 +1,11 @@
 import type { DateLocale, DateValue, Day, NavigateDirection } from '~/types';
 
+interface DateTimeFormatOptions {
+  day?: 'numeric' | '2-digit'
+  month?: 'numeric' | '2-digit' | 'long' | 'short' | 'narrow'
+  year?: 'numeric' | '2-digit'
+}
+
 export function isSameDay(a: Date, b: Date): boolean {
   if (a && b) {
     return a.toDateString() === b.toDateString();
@@ -17,8 +23,11 @@ export function isMoreThan(a: Date, b: Date): boolean {
 }
 
 export function dateFormat(date: DateValue, locale: DateLocale) {
+  const options: DateTimeFormatOptions = {
+    day: '2-digit', month: '2-digit', year: 'numeric',
+  };
   if (date) {
-    return new Intl.DateTimeFormat(locale).format(date);
+    return new Intl.DateTimeFormat(locale, options).format(date);
   }
 
   return '';

@@ -3,14 +3,16 @@ import 'uno.css';
 import '../assets/main.css';
 import { ref } from 'vue';
 import { DatePicker } from '~/components';
-import type { DateRangeValue } from '~/types';
+import type { DateRangeValue, DateValue } from '~/types';
 
+const date = ref<DateValue>(null);
 const range = ref<DateRangeValue>({ start: null, end: null });
 </script>
 
 <template>
   <div class="container">
-    <DatePicker v-model:range="range" />
+    <DatePicker v-model="date" placeholder="Select date" />
+    <DatePicker v-model:range="range" placeholder="Select dates" />
   </div>
 </template>
 

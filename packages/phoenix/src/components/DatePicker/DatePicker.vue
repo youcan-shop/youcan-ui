@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { onClickOutside } from '@vueuse/core';
 import { computed, nextTick, ref } from 'vue';
 import { Button, Calendar } from '~/components';
 import { dateFormat, setPosition } from '~/helpers';
@@ -24,7 +25,11 @@ const datesFormat = computed(() => {
   }
 
   if (range) {
-    return `${range.start ? dateFormat(range.start, locale) : ''} ${range.end ? ` - ${dateFormat(range.end, locale)}` : ''}`;
+    if (range.start || range.end) {
+      return `${range.start ? dateFormat(range.start, locale) : ''} ${range.end ? ` - ${dateFormat(range.end, locale)}` : ''}`;
+    }
+
+    return '';
   }
 
   return '';
@@ -42,17 +47,19 @@ function ListPosition() {
   show.value = !show.value;
   nextTick(() => {
     if (datePicker.value && calendarWrap.value) {
-      const { top } = setPosition(calendarWrap.value, datePicker.value, 'bottom', 8);
-      calendarWrap.value?.setAttribute('style', `top:${top}px;`);
+      const { top, left } = setPosition(calendarWrap.value, datePicker.value, 'bottom', 8, false);
+      calendarWrap.value?.setAttribute('style', `top:${top}px;left:${left}px;`);
     }
   });
 }
+
+onClickOutside(datePicker, () => show.value = false);
 </script>
 
 <template>
   <div ref="datePicker" class="date-picker">
-    <Button variant="secondary" class="picker-output" @click="ListPosition">
-      <span class="input-value">{{ datesFormat }}</span>
+    <Button variant="secondary" class="picker-output" :class="{ placeholder: !datesFormat }" @click="ListPosition">
+      <span class="input-value">{{ datesFormat || placeholder }}</span>
       <i class="i-youcan:calendar-blank" />
     </Button>
     <Transition name="animate">
@@ -82,6 +89,10 @@ function ListPosition() {
   padding: 12px 16px;
 }
 
+.date-picker .picker-output i {
+  color: var(--gray-500);
+}
+
 .date-picker .picker-output:deep(.label) {
   width: 100%;
 }
@@ -92,6 +103,10 @@ function ListPosition() {
   justify-content: flex-start;
   color: var(--gray-900);
   font: var(--text-sm-regular);
+}
+
+.date-picker .picker-output.placeholder .input-value {
+  color: var(--gray-400);
 }
 
 .date-picker .calendar-wrap {
