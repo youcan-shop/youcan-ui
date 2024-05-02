@@ -1,11 +1,11 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
-import { getDisplayedDays, getWeekdayNames, isSameDay } from '~/helpers';
+import { getDisplayedDays, getWeekdayNames, isMoreThan, isSameDay } from '~/helpers';
 import type { Day, DaysProps } from '~/types';
 
 const props = defineProps<DaysProps>();
 
-const emit = defineEmits(['update:modelValue']);
+const emit = defineEmits(['update:modelValue', 'update:hoverDate']);
 
 const calendarDays = computed(() => getDisplayedDays(props.month));
 const dayNames = getWeekdayNames(props.locale);
@@ -19,26 +19,66 @@ function select(day: Day) {
 }
 
 function isSelected(day: Day) {
-  const { modelValue } = props;
+  const { modelValue, range, hoverDate } = props;
   if (modelValue && day.isInMonth && day.date) {
     return isSameDay(day.date, modelValue);
+  }
+  else if (range && day.date) {
+    return (isSameDay(day.date, (range.start as Date)) || isSameDay(day.date, (range.end as Date)) || isSameDay(day.date, (hoverDate as Date)));
   }
 
   return false;
 }
+
+function whichOne(day: Day) {
+  const { range, hoverDate } = props;
+  if (range && day.date) {
+    if (isSameDay(day.date, (range.start as Date)) && isSameDay(day.date, (range.end as Date))) {
+      return '';
+    }
+
+    if (isSameDay(day.date, (range.start as Date)) || isMoreThan((range.start as Date), (hoverDate as Date))) {
+      return 'start';
+    }
+
+    if (isSameDay(day.date, (range.end as Date)) || isSameDay(day.date, (hoverDate as Date))) {
+      return 'end';
+    }
+
+    if ((isMoreThan((range.end as Date), day.date) || isMoreThan((hoverDate as Date), day.date))
+      && isMoreThan(day.date, (range.start as Date))
+      && day.isInMonth
+    ) {
+      return 'middle';
+    }
+  }
+
+  return '';
+}
+
+function handleHover(day: Day) {
+  const { range, hoverDate } = props;
+  if (range && range.start && !range.end && day.date && day.isInMonth) {
+    emit('update:hoverDate', day.date);
+  }
+  else if (hoverDate) {
+    emit('update:hoverDate', null);
+  }
+}
 </script>
 
 <template>
-  <div class="days" :class="locale">
+  <div class="days" :class="locale" @mouseleave="() => emit('update:hoverDate', null)">
     <div v-for="day in dayNames" :key="day" class="day name">
       {{ day }}
     </div>
     <button
       v-for="(day, index) in calendarDays"
       :key="index" class="day"
-      :class="[{ 'is-tody': day.isToday }, { selected: isSelected(day) }, `${day.isInMonth ? 'in' : 'out'}`]"
+      :class="[{ 'is-tody': day.isToday }, { selected: isSelected(day) }, `${day.isInMonth ? 'in' : 'out'}`, whichOne(day)]"
       type="button"
       @click="select(day)"
+      @mouseover="handleHover(day)"
     >
       {{ day.date?.getDate() }}
     </button>
@@ -48,7 +88,8 @@ function isSelected(day: Day) {
 <style scoped>
 .days {
   display: grid;
-  grid-template-columns: repeat(7, 36px);
+  grid-template-columns: repeat(7, 40px);
+  row-gap: 4px;
 }
 
 .day {
@@ -76,7 +117,7 @@ function isSelected(day: Day) {
   cursor: pointer;
 }
 
-.day.selected {
+.day.in.selected {
   background-color: var(--brand-500);
   color: var(--base-white);
   font: var(--text-sm-medium);
@@ -102,5 +143,18 @@ function isSelected(day: Day) {
   height: var(--size);
   border-radius: 50%;
   background-color: var(--brand-500);
+}
+
+.day.in.start {
+  border-radius: 4px 0 0 4px;
+}
+
+.day.in.end {
+  border-radius: 0 4px 4px 0;
+}
+
+.day.in.middle {
+  border-radius: 0;
+  background-color: var(--brand-50);
 }
 </style>

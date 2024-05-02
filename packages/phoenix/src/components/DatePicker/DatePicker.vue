@@ -1,23 +1,41 @@
 <script setup lang="ts">
-import { nextTick, ref } from 'vue';
+import { computed, nextTick, ref } from 'vue';
 import { Button, Calendar } from '~/components';
 import { dateFormat, setPosition } from '~/helpers';
-import type { DatePickerProps } from '~/types';
+import type { DatePickerProps, DateRangeValue, DateValue } from '~/types';
 
 const props = withDefaults(defineProps<DatePickerProps>(), {
   locale: 'en',
 });
 
-const emit = defineEmits(['update:modelValue']);
+const emit = defineEmits(['update:modelValue', 'update:range']);
 
-const fromDate = ref<Date | null>(props.modelValue);
+const date = ref<DateValue>(props.modelValue);
+const rangeDate = ref<DateRangeValue>(props.range);
 
 const show = ref(false);
 const calendarWrap = ref();
 const datePicker = ref();
 
-function updateModel(value: Date | null) {
+const datesFormat = computed(() => {
+  const { modelValue, locale, range } = props;
+  if (modelValue) {
+    return dateFormat(modelValue, locale);
+  }
+
+  if (range) {
+    return `${range.start ? dateFormat(range.start, locale) : ''} ${range.end ? ` - ${dateFormat(range.end, locale)}` : ''}`;
+  }
+
+  return '';
+});
+
+function updateModel(value: DateValue) {
   emit('update:modelValue', value);
+}
+
+function updateRange(value: DateRangeValue) {
+  emit('update:range', value);
 }
 
 function ListPosition() {
@@ -34,12 +52,18 @@ function ListPosition() {
 <template>
   <div ref="datePicker" class="date-picker">
     <Button variant="secondary" class="picker-output" @click="ListPosition">
-      <span class="input-value">{{ dateFormat(modelValue, locale) }}</span>
+      <span class="input-value">{{ datesFormat }}</span>
       <i class="i-youcan:calendar-blank" />
     </Button>
     <Transition name="animate">
       <div v-if="show" ref="calendarWrap" class="calendar-wrap">
-        <Calendar v-model="fromDate" :locale="locale" @update:model-value="updateModel" />
+        <Calendar
+          v-model="date"
+          v-model:range="rangeDate"
+          :locale="locale"
+          @update:model-value="updateModel"
+          @update:range="updateRange"
+        />
       </div>
     </Transition>
   </div>
@@ -73,6 +97,7 @@ function ListPosition() {
 .date-picker .calendar-wrap {
   position: fixed;
   z-index: 9999999999;
+  background-color: var(--base-white);
 }
 
 .animate-enter-active {

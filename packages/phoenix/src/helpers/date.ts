@@ -1,10 +1,22 @@
-import type { DateLocale, Day, NavigateDirection } from '~/types';
+import type { DateLocale, DateValue, Day, NavigateDirection } from '~/types';
 
 export function isSameDay(a: Date, b: Date): boolean {
-  return a.toDateString() === b.toDateString();
+  if (a && b) {
+    return a.toDateString() === b.toDateString();
+  }
+
+  return false;
 }
 
-export function dateFormat(date: Date | null, locale: DateLocale) {
+export function isMoreThan(a: Date, b: Date): boolean {
+  if (a && b) {
+    return a.getTime() > b.getTime();
+  }
+
+  return false;
+}
+
+export function dateFormat(date: DateValue, locale: DateLocale) {
   if (date) {
     return new Intl.DateTimeFormat(locale).format(date);
   }
@@ -62,7 +74,7 @@ export function getDisplayedDays(date: Date): Day[] {
   let days: Day[] = [];
   const firstDay = new Date(year, month, 1).getDay();
   const prevMonth = navigateToMonth('previous', month, year);
-  const nextMonth = navigateToMonth('previous', month, year);
+  const nextMonth = navigateToMonth('next', month, year);
 
   const prevMonthDays = monthDays(prevMonth.month, prevMonth.year);
   days = prevMonthDays.slice(prevMonthDays.length - firstDay, prevMonthDays.length);

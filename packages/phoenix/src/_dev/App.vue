@@ -3,20 +3,23 @@ import 'uno.css';
 import '../assets/main.css';
 import { ref } from 'vue';
 import { DatePicker } from '~/components';
+import type { DateRangeValue } from '~/types';
 
-const date = ref(new Date('10/2/2023'));
+const range = ref<DateRangeValue>({ start: null, end: null });
 </script>
 
 <template>
   <div class="container">
-    <DatePicker v-model="date" />
+    <DatePicker v-model:range="range" />
   </div>
 </template>
 
 <style scoped>
 .container {
   display: flex;
+  flex-direction: column;
   max-width: 500px;
   margin: 30px auto;
+  gap: 60px;
 }
 </style>
