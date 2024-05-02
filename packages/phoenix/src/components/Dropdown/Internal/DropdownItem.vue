@@ -20,7 +20,9 @@ watch(() => props.selected, (newValue) => {
 
 <template>
   <button class="dropdown-item" type="button" tabindex="-1" :class="[{ selected }]" @click="() => emit('onSelect')">
-    <Checkbox v-if="multiple" v-model="checked" tabindex="-1" />
+    <div class="check-box">
+      <Checkbox v-if="multiple" v-model="checked" tabindex="-1" />
+    </div>
     <slot>
       <div class="dropdown-item-label">
         {{ item.label }}
@@ -44,12 +46,15 @@ watch(() => props.selected, (newValue) => {
 }
 
 .dropdown-item.selected,
-.dropdown-item:hover,
-.dropdown-item:focus {
+.dropdown-item:hover {
   background-color: var(--gray-50);
 }
 
 .dropdown-item.focus {
   background-color: var(--gray-100);
+}
+
+.dropdown-item .check-box {
+  pointer-events: none;
 }
 </style>

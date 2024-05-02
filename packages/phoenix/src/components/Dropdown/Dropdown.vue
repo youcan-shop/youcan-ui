@@ -284,7 +284,7 @@ onClickOutside(dropdown, () => show.value = false);
   --input-border: 1px solid var(--gray-200);
   --input-shadow: var(--shadow-xs-gray);
   --caret-transform: rotate(0deg);
-  --duration: 250ms;
+  --duration: 150ms;
 
   position: relative;
   width: 100%;
@@ -539,7 +539,7 @@ html[dir="rtl"] .dropdown .list-container .dropdown-list .group-item {
   padding-left: 16px;
 }
 
-html[dir="rtl"] .dropdown .dropdown-input .clear-button {
+html[dir="rtl"] .dropdown .clear-button {
   right: unset;
   left: 40px;
 }
