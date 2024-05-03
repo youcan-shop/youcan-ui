@@ -32,23 +32,29 @@ function isSelected(day: Day) {
 
 function whichOne(day: Day) {
   const { range, hoverDate } = props;
+
   if (range && day.date) {
-    if (isSameDay(day.date, (range.start as Date)) && isSameDay(day.date, (range.end as Date))) {
+    const start = (range.start as Date);
+    const end = (range.end as Date);
+    const hDate = (hoverDate as Date);
+
+    if (isSameDay(day.date, start) && isSameDay(day.date, end)) {
       return '';
     }
 
-    if (isSameDay(day.date, (range.start as Date)) || isMoreThan((range.start as Date), (hoverDate as Date))) {
+    if (isMoreThan(start, day.date) && isMoreThan(day.date, hDate)) {
+      return 'middle';
+    }
+
+    if (isSameDay(day.date, start) || isMoreThan(start, hDate)) {
       return 'start';
     }
 
-    if (isSameDay(day.date, (range.end as Date)) || isSameDay(day.date, (hoverDate as Date))) {
+    if (isSameDay(day.date, end) || isSameDay(day.date, hDate)) {
       return 'end';
     }
 
-    if ((isMoreThan((range.end as Date), day.date) || isMoreThan((hoverDate as Date), day.date))
-      && isMoreThan(day.date, (range.start as Date))
-      && day.isInMonth
-    ) {
+    if ((isMoreThan(end, day.date) || isMoreThan(hDate, day.date)) && isMoreThan(day.date, start) && day.isInMonth) {
       return 'middle';
     }
   }
