@@ -2,6 +2,7 @@
 import { computed, nextTick, onMounted, onUnmounted, ref, useSlots } from 'vue';
 import { onClickOutside } from '@vueuse/core';
 import DropdownItem from './Internal/DropdownItem.vue';
+import DropdownGroupName from './Internal/DropdownGroupName.vue';
 import { elementChildrenNavigate } from './utils';
 import type { DropdownProps, DropdownValue } from '~/types';
 import { setPosition } from '~/helpers';
@@ -109,8 +110,11 @@ function getGroupNames() {
   });
 }
 
-function groupByName(name: string) {
+function groupByName(name: string, inModel = false): DropdownValue[] {
   const { items } = props;
+  if (inModel) {
+    return asArray().filter(item => item.groupName === name);
+  }
 
   return items.filter(item => item.groupName === name);
 }
@@ -173,13 +177,6 @@ function handleResize() {
   ListPosition();
 }
 
-function handleFocusout(event: FocusEvent) {
-  const target = event.relatedTarget;
-  if (!dropdown.value.contains(target)) {
-    toggle(false);
-  }
-}
-
 let currentElement: Element | null = null;
 function handleKeypress(event: KeyboardEvent) {
   const key = event.key;
@@ -202,12 +199,29 @@ function handleKeypress(event: KeyboardEvent) {
     clear();
   }
 }
+function selectGroupItems(checked: boolean, name: string) {
+  const override: DropdownValue[] = asArray() ? asArray() : [];
+  const { limit } = props;
+
+  groupByName(name).forEach((item: DropdownValue) => {
+    const index = override.findIndex((el: DropdownValue) => el.key === item.key);
+    if ((limit > 0 && override.length < limit) || !checked || limit === 0) {
+      if (checked && index === -1) {
+        override.push(item);
+      }
+      else if (!checked && index > -1) {
+        override.splice(index, 1);
+      }
+    }
+  });
+  ListPosition();
+  emit('update:modelValue', override.length ? override : null);
+}
 
 onMounted(() => {
   window.addEventListener('resize', handleResize);
 
   dropdown.value?.addEventListener('keydown', handleKeypress);
-  dropdown.value.addEventListener('focusout', handleFocusout);
 
   const { items } = props;
   const list = items.filter((item: DropdownValue) => item.groupName !== undefined && item.groupName !== '');
@@ -222,7 +236,6 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener('resize', handleResize);
   window.removeEventListener('keydown', handleKeypress);
-  dropdown.value?.removeEventListener('focusout', handleFocusout);
 });
 
 onClickOutside(dropdown, () => show.value = false);
@@ -249,9 +262,11 @@ onClickOutside(dropdown, () => show.value = false);
         <div v-if="items.length" ref="dropdownList" class="dropdown-list" @scroll="handleScroll">
           <template v-if="groupNames.length">
             <template v-for="name in groupNames" :key="name">
-              <div class="group-name">
-                {{ name }}
-              </div>
+              <DropdownGroupName
+                :selected="multiple && groupByName(name, true).length > 0"
+                v-bind="{ multiple, name }"
+                @on-select="selectGroupItems"
+              />
               <DropdownItem v-for="item in groupByName(name)" :key="item.key" :selected="selected(item)" class="group-item" :multiple="multiple" :item="item" @on-select="updateModel(item)">
                 <template v-if="slots.item">
                   <slot v-bind="item" name="item" />
@@ -483,12 +498,28 @@ onClickOutside(dropdown, () => show.value = false);
   background-image: linear-gradient(to top, var(--base-white), rgb(255 255 255 / 50%), transparent);
 }
 
-.dropdown .list-container .dropdown-list .group-name {
-  padding: 6px 16px;
+.dropdown .list-container .dropdown-list:deep(.group-name) {
+  display: flex;
+  align-items: center;
+  padding: 16px;
   color: var(--gray-900);
   font: var(--text-sm-medium);
   cursor: not-allowed;
   user-select: none;
+  gap: 16px;
+}
+
+.dropdown .list-container .dropdown-list:deep(.group-name .check-box) {
+  pointer-events: none;
+}
+
+.dropdown.multiple .list-container .dropdown-list:deep(.group-name) {
+  transition: background-color 150ms linear;
+  cursor: pointer;
+}
+
+.dropdown.multiple .list-container .dropdown-list:deep(.group-name:hover) {
+  background-color: var(--gray-50);
 }
 
 .dropdown .list-container .dropdown-list .group-item {

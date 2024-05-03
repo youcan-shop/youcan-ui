@@ -20,8 +20,8 @@ watch(() => props.selected, (newValue) => {
 
 <template>
   <button class="dropdown-item" type="button" tabindex="-1" :class="[{ selected }]" @click="() => emit('onSelect')">
-    <div class="check-box">
-      <Checkbox v-if="multiple" v-model="checked" tabindex="-1" />
+    <div v-if="multiple" class="check-box">
+      <Checkbox v-model="checked" tabindex="-1" />
     </div>
     <slot>
       <div class="dropdown-item-label">

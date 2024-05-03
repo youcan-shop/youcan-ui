@@ -10,6 +10,13 @@ export interface DropdownItemProps {
   selected?: boolean
 }
 
+export interface DropdownGroupNameProps {
+  name: string
+  multiple?: boolean
+  selected?: boolean
+  indeterminate?: boolean
+}
+
 export interface DropdownCommonProps {
   searchable?: boolean
   searchInputPlaceholder?: string
