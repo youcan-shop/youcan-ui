@@ -42,7 +42,8 @@ function whichOne(day: Day) {
       return '';
     }
 
-    if (isMoreThan(start, day.date) && isMoreThan(day.date, hDate)) {
+    if (((isMoreThan(end, day.date) || isMoreThan(hDate, day.date)) && isMoreThan(day.date, start) && day.isInMonth)
+      || (isMoreThan(start, day.date) && isMoreThan(day.date, hDate))) {
       return 'middle';
     }
 
@@ -52,10 +53,6 @@ function whichOne(day: Day) {
 
     if (isSameDay(day.date, end) || isSameDay(day.date, hDate)) {
       return 'end';
-    }
-
-    if ((isMoreThan(end, day.date) || isMoreThan(hDate, day.date)) && isMoreThan(day.date, start) && day.isInMonth) {
-      return 'middle';
     }
   }
 
@@ -79,12 +76,9 @@ function handleHover(day: Day) {
       {{ day }}
     </div>
     <button
-      v-for="(day, index) in calendarDays"
-      :key="index" class="day"
+      v-for="(day, index) in calendarDays" :key="index" class="day"
       :class="[{ 'is-tody': day.isToday }, { selected: isSelected(day) }, `${day.isInMonth ? 'in' : 'out'}`, whichOne(day)]"
-      type="button"
-      @click="select(day)"
-      @mouseover="handleHover(day)"
+      type="button" @click="select(day)" @mouseover="handleHover(day)"
     >
       {{ day.date?.getDate() }}
     </button>
