@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { onClickOutside } from '@vueuse/core';
 import { computed, nextTick, ref } from 'vue';
+import { Presets } from './Internal';
 import { Button, Calendar } from '~/components';
 import { dateFormat, setPosition } from '~/helpers';
 import type { DatePickerProps, DateRangeValue, DateValue } from '~/types';
@@ -18,6 +19,8 @@ const rangeDate = ref<DateRangeValue>(props.range);
 const show = ref(false);
 const calendarWrap = ref();
 const datePicker = ref();
+
+const hasPresets = computed(() => props.presets && props.presets.length && props.range);
 
 const datesFormat = computed(() => {
   const { modelValue, locale, range } = props;
@@ -73,7 +76,8 @@ onClickOutside(datePicker, () => show.value = false);
       <i class="i-youcan:calendar-blank" />
     </Button>
     <Transition name="animate">
-      <div v-if="show" ref="calendarWrap" class="calendar-wrap">
+      <div v-if="show" ref="calendarWrap" class="calendar-wrap" :class="{ 'has-presets': hasPresets }">
+        <Presets v-if="hasPresets" :presets="presets" />
         <Calendar
           v-model="date"
           v-model:range="rangeDate"
@@ -120,9 +124,21 @@ onClickOutside(datePicker, () => show.value = false);
 }
 
 .date-picker .calendar-wrap {
+  display: grid;
   position: fixed;
   z-index: 9999999999;
+  grid-template-columns: repeat(2, auto);
   background-color: var(--base-white);
+}
+
+.date-picker .calendar-wrap.has-presets {
+  border: 1px solid var(--gray-200);
+  border-radius: 8px;
+}
+
+.date-picker .calendar-wrap.has-presets:deep(.calendar) {
+  border: 0;
+  border-radius: 0;
 }
 
 .animate-enter-active {
