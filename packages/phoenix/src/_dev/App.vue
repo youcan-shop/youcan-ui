@@ -12,7 +12,7 @@ const range = ref<DateRangeValue>({ start: null, end: null });
 <template>
   <div class="container">
     <DatePicker v-model="date" placeholder="Select date" />
-    <DatePicker v-model:range="range" placeholder="Select dates" />
+    <DatePicker v-model:range="range" placeholder="Select dates" :close-on-select="false" />
   </div>
 </template>
 

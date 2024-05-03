@@ -7,6 +7,7 @@ import type { DatePickerProps, DateRangeValue, DateValue } from '~/types';
 
 const props = withDefaults(defineProps<DatePickerProps>(), {
   locale: 'en',
+  closeOnSelect: true,
 });
 
 const emit = defineEmits(['update:modelValue', 'update:range']);
@@ -35,12 +36,21 @@ const datesFormat = computed(() => {
   return '';
 });
 
+function close() {
+  if (props.closeOnSelect) {
+    show.value = false;
+  }
+}
 function updateModel(value: DateValue) {
   emit('update:modelValue', value);
+  close();
 }
 
 function updateRange(value: DateRangeValue) {
   emit('update:range', value);
+  if (value && value.start && value.end) {
+    close();
+  }
 }
 
 function ListPosition() {

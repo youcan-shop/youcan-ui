@@ -28,4 +28,5 @@ export interface CalendarProps extends SharedProps {}
 
 export interface DatePickerProps extends SharedProps {
   placeholder?: string
+  closeOnSelect?: boolean
 }
