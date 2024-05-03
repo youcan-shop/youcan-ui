@@ -112,6 +112,10 @@ function handleHover(day: Day) {
   text-transform: capitalize;
 }
 
+.day:not(.name):focus {
+  box-shadow: var(--focus-shadow-xs-brand);
+}
+
 .day.in {
   transition: background-color 70ms ease-in-out;
   cursor: pointer;
