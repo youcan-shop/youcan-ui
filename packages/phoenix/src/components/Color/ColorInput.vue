@@ -9,6 +9,7 @@ const props = withDefaults(
   {
     modelValue: '',
     error: false,
+    disabled: false,
   },
 );
 
@@ -18,7 +19,9 @@ const picker = ref();
 const show = ref(false);
 
 function toggle(override = !show.value) {
-  show.value = override;
+  if (!props.disabled) {
+    show.value = override;
+  }
 }
 
 function updateModelValue(value: string) {
@@ -29,7 +32,7 @@ onClickOutside(picker, () => toggle(false));
 
 <template>
   <div class="wrapper">
-    <div class="input-picker" tabindex="0" :class="{ error: props.error }" @click="() => toggle()">
+    <div class="input-picker" tabindex="0" :class="{ error: props.error, disabled: props.disabled }" @click="() => toggle()">
       <div class="preview" :style="{ 'background-color': props.modelValue }" />
       <span>{{ props.modelValue }}</span>
     </div>
@@ -60,14 +63,20 @@ onClickOutside(picker, () => toggle(false));
   box-shadow: var(--focus-shadow-xs-brand);
 }
 
-.input-picker:disabled {
+.input-picker.error {
+  border: 1px solid var(--red-500);
+  box-shadow: var(--focus-shadow-xs-red);
+}
+
+.input-picker.disabled {
+  opacity: 0.5;
   background-color: #ddd;
   cursor: not-allowed;
 }
 
-.input-picker.error {
-  border: 1px solid var(--red-500);
-  box-shadow: var(--focus-shadow-xs-red);
+.input-picker.disabled:focus {
+  border: 1px solid var(--gray-500);
+  box-shadow: var(--focus-shadow-xs-gray);
 }
 
 .preview {
