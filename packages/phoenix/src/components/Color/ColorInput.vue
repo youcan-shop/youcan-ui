@@ -1,86 +1,44 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 import { onClickOutside } from '@vueuse/core';
-import { computed, onMounted, ref, useAttrs } from 'vue';
-import { createPopper } from '@popperjs/core';
-import ColorPicker from './ColorPicker.vue';
-import Backdrop from './Internal/Backdrop.vue';
-import type { ColorInputProps } from '~/types';
+import type { ColorInputProps } from './types';
+import { ColorPicker } from '~/components';
 
-const props = withDefaults(
+const { error } = withDefaults(
   defineProps<ColorInputProps>(),
   {
-    modelValue: '#ffffff',
-    preserveTransparency: false,
+    modelValue: '',
+    error: true,
   },
 );
-const emit = defineEmits(['update:modelValue']);
-
-const attrs = useAttrs();
-const wrapper = ref<HTMLDivElement>();
 
 const picker = ref();
 const show = ref(false);
+const colorv3 = ref('#A8B1FFFF');
+
 function toggle(override = !show.value) {
   show.value = override;
 }
 onClickOutside(picker, () => toggle(false));
-
-const model = computed({
-  get: () => props.modelValue,
-  set: (value: string) => emit('update:modelValue', value),
-});
-
-const setColor = (color: { hexa: string }) => model.value = color.hexa;
-
-const pickerWrapper = ref();
-
-onMounted(() => {
-  if (!wrapper.value || !pickerWrapper.value) {
-    return;
-  }
-
-  createPopper(wrapper.value, pickerWrapper.value, {
-    placement: 'bottom',
-    modifiers: [
-      {
-        name: 'offset',
-        options: {
-          offset: [0, 8],
-        },
-      },
-    ],
-  });
-});
 </script>
 
 <template>
-  <div class="color-input">
-    <div
-      ref="wrapper" tabindex="0" :class="{ enabled: !attrs.disabled }" class="wrapper" v-bind="$attrs"
-      @click="() => toggle()"
-    >
-      <Backdrop class="preview" :width="40" :height="32" :color="model" />
-      <div class="value">
-        {{ model }}
-      </div>
+  <div class="wrapper">
+    <div class="input-picker" :class="{ error }" @click="() => toggle()">
+      <div class="preview" />
+      <div>test</div>
     </div>
-    <div ref="pickerWrapper" class="picker-wrapper">
-      <ColorPicker
-        v-show="show && !attrs.disabled" ref="picker" class="picker" :color="model" :defaults="[]"
-        :preserve-transparency="preserveTransparency" @setcolor="setColor"
-      />
-    </div>
+    <ColorPicker v-show="show" ref="picker" class="picker" :color="colorv3" />
   </div>
 </template>
 
 <style scoped>
-.color-input {
+.wrapper {
   position: relative;
 }
 
-.wrapper {
+.input-picker {
   display: flex;
-  box-sizing: border-box;
   align-items: center;
   padding: 6px;
   border: 1px solid var(--gray-200);
@@ -90,44 +48,43 @@ onMounted(() => {
   gap: 12px;
 }
 
-.wrapper.enabled:hover {
-  border: 1px solid var(--gray-300);
+.input-picker:focus {
+  border-color: green;
+
+  /* Focus style */
+  background-color: #e0e0e0;
 }
 
-.wrapper.enabled:focus {
-  border: 1px solid var(--brand-500);
-  box-shadow: var(--focus-shadow-xs-brand);
+.input-picker:hover {
+  /* Hover style */
+  background-color: red;
 }
 
-.wrapper:not(.enabled) {
-  background-color: var(--gray-50);
+.input-picker:disabled {
+  /* Disabled style */
+  background-color: #ddd;
+  cursor: not-allowed;
 }
 
-.wrapper.enabled.error:focus {
-  box-shadow: var(--focus-shadow-xs-red);
-}
-
-.wrapper:focus,
-.wrapper:active {
-  outline: none;
+.input-picker.error {
+  /* Error style */
+  border-color: red;
 }
 
 .preview {
-  border: 1px solid var(--gray-200);
-  border-radius: 4px;
-}
-
-.value {
-  font: var(--text-sm-regular);
-}
-
-.picker-wrapper {
-  z-index: 100;
-  width: 100%;
+  width: 35px;
+  height: 35px;
+  border-radius: 6px;
+  background-color: var(--brand-500);
 }
 
 .picker {
+  position: absolute;
+  z-index: 100;
+  margin: 0;
+  transform: translate3d(0, 56px, 0);
   border: 1px solid var(--gray-200);
   box-shadow: var(--shadow-md-gray);
+  inset: 0 auto auto 0;
 }
 </style>
