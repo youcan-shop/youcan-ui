@@ -1,4 +1,4 @@
-import type { DateLocale, DateValue, Day, NavigateDirection } from '~/types';
+import type { DateLocale, DateValue, Day } from '~/types';
 
 interface DateTimeFormatOptions {
   day?: 'numeric' | '2-digit'
@@ -33,21 +33,11 @@ export function dateFormat(date: DateValue, locale: DateLocale) {
   return '';
 }
 
-export function navigateToMonth(direction: NavigateDirection, currentMonth: number, currentYear: number) {
-  let year = currentYear;
-  let month = currentMonth;
+export function navigateToMonth(currentDate: Date, monthCount = 1) {
+  const date = new Date(currentDate);
+  date.setMonth(currentDate.getMonth() + monthCount);
 
-  if (direction === 'next') {
-    month = currentMonth < 11 ? currentMonth + 1 : 0;
-    year = month === 0 ? currentYear + 1 : currentYear;
-  }
-
-  if (direction === 'previous') {
-    month = currentMonth > 0 ? currentMonth - 1 : 11;
-    year = month === 11 ? currentYear - 1 : currentYear;
-  }
-
-  return { year, month };
+  return date;
 }
 
 export function getWeekdayNames(locale: DateLocale = 'en'): string[] {
@@ -82,15 +72,16 @@ export function getDisplayedDays(date: Date): Day[] {
   const month = date.getMonth();
   let days: Day[] = [];
   const firstDay = new Date(year, month, 1).getDay();
-  const prevMonth = navigateToMonth('previous', month, year);
-  const nextMonth = navigateToMonth('next', month, year);
+  const prevMonth = navigateToMonth(date, -1);
+  const nextMonth = navigateToMonth(date);
 
-  const prevMonthDays = monthDays(prevMonth.month, prevMonth.year);
+  const prevMonthDays = monthDays(prevMonth.getMonth(), prevMonth.getFullYear());
   days = prevMonthDays.slice(prevMonthDays.length - firstDay, prevMonthDays.length);
 
   monthDays(month, year, true).forEach((day: Day) => days.push(day));
 
-  const nextMonthDays = monthDays(nextMonth.month, nextMonth.year);
+  const nextMonthDays = monthDays(nextMonth.getMonth(), nextMonth.getFullYear());
+
   const nextDaysCount = days.length % 7;
   if (nextDaysCount > 0) {
     nextMonthDays.slice(0, 7 - nextDaysCount).forEach((day: Day) => days.push(day));

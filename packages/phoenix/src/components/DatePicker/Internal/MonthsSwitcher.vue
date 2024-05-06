@@ -2,33 +2,31 @@
 import { nextTick, ref } from 'vue';
 import { Button } from '~/components';
 import { monthToString, navigateToMonth } from '~/helpers';
-import type { MonthsSwitcherProps, NavigateDirection } from '~/types';
+import type { MonthsSwitcherProps } from '~/types';
 
 const props = defineProps<MonthsSwitcherProps>();
 const emit = defineEmits(['update:modelValue']);
 
-const MONTH = ref(props.modelValue.getMonth());
-const YEAR = ref(props.modelValue.getFullYear());
+const month = ref(props.modelValue);
 
-function update(direction: NavigateDirection = 'next') {
-  const nextMonth = navigateToMonth(direction, MONTH.value, YEAR.value);
-  MONTH.value = nextMonth.month;
-  YEAR.value = nextMonth.year;
+function update(monthCount: number) {
+  month.value = navigateToMonth(month.value, monthCount);
+
   nextTick(() => {
-    emit('update:modelValue', new Date(YEAR.value, MONTH.value + 1, 0));
+    emit('update:modelValue', month.value);
   });
 }
 </script>
 
 <template>
   <div class="months-switcher">
-    <Button variant="tertiary" class="navigation-button" @click="update('previous')">
+    <Button variant="tertiary" class="navigation-button" @click="update(-1)">
       <i class="i-youcan:caret-left" />
     </Button>
     <button class="year-label">
-      {{ monthToString(MONTH, locale) }} {{ YEAR }}
+      {{ monthToString(month.getMonth(), locale) }} {{ month.getFullYear() }}
     </button>
-    <Button variant="tertiary" class="navigation-button" @click="update()">
+    <Button variant="tertiary" class="navigation-button" @click="update(1)">
       <i class="i-youcan:caret-right" />
     </Button>
   </div>

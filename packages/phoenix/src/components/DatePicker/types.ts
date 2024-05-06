@@ -1,5 +1,4 @@
 export type DateLocale = 'en' | 'fr' | 'es' | 'de' | 'ar';
-export type NavigateDirection = 'next' | 'previous';
 export type DateValue = Date | null | undefined;
 export interface RangeType { start: DateValue; end: DateValue}
 export type DateRangeValue = RangeType | undefined;

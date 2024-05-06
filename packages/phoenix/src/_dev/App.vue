@@ -8,13 +8,14 @@ import type { DateRangeValue, DateValue, Preset } from '~/types';
 const date = ref<DateValue>(null);
 const range = ref<DateRangeValue>({ start: null, end: null });
 
-function daysDiff(days: number) {
-  return 7 * 24 * 60 * 60 * 1000;
+function DatesDiff(days: number) {
+  return new Date(new Date().getTime() - days * 24 * 60 * 60 * 1000);
 }
+
 const presets: Preset[] = [
-  { label: 'Last 7 days', from: new Date(new Date().getTime() - daysDiff(7)), to: new Date() },
-  { label: 'Last 30 days', from: new Date(new Date().getTime() - daysDiff(30)), to: new Date() },
-  { label: 'Last 90 days', from: new Date(new Date().getTime() - daysDiff(90)), to: new Date() },
+  { label: 'Last 7 days', from: DatesDiff(7), to: new Date() },
+  { label: 'Last 30 days', from: DatesDiff(30), to: new Date() },
+  { label: 'Last 90 days', from: DatesDiff(90), to: new Date() },
 ];
 </script>
 
