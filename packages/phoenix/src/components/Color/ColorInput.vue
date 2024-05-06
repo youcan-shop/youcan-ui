@@ -29,7 +29,7 @@ onClickOutside(picker, () => toggle(false));
 
 <template>
   <div class="wrapper">
-    <div class="input-picker" :class="{ error: props.error }" @click="() => toggle()">
+    <div class="input-picker" tabindex="0" :class="{ error: props.error }" @click="() => toggle()">
       <div class="preview" :style="{ 'background-color': props.modelValue }" />
       <span>{{ props.modelValue }}</span>
     </div>
@@ -45,13 +45,14 @@ onClickOutside(picker, () => toggle(false));
 .input-picker {
   display: flex;
   align-items: center;
+  width: 150px;
   padding: 6px;
   border: 1px solid var(--gray-200);
   border-radius: 8px;
   background-color: var(--base-white);
   box-shadow: var(--shadow-xs-gray);
-  gap: 12px;
   cursor: pointer;
+  gap: 12px;
 }
 
 .input-picker:focus {
@@ -59,19 +60,14 @@ onClickOutside(picker, () => toggle(false));
   box-shadow: var(--focus-shadow-xs-brand);
 }
 
-.input-picker:hover {
-  border: 1px solid var(--gray-300);
-}
-
 .input-picker:disabled {
-  /* Disabled style */
   background-color: #ddd;
   cursor: not-allowed;
 }
 
 .input-picker.error {
-  /* Error style */
-  border-color: red;
+  border: 1px solid var(--red-500);
+  box-shadow: var(--focus-shadow-xs-red);
 }
 
 .preview {
