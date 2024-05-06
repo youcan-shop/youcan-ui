@@ -4,31 +4,36 @@ import { onClickOutside } from '@vueuse/core';
 import type { ColorInputProps } from './types';
 import { ColorPicker } from '~/components';
 
-const { error } = withDefaults(
+const props = withDefaults(
   defineProps<ColorInputProps>(),
   {
     modelValue: '',
-    error: true,
+    error: false,
   },
 );
 
+const emit = defineEmits(['update:modelValue']);
+
 const picker = ref();
 const show = ref(false);
-const colorv3 = ref('#A8B1FFFF');
 
 function toggle(override = !show.value) {
   show.value = override;
+}
+
+function updateModelValue(value: string) {
+  emit('update:modelValue', value);
 }
 onClickOutside(picker, () => toggle(false));
 </script>
 
 <template>
   <div class="wrapper">
-    <div class="input-picker" :class="{ error }" @click="() => toggle()">
-      <div class="preview" />
-      <div>test</div>
+    <div class="input-picker" :class="{ error: props.error }" @click="() => toggle()">
+      <div class="preview" :style="{ 'background-color': props.modelValue }" />
+      <span>{{ props.modelValue }}</span>
     </div>
-    <ColorPicker v-show="show" ref="picker" class="picker" :color="colorv3" />
+    <ColorPicker v-show="show" ref="picker" class="picker" :model-value="props.modelValue" @update:model-value="updateModelValue" />
   </div>
 </template>
 
@@ -46,18 +51,16 @@ onClickOutside(picker, () => toggle(false));
   background-color: var(--base-white);
   box-shadow: var(--shadow-xs-gray);
   gap: 12px;
+  cursor: pointer;
 }
 
 .input-picker:focus {
-  border-color: green;
-
-  /* Focus style */
-  background-color: #e0e0e0;
+  border: 1px solid var(--brand-500);
+  box-shadow: var(--focus-shadow-xs-brand);
 }
 
 .input-picker:hover {
-  /* Hover style */
-  background-color: red;
+  border: 1px solid var(--gray-300);
 }
 
 .input-picker:disabled {

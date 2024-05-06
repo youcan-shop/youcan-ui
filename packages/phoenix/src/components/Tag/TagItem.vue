@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
-import type { ColorObject } from '@youcan/ui-core';
 import { onClickOutside } from '@vueuse/core';
 import type { TagItemProps, TagItemValue } from '~/types';
-import Backdrop from '~/components/Color/Internal/Backdrop.vue';
 import ColorPicker from '~/components/Color/ColorPicker.vue';
 
 const props = withDefaults(defineProps<TagItemProps>(), {
@@ -26,7 +24,7 @@ const isColorPickerVisible = ref(false);
 const colorPicker = ref<HTMLDivElement>();
 
 const toggleColorPicker = (state = !isColorPickerVisible.value) => isColorPickerVisible.value = state;
-const setColor = (color: ColorObject) => colorValue.value = color.hexa;
+const updateColor = (color: string) => colorValue.value = color;
 const removeItem = () => emit('remove');
 
 onClickOutside(colorPicker, () => toggleColorPicker(false));
@@ -34,15 +32,9 @@ onClickOutside(colorPicker, () => toggleColorPicker(false));
 
 <template>
   <div class="tag-item">
-    <Backdrop
-      v-if="type === 'color'" class="preview" :width="15" :height="15" :color="colorValue"
-      @click="toggleColorPicker"
-    />
+    <div v-if="type === 'color'" class="preview" :style="{ 'background-color': colorValue }" @click="() => toggleColorPicker()" />
     <div v-if="type === 'color'" class="color-picker-container">
-      <ColorPicker
-        v-show="isColorPickerVisible" ref="colorPicker" :color="colorValue" :defaults="[]"
-        @setcolor="setColor"
-      />
+      <ColorPicker v-show="isColorPickerVisible" ref="colorPicker" :model-value="colorValue" @update:model-value="updateColor" />
     </div>
     <span class="text">{{ model.label }}</span>
     <i class="i-youcan-x icon" @click="removeItem" />
@@ -77,6 +69,8 @@ onClickOutside(colorPicker, () => toggleColorPicker(false));
 }
 
 .tag-item .preview {
+  width: 15px;
+  height: 15px;
   border-radius: 50%;
   cursor: pointer;
 }

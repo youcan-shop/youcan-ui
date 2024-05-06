@@ -7,17 +7,16 @@ import { Divider, Input } from '~/components/';
 const props = withDefaults(
   defineProps<ColorPickerProps>(),
   {
-    color: '',
     preserveTransparency: false,
     swatches: () => ['#B8256EFF', '#25B86AFF', '#127EE3FF', '#F2990EFF', '#CC2929FF'],
   },
 );
 
-const emit = defineEmits(['setcolor']);
+const emit = defineEmits(['update:modelValue']);
 
 const canvas = ref<HTMLCanvasElement>();
-const color = ref(props.color);
-const inputColor = ref(props.color);
+const color = ref<string>(props.modelValue);
+const inputColor = ref<string>(props.modelValue);
 
 const colorSlider = ref();
 const colorValue = ref(360);
@@ -28,6 +27,7 @@ function handleCanvasClick(event: MouseEvent) {
   const result = (handleMouseClick(canvas, event) as string);
   color.value = result;
   inputColor.value = result;
+  emit('update:modelValue', color.value);
 }
 
 function handleSwatchClick(swatch: string) {
@@ -37,6 +37,7 @@ function handleSwatchClick(swatch: string) {
   inputColor.value = swatch;
   color.value = swatch;
   renderCanvas(canvas, color.value);
+  emit('update:modelValue', color.value);
 }
 
 function updateColor() {
@@ -46,27 +47,31 @@ function updateColor() {
   color.value = `${hex}${alpha}`;
   inputColor.value = `${hex}${alpha}`;
   renderCanvas(canvas, color.value);
+  emit('update:modelValue', color.value);
 }
 
 function updateAlpha() {
   const alpha = Math.floor(alphaValue.value * 255).toString(16).padStart(2, '0').toUpperCase();
   color.value = color.value.replace(/..$/, alpha);
   inputColor.value = color.value.replace(/..$/, alpha);
+  emit('update:modelValue', color.value);
 }
 
 watchEffect(() => {
   if (inputColor.value !== color.value) {
     color.value = inputColor.value;
     renderCanvas(canvas, inputColor.value);
-    emit('setcolor', inputColor.value);
+    emit('update:modelValue', inputColor.value);
   }
 });
 
 onMounted(() => {
-  const { hue, saturation } = getSliderValueFromColor(props.color);
+  const { hue, saturation } = getSliderValueFromColor(props.modelValue);
   colorValue.value = hue;
   alphaValue.value = saturation;
-  renderCanvas(canvas, props.color);
+  renderCanvas(canvas, props.modelValue);
+
+  emit('update:modelValue', props.modelValue);
 
   colorSlider.value.addEventListener('input', updateColor);
   alphaSlider.value.addEventListener('input', updateAlpha);
