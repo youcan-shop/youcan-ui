@@ -1,8 +1,17 @@
 export type DateLocale = 'en' | 'fr' | 'es' | 'de' | 'ar';
 export type DateValue = Date | null | undefined;
-export interface RangeType { start: DateValue; end: DateValue}
+export interface RangeType {
+  start: DateValue
+  end: DateValue
+}
 export type DateRangeValue = RangeType | undefined;
-export interface Preset {label: string; from: Date; to: Date}
+
+export interface Preset {
+  label: string
+  from: Date
+  to: Date
+  active?: boolean
+}
 
 export interface Day {
   date?: Date

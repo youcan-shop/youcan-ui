@@ -1,20 +1,16 @@
 <script setup lang="ts">
-import type { Preset, PresetsProps } from '~/types';
+import type { PresetsProps } from '~/types';
 
 defineProps<PresetsProps>();
 
 const emit = defineEmits(['select']);
-
-function select(preset: Preset) {
-  emit('select', preset);
-}
 </script>
 
 <template>
   <div class="presets">
     <ul class="presets-list">
-      <li v-for="(preset, index) in presets?.slice(0, 6)" :key="index" class="presets-list-item">
-        <button @click="select(preset)">
+      <li v-for="(preset, index) in presets?.slice(0, 6)" :key="index" class="presets-list-item" :class="{ active: preset.active }">
+        <button @click="() => emit('select', index)">
           {{ preset.label }}
         </button>
       </li>
@@ -41,6 +37,7 @@ function select(preset: Preset) {
   padding: 0 12px;
   list-style-type: none;
   border-right: 1px solid var(--gray-200);
+  row-gap: 5px;
 }
 
 .presets .presets-list .presets-list-item button {

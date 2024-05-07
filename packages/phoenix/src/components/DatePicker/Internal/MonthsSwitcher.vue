@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { nextTick, ref } from 'vue';
+import { computed, nextTick } from 'vue';
 import { Button } from '~/components';
 import { monthToString, navigateToMonth } from '~/helpers';
 import type { MonthsSwitcherProps } from '~/types';
@@ -7,7 +7,10 @@ import type { MonthsSwitcherProps } from '~/types';
 const props = defineProps<MonthsSwitcherProps>();
 const emit = defineEmits(['update:modelValue']);
 
-const month = ref(props.modelValue);
+const month = computed({
+  get: () => props.modelValue,
+  set: (value: Date) => emit('update:modelValue', value),
+});
 
 function update(monthCount: number) {
   month.value = navigateToMonth(month.value, monthCount);

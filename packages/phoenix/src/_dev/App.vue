@@ -4,25 +4,46 @@ import '../assets/main.css';
 import { ref } from 'vue';
 import { DatePicker } from '~/components';
 import type { DateRangeValue, DateValue, Preset } from '~/types';
+import { getDateLast, navigateToMonth } from '~/helpers';
 
 const date = ref<DateValue>(null);
 const range = ref<DateRangeValue>({ start: null, end: null });
 
-function DatesDiff(days: number) {
-  return new Date(new Date().getTime() - days * 24 * 60 * 60 * 1000);
-}
-
-const presets: Preset[] = [
-  { label: 'Last 7 days', from: DatesDiff(7), to: new Date() },
-  { label: 'Last 30 days', from: DatesDiff(30), to: new Date() },
-  { label: 'Last 90 days', from: DatesDiff(90), to: new Date() },
-];
+const DateNow = new Date();
+const presets = ref<Preset[]> ([
+  {
+    label: 'Last 7 days',
+    from: getDateLast(7),
+    to: DateNow,
+  },
+  {
+    label: 'Last 30 days',
+    from: getDateLast(30),
+    to: DateNow,
+    active: true,
+  },
+  {
+    label: 'Last month',
+    from: navigateToMonth(new Date(), -1),
+    to: new Date(DateNow.getFullYear(), DateNow.getMonth(), 0),
+  },
+  {
+    label: 'Last 90 days',
+    from: getDateLast(90),
+    to: DateNow,
+  },
+  {
+    label: 'Last 3 months',
+    from: navigateToMonth(DateNow, -3),
+    to: new Date(DateNow.getFullYear(), DateNow.getMonth(), 0),
+  },
+]);
 </script>
 
 <template>
   <div class="container">
     <DatePicker v-model="date" placeholder="Select date" />
-    <DatePicker v-model:range="range" :presets="presets" placeholder="Select dates" :close-on-select="false" />
+    <DatePicker v-model:range="range" v-model:presets="presets" placeholder="Select dates" :close-on-select="false" />
   </div>
 </template>
 

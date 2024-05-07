@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { Days, MonthsSwitcher } from './Internal';
 import type { CalendarProps, DateRangeValue, DateValue } from '~/types';
 import { isMoreThan } from '~/helpers';
@@ -8,7 +8,20 @@ const props = defineProps<CalendarProps>();
 
 const emit = defineEmits(['update:modelValue', 'update:range']);
 
-const month = ref(props.modelValue ? props.modelValue : new Date());
+function setDate() {
+  const { modelValue, range } = props;
+  if (modelValue) {
+    return modelValue;
+  }
+
+  if (range && range.start) {
+    return range.start;
+  }
+
+  return new Date();
+}
+
+const month = ref(setDate());
 
 const hoverDate = ref<Date | null>(null);
 
@@ -45,6 +58,10 @@ function updateRange(value: DateValue) {
 
   emit('update:range', newValue);
 }
+
+watch(() => props.range, () => {
+  month.value = setDate();
+});
 </script>
 
 <template>

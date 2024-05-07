@@ -34,7 +34,7 @@ export function dateFormat(date: DateValue, locale: DateLocale) {
 }
 
 export function navigateToMonth(currentDate: Date, monthCount = 1) {
-  const date = new Date(currentDate);
+  const date = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
   date.setMonth(currentDate.getMonth() + monthCount);
 
   return date;
@@ -88,4 +88,8 @@ export function getDisplayedDays(date: Date): Day[] {
   }
 
   return days;
+}
+
+export function getDateLast(days: number) {
+  return new Date(new Date().getTime() - days * 24 * 60 * 60 * 1000);
 }

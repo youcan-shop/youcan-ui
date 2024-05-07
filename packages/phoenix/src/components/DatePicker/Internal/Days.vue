@@ -42,7 +42,7 @@ function whichOne(day: Day) {
       return '';
     }
 
-    if (((isMoreThan(end, day.date) || isMoreThan(hDate, day.date)) && isMoreThan(day.date, start) && day.isInMonth)
+    if (((isMoreThan(end, day.date) || isMoreThan(hDate, day.date)) && isMoreThan(day.date, start) && day.isInMonth && !isSameDay(day.date, end))
       || (isMoreThan(start, day.date) && isMoreThan(day.date, hDate))) {
       return 'middle';
     }
@@ -142,11 +142,15 @@ function handleHover(day: Day) {
   content: "";
   position: absolute;
   z-index: 2;
-  bottom: 3px;
+  bottom: 5px;
   width: var(--size);
   height: var(--size);
   border-radius: 50%;
   background-color: var(--brand-500);
+}
+
+.day.is-tody.selected::after {
+  background-color: var(--base-white);
 }
 
 .day.in.start {

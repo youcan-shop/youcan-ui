@@ -1,17 +1,17 @@
 <script setup lang="ts">
 import { onClickOutside } from '@vueuse/core';
-import { computed, nextTick, ref } from 'vue';
+import { computed, nextTick, onMounted, ref } from 'vue';
 import { Presets } from './Internal';
 import { Button, Calendar } from '~/components';
 import { dateFormat, setPosition } from '~/helpers';
-import type { DatePickerProps, DateRangeValue, DateValue } from '~/types';
+import type { DatePickerProps, DateRangeValue, DateValue, Preset } from '~/types';
 
 const props = withDefaults(defineProps<DatePickerProps>(), {
   locale: 'en',
   closeOnSelect: true,
 });
 
-const emit = defineEmits(['update:modelValue', 'update:range']);
+const emit = defineEmits(['update:modelValue', 'update:range', 'update:presets']);
 
 const date = ref<DateValue>(props.modelValue);
 const rangeDate = ref<DateRangeValue>(props.range);
@@ -66,6 +66,30 @@ function ListPosition() {
   });
 }
 
+function presetSelected(index: number) {
+  const presets = props.presets;
+  presets?.forEach((_, i) => {
+    presets[i].active = i === index;
+  });
+  emit('update:presets', presets);
+  presetChanged(presets);
+}
+
+function presetChanged(presets: Preset[] | undefined) {
+  if (hasPresets.value) {
+    const activePreset = presets?.find(preset => (preset.active && preset.from && preset.to));
+    if (activePreset) {
+      rangeDate.value = { start: activePreset.from, end: activePreset.to };
+      emit('update:range', rangeDate.value);
+    }
+  }
+}
+
+onMounted(() => {
+  const { presets } = props;
+  presetChanged(presets);
+});
+
 onClickOutside(datePicker, () => show.value = false);
 </script>
 
@@ -77,7 +101,7 @@ onClickOutside(datePicker, () => show.value = false);
     </Button>
     <Transition name="animate">
       <div v-if="show" ref="calendarWrap" class="calendar-wrap" :class="{ 'has-presets': hasPresets }">
-        <Presets v-if="hasPresets" :presets="presets" />
+        <Presets v-if="hasPresets" :presets="presets" @select="presetSelected" />
         <Calendar
           v-model="date"
           v-model:range="rangeDate"
