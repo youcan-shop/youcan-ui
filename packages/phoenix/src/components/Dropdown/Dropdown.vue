@@ -29,6 +29,7 @@ const show = ref(false);
 const searchValue = ref('');
 const itemsList = ref<DropdownValue[]>([]);
 const dropdownGroups = ref<Array<DropdownGroupValue>>([]);
+const dropdownGroupsList = ref<Array<DropdownGroupValue>>([]);
 const listWidth = ref('300px');
 
 function asArray() {
@@ -48,6 +49,14 @@ const selectedOptions = computed(() => {
   }
 
   return placeholder;
+});
+
+const itemsLength = computed(() => {
+  if (dropdownGroups.value.length) {
+    return dropdownGroupsList.value.length;
+  }
+
+  return itemsList.value.length;
 });
 
 const hasCount = computed(() => {
@@ -117,6 +126,7 @@ function setGroupValues() {
     });
   });
   dropdownGroups.value = groups;
+  dropdownGroupsList.value = groups;
 }
 
 function groupByName(name: string, inModel = false): DropdownValue[] {
@@ -160,6 +170,16 @@ function handleScroll(event: Event) {
 
 let endTaping: ReturnType<typeof setTimeout>;
 
+function filterItems(items: DropdownValue[], value: string) {
+  const list = items.filter((item: DropdownValue) => {
+    const label = item.label.toLowerCase();
+
+    return label.includes(value);
+  });
+
+  return list;
+}
+
 function handleSearch(event: Event) {
   const value = (event.target as HTMLInputElement).value.toLowerCase();
   const { search, items } = props;
@@ -171,13 +191,21 @@ function handleSearch(event: Event) {
   }
   else {
     endTaping = setTimeout(() => {
-      const list = items.filter((item: DropdownValue) => {
-        const label = item.label.toLowerCase();
-
-        return label.includes(value);
-      });
-
-      itemsList.value = list;
+      if (dropdownGroups.value.length) {
+        const groups: DropdownGroupValue[] = [];
+        dropdownGroups.value.forEach((group: DropdownGroupValue) => {
+          const list = filterItems(group.items, value);
+          const name = group.name.toLowerCase();
+          const nameFound = name.includes(value) && list.length === 0;
+          if (list.length || nameFound) {
+            groups.push({ name: group.name, items: nameFound ? group.items : list });
+          }
+          dropdownGroupsList.value = groups;
+        });
+      }
+      else {
+        itemsList.value = filterItems(items, value);
+      }
     }, 200);
   }
 }
@@ -260,7 +288,7 @@ onClickOutside(dropdown, () => show.value = false);
 </script>
 
 <template>
-  <div ref="dropdown" class="dropdown" :class="[{ focus: show }, { multiple }, { disabled }]">
+  <div ref="dropdown" class="dropdown" :class="[{ focus: show }, { multiple }, { disabled }, { searchable }]">
     <button class="dropdown-input" type="button" @click="toggle()">
       <label class="label" :class="{ placeholder: !modelValue || (multiple && !asArray().length) }">
         <span v-if="hasCount" class="selected-count">{{ asArray().length }}</span>
@@ -277,9 +305,9 @@ onClickOutside(dropdown, () => show.value = false);
         <div v-if="searchable" class="search-input">
           <input ref="searchInput" v-model="searchValue" type="search" :placeholder="searchInputPlaceholder" @input="handleSearch">
         </div>
-        <div v-if="items.length" ref="dropdownList" class="dropdown-list" @scroll="handleScroll">
-          <template v-if="dropdownGroups.length">
-            <template v-for="group in dropdownGroups" :key="group.name">
+        <div v-if="itemsLength" ref="dropdownList" class="dropdown-list" @scroll="handleScroll">
+          <template v-if="dropdownGroupsList.length">
+            <template v-for="group in dropdownGroupsList" :key="group.name">
               <DropdownGroupName
                 :selected="multiple && groupByName(group.name, true).length > 0"
                 :multiple="multiple"
@@ -447,6 +475,10 @@ onClickOutside(dropdown, () => show.value = false);
   border-radius: 8px;
   background-color: var(--base-white);
   box-shadow: var(--shadow-md-gray);
+}
+
+.dropdown.searchable .list-container {
+  min-height: 84px;
 }
 
 .dropdown .list-container .search-input {
