@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { computed, nextTick, onMounted, onUnmounted, ref, useSlots } from 'vue';
+import { computed, nextTick, onMounted, onUnmounted, ref, useSlots, watch } from 'vue';
 import { onClickOutside } from '@vueuse/core';
 import DropdownItem from './Internal/DropdownItem.vue';
 import DropdownGroupName from './Internal/DropdownGroupName.vue';
 import { elementChildrenNavigate } from './utils';
+import type { DropdownGroupValue } from './types';
 import type { DropdownProps, DropdownValue } from '~/types';
 import { setPosition } from '~/helpers';
 import { Spinner } from '~/components';
@@ -27,7 +28,7 @@ const searchInput = ref();
 const show = ref(false);
 const searchValue = ref('');
 const itemsList = ref<DropdownValue[]>([]);
-const groupNames = ref<Array<string>>([]);
+const dropdownGroups = ref<Array<DropdownGroupValue>>([]);
 const listWidth = ref('300px');
 
 function asArray() {
@@ -102,12 +103,20 @@ function updateModel(item: DropdownValue) {
   }
 }
 
-function getGroupNames() {
+function setGroupValues() {
   const { items } = props;
-  const Names = items.filter((obj, index, self) => index === self.findIndex(item => item.groupName === obj.groupName));
-  Names.forEach((item) => {
-    groupNames.value.push((item.groupName as string));
+  const groups: DropdownGroupValue[] = [];
+
+  const names = items.filter((obj, index, self) => index === self.findIndex(item => item.groupName === obj.groupName));
+
+  names.forEach((obj) => {
+    const groupItems = items.filter(item => item.groupName === obj.groupName);
+    groups.push({
+      name: (obj.groupName as string),
+      items: groupItems,
+    });
   });
+  dropdownGroups.value = groups;
 }
 
 function groupByName(name: string, inModel = false): DropdownValue[] {
@@ -163,9 +172,9 @@ function handleSearch(event: Event) {
   else {
     endTaping = setTimeout(() => {
       const list = items.filter((item: DropdownValue) => {
-        const element = item.label.toLowerCase();
+        const label = item.label.toLowerCase();
 
-        return element.includes(value);
+        return label.includes(value);
       });
 
       itemsList.value = list;
@@ -199,6 +208,7 @@ function handleKeypress(event: KeyboardEvent) {
     clear();
   }
 }
+
 function selectGroupItems(checked: boolean, name: string) {
   const override: DropdownValue[] = asArray() ? asArray() : [];
   const { limit } = props;
@@ -218,24 +228,32 @@ function selectGroupItems(checked: boolean, name: string) {
   emit('update:modelValue', override.length ? override : null);
 }
 
+function setItems(items: DropdownValue[]) {
+  const list = items.filter((item: DropdownValue) => item.groupName !== undefined && item.groupName !== '');
+  if (list.length) {
+    setGroupValues();
+
+    return;
+  }
+  itemsList.value = Array.isArray(items) ? items : [];
+}
+
 onMounted(() => {
   window.addEventListener('resize', handleResize);
 
   dropdown.value?.addEventListener('keydown', handleKeypress);
 
   const { items } = props;
-  const list = items.filter((item: DropdownValue) => item.groupName !== undefined && item.groupName !== '');
-  if (list.length) {
-    getGroupNames();
-
-    return;
-  }
-  itemsList.value = Array.isArray(items) ? items : [];
+  setItems(items);
 });
 
 onUnmounted(() => {
   window.removeEventListener('resize', handleResize);
   window.removeEventListener('keydown', handleKeypress);
+});
+
+watch(() => props.items, (newValue) => {
+  setItems(newValue);
 });
 
 onClickOutside(dropdown, () => show.value = false);
@@ -260,14 +278,15 @@ onClickOutside(dropdown, () => show.value = false);
           <input ref="searchInput" v-model="searchValue" type="search" :placeholder="searchInputPlaceholder" @input="handleSearch">
         </div>
         <div v-if="items.length" ref="dropdownList" class="dropdown-list" @scroll="handleScroll">
-          <template v-if="groupNames.length">
-            <template v-for="name in groupNames" :key="name">
+          <template v-if="dropdownGroups.length">
+            <template v-for="group in dropdownGroups" :key="group.name">
               <DropdownGroupName
-                :selected="multiple && groupByName(name, true).length > 0"
-                v-bind="{ multiple, name }"
+                :selected="multiple && groupByName(group.name, true).length > 0"
+                :multiple="multiple"
+                :name="group.name"
                 @on-select="selectGroupItems"
               />
-              <DropdownItem v-for="item in groupByName(name)" :key="item.key" :selected="selected(item)" class="group-item" :multiple="multiple" :item="item" @on-select="updateModel(item)">
+              <DropdownItem v-for="item in group.items" :key="item.key" :selected="selected(item)" class="group-item" :multiple="multiple" :item="item" @on-select="updateModel(item)">
                 <template v-if="slots.item">
                   <slot v-bind="item" name="item" />
                 </template>

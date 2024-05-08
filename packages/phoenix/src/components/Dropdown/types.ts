@@ -3,6 +3,10 @@ export interface DropdownValue {
   key: string | number
   groupName?: string
 }
+export interface DropdownGroupValue {
+  name: string
+  items: DropdownValue[]
+}
 
 export interface DropdownItemProps {
   item: DropdownValue

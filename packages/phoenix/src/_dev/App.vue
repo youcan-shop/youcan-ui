@@ -24,11 +24,11 @@ const items: Array<DropdownValue> = [
   { label: '+4 stars', key: 1, groupName: 'Rating' },
 ];
 
-const singleItems: Array<DropdownValue> = [
+const singleItems = ref<DropdownValue[]>([
   { label: 'Shoes', key: 1 },
   { label: 'Cosmetics', key: 2 },
   { label: 'Gym', key: 3 },
-];
+]);
 
 const languages: Array<DropdownValue> = [
   { label: 'Arabic', key: 1 },
@@ -57,7 +57,7 @@ function search(value: string) {
       </div>
       <div>
         <span>Multiple Dropdown : </span>
-        <Dropdown v-model="multiple" :limit="4" :items="items" multiple placeholder="Select items" />
+        <Dropdown v-model="multiple" :limit="4" :items="items" searchable multiple placeholder="Select items" />
       </div>
       <div>
         <span>Single Dropdown :</span>
