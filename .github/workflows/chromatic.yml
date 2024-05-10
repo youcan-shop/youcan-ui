@@ -20,10 +20,8 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: Navigate to subfolder
-        run: cd packages/phoenix
-
       - name: Run Chromatic
         uses: chromaui/action@latest
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          workingDir: packages/phoenix
