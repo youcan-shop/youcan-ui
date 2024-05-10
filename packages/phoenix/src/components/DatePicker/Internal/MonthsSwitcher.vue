@@ -5,7 +5,7 @@ import { monthToString, navigateToMonth } from '~/helpers';
 import type { MonthsSwitcherProps } from '~/types';
 
 const props = defineProps<MonthsSwitcherProps>();
-const emit = defineEmits(['update:modelValue']);
+const emit = defineEmits(['update:modelValue', 'onClick']);
 
 const month = computed({
   get: () => props.modelValue,
@@ -23,13 +23,18 @@ function update(monthCount: number) {
 
 <template>
   <div class="months-switcher">
-    <Button variant="tertiary" class="navigation-button" @click="update(-1)">
+    <Button variant="tertiary" class="navigation-button" type="button" @click="update(-1)">
       <i class="i-youcan:caret-left" />
     </Button>
-    <button class="year-label">
-      {{ monthToString(month.getMonth(), locale) }} {{ month.getFullYear() }}
-    </button>
-    <Button variant="tertiary" class="navigation-button" @click="update(1)">
+    <div class="year-label">
+      <button type="button" @click="() => emit('onClick', 'months')">
+        {{ monthToString(month.getMonth(), locale) }}
+      </button>
+      <button type="button" @click="() => emit('onClick', 'years')">
+        {{ month.getFullYear() }}
+      </button>
+    </div>
+    <Button variant="tertiary" class="navigation-button" type="button" @click="update(1)">
       <i class="i-youcan:caret-right" />
     </Button>
   </div>
@@ -38,7 +43,10 @@ function update(monthCount: number) {
 <style scoped>
 .months-switcher {
   display: flex;
+  position: relative;
+  z-index: 1;
   justify-content: space-between;
+  user-select: none;
   gap: 8px;
 }
 
@@ -53,12 +61,31 @@ function update(monthCount: number) {
 }
 
 .months-switcher .year-label {
+  display: flex;
+  gap: 2px;
+}
+
+.months-switcher .year-label button {
+  padding: 0;
+  padding: 2px;
+  transition: all 150ms ease-in-out;
   border: 0;
+  border: 1px solid transparent;
+  border-radius: 8px;
   outline: none;
   background-color: var(--base-white);
   color: var(--gray-900);
   font: var(--text-sm-medium);
   text-transform: capitalize;
   cursor: pointer;
+}
+
+.months-switcher .year-label button:hover {
+  background-color: var(--gray-50);
+}
+
+.months-switcher .year-label button:focus {
+  border: 1px solid var(--brand-500);
+  box-shadow: var(--focus-shadow-xs-brand);
 }
 </style>

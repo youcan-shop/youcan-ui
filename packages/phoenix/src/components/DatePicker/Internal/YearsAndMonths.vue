@@ -1,0 +1,193 @@
+<script lang="ts" setup>
+import { computed, ref } from 'vue';
+import type { YearsAndMonthsProps } from '../types';
+import { maxDate, minDate } from '../options';
+import { Button } from '~/components';
+import { monthToString } from '~/helpers';
+
+const props = defineProps<YearsAndMonthsProps>();
+
+const emit = defineEmits(['update:date', 'update:show']);
+
+const perPage = 25;
+const minYear = minDate.getFullYear();
+const maxYear = maxDate.getFullYear();
+
+const from = ref(props.date.getFullYear());
+
+const year = computed(() => props.date.getFullYear());
+const month = computed(() => props.date.getMonth());
+const to = computed(() => from.value - (perPage - 1));
+
+const years = computed(() => {
+  return [...Array(perPage)].map((_, i: number) => from.value - i).slice().reverse();
+});
+
+function select(x: number, target: 'year' | 'month' = 'year') {
+  const { date } = props;
+  let d = new Date(x, date.getMonth(), date.getDate());
+  if (target === 'month') {
+    d = new Date(year.value, x, date.getDate());
+  }
+  emit('update:date', d);
+  emit('update:show', false);
+}
+
+function update(direction: 'next' | 'previous') {
+  let newValue = from.value;
+  switch (direction) {
+    case 'previous':
+      newValue -= perPage;
+      from.value = newValue < minYear ? minYear : newValue;
+      break;
+    default:
+      newValue += perPage;
+      from.value = newValue > maxYear ? maxYear : newValue;
+      break;
+  }
+}
+</script>
+
+<template>
+  <Transition name="slide-up">
+    <div v-if="show === 'years'" class="years">
+      <div class="years-switcher">
+        <Button variant="tertiary" class="navigation-button" :disabled="from === minYear" type="button" @click="update('previous')">
+          <i class="i-youcan:caret-left" />
+        </Button>
+        {{ from }} - {{ to }}
+        <Button variant="tertiary" class="navigation-button" :disabled="from === maxYear" type="button" @click="update('next')">
+          <i class="i-youcan:caret-right" />
+        </Button>
+      </div>
+      <div class="years-grid">
+        <button v-for="y in years" :key="y" class="year" :class="{ selected: y === year }" type="button" @click="select(y)">
+          {{ y }}
+        </button>
+      </div>
+    </div>
+  </Transition>
+  <Transition name="slide-up">
+    <div v-if="show === 'months'" class="months">
+      <div class="months-grid">
+        <button v-for="m in 12" :key="m" class="month" :class="{ selected: m - 1 === month }" @click="select(m - 1, 'month')">
+          {{ monthToString(m - 1, locale) }}
+        </button>
+      </div>
+    </div>
+  </Transition>
+</template>
+
+<style scoped>
+.years,
+.months {
+  display: flex;
+  position: absolute;
+  z-index: 3;
+  top: 0;
+  left: 0;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  background-color: var(--base-white);
+  gap: 20px;
+}
+
+.years {
+  flex-direction: column;
+}
+
+.years .years-switcher {
+  display: flex;
+  position: relative;
+  z-index: 1;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--gray-900);
+  font: var(--text-sm-medium);
+  user-select: none;
+  gap: 8px;
+}
+
+.years .years-switcher .navigation-button {
+  padding: 5px;
+}
+
+.years .years-switcher .navigation-button i {
+  width: 18px;
+  height: 18px;
+  color: var(--gray-500);
+}
+
+.years .years-grid {
+  display: grid;
+  box-sizing: border-box;
+  grid-template-columns: repeat(5, 1fr);
+  width: 100%;
+  gap: 4px;
+}
+
+.years .years-grid .year,
+.months .months-grid .month {
+  box-sizing: border-box;
+  padding: 10px 5px;
+  transition: background-color 150ms ease-in-out;
+  border: 0;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  outline: none;
+  background-color: var(--base-white);
+  color: var(--gray-900);
+  font: var(--text-sm-regular);
+  cursor: pointer;
+}
+
+.years .years-grid .year:hover,
+.months .months-grid .month:hover {
+  background-color: var(--gray-50);
+}
+
+.years .years-grid .year.selected,
+.months .months-grid .month.selected {
+  background-color: var(--brand-500);
+  color: var(--base-white);
+}
+
+.years .years-grid .year:focus,
+.months .months-grid .month:focus {
+  border: 1px solid var(--brand-500);
+  box-shadow: var(--focus-shadow-xs-brand);
+}
+
+.months {
+  align-items: center;
+}
+
+.months-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+  width: 100%;
+}
+
+.slide-up-enter-active {
+  animation: slide-up 250ms ease-in-out;
+}
+
+.slide-up-leave-active {
+  animation: slide-up 250ms reverse ease-in-out;
+}
+
+@keyframes slide-up {
+  0% {
+    transform: translateY(-100%);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+</style>

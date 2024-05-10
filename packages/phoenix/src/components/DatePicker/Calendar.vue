@@ -1,12 +1,16 @@
 <script lang="ts" setup>
 import { computed, ref, watch } from 'vue';
-import { Days, MonthsSwitcher } from './Internal';
+import { Days, MonthsSwitcher, YearsAndMonths } from './Internal';
+import type { ShowingType } from './types';
 import type { CalendarProps, DateRangeValue, DateValue } from '~/types';
 import { isMoreThan } from '~/helpers';
 
 const props = defineProps<CalendarProps>();
 
 const emit = defineEmits(['update:modelValue', 'update:range']);
+
+const showYearsOrMonths = ref<ShowingType>(false);
+const calendarContainer = ref();
 
 function setDate() {
   const { modelValue, range } = props;
@@ -59,6 +63,10 @@ function updateRange(value: DateValue) {
   emit('update:range', newValue);
 }
 
+function show(target: ShowingType) {
+  showYearsOrMonths.value = target;
+}
+
 watch(() => props.range, () => {
   month.value = setDate();
 });
@@ -66,21 +74,56 @@ watch(() => props.range, () => {
 
 <template>
   <div class="calendar">
-    <MonthsSwitcher v-model="month" :locale="locale" />
-    <Days v-model="model" v-model:hover-date="hoverDate" :month="month" :locale="locale" :range="range" />
+    <Transition name="fade">
+      <div v-if="!showYearsOrMonths" ref="calendarContainer" class="calendar-container">
+        <MonthsSwitcher v-model="month" :locale="locale" @on-click="show" />
+        <Days v-model="model" v-model:hover-date="hoverDate" :month="month" :locale="locale" :range="range" />
+      </div>
+    </Transition>
+    <YearsAndMonths v-model:date="month" v-model:show="showYearsOrMonths" :locale="locale" />
   </div>
 </template>
 
 <style>
 .calendar {
   display: flex;
+  position: relative;
   box-sizing: border-box;
   flex-direction: column;
   width: max-content;
+  min-width: 304px;
   max-width: 100%;
+  min-height: 310px;
   padding: 12px;
+  overflow: hidden;
   border: 1px solid var(--gray-200);
   border-radius: 8px;
   row-gap: 20px;
+}
+
+.calendar .calendar-container {
+  display: flex;
+  flex-direction: column;
+  width: max-content;
+  max-width: 100%;
+  row-gap: 20px;
+}
+
+.fade-enter-active {
+  animation: fade 250ms ease-in-out;
+}
+
+.fade-leave-active {
+  animation: fade 250ms reverse ease-in-out;
+}
+
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }
 </style>

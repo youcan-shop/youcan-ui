@@ -26,6 +26,7 @@ const emit = defineEmits(['select']);
   height: 100%;
   padding: 12px 0;
   overflow: hidden;
+  user-select: none;
 }
 
 .presets .presets-list {

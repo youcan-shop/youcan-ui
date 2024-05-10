@@ -78,7 +78,8 @@ function handleHover(day: Day) {
     <button
       v-for="(day, index) in calendarDays" :key="index" class="day"
       :class="[{ 'is-tody': day.isToday }, { selected: isSelected(day) }, `${day.isInMonth ? 'in' : 'out'}`, whichOne(day)]"
-      type="button" @click="select(day)" @mouseover="handleHover(day)"
+      type="button" tabindex="1" @click="select(day)"
+      @mouseover="handleHover(day)"
     >
       {{ day.date?.getDate() }}
     </button>
@@ -88,13 +89,17 @@ function handleHover(day: Day) {
 <style scoped>
 .days {
   display: grid;
+  position: relative;
+  z-index: 2;
   grid-template-columns: repeat(7, 40px);
+  user-select: none;
   row-gap: 4px;
 }
 
 .day {
   display: flex;
   position: relative;
+  box-sizing: border-box;
   align-items: center;
   justify-content: center;
   height: 36px;
@@ -113,6 +118,7 @@ function handleHover(day: Day) {
 }
 
 .day:not(.name):focus {
+  border: 1px solid var(--brand-500);
   box-shadow: var(--focus-shadow-xs-brand);
 }
 
