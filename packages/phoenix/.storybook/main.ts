@@ -9,14 +9,15 @@ module.exports = {
   "addons": [
     "@storybook/addon-links",
     "@storybook/addon-essentials",
-    "@storybook/addon-interactions"
+    "@storybook/addon-interactions",
+    "@chromatic-com/storybook"
   ],
   "framework": {
     "name": "@storybook/vue3-vite",
     "options": {}
   },
   "docs": {
-    "docsPage": false
+    autodocs: true
   },
   async viteFinal(config, { configType }) {
     config.resolve.alias['~'] =  `${path.resolve(__dirname, 'src')}/`;
