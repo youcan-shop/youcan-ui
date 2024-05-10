@@ -20,6 +20,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
+      - name: Navigate to subfolder
+        run: cd packages/phoenix
+
       - name: Run Chromatic
         uses: chromaui/action@latest
         with:
