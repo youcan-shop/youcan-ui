@@ -1,20 +1,22 @@
-name: Storybook Tests
-on: deployment_status
+name: 'Storybook Tests'
+on: push
 jobs:
   test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
-    if: github.event.deployment_status.state == 'success'
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
           node-version-file: '.nvmrc'
       - name: Install dependencies
-        run: pnpm install
+        run: yarn
       - name: Install Playwright
         run: npx playwright install --with-deps
-      - name: Run Storybook tests
-        run: pnpm test-storybook
-        env:
-          TARGET_URL: '${{ github.event.deployment_status.target_url }}'
+      - name: Build Storybook
+        run: yarn build-storybook --quiet
+      - name: Serve Storybook and run tests
+        run: |
+          npx concurrently -k -s first -n "SB,TEST" -c "magenta,blue" \
+            "npx http-server storybook-static --port 6006 --silent" \
+            "npx wait-on tcp:6006 && yarn test-storybook"
