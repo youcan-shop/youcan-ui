@@ -61,7 +61,8 @@
     "build-storybook": "storybook build",
     "bench": "node vue3.bench.mjs",
     "chromatic": "chromatic --exit-zero-on-changes",
-    "test-storybook": "test-storybook"
+    "test-storybook": "test-storybook",
+    "test-storybook:ci": "npx concurrently -k -s first -n \"SB,TEST\" -c \"magenta,blue\" \"npx http-server storybook-static --port 6006 --silent\" \"npx wait-on tcp:127.0.0.1:6006 && yarn test-storybook\""
   },
   "peerDependencies": {
     "vue": "^3.4.5"
