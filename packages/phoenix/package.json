@@ -62,7 +62,7 @@
     "bench": "node vue3.bench.mjs",
     "chromatic": "chromatic --exit-zero-on-changes",
     "test-storybook": "test-storybook",
-    "test-storybook:ci": "npx concurrently -k -s first -n \"SB,TEST\" -c \"magenta,blue\" \"npx http-server storybook-static --port 6007 --silent\" \"npx wait-on tcp:6007 && pnpm test-storybook\""
+    "test-storybook:ci": "npx concurrently -k -s first -n \"SB,TEST\" -c \"magenta,blue\" \"npx http-server storybook-static --port 6007 --silent\" \"npx wait-on tcp:6007 && pnpm test-storybook --url http://127.0.0.1:6007\""
   },
   "peerDependencies": {
     "vue": "^3.4.5"
