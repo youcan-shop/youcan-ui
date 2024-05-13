@@ -9,11 +9,11 @@ const meta: Meta<typeof FileInput> = {
   tags: ['file', 'file input', 'input', 'upload'],
   argTypes: {
     modelValue: { table: { disable: true } },
-    label: { control: false },
   },
   args: {
     limit: 3,
     disabled: false,
+    label: 'Browse your computer',
   },
 };
 

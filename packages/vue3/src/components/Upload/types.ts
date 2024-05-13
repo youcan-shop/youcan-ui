@@ -2,6 +2,7 @@ export interface FileInputProps {
   modelValue: File[]
   limit?: number
   disabled?: boolean
+  label?: string
 }
 
 export interface MediaInputProps {
