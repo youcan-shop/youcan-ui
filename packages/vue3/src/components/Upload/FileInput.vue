@@ -8,6 +8,7 @@ const props = withDefaults(
   {
     limit: 1,
     disabled: false,
+    label: 'Browse your computer',
   },
 );
 
@@ -30,7 +31,7 @@ const slots = useSlots();
         <slot v-if="slots.label" name="label" />
         <div v-else class="default-label-content">
           <i class="i-youcan-upload-simple" />
-          <div>Browse your computer</div>
+          <div>{{ label }}</div>
         </div>
       </div>
     </template>
