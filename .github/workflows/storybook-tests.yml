@@ -6,15 +6,26 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+
       - uses: actions/setup-node@v3
         with:
           node-version: 20.9.0
+
+      - uses: pnpm/action-setup@v2
+        name: install pnpm
+        with:
+          version: 8.10.0
+          run_install: false
+  
       - name: Install dependencies
         run: pnpm install
+
       - name: Install Playwright
         run: npx playwright install --with-deps
+
       - name: Build Storybook
         run: pnpm build-storybook --quiet
+        
       - name: Serve Storybook and run tests
         run: |
           npx concurrently -k -s first -n "SB,TEST" -c "magenta,blue" \
