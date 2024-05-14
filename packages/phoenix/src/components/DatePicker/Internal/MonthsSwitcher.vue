@@ -1,7 +1,8 @@
 <script lang="ts" setup>
 import { computed, nextTick } from 'vue';
+import { maxCalendarDate, minCalendarDate } from '../options';
 import { Button } from '~/components';
-import { monthToString, navigateToMonth } from '~/helpers';
+import { isSameDate, monthToString, navigateToMonth } from '~/helpers';
 import type { MonthsSwitcherProps } from '~/types';
 
 const props = defineProps<MonthsSwitcherProps>();
@@ -11,6 +12,9 @@ const month = computed({
   get: () => props.modelValue,
   set: (value: Date) => emit('update:modelValue', value),
 });
+
+const disableNext = computed(() => isSameDate(month.value, maxCalendarDate));
+const disablePrevious = computed(() => isSameDate(month.value, minCalendarDate));
 
 function update(monthCount: number) {
   month.value = navigateToMonth(month.value, monthCount);
@@ -23,7 +27,7 @@ function update(monthCount: number) {
 
 <template>
   <div class="months-switcher">
-    <Button variant="tertiary" class="navigation-button" type="button" @click="update(-1)">
+    <Button variant="tertiary" class="navigation-button" :disabled="disablePrevious" type="button" @click="update(-1)">
       <i class="i-youcan:caret-left" />
     </Button>
     <div class="year-label">
@@ -34,7 +38,7 @@ function update(monthCount: number) {
         {{ month.getFullYear() }}
       </button>
     </div>
-    <Button variant="tertiary" class="navigation-button" type="button" @click="update(1)">
+    <Button variant="tertiary" class="navigation-button" :disabled="disableNext" type="button" @click="update(1)">
       <i class="i-youcan:caret-right" />
     </Button>
   </div>

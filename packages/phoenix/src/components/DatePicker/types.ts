@@ -20,7 +20,12 @@ export interface Day {
   isInMonth?: boolean
   selected?: boolean
 }
-export interface MonthsSwitcherProps {
+
+interface DatesLimit {
+  minDate?: Date
+  maxDate?: Date
+}
+export interface MonthsSwitcherProps extends DatesLimit {
   modelValue: Date
   locale?: DateLocale
 }
@@ -35,7 +40,7 @@ interface SharedProps {
   locale?: DateLocale
   range?: DateRangeValue
 }
-export interface YearsAndMonthsProps {
+export interface YearsAndMonthsProps extends DatesLimit {
   date: Date
   locale?: DateLocale
   show?: ShowingType
@@ -48,7 +53,7 @@ export interface DaysProps extends SharedProps {
 
 export interface CalendarProps extends SharedProps {}
 
-export interface DatePickerProps extends SharedProps {
+export interface DatePickerProps extends SharedProps, DatesLimit {
   placeholder?: string
   closeOnSelect?: boolean
   presets?: Preset[]

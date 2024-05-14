@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { onClickOutside } from '@vueuse/core';
-import { computed, nextTick, onMounted, ref, watch } from 'vue';
+import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue';
 import { Presets } from './Internal';
 import { Button, Calendar } from '~/components';
-import { dateFormat, isSameDate, setPosition } from '~/helpers';
+import { dateFormat, isRTL, isSameDate, setPosition } from '~/helpers';
 import type { DatePickerProps, DateRangeValue, DateValue, Preset } from '~/types';
 
 const props = withDefaults(defineProps<DatePickerProps>(), {
@@ -57,17 +57,21 @@ function updateRange(value: DateRangeValue) {
   }
 }
 
-function ListPosition() {
+function ShowPicker() {
   show.value = !show.value;
+  PickerPosition();
+}
+
+function PickerPosition() {
   nextTick(() => {
     if (datePicker.value && calendarWrap.value) {
-      const { top, left } = setPosition(calendarWrap.value, datePicker.value, 'bottom', 8, false);
-      calendarWrap.value?.setAttribute('style', `top:${top}px;left:${left}px;`);
+      const { top, left } = setPosition(calendarWrap.value, datePicker.value, 'bottom', 8, false, isRTL());
+      calendarWrap.value?.setAttribute('style', `top:${top}px;${isRTL() ? 'right' : 'left'}:${left}px;`);
     }
   });
 }
 
-function presetSelected(index: number) {
+function selectPreset(index: number) {
   const presets = props.presets;
   presets?.forEach((_, i) => {
     presets[i].active = i === index;
@@ -86,9 +90,19 @@ function presetChanged(presets: Preset[] | undefined) {
   }
 }
 
+function handleResize() {
+  PickerPosition();
+}
+
 onMounted(() => {
   const { presets } = props;
   presetChanged(presets);
+
+  window.addEventListener('resize', handleResize);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('resize', handleResize);
 });
 
 onClickOutside(datePicker, () => show.value = false);
@@ -102,20 +116,20 @@ watch(() => props.range, (newValue) => {
     if (index > -1 && presets[index].active) {
       return;
     }
-    presetSelected(index);
+    selectPreset(index);
   }
 });
 </script>
 
 <template>
-  <div ref="datePicker" class="date-picker">
-    <Button variant="secondary" class="picker-output" :class="{ placeholder: !datesFormat }" @click="ListPosition">
+  <div ref="datePicker" class="date-picker" :class="{ rtl: isRTL() }">
+    <Button variant="secondary" class="picker-output" :class="{ placeholder: !datesFormat }" @click="ShowPicker">
       <span class="input-value">{{ datesFormat || placeholder }}</span>
       <i class="i-youcan:calendar-blank" />
     </Button>
     <Transition name="animate">
       <div v-if="show" ref="calendarWrap" class="date-picker-container" :class="{ 'has-presets': hasPresets }">
-        <Presets v-if="hasPresets" :presets="presets" :presets-title="presetsTitle" @select="presetSelected" />
+        <Presets v-if="hasPresets" :presets="presets" :presets-title="presetsTitle" @select="selectPreset" />
         <Calendar
           v-model="date"
           v-model:range="rangeDate"
@@ -166,6 +180,7 @@ watch(() => props.range, (newValue) => {
   position: fixed;
   z-index: 9999999999;
   grid-template-columns: repeat(2, auto);
+  overflow: hidden;
   background-color: var(--base-white);
 }
 
@@ -177,6 +192,15 @@ watch(() => props.range, (newValue) => {
 .date-picker .date-picker-container.has-presets:deep(.calendar) {
   border: 0;
   border-radius: 0;
+}
+
+.date-picker.rtl:deep(.navigation-button) {
+  transform: rotate(180deg);
+}
+
+.date-picker.rtl:deep(.presets .presets-list) {
+  border-right: 0;
+  border-left: 1px solid var(--gray-200);
 }
 
 .animate-enter-active {
@@ -202,6 +226,11 @@ watch(() => props.range, (newValue) => {
 @media only screen and (max-width: 768px) {
   .date-picker .date-picker-container {
     grid-template-columns: repeat(1, auto);
+  }
+
+  .date-picker.rtl:deep(.presets .presets-list) {
+    border-right: 0;
+    border-left: 0;
   }
 }
 </style>

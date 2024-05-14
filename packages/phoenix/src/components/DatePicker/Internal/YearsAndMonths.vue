@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { computed, ref } from 'vue';
 import type { YearsAndMonthsProps } from '../types';
-import { maxDate, minDate } from '../options';
+import { maxCalendarDate, minCalendarDate } from '../options';
 import { Button } from '~/components';
 import { monthToString } from '~/helpers';
 
@@ -10,8 +10,8 @@ const props = defineProps<YearsAndMonthsProps>();
 const emit = defineEmits(['update:date', 'update:show']);
 
 const perPage = 25;
-const minYear = minDate.getFullYear();
-const maxYear = maxDate.getFullYear();
+const minYear = minCalendarDate.getFullYear();
+const maxYear = maxCalendarDate.getFullYear();
 
 const from = ref(props.date.getFullYear());
 

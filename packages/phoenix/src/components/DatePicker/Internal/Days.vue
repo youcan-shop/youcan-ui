@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
-import { getDisplayedDays, getWeekdayNames, isMoreThan, isSameDate } from '~/helpers';
+import { getDisplayedDays, getWeekdayNames, isMoreThan, isRTL, isSameDate } from '~/helpers';
 import type { Day, DaysProps } from '~/types';
 
 const props = defineProps<DaysProps>();
@@ -71,14 +71,14 @@ function handleHover(day: Day) {
 </script>
 
 <template>
-  <div class="days" :class="locale" @mouseleave="() => emit('update:hoverDate', null)">
+  <div class="days" :class="[{ rtl: isRTL() }, locale]" @mouseleave="() => emit('update:hoverDate', null)">
     <div v-for="day in dayNames" :key="day" class="day name">
       {{ day }}
     </div>
     <button
       v-for="(day, index) in calendarDays" :key="index" class="day"
       :class="[{ 'is-tody': day.isToday }, { selected: isSelected(day) }, `${day.isInMonth ? 'in' : 'out'}`, whichOne(day)]"
-      type="button" tabindex="1" @click="select(day)"
+      type="button" @click="select(day)"
       @mouseover="handleHover(day)"
     >
       {{ day.date?.getDate() }}
@@ -96,7 +96,7 @@ function handleHover(day: Day) {
   row-gap: 4px;
 }
 
-.day {
+.days .day {
   display: flex;
   position: relative;
   box-sizing: border-box;
@@ -111,38 +111,38 @@ function handleHover(day: Day) {
   font: var(--text-sm-regular);
 }
 
-.day.name {
+.days .day.name {
   color: var(--gray-500);
   font: var(--text-xs-medium);
   text-transform: capitalize;
 }
 
-.day:not(.name, .selected):focus {
+.days .day:not(.name, .selected):focus {
   border: 1px solid var(--brand-500);
   box-shadow: var(--focus-shadow-xs-brand);
 }
 
-.day.in {
+.days .day.in {
   transition: background-color 70ms ease-in-out;
   cursor: pointer;
 }
 
-.day.in.selected {
+.days .day.in.selected {
   background-color: var(--brand-500);
   color: var(--base-white);
   font: var(--text-sm-medium);
 }
 
-.day.in:not(.selected):hover {
+.days .day.in:not(.selected):hover {
   background-color: var(--gray-50);
 }
 
-.day.out {
+.days .day.out {
   color: var(--gray-300);
   cursor: not-allowed;
 }
 
-.day.is-tody::after {
+.days .day.is-tody::after {
   --size: 6px;
 
   content: "";
@@ -155,20 +155,28 @@ function handleHover(day: Day) {
   background-color: var(--brand-500);
 }
 
-.day.is-tody.selected::after {
+.days .day.is-tody.selected::after {
   background-color: var(--base-white);
 }
 
-.day.in.start {
+.days .day.in.start {
   border-radius: 4px 0 0 4px;
 }
 
-.day.in.end {
+.days .day.in.end {
   border-radius: 0 4px 4px 0;
 }
 
-.day.in.middle {
+.days .day.in.middle {
   border-radius: 0;
   background-color: var(--brand-50);
+}
+
+.days.rtl .day.in.start {
+  border-radius: 0 4px 4px 0;
+}
+
+.days.rtl .day.in.end {
+  border-radius: 4px 0 0 4px;
 }
 </style>

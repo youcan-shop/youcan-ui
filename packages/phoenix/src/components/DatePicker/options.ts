@@ -1,2 +1,2 @@
-export const minDate = new Date(1000, 1, 1);
-export const maxDate = new Date(9999, 1, 1);
+export const minCalendarDate = new Date(2023, 0, 1);
+export const maxCalendarDate = new Date(9999, 0, 1);

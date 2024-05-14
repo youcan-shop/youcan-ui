@@ -71,6 +71,7 @@ watch(() => props.range, (newValue) => {
   const start = (newValue?.start as Date);
   const end = (newValue?.end as Date);
   const m = month.value.getMonth();
+  show(false);
   if (start.getMonth() !== m && end.getMonth() !== m) {
     month.value = setDate();
   }

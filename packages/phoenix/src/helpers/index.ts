@@ -8,7 +8,7 @@ const toast = {
   },
 };
 
-function setPosition(triggeredElement: HTMLElement, trigger: HTMLElement, position: string, gap = 6, center = true) {
+function setPosition(triggeredElement: HTMLElement, trigger: HTMLElement, position: string, gap = 6, center = true, isRtl = false) {
   const xy = { top: 0, left: 0, currentPosition: position };
   if (triggeredElement && trigger) {
     const offset = trigger?.getBoundingClientRect();
@@ -25,6 +25,9 @@ function setPosition(triggeredElement: HTMLElement, trigger: HTMLElement, positi
       let centerTooltip = center ? (triggeredElementWidth - triggerWidth) / 2 : 0;
       let top = offset.top - (triggeredElementHeight + gap);
       let left = offset.left - centerTooltip;
+      if (isRtl && !center) {
+        left = offset.right - offset.width;
+      }
 
       left = left < 0 ? gap / 2 : left + triggeredElementWidth > windowWidth ? windowWidth - (triggeredElementWidth + gap / 2) : left;
 
@@ -60,6 +63,10 @@ function setPosition(triggeredElement: HTMLElement, trigger: HTMLElement, positi
   return xy;
 }
 
+function isRTL(): boolean {
+  return document.dir === 'rtl';
+}
+
 export {
   toast,
   setPosition,
@@ -71,4 +78,5 @@ export {
   dateFormat,
   isMoreThan,
   getDateLast,
+  isRTL,
 };

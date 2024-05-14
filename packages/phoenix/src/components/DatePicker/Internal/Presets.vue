@@ -1,20 +1,28 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 import type { PresetsProps } from '~/types';
 import { Button } from '~/components';
 
 defineProps<PresetsProps>();
 
 const emit = defineEmits(['select']);
+
+const show = ref(false);
+
+function select(index: number) {
+  emit('select', index);
+  show.value = false;
+}
 </script>
 
 <template>
   <div class="presets">
-    <Button size="xs">
+    <Button size="xs" class="presets-button" variant="secondary" @click="show = !show">
       {{ presetsTitle }}
     </Button>
-    <ul class="presets-list">
+    <ul class="presets-list" :class="{ show }">
       <li v-for="(preset, index) in presets?.slice(0, 6)" :key="index" class="presets-list-item" :class="{ active: preset.active }">
-        <button @click="() => emit('select', index)">
+        <button @click="select(index)">
           {{ preset.label }}
         </button>
       </li>
@@ -31,7 +39,6 @@ const emit = defineEmits(['select']);
   flex-direction: column;
   height: 100%;
   padding: 12px 0;
-  overflow: hidden;
   user-select: none;
 }
 
@@ -53,7 +60,7 @@ const emit = defineEmits(['select']);
   padding: 10px;
   transition: background-color 250ms ease-in-out;
   border: 0;
-  border-radius: 8px;
+  border-radius: 4px;
   outline: none;
   background-color: var(--base-white);
   color: var(--gray-900);
@@ -70,6 +77,11 @@ const emit = defineEmits(['select']);
   background-color: var(--brand-50);
 }
 
+.presets .presets-button {
+  display: none;
+  width: 100%;
+}
+
 @media only screen and (max-width: 768px) {
   .presets {
     padding: 12px;
@@ -82,14 +94,23 @@ const emit = defineEmits(['select']);
     left: 0;
     box-sizing: border-box;
     align-items: center;
-    justify-content: center;
     width: 100%;
     height: 100%;
     max-height: calc(100% - 60px);
     padding: 12px;
+    transform: translateY(100%);
+    transition: transform 250ms ease-in-out;
     border-right: 0;
     border-radius: 8px;
     background-color: var(--base-white);
+  }
+
+  .presets .presets-list.show {
+    transform: translateY(0%);
+  }
+
+  .presets .presets-button {
+    display: flex;
   }
 }
 </style>
