@@ -1,14 +1,15 @@
 <script setup lang="ts">
 import { onClickOutside } from '@vueuse/core';
-import { computed, nextTick, onMounted, ref } from 'vue';
+import { computed, nextTick, onMounted, ref, watch } from 'vue';
 import { Presets } from './Internal';
 import { Button, Calendar } from '~/components';
-import { dateFormat, setPosition } from '~/helpers';
+import { dateFormat, isSameDate, setPosition } from '~/helpers';
 import type { DatePickerProps, DateRangeValue, DateValue, Preset } from '~/types';
 
 const props = withDefaults(defineProps<DatePickerProps>(), {
   locale: 'en',
   closeOnSelect: true,
+  presetsTitle: 'Presets',
 });
 
 const emit = defineEmits(['update:modelValue', 'update:range', 'update:presets']);
@@ -77,9 +78,9 @@ function presetSelected(index: number) {
 
 function presetChanged(presets: Preset[] | undefined) {
   if (hasPresets.value) {
-    const activePreset = presets?.find(preset => (preset.active && preset.from && preset.to));
+    const activePreset = presets?.find(preset => (preset.active && preset.start && preset.end));
     if (activePreset) {
-      rangeDate.value = { start: activePreset.from, end: activePreset.to };
+      rangeDate.value = { start: activePreset.start, end: activePreset.end };
       emit('update:range', rangeDate.value);
     }
   }
@@ -91,6 +92,19 @@ onMounted(() => {
 });
 
 onClickOutside(datePicker, () => show.value = false);
+
+watch(() => props.range, (newValue) => {
+  const { presets } = props;
+  if (presets?.length) {
+    const start = (newValue?.start as Date);
+    const end = (newValue?.end as Date);
+    const index = presets.findIndex((preset: Preset) => isSameDate(start, preset.start) && isSameDate(end, preset.end));
+    if (index > -1 && presets[index].active) {
+      return;
+    }
+    presetSelected(index);
+  }
+});
 </script>
 
 <template>
@@ -100,8 +114,8 @@ onClickOutside(datePicker, () => show.value = false);
       <i class="i-youcan:calendar-blank" />
     </Button>
     <Transition name="animate">
-      <div v-if="show" ref="calendarWrap" class="calendar-wrap" :class="{ 'has-presets': hasPresets }">
-        <Presets v-if="hasPresets" :presets="presets" @select="presetSelected" />
+      <div v-if="show" ref="calendarWrap" class="date-picker-container" :class="{ 'has-presets': hasPresets }">
+        <Presets v-if="hasPresets" :presets="presets" :presets-title="presetsTitle" @select="presetSelected" />
         <Calendar
           v-model="date"
           v-model:range="rangeDate"
@@ -147,7 +161,7 @@ onClickOutside(datePicker, () => show.value = false);
   color: var(--gray-400);
 }
 
-.date-picker .calendar-wrap {
+.date-picker .date-picker-container {
   display: grid;
   position: fixed;
   z-index: 9999999999;
@@ -155,12 +169,12 @@ onClickOutside(datePicker, () => show.value = false);
   background-color: var(--base-white);
 }
 
-.date-picker .calendar-wrap.has-presets {
+.date-picker .date-picker-container.has-presets {
   border: 1px solid var(--gray-200);
   border-radius: 8px;
 }
 
-.date-picker .calendar-wrap.has-presets:deep(.calendar) {
+.date-picker .date-picker-container.has-presets:deep(.calendar) {
   border: 0;
   border-radius: 0;
 }
@@ -182,6 +196,12 @@ onClickOutside(datePicker, () => show.value = false);
   100% {
     transform: scale(1);
     opacity: 1;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .date-picker .date-picker-container {
+    grid-template-columns: repeat(1, auto);
   }
 }
 </style>

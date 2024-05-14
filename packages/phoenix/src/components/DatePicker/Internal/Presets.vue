@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { PresetsProps } from '~/types';
+import { Button } from '~/components';
 
 defineProps<PresetsProps>();
 
@@ -8,6 +9,9 @@ const emit = defineEmits(['select']);
 
 <template>
   <div class="presets">
+    <Button size="xs">
+      {{ presetsTitle }}
+    </Button>
     <ul class="presets-list">
       <li v-for="(preset, index) in presets?.slice(0, 6)" :key="index" class="presets-list-item" :class="{ active: preset.active }">
         <button @click="() => emit('select', index)">
@@ -20,6 +24,8 @@ const emit = defineEmits(['select']);
 
 <style scoped>
 .presets {
+  --md: 768px;
+
   display: flex;
   box-sizing: border-box;
   flex-direction: column;
@@ -62,5 +68,28 @@ const emit = defineEmits(['select']);
 .presets .presets-list .presets-list-item.active button,
 .presets .presets-list .presets-list-item button:hover {
   background-color: var(--brand-50);
+}
+
+@media only screen and (max-width: 768px) {
+  .presets {
+    padding: 12px;
+  }
+
+  .presets .presets-list {
+    position: absolute;
+    z-index: 99;
+    bottom: 0;
+    left: 0;
+    box-sizing: border-box;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    max-height: calc(100% - 60px);
+    padding: 12px;
+    border-right: 0;
+    border-radius: 8px;
+    background-color: var(--base-white);
+  }
 }
 </style>

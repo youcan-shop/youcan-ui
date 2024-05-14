@@ -13,29 +13,29 @@ const DateNow = new Date();
 const presets = ref<Preset[]> ([
   {
     label: 'Last 7 days',
-    from: getDateLast(7),
-    to: DateNow,
+    start: getDateLast(7),
+    end: DateNow,
   },
   {
     label: 'Last 30 days',
-    from: getDateLast(30),
-    to: DateNow,
+    start: getDateLast(30),
+    end: DateNow,
     active: true,
   },
   {
     label: 'Last month',
-    from: navigateToMonth(new Date(), -1),
-    to: new Date(DateNow.getFullYear(), DateNow.getMonth(), 0),
+    start: navigateToMonth(new Date(), -1),
+    end: new Date(DateNow.getFullYear(), DateNow.getMonth(), 0),
   },
   {
     label: 'Last 90 days',
-    from: getDateLast(90),
-    to: DateNow,
+    start: getDateLast(90),
+    end: DateNow,
   },
   {
     label: 'Last 3 months',
-    from: navigateToMonth(DateNow, -3),
-    to: new Date(DateNow.getFullYear(), DateNow.getMonth(), 0),
+    start: navigateToMonth(DateNow, -3),
+    end: new Date(DateNow.getFullYear(), DateNow.getMonth(), 0),
   },
 ]);
 </script>

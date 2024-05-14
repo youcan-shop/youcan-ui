@@ -67,8 +67,13 @@ function show(target: ShowingType) {
   showYearsOrMonths.value = target;
 }
 
-watch(() => props.range, () => {
-  month.value = setDate();
+watch(() => props.range, (newValue) => {
+  const start = (newValue?.start as Date);
+  const end = (newValue?.end as Date);
+  const m = month.value.getMonth();
+  if (start.getMonth() !== m && end.getMonth() !== m) {
+    month.value = setDate();
+  }
 });
 </script>
 

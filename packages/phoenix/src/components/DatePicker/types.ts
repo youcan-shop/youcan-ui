@@ -9,8 +9,8 @@ export type DateRangeValue = RangeType | undefined;
 
 export interface Preset {
   label: string
-  from: Date
-  to: Date
+  start: Date
+  end: Date
   active?: boolean
 }
 
@@ -23,12 +23,12 @@ export interface Day {
 export interface MonthsSwitcherProps {
   modelValue: Date
   locale?: DateLocale
-  disabled?: boolean
 }
 
 export interface PresetsProps {
   presets?: Preset[]
   disabled?: boolean
+  presetsTitle?: string
 }
 interface SharedProps {
   modelValue?: DateValue
@@ -52,4 +52,5 @@ export interface DatePickerProps extends SharedProps {
   placeholder?: string
   closeOnSelect?: boolean
   presets?: Preset[]
+  presetsTitle?: string
 }

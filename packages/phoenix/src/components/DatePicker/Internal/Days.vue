@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
-import { getDisplayedDays, getWeekdayNames, isMoreThan, isSameDay } from '~/helpers';
+import { getDisplayedDays, getWeekdayNames, isMoreThan, isSameDate } from '~/helpers';
 import type { Day, DaysProps } from '~/types';
 
 const props = defineProps<DaysProps>();
@@ -21,10 +21,10 @@ function select(day: Day) {
 function isSelected(day: Day) {
   const { modelValue, range, hoverDate } = props;
   if (modelValue && day.isInMonth && day.date) {
-    return isSameDay(day.date, modelValue);
+    return isSameDate(day.date, modelValue);
   }
   else if (range && day.date) {
-    return (isSameDay(day.date, (range.start as Date)) || isSameDay(day.date, (range.end as Date)) || isSameDay(day.date, (hoverDate as Date)));
+    return (isSameDate(day.date, (range.start as Date)) || isSameDate(day.date, (range.end as Date)) || isSameDate(day.date, (hoverDate as Date)));
   }
 
   return false;
@@ -38,20 +38,20 @@ function whichOne(day: Day) {
     const end = (range.end as Date);
     const hDate = (hoverDate as Date);
 
-    if (isSameDay(day.date, start) && isSameDay(day.date, end)) {
+    if (isSameDate(day.date, start) && isSameDate(day.date, end)) {
       return '';
     }
 
-    if (((isMoreThan(end, day.date) || isMoreThan(hDate, day.date)) && isMoreThan(day.date, start) && day.isInMonth && !isSameDay(day.date, end))
+    if (((isMoreThan(end, day.date) || isMoreThan(hDate, day.date)) && isMoreThan(day.date, start) && day.isInMonth && !isSameDate(day.date, end))
       || (isMoreThan(start, day.date) && isMoreThan(day.date, hDate))) {
       return 'middle';
     }
 
-    if (isSameDay(day.date, start) || isMoreThan(start, hDate)) {
+    if (isSameDate(day.date, start) || isMoreThan(start, hDate)) {
       return 'start';
     }
 
-    if (isSameDay(day.date, end) || isSameDay(day.date, hDate)) {
+    if (isSameDate(day.date, end) || isSameDate(day.date, hDate)) {
       return 'end';
     }
   }
@@ -117,7 +117,7 @@ function handleHover(day: Day) {
   text-transform: capitalize;
 }
 
-.day:not(.name):focus {
+.day:not(.name, .selected):focus {
   border: 1px solid var(--brand-500);
   box-shadow: var(--focus-shadow-xs-brand);
 }

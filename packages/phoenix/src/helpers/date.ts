@@ -6,7 +6,7 @@ interface DateTimeFormatOptions {
   year?: 'numeric' | '2-digit'
 }
 
-export function isSameDay(a: Date, b: Date): boolean {
+export function isSameDate(a: Date, b: Date): boolean {
   if (a && b) {
     return a.toDateString() === b.toDateString();
   }
@@ -60,7 +60,7 @@ function monthDays(month: number, year: number, inMonth = false): Day[] {
     days.push({
       date: d,
       isInMonth: inMonth,
-      isToday: (isSameDay(d, new Date()) && inMonth),
+      isToday: (isSameDate(d, new Date()) && inMonth),
     });
   }
 
