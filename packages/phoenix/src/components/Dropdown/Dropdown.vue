@@ -470,7 +470,6 @@ onClickOutside(dropdown, () => show.value = false);
   width: v-bind(listWidth);
   height: max-content;
   max-height: 240px;
-  overflow: hidden;
   border: 1px solid var(--gray-200);
   border-radius: 8px;
   background-color: var(--base-white);
@@ -492,6 +491,7 @@ onClickOutside(dropdown, () => show.value = false);
   height: 100%;
   padding: 0 16px;
   border: 0;
+  border-radius: 8px;
   outline: none;
   background-color: var(--base-white);
   color: var(--gray-900);
@@ -511,6 +511,7 @@ onClickOutside(dropdown, () => show.value = false);
   row-gap: 1px;
   scrollbar-width: thin;
   scrollbar-color: var(--brand-500) transparent;
+  border-radius: 8px;
 }
 
 .dropdown .list-container .dropdown-list::-webkit-scrollbar {
