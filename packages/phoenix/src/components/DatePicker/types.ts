@@ -1,10 +1,16 @@
 export type DateLocale = 'en' | 'fr' | 'es' | 'de' | 'ar';
 export type ShowingType = boolean | 'months' | 'years';
 export type DateValue = Date | null | undefined;
+
+export interface DatesLimit {
+  minDate?: Date
+  maxDate?: Date
+}
 export interface RangeType {
   start: DateValue
   end: DateValue
 }
+
 export type DateRangeValue = RangeType | undefined;
 
 export interface Preset {
@@ -12,6 +18,7 @@ export interface Preset {
   start: Date
   end: Date
   active?: boolean
+  disabled?: boolean
 }
 
 export interface Day {
@@ -19,12 +26,9 @@ export interface Day {
   isToday?: boolean
   isInMonth?: boolean
   selected?: boolean
+  disabled?: boolean
 }
 
-interface DatesLimit {
-  minDate?: Date
-  maxDate?: Date
-}
 export interface MonthsSwitcherProps extends DatesLimit {
   modelValue: Date
   locale?: DateLocale
@@ -45,13 +49,13 @@ export interface YearsAndMonthsProps extends DatesLimit {
   locale?: DateLocale
   show?: ShowingType
 }
-export interface DaysProps extends SharedProps {
+export interface DaysProps extends SharedProps, DatesLimit {
   month: Date
   hoverDate: Date | null
   disabled?: boolean
 }
 
-export interface CalendarProps extends SharedProps {}
+export interface CalendarProps extends SharedProps, DatesLimit {}
 
 export interface DatePickerProps extends SharedProps, DatesLimit {
   placeholder?: string

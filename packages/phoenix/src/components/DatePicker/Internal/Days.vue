@@ -7,11 +7,16 @@ const props = defineProps<DaysProps>();
 
 const emit = defineEmits(['update:modelValue', 'update:hoverDate']);
 
-const calendarDays = computed(() => getDisplayedDays(props.month));
+const calendarDays = computed(() => {
+  const { minDate, maxDate } = props;
+  const datesLimit = { minDate, maxDate };
+
+  return getDisplayedDays(props.month, datesLimit);
+});
 const dayNames = getWeekdayNames(props.locale);
 
 function select(day: Day) {
-  if (day.isInMonth === false) {
+  if (!day.isInMonth || day.disabled) {
     return;
   }
 
@@ -28,6 +33,10 @@ function isSelected(day: Day) {
   }
 
   return false;
+}
+
+function canSelect(day: Day) {
+  return !day.disabled && day.isInMonth;
 }
 
 function whichOne(day: Day) {
@@ -77,7 +86,7 @@ function handleHover(day: Day) {
     </div>
     <button
       v-for="(day, index) in calendarDays" :key="index" class="day"
-      :class="[{ 'is-tody': day.isToday }, { selected: isSelected(day) }, `${day.isInMonth ? 'in' : 'out'}`, whichOne(day)]"
+      :class="[{ 'is-tody': day.isToday }, { selected: isSelected(day) }, `${canSelect(day) ? 'in' : 'out'}`, whichOne(day)]"
       type="button" @click="select(day)"
       @mouseover="handleHover(day)"
     >

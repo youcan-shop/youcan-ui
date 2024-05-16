@@ -12,17 +12,20 @@ const emit = defineEmits(['update:modelValue', 'update:range']);
 const showYearsOrMonths = ref<ShowingType>(false);
 const calendarContainer = ref();
 
-function setDate() {
-  const { modelValue, range } = props;
+function setDate(): Date {
+  const { modelValue, range, minDate, maxDate } = props;
+  const min = (minDate as Date);
+  const max = (maxDate as Date);
+  let d = new Date();
   if (modelValue) {
-    return modelValue;
+    d = modelValue;
   }
 
   if (range && range.start) {
-    return range.start;
+    d = range.start;
   }
 
-  return new Date();
+  return isMoreThan(d, max) ? max : isMoreThan(min, d) ? min : d;
 }
 
 const month = ref(setDate());
@@ -82,11 +85,25 @@ watch(() => props.range, (newValue) => {
   <div class="calendar">
     <Transition name="fade">
       <div v-if="!showYearsOrMonths" ref="calendarContainer" class="calendar-container">
-        <MonthsSwitcher v-model="month" :locale="locale" @on-click="show" />
-        <Days v-model="model" v-model:hover-date="hoverDate" :month="month" :locale="locale" :range="range" />
+        <MonthsSwitcher v-model="month" :locale="locale" :min-date="minDate" :max-date="maxDate" @on-click="show" />
+        <Days
+          v-model="model"
+          v-model:hover-date="hoverDate"
+          :month="month"
+          :locale="locale"
+          :range="range"
+          :min-date="minDate"
+          :max-date="maxDate"
+        />
       </div>
     </Transition>
-    <YearsAndMonths v-model:date="month" v-model:show="showYearsOrMonths" :locale="locale" />
+    <YearsAndMonths
+      v-model:date="month"
+      v-model:show="showYearsOrMonths"
+      :locale="locale"
+      :min-date="minDate"
+      :max-date="maxDate"
+    />
   </div>
 </template>
 

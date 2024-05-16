@@ -9,6 +9,9 @@ import { getDateLast, navigateToMonth } from '~/helpers';
 const date = ref<DateValue>(null);
 const range = ref<DateRangeValue>({ start: null, end: null });
 
+const MIN = new Date(2024, 3, 1);
+const MAX = new Date(2030, 9, 20);
+
 const DateNow = new Date();
 const presets = ref<Preset[]> ([
   {
@@ -42,8 +45,20 @@ const presets = ref<Preset[]> ([
 
 <template>
   <div class="container">
-    <DatePicker v-model="date" placeholder="Select date" />
-    <DatePicker v-model:range="range" v-model:presets="presets" placeholder="Select dates" :close-on-select="false" />
+    <DatePicker
+      v-model="date"
+      :min-date="MIN"
+      :max-date="MAX"
+      placeholder="Select date"
+    />
+    <DatePicker
+      v-model:range="range"
+      v-model:presets="presets"
+      :min-date="MIN"
+      :max-date="MAX"
+      placeholder="Select dates"
+      :close-on-select="false"
+    />
   </div>
 </template>
 

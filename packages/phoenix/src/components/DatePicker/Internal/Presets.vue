@@ -1,15 +1,20 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-import type { PresetsProps } from '~/types';
+import { computed, ref } from 'vue';
+import type { Preset, PresetsProps } from '~/types';
 import { Button } from '~/components';
 
-defineProps<PresetsProps>();
+const props = defineProps<PresetsProps>();
 
 const emit = defineEmits(['select']);
 
 const show = ref(false);
 
-function select(index: number) {
+const list = computed(() => props.presets?.slice(0, 6));
+
+function select(index: number, preset: Preset) {
+  if (preset.disabled) {
+    return;
+  }
   emit('select', index);
   show.value = false;
 }
@@ -21,8 +26,8 @@ function select(index: number) {
       {{ presetsTitle }}
     </Button>
     <ul class="presets-list" :class="{ show }">
-      <li v-for="(preset, index) in presets?.slice(0, 6)" :key="index" class="presets-list-item" :class="{ active: preset.active }">
-        <button @click="select(index)">
+      <li v-for="(preset, index) in list" :key="index" class="list-item" :class="[{ active: preset.active }, { disabled: preset.disabled }]">
+        <button @click="select(index, preset)">
           {{ preset.label }}
         </button>
       </li>
@@ -54,7 +59,7 @@ function select(index: number) {
   row-gap: 5px;
 }
 
-.presets .presets-list .presets-list-item button {
+.presets .presets-list .list-item button {
   display: flex;
   justify-content: flex-start;
   padding: 10px;
@@ -68,12 +73,17 @@ function select(index: number) {
   cursor: pointer;
 }
 
-.presets .presets-list .presets-list-item.active button {
+.presets .presets-list .list-item.active button {
   cursor: default;
 }
 
-.presets .presets-list .presets-list-item.active button,
-.presets .presets-list .presets-list-item button:hover {
+.presets .presets-list .list-item.disabled button {
+  color: var(--gray-300);
+  cursor: not-allowed;
+}
+
+.presets .presets-list .list-item.active:not(.disabled) button,
+.presets .presets-list .list-item:not(.disabled) button:hover {
   background-color: var(--brand-50);
 }
 

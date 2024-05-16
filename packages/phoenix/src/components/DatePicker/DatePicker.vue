@@ -2,8 +2,9 @@
 import { onClickOutside } from '@vueuse/core';
 import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue';
 import { Presets } from './Internal';
+import { maxCalendarDate, minCalendarDate } from './options';
 import { Button, Calendar } from '~/components';
-import { dateFormat, isRTL, isSameDate, setPosition } from '~/helpers';
+import { dateFormat, isMoreThan, isRTL, isSameDate, setPosition } from '~/helpers';
 import type { DatePickerProps, DateRangeValue, DateValue, Preset } from '~/types';
 
 const props = withDefaults(defineProps<DatePickerProps>(), {
@@ -22,6 +23,28 @@ const calendarWrap = ref();
 const datePicker = ref();
 
 const hasPresets = computed(() => props.presets && props.presets.length && props.range);
+
+const min = computed(() => {
+  const { minDate, maxDate } = props;
+  let minValue = minCalendarDate;
+  if (minDate && isMoreThan(minDate, minCalendarDate)) {
+    minValue = minDate;
+    if (maxDate && isMoreThan(minValue, maxDate)) {
+      minValue = maxDate;
+    }
+  }
+
+  return minValue;
+});
+
+const max = computed(() => {
+  const { maxDate } = props;
+  if (maxDate && isMoreThan(maxCalendarDate, maxDate)) {
+    return maxDate;
+  }
+
+  return maxCalendarDate;
+});
 
 const datesFormat = computed(() => {
   const { modelValue, locale, range } = props;
@@ -71,10 +94,18 @@ function PickerPosition() {
   });
 }
 
+function disablePreset(preset: Preset) {
+  return isMoreThan(min.value, preset.start)
+  || isMoreThan(preset.start, max.value)
+  || isMoreThan(preset.end, max.value)
+  || isMoreThan(min.value, preset.end);
+}
+
 function selectPreset(index: number) {
   const presets = props.presets;
   presets?.forEach((_, i) => {
     presets[i].active = i === index;
+    presets[i].disabled = disablePreset(presets[i]);
   });
   emit('update:presets', presets);
   presetChanged(presets);
@@ -85,8 +116,45 @@ function presetChanged(presets: Preset[] | undefined) {
     const activePreset = presets?.find(preset => (preset.active && preset.start && preset.end));
     if (activePreset) {
       rangeDate.value = { start: activePreset.start, end: activePreset.end };
-      emit('update:range', rangeDate.value);
+      nextTick(() => {
+        emit('update:range', rangeDate.value);
+      });
     }
+  }
+}
+
+function checkRange(range: DateRangeValue) {
+  if (range) {
+    const start = (range?.start as Date);
+    const end = (range?.end as Date);
+    const rangeValue = { start, end };
+
+    if (isMoreThan(min.value, start) || isMoreThan(start, max.value)) {
+      rangeValue.start = min.value;
+    }
+
+    if (isMoreThan(end, max.value) || isMoreThan(min.value, end)) {
+      rangeValue.end = max.value;
+    }
+
+    rangeDate.value = rangeValue;
+    emit('update:range', rangeValue);
+  }
+}
+
+function checkDate() {
+  const { modelValue } = props;
+  if (modelValue) {
+    let newDate = modelValue;
+
+    if (isMoreThan(newDate, max.value)) {
+      newDate = max.value;
+    }
+    if (isMoreThan(min.value, newDate)) {
+      newDate = min.value;
+    }
+    date.value = newDate;
+    emit('update:modelValue', newDate);
   }
 }
 
@@ -95,17 +163,16 @@ function handleResize() {
 }
 
 onMounted(() => {
+  window.addEventListener('resize', handleResize);
   const { presets } = props;
   presetChanged(presets);
-
-  window.addEventListener('resize', handleResize);
+  checkRange(props.range);
+  checkDate();
 });
 
 onUnmounted(() => {
   window.removeEventListener('resize', handleResize);
 });
-
-onClickOutside(datePicker, () => show.value = false);
 
 watch(() => props.range, (newValue) => {
   const { presets } = props;
@@ -119,6 +186,8 @@ watch(() => props.range, (newValue) => {
     selectPreset(index);
   }
 });
+
+onClickOutside(datePicker, () => show.value = false);
 </script>
 
 <template>
@@ -134,6 +203,8 @@ watch(() => props.range, (newValue) => {
           v-model="date"
           v-model:range="rangeDate"
           :locale="locale"
+          :min-date="min"
+          :max-date="max"
           @update:model-value="updateModel"
           @update:range="updateRange"
         />

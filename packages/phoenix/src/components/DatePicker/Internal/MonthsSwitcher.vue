@@ -1,8 +1,7 @@
 <script lang="ts" setup>
 import { computed, nextTick } from 'vue';
-import { maxCalendarDate, minCalendarDate } from '../options';
 import { Button } from '~/components';
-import { isSameDate, monthToString, navigateToMonth } from '~/helpers';
+import { monthToString, navigateToMonth } from '~/helpers';
 import type { MonthsSwitcherProps } from '~/types';
 
 const props = defineProps<MonthsSwitcherProps>();
@@ -13,8 +12,11 @@ const month = computed({
   set: (value: Date) => emit('update:modelValue', value),
 });
 
-const disableNext = computed(() => isSameDate(month.value, maxCalendarDate));
-const disablePrevious = computed(() => isSameDate(month.value, minCalendarDate));
+function compare(a: Date, b: Date) {
+  return a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth();
+}
+const disableNext = computed(() => compare(month.value, (props.maxDate as Date)));
+const disablePrevious = computed(() => compare(month.value, (props.minDate as Date)));
 
 function update(monthCount: number) {
   month.value = navigateToMonth(month.value, monthCount);
