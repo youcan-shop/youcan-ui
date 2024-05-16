@@ -4,7 +4,7 @@ import '../assets/main.css';
 import { ref } from 'vue';
 import { DatePicker } from '~/components';
 import type { DateRangeValue, DateValue, Preset } from '~/types';
-import { getDateLast, navigateToMonth } from '~/helpers';
+import { getDateDaysAgo, moveToMonth } from '~/helpers';
 
 const date = ref<DateValue>(null);
 const range = ref<DateRangeValue>({ start: null, end: null });
@@ -16,28 +16,28 @@ const DateNow = new Date();
 const presets = ref<Preset[]> ([
   {
     label: 'Last 7 days',
-    start: getDateLast(7),
+    start: getDateDaysAgo(7),
     end: DateNow,
   },
   {
     label: 'Last 30 days',
-    start: getDateLast(30),
+    start: getDateDaysAgo(30),
     end: DateNow,
     active: true,
   },
   {
     label: 'Last month',
-    start: navigateToMonth(new Date(), -1),
+    start: moveToMonth(new Date(), -1),
     end: new Date(DateNow.getFullYear(), DateNow.getMonth(), 0),
   },
   {
     label: 'Last 90 days',
-    start: getDateLast(90),
+    start: getDateDaysAgo(90),
     end: DateNow,
   },
   {
     label: 'Last 3 months',
-    start: navigateToMonth(DateNow, -3),
+    start: moveToMonth(DateNow, -3),
     end: new Date(DateNow.getFullYear(), DateNow.getMonth(), 0),
   },
 ]);

@@ -2,7 +2,7 @@
 import { computed, ref } from 'vue';
 import type { YearsAndMonthsProps } from '../types';
 import { Button } from '~/components';
-import { isMoreThan, monthToString } from '~/helpers';
+import { getMonthName, isMoreThan } from '~/helpers';
 
 const props = defineProps<YearsAndMonthsProps>();
 
@@ -94,7 +94,7 @@ function update(direction: 'next' | 'previous') {
           v-for="m in 12" :key="m" class="month"
           :class="[{ selected: m - 1 === month }, `${disableMonth(m - 1) ? 'out' : 'in'}`]" @click="select(m - 1, 'month')"
         >
-          {{ monthToString(m - 1, locale) }}
+          {{ getMonthName(m - 1, locale) }}
         </button>
       </div>
     </div>

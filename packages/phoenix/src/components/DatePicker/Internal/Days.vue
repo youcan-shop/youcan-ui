@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
-import { getDisplayedDays, getWeekdayNames, isMoreThan, isRTL, isSameDate } from '~/helpers';
+import { generateDisplayedDays, getWeekdayNames, isMoreThan, isRTL, isSameDate } from '~/helpers';
 import type { Day, DaysProps } from '~/types';
 
 const props = defineProps<DaysProps>();
@@ -11,7 +11,7 @@ const calendarDays = computed(() => {
   const { minDate, maxDate } = props;
   const datesLimit = { minDate, maxDate };
 
-  return getDisplayedDays(props.month, datesLimit);
+  return generateDisplayedDays(props.month, datesLimit);
 });
 const dayNames = getWeekdayNames(props.locale);
 

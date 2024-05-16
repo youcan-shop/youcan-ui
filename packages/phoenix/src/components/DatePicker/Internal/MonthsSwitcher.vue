@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { computed, nextTick } from 'vue';
 import { Button } from '~/components';
-import { monthToString, navigateToMonth } from '~/helpers';
+import { getMonthName, moveToMonth } from '~/helpers';
 import type { MonthsSwitcherProps } from '~/types';
 
 const props = defineProps<MonthsSwitcherProps>();
@@ -19,7 +19,7 @@ const disableNext = computed(() => compare(month.value, (props.maxDate as Date))
 const disablePrevious = computed(() => compare(month.value, (props.minDate as Date)));
 
 function update(monthCount: number) {
-  month.value = navigateToMonth(month.value, monthCount);
+  month.value = moveToMonth(month.value, monthCount);
 
   nextTick(() => {
     emit('update:modelValue', month.value);
@@ -34,7 +34,7 @@ function update(monthCount: number) {
     </Button>
     <div class="year-label">
       <button type="button" @click="() => emit('onClick', 'months')">
-        {{ monthToString(month.getMonth(), locale) }}
+        {{ getMonthName(month.getMonth(), locale) }}
       </button>
       <button type="button" @click="() => emit('onClick', 'years')">
         {{ month.getFullYear() }}
