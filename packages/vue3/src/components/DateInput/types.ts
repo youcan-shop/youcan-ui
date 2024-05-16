@@ -6,6 +6,7 @@ export interface DateInputValue {
 export interface DateInputProps {
   modelValue: DateInputValue
   disabled?: boolean
+  placeholder?: string
 }
 
 export interface DatePickerProps {
@@ -19,4 +20,5 @@ export interface SingleDatePickerProps {
 export interface SingleDateInputProps {
   modelValue: Date
   disabled?: boolean
+  placeholder?: string
 }

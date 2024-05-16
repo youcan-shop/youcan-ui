@@ -4,7 +4,7 @@ import { DateInput } from '~/components';
 
 type Story = StoryObj<typeof DateInput>;
 const meta: Meta<typeof DateInput> = {
-  title: 'Application/DateInput',
+  title: 'Application/Date/Range',
   component: DateInput,
   tags: ['application', 'date', 'input', 'multi', 'select'],
   argTypes: {
@@ -12,6 +12,7 @@ const meta: Meta<typeof DateInput> = {
   },
   args: {
     disabled: false,
+    placeholder: 'Select date range',
   },
 };
 
