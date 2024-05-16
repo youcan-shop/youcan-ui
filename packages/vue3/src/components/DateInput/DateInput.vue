@@ -6,7 +6,9 @@ import DatePicker from './DatePicker.vue';
 import type { DateInputProps, DateInputValue } from '~/types';
 import SecondaryButton from '~/components/Button/SecondaryButton.vue';
 
-const props = defineProps<DateInputProps>();
+const props = withDefaults(defineProps<DateInputProps>(), {
+  placeholder: 'Select date range',
+});
 
 const emit = defineEmits(['update:modelValue']);
 
@@ -35,7 +37,7 @@ onClickOutside(datePicker, () => toggleDatePicker(false));
       <span v-show="model.start || model.start">
         {{ DateUtils.getCalendarDay(model.start, 'Start') }} - {{ DateUtils.getCalendarDay(model.end, 'End') }}
       </span>
-      <span v-show="!model.start && !model.start">Select date range</span>
+      <span v-show="!model.start && !model.start" class="placeholder">{{ placeholder }}</span>
       <template #icon>
         <i class="i-youcan-calendar-blank" />
       </template>
@@ -54,18 +56,23 @@ onClickOutside(datePicker, () => toggleDatePicker(false));
   width: var(--width);
 }
 
-.input-trigger {
+.date-input .input-trigger {
   --icon-color: gray(--gray-500);
 
   justify-content: space-between;
   width: 100%;
 }
 
+.date-input .input-trigger .placeholder {
+  color: var(--gray-300);
+  font: var(--text-sm-regular);
+}
+
 .date-picker-container {
   position: relative;
 }
 
-.date-picker-container .date-picker {
+.date-input .date-picker-container .date-picker {
   position: absolute;
   top: 8px;
 }

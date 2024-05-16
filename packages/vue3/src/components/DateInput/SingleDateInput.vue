@@ -5,7 +5,9 @@ import { computed, ref } from 'vue';
 import type { SingleDateInputProps } from './types';
 import { SecondaryButton, SingleDatePicker } from '~/components';
 
-const props = defineProps<SingleDateInputProps>();
+const props = withDefaults(defineProps<SingleDateInputProps>(), {
+  placeholder: 'Select date',
+});
 
 const emit = defineEmits(['update:modelValue']);
 
@@ -38,7 +40,7 @@ onClickOutside(datePicker, () => toggleDatePicker(false));
       <span v-show="model">
         {{ model?.toLocaleDateString() }}
       </span>
-      <span v-show="!model">Select a date range</span>
+      <span v-show="!model" class="placeholder">{{ placeholder }}</span>
       <template #icon>
         <i class="i-youcan-calendar-blank" />
       </template>
@@ -57,18 +59,23 @@ onClickOutside(datePicker, () => toggleDatePicker(false));
   width: var(--width);
 }
 
-.input-trigger {
+.date-input .input-trigger {
   --icon-color: gray(--gray-500);
 
   justify-content: space-between;
   width: 100%;
 }
 
-.date-picker-container {
+.date-input .input-trigger .placeholder {
+  color: var(--gray-300);
+  font: var(--text-sm-regular);
+}
+
+.date-input .date-picker-container {
   position: relative;
 }
 
-.date-picker-container .date-picker {
+.date-input .date-picker-container .date-picker {
   position: absolute;
   top: 8px;
 }
