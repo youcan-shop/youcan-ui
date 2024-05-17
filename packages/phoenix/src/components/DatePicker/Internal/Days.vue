@@ -126,14 +126,14 @@ function handleHover(day: Day) {
   text-transform: capitalize;
 }
 
-.days .day:not(.name, .selected):focus {
-  border: 1px solid var(--brand-500);
-  box-shadow: var(--focus-shadow-xs-brand);
-}
-
 .days .day.in {
   transition: background-color 70ms ease-in-out;
   cursor: pointer;
+}
+
+.days .day.in:not(.name, .selected):focus {
+  border: 1px solid var(--brand-500);
+  box-shadow: var(--focus-shadow-xs-brand);
 }
 
 .days .day.in.selected {

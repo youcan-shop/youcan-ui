@@ -8,8 +8,10 @@ import { getDateDaysAgo, moveToMonth } from '~/helpers';
 
 const date = ref<DateValue>(null);
 const range = ref<DateRangeValue>({ start: null, end: null });
+const rangePresets = ref<DateRangeValue>({ start: null, end: null });
+const rangeMinMax = ref<DateRangeValue>({ start: null, end: null });
 
-const MIN = new Date(2024, 3, 1);
+const MIN = new Date();
 const MAX = new Date(2030, 9, 20);
 
 const DateNow = new Date();
@@ -45,20 +47,40 @@ const presets = ref<Preset[]> ([
 
 <template>
   <div class="container">
-    <DatePicker
-      v-model="date"
-      :min-date="MIN"
-      :max-date="MAX"
-      placeholder="Select date"
-    />
-    <DatePicker
-      v-model:range="range"
-      v-model:presets="presets"
-      :min-date="MIN"
-      :max-date="MAX"
-      placeholder="Select dates"
-      :close-on-select="false"
-    />
+    <div class="row">
+      <span class="title">Single date :</span>
+      <DatePicker
+        v-model="date"
+        placeholder="Select date"
+      />
+    </div>
+    <div class="row">
+      <span class="title">Range date :</span>
+      <DatePicker
+        v-model:range="range"
+        placeholder="Select dates"
+        :close-on-select="false"
+      />
+    </div>
+    <div class="row">
+      <span class="title">Range date with presets :</span>
+      <DatePicker
+        v-model:range="rangePresets"
+        v-model:presets="presets"
+        placeholder="Select dates"
+        :close-on-select="false"
+      />
+    </div>
+    <div class="row">
+      <span class="title">Range date with min and max :</span>
+      <DatePicker
+        v-model:range="rangeMinMax"
+        :min-date="MIN"
+        :max-date="MAX"
+        placeholder="Select dates"
+        :close-on-select="false"
+      />
+    </div>
   </div>
 </template>
 
@@ -68,6 +90,17 @@ const presets = ref<Preset[]> ([
   flex-direction: column;
   max-width: 500px;
   margin: 30px auto;
-  gap: 60px;
+  gap: 40px;
+}
+
+.container .row {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.container .row .title {
+  color: var(--gray-900);
+  font: var(--text-md-medium);
 }
 </style>

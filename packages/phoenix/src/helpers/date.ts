@@ -162,7 +162,7 @@ export function generateDisplayedDays(date: Date, datesLimit: DatesLimit): Day[]
   // Days from the next month to complete the last week of the grid
   const nextMonthDays = generateMonthDays(nextMonth.getMonth(), nextMonth.getFullYear(), false, datesLimit);
   const remainingDays = 7 - (days.length % 7);
-  if (remainingDays > 0) {
+  if (remainingDays > 0 && remainingDays < 7) {
     days = [...days, ...nextMonthDays.slice(0, remainingDays)];
   }
 
