@@ -1,1 +1,8 @@
-@import "https://fonts.cdnfonts.com/css/mona-sans?styles=144346,144348,144350,144358,144360,144362,144334,144336,144338,144340,144342,144344,144352,144354,144356,144322,144324,144326,144328,144330,144332,144316,144318,144320,144345,144339,144351,144321,144327";
+@font-face {
+    font-family: 'Mona-sans';
+    src: url('https://ui-assets.ycdn.store/fonts/Mona-Sans.ttf');
+}
+@font-face {
+    font-family: 'DroidKufi';
+    src: url('https://ui-assets.ycdn.store/fonts/DroidKufi-Regular.ttf');
+}

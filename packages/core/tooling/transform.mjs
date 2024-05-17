@@ -32,7 +32,7 @@ const TRANSFORMERS = {
     return `--${prefix}: ${spread(value)};`;
   },
   fonts: (prefix, { value }) => {
-    return `--${prefix}: "${value}";`;
+    return `--${prefix}: ${value};`;
   },
   typography: (prefix, { value }, set) => {
     const {
@@ -108,7 +108,7 @@ function transform(path, unit, set) {
 
 let output = `
 html[dir="rtl"]{
-  --font-family: "DroidKufi";
+  --font-family: "DroidKufi", "Mona-sans", Arial, sans-serif;
 }
 :root {`;
 
