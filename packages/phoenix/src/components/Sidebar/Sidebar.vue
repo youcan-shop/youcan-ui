@@ -76,7 +76,7 @@ const resolvedCustomStyle = mergeWithDefaultValues(props.styleConfig, defaultSid
   color: var(--sidebar-icon-color);
 }
 
-.sidebar-header {
+.sidebar .sidebar-header {
   display: flex;
   align-items: center;
   height: 68px;
@@ -85,43 +85,43 @@ const resolvedCustomStyle = mergeWithDefaultValues(props.styleConfig, defaultSid
   gap: 20px;
 }
 
-.sidebar-header:hover {
+.sidebar .sidebar-header:hover {
   background-color: var(--sidebar-header-hover-color);
 }
 
-.sidebar-header:active {
+.sidebar .sidebar-header:active {
   background-color: var(--sidebar-header-active-color);
 }
 
-.sidebar-header .item-icon {
+.sidebar .sidebar-header .item-icon {
   padding: 0;
   border: none;
   background-color: transparent;
   cursor: pointer;
 }
 
-.sidebar-header .item-icon i {
+.sidebar .sidebar-header .item-icon i {
   transition: transform 0.25s ease-in-out;
 }
 
-.sidebar-header .item-label {
+.sidebar .sidebar-header .item-label {
   color: var(--base-white);
   font: var(--sidebar-header-font);
 }
 
-.sidebar-items.upper {
+.sidebar .sidebar-items.upper {
   display: flex;
   flex-direction: column;
   margin-top: 10%;
   gap: var(--sidebar-spacing);
 }
 
-.sidebar-items.lower {
+.sidebar .sidebar-items.lower {
   margin-top: auto;
   margin-bottom: 10%;
 }
 
-.sidebar-items :deep(.item-label) a {
+.sidebar .sidebar-items :deep(.item-label) a {
   color: inherit;
   text-decoration: none;
 }

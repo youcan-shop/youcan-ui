@@ -113,12 +113,12 @@ onMounted(() => {
   color: var(--sidebar-item-icon-color);
 }
 
-.expand-icon i {
+.sidebar-item .expand-icon i {
   transition: all 200ms ease-in-out;
   color: var(--sidebar-item-icon-color);
 }
 
-.expand-icon.rotate i {
+.sidebar-item .expand-icon.rotate i {
   transform: rotate(180deg);
 }
 
@@ -133,16 +133,8 @@ onMounted(() => {
   overflow: hidden;
 }
 
-.expand-icon {
+.sidebar-item .expand-icon {
   margin-inline-start: auto;
-}
-
-.toggle-enter-active {
-  animation: toggle 0.15s linear;
-}
-
-.toggle-leave-active {
-  animation: toggle 0.15s reverse linear;
 }
 
 @keyframes toggle {

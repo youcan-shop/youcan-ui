@@ -57,7 +57,7 @@ const resolvedCustomStyle = mergeWithDefaultValues(props.styleConfig, defaultSub
   font: var(--subitem-label-font);
 }
 
-.subitem-text {
+.sidebar-subitem .subitem-text {
   display: block;
 }
 </style>
