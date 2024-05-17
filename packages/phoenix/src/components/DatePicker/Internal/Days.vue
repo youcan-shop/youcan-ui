@@ -80,7 +80,7 @@ function handleHover(day: Day) {
 </script>
 
 <template>
-  <div class="days" :class="[{ rtl: isRTL() }, locale]" @mouseleave="() => emit('update:hoverDate', null)">
+  <div class="days" :class="[{ rtl: isRTL() }]" @mouseleave="() => emit('update:hoverDate', null)">
     <div v-for="day in dayNames" :key="day" class="day name">
       {{ day }}
     </div>
