@@ -2,97 +2,127 @@
 import 'uno.css';
 import '../assets/main.css';
 import { ref } from 'vue';
-import { Dropdown, PaginationBar, Tag } from '~/components';
-import type { DropdownValue, TagItemValue } from '~/types';
+import { Sidebar, SidebarItem, SidebarSubitem } from '~/components';
+import type { ItemStyleProps, SidebarStyleProps, SubItemStyleProps } from '~/components/Sidebar/types';
 
-const multiple = ref(null);
-const single = ref(null);
-const value = ref(null);
-const currentPage = ref(1);
-const perPage = ref(10);
-const preferredLanguages = ref<TagItemValue[]>([]);
-
-const total = 50;
-const totalPages = Math.ceil(total / perPage.value);
-const perPageOptions = [5, 10, 20, 30, 50, 100];
-
-const items: Array<DropdownValue> = [
-  { label: '+1 stars', key: 3, groupName: 'Rating' },
-  { label: 'Visible', key: 2, groupName: 'Visibility' },
-  { label: 'Hidden', key: 5, groupName: 'Visibility' },
-  { label: '+3 stars', key: 4, groupName: 'Rating' },
-  { label: '+4 stars', key: 1, groupName: 'Rating' },
-];
-
-const singleItems = ref<DropdownValue[]>([
-  { label: 'Shoes', key: 1 },
-  { label: 'Cosmetics', key: 2 },
-  { label: 'Gym', key: 3 },
-]);
-
-const languages: Array<DropdownValue> = [
-  { label: 'Arabic', key: 1 },
-  { label: 'English', key: 2 },
-  { label: 'German', key: 3 },
-  { label: 'French', key: 4 },
-  { label: 'Dutch', key: 5 },
-  { label: 'Hindi', key: 6 },
-];
-
-function handlePaginationNavigation(pageNumber: number) {
-  currentPage.value = pageNumber;
+interface SidebarItemType {
+  label: string
+  icon?: string
+  children?: SidebarItemType[]
+  url?: string
 }
 
-function search(value: string) {
-  console.log(value);
+const items: SidebarItemType[] = [
+  {
+    label: 'Products',
+    icon: 'i-youcan-tag',
+    children: [
+      { label: 'All Products' },
+      { label: 'Categories', url: 'http://google.com/categories' },
+    ],
+  },
+  {
+    label: 'Insights',
+    icon: 'i-youcan-chart-line',
+    url: 'http://google.com/Insight',
+  },
+  {
+    label: 'Truck',
+    icon: 'i-youcan-truck',
+    url: 'http://google.com/truck',
+  },
+  {
+    label: 'Users',
+    icon: 'i-youcan-user',
+    children: [
+      { label: 'All Users' },
+      { label: 'roles', url: 'http://google.com/roles' },
+    ],
+  },
+];
+
+const customItemStyle: ItemStyleProps = {
+  hoverColor: 'var(--gray-800)',
+  activeColor: 'var(--gray-800)',
+  iconColor: 'var(--gray-300)',
+  labelColor: 'var(--gray-300)',
+  activeMarkColor: 'var(--yellow-500)',
+  activeIconColor: 'var(--yellow-500)',
+  activeLabelColor: 'var(--yellow-500)',
+  font: 'var(--text-md-regular)',
+};
+
+const customSidebarStyle: SidebarStyleProps = {
+  backgroundColor: 'var(--blue-900)',
+  width: 250,
+  hoverColor: 'var(--blue-800)',
+  activeColor: 'var(--blue-900)',
+  iconColor: 'var(--gray-300)',
+  subItemIconColor: 'var(--gray-300)',
+  font: 'var(--text-lg-medium)',
+  spacing: 10,
+};
+
+const customSubItemStyle: SubItemStyleProps = {
+  labelColor: 'var(--gray-300)',
+  activeLabelColor: 'var(--yellow-500)',
+  font: 'var(--text-md-regular)',
+};
+
+// HANDELLING SIDEBAR ACTIVE ITEM
+const active = ref(0);
+
+function setActive(id: number) {
+  active.value = id;
+}
+
+// HANDELLING SIDEBAR NAVIGATION
+function navigate(item: SidebarItemType) {
+  // eslint-disable-next-line no-console
+  console.log('🚀 ~ navigate ~ item:', item.url);
 }
 </script>
 
 <template>
   <div class="container">
-    <div class="row">
-      <div>
-        <span>Default Dropdown : </span>
-        <Dropdown v-model="value" searchable :items="languages" placeholder="Select item" />
-      </div>
-      <div>
-        <span>Multiple Dropdown : </span>
-        <Dropdown v-model="multiple" :limit="4" :items="items" searchable multiple placeholder="Select items" />
-      </div>
-      <div>
-        <span>Single Dropdown :</span>
-        <Dropdown v-model="single" :items="singleItems" placeholder="Select item" />
-      </div>
-    </div>
+    <Sidebar
+      collapsed
+      :style-config="customSidebarStyle"
+    >
+      <!-- SIDEBAR HEADER -->
+      <template #header>
+        <p>Awesome App</p>
+      </template>
 
-    <div class="row">
-      <div>
-        <span>Tags : </span>
-        <Tag
-          v-model="preferredLanguages"
-          placeholder="Select programming languages"
-          :max="3"
-          type="dropdown"
-          :items="languages"
-          search-input-placeholder="Search..."
-          :search="search"
-        />
-      </div>
-    </div>
+      <!-- SIDEBAR ITEMS -->
+      <template #items>
+        <SidebarItem
+          v-for="(item, index) in items"
+          :key="item.label"
+          :label="item.label"
+          :active="active === index"
+          :icon="item.icon"
+          :style-config="customItemStyle"
+          @click="setActive(index), item.url && navigate(item)"
+        >
+          <template v-if="item.children">
+            <SidebarSubitem
+              v-for="subItem in item.children" :key="subItem.label"
+              :label="subItem.label" :style-config="customSubItemStyle" @click="setActive(index), subItem.url && navigate(subItem)"
+            />
+          </template>
+        </SidebarItem>
+      </template>
 
-    <div class="row">
-      <div>
-        <PaginationBar
-          v-model:perPage="perPage"
-          :current="currentPage"
-          :size="totalPages"
-          :count="perPage"
-          :total="total"
-          :per-page-options="perPageOptions"
-          @update:current="handlePaginationNavigation"
+      <!-- SIDEBAR LOWER ITEMS -->
+      <template #lower-items>
+        <SidebarItem
+          icon="i-youcan-gear"
+          label="Settings"
+          :style-config="customItemStyle"
         />
-      </div>
-    </div>
+      </template>
+    </Sidebar>
   </div>
 </template>
 
@@ -100,27 +130,6 @@ function search(value: string) {
 .container {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100vw;
-  height: 100vh;
-  gap: 40px;
-}
-
-.container .row {
-  display: flex;
-  flex-direction: row;
-  gap: 20px;
-  width: 80%;
-}
-
-.container .row > div {
-  flex: 1;
-}
-
-.container .row > div span {
-  margin: 0;
-  color: var(--gray-900);
-  font: var(--text-sm-medium);
+  gap: 8px;
 }
 </style>
