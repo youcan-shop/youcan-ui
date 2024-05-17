@@ -6,3 +6,9 @@ export interface InputProps {
   error?: boolean
   canShow?: boolean
 }
+
+export interface InputGroupProps {
+  error?: string
+  label?: string
+  labelFor?: string
+}
