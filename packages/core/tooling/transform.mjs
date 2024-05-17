@@ -31,19 +31,21 @@ const TRANSFORMERS = {
 
     return `--${prefix}: ${spread(value)};`;
   },
+  fonts: (prefix, { value }) => {
+    return `--${prefix}: ${value};`;
+  },
   typography: (prefix, { value }, set) => {
     const {
       fontWeight,
       fontSize,
       lineHeight,
-      fontFamily,
     } = substituteValue(set, value);
 
     const ratio = lineHeight === 'AUTO'
       ? `${fontSize}px`
       : `${fontSize}px/${lineHeight}`;
 
-    return `--${prefix}: ${FONT_WEIGHTS[fontWeight]} ${ratio} "${fontFamily}";`;
+    return `--${prefix}: ${FONT_WEIGHTS[fontWeight]} ${ratio} var(--font-family);`;
   },
 };
 
@@ -104,7 +106,11 @@ function transform(path, unit, set) {
   return transformer(prefix(path), unit, set);
 }
 
-let output = ':root {';
+let output = `
+html[dir="rtl"]{
+  --font-family: "DroidKufi", "Mona-sans", Arial, sans-serif;
+}
+:root {`;
 
 function write(line) {
   if (line) {
