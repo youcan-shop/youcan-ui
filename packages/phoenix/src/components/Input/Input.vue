@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { computed, onBeforeMount, ref, useAttrs, useSlots } from 'vue';
-import DropdownPrefix from './prefixes/DropdownPrefix.vue';
+import { computed, ref, useAttrs, useSlots } from 'vue';
 import type { InputProps } from '~/types';
 
 const props = withDefaults(
@@ -30,27 +29,10 @@ const inputType = computed(() => {
 
   return props.type;
 });
-
-onBeforeMount(() => {
-  if (!slots.prefix) {
-    return;
-  }
-
-  const type = slots.prefix()[0].type;
-
-  if (typeof type !== 'symbol' && [DropdownPrefix].find(n => n === type)) {
-    return;
-  }
-
-  throw new TypeError('Invalid prefix');
-});
 </script>
 
 <template>
   <div :class="{ enabled: !attrs.disabled, error }" class="wrapper">
-    <div v-if="slots.prefix" class="prefix">
-      <slot name="prefix" />
-    </div>
     <input ref="primitive" v-model="model" class="input" :type="inputType" v-bind="$attrs">
     <div v-if="type === 'password' && canShow" class="show-password" @click="showPassword = !showPassword">
       <i v-if="showPassword" class="i-youcan:eye" />

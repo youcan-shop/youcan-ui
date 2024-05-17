@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 import { ref } from 'vue';
-import { Modal, PrimaryButton } from '~/components';
+import { Button, Modal } from '~/components';
 
 type Story = StoryObj<typeof Modal>;
 const meta: Meta<typeof Modal> = {
@@ -27,7 +27,7 @@ const meta: Meta<typeof Modal> = {
 
 export const Default: Story = {
   render: args => ({
-    components: { Modal, PrimaryButton },
+    components: { Modal, Button },
     setup() {
       const showModal = ref(false);
 
@@ -39,9 +39,9 @@ export const Default: Story = {
           The quick brown fox jumps over the lazy dog.
         </p>
       </Modal>
-      <PrimaryButton @click="showModal = true;">
+      <Button @click="showModal = true;" variant="primary">
         <span>Open Modal</span>
-      </PrimaryButton>
+      </Button>
       `,
   }),
 };

@@ -4,9 +4,8 @@ import { onClickOutside } from '@vueuse/core';
 import { isUrl } from './utils';
 import type { UploadedMediaProps } from '~/types';
 import {
-  PrimaryDestructiveButton,
+  Button,
   Spinner,
-  TertiaryButton,
   Thumbnail,
 } from '~/components';
 
@@ -116,24 +115,24 @@ watch(() => props.file, getUrl);
       <div class="actions">
         <Spinner v-if="loading" color="var(--base-white)" />
         <template v-else>
-          <TertiaryButton
+          <Button
             tabindex="0" class="action toggle-preview" size="md" icon-position="only" :rounded-full="true"
-            type="button" @click="togglePreview(true)"
+            type="button" variant="tertiary" @click="togglePreview(true)"
           >
             <template #icon>
               <i v-if="isVideo" class="i-youcan-play" />
               <i v-else class="i-youcan-eye" />
             </template>
-          </TertiaryButton>
+          </Button>
 
-          <PrimaryDestructiveButton
+          <Button
             tabindex="0" class="action" size="md" icon-position="only" :rounded-full="true" type="button"
-            @click="() => emit('delete')"
+            variant="destructive" @click="() => emit('delete')"
           >
             <template #icon>
               <i class="i-youcan-trash" />
             </template>
-          </PrimaryDestructiveButton>
+          </Button>
         </template>
       </div>
     </template>
@@ -143,14 +142,14 @@ watch(() => props.file, getUrl);
     <Teleport to="body">
       <Transition name="fade">
         <div v-if="previewing" class="popup">
-          <TertiaryButton
+          <Button
             tabindex="0" class="action" size="md" icon-position="only" :rounded-full="true"
-            type="button" @click="togglePreview(false)"
+            type="button" variant="tertiary" @click="togglePreview(false)"
           >
             <template #icon>
               <i class="i-youcan:x" />
             </template>
-          </TertiaryButton>
+          </Button>
           <div ref="popupBody" class="popup-body">
             <div v-if="isVideo" class="video-container">
               <video v-if="isFile" :src="dataUrl" controls autoplay />

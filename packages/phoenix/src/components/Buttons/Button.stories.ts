@@ -1,39 +1,38 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
-import BaseButton from './_BaseButton.vue';
+import Button from './Button.vue';
 
-type Story = StoryObj<typeof BaseButton>;
-const meta: Meta<typeof BaseButton> = {
-  title: 'Application/Button/BaseButton',
-  component: BaseButton,
+type Story = StoryObj<typeof Button>;
+const meta: Meta<typeof Button> = {
+  title: 'Application/Buttons',
+  component: Button,
   tags: ['button', 'submit'],
   argTypes: {
     size: {
       control: { type: 'select' },
       options: ['2xl', 'xl', 'lg', 'md', 'sm', 'xs', 'xxs'],
     },
-    iconPosition: {
+    variant: {
       control: { type: 'select' },
-      options: ['left', 'right', 'only'],
+      options: ['primary', 'secondary', 'tertiary', 'destructive', 'link'],
     },
   },
   args: {
     size: 'xs',
-    iconPosition: 'left',
     disabled: false,
-    roundedFull: false,
+    rounded: false,
   },
 };
 
 export const BaseButton_: Story = {
   render: args => ({
-    components: { BaseButton },
+    components: { Button },
     setup() {
       return { args };
     },
-    template: `<BaseButton v-bind="args">
+    template: `<Button v-bind="args">
       <span>Button label</span>
       <template #icon><span>🔴</span></template>
-    </BaseButton>`,
+    </Button>`,
   }),
 };
 

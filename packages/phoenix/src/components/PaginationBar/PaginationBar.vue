@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue';
 import NavigationButton from './Internal/NavigationButton.vue';
-import type { DropdownItemArray, DropdownItemDefinition, PaginationBarProps } from '~/types';
-import { Dropdown, SecondaryButton } from '~/components';
+import type { DropdownValue, PaginationBarProps } from '~/types';
+import { Button, Dropdown } from '~/components';
 
 const props = withDefaults(defineProps<PaginationBarProps>(), {
   hidePerPage: false,
@@ -13,8 +13,8 @@ const props = withDefaults(defineProps<PaginationBarProps>(), {
 
 const emit = defineEmits(['update:current', 'update:perPage']);
 
-const perPageItems = ref<DropdownItemArray>([]);
-const perPageModel = ref<DropdownItemDefinition | null>(null);
+const perPageItems = ref<DropdownValue[]>([]);
+const perPageModel = ref<DropdownValue | null>(null);
 
 const variables: Array<string> = ['count', 'total'];
 
@@ -62,7 +62,7 @@ function updateCurrentPage(index: number) {
   emit('update:current', index);
 }
 
-function updatePerPageModel(perPage: DropdownItemDefinition) {
+function updatePerPageModel(perPage: DropdownValue) {
   emit('update:perPage', parseInt(perPage.label));
 }
 
@@ -70,9 +70,9 @@ const barJustifyContentStyle = props.hidePerPage ? 'center' : 'space-between';
 
 onMounted(() => {
   if (props.perPageOptions && props.perPageOptions.length) {
-    const options: DropdownItemArray = [];
+    const options: DropdownValue[] = [];
     props.perPageOptions.forEach((el, i) => {
-      const item = { value: i, label: String(el) };
+      const item = { key: i, label: String(el) };
       options.push(item);
       if (el === props.perPage) {
         perPageModel.value = item;
@@ -87,17 +87,17 @@ onMounted(() => {
   <div class="pagination-bar">
     <span v-if="!hidePerPage" class="text">{{ formattedPerPageLabel }}</span>
     <div class="navigation">
-      <Dropdown v-if="perPage && perPageItems.length" v-model="perPageModel" class="per-page-dropdown" :items="perPageItems" @update:model-value="updatePerPageModel" />
-      <SecondaryButton size="sm" :disabled="current === 1" @click="updateCurrentPage(current - 1)">
+      <Dropdown v-if="perPage && perPageItems.length" v-model="perPageModel" :clearable="false" class="per-page-dropdown" :items="perPageItems" @update:model-value="updatePerPageModel" />
+      <Button variant="secondary" size="sm" :disabled="current === 1" @click="updateCurrentPage(current - 1)">
         {{ previousLabel }}
-      </SecondaryButton>
+      </Button>
       <NavigationButton
         v-for="index in handlePaginationButtons" :key="index" :current="current" :index="index"
         @click="updateCurrentPage(index as number)"
       />
-      <SecondaryButton size="sm" :disabled="current === size" @click="updateCurrentPage(current + 1)">
+      <Button variant="secondary" size="sm" :disabled="current === size" @click="updateCurrentPage(current + 1)">
         {{ nextLabel }}
-      </SecondaryButton>
+      </Button>
     </div>
   </div>
 </template>
@@ -125,6 +125,11 @@ onMounted(() => {
 }
 
 .per-page-dropdown {
-  min-width: 75px;
+  min-width: 85px;
+  max-width: 85px;
+}
+
+.per-page-dropdown:deep(.dropdown-input .label .text) {
+  padding: 0 !important;
 }
 </style>

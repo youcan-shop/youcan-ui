@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 import { ref } from 'vue';
-import { Popover, PrimaryButton, TertiaryButton } from '~/components';
+import { Button, Popover } from '~/components';
 
 type Story = StoryObj<typeof Popover>;
 const meta: Meta<typeof Popover> = {
@@ -34,7 +34,7 @@ const meta: Meta<typeof Popover> = {
 
 export const Default: Story = {
   render: args => ({
-    components: { Popover, PrimaryButton, TertiaryButton },
+    components: { Popover, Button },
     setup() {
       const show = ref(false);
 
@@ -56,17 +56,17 @@ export const Default: Story = {
         </template>
         <template #footer>
           <div style="display: flex; gap: 20px">
-            <TertiaryButton @click="show = false">
+            <Button @click="show = false" variant="tertiary">
               Later
-            </TertiaryButton>
-            <PrimaryButton @click="show = false">
+            </Button>
+            <Button @click="show = false" variant="primary">
               Get started
-            </PrimaryButton>
+            </Button>
           </div>
         </template>
-        <PrimaryButton @click="show = !show;">
+        <Button @click="show = !show;" variant="primary">
           <span>Show Popover</span>
-        </PrimaryButton>
+        </Button>
       </Popover>
     `,
   }),
