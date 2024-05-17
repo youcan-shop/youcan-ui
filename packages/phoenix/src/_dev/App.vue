@@ -13,7 +13,7 @@ const uid = 'username';
   <div class="container">
     <InputGroup label="New username" :label-for="uid" error="Username is required">
       <template #input>
-        <Input :id="uid" v-model="username" placeholder="Enter username" />
+        <Input v-model="username" :uid="uid" placeholder="Enter username" />
       </template>
       <span class="info">
         You can only change your username once every 30 days

@@ -5,6 +5,7 @@ export interface InputProps {
   modelValue: string | number
   error?: boolean
   canShow?: boolean
+  uid?: string
 }
 
 export interface InputGroupProps {
