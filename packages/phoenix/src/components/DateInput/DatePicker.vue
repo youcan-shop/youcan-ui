@@ -28,7 +28,6 @@ const handleDayClick = (day: DayStatus) => {
     if (!lockMouseHover.value) {
       return;
     }
-
     model.value = {
       start: day.date,
       end: undefined,
@@ -40,10 +39,16 @@ const handleDayClick = (day: DayStatus) => {
   if (!model.value?.end) {
     const endIsBiggerThanStartDate = DateUtils.biggerThan(model.value.start, day.date);
 
-    model.value = {
-      start: endIsBiggerThanStartDate ? day.date : model.value.start,
-      end: endIsBiggerThanStartDate ? model.value.start : day.date,
-    };
+    let start = model.value.start;
+    let end = day.date;
+
+    if (endIsBiggerThanStartDate) {
+      start = day.date;
+      end = model.value.start;
+    }
+    const d = new Date(end).setHours(23, 59, 59);
+    end = new Date(d);
+    model.value = { start, end };
   }
 };
 
@@ -51,18 +56,19 @@ const handleDayHover = (day: DayStatus) => {
   if (!model.value?.start || !lockMouseHover.value) {
     return;
   }
-
   if (!model.value?.end || lockMouseHover.value) {
     if (DateUtils.isSameDay(day.date, model.value.start)) {
       return;
     }
 
     const endIsBiggerThanStartDate = DateUtils.biggerThan(model.value.start, day.date);
-
-    model.value = {
+    const newRange: DateInputValue = {
       start: endIsBiggerThanStartDate ? day.date : model.value.start,
-      end: (model.value.end && endIsBiggerThanStartDate) ? model.value.end : (endIsBiggerThanStartDate ? model.value.start : day.date),
+      end: (model.value.end && endIsBiggerThanStartDate) ? model.value.end : endIsBiggerThanStartDate ? model.value.start : day.date,
     };
+
+    newRange.end?.setHours(23, 59, 59);
+    model.value = newRange;
   }
 };
 
