@@ -33,7 +33,7 @@ const inputType = computed(() => {
 
 <template>
   <div :class="{ enabled: !attrs.disabled, error }" class="wrapper">
-    <input ref="primitive" v-model="model" class="input" :type="inputType" v-bind="$attrs">
+    <input :id="uid" ref="primitive" v-model="model" class="input" :type="inputType" v-bind="$attrs">
     <div v-if="type === 'password' && canShow" class="show-password" @click="showPassword = !showPassword">
       <i v-if="showPassword" class="i-youcan:eye" />
       <i v-else class="i-youcan:eye-slash" />
