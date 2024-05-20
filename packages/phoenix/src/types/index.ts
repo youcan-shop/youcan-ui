@@ -12,7 +12,7 @@ export type { DividerProps, Thickness, Style, Orientation } from '../components/
 export type { DraggableProps, DraggableItemProps, DraggableItemType } from '../components/Draggable/types';
 export type { DrawerProps } from '../components/Drawer/types';
 export type { IncrementProps, IncrementMachineValue } from '../components/Increment/types';
-export type { InputProps, HTMLInputTypeAttribute } from '../components/Input/types';
+export type { InputProps, InputGroupProps, HTMLInputTypeAttribute } from '../components/Input/types';
 export type { ModalProps } from '../components/Modal/types';
 export type { MultiSwitchProps, SwitchButtonProps, SwitchButtonOption } from '../components/MultiSwitch/types';
 export type { PaginationBarProps, NavigationButtonProps } from '../components/PaginationBar/types';
