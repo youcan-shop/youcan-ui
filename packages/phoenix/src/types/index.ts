@@ -1,4 +1,4 @@
-export type { DropdownItemProps, MultiselectDropdownProps, DropdownProps, DropdownListProps, DropdownItemDefinition, DropdownItemArray, DropdownItemGroups, DropdownItemWithIcon, DropdownItemWithImage } from '../components/Dropdown/types';
+export type { DropdownValue, DropdownItemProps, DropdownProps, DropdownCommonProps } from '../components/Dropdown/types';
 export type { DropdownMenuItemProps, DropdownMenuProps } from '../components/DropdownMenu/types';
 export type { ProgressProps } from '../components/Progress/types';
 export type { ButtonProps, ButtonSize, ActionButtonProps } from '../components/Buttons/types';
@@ -11,7 +11,7 @@ export type { DividerProps, Thickness, Style, Orientation } from '../components/
 export type { DraggableProps, DraggableItemProps, DraggableItemType } from '../components/Draggable/types';
 export type { DrawerProps } from '../components/Drawer/types';
 export type { IncrementProps, IncrementMachineValue } from '../components/Increment/types';
-export type { InputProps, DropdownPrefixProps, HTMLInputTypeAttribute } from '../components/Input/types';
+export type { InputProps, InputGroupProps, HTMLInputTypeAttribute } from '../components/Input/types';
 export type { ModalProps } from '../components/Modal/types';
 export type { MultiSwitchProps, SwitchButtonProps, SwitchButtonOption } from '../components/MultiSwitch/types';
 export type { PaginationBarProps, NavigationButtonProps } from '../components/PaginationBar/types';

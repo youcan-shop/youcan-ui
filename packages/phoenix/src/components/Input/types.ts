@@ -1,17 +1,15 @@
-import type { DropdownItemArray, DropdownItemDefinition, DropdownItemGroups } from '../Dropdown/types';
-
-export type HTMLInputTypeAttribute = 'button' | 'checkbox' | 'color' | 'date' | 'datetime-local' | 'email' | 'file' | 'hidden' | 'image' | 'month' | 'number' | 'password' | 'radio' | 'range' | 'reset' | 'search' | 'submit' | 'tel' | 'text' | 'time' | 'url' | 'week';
+export type HTMLInputTypeAttribute = 'email' | 'hidden' | 'number' | 'password' | 'search' | 'tel' | 'text' | 'url';
 
 export interface InputProps {
   type?: HTMLInputTypeAttribute
   modelValue: string | number
   error?: boolean
   canShow?: boolean
+  uid?: string
 }
 
-export interface DropdownPrefixProps {
-  placeholder: string
-  searchable?: boolean
-  modelValue: DropdownItemDefinition | null
-  items: DropdownItemArray | DropdownItemGroups
+export interface InputGroupProps {
+  error?: string
+  label?: string
+  labelFor?: string
 }

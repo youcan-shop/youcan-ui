@@ -49,6 +49,7 @@ onClickOutside(colorPicker, () => toggleColorPicker(false));
   align-items: center;
   width: max-content;
   height: 32px;
+  margin: 6px;
   padding: 0 8px;
   border-radius: 4px;
   background: var(--gray-50);
