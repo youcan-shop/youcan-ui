@@ -32,16 +32,13 @@ const inputType = computed(() => {
 </script>
 
 <template>
-  <div :class="{ enabled: !attrs.disabled, error }" class="wrapper">
+  <div :class="[{ enabled: !attrs.disabled, error }, inputType]" class="wrapper">
     <input :id="uid" ref="primitive" v-model="model" class="input" :type="inputType" v-bind="$attrs">
     <div v-if="type === 'password' && canShow" class="show-password" @click="showPassword = !showPassword">
       <i v-if="showPassword" class="i-youcan:eye" />
       <i v-else class="i-youcan:eye-slash" />
     </div>
     <div v-if="slots.icon || slots.suffix" class="tail">
-      <div v-if="slots.icon" class="icon">
-        <slot name="icon" />
-      </div>
       <div v-if="slots.suffix" class="suffix">
         <slot name="suffix" />
       </div>
@@ -61,6 +58,10 @@ const inputType = computed(() => {
   border-radius: 8px;
   background-color: var(--base-white);
   box-shadow: var(--shadow);
+}
+
+.wrapper.hidden {
+  visibility: hidden;
 }
 
 .wrapper.enabled:hover {
@@ -84,7 +85,7 @@ const inputType = computed(() => {
   --shadow: var(--focus-shadow-xs-red);
 }
 
-.input {
+.wrapper .input {
   width: 100%;
   padding: 11.5px 16px;
   border: none;
@@ -93,23 +94,19 @@ const inputType = computed(() => {
   font: var(--text-sm-regular);
 }
 
-.input:placeholder {
+.wrapper .input:placeholder {
   color: var(--gray-300);
 }
 
-.show-password {
+.wrapper .show-password {
   margin-right: 16px;
   cursor: pointer;
 }
 
-.tail {
+.wrapper .tail {
   display: flex;
   align-items: center;
   gap: 8px;
   padding: 0 11.5px 0 0;
-}
-
-.icon {
-  color: var(--gray-500);
 }
 </style>

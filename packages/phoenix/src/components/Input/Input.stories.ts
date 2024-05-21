@@ -9,12 +9,10 @@ const meta: Meta<typeof Input> = {
   tags: ['application', 'input', 'number', 'Input'],
   argTypes: {
     modelValue: { table: { disable: true } },
-    prefix: { table: { disable: true } },
-    icon: { table: { disable: true } },
     suffix: { table: { disable: true } },
     type: {
       control: 'select',
-      options: ['button', 'checkbox', 'color', 'date', 'datetime-local', 'email', 'file', 'hidden', 'image', 'month', 'number', 'password', 'radio', 'range', 'reset', 'search', 'submit', 'tel', 'text', 'time', 'url', 'week'],
+      options: ['email', 'hidden', 'number', 'password', 'search', 'tel', 'text', 'url'],
     },
     canShow: {
       control: { type: 'boolean' },

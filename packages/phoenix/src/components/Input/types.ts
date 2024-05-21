@@ -1,4 +1,4 @@
-export type HTMLInputTypeAttribute = 'button' | 'checkbox' | 'color' | 'date' | 'datetime-local' | 'email' | 'file' | 'hidden' | 'image' | 'month' | 'number' | 'password' | 'radio' | 'range' | 'reset' | 'search' | 'submit' | 'tel' | 'text' | 'time' | 'url' | 'week';
+export type HTMLInputTypeAttribute = 'email' | 'hidden' | 'number' | 'password' | 'search' | 'tel' | 'text' | 'url';
 
 export interface InputProps {
   type?: HTMLInputTypeAttribute
