@@ -82,8 +82,8 @@ onClickOutside(picker, () => toggle(false));
 .preview {
   width: 35px;
   height: 35px;
+  border: 1px solid var(--gray-100);
   border-radius: 6px;
-  background-color: var(--brand-500);
 }
 
 .picker {

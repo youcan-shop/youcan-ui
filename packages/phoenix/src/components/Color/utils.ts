@@ -33,9 +33,8 @@ export function handleMouseClick(canvas: Ref<HTMLCanvasElement | undefined>, eve
   const red = pixel[0].toString(16).padStart(2, '0').toUpperCase();
   const green = pixel[1].toString(16).padStart(2, '0').toUpperCase();
   const blue = pixel[2].toString(16).padStart(2, '0').toUpperCase();
-  const alpha = pixel[3].toString(16).padStart(2, '0').toUpperCase();
 
-  const pickedcolor = `#${red}${green}${blue}${alpha}`;
+  const pickedcolor = `#${red}${green}${blue}`;
 
   return pickedcolor;
 }
