@@ -18,7 +18,7 @@ function updateColor(newColor: string) {
     <ColorInput :model-value="color" @update:modelValue="updateColor" />
   </div>
   <div class="container">
-    <ColorPicker :model-value="colorv3" />
+    <ColorPicker :preserve-transparency="false" :model-value="colorv3" />
   </div>
 </template>
 

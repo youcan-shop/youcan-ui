@@ -11,6 +11,7 @@ const props = withDefaults(
     modelValue: '',
     error: false,
     disabled: false,
+    preserveTransparency: true,
   },
 );
 
@@ -47,7 +48,7 @@ onClickOutside(picker, () => toggle(false));
       <span>{{ props.modelValue }}</span>
     </div>
     <div v-show="show" ref="picker" class="picker">
-      <ColorPicker :model-value="props.modelValue" @update:model-value="updateModelValue" />
+      <ColorPicker :preserve-transparency="preserveTransparency" :model-value="props.modelValue" @update:model-value="updateModelValue" />
     </div>
   </div>
 </template>

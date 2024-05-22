@@ -7,7 +7,7 @@ import { Divider, Input } from '~/components/';
 const props = withDefaults(
   defineProps<ColorPickerProps>(),
   {
-    preserveTransparency: false,
+    preserveTransparency: true,
     swatches: () => ['#B8256EFF', '#25B86AFF', '#127EE3FF', '#F2990EFF', '#CC2929FF'],
   },
 );
@@ -26,7 +26,19 @@ const alphaSlider = ref();
 const alphaValue = ref(1);
 let isDragging = false;
 
-const setColor = (newX: number, newY: number) => {
+const setColor = (pickedColor: string) => {
+  if (props.preserveTransparency) {
+    const alpha = Math.floor(alphaValue.value * 255).toString(16).padStart(2, '0').toUpperCase();
+    color.value = `${pickedColor}${alpha}`;
+    inputColor.value = `${pickedColor}${alpha}`;
+  }
+  else {
+    color.value = `${pickedColor}`;
+    inputColor.value = `${pickedColor}`;
+  }
+};
+
+const setDraggableDivColor = (newX: number, newY: number) => {
   const context = canvas.value!.getContext('2d');
   if (context) {
     const pixelData = context.getImageData(newX, newY, 1, 1).data;
@@ -35,10 +47,7 @@ const setColor = (newX: number, newY: number) => {
     const blue = pixelData[2].toString(16).padStart(2, '0').toUpperCase();
 
     const pickedColor = `#${red}${green}${blue}`;
-    const alpha = Math.floor(alphaValue.value * 255).toString(16).padStart(2, '0').toUpperCase();
-
-    color.value = `${pickedColor}${alpha}`;
-    inputColor.value = `${pickedColor}${alpha}`;
+    setColor(pickedColor);
 
     emit('update:modelValue', color.value);
   }
@@ -58,7 +67,7 @@ const setDraggableDivCoordinates = (event: MouseEvent) => {
     draggableDiv.value.style.left = `${newX}px`;
     draggableDiv.value.style.top = `${newY}px`;
 
-    setColor(newX, newY);
+    setDraggableDivColor(newX, newY);
   }
 };
 
@@ -90,18 +99,16 @@ function handleSwatchClick(swatch: string) {
   const { hue, saturation } = getSliderValueFromColor(swatch);
   colorValue.value = hue;
   alphaValue.value = saturation;
-  inputColor.value = swatch;
-  color.value = swatch;
+
+  setColor(swatch);
   renderCanvas(canvas, color.value);
   emit('update:modelValue', color.value);
 }
 
 function updateColor() {
-  const alpha = Math.floor(alphaValue.value * 255).toString(16).padStart(2, '0').toUpperCase();
   const hue = colorValue.value;
   const hex = hslToHex(hue, 100, 50);
-  color.value = `${hex}${alpha}`;
-  inputColor.value = `${hex}${alpha}`;
+  setColor(hex);
   renderCanvas(canvas, color.value);
   emit('update:modelValue', color.value);
 }
@@ -129,17 +136,21 @@ onMounted(() => {
 
   emit('update:modelValue', props.modelValue);
 
+  if (props.preserveTransparency) {
+    alphaSlider.value.addEventListener('input', updateAlpha);
+  }
   colorSlider.value.addEventListener('input', updateColor);
-  alphaSlider.value.addEventListener('input', updateAlpha);
   canvasContainer.value!.addEventListener('mousemove', drag);
-  canvasContainer.value!.addEventListener('mouseup', stopDrag);
+  window.addEventListener('mouseup', stopDrag);
 });
 
 onUnmounted(() => {
+  if (props.preserveTransparency) {
+    alphaSlider.value.removeEventListener('input', updateAlpha);
+  }
   colorSlider.value.removeEventListener('input', updateColor);
-  alphaSlider.value.removeEventListener('input', updateAlpha);
   canvasContainer.value!.removeEventListener('mousemove', drag);
-  canvasContainer.value!.removeEventListener('mouseup', stopDrag);
+  window.removeEventListener('mouseup', stopDrag);
 });
 </script>
 
@@ -151,7 +162,7 @@ onUnmounted(() => {
     </div>
     <div class="sliders">
       <input ref="colorSlider" v-model="colorValue" class="color-range" type="range" min="0" max="360">
-      <input ref="alphaSlider" v-model="alphaValue" class="alpha-range" type="range" min="0" max="1" :step="0.01">
+      <input v-if="preserveTransparency" ref="alphaSlider" v-model="alphaValue" class="alpha-range" type="range" min="0" max="1" :step="0.01">
     </div>
     <p class="label">
       HEX
