@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { nextTick, ref } from 'vue';
 import { onClickOutside } from '@vueuse/core';
 import type { ColorInputProps } from './types';
 import { ColorPicker } from '~/components';
+import { setPosition } from '~/helpers';
 
 const props = withDefaults(
   defineProps<ColorInputProps>(),
@@ -16,12 +17,21 @@ const props = withDefaults(
 const emit = defineEmits(['update:modelValue']);
 
 const picker = ref();
+const inputPicker = ref();
 const show = ref(false);
 
 function toggle(override = !show.value) {
-  if (!props.disabled) {
-    show.value = override;
+  if (props.disabled) {
+    return;
   }
+  show.value = override;
+
+  nextTick(() => {
+    if (picker.value && inputPicker.value && show.value) {
+      const { top, left } = setPosition(picker.value, inputPicker.value, 'bottom', 5);
+      picker.value?.setAttribute('style', `top:${top}px;left:${left}px`);
+    }
+  });
 }
 
 function updateModelValue(value: string) {
@@ -32,11 +42,13 @@ onClickOutside(picker, () => toggle(false));
 
 <template>
   <div class="wrapper">
-    <div class="input-picker" tabindex="0" :class="{ error: props.error, disabled: props.disabled }" @click="() => toggle()">
+    <div ref="inputPicker" class="input-picker" tabindex="0" :class="{ error: props.error, disabled: props.disabled }" @click="() => toggle()">
       <div class="preview" :style="{ 'background-color': props.modelValue }" />
       <span>{{ props.modelValue }}</span>
     </div>
-    <ColorPicker v-show="show" ref="picker" class="picker" :model-value="props.modelValue" @update:model-value="updateModelValue" />
+    <div v-show="show" ref="picker" class="picker">
+      <ColorPicker :model-value="props.modelValue" @update:model-value="updateModelValue" />
+    </div>
   </div>
 </template>
 
@@ -45,7 +57,7 @@ onClickOutside(picker, () => toggle(false));
   position: relative;
 }
 
-.input-picker {
+.wrapper .input-picker {
   display: flex;
   align-items: center;
   width: 150px;
@@ -58,41 +70,38 @@ onClickOutside(picker, () => toggle(false));
   gap: 12px;
 }
 
-.input-picker:focus {
+.wrapper .input-picker:focus {
   border: 1px solid var(--brand-500);
   box-shadow: var(--focus-shadow-xs-brand);
 }
 
-.input-picker.error {
+.wrapper .input-picker.error {
   border: 1px solid var(--red-500);
   box-shadow: var(--focus-shadow-xs-red);
 }
 
-.input-picker.disabled {
+.wrapper .input-picker.disabled {
   opacity: 0.5;
   background-color: #ddd;
   cursor: not-allowed;
 }
 
-.input-picker.disabled:focus {
+.wrapper .input-picker.disabled:focus {
   border: 1px solid var(--gray-500);
   box-shadow: var(--focus-shadow-xs-gray);
 }
 
-.preview {
+.wrapper .input-picker .preview {
   width: 35px;
   height: 35px;
   border: 1px solid var(--gray-100);
   border-radius: 6px;
 }
 
-.picker {
-  position: absolute;
+.wrapper .picker {
+  position: fixed;
   z-index: 100;
-  margin: 0;
-  transform: translate3d(0, 56px, 0);
-  border: 1px solid var(--gray-200);
+  transform: translate3d(0, 5px, 0);
   box-shadow: var(--shadow-md-gray);
-  inset: 0 auto auto 0;
 }
 </style>
