@@ -66,8 +66,6 @@ function updateRange(value: DateValue) {
       newValue.start = setDateTime((start as Date), 0, 0, 0);
       newValue.end = setDateTime((end as Date), 23, 59, 59);
     }
-
-    console.log(newValue);
   }
 
   emit('update:range', newValue);
