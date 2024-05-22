@@ -188,4 +188,8 @@ function handleHover(day: Day) {
 .days.rtl .day.in.end {
   border-radius: 4px 0 0 4px;
 }
+
+.days.rtl .day.name {
+  font-size: 10px;
+}
 </style>

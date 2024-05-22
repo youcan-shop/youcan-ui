@@ -5,6 +5,17 @@ interface DateTimeFormatOptions {
   month?: 'numeric' | '2-digit' | 'long' | 'short' | 'narrow'
   year?: 'numeric' | '2-digit'
 }
+interface DateTimeFormatOptions {
+  day?: 'numeric' | '2-digit'
+  month?: 'numeric' | '2-digit' | 'long' | 'short' | 'narrow'
+  year?: 'numeric' | '2-digit'
+}
+
+export function setDateTime(d: Date, h: number, m: number, s: number) {
+  const newDate = new Date(d);
+
+  return new Date(newDate.setHours(h, m, s));
+}
 
 /**
  * Checks if two dates are the same.

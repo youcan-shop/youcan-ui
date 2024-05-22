@@ -52,6 +52,7 @@ const presets = ref<Preset[]> ([
       <DatePicker
         v-model="date"
         placeholder="Select date"
+        locale="ar"
       />
     </div>
     <div class="row">

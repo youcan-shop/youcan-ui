@@ -3,7 +3,7 @@ import { computed, ref, watch } from 'vue';
 import { Days, MonthsSwitcher, YearsAndMonths } from './Internal';
 import type { ShowingType } from './types';
 import type { CalendarProps, DateRangeValue, DateValue } from '~/types';
-import { isMoreThan } from '~/helpers';
+import { isMoreThan, setDateTime } from '~/helpers';
 
 const props = defineProps<CalendarProps>();
 
@@ -61,6 +61,13 @@ function updateRange(value: DateValue) {
       newValue.start = end;
       newValue.end = start;
     }
+    const { end, start } = newValue;
+    if (start && end) {
+      newValue.start = setDateTime((start as Date), 0, 0, 0);
+      newValue.end = setDateTime((end as Date), 23, 59, 59);
+    }
+
+    console.log(newValue);
   }
 
   emit('update:range', newValue);
