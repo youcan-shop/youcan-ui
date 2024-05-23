@@ -7,7 +7,6 @@ const meta: Meta<typeof SidebarItem> = {
   component: SidebarItem,
   tags: ['sidebar', 'bar', 'nav', 'item'],
   argTypes: {
-    count: { table: { disable: true } },
     default: { table: { disable: true } },
   },
   args: {

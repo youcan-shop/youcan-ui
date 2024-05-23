@@ -59,9 +59,12 @@ watch(attachments, () => {
 
 <style scoped>
 .container {
-  display: flex;
-  flex-direction: row;
-  margin: 30px;
-  gap: 0.5rem;
+  max-width: 500px;
+  margin: 40px auto;
+}
+
+.container .info {
+  color: var(--gray-500);
+  font: var(--text-sm-regular);
 }
 </style>

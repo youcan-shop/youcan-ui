@@ -16,7 +16,7 @@ const model = computed({
   },
 });
 
-const idAttr = Utils.uid('checkbox');
+const idAttr = props.uid ? props.uid : Utils.uid('checkbox');
 const ariaDescribedby = `${idAttr}-aria-describedby`;
 </script>
 

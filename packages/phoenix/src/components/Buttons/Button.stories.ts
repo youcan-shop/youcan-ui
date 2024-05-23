@@ -15,16 +15,11 @@ const meta: Meta<typeof Button> = {
       control: { type: 'select' },
       options: ['primary', 'secondary', 'tertiary', 'destructive', 'link'],
     },
-    iconPosition: {
-      control: { type: 'select' },
-      options: ['left', 'right', 'only'],
-    },
   },
   args: {
     size: 'xs',
-    iconPosition: 'left',
     disabled: false,
-    roundedFull: false,
+    rounded: false,
   },
 };
 
