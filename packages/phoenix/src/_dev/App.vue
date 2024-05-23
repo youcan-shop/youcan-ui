@@ -1,96 +1,59 @@
 <script setup lang="ts">
 import 'uno.css';
 import '../assets/main.css';
-import { Button } from '~/components';
+import { ref, watch } from 'vue';
+import { Upload, UploadPreview } from '~/components';
+
+const attachments = ref<File[]>([]);
+const disabled = ref(false);
+const limit = 5;
+const file = new File(['meditations_marcus_aurelius'], 'Meditations.pdf', {
+  type: 'application/pdf',
+});
+const media = new File(['meditations_marcus_aurelius'], 'Meditations.jpg', {
+  type: 'image/*',
+});
+
+const checkLimit = () => {
+  disabled.value = attachments.value.length >= limit;
+};
+
+const deleteFile = (file: File) => {
+  const idx = attachments.value.indexOf(file);
+  if (idx > -1) {
+    attachments.value.splice(idx, 1);
+    checkLimit();
+  }
+};
+watch(attachments, () => {
+  checkLimit();
+});
 </script>
 
 <template>
   <div class="container">
-    <Button variant="primary">
-      <i class="i-youcan:arrow-bend-up-right" />
-      primary
-    </Button>
-    <Button variant="primary" rounded>
-      primary
-    </Button>
-    <Button variant="primary" disabled>
-      primary
-    </Button>
-    <Button variant="primary" icon-position="right">
-      <p>🧠</p>  primary <p>🧠</p>
-    </Button>
-    <Button variant="primary" size="2xl">
-      primary
-    </Button>
+    <Upload v-model="attachments" :limit="limit" :disabled="disabled" />
   </div>
   <div class="container">
-    <Button variant="secondary">
-      secondary
-    </Button>
-    <Button variant="secondary" rounded>
-      secondary
-    </Button>
-    <Button variant="secondary" disabled>
-      secondary
-    </Button>
-    <Button variant="secondary" icon-position="right">
-      <i class="i-youcan:arrow-bend-up-right" />
-      secondary
-    </Button>
-    <Button variant="secondary" size="lg">
-      🧠
-      secondary
-    </Button>
+    <div class="files-grid">
+      <UploadPreview
+        v-for="(attachment, index) in attachments"
+        :key="index"
+        :file="attachment"
+        @delete="deleteFile(attachment)"
+      />
+    </div>
   </div>
   <div class="container">
-    <Button variant="tertiary">
-      tertiary
-    </Button>
-    <Button variant="tertiary" rounded>
-      tertiary
-    </Button>
-    <Button variant="tertiary" disabled>
-      tertiary
-    </Button>
-    <Button variant="tertiary" icon-position="right">
-      🧠
-      tertiary
-    </Button>
-    <Button variant="tertiary" size="2xl">
-      tertiary
-    </Button>
-  </div>
-  <div class="container">
-    <Button variant="destructive">
-      destructive
-    </Button>
-    <Button variant="destructive" rounded>
-      destructive
-    </Button>
-    <Button variant="destructive" disabled>
-      destructive
-    </Button>
-    <Button variant="destructive" icon-position="right">
-      🧠
-      destructive
-    </Button>
-    <Button variant="destructive" size="2xl">
-      destructive
-    </Button>
-  </div>
-  <div class="container">
-    <Button variant="primary" href="https://www.google.com">
-      Primary Link
-    </Button>
-    <Button variant="secondary" href="https://www.google.com">
-      Secondary Link
-    </Button>
-    <Button variant="tertiary" href="https://www.google.com">
-      Tertiary Link
-    </Button>
-    <Button variant="destructive" href="https://www.google.com">
-      Destructive Link
-    </Button>
+    <div class="files-grid">
+      <UploadPreview
+        :progress="80" :file="file"
+      />
+      <UploadPreview :file="file" />
+      <UploadPreview :file="file" error error-text="Failed to upload file" />
+      <UploadPreview :file="media" />
+      <UploadPreview :file="media" error error-text="Failed to upload file" />
+    </div>
   </div>
 </template>
 

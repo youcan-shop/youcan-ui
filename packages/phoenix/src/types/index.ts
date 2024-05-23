@@ -36,4 +36,4 @@ export type { ThumbnailProps, ThumbnailSize } from '../components/Thumbnail/type
 export type { ToastContainerProps, ToastType, ToastOptions } from '../components/ToastContainer/types';
 export type { ToggleProps } from '../components/Toggle/types';
 export type { TooltipProps, TooltipPosition } from '../components/Tooltip/types';
-export type { FileInputProps, MediaInputProps, UploadedMediaProps, UploadedFileProps } from '../components/Upload/types';
+export type { UploadProps, PreviewProps } from '../components/Upload/types';

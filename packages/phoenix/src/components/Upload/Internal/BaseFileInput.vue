@@ -40,6 +40,7 @@ const handleInput = (event: Event) => {
   <label :for="idAttr" class="dropzone" :class="{ disabled: props.disabled }">
     <input
       :id="idAttr" type="file"
+      :accept="props.accept"
       :multiple="props.limit > 1"
       :class="{ dragging }"
       :disabled="props.disabled "
