@@ -114,14 +114,14 @@ watch(() => props.file, getUrl);
         <Spinner v-if="loading" color="var(--base-white)" />
         <template v-else>
           <Button
-            tabindex="0" class="action toggle-preview" size="md" icon-position="only" :rounded="true"
+            tabindex="0" class="action toggle-preview" size="md" icon-only :rounded="true"
             type="button" variant="tertiary" @click="togglePreview(true)"
           >
             <i v-if="isVideo" class="i-youcan-play" />
             <i v-else class="i-youcan-eye" />
           </Button>
           <Button
-            tabindex="0" class="action" size="md" icon-position="only" :rounded="true" type="button"
+            tabindex="0" class="action" size="md" icon-only :rounded="true" type="button"
             variant="destructive" @click="() => emit('delete')"
           >
             <i class="i-youcan-trash" />
@@ -132,7 +132,7 @@ watch(() => props.file, getUrl);
     <div v-else class="error-text">
       {{ errorText }}
       <Button
-        tabindex="0" class="action" size="md" icon-position="only" :rounded="true" type="button"
+        tabindex="0" class="action" size="md" icon-only :rounded="true" type="button"
         variant="destructive" @click="() => emit('delete')"
       >
         <i class="i-youcan-trash" />
@@ -142,7 +142,7 @@ watch(() => props.file, getUrl);
       <Transition name="fade">
         <div v-if="previewing" class="popup">
           <Button
-            tabindex="0" class="action" size="md" icon-position="only" :rounded="true"
+            tabindex="0" class="action" size="md" icon-only :rounded="true"
             type="button" variant="tertiary" @click="togglePreview(false)"
           >
             <i class="i-youcan:x" />
