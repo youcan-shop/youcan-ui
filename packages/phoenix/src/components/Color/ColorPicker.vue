@@ -41,7 +41,9 @@ const setColor = (pickedColor: string) => {
 const setDraggableDivColor = (newX: number, newY: number) => {
   const context = canvas.value!.getContext('2d');
   if (context) {
-    const pixelData = context.getImageData(newX, newY, 1, 1).data;
+    const x = newX === 0 ? newX : newX - 1;
+    const y = newY === 0 ? newY : newY - 1;
+    const pixelData = context.getImageData(x, y, 1, 1).data;
     const red = pixelData[0].toString(16).padStart(2, '0').toUpperCase();
     const green = pixelData[1].toString(16).padStart(2, '0').toUpperCase();
     const blue = pixelData[2].toString(16).padStart(2, '0').toUpperCase();
@@ -53,31 +55,38 @@ const setDraggableDivColor = (newX: number, newY: number) => {
   }
 };
 
-const setDraggableDivCoordinates = (event: MouseEvent) => {
+const setDraggableDivCoordinates = (event: MouseEvent | TouchEvent) => {
   if (draggableDiv.value) {
     const rect = canvasContainer.value!.getBoundingClientRect();
-    const x = event.clientX - rect.left;
-    const y = event.clientY - rect.top;
-
-    const maxX = canvasContainer.value!.clientWidth - draggableDiv.value.offsetWidth;
-    const maxY = canvasContainer.value!.clientHeight - draggableDiv.value.offsetHeight;
+    let x = 0;
+    let y = 0;
+    if (event instanceof MouseEvent) {
+      x = event.clientX - rect.left;
+      y = event.clientY - rect.top;
+    }
+    else if (event instanceof TouchEvent) {
+      x = event.touches[0].clientX - rect.left;
+      y = event.touches[0].clientY - rect.top;
+    }
+    const maxX = canvasContainer.value!.clientWidth;
+    const maxY = canvasContainer.value!.clientHeight;
     const newX = Math.min(Math.max(0, x), maxX);
     const newY = Math.min(Math.max(0, y), maxY);
 
-    draggableDiv.value.style.left = `${newX}px`;
-    draggableDiv.value.style.top = `${newY}px`;
+    draggableDiv.value.style.left = `calc(${(newX / 224) * 100}% - 6px)`;
+    draggableDiv.value.style.top = `calc(${(newY / 224) * 100}% - 6px)`;
 
     setDraggableDivColor(newX, newY);
   }
 };
 
-const startDrag = (event: MouseEvent) => {
+const startDrag = (event: MouseEvent | TouchEvent) => {
   event.stopPropagation();
   isDragging = true;
   draggableDiv.value!.style.cursor = 'grabbing';
 };
 
-const drag = (event: MouseEvent) => {
+const drag = (event: MouseEvent | TouchEvent) => {
   event.preventDefault();
   if (isDragging) {
     draggableDiv.value!.style.cursor = 'grabbing';
@@ -138,32 +147,43 @@ onMounted(() => {
 
   if (props.preserveTransparency) {
     alphaSlider.value.addEventListener('input', updateAlpha);
+    alphaSlider.value.addEventListener('touchmove', updateAlpha);
     alphaSlider.value!.addEventListener('mousemove', (event: MouseEvent) => {
       event.stopPropagation();
     });
   }
   colorSlider.value!.addEventListener('input', updateColor);
+  colorSlider.value!.addEventListener('touchmove', updateColor);
   colorSlider.value!.addEventListener('mousemove', (event: MouseEvent) => {
     event.stopPropagation();
   });
 
   window.addEventListener('mouseup', stopDrag);
   window.addEventListener('mousemove', drag);
+
+  canvasContainer.value!.addEventListener('touchmove', drag);
+  canvasContainer.value!.addEventListener('touchend', stopDrag);
 });
 
 onUnmounted(() => {
   if (props.preserveTransparency) {
     alphaSlider.value.removeEventListener('input', updateAlpha);
+    alphaSlider.value.removeEventListener('touchmove', updateAlpha);
   }
   colorSlider.value.removeEventListener('input', updateColor);
-  canvasContainer.value!.removeEventListener('mousemove', drag);
+  colorSlider.value.removeEventListener('touchmove', updateColor);
+
   window.removeEventListener('mouseup', stopDrag);
+  window.removeEventListener('mousemove', drag);
+
+  canvasContainer.value!.removeEventListener('touchmove', drag);
+  canvasContainer.value!.removeEventListener('touchend', stopDrag);
 });
 </script>
 
 <template>
   <div class="color-picker">
-    <div ref="canvasContainer" class="canvas-container" @mousedown="startDrag">
+    <div ref="canvasContainer" class="canvas-container" @mousedown="startDrag" @touchstart="startDrag">
       <canvas ref="canvas" class="saturation" @click="handleCanvasClick" />
       <div ref="draggableDiv" class="draggable-div" />
     </div>
@@ -202,6 +222,7 @@ onUnmounted(() => {
   border: 2px solid var(--base-white);
   border-radius: 10px;
   background-color: transparent;
+  box-shadow: 0 0 0 1px var(--red-500);
   cursor: grab;
 }
 
