@@ -138,10 +138,17 @@ onMounted(() => {
 
   if (props.preserveTransparency) {
     alphaSlider.value.addEventListener('input', updateAlpha);
+    alphaSlider.value!.addEventListener('mousemove', (event: MouseEvent) => {
+      event.stopPropagation();
+    });
   }
-  colorSlider.value.addEventListener('input', updateColor);
-  canvasContainer.value!.addEventListener('mousemove', drag);
+  colorSlider.value!.addEventListener('input', updateColor);
+  colorSlider.value!.addEventListener('mousemove', (event: MouseEvent) => {
+    event.stopPropagation();
+  });
+
   window.addEventListener('mouseup', stopDrag);
+  window.addEventListener('mousemove', drag);
 });
 
 onUnmounted(() => {
