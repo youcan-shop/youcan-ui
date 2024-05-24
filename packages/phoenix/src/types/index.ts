@@ -7,7 +7,6 @@ export type { BadgeProps, BadgeSize, BadgeState } from '../components/Badge/type
 export type { CheckboxProps } from '../components/Checkbox/types';
 export type { ColorPickerProps, ColorInputProps } from '../components/Color/types';
 export type { SwatchesProps, AlphaProps, BackdropProps, HueProps, OverrideProps, SaturationProps } from '../components/Color/Internal/types';
-export type { DateInputProps, DatePickerProps, DateInputValue } from '../components/DateInput/types';
 export type { DividerProps, Thickness, Style, Orientation } from '../components/Divider/types';
 export type { DraggableProps, DraggableItemProps, DraggableItemType } from '../components/Draggable/types';
 export type { DrawerProps } from '../components/Drawer/types';
@@ -37,3 +36,4 @@ export type { ToastContainerProps, ToastType, ToastOptions } from '../components
 export type { ToggleProps } from '../components/Toggle/types';
 export type { TooltipProps, TooltipPosition } from '../components/Tooltip/types';
 export type { UploadProps, PreviewProps } from '../components/Upload/types';
+export type { DateLocale, MonthsSwitcherProps, DatesLimit, DaysProps, Day, DatePickerProps, CalendarProps, DateValue, RangeType, DateRangeValue, Preset, PresetsProps } from '../components/DatePicker/types';

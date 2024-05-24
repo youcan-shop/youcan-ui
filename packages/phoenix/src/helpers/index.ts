@@ -1,4 +1,5 @@
 import type { ToastOptions } from '../types/index';
+import { dateFormat, generateDisplayedDays, getDateDaysAgo, getMonthName, getWeekdayNames, isMoreThan, isSameDate, moveToMonth, setDateTime } from './date';
 
 const toast = {
   show: (toastOptions: ToastOptions) => {
@@ -7,7 +8,7 @@ const toast = {
   },
 };
 
-const setPosition = (triggeredElement: HTMLElement, trigger: HTMLElement, position: string, gap = 6) => {
+function setPosition(triggeredElement: HTMLElement, trigger: HTMLElement, position: string, gap = 6, center = true, isRtl = false) {
   const xy = { top: 0, left: 0, currentPosition: position };
   if (triggeredElement && trigger) {
     const offset = trigger?.getBoundingClientRect();
@@ -21,9 +22,12 @@ const setPosition = (triggeredElement: HTMLElement, trigger: HTMLElement, positi
     const disableHorizontal = triggeredElementWidth + triggerWidth + gap > windowWidth;
     if (offset) {
     // set position top as default
-      let centerTooltip = (triggeredElementWidth - triggerWidth) / 2;
+      let centerTooltip = center ? (triggeredElementWidth - triggerWidth) / 2 : 0;
       let top = offset.top - (triggeredElementHeight + gap);
       let left = offset.left - centerTooltip;
+      if (isRtl && !center) {
+        left = offset.right - offset.width;
+      }
 
       left = left < 0 ? gap / 2 : left + triggeredElementWidth > windowWidth ? windowWidth - (triggeredElementWidth + gap / 2) : left;
 
@@ -57,9 +61,23 @@ const setPosition = (triggeredElement: HTMLElement, trigger: HTMLElement, positi
   }
 
   return xy;
-};
+}
+
+function isRTL(): boolean {
+  return document.dir === 'rtl';
+}
 
 export {
   toast,
   setPosition,
+  getWeekdayNames,
+  getMonthName,
+  generateDisplayedDays,
+  moveToMonth,
+  isSameDate,
+  dateFormat,
+  isMoreThan,
+  getDateDaysAgo,
+  setDateTime,
+  isRTL,
 };
