@@ -15,11 +15,16 @@ const meta: Meta<typeof Button> = {
       control: { type: 'select' },
       options: ['primary', 'secondary', 'tertiary', 'destructive', 'link'],
     },
+    default: {
+      control: false,
+    },
   },
   args: {
     size: 'xs',
     disabled: false,
     rounded: false,
+    iconOnly: false,
+    href: '',
   },
 };
 
@@ -29,10 +34,7 @@ export const BaseButton_: Story = {
     setup() {
       return { args };
     },
-    template: `<Button v-bind="args">
-      <span>Button label</span>
-      <template #icon><span>🔴</span></template>
-    </Button>`,
+    template: '<Button v-bind="args"><i class="i-youcan-check-circle"></i></Button>',
   }),
 };
 

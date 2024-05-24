@@ -7,6 +7,7 @@ export interface ButtonProps {
   disabled?: boolean
   rounded?: boolean
   href?: string
+  iconOnly?: boolean
 }
 
 export interface ActionButtonProps {
