@@ -1,5 +1,4 @@
 export { default as Dropdown } from './Dropdown/Dropdown.vue';
-export { default as DropdownList } from './Dropdown/DropdownList.vue';
 export { default as Note } from './Note/Note.vue';
 export { default as Progress } from './Progress/Progress.vue';
 export { default as Checkbox } from './Checkbox/Checkbox.vue';
@@ -19,11 +18,9 @@ export { default as MediaInput } from './Upload/MediaInput.vue';
 export { default as UploadedMedia } from './Upload/UploadedMedia.vue';
 export { default as Increment } from './Increment/Increment.vue';
 export { default as Tag } from './Tag/Tag.vue';
-export { default as MultiselectDropdown } from './Dropdown/MultiselectDropdown.vue';
 export { default as Status } from './Status/Status.vue';
 export { default as DatePicker } from './DatePicker/DatePicker.vue';
 export { default as Calendar } from './DatePicker/Calendar.vue';
-export { default as DropdownPrefix } from './Input/prefixes/DropdownPrefix.vue';
 export { default as Tab } from './Tabs/Tab.vue';
 export { default as TabsBar } from './Tabs/TabsBar.vue';
 export { default as Sidebar } from './Sidebar/Sidebar.vue';
