@@ -42,6 +42,8 @@ withDefaults(
   flex-direction: var(--icon-position);
   align-items: center;
   justify-content: center;
+  width: max-content;
+  max-width: 100%;
   padding: var(--padding);
   border: var(--border);
   border-radius: var(--border-radius);
