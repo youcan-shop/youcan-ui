@@ -25,8 +25,8 @@ export const SidebarSubitem_: Story = {
       <Sidebar>
         <template #items>
           <SidebarItem v-bind="item">
-            <SidebarSubitem v-bind="args">
-          <SidebarItem/>
+            <SidebarSubitem v-bind="args" />
+          </SidebarItem>
         </template>
       </Sidebar>
     `,
