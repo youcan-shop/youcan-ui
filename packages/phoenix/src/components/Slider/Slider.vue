@@ -86,7 +86,6 @@ onMounted(() => {
 .slider {
   display: flex;
   position: relative;
-  flex: 1;
   flex-direction: row;
   align-items: center;
   column-gap: 8px;

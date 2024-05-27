@@ -60,10 +60,13 @@ watch(attachments, () => {
 <style scoped>
 .container {
   display: flex;
-  flex-direction: row;
-  margin: 30px;
-  padding: 10%;
-  background-color: var(--gray-200);
-  gap: 0.5rem;
+  box-sizing: border-box;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 500px;
+  height: 100vh;
+  margin: auto;
+  padding: 0 40px;
+  gap: 40px;
 }
 </style>
