@@ -10,7 +10,8 @@ module.exports = {
     "@storybook/addon-links",
     "@storybook/addon-essentials",
     "@storybook/addon-interactions",
-    "@chromatic-com/storybook"
+    "@chromatic-com/storybook",
+    "storybook-addon-rtl"
   ],
   "framework": {
     "name": "@storybook/vue3-vite",

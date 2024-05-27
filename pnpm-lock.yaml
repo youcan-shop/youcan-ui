@@ -164,6 +164,9 @@ importers:
       storybook:
         specifier: ^8.0.10
         version: 8.0.10(react-dom@18.2.0)(react@18.2.0)
+      storybook-addon-rtl:
+        specifier: ^1.0.0
+        version: 1.0.0
       typescript:
         specifier: 4.8.2
         version: 4.8.2
@@ -5465,7 +5468,7 @@ packages:
       ts-dedent: 2.2.0
       type-fest: 2.19.0
       vue: 3.4.15(typescript@4.8.2)
-      vue-component-type-helpers: 2.0.17
+      vue-component-type-helpers: 2.0.19
     transitivePeerDependencies:
       - encoding
       - supports-color
@@ -5486,7 +5489,7 @@ packages:
       ts-dedent: 2.2.0
       type-fest: 2.19.0
       vue: 3.4.15(typescript@4.8.2)
-      vue-component-type-helpers: 2.0.17
+      vue-component-type-helpers: 2.0.19
     transitivePeerDependencies:
       - encoding
       - supports-color
@@ -14068,6 +14071,10 @@ packages:
     resolution: {integrity: sha512-siT1RiqlfQnGqgT/YzXVUNsom9S0H1OX+dpdGN1xkyYATo4I6sep5NmsRD/40s3IIOvlCq6akxkqG82urIZW1w==}
     dev: true
 
+  /storybook-addon-rtl@1.0.0:
+    resolution: {integrity: sha512-pGbNx0KhzqxDfjJQ/IOJYKOmLD0tVV0vjEtTcPmU5mgwzlWxLcbiEGn6q73yvSwV/KIzpH8zNNJVWYRrdWPNEQ==}
+    dev: true
+
   /storybook@7.6.10:
     resolution: {integrity: sha512-ypFeGhQTUBBfqSUVZYh7wS5ghn3O2wILCiQc4459SeUpvUn+skcqw/TlrwGSoF5EWjDA7gtRrWDxO3mnlPt5Cw==}
     hasBin: true
@@ -15219,8 +15226,8 @@ packages:
     resolution: {integrity: sha512-qisL/iAfdO++7w+SsfYQJVPj6QKvxp4i1MMxvsNO41z/8zu3KuAw9LkhKUfP/kcOWGDxESp+pQObWppXusejCA==}
     dev: true
 
-  /vue-component-type-helpers@2.0.17:
-    resolution: {integrity: sha512-2car49m8ciqg/JjgMBkx7o/Fd2A7fHESxNqL/2vJYFLXm4VwYO4yH0rexOi4a35vwNgDyvt17B07Vj126l9rAQ==}
+  /vue-component-type-helpers@2.0.19:
+    resolution: {integrity: sha512-cN3f1aTxxKo4lzNeQAkVopswuImUrb5Iurll9Gaw5cqpnbTAxtEMM1mgi6ou4X79OCyqYv1U1mzBHJkzmiK82w==}
     dev: true
 
   /vue-demi@0.13.11(vue@3.4.15):
