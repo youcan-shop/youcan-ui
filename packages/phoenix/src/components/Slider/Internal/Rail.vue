@@ -55,7 +55,6 @@ const mousedown = (event: MouseEvent | TouchEvent, selected = 'min') => {
   selectedThumb.value = selected;
   nextTick(() => {
     active.value = true;
-    console.log('here');
   });
 };
 
