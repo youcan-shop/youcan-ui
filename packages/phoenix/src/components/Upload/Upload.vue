@@ -69,8 +69,10 @@ const labelClasses = computed(() => ({
 }
 
 .label .label-text {
+  display: flex;
   color: var(--gray-900);
   font: var(--text-md-medium);
+  gap: 5px;
 }
 
 .label .label-text .label-text-light {
