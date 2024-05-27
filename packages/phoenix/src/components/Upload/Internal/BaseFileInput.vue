@@ -23,7 +23,29 @@ const handleInput = (event: Event) => {
     override = modelValue;
     for (let i = 0; i < target.files.length; i++) {
       if (override.length < limit) {
-        override.push(target.files[i]);
+        const fileName = target.files[i].name;
+        const fileExtension = fileName.includes('.') ? fileName.split('.').pop() : '';
+
+        const isAccepted = (props.accept === 'image/*' && target.files[i].type.startsWith('image/'))
+                    || (props.accept === 'video/*' && target.files[i].type.startsWith('video/'))
+                    || (props.accept === 'file/*' && fileExtension !== 'exe');
+
+        if (!isAccepted) {
+          const acceptedArray = props.accept?.replace(/\s/g, '').split(',');
+          const isMatch = acceptedArray?.some((element) => {
+            return target.files![i].type === element
+            || `.${fileExtension}` === element
+            || (target.files![i].type.startsWith('image/') && element === 'image/*')
+            || (target.files![i].type.startsWith('video/') && element === 'video/*');
+          });
+
+          if (isMatch) {
+            override.push(target.files[i]);
+          }
+        }
+        else {
+          override.push(target.files[i]);
+        }
       }
     }
   }
@@ -40,6 +62,7 @@ const handleInput = (event: Event) => {
   <label :for="idAttr" class="dropzone" :class="{ disabled: props.disabled }">
     <input
       :id="idAttr" type="file"
+      :accept="props.accept"
       :multiple="props.limit > 1"
       :class="{ dragging }"
       :disabled="props.disabled "
