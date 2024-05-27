@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 import { ref } from 'vue';
-import { MediaInput, UploadedMedia } from '~/components';
+import { Upload, UploadPreview } from '~/components';
 
-type Story = StoryObj<typeof MediaInput>;
-const meta: Meta<typeof MediaInput> = {
-  title: 'Application/Upload/MediaInput',
-  component: MediaInput,
+type Story = StoryObj<typeof Upload>;
+const meta: Meta<typeof Upload> = {
+  title: 'Application/Upload',
+  component: Upload,
   tags: ['file', 'file input', 'input', 'upload', 'media'],
   argTypes: {
     modelValue: { table: { disable: true } },
@@ -19,9 +19,9 @@ const meta: Meta<typeof MediaInput> = {
   },
 };
 
-export const MediaInput_: Story = {
+export const Upload_: Story = {
   render: args => ({
-    components: { MediaInput, UploadedMedia },
+    components: { Upload, UploadPreview },
     setup() {
       const attachments = ref<File[]>([]);
       const deleteFile = (file: File) => {
@@ -35,14 +35,14 @@ export const MediaInput_: Story = {
     },
     template: `
               <div style="display: flex;flex-direction:column;gap:10px;margin-bottom:10px">
-                <UploadedMedia
+                <UploadPreview
                   v-for="(attachment, index) in attachments"
                   :key="index"
                   :file="attachment"
                   @delete="deleteFile(attachment)"
                 />
               </div>
-              <MediaInput v-model="attachments" v-bind="args" />`,
+              <Upload v-model="attachments" v-bind="args" />`,
   }),
 };
 

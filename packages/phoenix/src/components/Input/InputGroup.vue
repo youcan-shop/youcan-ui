@@ -1,29 +1,24 @@
 <script setup lang="ts">
-import { useSlots } from 'vue';
-import { Utils } from '@youcan/ui-core';
+import type { InputGroupProps } from '~/types';
 
-const slots = useSlots();
-
-const idAttr = Utils.uid('input_group_');
+defineProps<InputGroupProps>();
 </script>
 
 <template>
   <div class="input-group">
-    <label v-if="slots.label" :for="idAttr" class="label">
-      <slot name="label" />
+    <label v-if="label" :for="labelFor" class="label">
+      {{ label }}
     </label>
 
     <div class="input">
-      <slot :id="idAttr" name="input" />
+      <slot name="input" />
     </div>
 
-    <div v-if="slots.error" class="error">
-      <slot name="error" />
+    <div v-if="error" class="error">
+      {{ error }}
     </div>
 
-    <div v-if="slots.info" class="info">
-      <slot name="info" />
-    </div>
+    <slot />
   </div>
 </template>
 
@@ -41,10 +36,5 @@ const idAttr = Utils.uid('input_group_');
 .input-group .error {
   color: var(--red-500);
   font: var(--text-sm-medium);
-}
-
-.input-group .info {
-  color: var(--gray-500);
-  font: var(--text-sm-regular);
 }
 </style>

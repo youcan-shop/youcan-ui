@@ -48,8 +48,8 @@ const setValues = (percent: number) => {
   }
 };
 
-const mousedown = (event: MouseEvent, selected = 'min') => {
-  if (event.button !== 0) {
+const mousedown = (event: MouseEvent | TouchEvent, selected = 'min') => {
+  if (event instanceof MouseEvent && event.button !== 0) {
     return;
   }
   selectedThumb.value = selected;
@@ -58,15 +58,22 @@ const mousedown = (event: MouseEvent, selected = 'min') => {
   });
 };
 
-const mousemove = (event: MouseEvent, clickEvent = false) => {
+const mousemove = (event: MouseEvent | TouchEvent, clickEvent = false) => {
   if (props.disabled) {
     return;
   }
   if ((active.value || (clickEvent && props.type !== 'range')) && rail.value) {
     const offset = rail.value.getBoundingClientRect();
+    let x = 0;
+    if (event instanceof MouseEvent) {
+      x = event.clientX;
+    }
+    else {
+      x = event.touches[0].clientX;
+    }
 
-    let mousePosition = (isRtl() || selectedThumb.value === 'max') ? offset.right - event.clientX : event.clientX - offset.left;
-    mousePosition = (isRtl() && selectedThumb.value === 'max') ? event.clientX - offset.left : mousePosition;
+    let mousePosition = (isRtl() || selectedThumb.value === 'max') ? offset.right - x : x - offset.left;
+    mousePosition = (isRtl() && selectedThumb.value === 'max') ? x - offset.left : mousePosition;
 
     let percent = Math.floor((mousePosition / offset.width) * 100);
     percent = percent >= 100 ? 100 : percent;
@@ -102,25 +109,29 @@ const initValues = () => {
 onMounted(() => {
   window.addEventListener('mousemove', mousemove);
   window.addEventListener('mouseup', mouseup);
+  window.addEventListener('touchmove', mousemove);
+  window.addEventListener('touchend', mouseup);
   initValues();
 });
 
 onUnmounted(() => {
   window.removeEventListener('mousemove', mousemove);
   window.removeEventListener('mouseup', mouseup);
+  window.removeEventListener('touchmove', mousemove);
+  window.removeEventListener('touchend', mouseup);
 });
 </script>
 
 <template>
   <div ref="rail" class="rail" :class="[{ rtl: isRtl() }, { disabled }, type]" @click="handleClick">
     <div class="selected min" :class="{ active: selectedThumb === 'min' }">
-      <div class="thumb" @mousedown="mousedown($event)" />
+      <div class="thumb" @mousedown="mousedown($event)" @touchstart="mousedown($event)" />
       <Tooltip>
         {{ minLabel }}
       </Tooltip>
     </div>
     <div v-if="type === 'range'" class="selected max" :class="{ active: selectedThumb === 'max' }">
-      <div class="thumb" @mousedown="mousedown($event, 'max')" />
+      <div class="thumb" @mousedown="mousedown($event, 'max')" @touchstart="mousedown($event, 'max')" />
       <Tooltip>
         {{ maxLabel }}
       </Tooltip>

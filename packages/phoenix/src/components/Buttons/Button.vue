@@ -14,10 +14,11 @@ withDefaults(
 
 <template>
   <component
-    :is="href ? 'a' : 'button'" ref="button" :href="href" class="base-button" :disabled="disabled"
+    :is="href ? 'a' : 'button'" ref="button" :href="href" class="button" :disabled="disabled"
     :class="[
       { link: href, rounded, [`size-${size}`]: true },
-      `variant-${variant}`,
+      variant,
+      { 'icon-only': iconOnly },
     ]"
   >
     <span class="label">
@@ -27,7 +28,7 @@ withDefaults(
 </template>
 
 <style scoped>
-.base-button {
+.button {
   --text-color: var(--base-white);
   --background-color: var(--base-black);
   --padding: 6px 12px;
@@ -42,6 +43,8 @@ withDefaults(
   flex-direction: var(--icon-position);
   align-items: center;
   justify-content: center;
+  width: max-content;
+  max-width: 100%;
   padding: var(--padding);
   border: var(--border);
   border-radius: var(--border-radius);
@@ -52,12 +55,16 @@ withDefaults(
   gap: var(--gap);
 }
 
-.base-button.link {
+.button.icon-only {
+  aspect-ratio: 1;
+}
+
+.button.link {
   color: inherit;
   text-decoration: none;
 }
 
-.base-button .label {
+.button .label {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -66,92 +73,92 @@ withDefaults(
   font: var(--text-style);
 }
 
-.base-button.size-xxs {
+.button.size-xxs {
   --padding: 4px 8px;
   --gap: 4px;
 }
 
-.base-button.size-xs {
+.button.size-xs {
   --padding: 6px 12px;
 }
 
-.base-button.size-xs,
-.base-button.size-xxs {
+.button.size-xs,
+.button.size-xxs {
   --border-radius: 4px;
 }
 
-.base-button.size-sm {
+.button.size-sm {
   --padding: 8px 12px;
   --border-radius: 4px;
 }
 
-.base-button.size-md {
+.button.size-md {
   --padding: 12px 16px;
 }
 
-.base-button.size-lg {
+.button.size-lg {
   --padding: 12px 24px;
   --text-style: var(--text-md-medium);
 }
 
-.base-button.size-xl {
+.button.size-xl {
   --padding: 13px 24px;
 }
 
-.base-button.size-2xl {
+.button.size-2xl {
   --padding: 15px 32px;
 }
 
-.base-button.size-2xl,
-.base-button.size-xl {
+.button.size-2xl,
+.button.size-xl {
   --text-style: var(--text-lg-medium);
 }
 
-.base-button.rounded {
+.button.rounded {
   --border-radius: 100px;
 }
 
-.base-button:hover {
+.button:hover {
   border: var(--hover-border);
   background-color: var(--hover-background-color);
   box-shadow: var(--hover-shadow);
 }
 
-.base-button:focus {
+.button:focus {
   border: var(--focus-border);
   background-color: var(--focus-background-color);
   box-shadow: var(--focus-shadow);
 }
 
-.base-button:active {
+.button:active {
   border: var(--active-border);
   background-color: var(--active-background-color);
   box-shadow: var(--active-shadow);
 }
 
-.base-button:disabled {
+.button:disabled {
   border: var(--disabled-border);
   background-color: var(--disabled-background-color);
   box-shadow: var(--disabled-shadow);
 }
 
-.base-button:hover .label {
+.button:hover .label {
   color: var(--hover-text-color);
 }
 
-.base-button:focus .label {
+.button:focus .label {
   color: var(--focus-text-color);
 }
 
-.base-button:active .label {
+.button:active .label {
   color: var(--active-text-color);
 }
 
-.base-button:disabled .label {
+.button:disabled .label {
   color: var(--disabled-text-color);
 }
 
-.base-button.variant-primary {
+.button.primary {
   --active-text-color: var(--base-white);
   --focus-text-color: var(--base-white);
   --hover-text-color: var(--base-white);
@@ -164,7 +171,7 @@ withDefaults(
   --disabled-shadow: none;
 }
 
-.base-button.variant-destructive {
+.button.destructive {
   --active-text-color: var(--base-white);
   --focus-text-color: var(--base-white);
   --hover-text-color: var(--base-white);
@@ -177,7 +184,7 @@ withDefaults(
   --disabled-shadow: none;
 }
 
-.base-button.variant-secondary {
+.button.secondary {
   --text-color: var(--gray-900);
   --text-style: var(--text-sm-regular);
   --background-color: var(--base-white);
@@ -194,7 +201,7 @@ withDefaults(
   --disabled-shadow: none;
 }
 
-.base-button.variant-tertiary {
+.button.tertiary {
   --text-color: var(--gray-900);
   --text-style: var(--text-sm-regular);
   --disabled-text-color: var(--gray-300);
@@ -206,15 +213,15 @@ withDefaults(
   --focus-shadow: var(--focus-no-shadow-brand);
 }
 
-.base-button.variant-secondary.size-2xl,
-.base-button.variant-tertiary.size-2xl,
-.base-button.variant-secondary.size-xl,
-.base-button.variant-tertiary.size-xl {
+.button.secondary.size-2xl,
+.button.tertiary.size-2xl,
+.button.secondary.size-xl,
+.button.tertiary.size-xl {
   --text-style: var(--text-lg-medium);
 }
 
-.base-button.variant-secondary.size-lg,
-.base-button.variant-tertiary.size-lg {
+.button.secondary.size-lg,
+.button.tertiary.size-lg {
   --text-style: var(--text-md-medium);
 }
 </style>

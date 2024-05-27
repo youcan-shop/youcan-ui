@@ -1,4 +1,4 @@
-export type { DropdownItemProps, MultiselectDropdownProps, DropdownProps, DropdownListProps, DropdownItemDefinition, DropdownItemArray, DropdownItemGroups, DropdownItemWithIcon, DropdownItemWithImage } from '../components/Dropdown/types';
+export type { DropdownValue, DropdownItemProps, DropdownProps, DropdownCommonProps } from '../components/Dropdown/types';
 export type { DropdownMenuItemProps, DropdownMenuProps } from '../components/DropdownMenu/types';
 export type { ProgressProps } from '../components/Progress/types';
 export type { ButtonProps, ButtonSize, ActionButtonProps } from '../components/Buttons/types';
@@ -6,13 +6,11 @@ export type { AlertProps, AlertType } from '../components/Alert/types';
 export type { BadgeProps, BadgeSize, BadgeState } from '../components/Badge/types';
 export type { CheckboxProps } from '../components/Checkbox/types';
 export type { ColorPickerProps, ColorInputProps } from '../components/Color/types';
-export type { SwatchesProps, AlphaProps, BackdropProps, HueProps, OverrideProps, SaturationProps } from '../components/Color/Internal/types';
-export type { DateInputProps, DatePickerProps, DateInputValue } from '../components/DateInput/types';
 export type { DividerProps, Thickness, Style, Orientation } from '../components/Divider/types';
 export type { DraggableProps, DraggableItemProps, DraggableItemType } from '../components/Draggable/types';
 export type { DrawerProps } from '../components/Drawer/types';
 export type { IncrementProps, IncrementMachineValue } from '../components/Increment/types';
-export type { InputProps, DropdownPrefixProps, HTMLInputTypeAttribute } from '../components/Input/types';
+export type { InputProps, InputGroupProps, HTMLInputTypeAttribute } from '../components/Input/types';
 export type { ModalProps } from '../components/Modal/types';
 export type { MultiSwitchProps, SwitchButtonProps, SwitchButtonOption } from '../components/MultiSwitch/types';
 export type { PaginationBarProps, NavigationButtonProps } from '../components/PaginationBar/types';
@@ -36,4 +34,5 @@ export type { ThumbnailProps, ThumbnailSize } from '../components/Thumbnail/type
 export type { ToastContainerProps, ToastType, ToastOptions } from '../components/ToastContainer/types';
 export type { ToggleProps } from '../components/Toggle/types';
 export type { TooltipProps, TooltipPosition } from '../components/Tooltip/types';
-export type { FileInputProps, MediaInputProps, UploadedMediaProps, UploadedFileProps } from '../components/Upload/types';
+export type { UploadProps, PreviewProps } from '../components/Upload/types';
+export type { DateLocale, MonthsSwitcherProps, DatesLimit, DaysProps, Day, DatePickerProps, CalendarProps, DateValue, RangeType, DateRangeValue, Preset, PresetsProps } from '../components/DatePicker/types';
