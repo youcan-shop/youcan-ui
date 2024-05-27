@@ -1,133 +1,108 @@
 <script setup lang="ts">
+import { nextTick, ref } from 'vue';
 import { onClickOutside } from '@vueuse/core';
-import { computed, onMounted, ref, useAttrs } from 'vue';
-import { createPopper } from '@popperjs/core';
-import ColorPicker from './ColorPicker.vue';
-import Backdrop from './Internal/Backdrop.vue';
-import type { ColorInputProps } from '~/types';
+import type { ColorInputProps } from './types';
+import { ColorPicker } from '~/components';
+import { setPosition } from '~/helpers';
 
 const props = withDefaults(
   defineProps<ColorInputProps>(),
   {
-    modelValue: '#ffffff',
-    preserveTransparency: false,
+    modelValue: '',
+    error: false,
+    disabled: false,
+    preserveTransparency: true,
   },
 );
+
 const emit = defineEmits(['update:modelValue']);
 
-const attrs = useAttrs();
-const wrapper = ref<HTMLDivElement>();
-
 const picker = ref();
+const inputPicker = ref();
 const show = ref(false);
+
 function toggle(override = !show.value) {
-  show.value = override;
-}
-onClickOutside(picker, () => toggle(false));
-
-const model = computed({
-  get: () => props.modelValue,
-  set: (value: string) => emit('update:modelValue', value),
-});
-
-const setColor = (color: { hexa: string }) => model.value = color.hexa;
-
-const pickerWrapper = ref();
-
-onMounted(() => {
-  if (!wrapper.value || !pickerWrapper.value) {
+  if (props.disabled) {
     return;
   }
+  show.value = override;
 
-  createPopper(wrapper.value, pickerWrapper.value, {
-    placement: 'bottom',
-    modifiers: [
-      {
-        name: 'offset',
-        options: {
-          offset: [0, 8],
-        },
-      },
-    ],
+  nextTick(() => {
+    if (picker.value && inputPicker.value && show.value) {
+      const { top, left } = setPosition(picker.value, inputPicker.value, 'bottom', 5);
+      picker.value?.setAttribute('style', `top:${top}px;left:${left}px`);
+    }
   });
-});
+}
+
+function updateModelValue(value: string) {
+  emit('update:modelValue', value);
+}
+onClickOutside(picker, () => toggle(false));
 </script>
 
 <template>
-  <div class="color-input">
-    <div
-      ref="wrapper" tabindex="0" :class="{ enabled: !attrs.disabled }" class="wrapper" v-bind="$attrs"
-      @click="() => toggle()"
-    >
-      <Backdrop class="preview" :width="40" :height="32" :color="model" />
-      <div class="value">
-        {{ model }}
-      </div>
+  <div class="wrapper">
+    <div ref="inputPicker" class="input-picker" tabindex="0" :class="{ error: props.error, disabled: props.disabled }" @click="() => toggle()">
+      <div class="preview" :style="{ 'background-color': props.modelValue }" />
+      <span>{{ props.modelValue }}</span>
     </div>
-    <div ref="pickerWrapper" class="picker-wrapper">
-      <ColorPicker
-        v-show="show && !attrs.disabled" ref="picker" class="picker" :color="model" :defaults="[]"
-        :preserve-transparency="preserveTransparency" @setcolor="setColor"
-      />
+    <div v-show="show" ref="picker" class="picker">
+      <ColorPicker :preserve-transparency="preserveTransparency" :model-value="props.modelValue" @update:model-value="updateModelValue" />
     </div>
   </div>
 </template>
 
 <style scoped>
-.color-input {
+.wrapper {
   position: relative;
 }
 
-.wrapper {
+.wrapper .input-picker {
   display: flex;
-  box-sizing: border-box;
   align-items: center;
+  width: 150px;
   padding: 6px;
   border: 1px solid var(--gray-200);
   border-radius: 8px;
   background-color: var(--base-white);
   box-shadow: var(--shadow-xs-gray);
+  cursor: pointer;
   gap: 12px;
 }
 
-.wrapper.enabled:hover {
-  border: 1px solid var(--gray-300);
-}
-
-.wrapper.enabled:focus {
+.wrapper .input-picker:focus {
   border: 1px solid var(--brand-500);
   box-shadow: var(--focus-shadow-xs-brand);
 }
 
-.wrapper:not(.enabled) {
-  background-color: var(--gray-50);
-}
-
-.wrapper.enabled.error:focus {
+.wrapper .input-picker.error {
+  border: 1px solid var(--red-500);
   box-shadow: var(--focus-shadow-xs-red);
 }
 
-.wrapper:focus,
-.wrapper:active {
-  outline: none;
+.wrapper .input-picker.disabled {
+  opacity: 0.5;
+  background-color: #ddd;
+  cursor: not-allowed;
 }
 
-.preview {
-  border: 1px solid var(--gray-200);
-  border-radius: 4px;
+.wrapper .input-picker.disabled:focus {
+  border: 1px solid var(--gray-500);
+  box-shadow: var(--focus-shadow-xs-gray);
 }
 
-.value {
-  font: var(--text-sm-regular);
+.wrapper .input-picker .preview {
+  width: 35px;
+  height: 35px;
+  border: 1px solid var(--gray-100);
+  border-radius: 6px;
 }
 
-.picker-wrapper {
+.wrapper .picker {
+  position: fixed;
   z-index: 100;
-  width: 100%;
-}
-
-.picker {
-  border: 1px solid var(--gray-200);
+  transform: translate3d(0, 5px, 0);
   box-shadow: var(--shadow-md-gray);
 }
 </style>
