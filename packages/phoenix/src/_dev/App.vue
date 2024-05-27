@@ -2,34 +2,39 @@
 import 'uno.css';
 import '../assets/main.css';
 import { ref } from 'vue';
-import { ColorInput, ColorPicker } from '~/components';
-
-const colorv3 = ref('#A8B1FFFF');
-
-const color = ref('#A8B1FFFF');
-
-function updateColor(newColor: string) {
-  color.value = newColor;
-}
+import { Slider } from '~/components';
+import type { RangeValue } from '~/types';
+const value = ref(300);
+const rangeValue = ref<RangeValue>({ min: 300, max: 500 });
 </script>
 
 <template>
   <div class="container">
-    <ColorInput :model-value="color" @update:modelValue="updateColor" />
-  </div>
-  <div class="container">
-    <ColorPicker :preserve-transparency="false" :model-value="colorv3" />
-    <ColorPicker :model-value="colorv3" />
+    <Slider
+      v-model="value"
+      :max="2000"
+      :min="200"
+    />
+
+    <Slider
+      v-model="rangeValue"
+      :max="2000"
+      :min="200"
+      type="range"
+    />
   </div>
 </template>
 
 <style scoped>
 .container {
   display: flex;
-  flex-direction: row;
-  margin: 30px;
-  padding: 10%;
-  background-color: var(--gray-200);
-  gap: 0.5rem;
+  box-sizing: border-box;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 500px;
+  height: 100vh;
+  margin: auto;
+  padding: 0 40px;
+  gap: 40px;
 }
 </style>
