@@ -9,10 +9,7 @@ import {
   Thumbnail,
 } from '~/components';
 
-const props = withDefaults(defineProps<PreviewProps>(), {
-  error: false,
-  errorText: 'Invalid URL',
-});
+const props = defineProps<PreviewProps>();
 
 const emit = defineEmits(['delete']);
 
@@ -34,7 +31,7 @@ const dataUrl = ref('');
 const previewing = ref(false);
 const popupBody = ref();
 const loading = ref(false);
-const error = ref<boolean>(props.error);
+const error = ref(props.error);
 
 const togglePreview = (override = !previewing.value) => previewing.value = override;
 
@@ -42,7 +39,6 @@ const setValues = (video = true) => {
   isVideo.value = video;
   loading.value = false;
   dataUrl.value = (props.file as string);
-  error.value = false;
 };
 
 const urlType = (url: string) => {
@@ -58,7 +54,7 @@ const urlType = (url: string) => {
       setValues();
     };
     video.onerror = () => {
-      error.value = true;
+      error.value = props.error;
     };
   };
 };
@@ -75,7 +71,7 @@ const getUrl = () => {
       urlType(props.file);
     }
     else {
-      error.value = true;
+      error.value = props.error;
     }
   }
 };
@@ -130,7 +126,7 @@ watch(() => props.file, getUrl);
       </div>
     </template>
     <div v-else class="error-text">
-      {{ errorText }}
+      {{ props.error }}
       <Button
         tabindex="0" class="action" size="md" icon-only :rounded="true" type="button"
         variant="destructive" @click="() => emit('delete')"
@@ -173,7 +169,7 @@ watch(() => props.file, getUrl);
       </div>
     </div>
     <div v-if="error" class="error error-text">
-      {{ errorText }}
+      {{ props.error }}
     </div>
   </div>
 </template>

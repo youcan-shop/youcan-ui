@@ -1,4 +1,4 @@
-export type AcceptType = 'audio/*' | 'video/*' | 'image/*' | 'file/*';
+export type AcceptType = 'video/*' | 'image/*' | 'file/*';
 export interface UploadProps {
   modelValue: File[]
   limit?: number
@@ -13,6 +13,5 @@ export interface UploadProps {
 export interface PreviewProps {
   file: File | string
   progress?: number
-  error?: boolean
-  errorText?: string
+  error?: string
 }

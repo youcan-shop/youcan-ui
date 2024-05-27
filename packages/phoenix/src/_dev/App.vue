@@ -32,7 +32,7 @@ watch(attachments, () => {
 
 <template>
   <div class="container">
-    <Upload v-model="attachments" :limit="limit" :disabled="disabled" />
+    <Upload v-model="attachments" :limit="limit" :disabled="disabled" accept=".pdf, image/jpeg, video/*" />
   </div>
   <div class="container">
     <div class="files-grid">
@@ -47,12 +47,12 @@ watch(attachments, () => {
   <div class="container">
     <div class="files-grid">
       <UploadPreview
-        :progress="80" :file="file"
+        :progress="10" :file="file"
       />
       <UploadPreview :file="file" />
-      <UploadPreview :file="file" error error-text="Failed to upload file" />
+      <UploadPreview :file="file" error="Failed to upload file" />
       <UploadPreview :file="media" />
-      <UploadPreview :file="media" error error-text="Failed to upload file" />
+      <UploadPreview :file="media" error="Failed to upload file" />
     </div>
   </div>
 </template>
