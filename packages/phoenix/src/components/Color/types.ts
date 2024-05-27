@@ -1,10 +1,12 @@
-export interface ColorInputProps {
-  modelValue?: string
+export interface ColorPickerProps {
+  modelValue: string
+  swatches?: string[]
   preserveTransparency?: boolean
 }
 
-export interface ColorPickerProps {
-  color: string
-  defaults: string[]
+export interface ColorInputProps {
+  modelValue?: string
+  disabled?: boolean
+  error?: boolean
   preserveTransparency?: boolean
 }

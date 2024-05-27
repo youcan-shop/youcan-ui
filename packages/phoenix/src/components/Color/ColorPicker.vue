@@ -1,129 +1,252 @@
 <script setup lang="ts">
-import { computed, nextTick, onMounted, ref, watch } from 'vue';
-import type { HSV, RGBA } from '@youcan/ui-core';
-import { parseColor, rgbToHex, rgbaToHex } from '@youcan/ui-core';
-import Override from './Internal/Override.vue';
-import Swatches from './Internal/Swatches.vue';
-import Saturation from './Internal/Saturation.vue';
-import Hue from './Internal/Hue.vue';
-import Alpha from './Internal/Alpha.vue';
+import { onMounted, onUnmounted, ref, watchEffect } from 'vue';
+import { getSliderValueFromColor, hslToHex, renderCanvas } from './utils';
 import type { ColorPickerProps } from '~/types';
+import { Divider, Input } from '~/components/';
 
 const props = withDefaults(
   defineProps<ColorPickerProps>(),
   {
-    color: '#ffffff',
-    defaults: () => [],
-    preserveTransparency: false,
+    preserveTransparency: true,
+    swatches: () => ['#B8256EFF', '#25B86AFF', '#127EE3FF', '#F2990EFF', '#CC2929FF'],
   },
 );
 
-const emit = defineEmits(['setcolor']);
+const emit = defineEmits(['update:modelValue']);
 
-const saturationElement = ref();
-const hueElement = ref();
+const canvas = ref<HTMLCanvasElement>();
+const color = ref<string>(props.modelValue);
+const inputColor = ref<string>(props.modelValue);
+const canvasContainer = ref<HTMLDivElement | null>(null);
+const draggableDiv = ref<HTMLDivElement | null>(null);
 
-const hexModel = ref<string>('');
-const hexaModel = ref<string>('');
-const rgbaModel = ref<string>('');
-const currentColor = ref<RGBA & HSV>({ r: 255, g: 255, b: 255, a: 1, h: 0, s: 0, v: 0 });
+const colorSlider = ref();
+const colorValue = ref(360);
+const alphaSlider = ref();
+const alphaValue = ref(1);
+let isDragging = false;
 
-const rgba = computed<RGBA>(() => ({ r: currentColor.value.r, g: currentColor.value.g, b: currentColor.value.b, a: currentColor.value.a } as RGBA));
-const hsv = computed<HSV>(() => ({ h: currentColor.value.h, s: currentColor.value.s, v: currentColor.value.v } as HSV));
-
-const hexString = computed(() => rgbToHex(rgba.value));
-const hexaString = computed(() => rgbaToHex(rgba.value));
-const rgbaString = computed(() => `${currentColor.value.r}, ${currentColor.value.g}, ${currentColor.value.b}, ${currentColor.value.a}`);
-const rgbFuncString = computed(() => `rgb(${currentColor.value.r}, ${currentColor.value.g}, ${currentColor.value.b})`);
-const rgbaFuncString = computed(() => `rgba(${rgbaString.value})`);
-
-const setModels = () => {
-  hexModel.value = hexString.value;
-  rgbaModel.value = rgbaString.value;
-  hexaModel.value = hexaString.value;
+const setColor = (pickedColor: string) => {
+  if (props.preserveTransparency) {
+    const alpha = Math.floor(alphaValue.value * 255).toString(16).padStart(2, '0').toUpperCase();
+    color.value = `${pickedColor}${alpha}`;
+    inputColor.value = `${pickedColor}${alpha}`;
+  }
+  else {
+    color.value = `${pickedColor}`;
+    inputColor.value = `${pickedColor}`;
+  }
 };
 
-onMounted(() => {
-  currentColor.value = constructColor(props.color);
-  setModels();
+const setDraggableDivColor = (newX: number, newY: number) => {
+  const context = canvas.value!.getContext('2d');
+  if (context) {
+    const x = newX === 0 ? newX : newX - 1;
+    const y = newY === 0 ? newY : newY - 1;
+    const pixelData = context.getImageData(x, y, 1, 1).data;
+    const red = pixelData[0].toString(16).padStart(2, '0').toUpperCase();
+    const green = pixelData[1].toString(16).padStart(2, '0').toUpperCase();
+    const blue = pixelData[2].toString(16).padStart(2, '0').toUpperCase();
+
+    const pickedColor = `#${red}${green}${blue}`;
+    setColor(pickedColor);
+
+    emit('update:modelValue', color.value);
+  }
+};
+
+const setDraggableDivCoordinates = (event: MouseEvent | TouchEvent) => {
+  if (draggableDiv.value) {
+    const rect = canvasContainer.value!.getBoundingClientRect();
+    let x = 0;
+    let y = 0;
+    if (event instanceof MouseEvent) {
+      x = event.clientX - rect.left;
+      y = event.clientY - rect.top;
+    }
+    else if (event instanceof TouchEvent) {
+      x = event.touches[0].clientX - rect.left;
+      y = event.touches[0].clientY - rect.top;
+    }
+    const maxX = canvasContainer.value!.clientWidth;
+    const maxY = canvasContainer.value!.clientHeight;
+    const newX = Math.min(Math.max(0, x), maxX);
+    const newY = Math.min(Math.max(0, y), maxY);
+
+    draggableDiv.value.style.left = `calc(${(newX / 224) * 100}% - 6px)`;
+    draggableDiv.value.style.top = `calc(${(newY / 224) * 100}% - 6px)`;
+
+    setDraggableDivColor(newX, newY);
+  }
+};
+
+const startDrag = (event: MouseEvent | TouchEvent) => {
+  event.stopPropagation();
+  isDragging = true;
+  draggableDiv.value!.style.cursor = 'grabbing';
+};
+
+const drag = (event: MouseEvent | TouchEvent) => {
+  event.preventDefault();
+  if (isDragging) {
+    draggableDiv.value!.style.cursor = 'grabbing';
+    setDraggableDivCoordinates(event);
+  }
+};
+
+const stopDrag = () => {
+  isDragging = false;
+  draggableDiv.value!.style.cursor = 'grab';
+};
+
+function handleCanvasClick(event: MouseEvent) {
+  setDraggableDivCoordinates(event);
+  emit('update:modelValue', color.value);
+}
+
+function handleSwatchClick(swatch: string) {
+  const { hue, saturation } = getSliderValueFromColor(swatch);
+  colorValue.value = hue;
+  alphaValue.value = saturation;
+
+  setColor(swatch);
+  renderCanvas(canvas, color.value);
+  emit('update:modelValue', color.value);
+}
+
+function updateColor() {
+  const hue = colorValue.value;
+  const hex = hslToHex(hue, 100, 50);
+  setColor(hex);
+  renderCanvas(canvas, color.value);
+  emit('update:modelValue', color.value);
+}
+
+function updateAlpha() {
+  const alpha = Math.floor(alphaValue.value * 255).toString(16).padStart(2, '0').toUpperCase();
+  color.value = color.value.replace(/..$/, alpha);
+  inputColor.value = color.value.replace(/..$/, alpha);
+  emit('update:modelValue', color.value);
+}
+
+watchEffect(() => {
+  if (inputColor.value !== color.value) {
+    color.value = inputColor.value;
+    renderCanvas(canvas, inputColor.value);
+    emit('update:modelValue', inputColor.value);
+  }
 });
 
-const setSaturation = (color: unknown) => {
-  currentColor.value = constructColor(color);
-  setModels();
-};
+onMounted(() => {
+  const { hue, saturation } = getSliderValueFromColor(props.modelValue);
+  colorValue.value = hue;
+  alphaValue.value = saturation;
+  renderCanvas(canvas, props.modelValue);
 
-const setHue = (color: unknown) => {
-  currentColor.value = constructColor(color);
-  setModels();
+  emit('update:modelValue', props.modelValue);
 
-  nextTick(() => {
-    saturationElement.value.renderColor();
-    saturationElement.value.renderSlider();
+  if (props.preserveTransparency) {
+    alphaSlider.value.addEventListener('input', updateAlpha);
+    alphaSlider.value.addEventListener('touchmove', updateAlpha);
+    alphaSlider.value!.addEventListener('mousemove', (event: MouseEvent) => {
+      event.stopPropagation();
+    });
+  }
+  colorSlider.value!.addEventListener('input', updateColor);
+  colorSlider.value!.addEventListener('touchmove', updateColor);
+  colorSlider.value!.addEventListener('mousemove', (event: MouseEvent) => {
+    event.stopPropagation();
   });
-};
 
-const setAlpha = (a: number) => {
-  currentColor.value.a = a;
-  setModels();
-};
+  window.addEventListener('mouseup', stopDrag);
+  window.addEventListener('mousemove', drag);
 
-const inputHex = (color: string) => {
-  currentColor.value = constructColor(color);
-  hexModel.value = color;
-  hexaModel.value = color;
-  rgbaModel.value = rgbaString.value;
+  canvasContainer.value!.addEventListener('touchmove', drag);
+  canvasContainer.value!.addEventListener('touchend', stopDrag);
+});
 
-  nextTick(() => {
-    hueElement.value.renderSlider();
-    saturationElement.value.renderColor();
-    saturationElement.value.renderSlider();
-  });
-};
+onUnmounted(() => {
+  if (props.preserveTransparency) {
+    alphaSlider.value.removeEventListener('input', updateAlpha);
+    alphaSlider.value.removeEventListener('touchmove', updateAlpha);
+  }
+  colorSlider.value.removeEventListener('input', updateColor);
+  colorSlider.value.removeEventListener('touchmove', updateColor);
 
-const setColor = (color: string) => {
-  currentColor.value = constructColor(color);
-  setModels();
+  window.removeEventListener('mouseup', stopDrag);
+  window.removeEventListener('mousemove', drag);
 
-  nextTick(() => {
-    hueElement.value.renderSlider();
-    saturationElement.value.renderColor();
-    saturationElement.value.renderSlider();
-  });
-};
-
-watch(
-  rgba,
-  () => emit('setcolor', { rgba: rgba.value, hsv: hsv.value, hex: hexModel.value, hexa: hexaModel.value }),
-);
-
-function constructColor(color: unknown) {
-  return props.preserveTransparency ? parseColor(color, currentColor.value.a) : parseColor(color);
-}
+  canvasContainer.value!.removeEventListener('touchmove', drag);
+  canvasContainer.value!.removeEventListener('touchend', stopDrag);
+});
 </script>
 
 <template>
   <div class="color-picker">
-    <Saturation
-      ref="saturationElement" class="color-saturation" :color="rgbFuncString" :hsv="hsv" :size="224"
-      @setsaturation="setSaturation"
-    />
+    <div ref="canvasContainer" class="canvas-container" @mousedown="startDrag" @touchstart="startDrag">
+      <canvas ref="canvas" class="saturation" @click="handleCanvasClick" />
+      <div ref="draggableDiv" class="draggable-div" />
+    </div>
     <div class="sliders">
-      <Hue ref="hueElement" class="color-hue" :hsv="hsv" :width="224" :height="10" @sethue="setHue" />
-      <Alpha class="color-alpha" :color="rgbFuncString" :rgba="rgba" :width="224" :height="10" @setalpha="setAlpha" />
+      <input ref="colorSlider" v-model="colorValue" class="color-range" type="range" min="0" max="360">
+      <input v-if="preserveTransparency" ref="alphaSlider" v-model="alphaValue" class="alpha-range" type="range" min="0" max="1" :step="0.01">
     </div>
-    <div class="color-override">
-      <label>HEX</label>
-      <Override class="hex-input" type="#" :color="hexaModel" @overridecolor="inputHex" />
+    <p class="label">
+      HEX
+    </p>
+    <div class="input-group">
+      <Input v-model="inputColor" class="value" />
+      <div :style="{ 'background-color': color }" class="preview" />
     </div>
-    <hr>
+    <Divider thickness="light" />
     <div class="swatches">
-      <Swatches :color="rgbaFuncString" :default-swatches="defaults" @setcolor="setColor" />
+      <div v-for="swatch in swatches" :key="swatch" :style="{ background: swatch }" class="color" @click="handleSwatchClick(swatch)" />
     </div>
   </div>
 </template>
 
-<style scoped lang="scss">
+<style scoped>
+.color-picker .canvas-container {
+  position: relative;
+  width: 224px;
+  height: 224px;
+  overflow: hidden;
+}
+
+.color-picker .canvas-container .draggable-div {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 8px;
+  height: 8px;
+  border: 2px solid var(--base-white);
+  border-radius: 10px;
+  background-color: transparent;
+  box-shadow: 0 0 0 1px var(--red-500);
+  cursor: grab;
+}
+
+.color-picker .input-group {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+}
+
+.color-picker .input-group .preview {
+  width: 35px;
+  height: 35px;
+  border: 1px solid var(--gray-100);
+  border-radius: 6px;
+}
+
+.color-picker .sliders {
+  display: flex;
+  flex-direction: column;
+  margin-top: 8px;
+  gap: 5px;
+}
+
 .color-picker {
   box-sizing: border-box;
   width: min-content;
@@ -133,27 +256,119 @@ function constructColor(color: unknown) {
   box-shadow: var(--shadow-md);
 }
 
-.sliders {
-  margin-top: 12px;
+.color-picker .canvas-container .saturation {
+  border-radius: 4px;
+  cursor: pointer;
 }
 
-.sliders > * + * {
-  margin-top: 8px;
-}
-
-.color-override {
-  margin-top: 12px;
-}
-
-.color-override label {
-  display: block;
-  margin-bottom: 4px;
+.color-picker .label {
+  margin: 8px 0;
   font: var(--text-sm-medium);
 }
 
-hr {
-  margin: 12px 0;
-  border: none;
-  border-top: 1px solid var(--gray-200);
+.color-picker .swatches .color {
+  width: 24px;
+  height: 24px;
+  border-radius: 100px;
+}
+
+.color-picker .swatches {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.color-picker .swatches .color:hover {
+  transform: scale(1.1);
+}
+
+.color-picker .sliders .alpha-range {
+  display: block;
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 0.7em;
+  transition: color 0.05s linear;
+  border-radius: 0.3em;
+  outline: none;
+  appearance: none;
+  background-image:
+    linear-gradient(
+      45deg,
+      v-bind(color.slice(0, -2)) 25%,
+      transparent 25%,
+      transparent 75%,
+      v-bind(color.slice(0, -2)) 75%
+    ),
+    linear-gradient(
+      45deg,
+      v-bind(color.slice(0, -2)) 25%,
+      transparent 25%,
+      transparent 75%,
+      v-bind(color.slice(0, -2)) 75%
+    ),
+    linear-gradient(to right, var(--gray-100) 25%, v-bind(color.slice(0, -2)) 85%);
+  background-position: 0 0, 2px 2px, 0 0;
+  background-size: 4px 4px, 4px 4px, 100% 100%;
+}
+
+.color-picker .sliders .color-range {
+  display: block;
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 0.7em;
+  transition: color 0.05s linear;
+  border-radius: 0.3em;
+  outline: none;
+  background:
+    linear-gradient(
+      to right,
+      rgb(255 0 0),
+      rgb(255 255 0),
+      rgb(0 255 0),
+      rgb(0 255 255),
+      rgb(0 0 255),
+      rgb(255 0 255),
+      rgb(255 0 0)
+    );
+  background-color: rgb(0 0 0 / 10%);
+  appearance: none;
+}
+
+.color-picker .sliders .color-range:focus {
+  outline: none;
+}
+
+.color-picker .sliders .color-range:active,
+.color-picker .sliders .color-range:hover:active {
+  cursor: grabbing;
+}
+
+.color-picker .sliders .color-range::-webkit-slider-thumb,
+.color-picker .sliders .alpha-range::-webkit-slider-thumb {
+  width: 1.3em;
+  height: 1.3em;
+  transition: border 0.1s ease-in-out, box-shadow 0.2s ease-in-out, transform 0.1s ease-in-out;
+  border-radius: 0.3em;
+  background: white;
+  box-shadow: var(--shadow-sm-gray);
+  cursor: grab;
+  appearance: none;
+}
+
+.color-picker .sliders .color-range::-webkit-slider-thumb:hover,
+.color-picker .sliders .alpha-range::-webkit-slider-thumb:hover {
+  transform: scale(1.1);
+  box-shadow: 0 5px 15px rgb(0 0 0 / 15%);
+}
+
+.color-picker .sliders .color-range::-webkit-slider-thumb:active,
+.color-picker .sliders .color-range::-webkit-slider-thumb:hover:active,
+.color-picker .sliders .alpha-range::-webkit-slider-thumb:active,
+.color-picker .sliders .alpha-range::-webkit-slider-thumb:hover:active {
+  transform: scale(0.975);
+  cursor: grabbing;
 }
 </style>
