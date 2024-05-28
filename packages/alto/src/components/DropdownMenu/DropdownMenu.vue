@@ -26,6 +26,10 @@ const handleScroll = () => {
   show.value = false;
 };
 
+const closeMenu = () => {
+  show.value = false;
+};
+
 onMounted(() => {
   window.addEventListener('scroll', handleScroll);
 });
@@ -43,7 +47,7 @@ onClickOutside(dropdownMenu, () => show.value = false);
       <slot />
     </div>
     <Transition name="fade-in">
-      <div v-if="show" ref="triggeredElement" class="triggered-element">
+      <div v-if="show" ref="triggeredElement" class="triggered-element" @click="closeMenu">
         <slot name="MenuItems" />
       </div>
     </Transition>

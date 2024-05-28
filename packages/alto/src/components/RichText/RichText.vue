@@ -58,6 +58,10 @@ onMounted(() => {
     replaceIcons(customIcons);
     quill = new Quill(editor.value, editorConfig);
 
+    if (props.modelValue) {
+      quill.root.innerHTML = props.modelValue;
+    }
+
     if (quill) {
       quill.on('text-change', () => {
         if (quill) {
@@ -97,6 +101,11 @@ onMounted(() => {
 
 .ql-container {
   border-radius: 0 0 8px 8px;
+}
+
+.ql-container.ql-snow {
+  height: auto;
+  background-color: var(--base-white);
 }
 
 .rich-text {
