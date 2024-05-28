@@ -25,12 +25,12 @@ jobs:
 
       - name: Build Storybook
         run: pnpm build-storybook --quiet
-        working-directory: packages/phoenix
+        working-directory: packages/alto
       
       - name: Install wait-on
         run: pnpm add -D wait-on
-        working-directory: packages/phoenix
+        working-directory: packages/alto
 
       - name: Serve Storybook and run tests
         run: pnpm test-storybook:ci
-        working-directory: packages/phoenix
+        working-directory: packages/alto
