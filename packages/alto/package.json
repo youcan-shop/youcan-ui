@@ -1,6 +1,6 @@
 {
-  "name": "@youcan/ui-vue3",
-  "version": "2.6.0-beta.3",
+  "name": "@youcan/alto",
+  "version": "0.0.1",
   "description": "YouCan Vue3 components library",
   "author": {
     "name": "YouCan",
@@ -30,6 +30,10 @@
       "require": "./src/helpers/index.ts",
       "import": "./src/helpers/index.ts"
     },
+    "./assets": {
+      "require": "./src/assets/index.ts",
+      "import": "./src/assets/index.ts"
+    },
     "./style": {
       "require": "./dist/index.css",
       "import": "./dist/index.css"
@@ -55,7 +59,7 @@
     "components:build": "rimraf dist && vue-tsc --declaration --emitDeclarationOnly --project tsconfig.build.json && vite build",
     "dev": "pnpm story:dev & pnpm components:dev",
     "build": "pnpm components:build & pnpm story:build",
-    "release": "pnpm publish --access public",
+    "ship": "pnpm build && bumpp package.json --commit \"[chore]: Release v\" --push --tag && pnpm publish --access public",
     "lint": "eslint .",
     "storybook": "storybook dev -p 6007",
     "build-storybook": "storybook build",
