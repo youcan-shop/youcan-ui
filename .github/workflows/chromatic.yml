@@ -38,6 +38,12 @@ jobs:
       - name: Install dependencies
         run: pnpm install --no-frozen-lockfile
 
+      - name: Log current path
+        run: pwd
+
+      - name: List directory contents
+        run: ls -la
+
       - name: Run Chromatic
         uses: chromaui/action@latest
         with:

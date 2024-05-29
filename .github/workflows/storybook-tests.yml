@@ -37,6 +37,12 @@ jobs:
       - name: Install Playwright
         run: npx playwright install --with-deps
 
+      - name: Log current path
+        run: pwd
+
+      - name: List directory contents
+        run: ls -la      
+
       - name: Build Storybook
         run: pnpm build-storybook --quiet
         working-directory: packages/vue3
