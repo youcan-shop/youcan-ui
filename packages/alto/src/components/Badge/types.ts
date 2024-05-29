@@ -1,4 +1,4 @@
-export type BadgeSize = 20 | 24;
+export type BadgeSize = 'sm' | 'md';
 
 export type BadgeState = 'neutral' | 'danger' | 'info' | 'warning' | 'success';
 

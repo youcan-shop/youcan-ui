@@ -9,7 +9,7 @@ const meta: Meta<typeof Badge> = {
   argTypes: {
     size: {
       control: 'select',
-      options: [20, 24],
+      options: ['sm', 'md'],
     },
     state: {
       options: ['neutral', 'danger', 'info', 'warning', 'success'],
@@ -18,7 +18,7 @@ const meta: Meta<typeof Badge> = {
     default: { control: false },
   },
   args: {
-    size: 20,
+    size: 'sm',
     state: 'neutral',
   },
 };
