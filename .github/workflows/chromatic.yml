@@ -44,9 +44,9 @@ jobs:
       - name: List directory contents
         run: ls -la
 
-      - name: List contents of packages directory
+      - name: List contents of packages/alto/node_modules directory
         run: |
-          cd packages
+          cd packages/alto/node_modules/@youcan/ui-icons
           ls -la
 
       - name: Run Chromatic
