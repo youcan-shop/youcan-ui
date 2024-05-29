@@ -3,7 +3,6 @@ import Unocss from 'unocss/vite';
 
 module.exports = {
   "stories": [
-    "../src/**/*.mdx",
     "../src/**/*.stories.@(js|jsx|ts|tsx)"
   ],
   "addons": [
