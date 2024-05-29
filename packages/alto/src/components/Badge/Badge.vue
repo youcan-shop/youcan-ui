@@ -4,19 +4,27 @@ import type { BadgeProps } from '~/types';
 withDefaults(
   defineProps<BadgeProps>(),
   {
-    size: 20,
+    size: 'sm',
     state: 'neutral',
   },
 );
 </script>
 
 <template>
-  <span class="badge" :class="[`state-${state}`]" :style="{ '--size': `${size}px` }">
+  <span class="badge" :class="[`state-${state}`, `size-${size}`]">
     <slot />
   </span>
 </template>
 
 <style scoped>
+.badge.size-sm {
+  --size: 20px;
+}
+
+.badge.size-md {
+  --size: 24px;
+}
+
 .badge {
   --background-color: var(--gray-300);
 
