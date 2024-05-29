@@ -40,6 +40,11 @@ jobs:
       - name: Log current path
         run: pwd
 
+      - name: Build icons
+        run: |
+          cd packages/icons
+          pnpm run build
+
       - name: List directory contents
         run: ls -la      
 
