@@ -37,28 +37,17 @@ jobs:
       - name: Install Playwright
         run: npx playwright install --with-deps
 
-      - name: Log current path
-        run: pwd
-
       - name: Build packages
-        run: pnpm run build
-
-      - name: List directory contents
-        run: ls -la      
-
-      - name: List contents of packages/alto/node_modules directory
-        run: |
-          cd packages/alto/node_modules/@youcan/ui-icons
-          ls -la
+        run: pnpm run build     
 
       - name: Build Storybook
         run: pnpm build-storybook --quiet
-        working-directory: packages/vue3
+        working-directory: packages/alto
       
       - name: Install wait-on
         run: pnpm add -D wait-on
-        working-directory: packages/vue3
+        working-directory: packages/alto
 
       - name: Serve Storybook and run tests
         run: pnpm test-storybook:ci
-        working-directory: packages/vue3
+        working-directory: packages/alto

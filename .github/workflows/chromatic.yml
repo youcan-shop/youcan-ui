@@ -41,17 +41,6 @@ jobs:
       - name: Build packages
         run: pnpm run build
 
-      - name: Log current path
-        run: pwd
-
-      - name: List directory contents
-        run: ls -la
-
-      - name: List contents of packages/alto/node_modules directory
-        run: |
-          cd packages/alto/node_modules/@youcan/ui-icons
-          ls -la
-
       - name: Run Chromatic
         uses: chromaui/action@latest
         with:
