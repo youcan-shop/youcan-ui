@@ -43,6 +43,11 @@ jobs:
           cd packages/icons
           pnpm run build
 
+      - name: Build visuals
+        run: |
+          cd packages/visuals
+          pnpm run build
+
       - name: Log current path
         run: pwd
 
