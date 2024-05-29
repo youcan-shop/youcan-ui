@@ -17,21 +17,14 @@ jobs:
           version: 8.10.0
           run_install: false
 
-      - name: Cache pnpm store
-        uses: actions/cache@v3
+      - uses: actions/cache@v3
+        name: set up pnpm cache
         with:
-          path: ~/.pnpm-store
+          path: ${{ env.STORE_PATH }}
           key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
-
-      - name: Cache node_modules
-        uses: actions/cache@v3
-        with:
-          path: packages/alto/node_modules
-          key: ${{ runner.os }}-node_modules-${{ hashFiles('packages/alto/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-node_modules-
+  
   
       - name: Install dependencies
         run: pnpm install --no-frozen-lockfile
