@@ -12,8 +12,6 @@ export { default as TextArea } from './TextArea/TextArea.vue';
 export { default as Rating } from './Rating/Rating.vue';
 export { default as Badge } from './Badge/Badge.vue';
 export { default as Thumbnail } from './Thumbnail/Thumbnail.vue';
-export { default as Upload } from './Upload/Upload.vue';
-export { default as UploadPreview } from './Upload/UploadPreview.vue';
 export { default as Increment } from './Increment/Increment.vue';
 export { default as Tag } from './Tag/Tag.vue';
 export { default as Status } from './Status/Status.vue';
