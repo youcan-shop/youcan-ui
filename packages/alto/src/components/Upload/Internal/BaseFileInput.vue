@@ -79,75 +79,68 @@ const handleInput = (event: Event) => {
   </label>
 </template>
 
-<style scoped lang="scss">
+<style scoped>
 .dropzone {
   display: grid;
   position: relative;
   box-sizing: border-box;
   width: 100%;
+  margin: 6px;
   padding: 14px 16px;
   border: 1px solid var(--gray-200);
   border-radius: 4px;
   background-color: var(--gray-50);
   box-shadow: var(--shadow-xs-gray);
   place-items: center;
+}
 
-  > * {
-    position: relative;
-    z-index: 1;
-  }
+.dropzone > * {
+  position: relative;
+  z-index: 1;
+}
 
-  &.disabled {
-    background-color: var(--base-white);
+.dropzone.disabled {
+  background-color: var(--base-white);
+}
 
-    * {
-      color: var(--gray-300) !important;
-      cursor: no-drop;
-    }
-  }
+.dropzone.disabled * {
+  color: var(--gray-300) !important;
+  cursor: no-drop;
+}
 
-  .input-shadow {
-    z-index: 0;
-  }
+.dropzone .input-shadow {
+  z-index: 0;
+}
 
-  input[type="file"],
-  .input-shadow {
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border-radius: 4px;
-  }
+.dropzone input[type="file"],
+.dropzone .input-shadow {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 4px;
+}
 
-  input[type="file"] {
-    z-index: 2;
-    opacity: 0;
-    cursor: pointer;
-  }
+.dropzone input[type="file"] {
+  z-index: 2;
+  opacity: 0;
+  cursor: pointer;
+}
 
-  &:not(.disabled) {
-    &:hover {
-      background-color: var(--gray-100);
-    }
+.dropzone:not(.disabled):hover {
+  background-color: var(--gray-100);
+}
 
-    input[type="file"] {
-      &:active,
-      &:focus {
-        ~ .input-shadow {
-          border: 1px solid var(--brand-500);
-          outline: none;
-          box-shadow: var(--focus-shadow-xs-brand);
-        }
-      }
+.dropzone:not(.disabled) input[type="file"]:active ~ .input-shadow,
+.dropzone:not(.disabled) input[type="file"]:focus ~ .input-shadow {
+  border: 1px solid var(--brand-500);
+  outline: none;
+  box-shadow: var(--focus-shadow-xs-brand);
+}
 
-      &.dragging {
-        ~ .input-shadow {
-          background-color: var(--gray-100);
-        }
-      }
-    }
-  }
+.dropzone:not(.disabled) input[type="file"].dragging ~ .input-shadow {
+  background-color: var(--gray-100);
 }
 </style>

@@ -24,8 +24,9 @@ import { Divider } from '~/components';
   display: flex;
   flex-direction: row;
   justify-content: center;
-  height: 50vh;
-  padding: 40px;
+  max-width: 500px;
+  margin: auto;
+  padding: 0 40px;
   gap: 40px;
 }
 
