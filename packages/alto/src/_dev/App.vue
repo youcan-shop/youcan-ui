@@ -64,7 +64,6 @@ watch(attachments, () => {
   flex-direction: column;
   justify-content: center;
   max-width: 500px;
-  height: 100vh;
   margin: auto;
   padding: 0 40px;
   gap: 40px;
