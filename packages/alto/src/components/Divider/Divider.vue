@@ -5,14 +5,14 @@ withDefaults(
   defineProps<DividerProps>(),
   {
     orientation: 'horizontal',
-    borderStyle: 'solid',
     thickness: 'regular',
+    dashed: false,
   },
 );
 </script>
 
 <template>
-  <div :class="[orientation, borderStyle, thickness]" />
+  <div :class="[orientation, thickness, { dashed }]" />
 </template>
 
 <style scoped>
@@ -21,7 +21,8 @@ withDefaults(
   max-height: 0;
   margin-top: 16px;
   margin-bottom: 16px;
-  border-color: var(--gray-100);
+  border-style: solid;
+  border-color: var(--gray-200);
 }
 
 .vertical {
@@ -29,30 +30,41 @@ withDefaults(
   height: 100%;
   margin-right: 16px;
   margin-left: 16px;
-  border-color: var(--gray-100);
+  border-style: solid;
+  border-color: var(--gray-200);
 }
 
 .light {
-  border-width: 1px;
+  border-width: 0.5px;
 }
 
 .regular {
-  border-width: 2px;
+  border-width: 1px;
 }
 
 .thick {
   border-width: 4px;
 }
 
-.solid {
-  border-style: solid;
+.vertical.dashed {
+  border-image:
+    repeating-linear-gradient(
+      to bottom,
+      var(--gray-200) 0,
+      var(--gray-200) 10px, /* Length of dash */
+      transparent 5px,
+      transparent 16px /* Length of gap */
+    ) 1;
 }
 
-.dashed {
-  border-style: dashed;
-}
-
-.dotted {
-  border-style: dotted;
+.horizontal.dashed {
+  border-image:
+    repeating-linear-gradient(
+      to right,
+      var(--gray-200) 0,
+      var(--gray-200) 10px, /* Length of dash */
+      transparent 5px,
+      transparent 16px /* Length of gap */
+    ) 1;
 }
 </style>
