@@ -6,7 +6,6 @@ export interface ButtonProps {
   size?: ButtonSize
   disabled?: boolean
   rounded?: boolean
-  href?: string
   iconOnly?: boolean
 }
 

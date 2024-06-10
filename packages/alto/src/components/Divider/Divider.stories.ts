@@ -11,9 +11,8 @@ const meta: Meta<typeof Divider> = {
       control: 'select',
       options: ['horizontal', 'vertical'],
     },
-    borderStyle: {
-      control: 'select',
-      options: ['solid', 'dotted', 'dashed'],
+    dashed: {
+      control: { type: 'boolean' },
     },
     thickness: {
       control: 'select',
@@ -22,7 +21,7 @@ const meta: Meta<typeof Divider> = {
   },
   args: {
     orientation: 'horizontal',
-    borderStyle: 'solid',
+    dashed: false,
     thickness: 'regular',
   },
 };

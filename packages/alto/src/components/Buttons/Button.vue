@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { computed, useAttrs } from 'vue';
 import type { ButtonProps } from '~/types';
 
 withDefaults(
@@ -10,13 +11,17 @@ withDefaults(
     variant: 'primary',
   },
 );
+
+const attrs = useAttrs();
+
+const component = computed(() => (attrs.href ? 'a' : 'button'));
 </script>
 
 <template>
   <component
-    :is="href ? 'a' : 'button'" ref="button" :href="href" class="button" :disabled="disabled"
+    :is="component" ref="button" class="button" :disabled="disabled"
     :class="[
-      { link: href, rounded, [`size-${size}`]: true },
+      { link: attrs.href, rounded, [`size-${size}`]: true },
       variant,
       { 'icon-only': iconOnly },
     ]"
