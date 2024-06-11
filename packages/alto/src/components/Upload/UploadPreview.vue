@@ -215,7 +215,7 @@ watch(() => props.file, getUrl);
   height: 100%;
   margin-inline-start: auto;
   border-radius: 8px;
-  background: linear-gradient(0deg, rgb(0 0 0 / 24%), rgb(0 0 0 / 24%)), url(".jpg");
+  background: linear-gradient(0deg, rgb(0 0 0 / 24%), rgb(0 0 0 / 24%));
 }
 
 .media-container .actions .icon-remove {
@@ -360,7 +360,7 @@ watch(() => props.file, getUrl);
   justify-content: center;
   width: 100%;
   height: 100%;
-  background: linear-gradient(0deg, rgb(0 0 0 / 24%), rgb(0 0 0 / 24%)), url(".jpg");
+  background: linear-gradient(0deg, rgb(0 0 0 / 24%), rgb(0 0 0 / 24%));
 }
 
 .popup-body {
