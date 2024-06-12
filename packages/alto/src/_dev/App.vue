@@ -2,20 +2,16 @@
 import 'uno.css';
 import '../assets/main.css';
 import { ref } from 'vue';
-import { DatePicker } from '~/components';
-import type { DateValue } from '~/types';
+import { ColorInput } from '~/components';
 
-const date = ref<DateValue>(null);
+const color = ref<string>('FFFFFF');
 </script>
 
 <template>
   <div class="container">
     <div class="row">
       <span class="title">Single date :</span>
-      <DatePicker
-        v-model="date"
-        placeholder="Select date"
-      />
+      <ColorInput :model-value="color" />
     </div>
   </div>
 </template>
