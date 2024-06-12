@@ -42,7 +42,6 @@ const show = ref(false);
 
 <style scoped>
 .container {
-.container {
   display: flex;
   flex-direction: column;
   align-items: center;
