@@ -162,8 +162,15 @@ function handleResize() {
   PickerPosition();
 }
 
+function handleScroll() {
+  if (show.value) {
+    show.value = false;
+  }
+}
+
 onMounted(() => {
   window.addEventListener('resize', handleResize);
+  window.addEventListener('scroll', handleScroll);
   const { presets } = props;
   presetChanged(presets);
   checkRange(props.range);
@@ -172,6 +179,7 @@ onMounted(() => {
 
 onUnmounted(() => {
   window.removeEventListener('resize', handleResize);
+  window.removeEventListener('scroll', handleScroll);
 });
 
 watch(() => props.range, (newValue) => {
