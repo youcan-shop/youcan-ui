@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { nextTick, ref } from 'vue';
+import { nextTick, onMounted, onUnmounted, ref } from 'vue';
 import { onClickOutside } from '@vueuse/core';
 import type { ColorInputProps } from './types';
 import { ColorPicker } from '~/components';
@@ -38,7 +38,22 @@ function toggle(override = !show.value) {
 function updateModelValue(value: string) {
   emit('update:modelValue', value);
 }
+
+function handleScroll() {
+  if (show.value) {
+    show.value = false;
+  }
+}
+
 onClickOutside(picker, () => toggle(false));
+
+onMounted(() => {
+  window.addEventListener('scroll', handleScroll);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', handleScroll);
+});
 </script>
 
 <template>
