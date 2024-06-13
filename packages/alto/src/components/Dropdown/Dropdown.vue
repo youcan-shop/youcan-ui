@@ -266,8 +266,15 @@ function setItems(items: DropdownValue[]) {
   itemsList.value = Array.isArray(items) ? items : [];
 }
 
+function handleWindowScroll() {
+  if (show.value) {
+    show.value = false;
+  }
+}
+
 onMounted(() => {
   window.addEventListener('resize', handleResize);
+  window.addEventListener('scroll', handleWindowScroll);
 
   dropdown.value?.addEventListener('keydown', handleKeypress);
 
@@ -278,6 +285,7 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener('resize', handleResize);
   window.removeEventListener('keydown', handleKeypress);
+  window.removeEventListener('scroll', handleWindowScroll);
 });
 
 watch(() => props.items, (newValue) => {

@@ -2,16 +2,96 @@
 import 'uno.css';
 import '../assets/main.css';
 import { ref } from 'vue';
-import { ColorInput } from '~/components';
+import { Dropdown, PaginationBar, Tag } from '~/components';
+import type { DropdownValue, TagItemValue } from '~/types';
 
-const color = ref<string>('FFFFFF');
+const multiple = ref(null);
+const single = ref(null);
+const value = ref(null);
+const currentPage = ref(1);
+const perPage = ref(10);
+const preferredLanguages = ref<TagItemValue[]>([]);
+
+const total = 50;
+const totalPages = Math.ceil(total / perPage.value);
+const perPageOptions = [5, 10, 20, 30, 50, 100];
+
+const items: Array<DropdownValue> = [
+  { label: '+1 stars', key: 3, groupName: 'Rating' },
+  { label: 'Visible', key: 2, groupName: 'Visibility' },
+  { label: 'Hidden', key: 5, groupName: 'Visibility' },
+  { label: '+3 stars', key: 4, groupName: 'Rating' },
+  { label: '+4 stars', key: 1, groupName: 'Rating' },
+];
+
+const singleItems = ref<DropdownValue[]>([
+  { label: 'Shoes', key: 1 },
+  { label: 'Cosmetics', key: 2 },
+  { label: 'Gym', key: 3 },
+]);
+
+const languages: Array<DropdownValue> = [
+  { label: 'Arabic', key: 1 },
+  { label: 'English', key: 2 },
+  { label: 'German', key: 3 },
+  { label: 'French', key: 4 },
+  { label: 'Dutch', key: 5 },
+  { label: 'Hindi', key: 6 },
+];
+
+function handlePaginationNavigation(pageNumber: number) {
+  currentPage.value = pageNumber;
+}
+
+function search(value: string) {
+  console.log(value);
+}
 </script>
 
 <template>
   <div class="container">
     <div class="row">
-      <span class="title">Single date :</span>
-      <ColorInput :model-value="color" />
+      <div>
+        <span>Default Dropdown : </span>
+        <Dropdown v-model="value" searchable :items="languages" placeholder="Select item" />
+      </div>
+      <div>
+        <span>Multiple Dropdown : </span>
+        <Dropdown v-model="multiple" :limit="4" :items="items" searchable multiple placeholder="Select items" />
+      </div>
+      <div>
+        <span>Single Dropdown :</span>
+        <Dropdown v-model="single" :items="singleItems" placeholder="Select item" />
+      </div>
+    </div>
+
+    <div class="row">
+      <div>
+        <span>Tags : </span>
+        <Tag
+          v-model="preferredLanguages"
+          placeholder="Select programming languages"
+          :max="3"
+          type="dropdown"
+          :items="languages"
+          search-input-placeholder="Search..."
+          :search="search"
+        />
+      </div>
+    </div>
+
+    <div class="row">
+      <div>
+        <PaginationBar
+          v-model:perPage="perPage"
+          :current="currentPage"
+          :size="totalPages"
+          :count="perPage"
+          :total="total"
+          :per-page-options="perPageOptions"
+          @update:current="handlePaginationNavigation"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -20,20 +100,27 @@ const color = ref<string>('FFFFFF');
 .container {
   display: flex;
   flex-direction: column;
-  max-width: 500px;
-  margin: 400px auto;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
   gap: 40px;
-  margin-bottom: 200vh;
 }
 
 .container .row {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 300px;
+  width: 80%;
 }
 
-.container .row .title {
+.container .row > div {
+  flex: 1;
+}
+
+.container .row > div span {
+  margin: 0;
   color: var(--gray-900);
-  font: var(--text-md-medium);
+  font: var(--text-sm-medium);
 }
 </style>
