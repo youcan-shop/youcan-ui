@@ -28,7 +28,7 @@ withDefaults(
   flex-direction: column;
   width: 100%;
   row-gap: 15px;
-  justify-items: start;
+  justify-items: flex-start;
 }
 
 .pulse {
