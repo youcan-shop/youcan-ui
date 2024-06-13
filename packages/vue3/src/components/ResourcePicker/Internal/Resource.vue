@@ -45,7 +45,7 @@ function handleCheck(e: Event) {
 <style scoped>
 .resource {
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
   padding: 0 16px;
   transition: background-color 0.3s;
   border-bottom: var(--border);

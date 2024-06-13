@@ -118,7 +118,6 @@ function handleSubCompModel(row: number, accessor: string, data: unknown, parent
     const propRow = props.data[row].row[accessor] as TableDataComposable;
 
     rowsReplica.value[row].row[accessor].value = {
-      // @ts-expect-error - TS is crying about variant type here, but it's not a problem since it's valid
       variant: propRow.variant,
       data: {
         ...propRow.data,
@@ -137,7 +136,6 @@ function handleSubCompModel(row: number, accessor: string, data: unknown, parent
     const propRow = props.data[parentRow].children![row][accessor] as TableDataComposable;
 
     rowsReplica.value[parentRow].children![row].row[accessor].value = {
-      // @ts-expect-error - TS is crying about variant type here, but it's not a problem since it's valid
       variant: propRow.variant,
       data: {
         ...propRow.data,
@@ -221,7 +219,7 @@ function selectRow(index: number, data: boolean) {
   display: flex;
   box-sizing: border-box;
   align-items: center;
-  justify-content: start;
+  justify-content: flex-start;
   width: 100%;
   overflow: auto hidden;
 }
