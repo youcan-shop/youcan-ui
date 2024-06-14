@@ -1,6 +1,6 @@
 {
   "name": "@youcan/ui",
-  "version": "2.6.5",
+  "version": "2.6.7",
   "packageManager": "pnpm@8.10.0",
   "engines": {
     "node": "^20.9.0",
@@ -14,11 +14,11 @@
     "lint": "pnpm eslint && pnpm stylelint",
     "lint:fix": "pnpm eslint --fix && pnpm stylelint --fix",
     "prepare": "pnpm -r run stub",
-    "release": "pnpm build && bumpp package.json packages/*/package.json --commit \"[chore]: Release v\" --push --tag && pnpm -r release"
+    "release": "pnpm build && bumpp --commit \"[chore]: Release v\" --push --tag && pnpm -r release"
   },
   "devDependencies": {
     "@youcan/eslint-config": "2.5.6-beta.7",
-    "bumpp": "^8.2.1",
+    "bumpp": "^9.4.1",
     "eslint": "^8.33.0",
     "mitata": "^0.1.6",
     "postcss-html": "^1.5.0",
