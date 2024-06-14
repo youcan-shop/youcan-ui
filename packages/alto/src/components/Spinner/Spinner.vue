@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
+import YouCanBrand from './internal/YouCanBrand.vue';
 import type { SpinnerProps } from '~/types';
+
 const props = withDefaults(
   defineProps<SpinnerProps>(),
   {
@@ -16,10 +18,11 @@ const spinnerSize = computed(() => `${props.size}px`);
 
 <template>
   <div class="spinner-block">
-    <div class="spinner" />
+    <!--  <div class="spinner" />
     <p v-if="label" class="label" :class="[labelFontSize]">
       {{ label }}
-    </p>
+    </p> -->
+    <YouCanBrand />
   </div>
 </template>
 
