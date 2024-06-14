@@ -178,12 +178,12 @@ onUnmounted(() => {
 }
 
 .popover.left .triangle {
-  right: calc(100% + 9px);
+  right: -12px;
   transform: rotate(45deg);
 }
 
 .popover.right .triangle {
-  left: calc(100% + 11px);
+  left: -12px;
   transform: rotate(-135deg);
 }
 
