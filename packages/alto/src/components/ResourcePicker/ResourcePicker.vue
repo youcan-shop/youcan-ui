@@ -4,7 +4,7 @@ import ResourceItem from './Internal/Resource.vue';
 import { isEmptyArray } from './utils';
 import type { PickerProps, Resource } from '~/types';
 import Overlay from '~/components/Overlay/Overlay.vue';
-import { Button, Input, Spinner } from '~/components';
+import { Button, Input, Loader } from '~/components';
 
 const props = withDefaults(defineProps<PickerProps>(), {
   visible: false,
@@ -120,7 +120,7 @@ onUnmounted(() => {
           <Input v-model.trim="term" :placeholder="searchPlaceholder" @input.stop="handleSearch" @keyup.enter.stop="handleSearch" />
         </div>
         <div v-if="isLoading" class="loading">
-          <Spinner label="" />
+          <Loader />
         </div>
         <ul v-else-if="!isEmptyArray(resources)" class="list">
           <li v-for="resource in resources" :key="resource.id" class="resource">

@@ -5,7 +5,7 @@ import { isUrl } from './utils';
 import type { PreviewProps } from '~/types';
 import {
   Button,
-  Spinner,
+  Loader,
   Thumbnail,
 } from '~/components';
 
@@ -107,7 +107,7 @@ watch(() => props.file, getUrl);
         <Thumbnail class="preview" :alt="fileName" :src="dataUrl" size="large" />
       </div>
       <div class="actions">
-        <Spinner v-if="loading" color="var(--base-white)" />
+        <Loader v-if="loading" color="var(--base-white)" />
         <template v-else>
           <Button
             tabindex="0" class="action toggle-preview" size="sm" icon-only :rounded="true"

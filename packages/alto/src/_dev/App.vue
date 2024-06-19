@@ -1,25 +1,25 @@
 <script setup lang="ts">
 import 'uno.css';
 import '../assets/main.css';
-import { Spinner } from '~/components';
+import { Loader } from '~/components';
 </script>
 
 <template>
   <div class="container">
-    <div class="row">
-      <Spinner />
-    </div>
+    <Loader type="spinner" />
+    <Loader type="brand" />
+    <Loader type="bar" />
   </div>
 </template>
 
 <style scoped>
 .container {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
   width: 100vw;
   height: 100vh;
-  gap: 40px;
+  gap: 80px;
 }
 </style>
