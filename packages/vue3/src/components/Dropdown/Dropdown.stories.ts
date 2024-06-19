@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 import { ref } from 'vue';
-import { Dropdown } from '~/components';
+import Dropdown from './Dropdown.vue';
 
 type Story = StoryObj<typeof Dropdown>;
 const meta: Meta<typeof Dropdown> = {

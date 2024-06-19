@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 import { ref } from 'vue';
 import type { TagItemValue } from './types';
-import { Tag } from '~/components';
+import Tag from './Tag.vue';
 
 type Story = StoryObj<typeof Tag>;
 const meta: Meta<typeof Tag> = {

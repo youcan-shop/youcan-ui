@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 import { ref } from 'vue';
-import { MultiselectDropdown } from '~/components';
+import MultiselectDropdown from './MultiselectDropdown.vue';
 
 type Story = StoryObj<typeof MultiselectDropdown>;
 const meta: Meta<typeof MultiselectDropdown> = {

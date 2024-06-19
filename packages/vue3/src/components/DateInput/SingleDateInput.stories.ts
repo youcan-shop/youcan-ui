@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 import { ref } from 'vue';
-import { SingleDateInput } from '~/components';
+import SingleDateInput  from './SingleDateInput.vue';
 
 type Story = StoryObj<typeof SingleDateInput>;
 const meta: Meta<typeof SingleDateInput> = {
