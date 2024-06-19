@@ -13,14 +13,6 @@ const props = withDefaults(
   },
 );
 
-const loaderType = computed (() => {
-  if (['brand', 'bar', 'spinner'].includes(props.type)) {
-    return props.type;
-  }
-
-  return 'spinner';
-});
-
 const loader = computed (() => {
   switch (props.type) {
     case 'brand':
@@ -37,7 +29,7 @@ const loader = computed (() => {
 
 <template>
   <div class="loader-block">
-    <component :is="loader" :type="loaderType" :color="color" :size="size" />
+    <component :is="loader" :color="color" :size="size" />
 
     <p v-if="label" class="label" :class="[labelFontSize]">
       {{ label }}
@@ -50,9 +42,11 @@ const loader = computed (() => {
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 10px;
 }
 
 .loader-block .label {
+  margin: 0;
   color: v-bind("labelColor");
   font: var(--text-md-regular);
 }

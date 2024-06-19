@@ -5,11 +5,11 @@ defineProps<BarLoadingProps>();
 </script>
 
 <template>
-  <div class="bar-spinner" />
+  <div class="bar-loading" />
 </template>
 
 <style scoped>
-.bar-spinner {
+.bar-loading {
   position: relative;
   width: 160px;
   height: 4px;
@@ -18,7 +18,7 @@ defineProps<BarLoadingProps>();
   background-color: var(--gray-100);
 }
 
-.bar-spinner::before {
+.bar-loading::before {
   content: "";
   display: block;
   width: 100%;

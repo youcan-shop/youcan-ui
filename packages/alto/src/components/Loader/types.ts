@@ -1,8 +1,8 @@
 export type SpinnerType = 'brand' | 'bar' | 'spinner';
+export type LabelSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 interface SharedProps {
   size: number
-  type?: SpinnerType
   color?: string
 }
 export interface BarLoadingProps {
@@ -18,6 +18,6 @@ export interface LoaderProps {
   size?: number
   color?: string
   labelColor?: string
-  labelFontSize?: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
+  labelFontSize?: LabelSize
   type?: SpinnerType
 }
