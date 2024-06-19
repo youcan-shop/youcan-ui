@@ -6,9 +6,9 @@ import { Loader } from '~/components';
 
 <template>
   <div class="container">
-    <Loader type="spinner" label="Loading..." />
-    <Loader type="brand" />
-    <Loader type="bar" />
+    <Loader variant="spinner" label="Loading..." />
+    <Loader variant="brand" />
+    <Loader variant="bar" />
   </div>
 </template>
 

@@ -9,12 +9,12 @@ const props = withDefaults(
     size: 40,
     labelColor: 'var(--brand-500)',
     labelFontSize: 'md',
-    type: 'spinner',
+    variant: 'spinner',
   },
 );
 
 const loader = computed (() => {
-  switch (props.type) {
+  switch (props.variant) {
     case 'brand':
       return defineAsyncComponent(() => import('./internal/BrandLoading.vue'));
 
