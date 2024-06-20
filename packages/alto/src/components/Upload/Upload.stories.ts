@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 import { ref } from 'vue';
-import { Upload, UploadPreview } from '~/components';
+import Upload from './Upload.vue';
+import UploadPreview from './UploadPreview.vue';
 
 type Story = StoryObj<typeof Upload>;
 const meta: Meta<typeof Upload> = {

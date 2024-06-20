@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 import { ref } from 'vue';
-import { ColorInput } from '~/components';
+import ColorInput from './ColorInput.vue';
 
 type Story = StoryObj<typeof ColorInput>;
 const meta: Meta<typeof ColorInput> = {

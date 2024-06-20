@@ -6,7 +6,7 @@ export type { AlertProps, AlertType } from '../components/Alert/types';
 export type { BadgeProps, BadgeSize, BadgeState } from '../components/Badge/types';
 export type { CheckboxProps } from '../components/Checkbox/types';
 export type { ColorPickerProps, ColorInputProps } from '../components/Color/types';
-export type { DividerProps, Thickness, Style, Orientation } from '../components/Divider/types';
+export type { DividerProps, Thickness, Orientation } from '../components/Divider/types';
 export type { DraggableProps, DraggableItemProps, DraggableItemType } from '../components/Draggable/types';
 export type { DrawerProps } from '../components/Drawer/types';
 export type { IncrementProps, IncrementMachineValue } from '../components/Increment/types';

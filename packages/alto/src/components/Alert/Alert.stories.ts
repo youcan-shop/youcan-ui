@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 import { ref } from 'vue';
-import { Alert } from '~/components';
+import Alert from './Alert.vue';
 
 type Story = StoryObj<typeof Alert>;
 const meta: Meta<typeof Alert> = {
