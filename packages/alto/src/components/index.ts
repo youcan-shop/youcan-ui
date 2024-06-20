@@ -43,7 +43,7 @@ export { default as ResourcePicker } from './ResourcePicker/ResourcePicker.vue';
 export { default as Popover } from './Popover/Popover.vue';
 export { default as Divider } from './Divider/Divider.vue';
 export { default as Skeleton } from './Skeleton/Skeleton.vue';
-export { default as Spinner } from './Spinner/Spinner.vue';
+export { default as Loader } from './Loader/Loader.vue';
 export { default as MultiSwitch } from './MultiSwitch/MultiSwitch.vue';
 export { default as SwitchButton } from './MultiSwitch/SwitchButton.vue';
 export { default as Drawer } from './Drawer/Drawer.vue';
