@@ -19,6 +19,8 @@ const model = computed({
 function handleCheck(e: Event) {
   emit('change', e, props.resource);
 }
+
+const hasVariants = computed(() => props.resource.variants && props.resource.variants.length > 0);
 </script>
 
 <template>
@@ -33,7 +35,7 @@ function handleCheck(e: Event) {
         </div>
         <div class="inventory-price">
           <span v-if="showStock && resource.stock" class="stock">{{ resource.stock }} {{ stockLabel }}</span>
-          <p v-if="resource.price">
+          <p v-if="!hasVariants && resource.price">
             {{ resource.price }}
           </p>
         </div>
