@@ -7,7 +7,7 @@ import { elementChildrenNavigate } from './utils';
 import type { DropdownGroupValue } from './types';
 import type { DropdownProps, DropdownValue } from '~/types';
 import { setPosition } from '~/helpers';
-import { Spinner } from '~/components';
+import { Loader } from '~/components';
 
 const props = withDefaults(defineProps<DropdownProps>(), {
   multiSelectLabel: 'Selected items',
@@ -342,7 +342,7 @@ onClickOutside(dropdown, () => show.value = false);
           {{ noDataText }}
         </div>
         <div v-if="isLoading" class="loading">
-          <Spinner :size="15" />
+          <Loader :size="15" />
         </div>
       </div>
     </Transition>
