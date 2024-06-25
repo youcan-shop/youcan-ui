@@ -7,5 +7,4 @@ export interface StatusObject {
 
 export interface StatusProps {
   status: StatusObject | StatusObject[]
-  editable?: boolean
 }
