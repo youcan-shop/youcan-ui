@@ -11,9 +11,7 @@ const meta: Meta<typeof Status> = {
     layout: 'centered',
   },
   tags: ['editable', 'editable status', 'status'],
-  args: {
-    editable: true,
-  },
+  args: {},
 };
 
 export const Editable: Story = {

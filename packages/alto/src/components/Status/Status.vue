@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineEmits, defineProps, ref } from 'vue';
+import { computed, defineEmits, defineProps, ref } from 'vue';
 import { onClickOutside } from '@vueuse/core';
 import type { StatusObject, StatusProps } from '~/types';
 
@@ -8,6 +8,7 @@ const props = defineProps<StatusProps>();
 const emit = defineEmits(['update:modelValue']);
 
 const showDropdown = ref(false);
+const editable = computed(() => Array.isArray(props.status));
 const list = ref();
 const button = ref();
 
