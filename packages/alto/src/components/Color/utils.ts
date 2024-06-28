@@ -90,7 +90,7 @@ export function hexToHue(hex: string) {
 export function getSliderValueFromColor(hexColorWithHash: string) {
   const hexColor = hexColorWithHash.startsWith('#') ? hexColorWithHash.slice(1) : hexColorWithHash;
 
-  let alpha = '';
+  let alpha = 'FF';
   if (hexColor.length === 8) {
     alpha = hexColor.slice(6, 8);
   }
