@@ -2,8 +2,8 @@
 import 'uno.css';
 import '../assets/main.css';
 import { ref } from 'vue';
-import { ColorInput, ColorPicker, Tag } from '~/components';
 import type { TagItemValue } from '../types';
+import { ColorInput, ColorPicker, Tag } from '~/components';
 
 const colorv3 = ref('#A8B1FFFF');
 const color = ref('#A8B1FFFF');
@@ -20,10 +20,10 @@ const preferredLanguages = ref<TagItemValue[]>([
 <template>
   <div class="container">
     <Tag
-    v-model="preferredLanguages"
-    placeholder="Your favorite colors"
-    type="color"
-  />
+      v-model="preferredLanguages"
+      placeholder="Your favorite colors"
+      type="color"
+    />
     <ColorInput :model-value="color" @update:modelValue="updateColor" />
   </div>
   <div class="container">

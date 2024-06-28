@@ -35,7 +35,7 @@ const setColor = (pickedColor: string) => {
       .padStart(2, '0')
       .toUpperCase();
 
-      newColor += alpha;
+    newColor += alpha;
   }
 
   color.value = newColor;
@@ -44,7 +44,9 @@ const setColor = (pickedColor: string) => {
 
 const setDraggableDivColor = (newX: number, newY: number) => {
   const context = canvas.value?.getContext('2d');
-  if (!context) return;
+  if (!context) {
+    return;
+  }
 
   const x = Math.max(newX - 1, 0);
   const y = Math.max(newY - 1, 0);
@@ -60,17 +62,19 @@ const setDraggableDivColor = (newX: number, newY: number) => {
 const setDraggableDivCoordinates = (event: MouseEvent | TouchEvent) => {
   const div = draggableDiv.value;
   const container = canvasContainer.value;
-  if (!div || !container) return;
+  if (!div || !container) {
+    return;
+  }
 
   const rect = container.getBoundingClientRect();
   const { clientX, clientY } = 'touches' in event ? event.touches[0] : event;
-  
+
   const x = clientX - rect.left;
   const y = clientY - rect.top;
 
   const maxX = container.clientWidth;
   const maxY = container.clientHeight;
-  
+
   const newX = Math.min(Math.max(0, x), maxX);
   const newY = Math.min(Math.max(0, y), maxY);
 
@@ -149,7 +153,7 @@ onMounted(() => {
 
   if (props.preserveTransparency) {
     color.value = inputColor.value = `${props.modelValue}FF`;
-    
+
     if (alphaSlider.value) {
       alphaSlider.value.addEventListener('input', updateAlpha);
       alphaSlider.value.addEventListener('touchmove', updateAlpha);
@@ -300,8 +304,20 @@ onUnmounted(() => {
   border-radius: 0.3em;
   outline: none;
   background-image:
-    linear-gradient(45deg, v-bind(color.slice(0, -2)) 25%, transparent 25%, transparent 75%, v-bind(color.slice(0, -2)) 75%),
-    linear-gradient(45deg, v-bind(color.slice(0, -2)) 25%, transparent 25%, transparent 75%, v-bind(color.slice(0, -2)) 75%),
+    linear-gradient(
+      45deg,
+      v-bind(color.slice(0, -2)) 25%,
+      transparent 25%,
+      transparent 75%,
+      v-bind(color.slice(0, -2)) 75%
+    ),
+    linear-gradient(
+      45deg,
+      v-bind(color.slice(0, -2)) 25%,
+      transparent 25%,
+      transparent 75%,
+      v-bind(color.slice(0, -2)) 75%
+    ),
     linear-gradient(to right, var(--gray-100) 25%, v-bind(color.slice(0, -2)) 85%);
   background-position: 0 0, 2px 2px, 0 0;
   background-size: 4px 4px, 4px 4px, 100% 100%;
