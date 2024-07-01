@@ -177,18 +177,18 @@ onMounted(() => {
 });
 
 onUnmounted(() => {
-  if (props.preserveTransparency) {
+  if (props.preserveTransparency && alphaSlider.value) {
     alphaSlider.value.removeEventListener('input', updateAlpha);
     alphaSlider.value.removeEventListener('touchmove', updateAlpha);
   }
-  colorSlider.value.removeEventListener('input', updateColor);
-  colorSlider.value.removeEventListener('touchmove', updateColor);
+  colorSlider.value?.removeEventListener('input', updateColor);
+  colorSlider.value?.removeEventListener('touchmove', updateColor);
 
   window.removeEventListener('mouseup', stopDrag);
   window.removeEventListener('mousemove', drag);
 
-  canvasContainer.value!.removeEventListener('touchmove', drag);
-  canvasContainer.value!.removeEventListener('touchend', stopDrag);
+  canvasContainer.value?.removeEventListener('touchmove', drag);
+  canvasContainer.value?.removeEventListener('touchend', stopDrag);
 });
 </script>
 
