@@ -2,56 +2,43 @@
 import 'uno.css';
 import '../assets/main.css';
 import { ref } from 'vue';
-import { Status } from '~/components';
-import type { StatusObject } from '~/components/Status/types';
+import type { TagItemValue } from '../types';
+import { ColorInput, ColorPicker, Tag } from '~/components';
 
-const staticFruit = ref<StatusObject>({
-  color: '#fffad2',
-  label: 'Banana 🍌',
-  labelColor: '#555022',
-});
+const colorv3 = ref('#A8B1FFFF');
+const color = ref('#A8B1FFFF');
 
-const fruits = [
-  {
-    color: '#ffdecb',
-    label: 'Peach 🍑',
-    labelColor: '#35192b',
-    value: 'peach',
-  },
-  {
-    color: '#fffad2',
-    label: 'Banana 🍌',
-    labelColor: '#555022',
-    value: 'banana',
-  },
-  {
-    color: '#cbffd3',
-    label: 'Kiwi 🥝',
-    labelColor: '#2c4730',
-    value: 'kiwi',
-  },
-];
+function updateColor(newColor: string) {
+  color.value = newColor;
+}
 
-const favoriteFruit = ref<StatusObject>(fruits[0]);
+const preferredLanguages = ref<TagItemValue[]>([
+  { label: 'Pink', hexColor: '#F49FBC' },
+]);
 </script>
 
 <template>
   <div class="container">
-    <!-- Single status badge -->
-    <Status :status="staticFruit" />
-
-    <!-- Dropdown of badges -->
-    <Status v-model="favoriteFruit" :status="fruits" />
-    {{ favoriteFruit }}
+    <Tag
+      v-model="preferredLanguages"
+      placeholder="Your favorite colors"
+      type="color"
+    />
+    <ColorInput :model-value="color" @update:modelValue="updateColor" />
+  </div>
+  <div class="container">
+    <ColorPicker :preserve-transparency="false" :model-value="colorv3" />
+    <ColorPicker :model-value="colorv3" />
   </div>
 </template>
 
 <style scoped>
 .container {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: row;
   margin: 30px;
+  padding: 10%;
+  background-color: var(--gray-200);
   gap: 0.5rem;
 }
 </style>
