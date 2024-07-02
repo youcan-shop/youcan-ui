@@ -1,4 +1,4 @@
-import type { DropdownCommonProps } from '../Dropdown/types';
+import type { DropdownValue } from '../Dropdown/types';
 
 export type TagItemType = 'text' | 'color' | 'dropdown';
 
@@ -12,13 +12,18 @@ export interface UniqueTagItem extends TagItemValue {
   id: string
 }
 
-export interface TagProps extends DropdownCommonProps {
+export interface TagProps {
   modelValue: TagItemValue[]
   type?: TagItemType
   max?: number
   placeholder?: string
   disabled?: boolean
   error?: boolean
+  searchable?: boolean
+  searchInputPlaceholder?: string
+  search?: (value: string) => void
+  items?: DropdownValue[]
+  isLoading?: boolean
 }
 
 export interface TagItemProps {
