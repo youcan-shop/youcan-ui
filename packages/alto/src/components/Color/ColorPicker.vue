@@ -222,6 +222,7 @@ onUnmounted(() => {
   width: 224px;
   height: 224px;
   overflow: hidden;
+  user-select: none;
 }
 
 .color-picker .canvas-container .draggable-div {
