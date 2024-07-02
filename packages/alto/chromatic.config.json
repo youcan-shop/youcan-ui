@@ -1,5 +1,8 @@
 {
   "projectId": "Project:66432575dd302195a63c304b",
   "storybookBaseDir": "packages/alto",
-  "zip": true
+  "zip": true,
+  "exitZeroOnChanges": true,
+  "preserveMissing": true,
+  "autoAcceptChanges": true
 }
