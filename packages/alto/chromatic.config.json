@@ -3,6 +3,5 @@
   "storybookBaseDir": "packages/alto",
   "zip": true,
   "exitZeroOnChanges": true,
-  "preserveMissing": true,
   "autoAcceptChanges": true
 }
