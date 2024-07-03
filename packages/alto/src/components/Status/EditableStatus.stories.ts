@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 import { ref } from 'vue';
 import { Status } from '~/components';
-import type { StatusObject } from '~/components/Status/types';
+import type { StatusObject } from '~/types';
 
 type Story = StoryObj<typeof Status>;
 const meta: Meta<typeof Status> = {

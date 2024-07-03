@@ -10,8 +10,8 @@ import { setPosition } from '~/helpers';
 import { Loader } from '~/components';
 
 const props = withDefaults(defineProps<DropdownProps>(), {
-  multiSelectLabel: 'Selected items',
-  noDataText: 'No results were found',
+  selectedItemsLabel: 'Selected items',
+  emptyStateMessage: 'No results were found',
   clearable: true,
   limit: 0,
   searchInputPlaceholder: 'Search',
@@ -37,14 +37,14 @@ function asArray() {
 }
 
 const selectedOptions = computed(() => {
-  const { modelValue, placeholder, multiple, multiSelectLabel } = props;
+  const { modelValue, placeholder, multiple, selectedItemsLabel } = props;
   if (modelValue) {
     if (!multiple) {
       return (modelValue as DropdownValue).label;
     }
 
     if (multiple && asArray().length) {
-      return multiSelectLabel;
+      return selectedItemsLabel;
     }
   }
 
@@ -339,7 +339,7 @@ onClickOutside(dropdown, () => show.value = false);
         </div>
 
         <div v-else class="no-results">
-          {{ noDataText }}
+          {{ emptyStateMessage }}
         </div>
         <div v-if="isLoading" class="loading">
           <Loader :size="15" />
