@@ -7,7 +7,6 @@ const props = withDefaults(defineProps<ProgressProps>(),
     size: 110,
     value: 0,
     maxValue: 100,
-    playable: true,
     progressType: 'circle',
   },
 );
@@ -22,9 +21,9 @@ const barWidthValue = computed(() => `${barWidth.value}%`);
 const percentFormat = computed(() => Math.floor(currentPercent.value * 100));
 
 function update() {
-  const { value, maxValue, progressType, playable } = props;
+  const { value, maxValue, progressType } = props;
 
-  if (maxValue >= value && value >= 0 && playable) {
+  if (maxValue >= value && value >= 0) {
     const percent = value / maxValue;
     currentPercent.value = percent;
     switch (progressType) {
