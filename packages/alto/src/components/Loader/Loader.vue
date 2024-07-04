@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { computed, defineAsyncComponent } from 'vue';
+import { Bar, Brand, Spinner } from './internal';
 import type { LoaderProps } from '~/types';
 
-const props = withDefaults(
+withDefaults(
   defineProps<LoaderProps>(),
   {
     color: 'var(--brand-500)',
@@ -12,24 +12,13 @@ const props = withDefaults(
     variant: 'spinner',
   },
 );
-
-const loader = computed (() => {
-  switch (props.variant) {
-    case 'brand':
-      return defineAsyncComponent(() => import('./internal/BrandLoading.vue'));
-
-    case 'bar':
-      return defineAsyncComponent(() => import('./internal/BarLoading.vue'));
-
-    default:
-      return defineAsyncComponent(() => import('./internal/Spinner.vue'));
-  }
-});
 </script>
 
 <template>
   <div class="loader-block">
-    <component :is="loader" :color="color" :size="size" />
+    <Bar v-if="variant === 'bar'" v-bind="{ color, size }" />
+    <Brand v-else-if="variant === 'brand'" v-bind="{ color, size }" />
+    <Spinner v-else v-bind="{ color, size }" />
 
     <p v-if="label" class="label" :class="[labelFontSize]">
       {{ label }}
