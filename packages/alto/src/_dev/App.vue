@@ -4,7 +4,6 @@ import '../assets/main.css';
 import { ref } from 'vue';
 import { Accordion, AccordionItem } from '~/components';
 
-const show = ref(true);
 const current = ref(-1);
 
 function toggle(index: number) {
@@ -25,7 +24,7 @@ function toggle(index: number) {
         v-for="index in 5"
         :key="index"
         :show="index === current"
-        :label="`Accordion row ${index}`"
+        :title="`Accordion row ${index}`"
         :disabled="index === 3"
         @toggle="toggle(index)"
       >

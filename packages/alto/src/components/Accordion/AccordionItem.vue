@@ -44,7 +44,7 @@ onMounted(() => {
     @focusout="() => focus = false"
   >
     <button class="trigger" @click="toggle">
-      <span class="label">{{ label }}</span>
+      <span class="label">{{ title }}</span>
       <i class="i-youcan-carret-down" :class="{ rotate: showCollapse }" />
     </button>
     <Transition name="collapse">
