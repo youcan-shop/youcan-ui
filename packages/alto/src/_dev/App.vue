@@ -21,18 +21,12 @@ function toggle(index: number) {
 <template>
   <div class="container">
     <Accordion>
-      <AccordionItem :show="show" label="Accordion row collapsed default" @toggle="() => show = !show">
-        Placeholder for accordion text.
-      </AccordionItem>
-      <AccordionItem disabled label="Accordion row collapsed disabled" />
-    </Accordion>
-
-    <Accordion>
       <AccordionItem
         v-for="index in 5"
         :key="index"
         :show="index === current"
         :label="`Accordion row ${index}`"
+        :disabled="index === 3"
         @toggle="toggle(index)"
       >
         Placeholder for accordion text.
