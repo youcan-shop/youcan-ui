@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref, watchEffect } from 'vue';
+import { computed, onMounted, onUnmounted, ref, watch, watchEffect } from 'vue';
 import { getSliderValueFromColor, hslToHex, renderCanvas } from './utils';
 import type { ColorPickerProps } from '~/types';
 import { Divider, Input } from '~/components/';
@@ -25,6 +25,8 @@ const colorValue = ref(360);
 const alphaSlider = ref();
 const alphaValue = ref(1);
 let isDragging = false;
+
+const maxInputLength = computed(() => props.preserveTransparency ? 9 : 7);
 
 const setColor = (pickedColor: string) => {
   let newColor = pickedColor;
@@ -133,6 +135,15 @@ function updateAlpha() {
   emit('update:modelValue', color.value);
 }
 
+watch(() => props.modelValue, (newValue) => {
+  color.value = newValue;
+  inputColor.value = newValue;
+  const { hue, saturation } = getSliderValueFromColor(props.modelValue);
+  colorValue.value = hue;
+  alphaValue.value = saturation;
+  renderCanvas(canvas, props.modelValue);
+});
+
 watchEffect(() => {
   if (inputColor.value !== color.value) {
     color.value = inputColor.value;
@@ -206,7 +217,7 @@ onUnmounted(() => {
       HEX
     </p>
     <div class="input-group">
-      <Input v-model="inputColor" class="value" />
+      <Input v-model="inputColor" class="value" :maxlength="maxInputLength" />
       <div :style="{ 'background-color': color }" class="preview" />
     </div>
     <Divider thickness="light" />
