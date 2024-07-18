@@ -1,7 +1,10 @@
 <script lang="ts" setup>
+import { computed } from 'vue';
 import type { AvatarProps } from '~/types';
 
-defineProps<AvatarProps>();
+const props = defineProps<AvatarProps>();
+
+const initialsText = computed(() => props.initials?.substring(0, 2));
 </script>
 
 <template>
@@ -9,7 +12,7 @@ defineProps<AvatarProps>();
     <div class="avatar">
       <img v-if="source" :src="source" alt="" srcset="">
       <span v-else class="initials">
-        <span v-if="initials">{{ initials }}</span>
+        <span v-if="initials">{{ initialsText }}</span>
         <i v-else class="i-youcan-user" />
       </span>
       <a v-if="url" :href="url" />
@@ -100,6 +103,7 @@ defineProps<AvatarProps>();
 .avatar-container .avatar .initials {
   color: var(--brand-500);
   font: var(--font);
+  text-transform: uppercase;
 }
 
 .avatar-container .avatar img,

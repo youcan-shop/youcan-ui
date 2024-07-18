@@ -20,7 +20,7 @@ const sizes: AvatarSize[] = ['xs', 'sm', 'md', 'lg', 'xl', 'xxl'];
       <Avatar v-for="size in sizes" :key="size" :source="src" :size="size" />
       <Avatar :source="src" url="https://developer.youcan.shop/" size="xxl" />
       <Avatar :source="src" size="xxl" clickable />
-      <Avatar v-for="size in sizes" :key="size" initials="MA" :size="size" />
+      <Avatar v-for="size in sizes" :key="size" initials="MAd" :size="size" />
       <Avatar initials="MA" url="https://developer.youcan.shop/" size="xxl" />
       <Avatar initials="MA" size="xxl" clickable />
       <Avatar v-for="size in sizes" :key="size" :size="size" />
