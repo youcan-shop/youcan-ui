@@ -26,11 +26,10 @@ const handleBreadcrumbClick = (item: any) => {
 <style scoped>
 .container {
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  width: 100vw;
-  height: 100vh;
+  flex-direction: column;
+  width: 500px;
+  margin: 60px auto;
   gap: 80px;
+  row-gap: 40px;
 }
 </style>
