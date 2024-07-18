@@ -49,12 +49,12 @@ const handleItemClick = (item: BreadcrumbDropdownItemProps) => {
             <i class="i-youcan:dots-three elipsis" />
           </Button>
           <template #MenuItems>
-            <DropdownMenuItem
-              v-for="dropdownItem in item.dropdownItems"
-              :key="dropdownItem.to"
-              :label="dropdownItem.label"
-              @click="handleItemClick(dropdownItem)"
-            />
+            <a v-for="dropdownItem in item.dropdownItems" :key="dropdownItem.to" class="dropdown-crumbs" :href="dropdownItem.to">
+              <DropdownMenuItem
+                :label="dropdownItem.label"
+                @click="handleItemClick(dropdownItem)"
+              />
+            </a>
           </template>
         </DropdownMenu>
         <i v-if="index < visibleItems.length - 1" class="i-youcan:caret-right separator" />
@@ -68,6 +68,11 @@ const handleItemClick = (item: BreadcrumbDropdownItemProps) => {
   display: flex;
   align-items: center;
   list-style: none;
+}
+
+.breadcrumbs .crumb .dropdown-crumbs {
+  color: var(--gray-900);
+  text-decoration: none;
 }
 
 .breadcrumbs .crumb {
