@@ -1,32 +1,25 @@
 <script setup lang="ts">
 import 'uno.css';
 import '../assets/main.css';
-import { Avatar } from '~/components';
-import type { AvatarSize } from '~/components/Avatar/types';
+import { Breadcrumbs } from '~/components';
 
-const src = 'https://t4.ftcdn.net/jpg/02/66/72/41/240_F_266724172_Iy8gdKgMa7XmrhYYxLCxyhx6J7070Pr8.jpg';
+const breadcrumbItems = [
+  { label: 'Home', to: '/' },
+  { label: 'page1', to: '/page1' },
+  { label: 'page2', to: '/page2' },
+  { label: 'page3', to: '/page3' },
+  { label: 'page4', to: '/page4' },
+  { label: 'Current Page', to: '/current-page' },
+];
 
-const sizes: AvatarSize[] = ['xs', 'sm', 'md', 'lg', 'xl', 'xxl'];
+const handleBreadcrumbClick = (item: any) => {
+  console.log('Clicked item:', item);
+};
 </script>
 
 <template>
   <div class="container">
-    <div class="grid">
-      <span v-for="size in sizes" :key="size" class="label">
-        {{ size }}
-      </span>
-      <span class="label">link</span>
-      <span class="label">clickable</span>
-      <Avatar v-for="size in sizes" :key="size" :source="src" :size="size" />
-      <Avatar :source="src" url="https://developer.youcan.shop/" size="xxl" />
-      <Avatar :source="src" size="xxl" clickable />
-      <Avatar v-for="size in sizes" :key="size" initials="MAd" :size="size" />
-      <Avatar initials="MA" url="https://developer.youcan.shop/" size="xxl" />
-      <Avatar initials="MA" size="xxl" clickable />
-      <Avatar v-for="size in sizes" :key="size" :size="size" />
-      <Avatar size="xxl" url="https://developer.youcan.shop/" />
-      <Avatar size="xxl" clickable />
-    </div>
+    <Breadcrumbs :items="breadcrumbItems" @itemClick="handleBreadcrumbClick" />
   </div>
 </template>
 

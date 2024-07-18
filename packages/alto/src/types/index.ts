@@ -38,3 +38,4 @@ export type { UploadProps, PreviewProps } from '../components/Upload/types';
 export type { DateLocale, MonthsSwitcherProps, DatesLimit, DaysProps, Day, DatePickerProps, CalendarProps, DateValue, RangeType, DateRangeValue, Preset, PresetsProps } from '../components/DatePicker/types';
 export type { AvatarProps } from '../components/Avatar/types';
 export type { AccordionItemProps } from '../components/Accordion/types';
+export type { BreadcrumbDropdownItemProps, BreadcrumbItemProps, BreadcrumbsProps } from '../components/Breadcrumbs/types';
