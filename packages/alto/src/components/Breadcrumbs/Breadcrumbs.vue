@@ -8,8 +8,6 @@ const props = withDefaults(defineProps<BreadcrumbsProps>(), {
   maxVisibleItems: 4,
 });
 
-const emit = defineEmits(['itemClick']);
-
 const visibleItems = computed(() => {
   if (props.items.length <= props.maxVisibleItems) {
     return props.items;
@@ -27,10 +25,6 @@ const visibleItems = computed(() => {
 
   return [...start, dropdownItem, ...end];
 });
-
-const handleItemClick = (item: BreadcrumbDropdownItemProps) => {
-  emit('itemClick', item);
-};
 </script>
 
 <template>
@@ -42,7 +36,6 @@ const handleItemClick = (item: BreadcrumbDropdownItemProps) => {
           :label="item.label"
           :to="item.to"
           :is-current="index === visibleItems.length - 1"
-          @click="handleItemClick(item)"
         />
         <DropdownMenu v-else position="bottom">
           <Button variant="tertiary">
@@ -52,7 +45,6 @@ const handleItemClick = (item: BreadcrumbDropdownItemProps) => {
             <a v-for="dropdownItem in item.dropdownItems" :key="dropdownItem.to" class="dropdown-crumbs" :href="dropdownItem.to">
               <DropdownMenuItem
                 :label="dropdownItem.label"
-                @click="handleItemClick(dropdownItem)"
               />
             </a>
           </template>

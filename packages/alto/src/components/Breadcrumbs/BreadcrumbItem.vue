@@ -2,11 +2,6 @@
 import type { BreadcrumbItemProps } from './types';
 
 const { isCurrent, label, to } = defineProps<BreadcrumbItemProps>();
-const emit = defineEmits(['click']);
-
-const handleClick = () => {
-  emit('click', { label, to });
-};
 </script>
 
 <template>
@@ -17,7 +12,6 @@ const handleClick = () => {
     v-else
     class="crumb-item"
     :href="to"
-    @click.prevent="handleClick"
   >
     {{ label }}
   </a>
