@@ -51,3 +51,5 @@ export { default as DropdownMenu } from './DropdownMenu/DropdownMenu.vue';
 export { default as DropdownMenuItem } from './DropdownMenu/DropdownMenuItem.vue';
 export { default as RichText } from './RichText/RichText.vue';
 export { default as Avatar } from './Avatar/Avatar.vue';
+export { default as Accordion } from './Accordion/Accordion.vue';
+export { default as AccordionItem } from './Accordion/AccordionItem.vue';
