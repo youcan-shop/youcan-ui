@@ -1,14 +1,19 @@
 <script setup lang="ts">
 import 'uno.css';
 import '../assets/main.css';
-import { Loader } from '~/components';
+import { Button } from '~/components';
+
+const variants = ['primary', 'secondary', 'tertiary', 'destructive'];
 </script>
 
 <template>
   <div class="container">
-    <Loader variant="spinner" label="Loading..." />
-    <Loader variant="brand" />
-    <Loader variant="bar" />
+    <Button v-for="variant in variants" :key="variant" v-bind="{ variant }">
+      {{ variant }} button
+    </Button>
+    <Button variant="primary" href="http://www.google.com">
+      Link button
+    </Button>
   </div>
 </template>
 
