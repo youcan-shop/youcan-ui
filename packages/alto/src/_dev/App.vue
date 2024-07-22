@@ -40,4 +40,16 @@ function updateColor2(newColor: string) {
   gap: 80px;
   margin: 20px;
 }
+
+.container .label {
+  font: var(--text-xl-medium);
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.container .grid {
+  display: grid;
+  grid-template-columns: repeat(8, auto);
+  gap: 40px;
+}
 </style>
