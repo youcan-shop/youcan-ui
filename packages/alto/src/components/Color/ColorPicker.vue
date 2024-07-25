@@ -136,12 +136,14 @@ function updateAlpha() {
 }
 
 watch(() => props.modelValue, (newValue) => {
-  color.value = newValue;
-  inputColor.value = newValue;
   const { hue, saturation } = getSliderValueFromColor(props.modelValue);
   colorValue.value = hue;
   alphaValue.value = saturation;
-  renderCanvas(canvas, props.modelValue);
+  if (inputColor.value !== newValue) {
+    color.value = newValue;
+    inputColor.value = newValue;
+    renderCanvas(canvas, props.modelValue);
+  }
 });
 
 watchEffect(() => {

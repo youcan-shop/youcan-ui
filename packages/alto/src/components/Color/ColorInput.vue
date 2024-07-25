@@ -43,9 +43,11 @@ function toggle(override = !show.value) {
 }
 
 function updateModelValue(value: string) {
-  if (props.preserveTransparency && value.length < 8) {
-    inputValue.value = `${value}FF`;
-  }
+  inputPicker.value.addEventListener('focusout', () => {
+    if (props.preserveTransparency && value.length < 8) {
+      inputValue.value = `${value}FF`;
+    }
+  });
   emit('update:modelValue', value);
 }
 
