@@ -1,7 +1,7 @@
-import type { RangeStatic } from 'quill';
+import type { Range } from 'quill';
 import Quill from 'quill';
 
-export async function customImage(quill: Quill | null, range: RangeStatic | undefined) {
+export async function customImage(quill: Quill | null, range: Range | undefined) {
   if (!quill || !range) {
     return;
   }
