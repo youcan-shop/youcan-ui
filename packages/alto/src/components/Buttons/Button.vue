@@ -112,7 +112,7 @@ const buttonClasses = computed(() => [
 }
 
 .button.size-sm {
-  --padding: 8px 12px;
+  --padding: 8px 16px;
   --border-radius: 4px;
 }
 
