@@ -1,32 +1,21 @@
 <script setup lang="ts">
 import 'uno.css';
 import '../assets/main.css';
-import { ref } from 'vue';
-import { ColorInput } from '~/components';
+import { Breadcrumbs } from '~/components';
 
-const color1 = ref('#CBC3F5');
-const color2 = ref('#CBC3F5');
-
-function updateColor1(newColor: string) {
-  if (newColor) {
-    color1.value = newColor;
-  }
-}
-
-function updateColor2(newColor: string) {
-  if (newColor) {
-    color2.value = newColor;
-  }
-}
+const breadcrumbItems = [
+  { label: 'Home', to: '/' },
+  { label: 'page1', to: '/page1' },
+  { label: 'page2', to: '/page2' },
+  { label: 'page3', to: '/page3' },
+  { label: 'page4', to: '/page4' },
+  { label: 'Current Page', to: '/current-page' },
+];
 </script>
 
 <template>
   <div class="container">
-    <ColorInput v-model="color1" @update:v-model="updateColor1" />
-    {{ color1 }}
-    <ColorInput v-model="color2" :preserve-transparency="false" :disabled="true" @update:v-model="updateColor2" />
-    <ColorInput v-model="color2" :preserve-transparency="false" @update:v-model="updateColor2" />
-    {{ color2 }}
+    <Breadcrumbs :items="breadcrumbItems" />
   </div>
 </template>
 

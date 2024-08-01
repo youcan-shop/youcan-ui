@@ -83,8 +83,4 @@ const visibleItems = computed(() => {
 .breadcrumbs .crumb:last-child:hover > .separator {
   color: var(--gray-400);
 }
-
-.breadcrumbs .crumb:not(.dropdown-item):hover > .separator {
-  color: var(--brand-400);
-}
 </style>
