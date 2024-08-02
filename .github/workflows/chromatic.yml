@@ -1,11 +1,6 @@
 name: "Chromatic"
 
-on:
-  pull_request:
-    types: opened
-
-permissions:
-  pull-requests: write
+on: push
 
 jobs:
   chromatic:
