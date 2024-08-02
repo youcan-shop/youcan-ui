@@ -1,35 +1,54 @@
 <script setup lang="ts">
 import { computed, useAttrs } from 'vue';
-import type { ButtonProps } from '~/types';
+import type { ButtonProps } from './types';
 
-withDefaults(
+const props = withDefaults(
   defineProps<ButtonProps>(),
   {
     size: 'md',
     rounded: false,
     disabled: false,
     variant: 'primary',
+    iconOnly: false,
   },
 );
 
 const attrs = useAttrs();
 
-const component = computed(() => (attrs.href ? 'a' : 'button'));
+const isLink = computed(() => !!attrs.href);
+
+const buttonClasses = computed(() => [
+  'button',
+  { link: isLink.value, rounded: props.rounded, [`size-${props.size}`]: true },
+  props.variant,
+  { 'icon-only': props.iconOnly },
+]);
 </script>
 
 <template>
-  <component
-    :is="component" ref="button" class="button" :disabled="disabled"
-    :class="[
-      { link: attrs.href, rounded, [`size-${size}`]: true },
-      variant,
-      { 'icon-only': iconOnly },
-    ]"
+  <a
+    v-if="isLink"
+    :href="attrs.href as string"
+    class="button"
+    :class="buttonClasses"
+    v-bind="$attrs"
   >
     <span class="label">
       <slot />
     </span>
-  </component>
+  </a>
+  <button
+    v-else
+    ref="button"
+    class="button"
+    :disabled="disabled"
+    :class="buttonClasses"
+    v-bind="$attrs"
+  >
+    <span class="label">
+      <slot />
+    </span>
+  </button>
 </template>
 
 <style scoped>
@@ -93,7 +112,7 @@ const component = computed(() => (attrs.href ? 'a' : 'button'));
 }
 
 .button.size-sm {
-  --padding: 8px 12px;
+  --padding: 8px 16px;
   --border-radius: 4px;
 }
 

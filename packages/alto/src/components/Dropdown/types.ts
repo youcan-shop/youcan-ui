@@ -33,8 +33,8 @@ export interface DropdownProps extends DropdownCommonProps {
   placeholder?: string
   multiple?: boolean
   disabled?: boolean
-  multiSelectLabel?: string
+  selectedItemsLabel?: string
   clearable?: boolean
-  noDataText?: string
+  emptyStateMessage?: string
   limit?: number
 }

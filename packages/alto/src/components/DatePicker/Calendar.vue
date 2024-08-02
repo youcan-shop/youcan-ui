@@ -80,7 +80,7 @@ watch(() => props.range, (newValue) => {
   const end = (newValue?.end as Date);
   const m = month.value.getMonth();
   show(false);
-  if (start.getMonth() !== m && end.getMonth() !== m) {
+  if (start && end && start.getMonth() !== m && end.getMonth() !== m) {
     month.value = setDate();
   }
 });
@@ -109,6 +109,7 @@ watch(() => props.range, (newValue) => {
       :min-date="minDate"
       :max-date="maxDate"
     />
+    <slot />
   </div>
 </template>
 

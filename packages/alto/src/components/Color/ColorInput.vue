@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { nextTick, onMounted, onUnmounted, ref } from 'vue';
+import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue';
 import { onClickOutside } from '@vueuse/core';
 import type { ColorInputProps } from './types';
-import { ColorPicker } from '~/components';
+import ColorPicker from './ColorPicker.vue';
 import { setPosition } from '~/helpers';
 
 const props = withDefaults(
@@ -20,6 +20,13 @@ const emit = defineEmits(['update:modelValue']);
 const picker = ref();
 const inputPicker = ref();
 const show = ref(false);
+const inputValue = ref(props.modelValue);
+const pickerValue = ref(props.modelValue);
+const focus = ref(false);
+
+const focused = computed(() => focus.value && !props.disabled);
+
+const maxInputLength = computed(() => props.preserveTransparency ? 9 : 7);
 
 function toggle(override = !show.value) {
   if (props.disabled) {
@@ -36,6 +43,11 @@ function toggle(override = !show.value) {
 }
 
 function updateModelValue(value: string) {
+  inputPicker.value.addEventListener('focusout', () => {
+    if (props.preserveTransparency && value.length < 8) {
+      inputValue.value = `${value}FF`;
+    }
+  });
   emit('update:modelValue', value);
 }
 
@@ -54,16 +66,25 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener('scroll', handleScroll);
 });
+
+watch(() => props.modelValue, (newValue) => {
+  inputValue.value = newValue;
+  pickerValue.value = newValue;
+});
+
+watch(inputValue, (newValue) => {
+  updateModelValue(newValue);
+});
 </script>
 
 <template>
   <div class="wrapper">
-    <div ref="inputPicker" class="input-picker" tabindex="0" :class="{ error: props.error, disabled: props.disabled }" @click="() => toggle()">
-      <div class="preview" :style="{ 'background-color': props.modelValue }" />
-      <span>{{ props.modelValue }}</span>
+    <div ref="inputPicker" class="input-picker" tabindex="0" :class="[{ error: props.error, disabled: props.disabled }, { focused }]" @focusin="() => focus = true" @focusout="() => focus = false" @click="() => toggle()">
+      <div class="preview" :style="{ 'background-color': inputValue }" />
+      <input v-model="inputValue" class="color-input" :class="{ disabled: props.disabled }" :disabled="props.disabled" :maxlength="maxInputLength">
     </div>
     <div v-show="show" ref="picker" class="picker">
-      <ColorPicker :preserve-transparency="preserveTransparency" :model-value="props.modelValue" @update:model-value="updateModelValue" />
+      <ColorPicker :preserve-transparency="preserveTransparency" :model-value="pickerValue" @update:model-value="updateModelValue" />
     </div>
   </div>
 </template>
@@ -75,18 +96,18 @@ onUnmounted(() => {
 
 .wrapper .input-picker {
   display: flex;
-  align-items: center;
+  flex-direction: row;
   width: 150px;
-  padding: 6px;
+  padding: 5px;
   border: 1px solid var(--gray-200);
   border-radius: 8px;
   background-color: var(--base-white);
   box-shadow: var(--shadow-xs-gray);
   cursor: pointer;
-  gap: 12px;
+  gap: 8px;
 }
 
-.wrapper .input-picker:focus {
+.wrapper .input-picker.focused {
   border: 1px solid var(--brand-500);
   box-shadow: var(--focus-shadow-xs-brand);
 }
@@ -118,6 +139,17 @@ onUnmounted(() => {
   position: fixed;
   z-index: 100;
   transform: translate3d(0, 5px, 0);
+  border-radius: 8px;
   box-shadow: var(--shadow-md-gray);
+}
+
+.wrapper .input-picker .color-input {
+  width: 60%;
+  border: none;
+  outline: none;
+}
+
+.wrapper .input-picker .color-input.disabled {
+  cursor: not-allowed;
 }
 </style>

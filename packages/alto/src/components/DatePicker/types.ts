@@ -62,4 +62,6 @@ export interface DatePickerProps extends SharedProps, DatesLimit {
   closeOnSelect?: boolean
   presets?: Preset[]
   presetsTitle?: string
+  applyLabel?: string
+  cancelLabel?: string
 }

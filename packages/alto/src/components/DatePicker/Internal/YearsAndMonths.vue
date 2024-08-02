@@ -72,7 +72,9 @@ function update(direction: 'next' | 'previous') {
         <Button variant="tertiary" class="navigation-button" :disabled="from === minYear" type="button" @click="update('previous')">
           <i class="i-youcan:caret-left" />
         </Button>
-        {{ from }} - {{ to }}
+        <button type="button" class="years-button" @click="() => emit('update:show', false)">
+          {{ from }} - {{ to }}
+        </button>
         <Button variant="tertiary" class="navigation-button" :disabled="from === maxYear" type="button" @click="update('next')">
           <i class="i-youcan:caret-right" />
         </Button>
@@ -201,6 +203,30 @@ function update(direction: 'next' | 'previous') {
   grid-template-columns: repeat(3, 1fr);
   gap: 4px;
   width: 100%;
+}
+
+.years-switcher .years-button {
+  padding: 0;
+  padding: 2px;
+  transition: all 150ms ease-in-out;
+  border: 0;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  outline: none;
+  background-color: var(--base-white);
+  color: var(--gray-900);
+  font: var(--text-sm-medium);
+  text-transform: capitalize;
+  cursor: pointer;
+}
+
+.years-switcher .years-button:hover {
+  background-color: var(--gray-50);
+}
+
+.years-switcher .years-button:focus {
+  border: 1px solid var(--brand-500);
+  box-shadow: var(--focus-shadow-xs-brand);
 }
 
 .slide-up-enter-active {

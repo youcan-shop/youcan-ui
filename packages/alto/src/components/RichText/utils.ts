@@ -1,7 +1,7 @@
 import Quill from 'quill';
 
 export function replaceIcons(customIcons: { [key: string]: any }): void {
-  const icons = Quill.import('ui/icons');
+  const icons = Quill.import('ui/icons') as { [key: string]: string };
   icons.undo = '';
   icons.redo = '';
   icons.customImage = '';

@@ -11,12 +11,14 @@ const props = withDefaults(defineProps<DatePickerProps>(), {
   locale: 'en',
   closeOnSelect: true,
   presetsTitle: 'Presets',
+  applyLabel: 'Apply',
+  cancelLabel: 'Cancel',
 });
-
-const emit = defineEmits(['update:modelValue', 'update:range', 'update:presets']);
+const emit = defineEmits(['update:modelValue', 'update:range', 'update:presets', 'onCanceled', 'onApplied']);
 
 const date = ref<DateValue>(props.modelValue);
 const rangeDate = ref<DateRangeValue>(props.range);
+const oldValue = ref<DateRangeValue | DateValue>(null);
 
 const show = ref(false);
 const calendarWrap = ref();
@@ -68,6 +70,7 @@ function close() {
     show.value = false;
   }
 }
+
 function updateModel(value: DateValue) {
   emit('update:modelValue', value);
   close();
@@ -80,8 +83,38 @@ function updateRange(value: DateRangeValue) {
   }
 }
 
+function canceled() {
+  if (props.range) {
+    const _range = (oldValue.value as DateRangeValue);
+    updateRange(_range);
+    rangeDate.value = _range;
+  }
+  else {
+    const _date = (oldValue.value as DateValue);
+    updateModel(_date);
+    date.value = _date;
+  }
+  emit('onCanceled');
+  show.value = false;
+}
+
+function applied() {
+  emit('onApplied');
+  show.value = false;
+}
+
 function ShowPicker() {
   show.value = !show.value;
+  nextTick(() => {
+    if (show.value) {
+      if (props.range) {
+        oldValue.value = props.range;
+      }
+      else {
+        oldValue.value = props.modelValue;
+      }
+    }
+  });
   PickerPosition();
 }
 
@@ -215,7 +248,16 @@ onClickOutside(datePicker, () => show.value = false);
           :max-date="max"
           @update:model-value="updateModel"
           @update:range="updateRange"
-        />
+        >
+          <div v-if="!closeOnSelect" class="action-bar">
+            <Button size="sm" @click="applied">
+              {{ applyLabel }}
+            </Button>
+            <Button size="sm" variant="secondary" @click="canceled">
+              {{ cancelLabel }}
+            </Button>
+          </div>
+        </Calendar>
       </div>
     </Transition>
   </div>
@@ -232,6 +274,14 @@ onClickOutside(datePicker, () => show.value = false);
 .date-picker .picker-output {
   width: 100%;
   padding: 12px 16px;
+}
+
+.date-picker .action-bar {
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 10px;
+  padding-top: 12px;
+  border-top: 1px solid var(--gray-200);
 }
 
 .date-picker .picker-output i {

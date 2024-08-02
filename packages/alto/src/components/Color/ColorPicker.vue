@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref, watchEffect } from 'vue';
+import { computed, onMounted, onUnmounted, ref, watch, watchEffect } from 'vue';
 import { getSliderValueFromColor, hslToHex, renderCanvas } from './utils';
 import type { ColorPickerProps } from '~/types';
 import { Divider, Input } from '~/components/';
@@ -8,7 +8,7 @@ const props = withDefaults(
   defineProps<ColorPickerProps>(),
   {
     preserveTransparency: true,
-    swatches: () => ['#B8256EFF', '#25B86AFF', '#127EE3FF', '#F2990EFF', '#CC2929FF'],
+    swatches: () => ['#B8256E', '#25B86A', '#127EE3', '#F2990E', '#CC2929'],
   },
 );
 
@@ -26,58 +26,64 @@ const alphaSlider = ref();
 const alphaValue = ref(1);
 let isDragging = false;
 
+const maxInputLength = computed(() => props.preserveTransparency ? 9 : 7);
+
 const setColor = (pickedColor: string) => {
-  if (props.preserveTransparency) {
-    const alpha = Math.floor(alphaValue.value * 255).toString(16).padStart(2, '0').toUpperCase();
-    color.value = `${pickedColor}${alpha}`;
-    inputColor.value = `${pickedColor}${alpha}`;
+  let newColor = pickedColor;
+
+  if (props.preserveTransparency || pickedColor.length === 6) {
+    const alpha = Math.floor(alphaValue.value * 255)
+      .toString(16)
+      .padStart(2, '0')
+      .toUpperCase();
+
+    newColor += alpha;
   }
-  else {
-    color.value = `${pickedColor}`;
-    inputColor.value = `${pickedColor}`;
-  }
+
+  color.value = newColor;
+  inputColor.value = newColor;
 };
 
 const setDraggableDivColor = (newX: number, newY: number) => {
-  const context = canvas.value!.getContext('2d');
-  if (context) {
-    const x = newX === 0 ? newX : newX - 1;
-    const y = newY === 0 ? newY : newY - 1;
-    const pixelData = context.getImageData(x, y, 1, 1).data;
-    const red = pixelData[0].toString(16).padStart(2, '0').toUpperCase();
-    const green = pixelData[1].toString(16).padStart(2, '0').toUpperCase();
-    const blue = pixelData[2].toString(16).padStart(2, '0').toUpperCase();
-
-    const pickedColor = `#${red}${green}${blue}`;
-    setColor(pickedColor);
-
-    emit('update:modelValue', color.value);
+  const context = canvas.value?.getContext('2d');
+  if (!context) {
+    return;
   }
+
+  const x = Math.max(newX - 1, 0);
+  const y = Math.max(newY - 1, 0);
+  const [r, g, b] = context.getImageData(x, y, 1, 1).data;
+
+  const toHex = (value: number) => value.toString(16).padStart(2, '0').toUpperCase();
+  const pickedColor = `#${toHex(r)}${toHex(g)}${toHex(b)}`;
+
+  setColor(pickedColor);
+  emit('update:modelValue', color.value);
 };
 
 const setDraggableDivCoordinates = (event: MouseEvent | TouchEvent) => {
-  if (draggableDiv.value) {
-    const rect = canvasContainer.value!.getBoundingClientRect();
-    let x = 0;
-    let y = 0;
-    if (event instanceof MouseEvent) {
-      x = event.clientX - rect.left;
-      y = event.clientY - rect.top;
-    }
-    else if (event instanceof TouchEvent) {
-      x = event.touches[0].clientX - rect.left;
-      y = event.touches[0].clientY - rect.top;
-    }
-    const maxX = canvasContainer.value!.clientWidth;
-    const maxY = canvasContainer.value!.clientHeight;
-    const newX = Math.min(Math.max(0, x), maxX);
-    const newY = Math.min(Math.max(0, y), maxY);
-
-    draggableDiv.value.style.left = `calc(${(newX / 224) * 100}% - 6px)`;
-    draggableDiv.value.style.top = `calc(${(newY / 224) * 100}% - 6px)`;
-
-    setDraggableDivColor(newX, newY);
+  const div = draggableDiv.value;
+  const container = canvasContainer.value;
+  if (!div || !container) {
+    return;
   }
+
+  const rect = container.getBoundingClientRect();
+  const { clientX, clientY } = 'touches' in event ? event.touches[0] : event;
+
+  const x = clientX - rect.left;
+  const y = clientY - rect.top;
+
+  const maxX = container.clientWidth;
+  const maxY = container.clientHeight;
+
+  const newX = Math.min(Math.max(0, x), maxX);
+  const newY = Math.min(Math.max(0, y), maxY);
+
+  div.style.left = `calc(${(newX / 224) * 100}% - 6px)`;
+  div.style.top = `calc(${(newY / 224) * 100}% - 6px)`;
+
+  setDraggableDivColor(newX, newY);
 };
 
 const startDrag = (event: MouseEvent | TouchEvent) => {
@@ -129,6 +135,17 @@ function updateAlpha() {
   emit('update:modelValue', color.value);
 }
 
+watch(() => props.modelValue, (newValue) => {
+  const { hue, saturation } = getSliderValueFromColor(props.modelValue);
+  colorValue.value = hue;
+  alphaValue.value = saturation;
+  if (inputColor.value !== newValue) {
+    color.value = newValue;
+    inputColor.value = newValue;
+    renderCanvas(canvas, props.modelValue);
+  }
+});
+
 watchEffect(() => {
   if (inputColor.value !== color.value) {
     color.value = inputColor.value;
@@ -145,39 +162,46 @@ onMounted(() => {
 
   emit('update:modelValue', props.modelValue);
 
+  const stopPropagation = (event: MouseEvent) => event.stopPropagation();
+
   if (props.preserveTransparency) {
-    alphaSlider.value.addEventListener('input', updateAlpha);
-    alphaSlider.value.addEventListener('touchmove', updateAlpha);
-    alphaSlider.value!.addEventListener('mousemove', (event: MouseEvent) => {
-      event.stopPropagation();
-    });
+    color.value = inputColor.value = `${props.modelValue}FF`;
+
+    if (alphaSlider.value) {
+      alphaSlider.value.addEventListener('input', updateAlpha);
+      alphaSlider.value.addEventListener('touchmove', updateAlpha);
+      alphaSlider.value.addEventListener('mousemove', stopPropagation);
+    }
   }
-  colorSlider.value!.addEventListener('input', updateColor);
-  colorSlider.value!.addEventListener('touchmove', updateColor);
-  colorSlider.value!.addEventListener('mousemove', (event: MouseEvent) => {
-    event.stopPropagation();
-  });
+
+  if (colorSlider.value) {
+    colorSlider.value.addEventListener('input', updateColor);
+    colorSlider.value.addEventListener('touchmove', updateColor);
+    colorSlider.value.addEventListener('mousemove', stopPropagation);
+  }
 
   window.addEventListener('mouseup', stopDrag);
   window.addEventListener('mousemove', drag);
 
-  canvasContainer.value!.addEventListener('touchmove', drag);
-  canvasContainer.value!.addEventListener('touchend', stopDrag);
+  if (canvasContainer.value) {
+    canvasContainer.value.addEventListener('touchmove', drag);
+    canvasContainer.value.addEventListener('touchend', stopDrag);
+  }
 });
 
 onUnmounted(() => {
-  if (props.preserveTransparency) {
+  if (props.preserveTransparency && alphaSlider.value) {
     alphaSlider.value.removeEventListener('input', updateAlpha);
     alphaSlider.value.removeEventListener('touchmove', updateAlpha);
   }
-  colorSlider.value.removeEventListener('input', updateColor);
-  colorSlider.value.removeEventListener('touchmove', updateColor);
+  colorSlider.value?.removeEventListener('input', updateColor);
+  colorSlider.value?.removeEventListener('touchmove', updateColor);
 
   window.removeEventListener('mouseup', stopDrag);
   window.removeEventListener('mousemove', drag);
 
-  canvasContainer.value!.removeEventListener('touchmove', drag);
-  canvasContainer.value!.removeEventListener('touchend', stopDrag);
+  canvasContainer.value?.removeEventListener('touchmove', drag);
+  canvasContainer.value?.removeEventListener('touchend', stopDrag);
 });
 </script>
 
@@ -195,7 +219,7 @@ onUnmounted(() => {
       HEX
     </p>
     <div class="input-group">
-      <Input v-model="inputColor" class="value" />
+      <Input v-model="inputColor" class="value" :maxlength="maxInputLength" />
       <div :style="{ 'background-color': color }" class="preview" />
     </div>
     <Divider thickness="light" />
@@ -211,6 +235,7 @@ onUnmounted(() => {
   width: 224px;
   height: 224px;
   overflow: hidden;
+  user-select: none;
 }
 
 .color-picker .canvas-container .draggable-div {
@@ -292,7 +317,6 @@ onUnmounted(() => {
   transition: color 0.05s linear;
   border-radius: 0.3em;
   outline: none;
-  appearance: none;
   background-image:
     linear-gradient(
       45deg,
@@ -311,6 +335,7 @@ onUnmounted(() => {
     linear-gradient(to right, var(--gray-100) 25%, v-bind(color.slice(0, -2)) 85%);
   background-position: 0 0, 2px 2px, 0 0;
   background-size: 4px 4px, 4px 4px, 100% 100%;
+  appearance: none;
 }
 
 .color-picker .sliders .color-range {

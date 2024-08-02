@@ -68,19 +68,19 @@ onUnmounted(() => {
         <div v-if="slots.footer" class="footer">
           <slot name="footer" />
         </div>
+        <div ref="triangle" class="triangle" :class="[{ show }]" />
       </div>
     </Transition>
     <div ref="trigger" class="trigger" @click="setPopoverPosition();">
       <slot />
     </div>
-    <div ref="triangle" class="triangle" :class="[{ show }]" />
   </div>
 </template>
 
 <style scoped>
 .popover {
   --caret-size: 22px;
-  --caret-border: 1px solid var(--gray-300);
+  --caret-border: 1px solid var(--gray-200);
 
   position: relative;
 }
@@ -127,7 +127,6 @@ onUnmounted(() => {
 
 .popover .triggered-element > * {
   box-sizing: border-box;
-  width: 100%;
 }
 
 .popover .triggered-element .content {
@@ -179,12 +178,12 @@ onUnmounted(() => {
 }
 
 .popover.left .triangle {
-  right: calc(100% + 9px);
+  right: -12px;
   transform: rotate(45deg);
 }
 
 .popover.right .triangle {
-  left: calc(100% + 11px);
+  left: -12px;
   transform: rotate(-135deg);
 }
 
@@ -194,12 +193,12 @@ onUnmounted(() => {
 }
 
 .popover.top .triangle {
-  bottom: calc(100% + 9px);
+  bottom: -12px;
   transform: rotate(135deg);
 }
 
 .popover.bottom .triangle {
-  top: calc(100% + 11px);
+  top: -12px;
   transform: rotate(-45deg);
 }
 

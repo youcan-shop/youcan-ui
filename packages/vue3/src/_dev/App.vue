@@ -1,29 +1,43 @@
 <script setup lang="ts">
 import 'uno.css';
 import '../assets/main.css';
+import { ref } from 'vue';
+import { RichText } from '~/components';
+
+const content = ref();
 </script>
 
 <template>
   <div class="container">
-    <p class="testfont">
-      خط الكوفي العربي1234
-    </p>
-    <p class="testfont">
-      Hello it's me AA BB Balance
-    </p>
-    <p class="testtokens">
-      Hello it's me AA BB Balance
-      1234
-    </p>
+    <RichText v-model="content" />
   </div>
 </template>
 
 <style scoped>
-.testfont {
-  font-family: var(--font-family);
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  gap: 40px;
 }
 
-.testtokens {
-  font: var(--display-md-regular);
+.container .row {
+  display: flex;
+  flex-direction: column;
+  gap: 300px;
+  width: 80%;
+}
+
+.container .row > div {
+  flex: 1;
+}
+
+.container .row > div span {
+  margin: 0;
+  color: var(--gray-900);
+  font: var(--text-sm-medium);
 }
 </style>
