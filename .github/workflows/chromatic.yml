@@ -51,7 +51,7 @@ jobs:
       - name: Publish Storybook Link in the comments
         uses: dannyhw/storybook-chromatic-link-comment@v0.11
         with:
-          github-token: ${{ secrets.CHROMATIC_GITHUB_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           review-url: ${{ steps.chromatic.outputs.url }}
           build-url: ${{ steps.chromatic.outputs.buildUrl }}
           storybook-url: ${{ steps.chromatic.outputs.storybookUrl }}
