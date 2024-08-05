@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 import { ref } from 'vue';
-import { Table } from '~/components';
+import Table from './Table.vue';
 import type { TableColumn } from '~/types';
 
 type Story = StoryObj<typeof Table>;

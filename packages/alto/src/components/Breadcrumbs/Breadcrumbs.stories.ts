@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
-import { Breadcrumbs } from '~/components';
+import Breadcrumbs from './Breadcrumbs.vue';
 
 type Story = StoryObj<typeof Breadcrumbs>;
 
