@@ -1,9 +1,8 @@
 import path from 'path';
-import Unocss from 'unocss/vite';
+import UnoCSS from 'unocss/vite';
 
 module.exports = {
   "stories": [
-    "../src/**/*.mdx",
     "../src/**/*.stories.@(js|jsx|ts|tsx)"
   ],
   "addons": [
@@ -20,7 +19,7 @@ module.exports = {
   },
   async viteFinal(config, { configType }) {
     config.resolve.alias['~'] =  `${path.resolve(__dirname, 'src')}/`;
-    config.plugins.push(Unocss);
+    config.plugins.push(UnoCSS);
     return config;
   }
 }

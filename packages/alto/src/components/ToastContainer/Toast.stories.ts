@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
+import ToastContainer from './ToastContainer.vue';
 import type { ToastOptions } from '~/types';
 import { toast } from '~/helpers';
-import { Button, ToastContainer } from '~/components';
+import { Button } from '~/components';
 
 type Story = StoryObj<typeof ToastContainer>;
 const meta: Meta<typeof ToastContainer> = {

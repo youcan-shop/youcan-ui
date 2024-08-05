@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 import { ref } from 'vue';
-import { MediaInput, UploadedMedia } from '~/components';
+import UploadedMedia from './UploadedMedia.vue';
+import { MediaInput } from '~/components';
 
 type Story = StoryObj<typeof MediaInput>;
 const meta: Meta<typeof MediaInput> = {

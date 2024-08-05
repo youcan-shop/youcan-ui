@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 import { ref } from 'vue';
-import { Increment } from '~/components';
+import Increment from './Increment.vue';
 
 type Story = StoryObj<typeof Increment>;
 const meta: Meta<typeof Increment> = {

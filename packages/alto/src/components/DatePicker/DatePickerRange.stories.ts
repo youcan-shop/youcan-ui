@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 import { ref } from 'vue';
-import { DatePicker } from '~/components';
+import DatePicker from './DatePicker.vue';
 import type { DateRangeValue } from '~/types';
 
 type Story = StoryObj<typeof DatePicker>;

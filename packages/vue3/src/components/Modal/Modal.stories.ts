@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 import { ref } from 'vue';
-import { Modal, PrimaryButton } from '~/components';
+import Modal from './Modal.vue';
+import { PrimaryButton } from '~/components';
 
 type Story = StoryObj<typeof Modal>;
 const meta: Meta<typeof Modal> = {

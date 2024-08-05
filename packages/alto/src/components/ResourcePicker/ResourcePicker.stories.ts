@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 import { ref } from 'vue';
-import { Button, ResourcePicker } from '~/components';
+import ResourcePicker from './ResourcePicker.vue';
+import { Button } from '~/components';
 import type { Resource } from '~/components/ResourcePicker/types';
 
 type Story = StoryObj<typeof ResourcePicker>;
