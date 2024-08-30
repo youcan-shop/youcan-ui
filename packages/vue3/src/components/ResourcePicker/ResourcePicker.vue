@@ -133,7 +133,7 @@ onUnmounted(() => {
               :indeterminate="resource.isIndeterminate"
               @change="handleClick"
             />
-            <ul v-if="resource.variants">
+            <ul v-if="resource.variants" class="variants-list">
               <li v-for="(variant, index) in resource.variants" :key="variant.id">
                 <ResourceItem
                   v-model="resource.variants[index].isChecked"
@@ -233,6 +233,12 @@ onUnmounted(() => {
   height: 80px;
   background: linear-gradient(#fff0, var(--base-white));
   pointer-events: none;
+}
+
+.resource-picker .list .variants-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
 .resource-picker .empty-state {
