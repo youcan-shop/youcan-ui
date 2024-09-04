@@ -6,7 +6,7 @@
   "license": "ISC",
   "keywords": [],
   "scripts": {
-    "build:scss": "sass src/scss:src/css --no-source-map",
+    "build:scss": "sass src/scss:src/css src/scss/components:src/css --no-source-map",
     "build": "pnpm build:scss && postcss 'src/css/*.css' --dir dist/",
     "watch": "sass --watch src/scss:src/css src/scss/components:src/css --no-source-map",
     "ship": "pnpm build && bumpp package.json --commit \"[chore]: Release v\" --push --tag && pnpm publish --access public"
