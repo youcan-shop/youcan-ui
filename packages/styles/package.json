@@ -1,0 +1,24 @@
+{
+  "name": "@youcan/styles",
+  "version": "1.0.0",
+  "description": "",
+  "author": "",
+  "license": "ISC",
+  "keywords": [],
+  "scripts": {
+    "build:scss": "sass src/scss:src/css src/scss/components:src/css --no-source-map",
+    "build": "pnpm build:scss && postcss 'src/css/*.css' --dir dist/",
+    "watch": "sass --watch src/scss:src/css src/scss/components:src/css --no-source-map",
+    "ship": "pnpm build && bumpp package.json --commit \"[chore]: Release v\" --push --tag && pnpm publish --access public"
+  },
+  "dependencies": {
+    "cssnano": "^7.0.5",
+    "postcss-cli": "^11.0.0",
+    "postcss-prefixer": "^3.0.0"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.41",
+    "sass": "1.54.8"
+  }
+}
