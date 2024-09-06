@@ -1,21 +1,15 @@
 <script setup lang="ts">
 import 'uno.css';
 import '../assets/main.css';
-import { Breadcrumbs } from '~/components';
+import { ref } from 'vue';
+import { RichText } from '~/components';
 
-const breadcrumbItems = [
-  { label: 'Home', to: '/' },
-  { label: 'page1', to: '/page1' },
-  { label: 'page2', to: '/page2' },
-  { label: 'page3', to: '/page3' },
-  { label: 'page4', to: '/page4' },
-  { label: 'Current Page', to: '/current-page' },
-];
+const content = ref();
 </script>
 
 <template>
   <div class="container">
-    <Breadcrumbs :items="breadcrumbItems" />
+    <RichText v-model="content" />
   </div>
 </template>
 
