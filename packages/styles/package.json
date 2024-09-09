@@ -5,6 +5,14 @@
   "author": "",
   "license": "ISC",
   "keywords": [],
+  "exports": {
+    ".": "./dist/index.css",
+    "./button": "./dist/button.css",
+    "./action-button": "./dist/action-button.css"
+  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build:scss": "sass src/scss:src/css src/scss/components:src/css --no-source-map",
     "build": "pnpm build:scss && postcss 'src/css/*.css' --dir dist/",

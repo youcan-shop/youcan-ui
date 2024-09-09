@@ -1,0 +1,198 @@
+.button {
+  --text-color: var(--base-white);
+  --background-color: var(--base-black);
+  --padding: 6px 12px;
+  --border-radius: 8px;
+  --text-style: var(--text-sm-medium);
+  --border: none;
+  --shadow: var(--shadow-xs-gray);
+  --gap: 8px;
+
+  display: flex;
+  box-sizing: border-box;
+  flex-direction: var(--icon-position);
+  align-items: center;
+  justify-content: center;
+  width: max-content;
+  max-width: 100%;
+  padding: var(--padding);
+  border: var(--border);
+  border-radius: var(--border-radius);
+  outline: none;
+  background-color: var(--background-color);
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  gap: var(--gap);
+
+  &.icon-only {
+    aspect-ratio: 1;
+  }
+
+  &.link {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    color: var(--text-color);
+    font: var(--text-style);
+  }
+
+  &.size {
+    &-xxs {
+      --padding: 4px 8px;
+      --gap: 4px;
+    }
+
+    &-xs {
+      --padding: 6px 12px;
+    }
+
+    &-xs,
+    &-xxs,
+    &-sm {
+      --border-radius: 4px;
+    }
+
+    &-sm {
+      --padding: 8px 16px;
+    }
+
+    &-md {
+      --padding: 12px 16px;
+    }
+
+    &-lg {
+      --padding: 12px 24px;
+      --text-style: var(--text-md-medium);
+    }
+
+    &-xl {
+      --padding: 13px 24px;
+    }
+
+    &-2xl {
+      --padding: 15px 32px;
+    }
+
+    &-2xl,
+    &-xl {
+      --text-style: var(--text-lg-medium);
+    }
+  }
+
+  &.rounded {
+    --border-radius: 100px;
+  }
+
+  &:hover {
+    border: var(--hover-border);
+    background-color: var(--hover-background-color);
+    box-shadow: var(--hover-shadow);
+  }
+
+  &:focus {
+    border: var(--focus-border);
+    background-color: var(--focus-background-color);
+    box-shadow: var(--focus-shadow);
+  }
+
+  &:active {
+    border: var(--active-border);
+    background-color: var(--active-background-color);
+    box-shadow: var(--active-shadow);
+  }
+
+  &:disabled {
+    border: var(--disabled-border);
+    background-color: var(--disabled-background-color);
+    box-shadow: var(--disabled-shadow);
+  }
+
+  &:hover .label {
+    color: var(--hover-text-color);
+  }
+
+  &:focus .label {
+    color: var(--focus-text-color);
+  }
+
+  &:active .label {
+    color: var(--active-text-color);
+  }
+
+  &:disabled .label {
+    color: var(--disabled-text-color);
+  }
+
+  &.primary {
+    --active-text-color: var(--base-white);
+    --focus-text-color: var(--base-white);
+    --hover-text-color: var(--base-white);
+    --background-color: var(--brand-500);
+    --hover-background-color: var(--brand-600);
+    --active-background-color: var(--brand-800);
+    --disabled-background-color: var(--gray-300);
+    --focus-background-color: var(--brand-500);
+    --focus-shadow: var(--focus-shadow-xs-brand);
+    --disabled-shadow: none;
+  }
+
+  &.destructive {
+    --active-text-color: var(--base-white);
+    --focus-text-color: var(--base-white);
+    --hover-text-color: var(--base-white);
+    --background-color: var(--red-500);
+    --hover-background-color: var(--red-600);
+    --active-background-color: var(--red-800);
+    --disabled-background-color: var(--gray-300);
+    --focus-background-color: var(--red-500);
+    --focus-shadow: var(--focus-shadow-xs-red);
+    --disabled-shadow: none;
+  }
+
+  &.secondary {
+    --text-color: var(--gray-900);
+    --text-style: var(--text-sm-regular);
+    --background-color: var(--base-white);
+    --hover-background-color: var(--gray-50);
+    --active-background-color: var(--gray-100);
+    --focus-shadow: var(--focus-shadow-xs-brand);
+    --border: 1px solid var(--gray-200);
+    --focus-border: 1px solid var(--brand-500);
+    --hover-border: 1px solid var(--gray-300);
+    --active-border: 1px solid var(--gray-300);
+    --disabled-text-color: var(--gray-300);
+    --disabled-border: 1px solid var(--gray-200);
+    --disabled-background-color: var(--base-white);
+    --disabled-shadow: none;
+  }
+
+  &.tertiary {
+    --text-color: var(--gray-900);
+    --text-style: var(--text-sm-regular);
+    --disabled-text-color: var(--gray-300);
+    --background-color: transparent;
+    --hover-background-color: var(--gray-50);
+    --active-background-color: var(--gray-100);
+    --disabled-background-color: transparent;
+    --shadow: none;
+    --focus-shadow: var(--focus-no-shadow-brand);
+  }
+
+  &.secondary.size-2xl,
+  &.tertiary.size-2xl,
+  &.secondary.size-xl,
+  &.tertiary.size-xl {
+    --text-style: var(--text-lg-medium);
+  }
+
+  &.secondary.size-lg,
+  &.tertiary.size-lg {
+    --text-style: var(--text-md-medium);
+  }
+}
