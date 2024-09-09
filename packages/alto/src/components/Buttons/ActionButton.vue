@@ -11,5 +11,5 @@ defineProps<ActionButtonProps>();
 </template>
 
 <style scoped>
-@import '@youcan/styles/action-button';
+@import "@youcan/styles/action-button";
 </style>

@@ -52,5 +52,5 @@ const buttonClasses = computed(() => [
 </template>
 
 <style scoped>
-@import '@youcan/styles/button';
+@import "@youcan/styles/button";
 </style>
