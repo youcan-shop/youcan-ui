@@ -9,7 +9,7 @@ const content = ref();
 
 <template>
   <div class="container">
-    <RichText v-model="content" />
+    <RichText v-model="content" text-alignment="center" />
   </div>
 </template>
 

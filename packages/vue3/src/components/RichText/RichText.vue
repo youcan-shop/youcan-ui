@@ -14,6 +14,7 @@ const props = withDefaults(
   {
     disabled: false,
     error: false,
+    textAlignment: 'left',
     placeholder: 'Type something...',
     toolbar: () => toolbarOptions,
   },
@@ -68,6 +69,10 @@ onMounted(() => {
           model.value = quill.root.innerHTML;
         }
       });
+
+      if (props.textAlignment) {
+        quill.format('align', props.textAlignment);
+      }
 
       if (document.dir === 'rtl') {
         handleRtl(quill);
