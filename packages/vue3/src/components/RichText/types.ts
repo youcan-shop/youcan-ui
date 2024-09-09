@@ -17,10 +17,13 @@ export type ToolbarOption =
   | 'video'
   | 'image';
 
+export type TextAlignmentType = 'right' | 'center' | 'left';
+
 export interface RichTextProps {
   modelValue: string
   disabled?: boolean
   error?: boolean
   placeholder?: string
+  textAlignment?: TextAlignmentType
   toolbar?: ToolbarOption[]
 }
