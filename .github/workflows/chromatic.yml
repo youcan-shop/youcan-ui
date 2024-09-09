@@ -42,7 +42,16 @@ jobs:
         run: pnpm run build
 
       - name: Run Chromatic
+        id: chromatic
         uses: chromaui/action@latest
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           workingDir: packages/alto
+
+      - name: Publish Storybook Link in the comments
+        uses: dannyhw/storybook-chromatic-link-comment@v0.11
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          review-url: ${{ steps.chromatic.outputs.url }}
+          build-url: ${{ steps.chromatic.outputs.buildUrl }}
+          storybook-url: ${{ steps.chromatic.outputs.storybookUrl }}
