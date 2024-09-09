@@ -33,7 +33,7 @@
     text-decoration: none;
   }
 
-  .label {
+  &-label {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -113,20 +113,28 @@
     box-shadow: var(--disabled-shadow);
   }
 
-  &:hover .label {
-    color: var(--hover-text-color);
+  &:hover {
+    .button-label {
+      color: var(--hover-text-color);
+    }
   }
 
-  &:focus .label {
-    color: var(--focus-text-color);
+  &:focus {
+    .button-label {
+      color: var(--focus-text-color);
+    }
   }
 
-  &:active .label {
-    color: var(--active-text-color);
+  &:active {
+    .button-label {
+      color: var(--active-text-color);
+    }
   }
 
-  &:disabled .label {
-    color: var(--disabled-text-color);
+  &:disabled {
+    .button-label {
+      color: var(--disabled-text-color);
+    }
   }
 
   &.primary {
