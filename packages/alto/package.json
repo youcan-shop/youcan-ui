@@ -91,6 +91,7 @@
     "@types/node": "18.7.15",
     "@vitejs/plugin-vue": "^5.0.2",
     "@vueuse/core": "^9.9.0",
+    "@youcan/styles": "*",
     "@youcan/ui-core": "*",
     "@youcan/ui-icons": "*",
     "@youcan/ui-visuals": "*",
