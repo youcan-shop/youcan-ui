@@ -1,15 +1,48 @@
 <script setup lang="ts">
 import 'uno.css';
 import '../assets/main.css';
-import { ref } from 'vue';
-import { RichText } from '~/components';
+import { Alert } from '~/components';
+import type { AlertType } from '~/types';
 
-const content = ref();
+interface AlertProps {
+  title: string
+  description: string
+  type: AlertType
+}
+const alerts: AlertProps[] = [
+  {
+    title: 'Info',
+    description: 'Click here to learn more about the exciting enhancements we\'ve made.',
+    type: 'info',
+  },
+  {
+    title: 'Success',
+    description: 'Your profile information has been successfully updated.',
+    type: 'success',
+  },
+  {
+    title: 'Warning',
+    description: 'Please check your internet connection.',
+    type: 'warning',
+  },
+  {
+    title: 'Error',
+    description: 'Unable to save data, check again later.',
+    type: 'error',
+  },
+];
 </script>
 
 <template>
   <div class="container">
-    <RichText v-model="content" />
+    <Alert v-for="alert in alerts" :key="alert.type" :type="alert.type">
+      <template #title>
+        {{ alert.title }}
+      </template>
+      <template #description>
+        {{ alert.description }}
+      </template>
+    </Alert>
   </div>
 </template>
 
@@ -22,22 +55,5 @@ const content = ref();
   width: 100vw;
   height: 100vh;
   gap: 40px;
-}
-
-.container .row {
-  display: flex;
-  flex-direction: column;
-  gap: 300px;
-  width: 80%;
-}
-
-.container .row > div {
-  flex: 1;
-}
-
-.container .row > div span {
-  margin: 0;
-  color: var(--gray-900);
-  font: var(--text-sm-medium);
 }
 </style>

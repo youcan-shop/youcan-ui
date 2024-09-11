@@ -16,19 +16,19 @@ const emit = defineEmits<{
 }>();
 
 const alertVariant = computed(() => {
-  let classList = 'i-youcan-';
+  let classList = 'i-youcan:';
   switch (props.type) {
     case 'success':
-      classList += 'check-circle';
+      classList = 'i-youcan-check-circle';
       break;
     case 'info':
-      classList += 'info-1';
+      classList += 'info-filled';
       break;
     case 'error':
-      classList += 'warning-circle';
+      classList += 'x-circle';
       break;
     default:
-      classList += 'warning-circle';
+      classList += 'warning-filled';
       break;
   }
 
