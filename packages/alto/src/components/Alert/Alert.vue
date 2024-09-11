@@ -16,19 +16,19 @@ const emit = defineEmits<{
 }>();
 
 const alertVariant = computed(() => {
-  let classList = 'i-youcan-';
+  let classList = 'i-youcan:';
   switch (props.type) {
     case 'success':
-      classList += 'check-circle';
+      classList = 'i-youcan-check-circle';
       break;
     case 'info':
-      classList += 'info-1';
+      classList = 'i-youcan:info-filled';
       break;
     case 'error':
-      classList += 'warning-circle';
+      classList = 'i-youcan:x-circle';
       break;
     default:
-      classList += 'warning-circle';
+      classList = 'i-youcan:warning-filled';
       break;
   }
 
@@ -71,10 +71,8 @@ onUnmounted(() => {
       </div>
       <!-- Close button -->
       <div v-if="canClose" class="btn">
-        <Button class="close-button" size="xs" icon-position="only" variant="tertiary" @click="handleClose">
-          <template #icon>
-            <i class="i-tabler:x" />
-          </template>
+        <Button class="close-button" size="xs" :icon-only="true" variant="tertiary" @click="handleClose">
+          <i class="i-tabler:x" />
         </Button>
       </div>
     </div>
