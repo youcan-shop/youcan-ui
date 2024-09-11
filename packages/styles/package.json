@@ -8,7 +8,8 @@
   "exports": {
     ".": "./dist/index.css",
     "./button": "./dist/button.css",
-    "./action-button": "./dist/action-button.css"
+    "./action-button": "./dist/action-button.css",
+    "./avatar": "./dist/avatar.css"
   },
   "files": [
     "dist"

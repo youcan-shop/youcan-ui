@@ -93,45 +93,37 @@
     border: var(--hover-border);
     background-color: var(--hover-background-color);
     box-shadow: var(--hover-shadow);
-  }
 
-  &:focus {
-    border: var(--focus-border);
-    background-color: var(--focus-background-color);
-    box-shadow: var(--focus-shadow);
-  }
-
-  &:active {
-    border: var(--active-border);
-    background-color: var(--active-background-color);
-    box-shadow: var(--active-shadow);
-  }
-
-  &:disabled {
-    border: var(--disabled-border);
-    background-color: var(--disabled-background-color);
-    box-shadow: var(--disabled-shadow);
-  }
-
-  &:hover {
     .button-label {
       color: var(--hover-text-color);
     }
   }
 
   &:focus {
+    border: var(--focus-border);
+    background-color: var(--focus-background-color);
+    box-shadow: var(--focus-shadow);
+
     .button-label {
       color: var(--focus-text-color);
     }
   }
 
   &:active {
+    border: var(--active-border);
+    background-color: var(--active-background-color);
+    box-shadow: var(--active-shadow);
+
     .button-label {
       color: var(--active-text-color);
     }
   }
 
   &:disabled {
+    border: var(--disabled-border);
+    background-color: var(--disabled-background-color);
+    box-shadow: var(--disabled-shadow);
+
     .button-label {
       color: var(--disabled-text-color);
     }

@@ -75,29 +75,29 @@
   background-color: var(--hover-background-color);
   box-shadow: var(--hover-shadow);
 }
+.button:hover .button-label {
+  color: var(--hover-text-color);
+}
 .button:focus {
   border: var(--focus-border);
   background-color: var(--focus-background-color);
   box-shadow: var(--focus-shadow);
+}
+.button:focus .button-label {
+  color: var(--focus-text-color);
 }
 .button:active {
   border: var(--active-border);
   background-color: var(--active-background-color);
   box-shadow: var(--active-shadow);
 }
+.button:active .button-label {
+  color: var(--active-text-color);
+}
 .button:disabled {
   border: var(--disabled-border);
   background-color: var(--disabled-background-color);
   box-shadow: var(--disabled-shadow);
-}
-.button:hover .button-label {
-  color: var(--hover-text-color);
-}
-.button:focus .button-label {
-  color: var(--focus-text-color);
-}
-.button:active .button-label {
-  color: var(--active-text-color);
 }
 .button:disabled .button-label {
   color: var(--disabled-text-color);
