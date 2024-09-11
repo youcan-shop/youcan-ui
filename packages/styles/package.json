@@ -9,6 +9,7 @@
     ".": "./dist/index.css",
     "./button": "./dist/button.css",
     "./action-button": "./dist/action-button.css",
+    "./avatar": "./dist/avatar.css",
     "./alert": "./dist/alert.css"
   },
   "files": [

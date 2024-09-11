@@ -6,8 +6,8 @@
     "source.fixAll.stylelint": "explicit",
     "source.organizeImports": "never"
   },
-  "stylelint.validate": ["vue"],
-   "cSpell.words": [
+  "stylelint.validate": ["vue", "scss"],
+  "cSpell.words": [
     "youcan"
   ]
 }
