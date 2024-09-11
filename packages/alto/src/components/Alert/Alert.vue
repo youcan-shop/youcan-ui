@@ -32,7 +32,7 @@ const alertVariant = computed(() => {
       break;
   }
 
-  return `${classList} ${props.type}`;
+  return `${classList} yc-${props.type}`;
 });
 
 const { title, description } = useSlots();
@@ -56,22 +56,22 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="alert" :class="[type]">
-    <div class="main">
-      <div class="icon-block" :class="[type]">
-        <i class="icon" :class="alertVariant" />
+  <div class="yc-alert" :class="[`yc-${type}`]">
+    <div class="yc-main">
+      <div class="yc-icon-block" :class="[`yc-${type}`]">
+        <i class="yc-icon" :class="alertVariant" />
       </div>
-      <div class="content-container">
-        <span v-if="title" class="title" :class="[type]">
+      <div class="yc-content-container">
+        <span v-if="title" class="yc-title" :class="[`yc-${type}`]">
           <slot name="title" />
         </span>
-        <span v-if="description" class="description" :class="[type]">
+        <span v-if="description" class="yc-description" :class="[`yc-${type}`]">
           <slot name="description" />
         </span>
       </div>
       <!-- Close button -->
-      <div v-if="canClose" class="btn">
-        <Button class="close-button" size="xs" :icon-only="true" variant="tertiary" @click="handleClose">
+      <div v-if="canClose" class="yc-btn">
+        <Button class="yc-close-button" size="xs" :icon-only="true" variant="tertiary" @click="handleClose">
           <i class="i-tabler:x" />
         </Button>
       </div>
@@ -80,112 +80,5 @@ onUnmounted(() => {
 </template>
 
 <style scoped>
-.alert {
-  --border-left-color: var(--orange-500);
-
-  display: flex;
-  position: relative;
-  box-sizing: border-box;
-  width: 400px;
-  max-width: 100%;
-  margin-bottom: 12px;
-  padding: 12px;
-  overflow: hidden;
-  border-width: 1px 1px 1px 0;
-  border-style: solid;
-  border-radius: 4px;
-  border-color: var(--gray-200);
-  background-color: var(--base-white);
-  box-shadow: var(--shadow-xs-gray);
-  gap: 8px;
-}
-
-.alert::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 4px;
-  height: 100%;
-  background-color: var(--border-left-color);
-}
-
-.alert.success {
-  --border-left-color: var(--green-600);
-}
-
-.alert.info {
-  --border-left-color: var(--blue-500);
-}
-
-.alert.error {
-  --border-left-color: var(--red-500);
-}
-
-.content-container {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  gap: 4px;
-}
-
-.description {
-  color: var(--gray-900);
-  font: var(--text-sm-regular);
-}
-
-.content-container .description {
-  padding-bottom: 4px;
-}
-
-.icon {
-  width: 18px;
-  height: 18px;
-  color: var(--orange-500);
-}
-
-.icon.success {
-  color: var(--green-600);
-}
-
-.icon.info {
-  color: var(--blue-500);
-}
-
-.icon.error {
-  color: var(--red-500);
-}
-
-.close-button {
-  padding: 0;
-  color: var(--gray-500);
-  cursor: pointer;
-}
-
-.main {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  gap: 8px;
-}
-
-.title {
-  font: var(--text-sm-medium);
-}
-
-.title.success {
-  color: var(--green-600);
-}
-
-.title.info {
-  color: var(--blue-500);
-}
-
-.title.error {
-  color: var(--red-500);
-}
-
-.title.warning {
-  color: var(--orange-500);
-}
+@import "@youcan/styles/alert";
 </style>
