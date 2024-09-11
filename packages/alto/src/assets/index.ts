@@ -1,2 +1,2 @@
-import 'uno.css';
 import './main.css';
+import 'uno.css';

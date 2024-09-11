@@ -13,7 +13,7 @@ const meta: Meta<typeof Button> = {
     },
     variant: {
       control: { type: 'select' },
-      options: ['primary', 'secondary', 'tertiary', 'destructive', 'link'],
+      options: ['primary', 'secondary', 'tertiary', 'destructive'],
     },
     default: {
       control: false,
@@ -24,7 +24,6 @@ const meta: Meta<typeof Button> = {
     disabled: false,
     rounded: false,
     iconOnly: false,
-    href: '',
   },
 };
 
