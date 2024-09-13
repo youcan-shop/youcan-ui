@@ -1,0 +1,45 @@
+$badge-sizes: (
+  sm: 20px,
+  md: 24px
+);
+$badge-states: (
+  neutral: var(--gray-500),
+  danger: var(--red-500),
+  info: var(--blue-500),
+  warning: var(--yellow-500),
+  success: var(--green-600)
+);
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.badge {
+  --background-color: var(--gray-300);
+  --size: 24px; // Default size
+
+  @include flex-center;
+
+  box-sizing: border-box;
+  width: min-content;
+  height: var(--size);
+  padding: 0 6px;
+  border-radius: 100px;
+  background-color: var(--background-color);
+  color: var(--base-white);
+  font: var(--text-sm-medium);
+
+  @each $size, $value in $badge-sizes {
+    &.size-#{$size} {
+      --size: #{$value};
+    }
+  }
+
+  @each $state, $color in $badge-states {
+    &.state-#{$state} {
+      --background-color: #{$color};
+    }
+  }
+}
