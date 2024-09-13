@@ -29,8 +29,8 @@ const visibleItems = computed(() => {
 
 <template>
   <nav>
-    <ol class="breadcrumbs">
-      <li v-for="(item, index) in visibleItems" :key="index" class="crumb" :class="{ 'dropdown-item': item.isDropdown }">
+    <ol class="yc-breadcrumbs">
+      <li v-for="(item, index) in visibleItems" :key="index" class="yc-crumb" :class="{ 'dropdown-item': item.isDropdown }">
         <BreadcrumbItem
           v-if="!item.isDropdown"
           :label="item.label"
@@ -42,45 +42,19 @@ const visibleItems = computed(() => {
             <i class="i-youcan:dots-three elipsis" />
           </Button>
           <template #MenuItems>
-            <a v-for="dropdownItem in item.dropdownItems" :key="dropdownItem.to" class="dropdown-crumbs" :href="dropdownItem.to">
+            <a v-for="dropdownItem in item.dropdownItems" :key="dropdownItem.to" class="yc-dropdown-crumbs" :href="dropdownItem.to">
               <DropdownMenuItem
                 :label="dropdownItem.label"
               />
             </a>
           </template>
         </DropdownMenu>
-        <i v-if="index < visibleItems.length - 1" class="i-youcan:caret-right separator" />
+        <i v-if="index < visibleItems.length - 1" class="i-youcan:caret-right yc-separator" />
       </li>
     </ol>
   </nav>
 </template>
 
 <style scoped>
-.breadcrumbs {
-  display: flex;
-  align-items: center;
-  list-style: none;
-}
-
-.breadcrumbs .crumb .dropdown-crumbs {
-  color: var(--gray-900);
-  text-decoration: none;
-}
-
-.breadcrumbs .crumb {
-  display: flex;
-  align-items: center;
-  font: var(--text-md-medium);
-}
-
-.breadcrumbs .crumb .separator {
-  margin: 0 5px;
-  transition: color 0.3s ease;
-  color: var(--gray-400);
-}
-
-.breadcrumbs .dropdown-item:hover > .separator,
-.breadcrumbs .crumb:last-child:hover > .separator {
-  color: var(--gray-400);
-}
+@import "@youcan/styles/breadcrumbs";
 </style>

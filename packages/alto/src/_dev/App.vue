@@ -1,49 +1,18 @@
 <script setup lang="ts">
 import 'uno.css';
 import '../assets/main.css';
-import { Alert } from '~/components';
-import type { AlertType } from '~/types';
+import { Breadcrumbs } from '~/components';
 
-interface AlertProps {
-  title: string
-  description: string
-  type: AlertType
-}
-
-const alerts: AlertProps[] = [
-  {
-    title: 'Info',
-    description: 'Click here to learn more about the exciting enhancements we\'ve made.',
-    type: 'info',
-  },
-  {
-    title: 'Success',
-    description: 'Your profile information has been successfully updated.',
-    type: 'success',
-  },
-  {
-    title: 'Warning',
-    description: 'Please check your internet connection.',
-    type: 'warning',
-  },
-  {
-    title: 'Error',
-    description: 'Unable to save data, check again later.',
-    type: 'error',
-  },
+const breadcrumbItems = [
+  { label: 'Home', to: '/' },
+  { label: 'Alto', to: '/alto/' },
+  { label: 'Breadcrumbs', to: '/alto/breadcrumbs' },
 ];
 </script>
 
 <template>
   <div class="container">
-    <Alert v-for="alert in alerts" :key="alert.type" :type="alert.type">
-      <template #title>
-        {{ alert.title }}
-      </template>
-      <template #description>
-        {{ alert.description }}
-      </template>
-    </Alert>
+    <Breadcrumbs :items="breadcrumbItems" />
   </div>
 </template>
 
