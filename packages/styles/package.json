@@ -11,7 +11,8 @@
     "./action-button": "./dist/action-button.css",
     "./avatar": "./dist/avatar.css",
     "./alert": "./dist/alert.css",
-    "./checkbox": "./dist/checkbox.css"
+    "./checkbox": "./dist/checkbox.css",
+    "./badge": "./dist/badge.css"
   },
   "files": [
     "dist"
