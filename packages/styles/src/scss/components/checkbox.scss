@@ -1,0 +1,97 @@
+.checkbox-content {
+  display: flex;
+  align-items: center;
+
+  .label {
+    display: inline-block;
+    flex: 1;
+    font: var(--text-sm-regular);
+    cursor: pointer;
+  }
+
+  .checkbox {
+    display: block;
+    box-sizing: border-box;
+    cursor: pointer;
+    user-select: none;
+
+    &.has-label {
+      margin-inline-end: 8px;
+    }
+
+    .input {
+      position: absolute;
+      opacity: 0;
+    }
+
+    .checkmark {
+      display: grid;
+      width: 16px;
+      height: 16px;
+      border: 1px solid var(--gray-200);
+      border-radius: 4px;
+      background-color: var(--base-white);
+      box-shadow: var(--shadow-xs-gray);
+      place-items: center;
+
+      i {
+        display: none;
+        width: 14px;
+        height: 14px;
+        color: var(--base-white);
+      }
+    }
+
+    input {
+      &:checked {
+        ~ {
+          .checkmark {
+            border: 1px solid transparent;
+            background-color: var(--brand-500);
+
+            i {
+              display: inline-block;
+            }
+          }
+        }
+      }
+
+      &:disabled {
+        ~ {
+          .checkmark {
+            border: 1px solid var(--gray-200);
+            background: var(--base-white);
+            box-shadow: none;
+            cursor: default;
+          }
+        }
+      }
+
+      &:enabled {
+        &:is(:focus, :active) {
+          ~ {
+            .checkmark {
+              box-shadow: var(--focus-shadow-xs-brand);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &:hover .checkbox input:enabled ~ .checkmark {
+    background-color: var(--gray-50);
+  }
+
+  .checkbox input:disabled:checked ~ .checkmark {
+    background-color: var(--gray-100);
+  }
+
+  &:hover .checkbox input:enabled:checked ~ .checkmark {
+    background-color: var(--brand-600);
+  }
+
+  .checkbox:has(.input:disabled) ~ .label {
+    color: var(--gray-300);
+  }
+}

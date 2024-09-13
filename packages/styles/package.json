@@ -10,7 +10,8 @@
     "./button": "./dist/button.css",
     "./action-button": "./dist/action-button.css",
     "./avatar": "./dist/avatar.css",
-    "./alert": "./dist/alert.css"
+    "./alert": "./dist/alert.css",
+    "./checkbox": "./dist/checkbox.css"
   },
   "files": [
     "dist"
