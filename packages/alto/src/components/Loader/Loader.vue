@@ -15,44 +15,23 @@ withDefaults(
 </script>
 
 <template>
-  <div class="loader-block">
+  <div class="yc-loader-block">
     <Bar v-if="variant === 'bar'" v-bind="{ color, size }" />
     <Brand v-else-if="variant === 'brand'" v-bind="{ color, size }" />
     <Spinner v-else v-bind="{ color, size }" />
 
-    <p v-if="label" class="label" :class="[labelFontSize]">
+    <p v-if="label" class="yc-loader-block-label" :class="`yc-loader-block-label-${labelFontSize}`">
       {{ label }}
     </p>
   </div>
 </template>
 
 <style scoped>
-.loader-block {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
+.yc-loader-block-label {
+  color: v-bind(labelColor);
 }
+</style>
 
-.loader-block .label {
-  margin: 0;
-  color: v-bind("labelColor");
-  font: var(--text-md-regular);
-}
-
-.loader-block .label.xs {
-  font: var(--text-xs-regular);
-}
-
-.loader-block .label.sm {
-  font: var(--text-sm-regular);
-}
-
-.loader-block .label.lg {
-  font: var(--text-lg-regular);
-}
-
-.loader-block .label.xl {
-  font: var(--text-xl-regular);
-}
+<style>
+@import "@youcan/styles/loader";
 </style>
