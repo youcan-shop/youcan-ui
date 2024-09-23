@@ -4,7 +4,7 @@
   flex-direction: column;
   gap: 8px;
 
-  .radio-item {
+  &-item {
     display: flex;
     align-items: center;
     gap: 8px;
@@ -14,17 +14,17 @@
     box-shadow: var(--shadow-xs-gray);
     cursor: pointer;
 
-    .name,
-    .suffix {
+    &-name,
+    &-suffix {
       color: var(--gray-900);
       font: var(--text-sm-regular);
     }
 
-    .name {
+    &-name {
       flex-grow: 1;
     }
 
-    .trigger {
+    &-trigger {
       width: 14px;
       height: 14px;
       margin: 0;
@@ -34,21 +34,21 @@
       outline: 2px solid var(--base-white);
       background-color: var(--base-white);
       appearance: none;
-    }
 
-    .trigger:hover {
-      border-color: var(--gray-300);
-      background-color: var(--gray-50);
-    }
+      &:hover {
+        border-color: var(--gray-300);
+        background-color: var(--gray-50);
+      }
 
-    .trigger:active {
-      background-color: var(--gray-100);
-    }
+      &:active {
+        background-color: var(--gray-100);
+      }
 
-    .trigger:checked {
-      border: 3px solid var(--base-white);
-      outline-color: var(--brand-500);
-      background-color: var(--brand-500);
+      &:checked {
+        border: 3px solid var(--base-white);
+        outline-color: var(--brand-500);
+        background-color: var(--brand-500);
+      }
     }
   }
 }

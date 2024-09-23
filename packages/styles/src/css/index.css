@@ -480,7 +480,7 @@
   flex-direction: column;
   gap: 8px;
 }
-.radio-list .radio-item {
+.radio-list-item {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -490,15 +490,14 @@
   box-shadow: var(--shadow-xs-gray);
   cursor: pointer;
 }
-.radio-list .radio-item .name,
-.radio-list .radio-item .suffix {
+.radio-list-item-name, .radio-list-item-suffix {
   color: var(--gray-900);
   font: var(--text-sm-regular);
 }
-.radio-list .radio-item .name {
+.radio-list-item-name {
   flex-grow: 1;
 }
-.radio-list .radio-item .trigger {
+.radio-list-item-trigger {
   width: 14px;
   height: 14px;
   margin: 0;
@@ -509,14 +508,14 @@
   background-color: var(--base-white);
   appearance: none;
 }
-.radio-list .radio-item .trigger:hover {
+.radio-list-item-trigger:hover {
   border-color: var(--gray-300);
   background-color: var(--gray-50);
 }
-.radio-list .radio-item .trigger:active {
+.radio-list-item-trigger:active {
   background-color: var(--gray-100);
 }
-.radio-list .radio-item .trigger:checked {
+.radio-list-item-trigger:checked {
   border: 3px solid var(--base-white);
   outline-color: var(--brand-500);
   background-color: var(--brand-500);
