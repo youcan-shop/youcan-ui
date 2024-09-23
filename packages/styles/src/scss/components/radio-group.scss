@@ -1,0 +1,46 @@
+.radio-group {
+  all: unset;
+  box-sizing: border-box;
+
+  &-item {
+    display: flex;
+    box-sizing: border-box;
+    align-items: center;
+    gap: 8px;
+
+    &-label {
+      color: var(--gray-900);
+      font: var(--text-sm-regular);
+      cursor: pointer;
+    }
+
+    &-trigger {
+      width: 18px;
+      height: 18px;
+      margin: 0;
+      transition: 75ms all linear;
+      border: 1px solid var(--gray-200);
+      border-radius: 50%;
+      background-color: var(--base-white);
+      appearance: none;
+      cursor: pointer;
+
+      &:hover {
+        border-color: var(--gray-300);
+        background-color: var(--gray-50);
+      }
+
+      &:active {
+        background-color: var(--gray-100);
+      }
+
+      &:checked {
+        border: 4px solid var(--brand-500);
+
+        &:hover {
+          border-color: var(--brand-600);
+        }
+      }
+    }
+  }
+}
