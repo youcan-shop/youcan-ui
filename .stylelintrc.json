@@ -4,5 +4,13 @@
     "stylelint-config-standard-scss",
     "stylelint-config-standard-vue",
     "stylelint-config-standard-vue/scss"
-  ]
+  ],
+  "rules": {
+    "selector-class-pattern": [
+      "^[a-z]([a-z0-9]*)(--[a-z0-9]+)?(__[a-z0-9]+)?$",
+      {
+        "message": "Expected class selector to be in BEM (Block Element Modifier) format"
+      }
+    ]
+  }
 }
