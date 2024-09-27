@@ -4,7 +4,7 @@
   flex-direction: column;
   gap: 8px;
 
-  &-item {
+  &__item {
     display: flex;
     align-items: center;
     gap: 8px;
@@ -14,17 +14,17 @@
     box-shadow: var(--shadow-xs-gray);
     cursor: pointer;
 
-    &-name,
-    &-suffix {
+    &__name,
+    &__suffix {
       color: var(--gray-900);
       font: var(--text-sm-regular);
     }
 
-    &-name {
+    &__name {
       flex-grow: 1;
     }
 
-    &-trigger {
+    &__trigger {
       width: 14px;
       height: 14px;
       margin: 0;
