@@ -20,9 +20,9 @@ const id = Utils.uid('radio_');
 </script>
 
 <template>
-  <div class="yc-radio-group-item">
-    <input :id="id" v-model="model" type="radio" :name="name" class="yc-radio-group-item-trigger" :checked="model">
-    <label v-if="slots.default" class="yc-radio-group-item-label" :for="id">
+  <div class="yc-radio-group__item">
+    <input :id="id" v-model="model" type="radio" :name="name" class="yc-radio-group__item__trigger" :checked="model">
+    <label v-if="slots.default" class="yc-radio-group__item__label" :for="id">
       <slot />
     </label>
   </div>
