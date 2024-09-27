@@ -1,27 +1,27 @@
-.loader-block {
+.loader {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 10px;
 }
-.loader-block-label {
+.loader__label {
   margin: 0;
   color: var(--brand-500);
   font: var(--text-md-regular);
 }
-.loader-block-label-xs {
+.loader__label--xs {
   font: var(--text-xs-regular);
 }
-.loader-block-label-sm {
+.loader__label--sm {
   font: var(--text-sm-regular);
 }
-.loader-block-label-lg {
+.loader__label--lg {
   font: var(--text-lg-regular);
 }
-.loader-block-label-xl {
+.loader__label--xl {
   font: var(--text-xl-regular);
 }
-.loader-block-bar {
+.loader__bar {
   position: relative;
   width: 160px;
   height: 4px;
@@ -29,7 +29,7 @@
   border-radius: 2px;
   background-color: var(--gray-100);
 }
-.loader-block-bar::before {
+.loader__bar::before {
   content: "";
   display: block;
   width: 100%;
@@ -38,16 +38,16 @@
   border-radius: 2px;
   background-color: var(--brand-500);
 }
-.loader-block-brand {
+.loader__brand {
   stroke: var(--brand-500);
   fill: var(--brand-500);
 }
-.loader-block-brand path {
+.loader__brand path {
   animation: draw 1500ms linear forwards infinite;
   stroke-dasharray: 163.58;
   fill: var(--gray-100);
 }
-.loader-block-spinner {
+.loader__spinner {
   box-sizing: border-box;
   width: 50px;
   animation: s4 1s infinite linear;

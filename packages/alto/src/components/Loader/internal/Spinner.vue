@@ -9,11 +9,11 @@ const borderWidth = computed(() => `${props.size * 0.1}px`);
 </script>
 
 <template>
-  <div class="yc-loader-block-spinner" />
+  <div class="yc-loader__spinner" />
 </template>
 
 <style scoped>
-.yc-loader-block-spinner {
+.yc-loader__spinner {
   width: v-bind(spinnerSize);
   border: v-bind(borderWidth) solid var(--gray-100);
   border-right-color: v-bind(color);

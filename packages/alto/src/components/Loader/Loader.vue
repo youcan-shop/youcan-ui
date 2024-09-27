@@ -15,19 +15,19 @@ withDefaults(
 </script>
 
 <template>
-  <div class="yc-loader-block">
+  <div class="yc-loader">
     <Bar v-if="variant === 'bar'" v-bind="{ color, size }" />
     <Brand v-else-if="variant === 'brand'" v-bind="{ color, size }" />
     <Spinner v-else v-bind="{ color, size }" />
 
-    <p v-if="label" class="yc-loader-block-label" :class="`yc-loader-block-label-${labelFontSize}`">
+    <p v-if="label" class="yc-loader__label" :class="`yc-loader__label--${labelFontSize}`">
       {{ label }}
     </p>
   </div>
 </template>
 
 <style scoped>
-.yc-loader-block-label {
+.yc-loader__label {
   color: v-bind(labelColor);
 }
 </style>

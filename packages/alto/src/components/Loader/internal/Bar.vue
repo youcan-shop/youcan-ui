@@ -5,11 +5,11 @@ defineProps<BarLoadingProps>();
 </script>
 
 <template>
-  <div class="yc-loader-block-bar" />
+  <div class="yc-loader__bar" />
 </template>
 
 <style scoped>
-.yc-loader-block-bar::before {
+.yc-loader__bar::before {
   background-color: v-bind(color);
 }
 </style>
