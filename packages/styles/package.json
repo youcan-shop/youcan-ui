@@ -12,7 +12,8 @@
     "./avatar": "./dist/avatar.css",
     "./alert": "./dist/alert.css",
     "./checkbox": "./dist/checkbox.css",
-    "./badge": "./dist/badge.css"
+    "./badge": "./dist/badge.css",
+    "./rating": "./dist/rating.css"
   },
   "files": [
     "dist"
