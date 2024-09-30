@@ -9,7 +9,7 @@ const meta: Meta<typeof Skeleton> = {
   argTypes: {
     type: {
       control: 'select',
-      options: ['text', 'media'],
+      options: ['text', 'media', 'card'],
     },
     lines: {
       control: { type: 'number' },
