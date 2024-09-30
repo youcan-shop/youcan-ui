@@ -22,7 +22,7 @@ const handleRadioCheck = (radio: RadioData) => model.value = radio.value;
 </script>
 
 <template>
-  <fieldset role="radiogroup" class="radio-group">
+  <fieldset role="radiogroup" class="yc-radio-group">
     <Radio
       v-for="(radio, i) in items"
       :key="i" :model-value="radio.value === model" :name="name" @update:model-value="() => handleRadioCheck(radio)"
@@ -32,9 +32,6 @@ const handleRadioCheck = (radio: RadioData) => model.value = radio.value;
   </fieldset>
 </template>
 
-<style scoped>
-.radio-group {
-  all: unset;
-  box-sizing: border-box;
-}
+<style>
+@import "@youcan/styles/radio-group";
 </style>
