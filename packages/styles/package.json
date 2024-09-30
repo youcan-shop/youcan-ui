@@ -13,6 +13,7 @@
     "./alert": "./dist/alert.css",
     "./checkbox": "./dist/checkbox.css",
     "./badge": "./dist/badge.css",
+    "./divider": "./dist/divider.css",
     "./radio-list": "./dist/radio-list.css",
     "./loader": "./dist/loader.css",
     "./radio-group": "./dist/radio-group.css",
