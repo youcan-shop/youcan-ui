@@ -1,0 +1,19 @@
+.note {
+  display: flex;
+  box-sizing: border-box;
+  align-items: center;
+  width: max-content;
+  max-width: 100%;
+  padding: 2px 25px;
+  border: 1px solid var(--gray-100);
+  border-radius: 8px;
+  background: var(--base-white);
+  gap: 32px;
+}
+.note__icon {
+  color: var(--brand-500);
+}
+.note__content {
+  color: var(--gray-700);
+  font: var(--text-sm-regular);
+}
