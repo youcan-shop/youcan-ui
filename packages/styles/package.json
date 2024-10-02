@@ -11,7 +11,15 @@
     "./action-button": "./dist/action-button.css",
     "./avatar": "./dist/avatar.css",
     "./alert": "./dist/alert.css",
-    "./breadcrumbs": "./dist/breadcrumbs.css"
+    "./breadcrumbs": "./dist/breadcrumbs.css",
+    "./checkbox": "./dist/checkbox.css",
+    "./badge": "./dist/badge.css",
+    "./note": "./dist/note.css",
+    "./divider": "./dist/divider.css",
+    "./radio-list": "./dist/radio-list.css",
+    "./loader": "./dist/loader.css",
+    "./radio-group": "./dist/radio-group.css",
+    "./skeleton": "./dist/skeleton.css"
   },
   "files": [
     "dist"

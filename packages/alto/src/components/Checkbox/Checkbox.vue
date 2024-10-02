@@ -21,100 +21,20 @@ const ariaDescribedby = `${idAttr}-aria-describedby`;
 </script>
 
 <template>
-  <label :for="idAttr" v-bind="$attrs" class="checkbox-content">
-    <div class="checkbox" :class="{ 'has-label': slots.label }">
-      <input v-bind="$attrs" :id="idAttr" v-model="model" type="checkbox" :checked="checked" class="input" :value="value" :aria-describedby="ariaDescribedby">
-      <span class="checkmark">
+  <label :for="idAttr" v-bind="$attrs" class="yc-checkbox-content">
+    <div class="yc-checkbox" :class="{ 'yc-has-label': slots.label }">
+      <input v-bind="$attrs" :id="idAttr" v-model="model" type="checkbox" :checked="checked" class="yc-input" :value="value" :aria-describedby="ariaDescribedby">
+      <span class="yc-checkmark">
         <i v-if="!$attrs.indeterminate" class="i-youcan-check" />
         <i v-else class="i-youcan-minus" />
       </span>
     </div>
-    <div v-if="slots.label" :id="ariaDescribedby" class="label">
+    <div v-if="slots.label" :id="ariaDescribedby" class="yc-label">
       <slot name="label" />
     </div>
   </label>
 </template>
 
 <style scoped>
-.checkbox-content {
-  display: flex;
-  align-items: center;
-}
-
-.checkbox-content .label {
-  display: inline-block;
-  flex: 1;
-  font: var(--text-sm-regular);
-  cursor: pointer;
-}
-
-.checkbox-content .checkbox {
-  display: block;
-  box-sizing: border-box;
-  cursor: pointer;
-  user-select: none;
-}
-
-.checkbox-content .checkbox.has-label {
-  margin-inline-end: 8px;
-}
-
-.checkbox-content .checkbox .input {
-  position: absolute;
-  opacity: 0;
-}
-
-.checkbox-content .checkbox .checkmark {
-  display: grid;
-  width: 16px;
-  height: 16px;
-  border: 1px solid var(--gray-200);
-  border-radius: 4px;
-  background-color: var(--base-white);
-  box-shadow: var(--shadow-xs-gray);
-  place-items: center;
-}
-
-.checkbox-content .checkbox .checkmark i {
-  display: none;
-  width: 14px;
-  height: 14px;
-  color: var(--base-white);
-}
-
-.checkbox-content .checkbox input:checked ~ .checkmark {
-  border: 1px solid transparent;
-  background-color: var(--brand-500);
-}
-
-.checkbox-content .checkbox input:checked ~ .checkmark i {
-  display: inline-block;
-}
-
-.checkbox-content .checkbox input:disabled ~ .checkmark {
-  border: 1px solid var(--gray-200);
-  background: var(--base-white);
-  box-shadow: none;
-  cursor: default;
-}
-
-.checkbox-content .checkbox input:enabled:is(:focus, :active) ~ .checkmark {
-  box-shadow: var(--focus-shadow-xs-brand);
-}
-
-.checkbox-content:hover .checkbox input:enabled ~ .checkmark {
-  background-color: var(--gray-50);
-}
-
-.checkbox-content .checkbox input:disabled:checked ~ .checkmark {
-  background-color: var(--gray-100);
-}
-
-.checkbox-content:hover .checkbox input:enabled:checked ~ .checkmark {
-  background-color: var(--brand-600);
-}
-
-.checkbox-content .checkbox:has(.input:disabled) ~ .label {
-  color: var(--gray-300);
-}
+@import "@youcan/styles/checkbox";
 </style>

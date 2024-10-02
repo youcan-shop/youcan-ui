@@ -1,0 +1,54 @@
+.radio-list {
+  display: flex;
+  box-sizing: border-box;
+  flex-direction: column;
+  gap: 8px;
+
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 11.5px 16px;
+    border: 1px solid var(--gray-200);
+    border-radius: 8px;
+    box-shadow: var(--shadow-xs-gray);
+    cursor: pointer;
+
+    &__name,
+    &__suffix {
+      color: var(--gray-900);
+      font: var(--text-sm-regular);
+    }
+
+    &__name {
+      flex-grow: 1;
+    }
+
+    &__trigger {
+      width: 14px;
+      height: 14px;
+      margin: 0;
+      transition: 75ms all linear;
+      border: 1px solid var(--gray-200);
+      border-radius: 50%;
+      outline: 2px solid var(--base-white);
+      background-color: var(--base-white);
+      appearance: none;
+
+      &:hover {
+        border-color: var(--gray-300);
+        background-color: var(--gray-50);
+      }
+
+      &:active {
+        background-color: var(--gray-100);
+      }
+
+      &:checked {
+        border: 3px solid var(--base-white);
+        outline-color: var(--brand-500);
+        background-color: var(--brand-500);
+      }
+    }
+  }
+}

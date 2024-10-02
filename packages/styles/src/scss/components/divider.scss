@@ -1,0 +1,39 @@
+.divider {
+  &--horizontal {
+    width: 100%;
+    max-height: 0;
+    margin-top: 16px;
+    margin-bottom: 16px;
+    border-style: solid;
+    border-color: var(--gray-200);
+
+    &.divider--dashed {
+      border-image: repeating-linear-gradient(to right, var(--gray-200) 0, var(--gray-200) 10px, transparent 16px) 1;
+    }
+  }
+
+  &--vertical {
+    max-width: 0;
+    height: 100%;
+    margin-right: 16px;
+    margin-left: 16px;
+    border-style: solid;
+    border-color: var(--gray-200);
+
+    &.divider--dashed {
+      border-image: repeating-linear-gradient(to bottom, var(--gray-200) 0, var(--gray-200) 10px, transparent 16px) 1;
+    }
+  }
+
+  &--light {
+    border-width: 0.5px;
+  }
+
+  &--regular {
+    border-width: 1px;
+  }
+
+  &--thick {
+    border-width: 4px;
+  }
+}
