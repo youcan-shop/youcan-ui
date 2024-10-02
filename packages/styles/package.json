@@ -19,7 +19,8 @@
     "./radio-list": "./dist/radio-list.css",
     "./loader": "./dist/loader.css",
     "./radio-group": "./dist/radio-group.css",
-    "./skeleton": "./dist/skeleton.css"
+    "./skeleton": "./dist/skeleton.css",
+    "./status": "./dist/status.css"
   },
   "files": [
     "dist"
