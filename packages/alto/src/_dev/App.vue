@@ -1,16 +1,15 @@
 <script setup lang="ts">
 import 'uno.css';
 import '../assets/main.css';
-import { Note } from '~/components';
+import { ref } from 'vue';
+import { TextArea } from '~/components';
+
+const comment = ref('');
 </script>
 
 <template>
-  <Note>
-    <template #icon>
-      📪
-    </template>
-    <template #content>
-      <p>Don't forget to check your inbox, we have sent a link to verify your account.</p>
-    </template>
-  </Note>
+  <TextArea
+    v-model="comment"
+    placeholder="Leave your comment"
+  />
 </template>

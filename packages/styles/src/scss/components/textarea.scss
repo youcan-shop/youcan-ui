@@ -1,0 +1,58 @@
+$border-radius: 8px;
+$textarea-min-height: 130px;
+$textarea-padding: 11.5px 16px;
+
+@mixin focus-state($border-color, $shadow-var) {
+  border: 1px solid var($border-color);
+  box-shadow: var($shadow-var);
+}
+
+.wrapper {
+  display: flex;
+  box-sizing: border-box;
+  align-items: center;
+  height: max-content;
+  border: 1px solid var(--gray-200);
+  border-radius: $border-radius;
+  background-color: var(--base-white);
+  box-shadow: var(--shadow-xs-gray);
+
+  .textarea {
+    box-sizing: border-box;
+    width: 100%;
+    min-height: $textarea-min-height;
+    padding: $textarea-padding;
+    border: none;
+    border-radius: $border-radius;
+    outline: none;
+    background-color: transparent;
+    font: var(--text-sm-regular);
+    resize: none;
+
+    &::placeholder {
+      color: var(--gray-300);
+    }
+  }
+
+  &:not(.enabled) {
+    background-color: var(--gray-50);
+  }
+
+  &.enabled {
+    &:hover {
+      border: 1px solid var(--gray-300);
+    }
+
+    .textarea:focus {
+      @include focus-state(--brand-500, --focus-shadow-xs-brand);
+    }
+  }
+
+  &.enabled.error {
+    border: 1px solid var(--red-500);
+
+    .textarea:focus {
+      box-shadow: var(--focus-shadow-xs-red);
+    }
+  }
+}
