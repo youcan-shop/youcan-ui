@@ -13,6 +13,7 @@
     "./alert": "./dist/alert.css",
     "./checkbox": "./dist/checkbox.css",
     "./badge": "./dist/badge.css",
+    "./rating": "./dist/rating.css",
     "./note": "./dist/note.css",
     "./divider": "./dist/divider.css",
     "./radio-list": "./dist/radio-list.css",
