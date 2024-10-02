@@ -520,3 +520,41 @@
   outline-color: var(--brand-500);
   background-color: var(--brand-500);
 }
+
+.thumbnail {
+  display: flex;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
+  width: var(--size, 40px);
+  height: var(--size, 40px);
+  overflow: hidden;
+  border: 1px solid var(--gray-200);
+  border-radius: 4px;
+  background-color: var(--base-white);
+  box-shadow: var(--shadow-xs-gray);
+}
+.thumbnail--small {
+  --size: 40px;
+}
+.thumbnail--large {
+  --size: 44px;
+}
+.thumbnail__image {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1/1;
+  object-fit: v-bind(objectfit);
+}
+.thumbnail__placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+.thumbnail__icon {
+  display: block;
+  width: 20px;
+  height: 20px;
+  color: var(--gray-300);
+}
