@@ -30,7 +30,7 @@ const visibleItems = computed(() => {
 <template>
   <nav>
     <ol class="yc-breadcrumbs">
-      <li v-for="(item, index) in visibleItems" :key="index" class="yc-crumb" :class="{ 'dropdown-item': item.isDropdown }">
+      <li v-for="(item, index) in visibleItems" :key="index" class="yc-breadcrumbs__item" :class="{ 'yc-breadcrumbs__item--dropdown': item.isDropdown }">
         <BreadcrumbItem
           v-if="!item.isDropdown"
           :label="item.label"
@@ -39,17 +39,17 @@ const visibleItems = computed(() => {
         />
         <DropdownMenu v-else position="bottom">
           <Button variant="tertiary">
-            <i class="i-youcan:dots-three elipsis" />
+            <i class="i-youcan:dots-three" />
           </Button>
           <template #MenuItems>
-            <a v-for="dropdownItem in item.dropdownItems" :key="dropdownItem.to" class="yc-dropdown-crumbs" :href="dropdownItem.to">
+            <a v-for="dropdownItem in item.dropdownItems" :key="dropdownItem.to" class="yc-breadcrumbs__dropdown-link" :href="dropdownItem.to">
               <DropdownMenuItem
                 :label="dropdownItem.label"
               />
             </a>
           </template>
         </DropdownMenu>
-        <i v-if="index < visibleItems.length - 1" class="i-youcan:caret-right yc-separator" />
+        <i v-if="index < visibleItems.length - 1" class="i-youcan:caret-right yc-breadcrumbs__separator" />
       </li>
     </ol>
   </nav>

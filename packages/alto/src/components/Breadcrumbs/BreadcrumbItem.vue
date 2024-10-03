@@ -5,12 +5,12 @@ const { isCurrent, label, to } = defineProps<BreadcrumbItemProps>();
 </script>
 
 <template>
-  <span v-if="isCurrent" aria-current="page" class="yc-crumb-item yc-current">
+  <span v-if="isCurrent" aria-current="page" class="yc-breadcrumbs__link yc-breadcrumbs__link--current">
     {{ label }}
   </span>
   <a
     v-else
-    class="yc-crumb-item"
+    class="yc-breadcrumbs__link"
     :href="to"
   >
     {{ label }}
