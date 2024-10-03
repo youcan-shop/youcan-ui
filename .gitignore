@@ -1,6 +1,16 @@
+# Dependencies
 node_modules
+
+# Build outputs
 storybook-static
-.DS_Store
 dist
+
+# Generated files
+packages/styles/src/css/index.css
 icons.json
+
+# IDE and Editor files
 .idea
+
+# OS generated files
+.DS_Store

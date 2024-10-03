@@ -1,17 +1,10 @@
 <script setup lang="ts">
 import 'uno.css';
 import '../assets/main.css';
-import { Breadcrumbs } from '~/components';
-
-const breadcrumbItems = [
-  { label: 'Home', to: '/' },
-  { label: 'Alto', to: '/alto/' },
-  { label: 'Breadcrumbs', to: '/alto/breadcrumbs' },
-];
+import { Thumbnail } from '~/components';
 </script>
 
 <template>
-  <div class="container">
-    <Breadcrumbs :items="breadcrumbItems" />
-  </div>
+  <Thumbnail src="https://picsum.photos/200/300" alt="Mr. Shark" />
+  <Thumbnail src="https://picsum.photos/200/300" alt="Mr. Shark" size="large" />
 </template>
