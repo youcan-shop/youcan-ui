@@ -18,7 +18,8 @@
     "./radio-list": "./dist/radio-list.css",
     "./loader": "./dist/loader.css",
     "./radio-group": "./dist/radio-group.css",
-    "./skeleton": "./dist/skeleton.css"
+    "./skeleton": "./dist/skeleton.css",
+    "./input": "./dist/input.css"
   },
   "files": [
     "dist"
