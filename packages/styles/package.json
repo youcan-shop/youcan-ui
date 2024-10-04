@@ -22,7 +22,8 @@
     "./radio-group": "./dist/radio-group.css",
     "./skeleton": "./dist/skeleton.css",
     "./status": "./dist/status.css",
-    "./thumbnail": "./dist/thumbnail.css"
+    "./thumbnail": "./dist/thumbnail.css",
+    "./tooltip": "./dist/tooltip.css"
   },
   "files": [
     "dist"
