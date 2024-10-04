@@ -1,0 +1,64 @@
+.input__wrapper {
+  --border: 1px solid var(--gray-200);
+  --shadow: var(--shadow-xs-gray);
+  display: flex;
+  box-sizing: border-box;
+  align-items: center;
+  border: var(--border);
+  border-radius: 8px;
+  background-color: var(--base-white);
+  box-shadow: var(--shadow);
+}
+.input__wrapper--hidden {
+  visibility: hidden;
+}
+.input__wrapper--enabled:hover {
+  --border: 1px solid var(--gray-300);
+}
+.input__wrapper--enabled:has(.input__field:focus) {
+  --border: 1px solid var(--brand-500);
+  --shadow: var(--focus-shadow-xs-brand);
+}
+.input__wrapper--disabled {
+  background-color: var(--gray-50);
+}
+.input__wrapper--error {
+  --border: 1px solid var(--red-500);
+}
+.input__wrapper--error:has(.input__field:focus) {
+  --shadow: var(--focus-shadow-xs-red);
+}
+.input__field {
+  width: 100%;
+  padding: 11.5px 16px;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  font: var(--text-sm-regular);
+}
+.input__field::placeholder {
+  color: var(--gray-300);
+}
+.input__password-toggle {
+  margin-right: 16px;
+  cursor: pointer;
+}
+.input__tail {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 11.5px 0 0;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.input-group__label {
+  font: var(--text-sm-regular);
+}
+.input-group__error {
+  color: var(--red-500);
+  font: var(--text-sm-medium);
+}

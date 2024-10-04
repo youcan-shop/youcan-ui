@@ -1,0 +1,88 @@
+$border-radius: 8px;
+$gap-spacing: 8px;
+$input-padding: 11.5px 16px;
+$tail-padding: 0 11.5px 0 0;
+
+.input {
+  $root: &;
+
+  &__wrapper {
+    --border: 1px solid var(--gray-200);
+    --shadow: var(--shadow-xs-gray);
+
+    display: flex;
+    box-sizing: border-box;
+    align-items: center;
+    border: var(--border);
+    border-radius: $border-radius;
+    background-color: var(--base-white);
+    box-shadow: var(--shadow);
+
+    &--hidden {
+      visibility: hidden;
+    }
+
+    &--enabled {
+      &:hover {
+        --border: 1px solid var(--gray-300);
+      }
+
+      &:has(#{$root}__field:focus) {
+        --border: 1px solid var(--brand-500);
+        --shadow: var(--focus-shadow-xs-brand);
+      }
+    }
+
+    &--disabled {
+      background-color: var(--gray-50);
+    }
+
+    &--error {
+      --border: 1px solid var(--red-500);
+
+      &:has(#{$root}__field:focus) {
+        --shadow: var(--focus-shadow-xs-red);
+      }
+    }
+  }
+
+  &__field {
+    width: 100%;
+    padding: $input-padding;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    font: var(--text-sm-regular);
+
+    &::placeholder {
+      color: var(--gray-300);
+    }
+  }
+
+  &__password-toggle {
+    margin-right: 16px;
+    cursor: pointer;
+  }
+
+  &__tail {
+    display: flex;
+    align-items: center;
+    gap: $gap-spacing;
+    padding: $tail-padding;
+  }
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: $gap-spacing;
+
+  &__label {
+    font: var(--text-sm-regular);
+  }
+
+  &__error {
+    color: var(--red-500);
+    font: var(--text-sm-medium);
+  }
+}
