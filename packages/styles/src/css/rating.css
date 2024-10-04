@@ -1,0 +1,20 @@
+.rating {
+  display: flex;
+  box-sizing: border-box;
+  align-items: center;
+}
+.rating--star {
+  display: block;
+  margin-inline-end: 2px;
+  color: var(--gray-100);
+}
+.rating--editable {
+  display: inline-block;
+  box-sizing: border-box;
+  margin-inline-end: 2px;
+  color: var(--gray-100);
+  cursor: pointer;
+}
+.rating--active {
+  color: var(--yellow-500);
+}

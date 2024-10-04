@@ -28,36 +28,13 @@ const updateRatingModel = (star: number) => {
 
 <template>
   <div v-if="editable">
-    <i v-for="star in stars" :key="star" i-youcan-star class="editable-star" :class="{ active: star <= model }" @mousedown="updateRatingModel(star)" />
+    <i v-for="star in stars" :key="star" i-youcan-star class="yc-rating--editable" :class="{ 'yc-rating--active': star <= model }" @mousedown="updateRatingModel(star)" />
   </div>
-  <div v-else class="rating">
-    <i v-for="star in stars" :key="star" class="star i-youcan-star" :class="{ active: star <= rating }" />
+  <div v-else class="yc-rating">
+    <i v-for="star in stars" :key="star" class="yc-rating--star i-youcan-star" :class="{ 'yc-rating--active': star <= rating }" />
   </div>
 </template>
 
 <style scoped>
-.rating {
-  display: flex;
-  box-sizing: border-box;
-  align-items: center;
-}
-
-.rating .star {
-  display: block;
-  margin-inline-end: 2px;
-  color: var(--gray-100);
-}
-
-.editable-star {
-  display: inline-block;
-  box-sizing: border-box;
-  margin-inline-end: 2px;
-  color: var(--gray-100);
-  cursor: pointer;
-}
-
-.editable-star.active,
-.star.active {
-  color: var(--yellow-500);
-}
+@import "@youcan/styles/rating";
 </style>

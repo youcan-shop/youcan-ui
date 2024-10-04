@@ -11,57 +11,14 @@ withDefaults(
 </script>
 
 <template>
-  <div class="thumbnail" :class="[`size-${size}`]">
-    <img v-if="src" :src="src" class="image">
-    <div v-else class="placeholder">
-      <i class="i-youcan-image icon" />
+  <div class="yc-thumbnail" :class="[`yc-thumbnail--${size}`]">
+    <img v-if="src" :src="src" class="yc-thumbnail__image">
+    <div v-else class="yc-thumbnail__placeholder">
+      <i class="i-youcan-image yc-thumbnail__icon" />
     </div>
   </div>
 </template>
 
 <style scoped>
-.thumbnail {
-  --size: 40px;
-
-  display: flex;
-  box-sizing: border-box;
-  align-items: center;
-  justify-content: center;
-  width: var(--size);
-  height: var(--size);
-  overflow: hidden;
-  border: 1px solid var(--gray-200);
-  border-radius: 4px;
-  background-color: var(--base-white);
-  box-shadow: var(--shadow-xs-gray);
-}
-
-.thumbnail .image {
-  width: 100%;
-  height: 100%;
-  aspect-ratio: 1 / 1;
-  object-fit: v-bind(objectFit);
-}
-
-.thumbnail.size-small {
-  --size: 40px;
-}
-
-.thumbnail.size-large {
-  --size: 44px;
-}
-
-.thumbnail .placeholder {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-}
-
-.thumbnail .placeholder .icon {
-  display: block;
-  width: 20px;
-  height: 20px;
-  color: var(--gray-300);
-}
+@import "@youcan/styles/thumbnail";
 </style>
