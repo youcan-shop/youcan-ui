@@ -21,6 +21,7 @@
     "./loader": "./dist/loader.css",
     "./radio-group": "./dist/radio-group.css",
     "./skeleton": "./dist/skeleton.css",
+    "./textarea": "./dist/textarea.css",
     "./status": "./dist/status.css",
     "./thumbnail": "./dist/thumbnail.css",
     "./input": "./dist/input.css"

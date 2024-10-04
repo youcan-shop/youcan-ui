@@ -2,34 +2,16 @@
 import 'uno.css';
 import '../assets/main.css';
 import { ref } from 'vue';
-import { Input, InputGroup } from '~/components';
+import { TextArea } from '~/components';
 
-const username = ref('');
-const weight = ref('');
+const comment = ref('');
 </script>
 
 <template>
-  <div class="container">
-    <Input v-model="username" placeholder="Please enter your username" />
-    <InputGroup label="New username">
-      <template #input>
-        <Input v-model="username" placeholder="Enter username" />
-      </template>
-    </InputGroup>
-    <Input v-model="weight" type="number" placeholder="Enter weight" min="1">
-      <template #suffix>
-        Kg
-      </template>
-    </Input>
-
-    <Input v-model="username" error placeholder="Please enter your username" />
-
-    <InputGroup label="New username" error="The username field is required.">
-      <template #input>
-        <Input v-model="username" error placeholder="Enter username" />
-      </template>
-    </InputGroup>
-  </div>
+  <TextArea
+    v-model="comment"
+    placeholder="Leave your comment"
+  />
 </template>
 
 <style scoped>
