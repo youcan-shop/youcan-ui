@@ -2,16 +2,13 @@
 import 'uno.css';
 import '../assets/main.css';
 import { ref } from 'vue';
-import { TextArea } from '~/components';
+import { DatePicker } from '~/components';
 
-const comment = ref('');
+const date = ref(null);
 </script>
 
 <template>
-  <TextArea
-    v-model="comment"
-    placeholder="Leave your comment"
-  />
+  <DatePicker v-model="date" always-show-calender :close-on-select="false" />
 </template>
 
 <style scoped>

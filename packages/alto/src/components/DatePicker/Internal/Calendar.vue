@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { computed, ref, watch } from 'vue';
-import { Days, MonthsSwitcher, YearsAndMonths } from './Internal';
-import type { ShowingType } from './types';
+import type { ShowingType } from '../types';
+import { Days, MonthsSwitcher, YearsAndMonths } from './';
 import type { CalendarProps, DateRangeValue, DateValue } from '~/types';
 import { isMoreThan, setDateTime } from '~/helpers';
 

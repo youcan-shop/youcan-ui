@@ -19,7 +19,6 @@ export { default as Increment } from './Increment/Increment.vue';
 export { default as Tag } from './Tag/Tag.vue';
 export { default as Status } from './Status/Status.vue';
 export { default as DatePicker } from './DatePicker/DatePicker.vue';
-export { default as Calendar } from './DatePicker/Calendar.vue';
 export { default as Tab } from './Tabs/Tab.vue';
 export { default as TabsBar } from './Tabs/TabsBar.vue';
 export { default as Sidebar } from './Sidebar/Sidebar.vue';
