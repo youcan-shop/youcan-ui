@@ -2,16 +2,26 @@
 import 'uno.css';
 import '../assets/main.css';
 import { ref } from 'vue';
-import { TextArea } from '~/components';
+import { Button, Modal } from '~/components';
 
-const comment = ref('');
+const showModal = ref(false);
+
+const onConfirm = () => {
+  showModal.value = false;
+};
 </script>
 
 <template>
-  <TextArea
-    v-model="comment"
-    placeholder="Leave your comment"
-  />
+  <Modal v-model:visible="showModal" title="Edit profile" @on-confirm="onConfirm">
+    <p class="content">
+      The quick brown fox jumps over the lazy dog.
+    </p>
+  </Modal>
+  <div class="container">
+    <Button @click="showModal = true;">
+      <span>Open Modal</span>
+    </Button>
+  </div>
 </template>
 
 <style scoped>

@@ -1,0 +1,115 @@
+.modal {
+  display: flex;
+  position: fixed;
+  z-index: 999999999;
+  top: 50%;
+  left: 50%;
+  flex-direction: column;
+  width: 900px;
+  max-width: calc(100vw - 40px);
+  max-height: calc(100vh - 40px);
+  overflow: hidden;
+  transform: translateX(-50%) translateY(-50%);
+  border: 1px solid var(--gray-200);
+  border-radius: 8px;
+  background-color: var(--base-white);
+  box-shadow: var(--shadow-md-gray);
+
+  > * {
+    box-sizing: border-box;
+    width: 100%;
+  }
+
+  &__header {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--gray-100);
+  }
+
+  &__title {
+    color: var(--gray-700);
+    font: var(--text-md-medium);
+  }
+
+  &__icon {
+    color: var(--gray-500);
+  }
+
+  &__footer {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 20px;
+    border-top: 1px solid var(--gray-100);
+  }
+
+  &__body {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    font: var(--text-md-regular);
+
+    &::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      border-radius: 2px;
+      background-color: var(--brand-500);
+
+      &:hover {
+        background-color: var(--brand-500);
+      }
+    }
+  }
+}
+
+.fade {
+  &--enter-active {
+    animation: fade 0.35s ease-in-out;
+  }
+
+  &--leave-active {
+    animation: fade 0.35s reverse ease-in-out;
+  }
+}
+
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.slide-up {
+  &--enter-active {
+    animation: slide-up 0.35s ease-in-out;
+  }
+
+  &--leave-active {
+    animation: slide-up 0.35s reverse ease-in-out;
+  }
+}
+
+@keyframes slide-up {
+  0% {
+    transform: translateX(-50%) translateY(calc(-50% + 16px));
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateX(-50%) translateY(-50%);
+    opacity: 1;
+  }
+}
