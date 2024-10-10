@@ -5,16 +5,16 @@ defineProps<InputGroupProps>();
 </script>
 
 <template>
-  <div class="input-group">
-    <label v-if="label" :for="labelFor" class="label">
+  <div class="yc-input-group">
+    <label v-if="label" :for="labelFor" class="yc-input-group__label">
       {{ label }}
     </label>
 
-    <div class="input">
+    <div class="yc-input-group__field">
       <slot name="input" />
     </div>
 
-    <div v-if="error" class="error">
+    <div v-if="error" class="yc-input-group__error">
       {{ error }}
     </div>
 
@@ -23,18 +23,5 @@ defineProps<InputGroupProps>();
 </template>
 
 <style scoped>
-.input-group {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.input-group .label {
-  font: var(--text-sm-regular);
-}
-
-.input-group .error {
-  color: var(--red-500);
-  font: var(--text-sm-medium);
-}
+@import "@youcan/styles/input";
 </style>

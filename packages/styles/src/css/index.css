@@ -960,4 +960,45 @@
   visibility: visible;
   transition-delay: 0.2s;
   opacity: 1;
+=======
+.wrapper {
+  display: flex;
+  box-sizing: border-box;
+  align-items: center;
+  height: max-content;
+  border: 1px solid var(--gray-200);
+  border-radius: 8px;
+  background-color: var(--base-white);
+  box-shadow: var(--shadow-xs-gray);
+}
+.wrapper .textarea {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 130px;
+  padding: 11.5px 16px;
+  border: none;
+  border-radius: 8px;
+  outline: none;
+  background-color: transparent;
+  font: var(--text-sm-regular);
+  resize: none;
+}
+.wrapper .textarea::placeholder {
+  color: var(--gray-300);
+}
+.wrapper:not(.enabled) {
+  background-color: var(--gray-50);
+}
+.wrapper.enabled:hover {
+  border: 1px solid var(--gray-300);
+}
+.wrapper.enabled .textarea:focus {
+  border: 1px solid var(--brand-500);
+  box-shadow: var(--focus-shadow-xs-brand);
+}
+.wrapper.enabled.error {
+  border: 1px solid var(--red-500);
+}
+.wrapper.enabled.error .textarea:focus {
+  box-shadow: var(--focus-shadow-xs-red);
 }
