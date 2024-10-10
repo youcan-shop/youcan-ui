@@ -1,10 +1,23 @@
 <script setup lang="ts">
 import 'uno.css';
 import '../assets/main.css';
-import { Thumbnail } from '~/components';
+import { ref } from 'vue';
+import { DatePicker } from '~/components';
+
+const date = ref(null);
 </script>
 
 <template>
-  <Thumbnail src="https://picsum.photos/200/300" alt="Mr. Shark" />
-  <Thumbnail src="https://picsum.photos/200/300" alt="Mr. Shark" size="large" />
+  <DatePicker v-model="date" always-show-calender :close-on-select="false" />
 </template>
+
+<style scoped>
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  margin: 0 auto;
+  gap: 10px;
+  padding: 10px;
+}
+</style>

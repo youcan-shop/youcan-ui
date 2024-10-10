@@ -64,4 +64,5 @@ export interface DatePickerProps extends SharedProps, DatesLimit {
   presetsTitle?: string
   applyLabel?: string
   cancelLabel?: string
+  alwaysShowCalender?: boolean
 }

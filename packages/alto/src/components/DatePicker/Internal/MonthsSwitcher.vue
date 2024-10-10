@@ -15,6 +15,7 @@ const month = computed({
 function compare(a: Date, b: Date) {
   return a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth();
 }
+
 const disableNext = computed(() => compare(month.value, (props.maxDate as Date)));
 const disablePrevious = computed(() => compare(month.value, (props.minDate as Date)));
 
