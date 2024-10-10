@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { onClickOutside } from '@vueuse/core';
 import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue';
-import { Presets } from './Internal';
+import { Calendar, Presets } from './Internal';
 import { maxCalendarDate, minCalendarDate } from './options';
-import { Button, Calendar } from '~/components';
+import { Button } from '~/components';
 import { dateFormat, isMoreThan, isRTL, isSameDate, setPosition } from '~/helpers';
 import type { DatePickerProps, DateRangeValue, DateValue, Preset } from '~/types';
 
@@ -233,12 +233,15 @@ onClickOutside(datePicker, () => show.value = false);
 
 <template>
   <div ref="datePicker" class="date-picker" :class="{ rtl: isRTL() }">
-    <Button variant="secondary" class="picker-output" :class="{ placeholder: !datesFormat }" @click="ShowPicker">
+    <Button v-if="!alwaysShowCalender" variant="secondary" class="picker-output" :class="{ placeholder: !datesFormat }" @click="ShowPicker">
       <span class="input-value">{{ datesFormat || placeholder }}</span>
       <i class="i-youcan:calendar-blank" />
     </Button>
     <Transition name="animate">
-      <div v-if="show" ref="calendarWrap" class="date-picker-container" :class="{ 'has-presets': hasPresets }">
+      <div
+        v-if="show || alwaysShowCalender" ref="calendarWrap" class="date-picker-container"
+        :class="[{ 'has-presets': hasPresets }, { 'always-show-calender': alwaysShowCalender }]"
+      >
         <Presets v-if="hasPresets" :presets="presets" :presets-title="presetsTitle" @select="selectPreset" />
         <Calendar
           v-model="date"
@@ -311,6 +314,11 @@ onClickOutside(datePicker, () => show.value = false);
   grid-template-columns: repeat(2, auto);
   overflow: hidden;
   background-color: var(--base-white);
+}
+
+.date-picker .date-picker-container.always-show-calender {
+  position: initial;
+  z-index: unset;
 }
 
 .date-picker .date-picker-container.has-presets {
