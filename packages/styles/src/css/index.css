@@ -851,6 +851,7 @@
 .status__wrapper {
   position: relative;
 }
+
 .breadcrumbs {
   display: flex;
   align-items: center;

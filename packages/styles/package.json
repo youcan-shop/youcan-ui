@@ -24,6 +24,7 @@
     "./textarea": "./dist/textarea.css",
     "./status": "./dist/status.css",
     "./thumbnail": "./dist/thumbnail.css",
+    "./toggle": "./dist/toggle.css",
     "./input": "./dist/input.css"
   },
   "files": [
