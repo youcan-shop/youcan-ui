@@ -933,6 +933,34 @@
   color: var(--gray-300);
 }
 
+.tooltip {
+  display: inline-block;
+  position: relative;
+}
+.tooltip__triggered {
+  visibility: hidden;
+  position: fixed;
+  z-index: 9999999999;
+  width: max-content;
+  max-width: 200px;
+  padding: 8px 12px;
+  transition: opacity 0.3s ease-in-out;
+  transition-delay: 0.1s;
+  border-radius: 4px;
+  opacity: 0;
+  background-color: var(--base-black);
+  color: var(--base-white);
+  font: var(--text-xs-regular);
+}
+.tooltip__triggered--hide {
+  visibility: hidden !important;
+  opacity: 0 !important;
+}
+.tooltip:hover .tooltip__triggered {
+  visibility: visible;
+  transition-delay: 0.2s;
+  opacity: 1;
+=======
 .wrapper {
   display: flex;
   box-sizing: border-box;

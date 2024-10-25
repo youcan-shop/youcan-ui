@@ -17,18 +17,18 @@ const tooltipPosition = () => {
 };
 
 const handleScroll = () => {
-  if (!triggeredElement.value?.classList.contains('triggered-element-hide')) {
-    triggeredElement.value?.classList.add('triggered-element-hide');
+  if (!triggeredElement.value?.classList.contains('yc-tooltip__triggered--hide')) {
+    triggeredElement.value?.classList.add('yc-tooltip__triggered--hide');
   }
 };
 
 const handleMouseEnter = () => {
-  triggeredElement.value?.classList.remove('triggered-element-hide');
+  triggeredElement.value?.classList.remove('yc-tooltip__triggered--hide');
   tooltipPosition();
 };
 
 onMounted(() => {
-  triggeredElement.value?.classList.remove('triggered-element-hide');
+  triggeredElement.value?.classList.remove('yc-tooltip__triggered--hide');
   tooltipPosition();
   window.addEventListener('scroll', handleScroll);
 });
@@ -39,8 +39,8 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div v-if="label" ref="tooltip" class="tooltip" :class="position" @mouseenter="handleMouseEnter">
-    <span ref="triggeredElement" class="triggered-element">{{ label }}</span>
+  <div v-if="label" ref="tooltip" class="yc-tooltip" :class="position" @mouseenter="handleMouseEnter">
+    <span ref="triggeredElement" class="yc-tooltip__triggered">{{ label }}</span>
 
     <slot />
   </div>
@@ -48,35 +48,5 @@ onUnmounted(() => {
 </template>
 
 <style scoped>
-.tooltip {
-  display: inline-block;
-  position: relative;
-}
-
-.tooltip .triggered-element {
-  visibility: hidden;
-  position: fixed;
-  z-index: 9999999999;
-  width: max-content;
-  max-width: 200px;
-  padding: 8px 12px;
-  transition: opacity 0.3s ease-in-out;
-  transition-delay: 0.1s;
-  border-radius: 4px;
-  opacity: 0;
-  background-color: var(--base-black);
-  color: var(--base-white);
-  font: var(--text-xs-regular);
-}
-
-.tooltip .triggered-element-hide {
-  visibility: hidden !important;
-  opacity: 0 !important;
-}
-
-.tooltip:hover .triggered-element {
-  visibility: visible;
-  transition-delay: 0.2s;
-  opacity: 1;
-}
+@import "@youcan/styles/tooltip";
 </style>
