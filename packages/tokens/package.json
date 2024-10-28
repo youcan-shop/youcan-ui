@@ -7,7 +7,6 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsup index.js --format esm,cjs --dts",
     "dev": "tsup index.js --format esm,cjs --dts --watch"
   },
   "peerDependencies": {
