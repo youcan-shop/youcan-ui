@@ -1,0 +1,202 @@
+{
+  "shadows": {
+    "regular-shadow": {
+      "x-small": {
+        "$value": {
+          "color": "#0a0d1408",
+          "$type": "dropShadow",
+          "x": 0,
+          "y": 1,
+          "blur": 2,
+          "spread": 0
+        },
+        "$type": "boxShadow"
+      },
+      "medium": {
+        "$value": {
+          "color": "#0e121b1a",
+          "$type": "dropShadow",
+          "x": 0,
+          "y": 16,
+          "blur": 32,
+          "spread": -12
+        },
+        "$type": "boxShadow"
+      }
+    },
+    "buttons": {
+      "primary-focus": {
+        "$value": [
+          {
+            "color": "#ffffff",
+            "$type": "dropShadow",
+            "x": 0,
+            "y": 0,
+            "blur": 0,
+            "spread": 2
+          },
+          {
+            "color": "#fb4ba31a",
+            "$type": "dropShadow",
+            "x": 0,
+            "y": 0,
+            "blur": 0,
+            "spread": 4
+          }
+        ],
+        "$type": "boxShadow"
+      },
+      "important-focus": {
+        "$value": [
+          {
+            "color": "#ffffff",
+            "$type": "dropShadow",
+            "x": 0,
+            "y": 0,
+            "blur": 0,
+            "spread": 2
+          },
+          {
+            "color": "#99a0ae29",
+            "$type": "dropShadow",
+            "x": 0,
+            "y": 0,
+            "blur": 0,
+            "spread": 4
+          }
+        ],
+        "$type": "boxShadow"
+      },
+      "error-focus": {
+        "$value": [
+          {
+            "color": "#ffffff",
+            "$type": "dropShadow",
+            "x": 0,
+            "y": 0,
+            "blur": 0,
+            "spread": 2
+          },
+          {
+            "color": "#fb37481a",
+            "$type": "dropShadow",
+            "x": 0,
+            "y": 0,
+            "blur": 0,
+            "spread": 4
+          }
+        ],
+        "$type": "boxShadow"
+      }
+    },
+    "fancy-buttons": {
+      "neutral": {
+        "$value": [
+          {
+            "color": "#1b1c1d7a",
+            "$type": "dropShadow",
+            "x": 0,
+            "y": 1,
+            "blur": 2,
+            "spread": 0
+          },
+          {
+            "color": "#242628",
+            "$type": "dropShadow",
+            "x": 0,
+            "y": 0,
+            "blur": 0,
+            "spread": 1
+          }
+        ],
+        "$type": "boxShadow"
+      },
+      "primary": {
+        "$value": [
+          {
+            "color": "#0e121b3d",
+            "$type": "dropShadow",
+            "x": 0,
+            "y": 1,
+            "blur": 2,
+            "spread": 0
+          },
+          {
+            "color": "#e1116f",
+            "$type": "dropShadow",
+            "x": 0,
+            "y": 0,
+            "blur": 0,
+            "spread": 1
+          }
+        ],
+        "$type": "boxShadow"
+      },
+      "error": {
+        "$value": [
+          {
+            "color": "#0e121b3d",
+            "$type": "dropShadow",
+            "x": 0,
+            "y": 1,
+            "blur": 2,
+            "spread": 0
+          },
+          {
+            "color": "#fb3748",
+            "$type": "dropShadow",
+            "x": 0,
+            "y": 0,
+            "blur": 0,
+            "spread": 1
+          }
+        ],
+        "$type": "boxShadow"
+      },
+      "stroke": {
+        "$value": [
+          {
+            "color": "#0e121b1f",
+            "$type": "dropShadow",
+            "x": 0,
+            "y": 1,
+            "blur": 3,
+            "spread": 0
+          },
+          {
+            "color": "#e1e4ea",
+            "$type": "dropShadow",
+            "x": 0,
+            "y": 0,
+            "blur": 0,
+            "spread": 1
+          }
+        ],
+        "$type": "boxShadow"
+      }
+    },
+    "toggle": {
+      "switch": {
+        "$value": [
+          {
+            "color": "#0e121b0f",
+            "$type": "dropShadow",
+            "x": 0,
+            "y": 6,
+            "blur": 10,
+            "spread": 0
+          },
+          {
+            "color": "#0e121b08",
+            "$type": "dropShadow",
+            "x": 0,
+            "y": 2,
+            "blur": 4,
+            "spread": 0
+          }
+        ],
+        "$type": "boxShadow"
+      }
+    }
+  }
+}

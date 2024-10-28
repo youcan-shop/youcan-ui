@@ -1,0 +1,39 @@
+{
+  "animations": {
+    "extra-fast": {
+      "$value": "100ms",
+      "$type": "duration",
+      "$extension": {
+        "easing": "ease-out"
+      }
+    },
+    "fast": {
+      "$value": "200ms",
+      "$type": "duration",
+      "$extension": {
+        "easing": "ease-out"
+      }
+    },
+    "normal": {
+      "$value": "300ms",
+      "$type": "duration",
+      "$extension": {
+        "easing": "ease-out"
+      }
+    },
+    "slow": {
+      "$value": "400ms",
+      "$type": "duration",
+      "$extension": {
+        "easing": "ease-out"
+      }
+    },
+    "extra-slow": {
+      "$value": "500ms",
+      "$type": "duration",
+      "$extension": {
+        "easing": "ease-out"
+      }
+    }
+  }
+}
