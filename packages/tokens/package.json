@@ -1,0 +1,23 @@
+{
+  "name": "@youcan/tokens",
+  "type": "module",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch"
+  },
+  "peerDependencies": {
+    "unocss": "^0.58.0"
+  },
+  "devDependencies": {
+    "tsup": "^8.0.0",
+    "typescript": "^5.0.0",
+    "unocss": "^0.58.0"
+  }
+}
