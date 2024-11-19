@@ -960,7 +960,111 @@
   visibility: visible;
   transition-delay: 0.2s;
   opacity: 1;
-=======
+}
+
+.toggle {
+  --knob-size: 16px;
+  --padding: calc(var(--knob-size) / 8);
+  --toggle-width: calc((var(--knob-size) * 2) + (var(--padding) * 2));
+  display: flex;
+  position: relative;
+  box-sizing: border-box;
+  align-items: center;
+  width: var(--toggle-width);
+  height: calc(var(--knob-size) + var(--padding) * 2);
+  padding: var(--padding);
+  transition: background-color 80ms linear;
+  border: none;
+  border-radius: var(--knob-size);
+  background-color: var(--gray-100);
+  box-shadow: var(--shadow-xs-gray);
+  cursor: pointer;
+}
+.toggle::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: var(--padding);
+  left: var(--padding);
+  width: var(--knob-size);
+  height: var(--knob-size);
+  transition: transform 120ms ease-in-out;
+  border-radius: 50%;
+  background-color: var(--base-white);
+  box-shadow: var(--shadow-xs-gray);
+}
+.toggle[aria-checked=true] {
+  background-color: var(--blue-700);
+}
+.toggle[aria-checked=true]::before {
+  transform: translateX(calc(var(--toggle-width) - var(--knob-size) - var(--padding) * 2));
+}
+
+.input__wrapper {
+  --border: 1px solid var(--gray-200);
+  --shadow: var(--shadow-xs-gray);
+  display: flex;
+  box-sizing: border-box;
+  align-items: center;
+  border: var(--border);
+  border-radius: 8px;
+  background-color: var(--base-white);
+  box-shadow: var(--shadow);
+}
+.input__wrapper--hidden {
+  visibility: hidden;
+}
+.input__wrapper--enabled:hover {
+  --border: 1px solid var(--gray-300);
+}
+.input__wrapper--enabled:has(.input__field:focus) {
+  --border: 1px solid var(--brand-500);
+  --shadow: var(--focus-shadow-xs-brand);
+}
+.input__wrapper--disabled {
+  background-color: var(--gray-50);
+}
+.input__wrapper--error {
+  --border: 1px solid var(--red-500);
+}
+.input__wrapper--error:has(.input__field:focus) {
+  --shadow: var(--focus-shadow-xs-red);
+}
+.input__field {
+  width: 100%;
+  padding: 11.5px 16px;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  font: var(--text-sm-regular);
+}
+.input__field::placeholder {
+  color: var(--gray-300);
+}
+.input__password-toggle {
+  margin-right: 16px;
+  cursor: pointer;
+}
+.input__tail {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 11.5px 0 0;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.input-group__label {
+  font: var(--text-sm-regular);
+}
+.input-group__error {
+  color: var(--red-500);
+  font: var(--text-sm-medium);
+}
+
 .wrapper {
   display: flex;
   box-sizing: border-box;
