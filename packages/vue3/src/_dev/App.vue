@@ -6,17 +6,17 @@ import Modal from '~/components/Modal/Modal.vue';
 import PrimaryButton from '~/components/Button/PrimaryButton.vue';
 
 const state = reactive({
-  showModal : false,
-  isLoading : false,
+  showModal: false,
+  isLoading: false,
 });
 
 const clicked = async () => {
   state.isLoading = true;
   state.showModal = true;
 
-  (await new Promise(r => setTimeout(r, 1000)))
-  state.isLoading = false
-  state.showModal = false
+  (await new Promise(resolve => setTimeout(resolve, 1000)));
+  state.isLoading = false;
+  state.showModal = false;
 };
 </script>
 
@@ -28,7 +28,9 @@ const clicked = async () => {
       </p>
       <template #footer>
         <div class="footer">
-          <PrimaryButton :disabled="state.isLoading" @click="clicked">Click me</PrimaryButton>
+          <PrimaryButton :disabled="state.isLoading" @click="clicked">
+            Click me
+          </PrimaryButton>
         </div>
       </template>
     </Modal>
@@ -48,6 +50,7 @@ const clicked = async () => {
   height: 100vh;
   gap: 40px;
 }
+
 .footer {
   display: flex;
   justify-content: end;

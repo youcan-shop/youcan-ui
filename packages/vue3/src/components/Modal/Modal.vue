@@ -1,9 +1,8 @@
 <script lang="ts" setup>
-import { onMounted, onUnmounted, ref, useSlots, watchEffect } from 'vue';
+import { onMounted, onUnmounted, ref, useSlots } from 'vue';
 import type { ModalProps } from '~/types';
 import Overlay from '~/components/Overlay/Overlay.vue';
 import { PrimaryButton, SecondaryButton, TertiaryButton } from '~/components';
-import { watch } from 'fs';
 
 const props = withDefaults(defineProps<ModalProps>(), {
   title: 'Customer address',
@@ -11,10 +10,10 @@ const props = withDefaults(defineProps<ModalProps>(), {
   cancelLabel: 'Cancel',
 });
 
+const emit = defineEmits(['update:visible', 'onConfirm']);
 const confirmLabel = ref(props.confirmLabel);
 const cancelLabel = ref(props.cancelLabel);
 
-const emit = defineEmits(['update:visible', 'onConfirm']);
 const close = () => {
   emit('update:visible', false);
 };
@@ -34,7 +33,6 @@ onUnmounted(() => {
 
 const slots = useSlots();
 const showCustomFooter = !!slots.footer;
-
 </script>
 
 <template>
