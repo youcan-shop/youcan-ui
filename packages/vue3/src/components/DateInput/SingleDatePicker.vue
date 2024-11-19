@@ -14,7 +14,7 @@ const month = ref(new Date());
 const today = computed(() => month.value);
 const model = computed({
   get: () => props.modelValue,
-  set: (value: Date | null) => emit('update:modelValue', value),
+  set: (value?: Date) => emit('update:modelValue', value),
 });
 const days = computed(() => DateUtils.getDaysForDateMonthCycle(today.value));
 const weekDays = DateUtils.weekDays();
