@@ -18,12 +18,12 @@ jobs:
       - name: install node
         uses: actions/setup-node@v3
         with:
-          node-version: 20.9.0
+          node-version: 22.11.0
 
       - uses: pnpm/action-setup@v4
         name: install pnpm
         with:
-          version: 8.10.0
+          version: 9.13.0
           run_install: false
 
       - name: Get pnpm store directory

@@ -8,8 +8,8 @@ This repository is a monorepo, it hosts both the YouCan UI package and the @youc
 
 We use:
 
-- [Node](https://nodejs.org/en): `^20.9.0`.
-- [pnpm](https://pnpm.io): `^8.10.0`.
+- [Node](https://nodejs.org/en): `^22.11.0`.
+- [pnpm](https://pnpm.io): `^9.13.0`.
 
 ---
 
