@@ -1,14 +1,18 @@
 <script lang="ts" setup>
-import { onMounted, onUnmounted } from 'vue';
+import { onMounted, onUnmounted, ref, useSlots, watchEffect } from 'vue';
 import type { ModalProps } from '~/types';
 import Overlay from '~/components/Overlay/Overlay.vue';
 import { PrimaryButton, SecondaryButton, TertiaryButton } from '~/components';
+import { watch } from 'fs';
 
 const props = withDefaults(defineProps<ModalProps>(), {
   title: 'Customer address',
   confirmLabel: 'Save',
   cancelLabel: 'Cancel',
 });
+
+const confirmLabel = ref(props.confirmLabel);
+const cancelLabel = ref(props.cancelLabel);
 
 const emit = defineEmits(['update:visible', 'onConfirm']);
 const close = () => {
@@ -27,6 +31,10 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener('keydown', handleKeypress);
 });
+
+const slots = useSlots();
+const showCustomFooter = !!slots.footer;
+
 </script>
 
 <template>
@@ -45,15 +53,20 @@ onUnmounted(() => {
         <slot />
       </div>
       <div class="footer">
-        <PrimaryButton v-if="!cancelOnly" @click="emit('onConfirm')">
-          <template v-if="confirmIcon" #icon>
-            <i :class="confirmIcon" />
-          </template>
-          <span>{{ confirmLabel }}</span>
-        </PrimaryButton>
-        <SecondaryButton @click="close">
-          <span>{{ cancelLabel }}</span>
-        </SecondaryButton>
+        <div v-if="showCustomFooter">
+          <slot name="footer" />
+        </div>
+        <div v-else class="footer-content">
+          <PrimaryButton v-if="!cancelOnly" @click="emit('onConfirm')">
+            <template v-if="confirmIcon" #icon>
+              <i :class="confirmIcon" />
+            </template>
+            <span>{{ confirmLabel }}</span>
+          </PrimaryButton>
+          <SecondaryButton @click="close">
+            <span>{{ cancelLabel }}</span>
+          </SecondaryButton>
+        </div>
       </div>
     </div>
   </Transition>
@@ -84,7 +97,7 @@ onUnmounted(() => {
 }
 
 .modal .header,
-.modal .footer {
+.modal .footer-content {
   display: flex;
   flex-direction: row-reverse;
   align-items: center;
