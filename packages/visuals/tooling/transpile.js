@@ -9,7 +9,7 @@ import {
   runSVGO,
 } from '@iconify/tools';
 import { ensureFile } from 'fs-extra';
-import info from '../info.json' assert { type: 'json' };
+import info from '../info.json' with { type: 'json' };
 
 (async () => {
   const source = 'source';
