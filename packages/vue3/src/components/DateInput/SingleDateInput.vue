@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-// import type { Ref } from 'vue';
 import { onClickOutside } from '@vueuse/core';
 import { computed, ref } from 'vue';
+import TertiaryButton from '../Button/TertiaryButton.vue';
 import type { SingleDateInputProps } from './types';
 import { SecondaryButton, SingleDatePicker } from '~/components';
 
@@ -22,13 +22,18 @@ const toggleDatePicker = (state = !isDatePickerVisible.value) => {
 
 const model = computed({
   get: () => props.modelValue,
-  set: (value: Date | null) => {
+  set: (value?: Date) => {
     toggleDatePicker(false);
     emit('update:modelValue', value);
   },
 });
 
 onClickOutside(datePicker, () => toggleDatePicker(false));
+
+function clearModelValue(e: Event) {
+  e.stopPropagation();
+  emit('update:modelValue', null);
+}
 </script>
 
 <template>
@@ -41,7 +46,11 @@ onClickOutside(datePicker, () => toggleDatePicker(false));
         {{ model?.toLocaleDateString() }}
       </span>
       <span v-show="!model" class="placeholder">{{ placeholder }}</span>
+      <div class="accessory" />
       <template #icon>
+        <TertiaryButton v-if="modelValue" class="clear-button" @click="clearModelValue">
+          <i class="i-youcan:x" />
+        </TertiaryButton>
         <i class="i-youcan-calendar-blank" />
       </template>
     </SecondaryButton>
@@ -78,5 +87,13 @@ onClickOutside(datePicker, () => toggleDatePicker(false));
 .date-input .date-picker-container .date-picker {
   position: absolute;
   top: 8px;
+}
+
+.date-input .clear-button {
+  padding: 0 8px;
+}
+
+.date-input .clear-button i {
+  background-color: var(--gray-400);
 }
 </style>

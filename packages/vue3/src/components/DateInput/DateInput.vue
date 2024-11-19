@@ -26,6 +26,11 @@ const toggleDatePicker = (state = !isDatePickerVisible.value) => {
 };
 
 onClickOutside(datePicker, () => toggleDatePicker(false));
+
+function clearModelValue(e: Event) {
+  e.stopPropagation();
+  emit('update:modelValue', { start: null, end: null });
+}
 </script>
 
 <template>
@@ -39,6 +44,9 @@ onClickOutside(datePicker, () => toggleDatePicker(false));
       </span>
       <span v-show="!model.start && !model.start" class="placeholder">{{ placeholder }}</span>
       <template #icon>
+        <TertiaryButton v-if="model.start || model.end" class="clear-button" @click="clearModelValue">
+          <i class="i-youcan:x" />
+        </TertiaryButton>
         <i class="i-youcan-calendar-blank" />
       </template>
     </SecondaryButton>
@@ -75,5 +83,13 @@ onClickOutside(datePicker, () => toggleDatePicker(false));
 .date-input .date-picker-container .date-picker {
   position: absolute;
   top: 8px;
+}
+
+.date-input .clear-button {
+  padding: 0 8px;
+}
+
+.date-input .clear-button i {
+  background-color: var(--gray-400);
 }
 </style>

@@ -14,11 +14,11 @@ export interface DatePickerProps {
 }
 
 export interface SingleDatePickerProps {
-  modelValue: Date
+  modelValue?: Date
 }
 
 export interface SingleDateInputProps {
-  modelValue: Date
+  modelValue?: Date
   disabled?: boolean
   placeholder?: string
 }
