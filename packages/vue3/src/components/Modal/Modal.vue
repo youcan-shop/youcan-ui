@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { onMounted, onUnmounted, ref, useSlots } from 'vue';
+import { onMounted, onUnmounted, ref } from 'vue';
 import type { ModalProps } from '~/types';
 import Overlay from '~/components/Overlay/Overlay.vue';
 import { PrimaryButton, SecondaryButton, TertiaryButton } from '~/components';
@@ -9,13 +9,11 @@ const props = withDefaults(defineProps<ModalProps>(), {
   confirmLabel: 'Save',
   cancelLabel: 'Cancel',
 });
-
+const emit = defineEmits(['update:visible', 'onConfirm']);
 const slots = defineSlots<{
   default(): any
   footer?(): any
-}>()
-
-const emit = defineEmits(['update:visible', 'onConfirm']);
+}>();
 
 const confirmLabel = ref(props.confirmLabel);
 const cancelLabel = ref(props.cancelLabel);
