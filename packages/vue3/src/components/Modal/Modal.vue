@@ -9,14 +9,13 @@ const props = withDefaults(defineProps<ModalProps>(), {
   confirmLabel: 'Save',
   cancelLabel: 'Cancel',
 });
+
 const emit = defineEmits(['update:visible', 'onConfirm']);
+
 const slots = defineSlots<{
   default(): any
   footer?(): any
 }>();
-
-const confirmLabel = ref(props.confirmLabel);
-const cancelLabel = ref(props.cancelLabel);
 
 const close = () => {
   emit('update:visible', false);
