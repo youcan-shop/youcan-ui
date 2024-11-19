@@ -10,13 +10,20 @@ const props = withDefaults(defineProps<ModalProps>(), {
   cancelLabel: 'Cancel',
 });
 
+const slots = defineSlots<{
+  default(): any
+  footer?(): any
+}>()
+
 const emit = defineEmits(['update:visible', 'onConfirm']);
+
 const confirmLabel = ref(props.confirmLabel);
 const cancelLabel = ref(props.cancelLabel);
 
 const close = () => {
   emit('update:visible', false);
 };
+
 const handleKeypress = (event: KeyboardEvent) => {
   if (props.visible && event.key === 'Escape') {
     close();
@@ -30,9 +37,6 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener('keydown', handleKeypress);
 });
-
-const slots = useSlots();
-const showCustomFooter = !!slots.footer;
 </script>
 
 <template>
@@ -51,7 +55,7 @@ const showCustomFooter = !!slots.footer;
         <slot />
       </div>
       <div class="footer">
-        <div v-if="showCustomFooter">
+        <div v-if="!!slots.footer">
           <slot name="footer" />
         </div>
         <div v-else class="footer-content">
