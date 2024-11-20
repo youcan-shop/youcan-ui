@@ -11,9 +11,11 @@ const props = withDefaults(defineProps<ModalProps>(), {
 });
 
 const emit = defineEmits(['update:visible', 'onConfirm']);
+
 const close = () => {
   emit('update:visible', false);
 };
+
 const handleKeypress = (event: KeyboardEvent) => {
   if (props.visible && event.key === 'Escape') {
     close();
@@ -45,15 +47,20 @@ onUnmounted(() => {
         <slot />
       </div>
       <div class="footer">
-        <PrimaryButton v-if="!cancelOnly" @click="emit('onConfirm')">
-          <template v-if="confirmIcon" #icon>
-            <i :class="confirmIcon" />
-          </template>
-          <span>{{ confirmLabel }}</span>
-        </PrimaryButton>
-        <SecondaryButton @click="close">
-          <span>{{ cancelLabel }}</span>
-        </SecondaryButton>
+        <div v-if="$slots.footer">
+          <slot name="footer" />
+        </div>
+        <div v-else class="footer-content">
+          <PrimaryButton v-if="!cancelOnly" @click="emit('onConfirm')">
+            <template v-if="confirmIcon" #icon>
+              <i :class="confirmIcon" />
+            </template>
+            <span>{{ confirmLabel }}</span>
+          </PrimaryButton>
+          <SecondaryButton @click="close">
+            <span>{{ cancelLabel }}</span>
+          </SecondaryButton>
+        </div>
       </div>
     </div>
   </Transition>
@@ -84,7 +91,7 @@ onUnmounted(() => {
 }
 
 .modal .header,
-.modal .footer {
+.modal .footer-content {
   display: flex;
   flex-direction: row-reverse;
   align-items: center;
