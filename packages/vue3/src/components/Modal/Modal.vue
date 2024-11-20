@@ -12,11 +12,6 @@ const props = withDefaults(defineProps<ModalProps>(), {
 
 const emit = defineEmits(['update:visible', 'onConfirm']);
 
-const slots = defineSlots<{
-  default(): any
-  footer?(): any
-}>();
-
 const close = () => {
   emit('update:visible', false);
 };
@@ -52,7 +47,7 @@ onUnmounted(() => {
         <slot />
       </div>
       <div class="footer">
-        <div v-if="!!slots.footer">
+        <div v-if="$slots.footer">
           <slot name="footer" />
         </div>
         <div v-else class="footer-content">
