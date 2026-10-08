@@ -4,7 +4,7 @@
 
 ## Documentation
 
-Visit <https://developer.youcan.shop/youcan-ui/> to view the documentation.
+Visit <https://docs.youcan.shop/youcan-ui/> to view the documentation.
 
 ## Contributing
 
